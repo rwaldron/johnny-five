@@ -1,0 +1,5 @@
+dist
+stamp-build
+*~
+gmon.out
+v8.log
