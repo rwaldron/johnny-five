@@ -1,4 +1,4 @@
-var five = require('../lib/johnny-five.js'),
+var five = require("../lib/johnny-five.js"),
     board, repl;
 
 board = new five.Board({
@@ -13,8 +13,8 @@ board.on("ready", function() {
       incrementer = 10,
       last;
 
-  this.board.pinMode( claw, 3 );
-  this.board.pinMode( arm, 3 );
+  this.board.pinMode( claw, 4 );
+  this.board.pinMode( arm, 4 );
 
   setInterval(function() {
 
@@ -30,7 +30,6 @@ board.on("ready", function() {
       } else {
         last = 90;
       }
-
       this.board.servoWrite( arm, last );
     }
 

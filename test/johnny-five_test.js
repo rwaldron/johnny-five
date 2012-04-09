@@ -11,16 +11,16 @@ var SerialPort = require("./mock-serial").SerialPort,
 // use:
 // serial.emit( "data", [---] ) to  trigger testable events
 
-board.on("connected", function() {
+console.log( board );
 
-  exports["board"] = {
-    "board": function( test ) {
 
-      // TODO: Figure out a way to run tests without a board connected
+exports["board"] = {
+  "board": function( test ) {
 
-      test.expect(1);
-      test.ok(board, "Board instance");
-      test.done();
-    }
-  };
-});
+    // TODO: Figure out a way to run tests without a board connect
+
+    test.expect(1);
+    test.ok(board, "Board instance");
+    test.done();
+  }
+};
