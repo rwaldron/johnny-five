@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "firmata": ">=0.1.3",
+    "firmata": ">=0.2.0",
     "underscore": "~1.2.4"
   },
   "devDependencies": {
