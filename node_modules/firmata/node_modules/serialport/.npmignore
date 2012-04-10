@@ -1,5 +1,0 @@
-serialport_native/build
-serialport_native.node
-serialport_native/.lock-wscript
-*.node
-.DS_Store
