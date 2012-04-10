@@ -13,8 +13,8 @@ board.on("ready", function() {
       incrementer = 10,
       last;
 
-  this.board.pinMode( claw, 4 );
-  this.board.pinMode( arm, 4 );
+  this.firmata.pinMode( claw, 4 );
+  this.firmata.pinMode( arm, 4 );
 
   setInterval(function() {
 
@@ -30,10 +30,10 @@ board.on("ready", function() {
       } else {
         last = 90;
       }
-      this.board.servoWrite( arm, last );
+      this.firmata.servoWrite( arm, last );
     }
 
-    this.board.servoWrite( claw, degrees );
+    this.firmata.servoWrite( claw, degrees );
 
   }.bind(this), 50);
 });
