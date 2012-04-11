@@ -6,7 +6,5 @@ board = new five.Board({
 });
 
 board.on("ready", function() {
-  new five.Repl({
-    board: board
-  });
+  console.log( "Ready event. Repl instance auto-initialized" );
 });
