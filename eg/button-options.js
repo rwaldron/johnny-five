@@ -7,10 +7,12 @@ board = new five.Board({
 
 board.on("ready", function() {
 
-  // Create a new `button` hardware instance.
-  // This example allows the button module to
-  // create a completely default instance
-  button = new five.Button();
+  // Create a new `button` hardware instance
+  button = new five.Button({
+    board: board,
+    pin: 8,
+    holdtime: 1000
+  });
 
   // Inject the `button` hardware into
   // the Repl instance's context;

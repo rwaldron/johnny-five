@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, led, repl;
+    board, led;
 
 board = new five.Board({
   debug: true
@@ -12,12 +12,9 @@ board.on("ready", function() {
     pin: 13
   });
 
-
-  repl = new five.Repl({
-    board: board,
+  board.repl.inject({
     led: led
   });
-
 
   led.strobe( 100 );
 
