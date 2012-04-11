@@ -25,7 +25,7 @@
     "node": "~0.6.13"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "nodeunit test/johnny-five_test.js"
   },
   "dependencies": {
     "firmata": ">=0.2.0",
