@@ -47,6 +47,28 @@ exports["static"] = {
     test.ok( five.Board.mount(), "five.Board.mount()" );
     test.deepEqual( five.Board.mount(), board, "five.Board.mount() matches board instance" );
     test.done();
+  },
+  "Board.analog": function( test ) {
+    test.expect(1);
+    test.ok( five.Board.analog, "Board.analog" );
+    test.done();
+  },
+  "Board.analog.pins": function( test ) {
+    test.expect(1);
+    test.ok( five.Board.analog.pins, "Board.analog.pins" );
+    test.done();
+  },
+  "Board.analog.pins normalization": function( test ) {
+    test.expect(6);
+
+    test.equal( five.Board.analog.pins["A0"], 14 );
+    test.equal( five.Board.analog.pins["A1"], 15 );
+    test.equal( five.Board.analog.pins["A2"], 16 );
+    test.equal( five.Board.analog.pins["A3"], 17 );
+    test.equal( five.Board.analog.pins["A4"], 18 );
+    test.equal( five.Board.analog.pins["A5"], 19 );
+
+    test.done();
   }
 };
 
