@@ -9,23 +9,16 @@ Install the module with: `npm install johnny-five`
 
 ```javascript
 var five = require("johnny-five"),
-    board, repl;
-
-board = new five.Board({
-  debug: true
-});
+    board = new five.Board({
+      debug: true
+    });
 
 board.on("ready", function() {
 
-  // Open an interactive board control session!
-  repl = new five.Repl({
-    board: board
-  });
+  // An interactive Repl session is automatically created
 
-  // ...Or...
-
-  // Set up an output pin!
-  this.board.pinMode( 9, 1 );
+  // Set up a servo output pin!
+  this.board.pinMode( 9, 4 );
 
   // Make a servo move on that pin!
   this.board.servoWrite( 9, 180 );
@@ -35,13 +28,28 @@ board.on("ready", function() {
 ```
 
 ## Documentation
-_(Coming soon)_
+
+_(Nothing yet)_
+
 
 ## Examples
-_(Coming soon)_
+
+- [Just a REPL Session](https://github.com/rwldrn/johnny-five/blob/master/eg/repl.js)
+- [Claw Demo Code](https://github.com/rwldrn/johnny-five/blob/master/eg/claw.js)
+- [Strobe LED](https://github.com/rwldrn/johnny-five/blob/master/eg/led.js)
+- [Button w/ Default Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button.js)
+- [Button w/ Specific Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button-options.js)
+
+
+## Schematics
+
+_(Nothing yet)_
+
+
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+All contributions must adhere to the the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
 _(Nothing yet)_
