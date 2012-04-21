@@ -35,5 +35,5 @@ board.on("ready", function() {
 
     this.firmata.servoWrite( claw, degrees );
 
-  }.bind(this), 50);
+  }.bind(this), 25);
 });

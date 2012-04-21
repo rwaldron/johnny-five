@@ -24,7 +24,7 @@ board.on("ready", function() {
   // sensor Event API
 
   // "read" get the current reading from the sensor
-  // sensor.on("read", function( value ) {
-  //   console.log( "read", value );
-  // });
+  sensor.on("read", function( err, value ) {
+    console.log( value );
+  });
 });
