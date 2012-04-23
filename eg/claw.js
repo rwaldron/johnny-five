@@ -16,6 +16,7 @@ board.on("ready", function() {
   this.firmata.pinMode( claw, 4 );
   this.firmata.pinMode( arm, 4 );
 
+  // TODO: update to use loop api
   setInterval(function() {
 
     if ( degrees >= 180 || degrees === 0 ) {
