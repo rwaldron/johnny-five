@@ -25,6 +25,9 @@ board.on("ready", function() {
   // Resets the servo to 0deg
   servo.reset();
 
+  // move( deg )
+  // Moves the servo to position by degrees
+
   // sweep( obj )
   // Perform a 0-180 cycling servo sweep
   // optionally accepts an object of sweep settings:
@@ -37,17 +40,10 @@ board.on("ready", function() {
   // servo.sweep();
 
 
-  // servo Event API
-
-
-  // "read" events?
-  servo.on("read", function( err, degrees ) {
-    console.log( "read", degrees );
-  });
+  // Servo Event API
 
   // "moved" events fire after a successful move.
   servo.on("moved", function( err, degrees ) {
     console.log( "moved", degrees );
   });
-
 });

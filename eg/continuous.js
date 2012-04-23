@@ -10,7 +10,9 @@ board.on("ready", function() {
   // Create a new `servo` hardware instance.
   servo = new five.Servo({
     pin: 9,
-    // type defaults to standard servo
+    // `type` defaults to standard servo.
+    // For continuous rotation servos, override the default
+    // by setting the `type` here
     type: "continuous"
   });
 
