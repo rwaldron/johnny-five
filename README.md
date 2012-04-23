@@ -9,21 +9,19 @@ Install the module with: `npm install johnny-five`
 
 ```javascript
 var five = require("johnny-five"),
-    board = new five.Board({
-      debug: true
-    });
+    board, led;
+
+board = new five.Board({
+  debug: true
+});
 
 board.on("ready", function() {
 
-  // An interactive Repl session is automatically created
+  led = new five.Led({
+    pin: 13
+  });
 
-  // Set up a servo output pin!
-  this.board.pinMode( 9, 4 );
-
-  // Make a servo move on that pin!
-  this.board.servoWrite( 9, 180 );
-
-  // Woo!
+  led.strobe( 100 );
 });
 ```
 

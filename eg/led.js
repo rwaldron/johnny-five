@@ -8,7 +8,6 @@ board = new five.Board({
 board.on("ready", function() {
 
   led = new five.Led({
-    board: board,
     pin: 13
   });
 
@@ -17,6 +16,4 @@ board.on("ready", function() {
   });
 
   led.strobe( 100 );
-
-  // led.fade();
 });
