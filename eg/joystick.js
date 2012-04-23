@@ -30,7 +30,7 @@ board.on("ready", function() {
 
   // Joystick Event API
 
-  joystick.on("axismove", function( err, event ) {
+  joystick.on("axismove", function( err, timestamp ) {
 
     // Axis data is available on:
     // this.axis
