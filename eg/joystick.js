@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, joystick, led;
+    board, joystick;
 
 board = new five.Board({
   debug: true
@@ -18,9 +18,6 @@ board.on("ready", function() {
     pins: [ "A0", "A1" ]
   });
 
-  led = new five.Led();
-
-
   // Inject the `joystick` hardware into
   // the Repl instance's context;
   // allows direct command line access
@@ -34,16 +31,21 @@ board.on("ready", function() {
 
     // Axis data is available on:
     // this.axis
-    // { x: 0-1024, y: 0-1024 }
+    // {
+    //   x: 0-1024, ( 0 <-- L/R --> 1024 )
+    //   y: 0-1024  ( 0 <-- D/U --> 1024 )
+    // }
+    //
+    // Center is ~500-510 (should be 512)
+    //
     console.log( "input", this.axis );
-
-    led.strobe();
   });
 });
 
 
 // Schematic
 // https://1965269182786388413-a-1802744773732722657-s-sites.googlegroups.com/site/parallaxinretailstores/home/2-axis-joystick/Joystick-6.png?attachauth=ANoY7cpvldS6bVVIJbeQnCa9w-UoVst9yaVSMQ96K_rlO-DLD0IJaAUbj1y148obuy1sIEiXxkDS2vSMek4zeq4M6bleDHfmCh35zGKxxFDllTVZuey57vhw-LssfaRxiU090BuAutY8081PD-65bZWpRy5gZpId77nuPEGbOQFeVEJYK41ltByfpVYUe9PO3rQwbf3XK_ltPHZv8fyXH43UMu5HJE04PS0QDHPyoICTvgzHO-DIbfHY32Znf9SsAMm5nLtag3h1&attredirects=0
+// http://www.parallax.com/Portals/0/Downloads/docs/prod/sens/27800-Axis%20JoyStick_B%20Schematic.pdf
 
 // Further Reading
 // http://www.parallax.com/Portals/0/Downloads/docs/prod/sens/27800-2-AxisJoystick-v1.2.pdf
