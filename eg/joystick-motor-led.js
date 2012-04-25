@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, joystick;
+    board, joystick, motor, led;
 
 board = new five.Board({
   debug: true
@@ -15,31 +15,49 @@ board.on("ready", function() {
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: [ "A0", "A1" ],
-    throttle: 25
+    pins: [ "A0", "A1" ]
   });
 
-  // Inject the `joystick` hardware into
+  // Attach a motor to PWM pin 5
+  motor = new five.Motor({
+    pin: 5
+  });
+
+  // Attach a led to PWM pin 9
+  led = new five.Led({
+    pin: 9
+  });
+
+  // Inject the hardware into
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    joystick: joystick
+    joystick: joystick,
+    motor: motor,
+    led: led
   });
 
-  // Joystick Event API
 
+  // Pushing the joystick to up position should start the motor,
+  // releasing it will turn the motor off.
   joystick.on("axismove", function( err, timestamp ) {
 
-    // Axis data is available on:
-    // this.axis
-    // {
-    //   x: 0-1024, ( 0 <-- L/R --> 1024 )
-    //   y: 0-1024  ( 0 <-- D/U --> 1024 )
-    // }
-    //
-    // Center is ~500-510 (should be 512)
-    //
-    console.log( "input", this.axis );
+    if ( !motor.isOn && this.axis.y > 600 ) {
+      motor.start();
+    }
+
+    if ( motor.isOn && this.axis.y < 600 ) {
+      motor.stop();
+    }
+  });
+
+  // While the motor is on, blink the led
+  motor.on("start", function() {
+    led.strobe();
+  });
+
+  motor.on("stop", function() {
+    led.stop();
   });
 });
 
