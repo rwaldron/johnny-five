@@ -45,9 +45,9 @@ board.on("ready", function() {
 
   // Servo Event API
 
-  // "moved" events fire after a successful move.
-  servo.on("moved", function( err, degrees ) {
-    console.log( "moved", degrees );
+  // "move" events fire after a successful move.
+  servo.on("move", function( err, degrees ) {
+    console.log( "move", degrees );
   });
 });
 
