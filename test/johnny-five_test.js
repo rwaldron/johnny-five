@@ -61,12 +61,19 @@ exports["static"] = {
   "Board.analog.pins normalization": function( test ) {
     test.expect(6);
 
-    test.equal( five.Board.analog.pins["A0"], 14 );
-    test.equal( five.Board.analog.pins["A1"], 15 );
-    test.equal( five.Board.analog.pins["A2"], 16 );
-    test.equal( five.Board.analog.pins["A3"], 17 );
-    test.equal( five.Board.analog.pins["A4"], 18 );
-    test.equal( five.Board.analog.pins["A5"], 19 );
+    test.equal( five.Board.analog.pins["A0"], 0 );
+    test.equal( five.Board.analog.pins["A1"], 1 );
+    test.equal( five.Board.analog.pins["A2"], 2 );
+    test.equal( five.Board.analog.pins["A3"], 3 );
+    test.equal( five.Board.analog.pins["A4"], 4 );
+    test.equal( five.Board.analog.pins["A5"], 5 );
+
+    // test.equal( five.Board.analog.pins["A0"], 14 );
+    // test.equal( five.Board.analog.pins["A1"], 15 );
+    // test.equal( five.Board.analog.pins["A2"], 16 );
+    // test.equal( five.Board.analog.pins["A3"], 17 );
+    // test.equal( five.Board.analog.pins["A4"], 18 );
+    // test.equal( five.Board.analog.pins["A5"], 19 );
 
     test.done();
   }
