@@ -26,18 +26,14 @@ board.on("ready", function() {
 });
 ```
 
-## Documentation
-
-_(Nothing yet)_
-
-
-## Examples
+## Example Programs
 
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/eg/board.js)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button-options.js)
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/eg/button.js)
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/eg/claw.js)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/eg/continuous.js)
+- [Joystick Motor-Led](https://github.com/rwldrn/johnny-five/blob/master/eg/joystick-motor-led.js)
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/eg/joystick.js)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/eg/led-fade.js)
 - [Led On-Off](https://github.com/rwldrn/johnny-five/blob/master/eg/led-on-off.js)
@@ -48,6 +44,7 @@ _(Nothing yet)_
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/eg/repl.js)
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/eg/sensor.js)
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/eg/servo.js)
+
 
 ## Schematics
 
