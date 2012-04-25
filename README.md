@@ -2,7 +2,8 @@
 
 [Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework.
 
-# [Video Demo](http://jsfiddle.net/rwaldron/7tdQR/show/light/)
+# [Robot Claw Video](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
+# [Joystick, Motor & Led Video](http://jsfiddle.net/rwaldron/gADSz/show/light/)
 
 ## Getting Started
 Install the module with: `npm install johnny-five`
