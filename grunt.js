@@ -56,7 +56,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
     var files = file.expandFiles( this.file.src ),
-        template = _.template( file.read("docs/.template.md") );
+        template = _.template( file.read("docs/.template.md") ),
+        readme = "";
 
     files.forEach(function( filepath ) {
       var eg = file.read( filepath ),
@@ -75,7 +76,17 @@ module.exports = function(grunt) {
           example: eg
         })
       );
+
+      readme += _.template(
+        "- [<%= title %>](https://github.com/rwldrn/johnny-five/blob/master/<%= file %>)",
+        {
+          title: _.titleize(title),
+          file: filepath
+        }
+      );
     });
+
+    console.log( readme );
 
     log.writeln("Docs created.");
   });
