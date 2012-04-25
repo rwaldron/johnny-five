@@ -32,12 +32,21 @@ _(Nothing yet)_
 
 ## Examples
 
-- [Just a REPL Session](https://github.com/rwldrn/johnny-five/blob/master/eg/repl.js)
-- [Claw Demo Code](https://github.com/rwldrn/johnny-five/blob/master/eg/claw.js)
-- [Strobe LED](https://github.com/rwldrn/johnny-five/blob/master/eg/led.js)
-- [Button w/ Default Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button.js)
-- [Button w/ Specific Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button-options.js)
-
+- [Board](https://github.com/rwldrn/johnny-five/blob/master/eg/board.js)
+- [Button Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button-options.js)
+- [Button](https://github.com/rwldrn/johnny-five/blob/master/eg/button.js)
+- [Claw](https://github.com/rwldrn/johnny-five/blob/master/eg/claw.js)
+- [Continuous](https://github.com/rwldrn/johnny-five/blob/master/eg/continuous.js)
+- [Joystick](https://github.com/rwldrn/johnny-five/blob/master/eg/joystick.js)
+- [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/eg/led-fade.js)
+- [Led On-Off](https://github.com/rwldrn/johnny-five/blob/master/eg/led-on-off.js)
+- [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/eg/led-strobe.js)
+- [Motor](https://github.com/rwldrn/johnny-five/blob/master/eg/motor.js)
+- [Ping](https://github.com/rwldrn/johnny-five/blob/master/eg/ping.js)
+- [Pir](https://github.com/rwldrn/johnny-five/blob/master/eg/pir.js)
+- [Repl](https://github.com/rwldrn/johnny-five/blob/master/eg/repl.js)
+- [Sensor](https://github.com/rwldrn/johnny-five/blob/master/eg/sensor.js)
+- [Servo](https://github.com/rwldrn/johnny-five/blob/master/eg/servo.js)
 
 ## Schematics
 
