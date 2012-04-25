@@ -32,9 +32,9 @@ board.on("ready", function() {
     console.log( "start", timestamp );
 
     // Demonstrate motor stop in 2 seconds
-    setTimeout(function() {
+    board.wait( 2000, function() {
       this.stop();
-    }.bind(this), 2000);
+    });
   });
 
   // "stop" events fire when the motor is started.
