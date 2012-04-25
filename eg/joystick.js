@@ -16,7 +16,7 @@ board.on("ready", function() {
     //   [ up, down, left, right ]
     //   [ ud, lr ]
     pins: [ "A0", "A1" ],
-    throttle: 25
+    freq: 25
   });
 
   // Inject the `joystick` hardware into
