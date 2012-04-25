@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     // Concat specified files.
     var files = file.expandFiles( this.file.src ),
         template = _.template( file.read("docs/.template.md") ),
-        readme = "";
+        readme = [];
 
     files.forEach(function( filepath ) {
       var eg = file.read( filepath ),
@@ -77,16 +77,16 @@ module.exports = function(grunt) {
         })
       );
 
-      readme += _.template(
+      readme.push(_.template(
         "- [<%= title %>](https://github.com/rwldrn/johnny-five/blob/master/<%= file %>)",
         {
           title: _.titleize(title),
           file: filepath
         }
-      );
+      ));
     });
 
-    console.log( readme );
+    console.log( readme.join("\n") );
 
     log.writeln("Docs created.");
   });
