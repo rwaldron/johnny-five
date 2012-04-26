@@ -20,12 +20,39 @@ exports["static"] = {
     test.ok( Array.isArray(five.Board.cache), "Board.cache" );
     test.done();
   },
-  "Board.uid": function( test ) {
+  "Board.range()": function( test ) {
+    test.expect(7);
+
+    // Positive Range
+    test.deepEqual( five.Board.range(3), [ 0, 1, 2, 3 ] );
+    test.deepEqual( five.Board.range(0, 3), [ 0, 1, 2, 3 ] );
+    test.deepEqual( five.Board.range(0, 10, 2), [ 0, 2, 4, 6, 8, 10 ] );
+    test.deepEqual( five.Board.range(0, 9, 3), [ 0, 3, 6, 9 ] );
+
+    // Negative Range
+    test.deepEqual( five.Board.range(0, -9, -1), [ 0, -1, -2, -3, -4, -5, -6, -7, -8, -9 ] );
+    test.deepEqual( five.Board.range(0, -9, -3), [ 0, -3, -6, -9 ] );
+    test.deepEqual( five.Board.range(0, -10, -2), [ 0, -2, -4, -6, -8, -10 ] );
+
+    test.done();
+  },
+  "Board.range.prefixed()": function( test ) {
+    test.expect(4);
+
+    // Positive Range
+    test.deepEqual( five.Board.range.prefixed("A", 3), [ "A0", "A1", "A2", "A3" ] );
+    test.deepEqual( five.Board.range.prefixed("A", 0, 3), [ "A0", "A1", "A2", "A3" ] );
+    test.deepEqual( five.Board.range.prefixed("A", 0, 10, 2), [ "A0", "A2", "A4", "A6", "A8", "A10" ] );
+    test.deepEqual( five.Board.range.prefixed("A", 0, 9, 3), [ "A0", "A3", "A6", "A9" ] );
+
+    test.done();
+  },
+  "Board.uid()": function( test ) {
     test.expect(1);
     test.equal( typeof five.Board.uid, "function", "Board.uid" );
     test.done();
   },
-  "Board.mount": function( test ) {
+  "Board.mount()": function( test ) {
     test.expect(1);
     test.equal( typeof five.Board.mount, "function", "Board.mount" );
     test.done();
@@ -48,35 +75,85 @@ exports["static"] = {
     test.deepEqual( five.Board.mount(), board, "five.Board.mount() matches board instance" );
     test.done();
   },
-  "Board.analog": function( test ) {
+  "Board.Pins": function( test ) {
     test.expect(1);
-    test.ok( five.Board.analog, "Board.analog" );
+    test.ok( five.Board.Pins, "Board.Pins" );
     test.done();
   },
-  "Board.analog.pins": function( test ) {
-    test.expect(1);
-    test.ok( five.Board.analog.pins, "Board.analog.pins" );
+  "Board.Pins.*": function( test ) {
+    test.expect(3);
+    test.ok( five.Board.Pins.analog, "Board.Pins.analog" );
+    test.ok( five.Board.Pins.digital, "Board.Pins.digital" );
+    test.ok( five.Board.Pins.pwm, "Board.Pins.pwm" );
     test.done();
   },
-  "Board.analog.pins normalization": function( test ) {
+  "Board.Pins.analog": function( test ) {
     test.expect(6);
 
-    test.equal( five.Board.analog.pins["A0"], 0 );
-    test.equal( five.Board.analog.pins["A1"], 1 );
-    test.equal( five.Board.analog.pins["A2"], 2 );
-    test.equal( five.Board.analog.pins["A3"], 3 );
-    test.equal( five.Board.analog.pins["A4"], 4 );
-    test.equal( five.Board.analog.pins["A5"], 5 );
+    [ "A0", "A1", "A2", "A3", "A4", "A5" ].forEach(function( pin, mapsTo ) {
+      test.equal( five.Board.Pins.analog[pin], mapsTo );
+    });
+    test.done();
+  },
+  "Board.Pins.pwm": function( test ) {
+    test.expect(6);
+    [ 3, 5, 6, 9, 10, 11 ].forEach(function( pin ) {
+      test.ok( five.Board.Pins.pwm[pin] );
+    });
+    test.done();
+  },
+  "Board.Pins.serial": function( test ) {
+    test.expect(2);
+    [ 0, 1 ].forEach(function( pin ) {
+      test.ok( five.Board.Pins.serial[pin] );
+    });
+    test.done();
+  },
+  "Board.Pins.spi": function( test ) {
+    test.expect(4);
+    [ 10, 11, 12, 13 ].forEach(function( pin ) {
+      test.ok( five.Board.Pins.spi[pin] );
+    });
+    test.done();
+  },
+  "Board.Pins.led": function( test ) {
+    test.expect(1);
 
-    // test.equal( five.Board.analog.pins["A0"], 14 );
-    // test.equal( five.Board.analog.pins["A1"], 15 );
-    // test.equal( five.Board.analog.pins["A2"], 16 );
-    // test.equal( five.Board.analog.pins["A3"], 17 );
-    // test.equal( five.Board.analog.pins["A4"], 18 );
-    // test.equal( five.Board.analog.pins["A5"], 19 );
+    test.ok( five.Board.Pins.led[13] );
+
+    test.done();
+  },
+"Board.Pin.is___()": function( test ) {
+    var fixture = {
+      0: "Serial",
+      3: "PWM",
+      7: "Digital",
+      "A3": "Analog",
+      "A5": "Analog"
+    };
+
+    test.expect( Object.keys(fixture).length * 2 );
+
+    Object.keys( fixture ).forEach(function( pin ) {
+      test.ok( five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
+    }, fixture );
+
+    // Now test for false
+    fixture = {
+      0: "Analog",
+      3: "Analog",
+      7: "Serial",
+      "A3": "Digital",
+      "A5": "Digital"
+    };
+
+    Object.keys( fixture ).forEach(function( pin ) {
+      test.ok( !five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
+    }, fixture );
 
     test.done();
   }
+
 };
 
 
