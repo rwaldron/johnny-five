@@ -1,4 +1,4 @@
-# Joystick Motor-Led
+# Joystick Motor Led
 
 ```javascript
 var five = require("../lib/johnny-five.js"),
@@ -18,7 +18,8 @@ board.on("ready", function() {
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: [ "A0", "A1" ]
+    pins: [ "A0", "A1" ],
+    freq: 25
   });
 
   // Attach a motor to PWM pin 5
@@ -56,7 +57,8 @@ board.on("ready", function() {
 
   // While the motor is on, blink the led
   motor.on("start", function() {
-    led.strobe();
+    // 250ms
+    led.strobe( 250 );
   });
 
   motor.on("stop", function() {

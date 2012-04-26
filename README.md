@@ -19,7 +19,7 @@ board = new five.Board({
 board.on("ready", function() {
 
   led = new five.Led({
-    pin: 13
+    pin: 9
   });
 
   led.strobe( 100 );
@@ -28,22 +28,22 @@ board.on("ready", function() {
 
 ## Example Programs
 
-- [Board](https://github.com/rwldrn/johnny-five/blob/master/eg/board.js)
-- [Button Options](https://github.com/rwldrn/johnny-five/blob/master/eg/button-options.js)
-- [Button](https://github.com/rwldrn/johnny-five/blob/master/eg/button.js)
-- [Claw](https://github.com/rwldrn/johnny-five/blob/master/eg/claw.js)
-- [Continuous](https://github.com/rwldrn/johnny-five/blob/master/eg/continuous.js)
-- [Joystick Motor-Led](https://github.com/rwldrn/johnny-five/blob/master/eg/joystick-motor-led.js)
-- [Joystick](https://github.com/rwldrn/johnny-five/blob/master/eg/joystick.js)
-- [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/eg/led-fade.js)
-- [Led On-Off](https://github.com/rwldrn/johnny-five/blob/master/eg/led-on-off.js)
-- [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/eg/led-strobe.js)
-- [Motor](https://github.com/rwldrn/johnny-five/blob/master/eg/motor.js)
-- [Ping](https://github.com/rwldrn/johnny-five/blob/master/eg/ping.js)
-- [Pir](https://github.com/rwldrn/johnny-five/blob/master/eg/pir.js)
-- [Repl](https://github.com/rwldrn/johnny-five/blob/master/eg/repl.js)
-- [Sensor](https://github.com/rwldrn/johnny-five/blob/master/eg/sensor.js)
-- [Servo](https://github.com/rwldrn/johnny-five/blob/master/eg/servo.js)
+- [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
+- [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
+- [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
+- [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
+- [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
+- [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
+- [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
+- [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
+- [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
+- [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
+- [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
+- [Pir](https://github.com/rwldrn/johnny-five/blob/master/docs/pir.md)
+- [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
+- [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
+- [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 
 
 ## Schematics
