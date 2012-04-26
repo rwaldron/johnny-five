@@ -13,6 +13,14 @@ module.exports = function(grunt) {
   var config = grunt.config;
   var template = grunt.template;
   var _ = utils._;
+
+  var templates = {
+    doc: _.template( file.read("tpl/.docs.md") ),
+    doclink: _.template( file.read("tpl/.readme.doclink.md") ),
+    readme: _.template( file.read("tpl/.readme.md") )
+  };
+
+
   // Project configuration.
   grunt.initConfig({
     pkg: "<json:package.json>",
@@ -56,37 +64,40 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
     var files = file.expandFiles( this.file.src ),
-        template = _.template( file.read("docs/.template.md") ),
         readme = [];
 
     files.forEach(function( filepath ) {
-      var eg = file.read( filepath ),
+      var values,
+          eg = file.read( filepath ),
           md = filepath.replace("eg", "docs").replace(".js", ".md"),
           title = filepath;
 
+      // Generate a title string from the file name
       [ [ /^.+\//, "" ],
         [ /\.js/, "" ],
-        [ /\-/, " " ]
+        [ /\-/g, " " ]
       ].forEach(function( args ) {
         title = "".replace.apply( title, args );
       });
 
-      file.write( md, template({
-          title: _.titleize(title),
-          example: eg
-        })
-      );
+      // Modify code in example to appear as it would if installed via npm
+      eg.replace("../lib/johnny-five.js", "johnny-five");
 
-      readme.push(_.template(
-        "- [<%= title %>](https://github.com/rwldrn/johnny-five/blob/master/<%= file %>)",
-        {
-          title: _.titleize(title),
-          file: filepath
-        }
-      ));
+      values = {
+        title: _.titleize(title),
+        example: eg,
+        file: md
+      };
+
+      // Write the file to /docs/*
+      file.write( md, templates.doc(values) );
+
+      // Push a rendered markdown link into the readme "index"
+      readme.push( templates.doclink(values) );
     });
 
-    console.log( readme.join("\n") );
+    // Write the readme with doc link index
+    file.write( "README.md", templates.readme({ doclinks: readme.join("") }) );
 
     log.writeln("Docs created.");
   });
