@@ -16,7 +16,7 @@ board.on("ready", function() {
     //   [ up, down, left, right ]
     //   [ ud, lr ]
     pins: [ "A0", "A1" ],
-    freq: 25
+    freq: 500
   });
 
   // Inject the `joystick` hardware into
@@ -33,13 +33,21 @@ board.on("ready", function() {
     // Axis data is available on:
     // this.axis
     // {
-    //   x: 0-1024, ( 0 <-- L/R --> 1024 )
-    //   y: 0-1024  ( 0 <-- D/U --> 1024 )
+    //   x: 0...1, ( 0 <-- L/R --> 1 )
+    //   y: 0...1  ( 0 <-- D/U --> 1 )
     // }
     //
-    // Center is ~500-510 (should be 512)
+    // Center is ~0.5
     //
-    console.log( "input", this.axis );
+    // console.log( "input", this.axis );
+    // console.log( "LR:", this.axis.x, this.normalized.x );
+    // console.log( "UD:", this.axis.y, this.normalized.y );
+    // console.log( "MAG:", this.magnitude );
+
+    console.log( "LR:", this.fixed.x );
+    console.log( "UD:", this.fixed.y );
+    console.log( "MAG:", this.magnitude );
+
   });
 });
 
