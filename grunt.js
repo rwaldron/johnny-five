@@ -1,4 +1,5 @@
-var inspect = require("util").inspect;
+var inspect = require("util").inspect,
+    path = require("path");
 
 
 module.exports = function(grunt) {
@@ -16,6 +17,7 @@ module.exports = function(grunt) {
 
   var templates = {
     doc: _.template( file.read("tpl/.docs.md") ),
+    img: _.template( file.read("tpl/.img.md") ),
     doclink: _.template( file.read("tpl/.readme.doclink.md") ),
     readme: _.template( file.read("tpl/.readme.md") )
   };
@@ -70,6 +72,7 @@ module.exports = function(grunt) {
       var values,
           eg = file.read( filepath ),
           md = filepath.replace("eg", "docs").replace(".js", ".md"),
+          png = filepath.replace("eg", "docs").replace(".js", ".png"),
           title = filepath;
 
       // Generate a title string from the file name
@@ -86,7 +89,8 @@ module.exports = function(grunt) {
       values = {
         title: _.titleize(title),
         example: eg,
-        file: md
+        file: md,
+        breadboard: path.existsSync(png) ? templates.img({ png: png }) : ""
       };
 
       // Write the file to /docs/*
