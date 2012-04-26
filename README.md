@@ -1,5 +1,7 @@
 # Johnny 5, is in progress.
 
+### "Node-isassemble Stephanie!"
+
 [Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework.
 
 # [Robot Claw Video](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
