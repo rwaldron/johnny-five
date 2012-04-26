@@ -53,12 +53,13 @@ board.on("ready", function() {
 
 ```
 
+## Breadboard
+
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/servo.png">
+
+
+
 ## Documentation
-
-_(Nothing yet)_
-
-
-## Schematics
 
 _(Nothing yet)_
 

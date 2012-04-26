@@ -44,12 +44,13 @@ board.on("ready", function() {
 
 ```
 
+## Breadboard
+
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/pir.png">
+
+
+
 ## Documentation
-
-_(Nothing yet)_
-
-
-## Schematics
 
 _(Nothing yet)_
 

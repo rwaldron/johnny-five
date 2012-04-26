@@ -40,12 +40,12 @@ board.on("ready", function() {
 
 ```
 
+## Breadboard
+
+
+
+
 ## Documentation
-
-_(Nothing yet)_
-
-
-## Schematics
 
 _(Nothing yet)_
 
