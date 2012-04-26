@@ -46,11 +46,11 @@ board.on("ready", function() {
   // releasing it will turn the motor off.
   joystick.on("axismove", function( err, timestamp ) {
 
-    if ( !motor.isOn && this.axis.y > 600 ) {
+    if ( !motor.isOn && this.axis.y > 0.51 ) {
       motor.start();
     }
 
-    if ( motor.isOn && this.axis.y < 600 ) {
+    if ( motor.isOn && this.axis.y < 0.51 ) {
       motor.stop();
     }
   });
