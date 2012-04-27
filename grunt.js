@@ -18,6 +18,7 @@ module.exports = function(grunt) {
   var templates = {
     doc: _.template( file.read("tpl/.docs.md") ),
     img: _.template( file.read("tpl/.img.md") ),
+    fritzing: _.template( file.read("tpl/.fritzing.md") ),
     doclink: _.template( file.read("tpl/.readme.doclink.md") ),
     readme: _.template( file.read("tpl/.readme.md") )
   };
@@ -72,8 +73,10 @@ module.exports = function(grunt) {
       var values,
           eg = file.read( filepath ),
           md = filepath.replace("eg", "docs").replace(".js", ".md"),
-          png = filepath.replace("eg", "docs").replace(".js", ".png"),
-          title = filepath;
+          png = filepath.replace("eg", "docs/breadboard").replace(".js", ".png"),
+          fritz = filepath.replace("eg", "docs/breadboard").replace(".js", ".fzz"),
+          title = filepath,
+          fritzfile, fritzpath;
 
       // Generate a title string from the file name
       [ [ /^.+\//, "" ],
@@ -83,6 +86,9 @@ module.exports = function(grunt) {
         title = "".replace.apply( title, args );
       });
 
+      fritzpath = fritz.split("/");
+      fritzfile = fritzpath[ fritzpath.length - 1 ];
+
       // Modify code in example to appear as it would if installed via npm
       eg.replace("../lib/johnny-five.js", "johnny-five");
 
@@ -90,7 +96,8 @@ module.exports = function(grunt) {
         title: _.titleize(title),
         example: eg,
         file: md,
-        breadboard: path.existsSync(png) ? templates.img({ png: png }) : ""
+        breadboard: path.existsSync(png) ? templates.img({ png: png }) : "",
+        fritzing: path.existsSync(png) ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : "",
       };
 
       // Write the file to /docs/*
