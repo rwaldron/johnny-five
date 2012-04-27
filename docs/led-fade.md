@@ -42,12 +42,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-fade.png">
 
+[led-fade.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-fade.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

@@ -55,13 +55,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/servo.png">
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/servo.png">
 
+[servo.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/servo.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

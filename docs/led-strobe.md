@@ -30,12 +30,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-strobe.png">
 
+[led-strobe.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-strobe.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

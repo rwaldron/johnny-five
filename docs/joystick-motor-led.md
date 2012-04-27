@@ -78,12 +78,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/joystick-motor-led.png">
 
+[joystick-motor-led.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick-motor-led.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

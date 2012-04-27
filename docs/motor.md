@@ -56,13 +56,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/motor.png">
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/motor.png">
 
+[motor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/motor.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

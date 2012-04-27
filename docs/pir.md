@@ -46,13 +46,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/pir.png">
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/pir.png">
 
+[pir.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/pir.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 

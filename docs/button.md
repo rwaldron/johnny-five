@@ -46,13 +46,20 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/button.png">
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button.png">
 
+[button.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button.fzz)
 
 
 ## Documentation
 
 _(Nothing yet)_
+
+
+
+
+
+
 
 
 
