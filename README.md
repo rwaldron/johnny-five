@@ -46,6 +46,7 @@ board.on("ready", function() {
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
+- [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
 
 
 ## Schematics

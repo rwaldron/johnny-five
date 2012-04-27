@@ -1,0 +1,63 @@
+# Sonar
+
+```javascript
+var five = require("../lib/johnny-five.js"),
+    board, sonar;
+
+board = new five.Board({
+  debug: true
+});
+
+board.on("ready", function() {
+
+  // Create a new `sonar` hardware instance.
+  // This example allows the sonar module to
+  // create a completely default instance
+  sonar = new five.Sonar({
+    // Setup on Analog 0
+    pin: "A0"
+  });
+
+  // sonar Event API
+
+  // "read" get the current reading from the sonar
+  sonar.on("read", function( err, timestamp ) {
+    /*
+
+      this.voltage - raw voltage reading
+      this.inches  - calculated distance
+
+    */
+    console.log( "Object is " + this.inches + "inches away" );
+  });
+});
+
+```
+
+## Breadboard
+
+
+
+
+## Documentation
+
+_(Nothing yet)_
+
+
+
+
+
+
+
+
+
+## Contributing
+All contributions must adhere to the the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+
+## Release History
+_(Nothing yet)_
+
+## License
+Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
