@@ -10,17 +10,13 @@ board = new five.Board({
 
 board.on("ready", function() {
 
-  var claw = 9,
-      arm = 11,
+  var claw = new five.Servo({ pin: 9 }),
+      arm =  new five.Servo({ pin: 10 }),
       degrees = 10,
       incrementer = 10,
       last;
 
-  this.firmata.pinMode( claw, 4 );
-  this.firmata.pinMode( arm, 4 );
-
-  // TODO: update to use loop api
-  setInterval(function() {
+  this.loop( 25, function() {
 
     if ( degrees >= 180 || degrees === 0 ) {
       incrementer *= -1;
@@ -34,12 +30,11 @@ board.on("ready", function() {
       } else {
         last = 90;
       }
-      this.firmata.servoWrite( arm, last );
+      arm.move( last );
     }
 
-    this.firmata.servoWrite( claw, degrees );
-
-  }.bind(this), 25);
+    claw.move( degrees );
+  });
 });
 
 ```

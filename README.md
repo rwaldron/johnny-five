@@ -1,11 +1,10 @@
 # Johnny 5, is in progress.
 
-### "Node-isassemble Stephanie!"
+### [Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework. "Node-isassemble Stephanie!"
 
-[Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework.
-
-# [Robot Claw Video](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
-# [Joystick, Motor & Led Video](http://jsfiddle.net/rwaldron/gADSz/show/light/)
+### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
+### [Robot Claw Video](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
+### [Joystick, Motor & Led Video](http://jsfiddle.net/rwaldron/gADSz/show/light/)
 
 ## Getting Started
 Install the module with: `npm install johnny-five`
@@ -35,6 +34,7 @@ board.on("ready", function() {
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Joystick Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-claw.md)
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
