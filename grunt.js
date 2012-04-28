@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       files: ["eg/**/*.js"]
     },
     test: {
-      files: ["test/**/*.js"]
+      files: ["test/board.js"]
     },
     lint: {
       files: ["grunt.js", "lib/**/*.js", "test/**/*.js", "eg/**/*.js"]
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
         example: eg,
         file: md,
         breadboard: path.existsSync(png) ? templates.img({ png: png }) : "",
-        fritzing: path.existsSync(png) ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : "",
+        fritzing: path.existsSync(png) ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
       };
 
       // Write the file to /docs/*
