@@ -20,6 +20,27 @@ exports["static"] = {
     test.ok( Array.isArray(five.Board.cache), "Board.cache" );
     test.done();
   },
+  "Board.constrain()": function( test ) {
+    test.expect(5);
+
+    test.equal( five.Board.constrain( 100, 0, 255 ), 100 );
+    test.equal( five.Board.constrain( -1, 0, 255 ), 0 );
+    test.equal( five.Board.constrain( 0, 0, 255 ), 0 );
+    test.equal( five.Board.constrain( 256, 0, 255 ), 255 );
+    test.equal( five.Board.constrain( 255, 0, 255 ), 255 );
+
+    test.done();
+  },
+  "Board.map()": function( test ) {
+    test.expect(3);
+
+    test.equal( five.Board.map( 1009, 300, 1009, 0, 255 ), 255 );
+    test.equal( five.Board.map( 300, 300, 1009, 0, 255 ), 0 );
+    test.equal( five.Board.map( 500, 0, 1000, 0, 255 ), 127.5 );
+
+    test.done();
+  },
+
   "Board.range()": function( test ) {
     test.expect(7);
 
