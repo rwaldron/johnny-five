@@ -9,7 +9,7 @@ board.on("ready", function() {
 
   // Create a standard `led` hardware instance
   led = new five.Led({
-    pin: 9
+    pin: 13
   });
 
   // "on" turns the led _on_

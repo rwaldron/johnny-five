@@ -8,10 +8,9 @@ board = new five.Board({
 board.on("ready", function() {
 
   // Create a new `sensor` hardware instance.
-  // This example allows the sensor module to
-  // create a completely default instance
   sensor = new five.Sensor({
-    pin: "A0"
+    pin: "A0",
+    freq: 250
   });
 
   // Inject the `sensor` hardware into
@@ -25,6 +24,6 @@ board.on("ready", function() {
 
   // "read" get the current reading from the sensor
   sensor.on("read", function( err, value ) {
-    console.log( value );
+    console.log( this.normalized );
   });
 });
