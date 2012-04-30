@@ -13,7 +13,7 @@ board.on("ready", function() {
   servos = {
     claw: new five.Servo({
       pin: 9,
-      range: [ 10, 170 ]
+      range: [ 0, 170 ]
     }),
     arm: new five.Servo(10)
   };
@@ -27,10 +27,16 @@ board.on("ready", function() {
 
 
   // Log moves to repl
-  Object.keys( servos ).forEach(function( which ) {
-    servos[ which ].on("move", function( err, degrees ) {
-      console.log( which + " moved: " + degrees + " degrees" );
-    });
+  // Object.keys( servos ).forEach(function( which ) {
+  //   servos[ which ].on("move", function( err, degrees ) {
+  //     console.log( which + " moved to " + degrees + "°. Range: ", servos[ which ].range.toString()  );
+  //   });
+  // });
+
+  servos.claw.min();
+
+  this.wait( 1000, function() {
+    servos.claw.sweep();
   });
 });
 

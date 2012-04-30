@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
-  "description": "Firmata based Ardui",
-  "version": "0.1.7",
+  "description": "Firmata based Arduino Programming Framework.",
+  "version": "0.1.9",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",

@@ -37,6 +37,10 @@ board.on("ready", function() {
   });
 });
 
+
+// Claw Assembly Instructions
+// http://blasphemousbits.wordpress.com/2011/11/05/sparkfun-robot-claw/
+
 ```
 
 ## Breadboard

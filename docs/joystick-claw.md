@@ -12,7 +12,7 @@ board.on("ready", function() {
 
   var claw = new five.Servo({
         pin: 9,
-        range: [ 10, 170 ]
+        range: [ 0, 170 ]
       }),
       joystick = new five.Joystick({
         pins: [ "A0", "A1" ],
