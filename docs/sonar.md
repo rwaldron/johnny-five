@@ -11,8 +11,6 @@ board = new five.Board({
 board.on("ready", function() {
 
   // Create a new `sonar` hardware instance.
-  // This example allows the sonar module to
-  // create a completely default instance
   sonar = new five.Sonar({
     // Setup on Analog 0
     pin: "A0"
