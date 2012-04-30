@@ -10,7 +10,7 @@ board.on("ready", function() {
   // Create a new `button` hardware instance
   button = new five.Button({
     board: board,
-    pin: 8,
+    pin: 7,
     holdtime: 1000
   });
 
