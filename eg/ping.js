@@ -8,8 +8,6 @@ board = new five.Board({
 board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
-  // This example allows the ping module to
-  // create a completely default instance
   ping = new five.Ping({
     pin: 7
   });

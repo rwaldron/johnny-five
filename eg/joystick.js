@@ -8,8 +8,6 @@ board = new five.Board({
 board.on("ready", function() {
 
   // Create a new `joystick` hardware instance.
-  // This example allows the joystick module to
-  // create a completely default instance
   joystick = new five.Joystick({
     // Joystick pins are an array of pins
     // Pin orders:
