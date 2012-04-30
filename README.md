@@ -47,6 +47,7 @@ board.on("ready", function() {
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
+- [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
 - [Switch](https://github.com/rwldrn/johnny-five/blob/master/docs/switch.md)
