@@ -33,3 +33,7 @@ board.on("ready", function() {
     claw.move( degrees );
   });
 });
+
+
+// Claw Assembly Instructions
+// http://blasphemousbits.wordpress.com/2011/11/05/sparkfun-robot-claw/
