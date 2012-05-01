@@ -7,7 +7,38 @@
 ### [Joystick, Motor & Led Video](http://jsfiddle.net/rwaldron/gADSz/show/light/)
 
 ## Getting Started
-Install the module with: `npm install johnny-five`
+
+### Preparing the Arduino
+
+- Download and open the [Arduino IDE](http://arduino.cc/hu/Main/Software)
+- Plug in your Arduino or Arduino compatible microcontroller via USB
+- From the IDE, select: File > Examples > Firmate > StandardFirmata
+- Click the "Upload" button.
+
+If the upload was successful, the board is now prepared and you can close the Arduino IDE.
+
+
+### Getting Johnny Five:
+
+#### Source Code:
+
+``` bash
+git clone git://github.com/rwldrn/johnny-five.git && cd johnny-five
+
+npm install
+```
+
+#### npm package:
+
+Install the module with:
+
+```bash
+npm install johnny-five
+```
+
+
+### A Simple Program
+
 
 ```javascript
 var five = require("johnny-five"),
@@ -20,7 +51,7 @@ board = new five.Board({
 board.on("ready", function() {
 
   led = new five.Led({
-    pin: 9
+    pin: 13
   });
 
   led.strobe( 100 );
