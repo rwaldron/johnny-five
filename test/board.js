@@ -244,3 +244,20 @@ exports["instance"] = {
     test.done();
   }
 };
+
+
+// TODO: need mock firmata object
+// exports["modules"] = {
+//   "optional-new": function( test ) {
+//     var modules = Object.keys(five);
+
+//     // test.expect(modules * 2);
+
+//     modules.forEach(function( module ) {
+
+//       var instance = new five[ module ]({});
+
+//       console.log( instance );
+//     });
+//   }
+// };
