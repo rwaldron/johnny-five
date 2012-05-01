@@ -18,11 +18,10 @@ board.on("ready", function() {
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    s: servos,
-    a: array
+    array: array
   });
 
-  console.log( array );
+  // console.log( array );
 
   // Servo.Array API
 
