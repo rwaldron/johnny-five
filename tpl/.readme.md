@@ -2,6 +2,8 @@
 
 ### [Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework. "Node-isassemble Stephanie!"
 
+### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
+### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
 ### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
 ### [Robot Claw Video](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
 ### [Joystick, Motor & Led Video](http://jsfiddle.net/rwaldron/gADSz/show/light/)
