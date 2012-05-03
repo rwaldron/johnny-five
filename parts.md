@@ -27,6 +27,8 @@
 
 
 - [Arcade Joystick](http://www.sparkfun.com/products/9136)
+- [Laser Card Module - Red](http://www.sparkfun.com/products/594)
+- [Pan/Tilt Bracket](http://www.sparkfun.com/products/10335)
 - [Robotic Claw](http://www.sparkfun.com/products/10332)
 - [Robotic Claw Pan/Tilt Bracket](http://www.sparkfun.com/products/10826)
 - [Servo Extension Cable - Female to Female (shrouded)](http://www.sparkfun.com/products/8738)
@@ -37,6 +39,7 @@
 
 - [SoftPot Membrane Potentiometer - 50mm](http://www.sparkfun.com/products/8680)
 - [Wiper/Actuator - 1N to 3N Force](http://www.sparkfun.com/products/9075)
+
 
 
 # Tools
