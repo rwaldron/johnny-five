@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, servos, array;
+    board, array;
 
 board = new five.Board({
   debug: true
@@ -7,12 +7,18 @@ board = new five.Board({
 
 board.on("ready", function() {
 
-  servos = {
-    a: new five.Servo(9),
-    b: new five.Servo(10)
-  };
+  five.Servo({
+    pin: 9,
+    // Limit this servo to 170°
+    range: [ 0, 170 ]
+  });
 
-  array = five.Servo.Array();
+  five.Servo(10);
+
+  // Initialize a reference to all Servo instances
+  // five.Servo.Array()
+  // five.Servos()
+  array = five.Servos();
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -21,14 +27,16 @@ board.on("ready", function() {
     array: array
   });
 
-  // console.log( array );
 
   // Servo.Array API
 
   // center()
   //
-  // centers all servos to 90deg
+  // centers all servos to center of range
+  // defaults to 90deg
   //
+  // eg. array.center();
+
   array.center();
 
 
@@ -45,6 +53,12 @@ board.on("ready", function() {
   // defaults to 180
   //
   // eg. array.max();
+
+  // move( deg )
+  //
+  // set all servos to deg
+  //
+  // eg. array.move( deg );
 
   // stop()
   //
