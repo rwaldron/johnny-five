@@ -66,3 +66,8 @@ board.on("ready", function() {
     console.log( "move", degrees );
   });
 });
+
+
+// References
+//
+// http://servocity.com/html/hs-7980th_servo.html

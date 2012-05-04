@@ -1,31 +1,39 @@
 var five = require("../lib/johnny-five.js"),
-    board, pan, tilt, joystick, array;
-
-board = new five.Board({
-  debug: true
-});
+    board = five.Board({
+      debug: true
+    });
 
 board.on("ready", function() {
+  var range, pan, tilt, joystick;
 
+  range = [ 0, 170 ];
 
-  pan = new five.Servo({
+  // Servo to control panning
+  pan = five.Servo({
     pin: 9,
-    range: [ 0, 170 ]
+    range: range
   });
 
-  tilt = new five.Servo({
+  // Servo to control tilt
+  tilt = five.Servo({
     pin: 10,
-    range: [ 0, 170 ]
+    range: range
   });
 
-  joystick = new five.Joystick({
+  // Joystick to control pan/tilt
+  // Read Analog 0, 1
+  // Limit events to every 50ms
+  joystick = five.Joystick({
     pins: [ "A0", "A1" ],
-    freq: 250
+    freq: 100
   });
 
-  (new five.Servos()).center();
+  // Center all servos
+  (five.Servos()).center();
 
   joystick.on("axismove", function() {
+
+    // console.log( this.raw.y, (512 - this.raw.y) / 2  );
 
     tilt.move( Math.ceil(170 * this.fixed.y) );
     pan.move( Math.ceil(170 * this.fixed.x) );
