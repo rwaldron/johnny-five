@@ -22,19 +22,29 @@ board.on("ready", function() {
 
   accel = five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
-    freq: 50
+    freq: 100
   });
 
   // Accelerometer Event API
 
-  // "acceleration" events fire
+  // "acceleration"
+  //
+  // Fires once every N ms, equal to value of freg
+  // Defaults to 500ms
+  //
   accel.on("acceleration", function( err, timestamp ) {
-    // console.log( "acceleration", this.axis );
 
-    console.log( "acceleration", this.pitch );
+    console.log( "acceleration", this.pitch, this.roll );
   });
 
+  // "axischanged"
+  //
+  // Fires only when X, Y or Z has changed
+  //
+  accel.on("axischanged", function( err, timestamp ) {
 
+    console.log( "axischanged", this.raw );
+  });
 });
 
 ```
