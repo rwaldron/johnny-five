@@ -20,11 +20,31 @@ board.on("ready", function() {
     sensor: sensor
   });
 
-  // sensor Event API
+  // Properties
 
-  // "read" get the current reading from the sensor
+  // sensor.normalized
+  //
+  // Current value of a sensor 0-255
+  //
+
+  // sensor.scaled
+  //
+  // Current value of a sensor, scaled to a value
+  // between the lower and upper bound set by calling
+  // scale( low, high ).
+  //
+  // Defaults to value between 0-255
+  //
+
+
+  // Sensor Event API
+
+  // "read"
+  //
+  // Fires when the pin is read for a value
+  //
   sensor.scale([ 0, 100 ]).on("read", function() {
-    console.log( this.normalized, this.constrained, this.scaled );
+    console.log( this.normalized, this.scaled );
   });
 });
 
