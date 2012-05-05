@@ -26,8 +26,8 @@ board.on("ready", function() {
   // sensor Event API
 
   // "read" get the current reading from the sensor
-  sensor.on("read", function( err, value ) {
-    console.log( this.normalized );
+  sensor.scale([ 0, 100 ]).on("read", function() {
+    console.log( this.normalized, this.constrained, this.scaled );
   });
 });
 
