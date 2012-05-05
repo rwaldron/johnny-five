@@ -70,6 +70,11 @@ board.on("ready", function() {
   });
 });
 
+
+// References
+//
+// http://servocity.com/html/hs-7980th_servo.html
+
 ```
 
 ## Breadboard

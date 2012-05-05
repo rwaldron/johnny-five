@@ -33,8 +33,6 @@ board.on("ready", function() {
 
   joystick.on("axismove", function() {
 
-    // console.log( this.raw.y, (512 - this.raw.y) / 2  );
-
     tilt.move( Math.ceil(170 * this.fixed.y) );
     pan.move( Math.ceil(170 * this.fixed.x) );
 
