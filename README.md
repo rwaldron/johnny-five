@@ -62,6 +62,8 @@ board.on("ready", function() {
 
 ## Example Programs
 
+- [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
+- [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
