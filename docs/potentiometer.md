@@ -1,7 +1,7 @@
 # Potentiometer
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, potentiometer;
 
 board = new five.Board({

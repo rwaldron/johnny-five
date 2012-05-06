@@ -1,7 +1,7 @@
 # Pir
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, pir;
 
 board = new five.Board({

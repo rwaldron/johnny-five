@@ -1,7 +1,7 @@
 # Motor
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, motor, led;
 
 board = new five.Board({

@@ -1,7 +1,7 @@
 # Button Options
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, button;
 
 board = new five.Board({

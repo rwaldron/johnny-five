@@ -1,7 +1,7 @@
 # Led On Off
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, led;
 
 board = new five.Board({

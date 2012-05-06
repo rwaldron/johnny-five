@@ -1,7 +1,7 @@
 # Joystick Motor Led
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, joystick, motor, led;
 
 board = new five.Board({

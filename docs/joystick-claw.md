@@ -1,7 +1,7 @@
 # Joystick Claw
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, claw, joystick;
 
 board = new five.Board({

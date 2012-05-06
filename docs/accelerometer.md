@@ -1,7 +1,7 @@
 # Accelerometer
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, accel;
 
 board = five.Board({

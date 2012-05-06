@@ -1,7 +1,7 @@
 # Led Rgb
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, red, green, blue, leds;
 
 board = new five.Board({

@@ -1,7 +1,7 @@
 # Joystick Laser
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board = five.Board({
       debug: true
     });
