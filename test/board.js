@@ -1,6 +1,6 @@
 var SerialPort = require("./mock-serial").SerialPort,
     five = require("../lib/johnny-five.js"),
-    __ = require("../lib/private.js"),
+    __ = require("../lib/fn.js"),
 
     serial = new SerialPort("/path/to/fake/usb"),
     board = new five.Board({
