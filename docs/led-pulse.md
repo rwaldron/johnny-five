@@ -1,4 +1,4 @@
-# Led Fade
+# Led Pulse
 
 ```javascript
 var five = require("../lib/johnny-five.js"),
@@ -25,20 +25,16 @@ board.on("ready", function() {
     led: led
   });
 
-  // "fade" to the value, 0-255, in the given time.
-  // Defaults to 1000ms
-  // pinMode will be changed to PWM automatically
-  //
-  // led.fade( 255, 3000 );
+  // "pulse" the led in a looping interval
+  // Interval defaults to 1000ms
+  // pinMode is will be changed to PWM automatically
+  led.pulse();
 
 
-  led.fadeIn();
+  // Turn off the led pulse loop after 10 seconds (shown in ms)
+  this.wait( 10000, function() {
 
-
-  // Toggle the led after 10 seconds (shown in ms)
-  this.wait( 5000, function() {
-
-    led.fadeOut();
+    led.off();
 
   });
 });
@@ -47,9 +43,9 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-fade.png">
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-pulse.png">
 
-[led-fade.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-fade.fzz)
+[led-pulse.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-pulse.fzz)
 
 
 ## Documentation
