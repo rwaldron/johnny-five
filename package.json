@@ -31,14 +31,16 @@
     "colors": ">=0.5.1",
     "grunt": ">=0.3.5",
     "firmata": ">=0.2.0",
-    "lodash": ">=0.1.0"
+    "lodash": ">=0.1.0",
+    "es6-collections": ">=0.0.1"
   },
   "devDependencies": {
     "nodeunit": ">=0.7.4",
     "colors": ">=0.5.1",
     "grunt": ">=0.3.5",
     "firmata": ">=0.2.0",
-    "lodash": ">=0.1.0"
+    "lodash": ">=0.1.0",
+    "es6-collections": ">=0.0.1"
   },
   "keywords": []
 }
