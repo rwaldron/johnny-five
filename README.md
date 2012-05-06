@@ -75,6 +75,8 @@ board.on("ready", function() {
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
+- [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
+- [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
 - [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
