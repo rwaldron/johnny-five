@@ -6,6 +6,11 @@
 - [MaxSonar](https://www.adafruit.com/products/172)
 
 
+## DFRobot
+
+- [Analog Slide Position Sensor](http://www.dfrobot.com/index.php?route=product/product&filter_name=slide&product_id=131)
+- [I2C/TWI LCD1602 Module](http://www.dfrobot.com/index.php?route=product/product&filter_name=i2c/twi&product_id=135)
+
 ### Makershed
 
 - [Getting Started with Arduino](http://www.makershed.com/Getting_Started_with_Arduino_Kit_V3_0_p/msgsa.htm)
