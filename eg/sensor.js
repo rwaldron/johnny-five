@@ -46,8 +46,16 @@ board.on("ready", function() {
   sensor.scale([ 0, 100 ]).on("read", function() {
     console.log( this.normalized, this.scaled );
   });
+
+  // "change"
+  //
+  // Aliases: "bend", "force", "slide", "touch"
+  //
+  // Fires when value of sensor changes
+  //
 });
 
 // Tutorials
 //
 // http://protolab.pbworks.com/w/page/19403657/TutorialSensors
+// http://www.dfrobot.com/wiki/index.php?title=Analog_Slide_Position_Sensor_(SKU:_DFR0053)
