@@ -1,8 +1,8 @@
-# Sensor
+# Sensor Slider
 
 ```javascript
 var five = require("johnny-five"),
-    board, sensor;
+    board, slider;
 
 board = new five.Board({
   debug: true
@@ -10,64 +10,42 @@ board = new five.Board({
 
 board.on("ready", function() {
 
-  // Create a new `sensor` hardware instance.
-  sensor = new five.Sensor({
+  // Create a new `slider` hardware instance.
+  slider = new five.Sensor({
     pin: "A0",
     freq: 250
   });
 
-  // Inject the `sensor` hardware into
+  // Inject the `slider` hardware into
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    sensor: sensor
+    slider: slider
   });
 
-  // Properties
-
-  // sensor.normalized
   //
-  // Current value of a sensor 0-255
-  //
-
-  // sensor.scaled
-  //
-  // Current value of a sensor, scaled to a value
-  // between the lower and upper bound set by calling
-  // scale( low, high ).
-  //
-  // Defaults to value between 0-255
-  //
-
-
-  // Sensor Event API
-
-  // "read"
-  //
-  // Fires when the pin is read for a value
-  //
-  sensor.scale([ 0, 100 ]).on("read", function() {
-    console.log( this.normalized, this.scaled );
-  });
-
-  // "change"
-  //
-  // Aliases: "bend", "force", "slide", "touch"
+  // "change", "slide", "touch", "bend"
   //
   // Fires when value of sensor changes
   //
+  slider.scale([ 0, 100 ]).on("slide", function( err, value ) {
+
+    console.log( "slide", value, this.value, this.scaled );
+
+  });
 });
 
 // Tutorials
 //
-// http://protolab.pbworks.com/w/page/19403657/TutorialSensors
 // http://www.dfrobot.com/wiki/index.php?title=Analog_Slide_Position_Sensor_(SKU:_DFR0053)
 
 ```
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sensor-slider.png">
 
+[sensor-slider.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-slider.fzz)
 
 
 ## Documentation

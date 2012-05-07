@@ -86,6 +86,7 @@ board.on("ready", function() {
 - [Pir](https://github.com/rwldrn/johnny-five/blob/master/docs/pir.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
+- [Sensor Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-slider.md)
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
