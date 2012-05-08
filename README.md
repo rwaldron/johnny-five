@@ -4,6 +4,8 @@
 
 ## Demo Videos
 
+
+### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
 ### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
