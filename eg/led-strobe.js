@@ -12,13 +12,6 @@ board.on("ready", function() {
     pin: 13
   });
 
-  // Inject the `led` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    led: led
-  });
-
   // "strobe" the led in 100ms on-off phases
   led.strobe( 100 );
 });
