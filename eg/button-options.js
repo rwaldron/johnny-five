@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board, button;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a new `button` hardware instance
-  button = new five.Button({
+  button = five.Button({
     board: board,
     pin: 7,
     holdtime: 1000

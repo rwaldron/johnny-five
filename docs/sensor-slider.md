@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, slider;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a new `slider` hardware instance.
-  slider = new five.Sensor({
+  slider = five.Sensor({
     pin: "A0",
     freq: 250
   });

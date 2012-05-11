@@ -4,15 +4,15 @@
 var five = require("johnny-five"),
     board, claw, joystick;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
-  var claw = new five.Servo({
+  var claw = five.Servo({
         pin: 9,
         range: [ 0, 170 ]
       }),
-      joystick = new five.Joystick({
+      joystick = five.Joystick({
         pins: [ "A0", "A1" ],
         freq: 250
       });

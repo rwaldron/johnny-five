@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, led;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a standard `led` hardware instance
-  led = new five.Led({
+  led = five.Led({
     // Use PWM pin 9 for fading example
     pin: 9
   });

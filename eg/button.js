@@ -1,14 +1,14 @@
 var five = require("../lib/johnny-five.js"),
     board, button;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a new `button` hardware instance.
   // This example allows the button module to
   // create a completely default instance
-  button = new five.Button(7);
+  button = five.Button(7);
 
   // Inject the `button` hardware into
   // the Repl instance's context;

@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board, potentiometer;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a new `potentiometer` hardware instance.
-  potentiometer = new five.Sensor({
+  potentiometer = five.Sensor({
     pin: "A2",
     freq: 250
   });

@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, servo;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
   // Create a new `servo` hardware instance.
-  servo = new five.Servo({
+  servo = five.Servo({
     pin: 9,
     // `type` defaults to standard servo.
     // For continuous rotation servos, override the default

@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board;
 
-board = new five.Board();
+board = five.Board();
 
 board.on("ready", function() {
 
-  var claw = new five.Servo({ pin: 9 }),
-      arm =  new five.Servo({ pin: 10 }),
+  var claw = five.Servo({ pin: 9 }),
+      arm =  five.Servo({ pin: 10 }),
       degrees = 10,
       incrementer = 10,
       last;
