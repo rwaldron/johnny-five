@@ -9,22 +9,37 @@ board = five.Board();
 board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
-  ping = five.Ping({
-    pin: 7
-  });
+  ping = new five.Ping(7);
 
-  // Inject the `ping` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    ping: ping
-  });
+  // Properties
 
-  // ping Event API
+  // ping.microseconds
+  //
+  // Roundtrip distance in microseconds
+  //
+
+  // ping.inches
+  //
+  // Calculated distance to object in inches
+  //
+
+  // ping.cm
+  //
+  // Calculated distance to object in centimeters
+  //
+
+
+  // Ping Event API
 
   // "read" get the current reading from the ping
-  ping.on("read", function( value ) {
+  ping.on("read", function( err, value ) {
     console.log( "read", value );
+  });
+
+  ping.on("change", function( err, value ) {
+
+    console.log( typeof this.inches );
+    console.log( "Object is " + this.inches + "inches away" );
   });
 });
 
@@ -32,7 +47,9 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/ping.png">
 
+[ping.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/ping.fzz)
 
 
 ## Documentation
