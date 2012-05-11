@@ -1,9 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     board, motor, led;
 
-board = new five.Board({
-  debug: true
-});
+board = new five.Board();
 
 board.on("ready", function() {
   var timer;

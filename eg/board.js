@@ -1,9 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     board;
 
-board = new five.Board({
-  debug: true
-});
+board = new five.Board();
 
 // The board's pins will not be accessible until
 // the board has reported that it is ready

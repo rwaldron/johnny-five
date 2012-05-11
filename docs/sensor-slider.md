@@ -4,9 +4,7 @@
 var five = require("johnny-five"),
     board, slider;
 
-board = new five.Board({
-  debug: true
-});
+board = new five.Board();
 
 board.on("ready", function() {
 

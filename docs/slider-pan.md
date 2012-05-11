@@ -4,9 +4,7 @@
 var five = require("johnny-five"),
     board, slider, tilt, scalingRange;
 
-board = five.Board({
-  debug: true
-});
+board = five.Board();
 
 board.on("ready", function() {
 

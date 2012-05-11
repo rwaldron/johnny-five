@@ -1,12 +1,10 @@
 # Ping
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, ping;
 
-board = new five.Board({
-  debug: true
-});
+board = new five.Board();
 
 board.on("ready", function() {
 
