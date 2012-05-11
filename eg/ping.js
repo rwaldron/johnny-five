@@ -9,7 +9,8 @@ board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
   ping = new five.Ping({
-    pin: 7
+    pin: 7,
+    pingInterval : 1000
   });
 
   // Inject the `ping` hardware into
