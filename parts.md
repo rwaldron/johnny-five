@@ -1,6 +1,6 @@
 # Parts
 
-### Adafruit
+## Adafruit
 
 - [Motor Shield](http://www.adafruit.com/products/81)
 - [MaxSonar](https://www.adafruit.com/products/172)
@@ -11,13 +11,13 @@
 - [Analog Slide Position Sensor](http://www.dfrobot.com/index.php?route=product/product&filter_name=slide&product_id=131)
 - [I2C/TWI LCD1602 Module](http://www.dfrobot.com/index.php?route=product/product&filter_name=i2c/twi&product_id=135)
 
-### Makershed
+## Makershed
 
 - [Getting Started with Arduino](http://www.makershed.com/Getting_Started_with_Arduino_Kit_V3_0_p/msgsa.htm)
 - [Ultimate Microcontroller Pack](http://www.makershed.com/Ultimate_Microcontroller_Pack_p/msump.htm)
 
 
-### Parallax
+## Parallax
 
 - [2 Axis Joystick](http://www.parallax.com/Store/Sensors/PressureFlexRPM/tabid/177/ProductID/581/List/0/Default.aspx?SortField=ProductName,ProductName)
 - [5 Position Switch](http://www.parallax.com/Store/Sensors/PressureFlexRPM/tabid/177/ProductID/615/List/0/Default.aspx?SortField=ProductName,ProductName)
@@ -28,7 +28,7 @@
 - [Continuous Servo](http://www.parallax.com/Store/Robots/RoboticComponents/tabid/198/List/0/ProductID/102/Default.aspx?SortField=ProductName%2cProductName)
 
 
-### Sparkfun
+## Sparkfun
 
 
 - [Arcade Joystick](http://www.sparkfun.com/products/9136)
