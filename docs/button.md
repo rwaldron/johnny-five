@@ -4,14 +4,14 @@
 var five = require("johnny-five"),
     board, button;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `button` hardware instance.
   // This example allows the button module to
   // create a completely default instance
-  button = five.Button(7);
+  button = new five.Button(7);
 
   // Inject the `button` hardware into
   // the Repl instance's context;

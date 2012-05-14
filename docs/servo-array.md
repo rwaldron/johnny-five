@@ -4,7 +4,7 @@
 var five = require("johnny-five"),
     board, array;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
@@ -19,7 +19,7 @@ board.on("ready", function() {
   // Initialize a reference to all Servo instances
   // five.Servo.Array()
   // five.Servos()
-  array = five.Servos();
+  array = new five.Servos();
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -34,7 +34,7 @@ board.on("ready", function() {
   // center()
   //
   // centers all servos to center of range
-  // defaults to 90deg
+  // defaults to 90°
   //
   // eg. array.center();
 

@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board, pir;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `pir` hardware instance.
-  pir = five.Pir({
+  pir = new five.Pir({
     pin: 7
   });
 

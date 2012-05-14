@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, joystick;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `joystick` hardware instance.
-  joystick = five.Joystick({
+  joystick = new five.Joystick({
     // Joystick pins are an array of pins
     // Pin orders:
     //   [ up, down, left, right ]

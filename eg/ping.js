@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     board, ping;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 

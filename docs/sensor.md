@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, sensor;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `sensor` hardware instance.
-  sensor = five.Sensor({
+  sensor = new five.Sensor({
     pin: "A0",
     freq: 250
   });

@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, potentiometer;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `potentiometer` hardware instance.
-  potentiometer = five.Sensor({
+  potentiometer = new five.Sensor({
     pin: "A2",
     freq: 250
   });
@@ -36,7 +36,9 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/potentiometer.png">
 
+[potentiometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/potentiometer.fzz)
 
 
 ## Documentation

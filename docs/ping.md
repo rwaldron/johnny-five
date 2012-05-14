@@ -4,7 +4,7 @@
 var five = require("johnny-five"),
     board, ping;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 

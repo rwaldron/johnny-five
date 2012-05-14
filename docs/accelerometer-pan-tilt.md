@@ -4,7 +4,7 @@
 var five = require("johnny-five"),
     board;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
@@ -13,19 +13,19 @@ board.on("ready", function() {
   range = [ 0, 170 ];
 
   // Servo to control panning
-  pan = five.Servo({
+  pan = new five.Servo({
     pin: 9,
     range: range
   });
 
   // Servo to control tilt
-  tilt = five.Servo({
+  tilt = new five.Servo({
     pin: 10,
     range: range
   });
 
   // Accelerometer to control pan/tilt
-  accel = five.Accelerometer({
+  accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
     freq: 250
   });

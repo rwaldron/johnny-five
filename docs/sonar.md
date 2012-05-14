@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, sonar;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `sonar` hardware instance.
-  sonar = five.Sonar("A2");
+  sonar = new five.Sonar("A2");
 
   // Sonar Properties
 
@@ -56,7 +56,9 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sonar.png">
 
+[sonar.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sonar.fzz)
 
 
 ## Documentation

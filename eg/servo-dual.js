@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     board, servos;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 

@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board, sonar;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `sonar` hardware instance.
-  sonar = five.Sonar("A2");
+  sonar = new five.Sonar("A2");
 
   // Sonar Properties
 

@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js"),
     board, servo;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `servo` hardware instance.
-  servo = five.Servo(10);
+  servo = new five.Servo(10);
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -33,7 +33,7 @@ board.on("ready", function() {
 
   // center()
   //
-  // centers the servo to 90deg
+  // centers the servo to 90°
   //
   servo.center();
 
@@ -51,7 +51,7 @@ board.on("ready", function() {
   //    lapse: time in milliseconds to wait between moves
   //           defaults to 500ms
   //    degrees: distance in degrees to move
-  //           defaults to 10deg
+  //           defaults to 10°
   // }
   //
   // servo.sweep();

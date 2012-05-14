@@ -1,15 +1,15 @@
 var five = require("../lib/johnny-five.js"),
     board, red, green, blue, leds;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
-  red = five.Led(9);
-  green = five.Led(10);
-  blue = five.Led(11);
+  red = new five.Led(9);
+  green = new five.Led(10);
+  blue = new five.Led(11);
 
-  leds = five.Leds();
+  leds = new five.Leds();
 
 
   // leds.pulse( 5000 );

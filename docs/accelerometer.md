@@ -4,7 +4,7 @@
 var five = require("johnny-five"),
     board, accel;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
@@ -18,7 +18,7 @@ board.on("ready", function() {
   // });
   //
 
-  accel = five.Accelerometer({
+  accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
     freq: 100
   });
@@ -49,7 +49,9 @@ board.on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/accelerometer.png">
 
+[accelerometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/accelerometer.fzz)
 
 
 ## Documentation

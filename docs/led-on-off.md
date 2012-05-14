@@ -4,12 +4,12 @@
 var five = require("johnny-five"),
     board, led;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a standard `led` hardware instance
-  led = five.Led({
+  led = new five.Led({
     pin: 13
   });
 

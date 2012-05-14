@@ -4,18 +4,18 @@
 var five = require("johnny-five"),
     board, slider, tilt, scalingRange;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
   scalingRange = [ 0, 170 ];
 
-  slider = five.Sensor({
+  slider = new five.Sensor({
     pin: "A0",
     freq: 50
   });
 
-  tilt = five.Servo({
+  tilt = new five.Servo({
     pin: 9,
     range: scalingRange
   });

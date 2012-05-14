@@ -4,11 +4,11 @@
 var five = require("johnny-five"),
     board;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
-  var claw = five.Servo({ pin: 9 }),
+  var claw = new five.Servo({ pin: 9 }),
       arm =  five.Servo({ pin: 10 }),
       degrees = 10,
       incrementer = 10,

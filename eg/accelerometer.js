@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     board, accel;
 
-board = five.Board();
+board = new five.Board();
 
 board.on("ready", function() {
 
@@ -15,7 +15,7 @@ board.on("ready", function() {
   // });
   //
 
-  accel = five.Accelerometer({
+  accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
     freq: 100
   });
