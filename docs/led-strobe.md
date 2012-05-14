@@ -9,9 +9,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a standard `led` hardware instance
-  led = new five.Led({
-    pin: 13
-  });
+  led = new five.Led(13);
 
   // "strobe" the led in 100ms on-off phases
   led.strobe( 100 );
