@@ -48,21 +48,18 @@ npm install johnny-five
 
 ```javascript
 var five = require("johnny-five"),
-    board, led;
-
-board = new five.Board({
-  debug: true
-});
+    board = new five.Board();
 
 board.on("ready", function() {
 
-  led = new five.Led({
-    pin: 13
-  });
+  // Create an Led on pin 13 and strobe it on/off every 100ms
+  (new five.Led(13)).strobe( 100 );
 
-  led.strobe( 100 );
 });
 ```
+
+#### [Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
+
 
 ## Example Programs
 
@@ -73,6 +70,7 @@ board.on("ready", function() {
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [I2c Temp](https://github.com/rwldrn/johnny-five/blob/master/docs/i2c-temp.md)
 - [Joystick Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-claw.md)
 - [Joystick Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-laser.md)
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
