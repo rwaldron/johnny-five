@@ -1,8 +1,13 @@
-# Johnny 5, is in progress.
+<img src="https://github.com/rwldrn/johnny-five/raw/master/assets/johnny-five-js.png">
 
-### [Firmata](https://github.com/jgautier/firmata) powered Arduino programming framework. "Node-isassemble Stephanie!"
+# Node-isassemble Johnny-Five
 
-## Demo Videos
+
+### [Firmata](https://github.com/jgautier/firmata) powered JavaScript Arduino programming framework.
+
+
+
+## Many fragments. Some large, some small.
 
 
 ### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
@@ -12,9 +17,9 @@
 ### [Robot Claw](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
 ### [Joystick, Motor & Led](http://jsfiddle.net/rwaldron/gADSz/show/light/)
 
-## Getting Started
 
-### Preparing the Arduino
+
+## Assemble Arduino
 
 - Download and open the [Arduino IDE](http://arduino.cc/hu/Main/Software)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
@@ -24,7 +29,7 @@
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
 
-### Getting Johnny Five:
+## Hey you, here's Johnny!
 
 #### Source Code:
 
@@ -43,7 +48,7 @@ npm install johnny-five
 ```
 
 
-### A Simple Program
+## Johnny-Five is...
 
 
 ```javascript
@@ -62,7 +67,7 @@ board.on("ready", function() {
 #### [Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
 
 
-## Example Programs
+## More Input
 
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
