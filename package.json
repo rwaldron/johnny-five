@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -33,7 +33,6 @@
     "firmata": ">=0.2.0",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
-    "microtime": ">=0.3.1",
     "socket.io": "latest"
   },
   "devDependencies": {
@@ -43,7 +42,6 @@
     "firmata": ">=0.2.0",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
-    "microtime": ">=0.3.1",
     "socket.io": "latest"
   },
   "keywords": []
