@@ -78,7 +78,7 @@ module.exports = function(grunt) {
           png = filepath.replace("eg", "docs/breadboard").replace(".js", ".png"),
           fritz = filepath.replace("eg", "docs/breadboard").replace(".js", ".fzz"),
           title = filepath,
-          fritzfile, fritzpath;
+          hasBoard, fritzfile, fritzpath;
 
       // Generate a title string from the file name
       [ [ /^.+\//, "" ],
@@ -94,12 +94,14 @@ module.exports = function(grunt) {
       // Modify code in example to appear as it would if installed via npm
       eg = eg.replace("../lib/johnny-five.js", "johnny-five");
 
+      hasBoard = path.existsSync(png);
+
       values = {
         title: _.titleize(title),
         example: eg,
         file: md,
-        breadboard: path.existsSync(png) ? templates.img({ png: png }) : "",
-        fritzing: path.existsSync(png) ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
+        breadboard: hasBoard ? templates.img({ png: png }) : "",
+        fritzing: hasBoard ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
       };
 
       // Write the file to /docs/*
