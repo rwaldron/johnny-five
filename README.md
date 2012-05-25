@@ -75,6 +75,7 @@ board.on("ready", function() {
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
+- [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
@@ -99,11 +100,13 @@ board.on("ready", function() {
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
 - [Servo Arm](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-arm.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
+- [Servo Diagnostic](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Digital](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-digital.md)
 - [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
+- [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
 
 
