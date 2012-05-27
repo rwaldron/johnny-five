@@ -92,6 +92,7 @@ board.on("ready", function() {
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
+- [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Pir](https://github.com/rwldrn/johnny-five/blob/master/docs/pir.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
