@@ -75,6 +75,7 @@ board.on("ready", function() {
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
+- [Boe Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-navigator.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
@@ -107,6 +108,7 @@ board.on("ready", function() {
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
+- [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
 
 
