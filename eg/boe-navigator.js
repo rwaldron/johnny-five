@@ -227,7 +227,7 @@ Navigator.prototype.pivot = function( which, time ) {
 // firmata are connected and ready
 board = new five.Board();
 board.on("ready", function() {
-  var collideAt, degrees, step, facing, lastTurn,
+  var center, collideAt, degrees, step, facing, lastTurn,
   range, redirect, laser, look, isScanning, scanner, sonar;
 
   // Collision distance (inches)
@@ -333,7 +333,7 @@ board.on("ready", function() {
       }
 
       if ( degrees > bounds.right && degrees < bounds.left ) {
-        facing = "forward"
+        facing = "forward";
       }
 
       scanner.move( degrees );

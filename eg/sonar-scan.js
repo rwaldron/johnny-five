@@ -4,7 +4,7 @@ var five = require("../lib/johnny-five.js"),
 board = new five.Board();
 
 board.on("ready", function() {
-  var collision, degrees, step, facing,
+  var center, collision, degrees, step, facing,
   range, redirect, look, isScanning, scanner, sonar, servos;
 
   // Collision distance (inches)
@@ -94,7 +94,7 @@ board.on("ready", function() {
       }
 
       if ( degrees > bounds.right && degrees < bounds.left ) {
-        facing = "forward"
+        facing = "forward";
       }
 
       scanner.move( degrees );
