@@ -1,36 +1,59 @@
 var five = require("../lib/johnny-five.js"),
-    compass, servo;
+    mag;
 
 five.Board().on("ready", function() {
 
-  [
-    [ 91, "ccw" ],
-    [ 89, "cw" ]
+  // Create a new `Magnetometer` hardware instance.
+  //
+  // five.Magnetometer();
+  //
+  // new five.Compass({
+  //  device: "HMC5883L",
+  //  freq: 50,
+  //  gauss: 1.3
+  // });
+  //
 
-  ].forEach(function( def ) {
-    five.Servo.prototype[ def[1] ] = function() {
-      this.move( def[0] );
-    };
+  mag = new five.Magnetometer();
+
+
+  // Properties
+
+  // mag.axis
+  //
+  // x, y, z
+  //
+
+  // mag.scaled
+  //
+  // scaled x, y, z
+  //
+  // based on value stored at (mag.scale)
+  //
+
+  // mag.heading
+  //
+  // Calculated heading degrees (calibrated for magnetic north)
+  //
+
+
+  // Magnetometer Event API
+
+  // "headingchange"
+  //
+  // Fires when the calculated heading has changed
+  //
+  mag.on("headingchange", function() {
+
+    console.log( "headingchange", Math.floor(this.heading) );
+
   });
 
-  // servo = new five.Servo({
-  //   pin: 9,
-  //   type: "continuous"
-  // });
-
-  // this.repl.inject({
-  //   servo: servo
-  // });
-
-  // servo.center();
-
-
-
-  compass = new five.Magnetometer();
-
-  compass.on("read", function() {
-
-    // console.log( this.axis );
-    console.log( "heading", Math.floor(this.heading) );
+  // "read"
+  //
+  // Fires continuously, every 66ms.
+  //
+  mag.on("read", function( err, timestamp ) {
+    // console.log( "read", this.axis );
   });
 });
