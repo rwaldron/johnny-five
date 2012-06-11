@@ -7,8 +7,8 @@ var five = require("johnny-five"),
 board = new five.Board();
 
 board.on("ready", function() {
-  var collision, degrees, step, facing,
-  range, redirect, look, isScanning, scanner, sonar;
+  var center, collision, degrees, step, facing,
+  range, redirect, look, isScanning, scanner, sonar, servos;
 
   // Collision distance (inches)
   collision = 6;
@@ -52,10 +52,18 @@ board.on("ready", function() {
     range: range
   });
 
+  servos = {
+    right: new five.Servo({ pin: 10, type: "continuous" }),
+    left: new five.Servo({ pin: 11, type: "continuous" })
+  };
+
   // Initialize the scanner at it's center point
   // Will be exactly half way between the range's
   // lower and upper bound
   scanner.center();
+
+  servos.right.move(90);
+  servos.left.move(90);
 
   // Scanner/Panning loop
   this.loop( 100, function() {
@@ -89,7 +97,7 @@ board.on("ready", function() {
       }
 
       if ( degrees > bounds.right && degrees < bounds.left ) {
-        facing = "forward"
+        facing = "forward";
       }
 
       scanner.move( degrees );
@@ -103,7 +111,7 @@ board.on("ready", function() {
     var turnTo;
 
     // Detect collision
-    if ( Math.abs(this.inches) < collision ) {
+    if ( Math.abs(this.inches) < collision && isScanning ) {
       // Scanning lock will prevent multiple collision detections
       // of the same obstacle
       isScanning = false;
@@ -118,7 +126,7 @@ board.on("ready", function() {
       );
 
       // Override the next scan position (degrees)
-      degrees = look[ turnTo ];
+      // degrees = look[ turnTo ];
 
       // [1] Allow 1000ms to pass and release the scanning lock
       // by setting isScanning state to true.
