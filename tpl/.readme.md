@@ -5,6 +5,8 @@
 
 ### [Firmata](https://github.com/jgautier/firmata) powered JavaScript Arduino programming framework.
 
+### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
+
 
 
 ## Many fragments. Some large, some small.
