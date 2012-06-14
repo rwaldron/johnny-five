@@ -1,4 +1,4 @@
-<img src="https://github.com/rwldrn/johnny-five/raw/master/assets/johnny-five-js.png">
+<img src="https://github.com/rwldrn/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
 # Node-isassemble Johnny-Five
 
@@ -83,12 +83,15 @@ board.on("ready", function() {
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Gp2y0d805z0f](https://github.com/rwldrn/johnny-five/blob/master/docs/gp2y0d805z0f.md)
 - [Hmc5883l](https://github.com/rwldrn/johnny-five/blob/master/docs/hmc5883l.md)
+- [Ir](https://github.com/rwldrn/johnny-five/blob/master/docs/ir.md)
 - [Joystick Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-claw.md)
 - [Joystick Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-laser.md)
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
+- [Lcd](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
@@ -100,7 +103,10 @@ board.on("ready", function() {
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Pir](https://github.com/rwldrn/johnny-five/blob/master/docs/pir.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
+- [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
+- [Sensor Fsr Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr-motor.md)
+- [Sensor Fsr Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr-servo.md)
 - [Sensor Fsr](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor Ir Led Receiver](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-ir-led-receiver.md)
 - [Sensor Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-slider.md)
