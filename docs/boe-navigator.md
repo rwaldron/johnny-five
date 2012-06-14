@@ -116,7 +116,7 @@ Navigator.prototype.reverse = Navigator.prototype.rev = function( speed ) {
   this.speed = speed;
   this.which = "reverse";
 
-  console.log( scaled, this.center - (scaled - this.center) );
+  // console.log( scaled, this.center - (scaled - this.center) );
 
   return this.move( scaled, this.center - (scaled - this.center) );
 };
@@ -230,11 +230,11 @@ Navigator.prototype.pivot = function( which, time ) {
 // firmata are connected and ready
 board = new five.Board();
 board.on("ready", function() {
-  var collision, degrees, step, facing,
-  range, redirect, look, isScanning, scanner, sonar;
+  var center, collideAt, degrees, step, facing, lastTurn,
+  range, redirect, laser, look, isScanning, scanner, sonar;
 
   // Collision distance (inches)
-  collision = 6;
+  collideAt = 6;
 
   // Servo scanning steps (degrees)
   step = 10;
@@ -279,6 +279,9 @@ board.on("ready", function() {
     b: navigator
   });
 
+  // The laser is just a special case Led
+  laser = new five.Led(9);
+
   // Sonar instance (distance detection)
   sonar = new five.Sonar("A2");
 
@@ -295,7 +298,9 @@ board.on("ready", function() {
 
   // Wait 1000ms, then initialize forward movement
   this.wait( 1000, function() {
-    navigator.fwd();
+
+    laser.on();
+    navigator.fwd(3);
   });
 
 
@@ -304,8 +309,8 @@ board.on("ready", function() {
     var bounds;
 
     bounds = {
-      left: center + 10,
-      right: center - 10
+      left: center - 5, //center + 10,
+      right: center - 5 //center - 10
     };
 
     // During course change, scanning is paused to avoid
@@ -320,7 +325,7 @@ board.on("ready", function() {
       degrees += step;
 
       // The following three conditions will help determine
-      // which way the navigator should turn if a potential collision
+      // which way the navigator should turn if a potential collideAt
       // may occur in the sonar "change" event handler[2]
       if ( degrees > bounds.left ) {
         facing = "left";
@@ -331,7 +336,7 @@ board.on("ready", function() {
       }
 
       if ( degrees > bounds.right && degrees < bounds.left ) {
-        facing = "forward"
+        facing = "forward";
       }
 
       scanner.move( degrees );
@@ -344,17 +349,21 @@ board.on("ready", function() {
   sonar.on("change", function( err ) {
     var turnTo;
 
-    // Detect collision
-    if ( Math.abs(this.inches) < collision ) {
-      // Scanning lock will prevent multiple collision
+    // Detect collideAt
+    if ( Math.abs(this.inches) <= collideAt && isScanning ) {
+
+      laser.strobe();
+
+      // Scanning lock will prevent multiple collideAt
       // detections of the same obstacle
       //
       isScanning = false;
 
       // Determine direction to turn
-      turnTo = redirect[ facing ] || Object.keys( redirect )[ Date.now() % 2 ];
+      turnTo = redirect[ facing ] || lastTurn;
+      // Object.keys( redirect )[ Date.now() % 2 ];
 
-      // Log collision detection to REPL
+      // Log collideAt detection to REPL
       console.log(
         [ Date.now(),
           "Collision detected " + this.inches + " inches away.",
@@ -365,6 +374,8 @@ board.on("ready", function() {
       // Turn the navigator
       navigator[ turnTo ]();
 
+      lastTurn = turnTo;
+
       // Override the next scan position (degrees)
       // degrees = look[ turnTo ];
 
@@ -372,6 +383,7 @@ board.on("ready", function() {
       // by setting isScanning state to true.
       board.wait( 1500, function() {
         console.log( "Release Scanner Lock" );
+        laser.on();
         isScanning = true;
       });
     }

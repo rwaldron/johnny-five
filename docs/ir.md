@@ -1,44 +1,43 @@
-# Magnetometer
+# Ir
 
 ```javascript
 var five = require("johnny-five"),
-    mag;
+    ir;
 
 five.Board().on("ready", function() {
 
-  // Create a new `Magnetometer` hardware instance.
+  // Create a new `Proximity` hardware instance.
   //
-  // five.Magnetometer();
+  // five.Proximity();
   //
   // (Alias of:
-  //   new five.Compass({
-  //    device: "HMC5883L",
-  //    freq: 50,
-  //    gauss: 1.3
+  //   new five.IR({
+  //    device: "GP2Y0D805Z0F",
+  //    freq: 50
   //   });
   // )
   //
 
-  mag = new five.Magnetometer();
+  ir = new five.IR();
 
 
   // Properties
 
-  // mag.axis
+  // ir.axis
   //
   // x, y, z
   //
 
-  // mag.scaled
+  // ir.scaled
   //
   // scaled x, y, z
   //
-  // based on value stored at (mag.scale)
+  // based on value stored at (ir.scale)
   //
 
-  // mag.heading
+  // ir.heading
   //
-  // Calculated heading degrees (calibrated for magnetic north)
+  // Calculated heading degrees (calibrated for irnetic north)
   //
 
 
@@ -48,7 +47,7 @@ five.Board().on("ready", function() {
   //
   // Fires when the calculated heading has changed
   //
-  mag.on("headingchange", function() {
+  ir.on("headingchange", function() {
 
     console.log( "headingchange", Math.floor(this.heading) );
 
@@ -58,8 +57,8 @@ five.Board().on("ready", function() {
   //
   // Fires continuously, every 66ms.
   //
-  mag.on("read", function( err, timestamp ) {
-    // console.log( "read", this.axis );
+  ir.on("read", function( err, timestamp ) {
+    console.log( "read", this.axis );
   });
 });
 
@@ -67,9 +66,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/magnetometer.png">
 
-[magnetometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/magnetometer.fzz)
 
 
 ## Documentation

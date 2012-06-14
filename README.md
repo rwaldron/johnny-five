@@ -107,7 +107,6 @@ board.on("ready", function() {
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
 - [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
-- [Sensor Fsr Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr-motor.md)
 - [Sensor Fsr Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr-servo.md)
 - [Sensor Fsr](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor Ir Led Receiver](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-ir-led-receiver.md)

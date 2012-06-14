@@ -7,7 +7,7 @@ five.Board().on("ready", function() {
   //
   // five.Magnetometer();
   //
-  // (which is an alias of:
+  // (Alias of:
   //   new five.Compass({
   //    device: "HMC5883L",
   //    freq: 50,
