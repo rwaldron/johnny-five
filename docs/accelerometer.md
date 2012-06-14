@@ -35,13 +35,13 @@ board.on("ready", function() {
     console.log( "acceleration", this.pitch, this.roll );
   });
 
-  // "axischanged"
+  // "axischange"
   //
   // Fires only when X, Y or Z has changed
   //
-  accel.on("axischanged", function( err, timestamp ) {
+  accel.on("axischange", function( err, timestamp ) {
 
-    console.log( "axischanged", this.raw );
+    console.log( "axischange", this.raw );
   });
 });
 
