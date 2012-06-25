@@ -21,21 +21,26 @@ five.Board().on("ready", function() {
 
   // Properties
 
-  // mag.axis
+  // mag.raw
   //
   // x, y, z
   //
 
   // mag.scaled
   //
-  // scaled x, y, z
+  // axis x, y, z
   //
   // based on value stored at (mag.scale)
   //
 
   // mag.heading
   //
-  // Calculated heading degrees (calibrated for magnetic north)
+  // Calculated heading in degrees (calibrated for magnetic north)
+  //
+
+  // mag.bearing
+  //
+  // Bearing data object
   //
 
 
@@ -47,7 +52,8 @@ five.Board().on("ready", function() {
   //
   mag.on("headingchange", function() {
 
-    console.log( "headingchange", Math.floor(this.heading) );
+    console.log( "heading", Math.floor(this.heading) );
+    console.log( "bearing", this.bearing );
 
   });
 
