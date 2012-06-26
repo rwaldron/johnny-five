@@ -53,7 +53,7 @@
 
   // Radar Constructor
   function Radar( selector ) {
-    var node, k;
+    var prev, node, k;
 
     if ( !(this instanceof Radar) ) {
       return new Radar( selector );
@@ -83,9 +83,9 @@
     // Calculate number of steps in sweep
     this.step = Math.PI / 180;
 
-    // Fill in step widths
-    for ( k = 0; k < 180; k++ ) {
-      this.steps.push( this.steps[ k ] + this.step );
+    // Fill in step start radians
+    for ( k = 1; k < 180; k++ ) {
+      this.steps.push( this.steps[ k - 1 ] + this.step );
     }
 
     // Set last seen angle to 0
