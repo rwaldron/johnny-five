@@ -35,13 +35,11 @@ board = new five.Board();
 
 board.on("ready", function() {
   var center, degrees, step, facing,
-  range, rounds, redirect, isScanning, scanner, soi, ping;
+  range, redirect, isScanning, scanner, soi, ping, last;
 
 
   // Open Radar view
   child.exec( "open http://localhost:8000/" );
-
-  rounds = 0;
 
   // Starting scanner scanning position (degrees)
   degrees = 1;
@@ -51,6 +49,8 @@ board.on("ready", function() {
 
   // Current facing direction
   facing = "";
+
+  last = 0;
 
   // Scanning range (degrees)
   range = [ 0, 180 ];
@@ -99,12 +99,15 @@ board.on("ready", function() {
     // overeager redirect instructions[1]
     if ( isScanning ) {
       // Calculate the next step position
-      if ( degrees >= scanner.range[1] || degrees <= scanner.range[0] ) {
+      if ( degrees > scanner.range[1] || degrees <= scanner.range[0] ) {
 
-        if ( degrees === scanner.range[0] ) {
-          soi.emit("reset");
+        if ( degrees > scanner.range[1] ) {
+          io.sockets.emit("reset");
+          degrees = 0;
+          last = -1;
+        } else {
+          step *= -1;
         }
-        step *= -1;
       }
 
       // Update the position in degrees
@@ -142,12 +145,17 @@ board.on("ready", function() {
 
     ping.on("read", function() {
 
-      socket.emit( "ping", {
-        degrees: degrees,
-        distance: this.cm
-      });
+      if ( last !== degrees ) {
+        io.sockets.emit( "ping", {
+          degrees: degrees,
+          distance: this.cm
+        });
+      }
+
+      last = degrees;
     });
   });
+
 
 });
 

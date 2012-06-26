@@ -21,7 +21,6 @@
     degrees: "°"
   };
 
-
   socket.on( "ping", function( data ) {
     if ( radars.length ) {
       radars[ 0 ].ping( data.degrees, data.distance );
@@ -45,134 +44,65 @@
   });
 
   socket.on( "reset", function() {
-    console.log( "reset" );
-    radars.length = 0;
+    console.log("RESET");
 
+    radars.length = 0;
     Radar.create("#canvas");
   });
 
 
   // Radar Constructor
   function Radar( opts ) {
-    var prop;
+    var prop, k;
 
     // Iterate options, intialize as instance properties, assign value
     for ( prop in opts ) {
       this[ prop ] = opts[ prop ];
     }
 
-    this.history = new Array(180);
-    this.rendered = new Array(180);
-    // this.remove = new Array(180);
+    // Initialize step array
+    this.steps = [ Math.PI ];
 
-    this.intervals = 0;
-    this.grid().loop();
+    // Calculate number of steps in sweep
+    this.step = Math.PI / 180;
+
+    // Fill in step widths
+    for ( k = 0; k < 180; k++ ) {
+      this.steps.push( this.steps[ k ] + this.step );
+    }
+
+    // Set last seen angle to 0
+    this.last = 0;
+
+    // Draw the "grid"
+    this.grid();
   }
 
   Radar.prototype = {
 
-    reset: function() {
-      this.ctx.clearRect(
-        0, 0, this.ctx.canvas.width, this.ctx.canvas.height
-      );
-      this.intervals = 0;
-      this.history.length = 0;
-      this.rendered.length = 0;
+    draw: function( distance, start, end ) {
 
-      this.history = new Array(180);
-      this.rendered = new Array(180);
-      // this.remove = new Array(180);
-      //
-      console.log( "message" );
-    },
+      var x, y;
 
-    loop: function() {
-      setInterval(function() {
-        this.draw();
+      x = this.ctx.canvas.width;
+      y = this.ctx.canvas.height;
 
 
-        // Reset every minute
-        if ( ++this.intervals === 600 ) {
-          this.reset();
-        }
-      }.bind(this), 50);
-    },
-
-    line: function( data, options ) {
-
-      options = options || {};
-
-      var width, height;
-
-      width = this.ctx.canvas.width;
-      height = this.ctx.canvas.height;
-
-
-      // if ( options && options.clobber ) {
-      //   this.ctx.arc(
-      //     width / 2,
-      //     height,
-
-      //     data.distance,
-
-      //     (Math.PI/180) * data.angle,
-      //     (Math.PI/180) * data.angle + 0.009,
-
-      //     true
-
-      //   );
-
-      //   // Set color of arc line
-      //   this.ctx.strokeStyle = "white";
-      //   // Set size of arc line
-      //   this.ctx.lineWidth = 10;
-      //   // Draw the line
-      //   this.ctx.stroke();
-      //   // Close the arc path
-      //   this.ctx.closePath();
-      // }
-
-
-      this.ctx.moveTo(
-        width / 2,
-        height
+      this.ctx.beginPath();
+      this.ctx.arc(
+        x / 2,
+        y,
+        distance / 2,
+        start,
+        end,
+        false
       );
 
-      this.ctx.lineTo(
-        width / 2 + Math.cos( data.angle ) * data.distance,
-        height + Math.sin( data.angle ) * data.distance
-      );
+      // Set color of arc line
+      this.ctx.strokeStyle = "lightgreen";
+      this.ctx.lineWidth = distance;
 
-      this.ctx.strokeStyle = options.color || data.color;
-    },
-
-    draw: function() {
-
-      var width, height, data, k;
-
-      width = this.ctx.canvas.width;
-      height = this.ctx.canvas.height;
-
-      this.ctx.clearRect( 0, 0, width, height );
-      //
-
-      k = 0;
-
-      while ( k < 181 ) {
-
-        if ( k in this.history ) {
-          data = this.history[ k ];
-
-          if ( !this.rendered[ k ] ) {
-            this.line( data );
-            this.rendered[ k ] = true;
-            //"rgba(" + data.color + ", 1)";
-          }
-        }
-
-        k++;
-      }
-      this.ctx.lineWidth = 3;
+      // Commit the line and close the path
       this.ctx.stroke();
       this.ctx.closePath();
 
@@ -181,39 +111,21 @@
 
     ping: function( azimuth, distance ) {
 
-      distance = Math.round(distance);
+      distance = Math.round( distance );
 
-      // Calculate drawing angle
-      var modified, angle, color, state;
-
-      modified = azimuth - 90;
-      angle = (Math.PI * 2) * (modified/360) - (Math.PI / 2);
-      color = "blue";
-
-      state = {
-        angle: angle,
-        distance: distance,
-        color: color
-      };
-
-      // Draw
-      // this.draw( angle, distance, colors[ color ], 1 );
-      if ( typeof this.history[ azimuth ] === "undefined" ) {
-        this.history[ azimuth ] = state;
-      } else {
-
-        // Update with new readings...
-        if ( this.history[ azimuth ].distance !== distance ) {
-          this.history[ azimuth ] = state;
-          this.rendered[ azimuth ] = false;
-        }
+      // When starting from mid sweep
+      if ( this.last === 0 && azimuth > 5 ) {
+        this.last = this.steps[ azimuth - 1 ];
       }
+
+      this.draw( distance, this.last, this.steps[ azimuth ] );
+
+      this.last = this.steps[ azimuth ];
 
       return this;
     },
 
     grid: function() {
-
 
       var ctx, line, i,
           grid = document.createElement("canvas"),
@@ -222,13 +134,13 @@
             height: null
           },
           canvas = this.ctx.canvas,
-          stepx = 20,
-          stepy = 20;
+          radarDist = 0,
+          upper = 440;
 
       grid.id = "radar_grid";
       // Setup position of grid overlay
       grid.style.position = "relative";
-      grid.style.top = "-" + (canvas.height + 5) + "px";
+      grid.style.top = "-" + (canvas.height + 3) + "px";
       grid.style.zIndex = "9";
 
 
@@ -247,26 +159,19 @@
       ctx = grid.getContext("2d");
 
 
-      ctx.strokeStyle = "lightgray";
-      ctx.lineWidth = 0.5;
+      ctx.fillStyle = "black";
+      ctx.fillRect( 0, 0, grid.width, grid.height);
+      ctx.closePath();
 
-      // for ( i = stepx + 0.5; i < ctx.canvas.width; i += stepx ) {
-      //   ctx.beginPath();
-      //   ctx.moveTo( i, 0 );
-      //   ctx.lineTo( i, ctx.canvas.height );
-      //   ctx.stroke();
-      // }
+      ctx.font = "bold 12px Helvetica";
 
-      // for ( i = stepy + 0.5; i < ctx.canvas.height; i += stepy ) {
-      //   ctx.beginPath();
-      //   ctx.moveTo( 0, i );
-      //   ctx.lineTo( ctx.canvas.width, i );
-      //   ctx.stroke();
-      // }
-
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 1;
+      ctx.fillStyle = "green";
 
       for ( i = 0; i <= 6; i++ ) {
 
+        ctx.beginPath();
         ctx.arc(
           grid.width / 2,
           grid.height,
@@ -276,9 +181,21 @@
           Math.PI * 2, 0,
           true
         );
+
+        if ( i < 6 ) {
+          ctx.fillText(
+            radarDist + 60,
+            grid.width / 2 - 7,
+            upper
+          );
+        }
+
+        ctx.stroke();
+        ctx.closePath();
+        upper -= 60
+        radarDist += 60;
       }
 
-      ctx.stroke();
       return this;
     }
   };
@@ -335,7 +252,6 @@ $(function() {
     var radar = Radar.get(0);
 
     radar.ctx.clearRect( 0, 0, canvas.width, canvas.height );
-
   });
 
 
