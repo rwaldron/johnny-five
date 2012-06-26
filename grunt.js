@@ -98,6 +98,7 @@ module.exports = function(grunt) {
 
       values = {
         title: _.titleize(title),
+        command: "node " + filepath,
         example: eg,
         file: md,
         breadboard: hasBoard ? templates.img({ png: png }) : "",
