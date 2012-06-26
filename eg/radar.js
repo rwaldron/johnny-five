@@ -47,18 +47,35 @@
     console.log("RESET");
 
     radars.length = 0;
-    Radar.create("#canvas");
+    new Radar("#canvas");
   });
 
 
   // Radar Constructor
-  function Radar( opts ) {
-    var prop, k;
+  function Radar( selector ) {
+    var node, k;
 
-    // Iterate options, intialize as instance properties, assign value
-    for ( prop in opts ) {
-      this[ prop ] = opts[ prop ];
+    if ( !(this instanceof Radar) ) {
+      return new Radar( selector );
     }
+
+    node = document.querySelector( selector );
+
+    if ( node === null ) {
+      throw new Error("Missing canvas");
+    }
+
+    // Assign a context to this radar, from the cache of contexts
+    this.ctx = node.getContext("2d");
+
+    // Clear the canvas
+    this.ctx.clearRect( 0, 0, node.width, node.height);
+
+    // Store canvas width as diameter of arc
+    this.diameter = this.ctx.width;
+
+    // Calculate this radar's radius - is used in arc drawing arguments
+    this.radius = this.diameter / 2;
 
     // Initialize step array
     this.steps = [ Math.PI ];
@@ -76,6 +93,8 @@
 
     // Draw the "grid"
     this.grid();
+
+    radars.push( this );
   }
 
   Radar.prototype = {
@@ -135,7 +154,7 @@
           },
           canvas = this.ctx.canvas,
           radarDist = 0,
-          upper = 440;
+          upper = 340;
 
       grid.id = "radar_grid";
       // Setup position of grid overlay
@@ -166,8 +185,8 @@
       ctx.font = "bold 12px Helvetica";
 
       ctx.strokeStyle = "green";
-      ctx.lineWidth = 1;
       ctx.fillStyle = "green";
+      ctx.lineWidth = 1;
 
       for ( i = 0; i <= 6; i++ ) {
 
@@ -202,34 +221,6 @@
 
 
 
-  Radar.create = function( selector ) {
-
-    var node, opts;
-
-    node = document.querySelector( selector );
-
-    if ( node === null ) {
-      throw new Error("Missing canvas");
-    }
-
-    opts = {};
-
-    node.width = node.width || document.body.offsetWidth - 15;
-    node.height = node.width / 2;
-
-    // Assign a context to this radar, from the cache of contexts
-    opts.ctx = node.getContext("2d");
-
-    opts.diameter = opts.ctx.width;
-
-    // Calculate this radar's radius - is used in arc drawing arguments
-    opts.radius = opts.diameter / 2;
-
-    radars.push( new Radar(opts) );
-
-    // Return the newly created radar from the `radars` cache array
-    return radars[ radars.length - 1 ];
-  };
 
   // `radars` cache array access
   Radar.get = function( index ) {
@@ -243,28 +234,5 @@
 
 
 $(function() {
-
-  Radar.create( "#canvas" );
-
-  var canvas = Radar.get(0).ctx.canvas;
-
-  $(canvas).on("click", function() {
-    var radar = Radar.get(0);
-
-    radar.ctx.clearRect( 0, 0, canvas.width, canvas.height );
-  });
-
-
-  // console.log( radar );
-
-  // // Test run
-  // [
-  //   [ 0, 50 ],
-  //   [ 10, 70 ],
-  //   [ 19, 200 ],
-  //   [ 20, 250 ]
-  // ].forEach(function( data ) {
-  //   radar.ping( data[0], data[1] );
-  // });
-
+  new Radar( "#canvas" );
 });
