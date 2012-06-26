@@ -6,9 +6,9 @@ var five = require("johnny-five"),
 
 five.Board().on("ready", function() {
 
-  // Create a new Osepp IR Proximity Sensor hardware instance.
+  // Create a new IR Proximity Sensor hardware instance.
   //
-  // five.IR.Osepp();
+  // five.IR.Proximity();
   //
   // (Alias of:
   //   new five.IR({
@@ -18,7 +18,7 @@ five.Board().on("ready", function() {
   // )
   //
 
-  prox = new five.IR.Osepp();
+  prox = new five.IR.Proximity();
   led = new five.Led(13);
 
 
