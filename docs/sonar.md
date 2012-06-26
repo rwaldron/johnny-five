@@ -1,5 +1,11 @@
 # Sonar
 
+Run with:
+```bash
+node eg/sonar.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, sonar;

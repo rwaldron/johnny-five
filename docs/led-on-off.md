@@ -1,5 +1,11 @@
 # Led On Off
 
+Run with:
+```bash
+node eg/led-on-off.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, led;

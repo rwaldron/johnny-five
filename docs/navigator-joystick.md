@@ -1,5 +1,11 @@
 # Navigator Joystick
 
+Run with:
+```bash
+node eg/navigator-joystick.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     when = require("when"),

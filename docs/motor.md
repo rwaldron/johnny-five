@@ -1,5 +1,11 @@
 # Motor
 
+Run with:
+```bash
+node eg/motor.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, motor, led;

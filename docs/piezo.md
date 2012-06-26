@@ -1,5 +1,11 @@
 # Piezo
 
+Run with:
+```bash
+node eg/piezo.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, piezo;

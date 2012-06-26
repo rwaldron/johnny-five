@@ -1,5 +1,11 @@
 # Magnetometer
 
+Run with:
+```bash
+node eg/magnetometer.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     mag;

@@ -1,5 +1,11 @@
 # Servo Diagnostic
 
+Run with:
+```bash
+node eg/servo-diagnostic.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     args, pins, ranges;

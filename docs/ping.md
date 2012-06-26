@@ -1,5 +1,11 @@
 # Ping
 
+Run with:
+```bash
+node eg/ping.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, ping;

@@ -1,5 +1,11 @@
 # Proximity
 
+Run with:
+```bash
+node eg/proximity.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     prox, led;

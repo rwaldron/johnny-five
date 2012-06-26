@@ -1,5 +1,11 @@
 # Magnetometer North
 
+Run with:
+```bash
+node eg/magnetometer-north.js
+```
+
+
 ```javascript
 var color = require("colors"),
     five = require("johnny-five"),

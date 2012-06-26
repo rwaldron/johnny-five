@@ -1,5 +1,11 @@
 # Board
 
+Run with:
+```bash
+node eg/board.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board;

@@ -1,5 +1,11 @@
 # Ping Radar
 
+Run with:
+```bash
+node eg/ping-radar.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     child = require("child_process"),

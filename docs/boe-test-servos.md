@@ -1,5 +1,11 @@
 # Boe Test Servos
 
+Run with:
+```bash
+node eg/boe-test-servos.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, Navigator, bot, left, right, sonar, scanner, servos,

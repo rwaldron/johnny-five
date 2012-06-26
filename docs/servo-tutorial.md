@@ -1,5 +1,11 @@
 # Servo Tutorial
 
+Run with:
+```bash
+node eg/servo-tutorial.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, servo;

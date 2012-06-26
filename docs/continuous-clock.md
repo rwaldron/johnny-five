@@ -1,5 +1,11 @@
 # Continuous Clock
 
+Run with:
+```bash
+node eg/continuous-clock.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, servo;

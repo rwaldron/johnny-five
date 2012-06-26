@@ -1,5 +1,11 @@
 # Accelerometer Pan Tilt
 
+Run with:
+```bash
+node eg/accelerometer-pan-tilt.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board;

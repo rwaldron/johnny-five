@@ -1,5 +1,11 @@
 # Potentiometer
 
+Run with:
+```bash
+node eg/potentiometer.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, potentiometer;

@@ -1,5 +1,11 @@
 # Sensor
 
+Run with:
+```bash
+node eg/sensor.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, sensor;

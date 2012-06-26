@@ -1,5 +1,11 @@
 # Joystick Claw
 
+Run with:
+```bash
+node eg/joystick-claw.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, claw, joystick;

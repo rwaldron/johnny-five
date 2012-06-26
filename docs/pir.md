@@ -1,5 +1,11 @@
 # Pir
 
+Run with:
+```bash
+node eg/pir.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, pir;

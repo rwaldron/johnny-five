@@ -1,5 +1,11 @@
 # Button
 
+Run with:
+```bash
+node eg/button.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, button;

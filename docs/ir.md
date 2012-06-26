@@ -1,5 +1,11 @@
 # Ir
 
+Run with:
+```bash
+node eg/ir.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     ir;

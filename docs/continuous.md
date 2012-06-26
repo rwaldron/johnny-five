@@ -1,5 +1,11 @@
 # Continuous
 
+Run with:
+```bash
+node eg/continuous.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, servo;

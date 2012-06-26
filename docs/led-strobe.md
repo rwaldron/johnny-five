@@ -1,5 +1,11 @@
 # Led Strobe
 
+Run with:
+```bash
+node eg/led-strobe.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, led;

@@ -1,5 +1,11 @@
 # Accelerometer
 
+Run with:
+```bash
+node eg/accelerometer.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, accel;

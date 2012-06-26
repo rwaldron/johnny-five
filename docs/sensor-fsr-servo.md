@@ -1,5 +1,11 @@
 # Sensor Fsr Servo
 
+Run with:
+```bash
+node eg/sensor-fsr-servo.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, fsr, servo;

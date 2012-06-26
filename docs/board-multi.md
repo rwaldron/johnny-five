@@ -1,5 +1,11 @@
 # Board Multi
 
+Run with:
+```bash
+node eg/board-multi.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     boards;

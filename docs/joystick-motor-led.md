@@ -1,5 +1,11 @@
 # Joystick Motor Led
 
+Run with:
+```bash
+node eg/joystick-motor-led.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, joystick, motor, led;

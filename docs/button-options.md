@@ -1,5 +1,11 @@
 # Button Options
 
+Run with:
+```bash
+node eg/button-options.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, button;

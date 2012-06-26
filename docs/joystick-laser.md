@@ -1,5 +1,11 @@
 # Joystick Laser
 
+Run with:
+```bash
+node eg/joystick-laser.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board = new five.Board({

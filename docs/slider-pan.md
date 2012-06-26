@@ -1,5 +1,11 @@
 # Slider Pan
 
+Run with:
+```bash
+node eg/slider-pan.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, slider, tilt, scalingRange;

@@ -1,5 +1,11 @@
 # Servo Digital
 
+Run with:
+```bash
+node eg/servo-digital.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, slider, servo, range;

@@ -1,5 +1,11 @@
 # Sensor Slider
 
+Run with:
+```bash
+node eg/sensor-slider.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, slider;

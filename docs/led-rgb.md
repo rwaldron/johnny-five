@@ -1,5 +1,11 @@
 # Led Rgb
 
+Run with:
+```bash
+node eg/led-rgb.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, red, green, blue, leds;

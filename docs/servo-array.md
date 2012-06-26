@@ -1,5 +1,11 @@
 # Servo Array
 
+Run with:
+```bash
+node eg/servo-array.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, array;

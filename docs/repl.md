@@ -1,5 +1,11 @@
 # Repl
 
+Run with:
+```bash
+node eg/repl.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board;

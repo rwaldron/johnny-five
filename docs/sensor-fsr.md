@@ -1,5 +1,11 @@
 # Sensor Fsr
 
+Run with:
+```bash
+node eg/sensor-fsr.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, fsr, led;

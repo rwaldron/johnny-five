@@ -1,5 +1,11 @@
 # Servo Dual
 
+Run with:
+```bash
+node eg/servo-dual.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, servos;

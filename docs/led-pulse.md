@@ -1,5 +1,11 @@
 # Led Pulse
 
+Run with:
+```bash
+node eg/led-pulse.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, led;

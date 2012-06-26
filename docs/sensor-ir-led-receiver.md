@@ -1,5 +1,11 @@
 # Sensor Ir Led Receiver
 
+Run with:
+```bash
+node eg/sensor-ir-led-receiver.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, ir;

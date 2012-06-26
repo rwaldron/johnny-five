@@ -1,5 +1,11 @@
 # Laser
 
+Run with:
+```bash
+node eg/laser.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, laser;

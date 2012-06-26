@@ -1,5 +1,11 @@
 # Joystick
 
+Run with:
+```bash
+node eg/joystick.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, joystick;

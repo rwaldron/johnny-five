@@ -1,5 +1,11 @@
 # Servo
 
+Run with:
+```bash
+node eg/servo.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, servo;

@@ -1,5 +1,11 @@
 # Slider Servo Control
 
+Run with:
+```bash
+node eg/slider-servo-control.js
+```
+
+
 ```javascript
 var five = require("johnny-five"),
     board, slider, servo, scalingRange;

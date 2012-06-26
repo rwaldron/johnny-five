@@ -1,5 +1,11 @@
 # Magnetometer Servo
 
+Run with:
+```bash
+node eg/magnetometer-servo.js
+```
+
+
 ```javascript
 var color = require("colors"),
     five = require("johnny-five"),
