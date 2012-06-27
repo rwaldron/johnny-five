@@ -52,8 +52,8 @@
 
 
   // Radar Constructor
-  function Radar( selector ) {
-    var prev, node, k;
+  function Radar( selector, opts ) {
+    var node, k;
 
     if ( !(this instanceof Radar) ) {
       return new Radar( selector );
@@ -64,6 +64,10 @@
     if ( node === null ) {
       throw new Error("Missing canvas");
     }
+
+    opts = opts || {};
+
+    this.direction = opts.direction || "forward";
 
     // Assign a context to this radar, from the cache of contexts
     this.ctx = node.getContext("2d");
@@ -132,12 +136,28 @@
 
       distance = Math.round( distance );
 
-      // When starting from mid sweep
-      if ( this.last === 0 && azimuth > 5 ) {
-        this.last = this.steps[ azimuth - 1 ];
+
+      // If facing forward, invert the azimuth value, as it
+      // is actually moving 0-180, left-to-right
+      if ( this.direction === "forward" ) {
+        azimuth = Math.abs(azimuth - 180);
+
+        // Normalize display from mid sweep, forward
+        if ( this.last === 0 && azimuth < 175 ) {
+          this.last = this.steps[ azimuth + 1 ];
+        }
+
+        this.draw( distance, this.steps[ azimuth ], this.last );
+      } else {
+
+        // Normalize display from mid sweep, backward
+        if ( this.last === 0 && azimuth > 5 ) {
+          this.last = this.steps[ azimuth - 1 ];
+        }
+
+        this.draw( distance, this.last, this.steps[ azimuth ] );
       }
 
-      this.draw( distance, this.last, this.steps[ azimuth ] );
 
       this.last = this.steps[ azimuth ];
 
@@ -148,6 +168,7 @@
 
       var ctx, line, i,
           grid = document.createElement("canvas"),
+          gridNode = document.querySelector("#radar_grid"),
           dims = {
             width: null,
             height: null
@@ -156,63 +177,62 @@
           radarDist = 0,
           upper = 340;
 
-      grid.id = "radar_grid";
-      // Setup position of grid overlay
-      grid.style.position = "relative";
-      grid.style.top = "-" + (canvas.height + 3) + "px";
-      grid.style.zIndex = "9";
+
+      if ( gridNode === null ) {
+        grid.id = "radar_grid";
+        // Setup position of grid overlay
+        grid.style.position = "relative";
+        grid.style.top = "-" + (canvas.height + 3) + "px";
+        grid.style.zIndex = "9";
 
 
-      // Setup size of grid overlay
-      grid.width = canvas.width;
-      grid.height = canvas.height;
+        // Setup size of grid overlay
+        grid.width = canvas.width;
+        grid.height = canvas.height;
 
-      if ( document.querySelector("#radar_grid") === null ) {
         // Insert into DOM, directly following canvas to overlay
         canvas.parentNode.insertBefore( grid, canvas.nextSibling );
-      } else {
-        grid = document.querySelector("#radar_grid");
-      }
 
-      // Capture grid overlay canvas context
-      ctx = grid.getContext("2d");
+        // Capture grid overlay canvas context
+        ctx = grid.getContext("2d");
 
 
-      ctx.fillStyle = "black";
-      ctx.fillRect( 0, 0, grid.width, grid.height);
-      ctx.closePath();
-
-      ctx.font = "bold 12px Helvetica";
-
-      ctx.strokeStyle = "green";
-      ctx.fillStyle = "green";
-      ctx.lineWidth = 1;
-
-      for ( i = 0; i <= 6; i++ ) {
-
-        ctx.beginPath();
-        ctx.arc(
-          grid.width / 2,
-          grid.height,
-
-          60 * i,
-
-          Math.PI * 2, 0,
-          true
-        );
-
-        if ( i < 6 ) {
-          ctx.fillText(
-            radarDist + 60,
-            grid.width / 2 - 7,
-            upper
-          );
-        }
-
-        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fillRect( 0, 0, grid.width, grid.height);
         ctx.closePath();
-        upper -= 60
-        radarDist += 60;
+
+        ctx.font = "bold 12px Helvetica";
+
+        ctx.strokeStyle = "green";
+        ctx.fillStyle = "green";
+        ctx.lineWidth = 1;
+
+        for ( i = 0; i <= 6; i++ ) {
+
+          ctx.beginPath();
+          ctx.arc(
+            grid.width / 2,
+            grid.height,
+
+            60 * i,
+
+            Math.PI * 2, 0,
+            true
+          );
+
+          if ( i < 6 ) {
+            ctx.fillText(
+              radarDist + 60,
+              grid.width / 2 - 7,
+              upper
+            );
+          }
+
+          ctx.stroke();
+          ctx.closePath();
+          upper -= 60
+          radarDist += 60;
+        }
       }
 
       return this;
@@ -234,5 +254,17 @@
 
 
 $(function() {
-  new Radar( "#canvas" );
+  new Radar( "#canvas", {
+    /**
+     * direction
+     *   forward  (facing away from controller)
+     *   backward (facing controller)
+     *
+     * Defaults to "forward"
+     *
+     * @type {Object}
+     */
+
+    // direction: "forward"
+  });
 });
