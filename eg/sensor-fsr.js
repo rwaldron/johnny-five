@@ -1,9 +1,7 @@
 var five = require("../lib/johnny-five.js"),
-    board, fsr, led;
+    fsr, led;
 
-board = new five.Board();
-
-board.on("ready", function() {
+(new five.Board()).on("ready", function() {
 
   // Create a new `fsr` hardware instance.
   fsr = new five.Sensor({
@@ -13,16 +11,11 @@ board.on("ready", function() {
 
   led = new five.Led(9);
 
-  board.repl.inject({
-    led: led
-  });
-
-
+  // Scale the sensor's value to the LED's brightness range
   fsr.scale([ 0, 255 ]).on("read", function() {
+
     // set the led's brightness based on force
     // applied to force sensitive resistor
-    //
-    //
 
     led.brightness( this.value );
   });
