@@ -79,7 +79,9 @@ when.all( readyList, function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/navigator-joystick.png">
 
+[navigator-joystick.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/navigator-joystick.fzz)
 
 
 ## Documentation
