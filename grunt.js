@@ -58,7 +58,10 @@ module.exports = function(grunt) {
         es5: true
       },
       globals: {
-        exports: true
+        exports: true,
+        document: true,
+        $: true,
+        Radar: true
       }
     }
   });
