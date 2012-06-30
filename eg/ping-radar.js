@@ -1,14 +1,11 @@
 var five = require("../lib/johnny-five.js"),
     child = require("child_process"),
-    app = require("http").createServer(handler),
-    io = require("socket.io").listen(app),
+    http = require("http"),
+    socket = require("socket.io"),
     fs = require("fs"),
-    board;
-
-app.listen( 8000 );
+    app, board, io;
 
 function handler( req, res ) {
-
   var path = __dirname;
 
   if ( req.url === "/" ) {
@@ -28,12 +25,16 @@ function handler( req, res ) {
   });
 }
 
+app = http.createServer( handler );
+app.listen( 8080 );
+
+io = socket.listen( app );
 io.set( "log level", 1 );
 
 board = new five.Board();
 
 board.on("ready", function() {
-  var center, degrees, step,vrange, scanner, soi, ping, last;
+  var center, degrees, step, facing, range, scanner, soi, ping, last;
 
 
   // Open Radar view
@@ -55,13 +56,6 @@ board.on("ready", function() {
 
   // Servo center point (degrees)
   center = range[ 1 ] / 2;
-
-  // Redirection map
-  redirect = {
-    left: "right",
-    right: "left"
-  };
-
 
   // ping instance (distance detection)
   ping = new five.Ping(7);

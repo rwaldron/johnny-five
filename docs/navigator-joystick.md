@@ -29,7 +29,7 @@ readyList = [];
 
 when.all( readyList, function() {
   // console.log( "resolved" );
-  var last, dirs;
+  var last, dirs, turn;
 
   joystick = new five.Joystick({
     board: boards.controller,
@@ -49,7 +49,7 @@ when.all( readyList, function() {
   });
 
   last = 1;
-  dirs = [ "left", , "right" ];
+  dirs = [ "left", undefined, "right" ];
   turn = [ "max", "center", "min" ];
 
   servo.center();

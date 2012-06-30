@@ -64,7 +64,7 @@ board.on("ready", function() {
       // Release redirection lock
       board.wait( 2000, function() {
         lock = false;
-      })
+      });
     }
   });
 
