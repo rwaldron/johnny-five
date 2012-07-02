@@ -38,7 +38,7 @@ board.on("ready", function() {
 
 
   // Open Radar view
-  child.exec( "open http://localhost:8000/" );
+  child.exec( "open http://localhost:8080/" );
 
   // Starting scanner scanning position (degrees)
   degrees = 1;
@@ -52,7 +52,7 @@ board.on("ready", function() {
   last = 0;
 
   // Scanning range (degrees)
-  range = [ 0, 180 ];
+  range = [ 0, 170 ];
 
   // Servo center point (degrees)
   center = range[ 1 ] / 2;
@@ -74,7 +74,7 @@ board.on("ready", function() {
   scanner.min();
 
   // Scanner/Panning loop
-  this.loop( 50, function() {
+  this.loop( 100, function() {
     var bounds, isOver, isUnder;
 
     bounds = {

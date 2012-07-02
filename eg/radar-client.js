@@ -253,7 +253,7 @@
 }( this, this.io ) );
 
 
-$(function() {
+document.addEventListener("DOMContentLoaded", function() {
   new Radar( "#canvas", {
     /**
      * direction
@@ -267,4 +267,4 @@ $(function() {
 
     // direction: "forward"
   });
-});
+}, false);
