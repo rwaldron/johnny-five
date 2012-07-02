@@ -198,7 +198,7 @@ Navigator.prototype.stop = function() {
       // Send turning command
       this.move( actual, actual );
 
-      // Cap turning time to 750ms
+      // Cap turning time
       setTimeout(function() {
 
         // Restore direction after turn
@@ -422,7 +422,8 @@ board.on("ready", function() {
       return;
     }
 
-    if ( !distance ) {
+    // If distance value is null or NaN
+    if ( distance === null || isNaN(distance) ) {
       return;
     }
 
