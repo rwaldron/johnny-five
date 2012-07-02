@@ -102,7 +102,7 @@ board.on("ready", function() {
 - [Magnetometer](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer.md)
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
 - [Navigator Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator-joystick.md)
-- [Navigator Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator-ping.md)
+- [Navigator Original](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator-original.md)
 - [Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator.md)
 - [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
 - [Ping Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/ping-radar.md)
