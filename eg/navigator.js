@@ -110,9 +110,6 @@ Navigator.prototype.move = function( right, left ) {
 };
 
 
-// TODO: DRY OUT!!!!!!!
-
-
 [
   /**
    * forward Move the bot forward
@@ -421,6 +418,9 @@ board.on("ready", function() {
         isReverse = false,
         turnTo;
 
+    if ( navigator.isTurning ) {
+      return;
+    }
 
     if ( !distance ) {
       return;
@@ -463,7 +463,8 @@ board.on("ready", function() {
       board.wait( release, function() {
         console.log( "Release Scanner Lock" );
 
-        degrees = 90;
+        degrees = 89;
+
         scanner.center();
 
         if ( isReverse ) {
@@ -472,7 +473,7 @@ board.on("ready", function() {
           navigator.which = "fwd";
         }
 
-        laser.brightness( 0 );
+        laser.brightness(0);
         isScanning = true;
       });
     }
