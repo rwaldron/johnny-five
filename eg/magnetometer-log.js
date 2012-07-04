@@ -2,9 +2,7 @@ var color = require("colors"),
     five = require("../lib/johnny-five.js"),
     board, colors, servo, mag, count, dirs, lock;
 
-board = new five.Board();
-
-board.on("ready", function() {
+(board = new five.Board()).on("ready", function() {
 
   count = -1;
   dirs = [ "cw", "ccw" ];
