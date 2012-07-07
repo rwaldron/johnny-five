@@ -97,7 +97,7 @@ module.exports = function(grunt) {
       // Modify code in example to appear as it would if installed via npm
       eg = eg.replace("../lib/johnny-five.js", "johnny-five");
 
-      hasBoard = path.existsSync(png);
+      hasBoard = fs.existsSync(png);
 
       values = {
         title: _.titleize(title),
