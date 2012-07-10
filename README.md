@@ -21,11 +21,15 @@
 
 
 
-## Assemble Arduino
+## Setup and Assemble Arduino
 
-- Download and open the [Arduino IDE](http://arduino.cc/hu/Main/Software)
+- Download Arduino IDE
+  - [OSX](http://arduino.googlecode.com/files/arduino-1.0-macosx.zip)
+  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0-linux.tgz)
+  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0-linux64.tgz)
+  - Windows support coming soon.
 - Plug in your Arduino or Arduino compatible microcontroller via USB
-- From the IDE, select: File > Examples > Firmate > StandardFirmata
+- Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
 - Click the "Upload" button.
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
@@ -84,6 +88,11 @@ board.on("ready", function() {
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Danger](https://github.com/rwldrn/johnny-five/blob/master/docs/danger.md)
+- [Demo Compass](https://github.com/rwldrn/johnny-five/blob/master/docs/demo-compass.md)
+- [Demo Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/demo-navigator.md)
+- [Demo Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/demo-radar.md)
+- [Demo Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/demo-slider.md)
 - [Hmc5883l](https://github.com/rwldrn/johnny-five/blob/master/docs/hmc5883l.md)
 - [Ir](https://github.com/rwldrn/johnny-five/blob/master/docs/ir.md)
 - [Joystick Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-claw.md)
