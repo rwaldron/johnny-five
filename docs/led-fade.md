@@ -15,10 +15,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a standard `led` hardware instance
-  led = new five.Led({
-    // Use PWM pin 9 for fading example
-    pin: 9
-  });
+  led = new five.Led(9);
 
   // pinMode is set to OUTPUT by default
 

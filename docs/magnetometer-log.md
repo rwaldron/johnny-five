@@ -18,12 +18,18 @@ var color = require("colors"),
   lock = false;
 
   [
+    // Medium Speed Counter Clock Wise
     [ 92, "ccw" ],
+    // Medium Speed Clock Wise
     [ 88, "cw" ]
 
   ].forEach(function( def ) {
-    five.Servo.prototype[ def[1] ] = function() {
-      this.move( def[0] );
+
+    // Define a directional method and default speed
+    five.Servo.prototype[ def[1] ] = function( speed ) {
+      speed = speed || def[0];
+
+      this.move( speed );
     };
   });
 
@@ -41,6 +47,7 @@ var color = require("colors"),
   // Create an I2C `Magnetometer` instance
   mag = new five.Magnetometer();
 
+  // Inject the servo and magnometer into the REPL
   this.repl.inject({
     servo: servo,
     mag: mag

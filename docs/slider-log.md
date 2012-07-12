@@ -14,8 +14,6 @@ board = new five.Board();
 
 board.on("ready", function() {
 
-  scalingRange = [ 0, 170 ];
-
   slider = new five.Sensor({
     pin: "A0",
     freq: 50

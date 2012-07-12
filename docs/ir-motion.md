@@ -1,8 +1,8 @@
-# Pir
+# Ir Motion
 
 Run with:
 ```bash
-node eg/pir.js
+node eg/ir-motion.js
 ```
 
 
@@ -48,9 +48,7 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/pir.png">
 
-[pir.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/pir.fzz)
 
 
 ## Documentation
