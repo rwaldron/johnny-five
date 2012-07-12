@@ -1,11 +1,9 @@
-var five = require("../lib/johnny-five.js"),
-    ir;
+var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
-
-  // Create a new `Proximity` hardware instance.
+  // Create a new `IR.Proximity` hardware instance.
   //
-  // five.Proximity();
+  // five.IR.Proximity();
   //
   // (Alias of:
   //   new five.IR({
@@ -15,38 +13,30 @@ five.Board().on("ready", function() {
   // )
   //
 
-  ir = new five.IR();
+  var ir = new five.IR.Proximity();
 
 
-  // Properties
+  // IR.Proximity Event API
 
-  // ir.axis
+  // "motionstart"
   //
-  // x, y, z
-  //
+  // Fires when the proximal area is disrupted,
+  // generally by some form of movement
 
-  // ir.scaled
-  //
-  // scaled x, y, z
-  //
-  // based on value stored at (ir.scale)
-  //
+  ir.on("motionstart", function() {
 
-  // ir.heading
-  //
-  // Calculated heading degrees (calibrated for irnetic north)
-  //
+    console.log( "motionstart" );
 
+  });
 
-  // Magnetometer Event API
-
-  // "headingchange"
+  // "motionend"
   //
-  // Fires when the calculated heading has changed
-  //
-  ir.on("headingchange", function() {
+  // Fires when the proximal area is has been cleared
+  // of obstruction.
 
-    console.log( "headingchange", Math.floor(this.heading) );
+  ir.on("motionend", function() {
+
+    console.log( "motionend" );
 
   });
 
@@ -55,6 +45,6 @@ five.Board().on("ready", function() {
   // Fires continuously, every 66ms.
   //
   ir.on("read", function( err, timestamp ) {
-    console.log( "read", this.axis );
+    // console.log( "read" );
   });
 });
