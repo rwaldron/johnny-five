@@ -3,7 +3,9 @@
 # Node-isassemble Johnny-Five
 
 
-### [Firmata](https://github.com/jgautier/firmata) powered JavaScript Arduino programming framework.
+### [Firmata](https://github.com/jgautier/firmata) & [SerialPort](https://github.com/voodootikigod/node-serialport) powered JavaScript Arduino programming framework.
+
+### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
 ### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
 
@@ -115,6 +117,7 @@ board.on("ready", function() {
 - [Nodeconf Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-navigator.md)
 - [Nodeconf Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-radar.md)
 - [Nodeconf Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-slider.md)
+- [Nxt](https://github.com/rwldrn/johnny-five/blob/master/docs/nxt.md)
 - [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
