@@ -4,6 +4,7 @@
 
 - [Motor Shield](http://www.adafruit.com/products/81)
 - [MaxSonar](https://www.adafruit.com/products/172)
+- [Bumper Switch](https://www.adafruit.com/products/818)
 
 
 ## DFRobot
@@ -16,11 +17,17 @@
 - [Getting Started with Arduino](http://www.makershed.com/Getting_Started_with_Arduino_Kit_V3_0_p/msgsa.htm)
 - [Ultimate Microcontroller Pack](http://www.makershed.com/Ultimate_Microcontroller_Pack_p/msump.htm)
 
+## Maxbotix
+
+- **[XL-MaxSonar EZ/AE (MB1230)](http://www.maxbotix.com/products/XL-EZ.htm)**
+- [LV-MaxSonar EZ1 (MB1230)](http://www.maxbotix.com/products/LV.htm)
 
 ## Parallax
 
+- **[Robot Base](http://www.parallax.com/Store/Education/KitsandBoards/tabid/182/ProductID/820/List/0/Default.aspx?SortField=ProductName,ProductName)**
 - [2 Axis Joystick](http://www.parallax.com/Store/Sensors/PressureFlexRPM/tabid/177/ProductID/581/List/0/Default.aspx?SortField=ProductName,ProductName)
 - [5 Position Switch](http://www.parallax.com/Store/Sensors/PressureFlexRPM/tabid/177/ProductID/615/List/0/Default.aspx?SortField=ProductName,ProductName)
+- [Gripper Kit](http://www.parallax.com/StoreSearchResults/tabid/768/txtSearch/clamp/List/0/SortField/4/ProductID/311/Default.aspx)
 - [PMB-648 GPS SiRF Internal Antenna](http://www.parallax.com/Store/Microcontrollers/BASICStampModules/tabid/134/txtSearch/gps/List/1/ProductID/644/Default.aspx?SortField=ProductName%2cProductName)
 - [Ping)))](http://www.parallax.com/Store/Sensors/ObjectDetection/tabid/176/ProductID/92/List/0/Default.aspx?SortField=ProductName,ProductName)
 - [PIR](http://www.parallax.com/Store/Sensors/ObjectDetection/tabid/176/ProductID/83/List/0/Default.aspx?SortField=ProductName,ProductName)
