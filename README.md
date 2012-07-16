@@ -86,6 +86,7 @@ board.on("ready", function() {
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
+- [Button Bumper](https://github.com/rwldrn/johnny-five/blob/master/docs/button-bumper.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
