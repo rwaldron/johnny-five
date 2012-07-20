@@ -21,3 +21,9 @@
 
 - Joystick Controlled Google Maps Streetview:
     [video](https://air.mozilla.org/hack-jam-dundee/)
+
+
+## Kelly Korevec [@korevec](https://twitter.com/korevec)
+
+- 6WD Rover
+  [image](http://twitpic.com/a9t3rg)
