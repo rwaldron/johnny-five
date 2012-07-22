@@ -12,10 +12,10 @@ board.on("ready", function() {
   });
 
   // Nunchuk Event API
-  nunchuk.on("read", function( err, timestamp ) {
-    console.log(this.joystick);
-    console.log(this.accelerometer);
-  })
+  nunchuk.on("read", function() {
+    console.log( this.joystick );
+    console.log( this.accelerometer );
+  });
 
 // Further reading
 // http://media.pragprog.com/titles/msard/tinker.pdf
