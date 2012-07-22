@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js"),
     __ = require("../lib/fn.js"),
     board, Navigator, navigator, servos,
-    expandedWhich, directionMap, scale;
+    pivotExpansion, directionMap, scale;
 
 
 directionMap = {
@@ -50,6 +50,9 @@ function Navigator( opts ) {
     right: this.center,
     left: this.center
   };
+
+  this.compass = opts.compass || null;
+  this.gripper = opts.gripper || null;
 
   // Store the cooperative speed
   this.speed = opts.speed === undefined ? 0 : opts.speed;
@@ -184,12 +187,14 @@ Navigator.prototype.stop = function() {
   "left"
 
 ].forEach(function( dir ) {
-  Navigator.prototype[ dir ] = function() {
+  Navigator.prototype[ dir ] = function( time ) {
 
     // Use direction value and reverse direction map to
     // derive the direction values for moving the
     // cooperative servos
     var actual = this.direction[ directionMap.reverse[ dir ] ];
+
+    time = time || 500;
 
     if ( !this.isTurning ) {
       // Set turning lock
@@ -202,19 +207,19 @@ Navigator.prototype.stop = function() {
       setTimeout(function() {
 
         // Restore direction after turn
-        this[ this.which ]( this.speed );
+        this[ this.which ]( this.speed || 2 );
 
         // Release turning lock
         this.isTurning = false;
 
-      }.bind(this), 500 );
+      }.bind(this), time );
     }
 
     return this;
   };
 });
 
-expandedWhich = function( which ) {
+pivotExpansion = function( which ) {
   var parts;
 
   if ( which.length === 2 ) {
@@ -263,7 +268,7 @@ Navigator.prototype.pivot = function( which, time ) {
     }
   };
 
-  which = directions[ which ] || directions[ expandedWhich( which ) ];
+  which = directions[ which ] || directions[ pivotExpansion( which ) ];
 
   which.call( this, this.speed );
 
@@ -282,16 +287,17 @@ Navigator.prototype.pivot = function( which, time ) {
 // Begin program when the board, serial and
 // firmata are connected and ready
 
-board = new five.Board();
-board.on("ready", function() {
+(board = new five.Board()).on("ready", function() {
 
   // TODO: Refactor into modular program code
 
   var center, collideAt, degrees, step, facing,
-  range, laser, look, isScanning, scanner, ping, mag, bearing;
+  range, laser, look, isScanning, scanner, gripper, isGripping, sonar, gripAt, ping, mag, bearing;
 
   // Collision distance (inches)
   collideAt = 6;
+
+  gripAt = 2;
 
   // Servo scanning steps (degrees)
   step = 2;
@@ -318,32 +324,52 @@ board.on("ready", function() {
   // Scanning state
   isScanning = true;
 
+  // Gripping state
+  isGripping = false;
+
+  // compass/magnetometer
+  mag = new five.Magnetometer();
+
+  // Servo gripper
+  gripper = new five.Servo({
+    pin: 13,
+    range: [ 20, 180 ]
+  });
+
+  gripper.move(20);
+
   // New base navigator
   // right servo = pin 10, left servo = pin 11
   navigator = new Navigator({
     right: 10,
-    left: 11
-  });
-
-  // Inject navigator object into REPL
-  this.repl.inject({
-    b: navigator
+    left: 11,
+    compass: mag,
+    gripper: gripper
   });
 
   // The laser is just a special case Led
   laser = new five.Led(9);
 
-  // ping instance (distance detection)
+  // Digital PWM (range)
   ping = new five.Ping(7);
 
-  // compass/magnetometer
-  // mag = new five.Magnetometer();
+  // Analog Voltage (range)
+  // sonar = new five.Sonar("A0");
+
 
   // Servo scanner instance (panning)
   scanner = new five.Servo({
     pin: 12,
     range: range
   });
+
+
+  // Inject navigator object into REPL
+  this.repl.inject({
+    b: navigator,
+    g: gripper
+  });
+
 
   // Initialize the scanner at it's center point
   // Will be exactly half way between the range's
@@ -352,7 +378,7 @@ board.on("ready", function() {
 
   // Wait 1000ms, then initialize forward movement
   this.wait( 1000, function() {
-    navigator.fwd(3);
+    // navigator.fwd(3);
   });
 
 
@@ -397,6 +423,21 @@ board.on("ready", function() {
     }
   });
 
+  // sonar.on("change", function() {
+  // ping.on("change", function() {
+  //   var distance = Math.abs(this.inches);
+
+  //   // TODO: Wrap this behaviour in an abstraction
+  //   if ( distance <= collideAt && !isGripping ) {
+  //     gripper.max();
+
+  //     // simulate drop instruction
+  //     setTimeout(function() {
+  //       isGripping = false;
+  //       gripper.min();
+  //     }, 5000);
+  //   }
+  // });
 
   // Compass heading monitor
   // mag.on("headingchange", function() {
@@ -426,6 +467,8 @@ board.on("ready", function() {
     if ( distance === null || isNaN(distance) ) {
       return;
     }
+
+
 
     // Detect collideAt
     // && isScanning
