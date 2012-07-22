@@ -7,7 +7,7 @@ board.on("ready", function() {
 
   // Create a new `nunchuk` hardware instance.
   nunchuk = new five.Nunchuk({
-    device: "RVL-004", 
+    device: "RVL-004",
     freq: 100
   });
 
