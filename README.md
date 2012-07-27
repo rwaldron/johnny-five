@@ -122,7 +122,6 @@ board.on("ready", function() {
 - [Nodeconf Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-radar.md)
 - [Nodeconf Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-slider.md)
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
-- [Nxt](https://github.com/rwldrn/johnny-five/blob/master/docs/nxt.md)
 - [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
