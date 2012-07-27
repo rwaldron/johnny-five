@@ -1,6 +1,11 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
+## Rebecca Murphey
+
+- Shift Register Implementation w/ Led Counter Display
+    [video](http://vimeo.com/46463390)
+    [code](http://gist.github.com/3185390)
 
 ## Jonathan Blanchet [@jblanchefr](http://twitter/jblanchefr)
 
