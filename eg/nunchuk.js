@@ -15,6 +15,24 @@ board.on("ready", function() {
   nunchuk.on("read", function() {
     console.log( this.joystick );
     console.log( this.accelerometer );
+    console.log( this.z );
+    console.log( this.c );
+  });
+
+  nunchuk.on("zUp", function() {
+    console.log("zUp");
+  });
+
+  nunchuk.on("zDown", function() {
+    console.log("zDown");
+  });
+
+  nunchuk.on("cUp", function() {
+    console.log("cUp");
+  });
+
+  nunchuk.on("cDown", function() {
+    console.log("cDown");
   });
 
 // Further reading
