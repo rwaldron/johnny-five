@@ -4,15 +4,15 @@ var five = require("../lib/johnny-five.js"),
 /**
  * This program is useful for manual servo administration.
  *
- * ex. node eg/servo-diagnostic.js [ pin list ]
+ * ex. node eg/servo-lab.js [ pin list ]
  *
  *     To setup servos on pins 10 and 11:
  *
- *     node eg/servo-diagnostic.js 10 11
+ *     node eg/servo-lab.js 10 11
  *
  *     To setup servos on pins 10 and 11 with custom ranges:
  *
- *     node eg/servo-diagnostic.js 10:10:170 11
+ *     node eg/servo-lab.js 10:10:170 11
  *
  *     Note: Ranges default to 0-180
  *
