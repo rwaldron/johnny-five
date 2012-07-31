@@ -1,7 +1,15 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
-## Rebecca Murphey
+## Andreas Haugstrup Pedersen [@hgstrp](http://twitter/hgstrp)
+
+- LCD Controller (First successful implementation!!)
+    [video](http://vimeo.com/46577266)
+    [code](https://gist.github.com/3200331)
+    (Became the basis for the LCD constructor!)
+
+
+## Rebecca Murphey [@rmurphey](http://twitter/rmurphey)
 
 - Shift Register Implementation w/ Led Counter Display
     [video](http://vimeo.com/46463390)
