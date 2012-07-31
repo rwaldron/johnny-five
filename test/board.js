@@ -6,6 +6,10 @@ var SerialPort = require("./mock-serial").SerialPort,
     board = new five.Board({
       debug: true,
       mock: serial
+    }),
+    boardEvent = new five.Board.Event({
+      type : "read",
+      target : serial
     });
 
 
@@ -180,6 +184,14 @@ exports["static"] = {
     test.expect(1);
 
     test.ok( five.Board.Pins.led[13] );
+
+    test.done();
+  },
+  "Board.Event": function( test ) {
+    test.expect(2);
+
+    test.ok( boardEvent.type === "read" );
+    test.ok( boardEvent.target === serial );
 
     test.done();
   },
