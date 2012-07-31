@@ -7,24 +7,26 @@ node eg/lcd.js
 
 
 ```javascript
-var five = require("johnny-five"),
-    lcd;
+var five = require("../lib/johnny-five"),
+    board, lcd;
 
-five.Board().on("ready", function() {
+board = new five.Board();
 
+board.on("ready", function() {
 
   lcd = new five.LCD({
-    cols: 10,
-    rows: 2,
-    dots: "5x8"
+    // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
+    // Arduino pin # 7    8   9   10  11  12
+    pins: [ 7, 8, 9, 10, 11, 12 ]
   });
+
+
+  lcd.write("Hello!");
 
 
   this.repl.inject({
     lcd: lcd
   });
-
-
 
 });
 
