@@ -8,8 +8,8 @@ var SerialPort = require("./mock-serial").SerialPort,
       mock: serial
     }),
     boardEvent = new five.Board.Event({
-      type : "read",
-      target : serial
+      type: "read",
+      target: serial
     });
 
 
