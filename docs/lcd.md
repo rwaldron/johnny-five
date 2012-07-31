@@ -32,7 +32,9 @@ five.Board().on("ready", function() {
 
 ## Breadboard
 
+<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/lcd.png">
 
+[lcd.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/lcd.fzz)
 
 
 ## Documentation
