@@ -11,7 +11,7 @@ board.on("ready", function() {
     pins: [ 7, 8, 9, 10, 11, 12 ],
     bitMode: 4,
     lines: 2,
-    dots: "5x8s"
+    dots: "5x8"
   });
 
   lcd.on('ready', function() {
