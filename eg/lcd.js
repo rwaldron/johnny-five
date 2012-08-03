@@ -15,9 +15,9 @@ board.on("ready", function() {
   });
 
   lcd.on("ready", function() {
-    lcd.write("Hi! " + Date.now());
+    lcd.print("Hi! " + Date.now());
     lcd.setCursor(0, 1);
-    lcd.write("Rebecca");
+    lcd.print("Rebecca");
   });
 
   this.repl.inject({
