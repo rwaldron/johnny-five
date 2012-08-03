@@ -14,8 +14,8 @@ board.on("ready", function() {
     dots: "5x8"
   });
 
-  lcd.on('ready', function() {
-    lcd.write("Hi! " + new Date().getTime());
+  lcd.on("ready", function() {
+    lcd.write("Hi! " + Date.now());
     lcd.setCursor(0, 1);
     lcd.write("Rebecca");
   });
