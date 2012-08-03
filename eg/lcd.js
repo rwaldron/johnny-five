@@ -9,7 +9,9 @@ board.on("ready", function() {
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
     // Arduino pin # 7    8   9   10  11  12
     pins: [ 7, 8, 9, 10, 11, 12 ],
-    bitMode: 4
+    bitMode: 4,
+    lines: 2,
+    dots: "5x8s"
   });
 
 
