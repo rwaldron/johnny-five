@@ -28,29 +28,6 @@ board.on("ready", function() {
 
     // Line 2: I <3 johnny-five
     lcd.print("I ").write(7).print(" johnny-five");
-
-
-    // In 4 seconds, show the "useChar" functionality
-    board.wait( 2000, function() {
-      /*
-        Predefined characters:
-
-        bell, note, clock, heart, duck,
-        check, cross, retarrow
-      */
-
-      lcd.useChar("clock");
-      lcd.useChar("check");
-      lcd.useChar("duck");
-
-
-      lcd.clear().print("Clock :clock:! :duck:");
-
-      setTimeout(function() {
-        lcd.setCursor(0, 1);
-        lcd.print("Check :check: & :clock:!");
-      }, 0);
-    });
   });
 
   this.repl.inject({
