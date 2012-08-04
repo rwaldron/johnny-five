@@ -102,6 +102,7 @@ board.on("ready", function() {
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
+- [Lcd I2c](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-i2c.md)
 - [Lcd Poc](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-poc.md)
 - [Lcd](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
