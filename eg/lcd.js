@@ -15,9 +15,13 @@ board.on("ready", function() {
   });
 
   lcd.on("ready", function() {
-    lcd.write("Hi! " + Date.now());
+    lcd.createChar( 0x07, [0x00, 0x0a, 0x1f, 0x1f, 0x0e, 0x04, 0x00, 0x00] );
+    lcd.clear();
+    lcd.print("Hi Rebecca!");
     lcd.setCursor(0, 1);
-    lcd.write("Rebecca");
+    lcd.print("I ");
+    lcd.write(7);
+    lcd.print(" johnny-five");
   });
 
   this.repl.inject({
