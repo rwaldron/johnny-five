@@ -1,8 +1,8 @@
-# Lcd Usechar
+# Lcd Runner
 
 Run with:
 ```bash
-node eg/lcd-usechar.js
+node eg/lcd-runner.js
 ```
 
 
@@ -21,22 +21,21 @@ board.on("ready", function() {
   });
 
   lcd.on("ready", function() {
-    // Expirimental useChar API
-    // Predefined characters:
-    //
-    // bell, note, clock, heart, duck,
-    // check, cross, retarrow
-    var display = "";
 
-    Object.keys( five.LCD.Characters ).forEach(function( char ) {
-      lcd.useChar( char );
-      display += ":" + char + ":";
+    var frame = 1, cursor = -1;
+
+    lcd.useChar("runninga");
+    lcd.useChar("runningb");
+
+    board.loop( 300, function() {
+      lcd.clear().setCursor( ++cursor, 0 ).print(
+        ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
+      );
+
+      if ( cursor === 16 ) {
+        cursor = -1;
+      }
     });
-
-
-
-
-    lcd.clear().print( display );
   });
 });
 
