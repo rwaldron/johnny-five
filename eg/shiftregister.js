@@ -3,6 +3,9 @@ var five = require("../lib/johnny-five"),
 
 board = new five.Board();
 
+// This works with the 74HC595 that comes with the SparkFun Inventor's kit.
+// Your mileage may vary with other chips. .fzz file to come.
+
 board.on("ready", function() {
   shiftRegister = new five.ShiftRegister({
     pins: {
@@ -12,9 +15,14 @@ board.on("ready", function() {
     }
   });
 
-  this.repl.inject({
-    reg: shiftRegister
-  });
+  var value = 0;
 
-  shiftRegister.shiftOut( 2 );
+  function next() {
+    value = value ? value >> 1 : 128;
+    shiftRegister.send( value );
+    setTimeout(next, 200);
+  }
+
+  next();
+
 });
