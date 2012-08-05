@@ -17,14 +17,16 @@ board.on("ready", function() {
     //
     // bell, note, clock, heart, duck,
     // check, cross, retarrow
+    var display = "";
+
+    Object.keys( five.LCD.Characters ).forEach(function( char ) {
+      lcd.useChar( char );
+      display += ":" + char + ":";
+    });
 
 
-    lcd.useChar("bell");
-    lcd.useChar("clock");
-    lcd.useChar("check");
-    lcd.useChar("duck");
 
 
-    lcd.clear().print(":clock: :duck: :check: :bell:");
+    lcd.clear().print( display );
   });
 });
