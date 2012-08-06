@@ -83,7 +83,6 @@ board.on("ready", function() {
 
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
-- [Biped](https://github.com/rwldrn/johnny-five/blob/master/docs/biped.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
@@ -126,7 +125,6 @@ board.on("ready", function() {
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
 - [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
-- [Pwmservo Ported](https://github.com/rwldrn/johnny-five/blob/master/docs/pwmservo-ported.md)
 - [Radar Client](https://github.com/rwldrn/johnny-five/blob/master/docs/radar-client.md)
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
@@ -141,6 +139,7 @@ board.on("ready", function() {
 - [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
+- [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
 - [Slider Log](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-log.md)
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)

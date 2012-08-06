@@ -1,10 +1,11 @@
 var five = require("../lib/johnny-five"),
-    board, lcd;
+    board, shiftRegister;
 
 board = new five.Board();
 
 // This works with the 74HC595 that comes with the SparkFun Inventor's kit.
-// Your mileage may vary with other chips. .fzz file to come.
+// Your mileage may vary with other chips. For more information on working
+// with shift registers, see http://arduino.cc/en/Tutorial/ShiftOut
 
 board.on("ready", function() {
   shiftRegister = new five.ShiftRegister({
