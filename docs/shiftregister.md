@@ -1,4 +1,4 @@
-# Shift Register
+# Shiftregister
 
 Run with:
 ```bash
