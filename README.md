@@ -83,6 +83,7 @@ board.on("ready", function() {
 
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
+- [Biped](https://github.com/rwldrn/johnny-five/blob/master/docs/biped.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
@@ -101,6 +102,8 @@ board.on("ready", function() {
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
+- [Lcd I2c](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-i2c.md)
+- [Lcd Runner 20x4](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
 - [Lcd Usechar](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-usechar.md)
 - [Lcd](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd.md)
