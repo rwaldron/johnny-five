@@ -30,7 +30,7 @@ board.on("ready", function() {
         col = 0;
 
         if ( ++row === lcd.rows ) {
-          row = 0
+          row = 0;
         }
       }
     });

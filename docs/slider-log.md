@@ -20,7 +20,7 @@ board.on("ready", function() {
   });
 
   // log out the slider values to the console.
-  slider.on("slide", function( err, value ) {
+  slider.scale( 0, 100 ).on("slide", function( err, value ) {
     if ( err ) {
       console.log( "error: ", err );
     } else {
