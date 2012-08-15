@@ -285,6 +285,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

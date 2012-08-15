@@ -46,6 +46,12 @@ board.on("ready", function() {
 [shiftregister.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/shiftregister.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

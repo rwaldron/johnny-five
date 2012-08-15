@@ -39,6 +39,12 @@ var five = require("johnny-five"),
 [sensor-fsr.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-fsr.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

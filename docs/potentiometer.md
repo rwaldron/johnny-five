@@ -47,6 +47,12 @@ board.on("ready", function() {
 [potentiometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/potentiometer.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

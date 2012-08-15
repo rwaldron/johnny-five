@@ -45,6 +45,9 @@ board.on("ready", function() {
 
 });
 
+
+
+
 ```
 
 ## Breadboard
@@ -52,6 +55,13 @@ board.on("ready", function() {
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/lcd.png">
 
 [lcd.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/lcd.fzz)
+
+
+
+## Devices
+
+[16 x 2 LCD White on Blue](http://www.hacktronics.com/LCDs/16-x-2-LCD-White-on-Blue/flypage.tpl.html)
+[20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)
 
 
 ## Documentation

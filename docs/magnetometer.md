@@ -84,6 +84,12 @@ five.Board().on("ready", function() {
 [magnetometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/magnetometer.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

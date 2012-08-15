@@ -45,6 +45,12 @@ board.on("ready", function() {
 [slider-servo-control.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-servo-control.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

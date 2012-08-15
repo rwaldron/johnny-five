@@ -60,6 +60,12 @@ board.on("ready", function() {
 [accelerometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/accelerometer.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_

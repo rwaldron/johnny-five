@@ -48,6 +48,12 @@ board.on("ready", function() {
 [board.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/board.fzz)
 
 
+
+## Devices
+
+
+
+
 ## Documentation
 
 _(Nothing yet)_
