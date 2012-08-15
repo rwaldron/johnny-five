@@ -195,7 +195,7 @@ exports["static"] = {
 
     test.done();
   },
-"Board.Pin.is___()": function( test ) {
+  "Board.Pin.is___()": function( test ) {
     var fixture = {
       0: "Serial",
       3: "PWM",
@@ -258,6 +258,23 @@ exports["instance"] = {
   }
 };
 
+
+exports["fn"] = {
+  "cache": function( test ) {
+    test.expect(6);
+
+    test.equal( __.scale( 10, 0, 20, 0, 100), 50, "scale up" );
+    test.equal( __.scale( 10, 0, 20, 100, 0), 50, "scale up reversed" );
+
+    test.equal( __.scale( 10, 0, 10, 0, 180), 180, "max is 180" );
+    test.equal( __.scale( 10, 0, 10, 180, 0), 0, "max is 0" );
+
+    test.equal( __.scale( 0, 0, 10, 180, 0), 180, "min is 180" );
+    test.equal( __.scale( 0, 0, 10, 0, 180), 0, "min is 0" );
+
+    test.done();
+  }
+};
 
 // TODO: need mock firmata object
 // exports["modules"] = {
