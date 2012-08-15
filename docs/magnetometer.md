@@ -81,7 +81,6 @@ five.Board().on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/magnetometer.png">
 
-[magnetometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/magnetometer.fzz)
 
 
 

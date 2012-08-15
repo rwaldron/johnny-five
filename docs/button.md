@@ -52,7 +52,6 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button.png">
 
-[button.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button.fzz)
 
 
 

@@ -49,7 +49,6 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-pulse.png">
 
-[led-pulse.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-pulse.fzz)
 
 
 

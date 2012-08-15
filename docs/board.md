@@ -45,7 +45,6 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/board.png">
 
-[board.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/board.fzz)
 
 
 

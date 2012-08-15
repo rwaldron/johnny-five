@@ -22,7 +22,6 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/repl.png">
 
-[repl.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/repl.fzz)
 
 
 

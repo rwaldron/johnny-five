@@ -45,7 +45,6 @@ var five = require("johnny-five"),
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/gripper.png">
 
-[gripper.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/gripper.fzz)
 
 
 
