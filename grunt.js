@@ -100,8 +100,9 @@ module.exports = function(grunt) {
       eg = eg.replace("../lib/johnny-five.js", "johnny-five")
             .split("\n").filter(function( line ) {
 
+        // TODO: Abstract "tag" support into easily extended system
         if ( /@device/.test(line) ) {
-          devices.push( line.replace(/^\/\/ @device/, "").trim() );
+          devices.push( "- " + line.replace(/^\/\/ @device/, "").trim() );
           return false;
         }
         return true;
