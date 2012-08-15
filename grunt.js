@@ -81,7 +81,7 @@ module.exports = function(grunt) {
           png = filepath.replace("eg", "docs/breadboard").replace(".js", ".png"),
           fritz = filepath.replace("eg", "docs/breadboard").replace(".js", ".fzz"),
           title = filepath,
-          hasBoard, fritzfile, fritzpath;
+          hasPng, hasFzz, fritzfile, fritzpath;
 
       devices = [];
 
@@ -108,7 +108,9 @@ module.exports = function(grunt) {
         return true;
       }).join("\n");
 
-      hasBoard = path.existsSync(png);
+      hasPng = path.existsSync(png);
+      hasFzz = path.existsSync(fritz);
+
 
       values = {
         title: _.titleize(title),
@@ -116,8 +118,8 @@ module.exports = function(grunt) {
         example: eg,
         file: md,
         devices: devices.join("\n"),
-        breadboard: hasBoard ? templates.img({ png: png }) : "",
-        fritzing: hasBoard ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
+        breadboard: hasPng ? templates.img({ png: png }) : "",
+        fritzing: hasFzz ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
       };
 
       // Write the file to /docs/*
