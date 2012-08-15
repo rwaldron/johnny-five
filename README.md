@@ -25,6 +25,7 @@
 
 ## Setup and Assemble Arduino
 
+- Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11022)
 - Download Arduino IDE
   - [OSX](http://arduino.googlecode.com/files/arduino-1.0.1-macosx.zip)
   - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0.1-linux.tgz)
@@ -94,6 +95,7 @@ board.on("ready", function() {
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Gripper](https://github.com/rwldrn/johnny-five/blob/master/docs/gripper.md)
 - [Ir Motion](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
 - [Ir Reflect](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect.md)

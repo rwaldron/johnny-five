@@ -1,4 +1,10 @@
+# Easy "Getting Started"
+
+- [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11022)
+
+
 # Parts
+
 
 ## Adafruit
 
@@ -7,10 +13,20 @@
 - [Bumper Switch](https://www.adafruit.com/products/818)
 
 
+## Amazon
+
+- [Futuba Servo](http://www.amazon.com/Futaba-S3003-Servo-Standard/dp/B0015H2V72/ref=sr_1_1?s=toys-and-games&ie=UTF8&qid=1345046435&sr=1-1&keywords=futaba+servo)
+- [Hitec HS322HD Servo](http://www.amazon.com/Hitec-33322S-HS-322HD-Standard-Karbonite/dp/B0006O3XEA/ref=sr_1_cc_2?s=aps&ie=UTF8&qid=1345046396&sr=1-2-catcorr&keywords=hitec+servo)
+- [OSEPP I2C Expansion Shield](http://www.amazon.com/OSEPP-Expansion-Schield-Arduino-Compatible/dp/B007JBUL0C/ref=sr_1_10?s=electronics&ie=UTF8&qid=1345046344&sr=1-10&keywords=i2c+shield)
+- [SainSmart Sensor Shield](http://www.amazon.com/SainSmart-Sensor-Digital-Arduino-Duemilanove/dp/B006TQ314G)
+
+
 ## DFRobot
 
 - [Analog Slide Position Sensor](http://www.dfrobot.com/index.php?route=product/product&filter_name=slide&product_id=131)
 - [I2C/TWI LCD1602 Module](http://www.dfrobot.com/index.php?route=product/product&filter_name=i2c/twi&product_id=135)
+- [DFRobot LG-NS Gripper](http://www.dfrobot.com/index.php?route=product/product&filter_name=gripper&product_id=628#.UCvGymNST_k)
+
 
 ## Makershed
 
@@ -33,6 +49,7 @@
 - [PIR](http://www.parallax.com/Store/Sensors/ObjectDetection/tabid/176/ProductID/83/List/0/Default.aspx?SortField=ProductName,ProductName)
 - [Standard Servo](http://www.parallax.com/Store/Accessories/MotorServos/tabid/163/ProductID/101/List/0/Default.aspx?SortField=ProductName,ProductName)
 - [Continuous Servo](http://www.parallax.com/Store/Robots/RoboticComponents/tabid/198/List/0/ProductID/102/Default.aspx?SortField=ProductName%2cProductName)
+- [Tank Tread Kit](http://www.parallax.com/Store/Robots/RoboticAccessories/tabid/145/ProductID/78/List/0/Default.aspx?SortField=ProductName,ProductName)
 
 
 ## Sparkfun
@@ -57,3 +74,7 @@
 # Tools
 
 - [LadyAda's Toolkit](https://www.adafruit.com/products/136) (I don't have this, but it's basically the same as all of the tools I have)
+
+
+- [Panavise Vaccuum Base stand](http://www.amazon.com/PanaVise-209-Vacuum-Base-Jr/dp/B000CONJUM/ref=sr_1_3?ie=UTF8&qid=1345046483&sr=8-3&keywords=panavise)
+- [Panavise Junior](http://www.amazon.com/PanaVise-Model-201-Junior-Miniature/dp/B000B61D22/ref=sr_1_1?ie=UTF8&qid=1345046483&sr=8-1&keywords=panavise)
