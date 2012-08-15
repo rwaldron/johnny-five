@@ -340,12 +340,13 @@ Navigator.prototype.pivot = function( which, time ) {
   mag = new five.Magnetometer();
 
   // Servo gripper
-  gripper = new five.Servo({
-    pin: 13,
-    range: [ 20, 180 ]
+  gripper = new five.Gripper({
+    servo: {
+      pin: 13,
+      range: [ 20, 180 ]
+    },
+    scale: [ 0, 10 ]
   });
-
-  gripper.move(20);
 
   // New base navigator
   // right servo = pin 10, left servo = pin 11
@@ -541,6 +542,12 @@ Navigator.prototype.pivot = function( which, time ) {
 ```
 
 ## Breadboard
+
+
+
+
+
+## Devices
 
 
 
