@@ -35,6 +35,7 @@
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
     "when": "~1.3.0",
+    "compulsive": "latest",
     "tobinary": "latest"
   },
   "devDependencies": {
@@ -46,6 +47,7 @@
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
     "when": "~1.3.0",
+    "compulsive": "latest",
     "tobinary": "latest"
   },
   "keywords": []

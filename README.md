@@ -14,6 +14,7 @@
 ## Many fragments. Some large, some small.
 
 
+### [Biped Nodebot](http://jsfiddle.net/rwaldron/WZkn5/show/light/) NEW!
 ### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
@@ -84,6 +85,7 @@ board.on("ready", function() {
 
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
+- [Biped Mod](https://github.com/rwldrn/johnny-five/blob/master/docs/biped-mod.md)
 - [Biped](https://github.com/rwldrn/johnny-five/blob/master/docs/biped.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
@@ -95,6 +97,8 @@ board.on("ready", function() {
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Ed Backup](https://github.com/rwldrn/johnny-five/blob/master/docs/ed-backup.md)
+- [Ed](https://github.com/rwldrn/johnny-five/blob/master/docs/ed.md)
 - [Gripper](https://github.com/rwldrn/johnny-five/blob/master/docs/gripper.md)
 - [Ir Motion](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
@@ -107,6 +111,7 @@ board.on("ready", function() {
 - [Lcd Enumeratechars](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [Lcd Runner 20x4](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
+- [Lcd Usechar](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-usechar.md)
 - [Lcd](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
@@ -154,7 +159,7 @@ board.on("ready", function() {
 
 
 ## Contributing
-All contributions must adhere to the the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
 by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 ## Release History
