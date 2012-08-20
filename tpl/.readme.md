@@ -34,6 +34,7 @@
   - Windows support coming soon.
 - Plug in your Arduino or Arduino compatible microcontroller via USB
 - Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
+  - Make sure that the version of Firmata is 2.2. There are known issues with 2.3
 - Click the "Upload" button.
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
