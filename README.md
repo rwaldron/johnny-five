@@ -85,8 +85,6 @@ board.on("ready", function() {
 
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
-- [Biped Mod](https://github.com/rwldrn/johnny-five/blob/master/docs/biped-mod.md)
-- [Biped](https://github.com/rwldrn/johnny-five/blob/master/docs/biped.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
@@ -97,7 +95,6 @@ board.on("ready", function() {
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
-- [Ed Backup](https://github.com/rwldrn/johnny-five/blob/master/docs/ed-backup.md)
 - [Ed](https://github.com/rwldrn/johnny-five/blob/master/docs/ed.md)
 - [Gripper](https://github.com/rwldrn/johnny-five/blob/master/docs/gripper.md)
 - [Ir Motion](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-motion.md)
