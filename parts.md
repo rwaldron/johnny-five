@@ -65,8 +65,8 @@
 - [Servo - Medium](http://www.sparkfun.com/products/10333)
 - [Servo - Medium Full Rotation](http://www.sparkfun.com/products/10189)
 - [Servo - Small](http://www.sparkfun.com/products/9065)
-
-- [SoftPot Membrane Potentiometer - 50mm](http://www.sparkfun.com/products/8680)
+- [SoftPot Membrane - 50mm](http://www.sparkfun.com/products/8680)
+- [Triple Axis Magnometer/Compass HMC5883L](https://www.sparkfun.com/products/10530)
 - [Wiper/Actuator - 1N to 3N Force](http://www.sparkfun.com/products/9075)
 
 
@@ -74,7 +74,5 @@
 # Tools
 
 - [LadyAda's Toolkit](https://www.adafruit.com/products/136) (I don't have this, but it's basically the same as all of the tools I have)
-
-
 - [Panavise Vaccuum Base stand](http://www.amazon.com/PanaVise-209-Vacuum-Base-Jr/dp/B000CONJUM/ref=sr_1_3?ie=UTF8&qid=1345046483&sr=8-3&keywords=panavise)
 - [Panavise Junior](http://www.amazon.com/PanaVise-Model-201-Junior-Miniature/dp/B000B61D22/ref=sr_1_1?ie=UTF8&qid=1345046483&sr=8-1&keywords=panavise)
