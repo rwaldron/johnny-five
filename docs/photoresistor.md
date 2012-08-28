@@ -1,4 +1,4 @@
-# Potentiometer
+# Photoresistor
 
 Run with:
 ```bash
