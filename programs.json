@@ -1,0 +1,108 @@
+[
+
+
+  [ "Board" ],
+    "board.js",
+    "board-multi.js",
+    "repl.js",
+    "shiftregister.js",
+
+
+  [ "Nodebots" ],
+    "bug.js",
+    "ed.js",
+    "navigator.js",
+    "radar.js",
+
+
+  [ "Servo/Motor" ],
+    "servo.js",
+    "servo-array.js",
+    "servo-digital.js",
+    "servo-dual.js",
+    "servo-tutorial.js",
+    "continuous-clock.js",
+    "continuous.js",
+    "motor.js",
+
+
+  [ "Sonar/Ultrasonic" ],
+    "ping.js",
+    "sonar-scan.js",
+    "sonar.js",
+
+
+  [ "Button" ],
+    "button.js",
+    "button-bumper.js",
+    "button-options.js",
+
+
+  [ "Claw" ],
+    "claw.js",
+
+
+  [ "Gripper" ],
+    "gripper.js",
+
+
+  [ "Infrared" ],
+    "ir-motion.js",
+    "ir-proximity.js",
+    "ir-reflect.js",
+
+
+  [ "Joystick" ],
+    "joystick.js",
+    "joystick-claw.js",
+    "joystick-laser.js",
+    "joystick-motor-led.js",
+
+
+  [ "LCD" ],
+    "lcd.js",
+    "lcd-enumeratechars.js",
+    "lcd-runner-20x4.js",
+    "lcd-runner.js",
+
+
+  [ "LED" ],
+    "laser.js",
+    "led-fade.js",
+    "led-on-off.js",
+    "led-pulse.js",
+    "led-rgb.js",
+    "led-strobe.js",
+
+
+  [ "Magnetometer (Compass)" ],
+    "magnetometer-log.js",
+    "magnetometer-north.js",
+    "magnetometer.js",
+
+
+  [ "NodeConf Demos" ],
+    "nodeconf-compass.js",
+    "nodeconf-navigator.js",
+    "nodeconf-radar.js",
+    "nodeconf-slider.js",
+
+
+  [ "Wii Nunchuk" ],
+    "nunchuk.js",
+
+
+  [ "Sensors" ],
+    "accelerometer.js",
+    "accelerometer-pan-tilt.js",
+    "photoresistor.js",
+    "potentiometer.js",
+    "sensor.js",
+    "sensor-fsr-servo.js",
+    "sensor-fsr.js",
+    "sensor-ir-led-receiver.js",
+    "sensor-slider.js",
+    "slider-log.js",
+    "slider-pan.js",
+    "slider-servo-control.js"
+]

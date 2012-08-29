@@ -1,5 +1,5 @@
 var inspect = require("util").inspect,
-    path = require("path");
+    fs = require("fs");
 
 
 module.exports = function(grunt) {
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     pkg: "<json:package.json>",
 
     docs: {
-      files: ["eg/**/*.js"]
+      files: ["programs.json"]
     },
     test: {
       files: ["test/board.js"]
@@ -71,62 +71,86 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
-    var files = file.expandFiles( this.file.src ),
-        readme = [];
+    var files, entries, readme;
 
-    files.forEach(function( filepath ) {
-      var values, devices,
-          eg = file.read( filepath ),
-          md = filepath.replace("eg", "docs").replace(".js", ".md"),
-          png = filepath.replace("eg", "docs/breadboard").replace(".js", ".png"),
-          fritz = filepath.replace("eg", "docs/breadboard").replace(".js", ".fzz"),
-          title = filepath,
+    entries = JSON.parse(file.read(file.expandFiles( this.file.src )[0]));
+    readme = [];
+
+    entries.forEach(function( entry ) {
+
+      var values, devices, eg, md, png, fzz, title,
           hasPng, hasFzz, fritzfile, fritzpath;
 
-      devices = [];
+      if ( Array.isArray(entry) ) {
+        // Produces:
+        // "### Heading\n"
+        readme.push( "### " + entry[0] + "\n" );
 
-      // Generate a title string from the file name
-      [ [ /^.+\//, "" ],
-        [ /\.js/, "" ],
-        [ /\-/g, " " ]
-      ].forEach(function( args ) {
-        title = "".replace.apply( title, args );
-      });
+        // TODO: figure out a way to have tiered subheadings
+        // readme.push(
+        //   entry.reduce(function( prev, val, k ) {
+        //     // Produces:
+        //     // "### Board\n"
+        //     return prev + (Array(k + 4).join("#")) + " " + val + "\n";
+        //   }, "")
+        // );
+      }
+      else {
 
-      fritzpath = fritz.split("/");
-      fritzfile = fritzpath[ fritzpath.length - 1 ];
+        filepath = "eg/" + entry;
 
-      // Modify code in example to appear as it would if installed via npm
-      eg = eg.replace("../lib/johnny-five.js", "johnny-five")
-            .split("\n").filter(function( line ) {
-
-        // TODO: Abstract "tag" support into easily extended system
-        if ( /@device/.test(line) ) {
-          devices.push( "- " + line.replace(/^\/\/ @device/, "").trim() );
-          return false;
-        }
-        return true;
-      }).join("\n");
-
-      hasPng = path.existsSync(png);
-      hasFzz = path.existsSync(fritz);
+        eg = file.read( filepath );
+        md = "docs/" + entry.replace(".js", ".md");
+        png = "docs/breadboard/" + entry.replace(".js", ".png");
+        fzz = "docs/breadboard/" + entry.replace(".js", ".fzz");
+        title = entry;
 
 
-      values = {
-        title: _.titleize(title),
-        command: "node " + filepath,
-        example: eg,
-        file: md,
-        devices: devices.join("\n"),
-        breadboard: hasPng ? templates.img({ png: png }) : "",
-        fritzing: hasFzz ? templates.fritzing({ fritzfile: fritzfile, fritz: fritz }) : ""
-      };
+        devices = [];
 
-      // Write the file to /docs/*
-      file.write( md, templates.doc(values) );
+        // Generate a title string from the file name
+        [ [ /^.+\//, "" ],
+          [ /\.js/, "" ],
+          [ /\-/g, " " ]
+        ].forEach(function( args ) {
+          title = "".replace.apply( title, args );
+        });
 
-      // Push a rendered markdown link into the readme "index"
-      readme.push( templates.doclink(values) );
+        fritzpath = fzz.split("/");
+        fritzfile = fritzpath[ fritzpath.length - 1 ];
+
+        // Modify code in example to appear as it would if installed via npm
+        eg = eg.replace("../lib/johnny-five.js", "johnny-five")
+              .split("\n").filter(function( line ) {
+
+          // TODO: Abstract "tag" support into easily extended system
+          if ( /@device/.test(line) ) {
+            devices.push( "- " + line.replace(/^\/\/ @device/, "").trim() );
+            return false;
+          }
+          return true;
+        }).join("\n");
+
+        hasPng = fs.existsSync(png);
+        hasFzz = fs.existsSync(fzz);
+
+
+        values = {
+          title: _.titleize(title),
+          command: "node " + filepath,
+          example: eg,
+          file: md,
+          devices: devices.join("\n"),
+          breadboard: hasPng ? templates.img({ png: png }) : "",
+          fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
+        };
+
+        // Write the file to /docs/*
+        file.write( md, templates.doc(values) );
+
+        // Push a rendered markdown link into the readme "index"
+        readme.push( templates.doclink(values) );
+      }
     });
 
     // Write the readme with doc link index
