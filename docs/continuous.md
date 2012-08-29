@@ -45,7 +45,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/continuous.png">
 
-[continuous.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/continuous.fzz)
+[docs/breadboard/continuous.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/continuous.fzz)
 
 
 

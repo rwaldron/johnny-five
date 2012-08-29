@@ -70,7 +70,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/joystick.png">
 
-[joystick.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick.fzz)
+[docs/breadboard/joystick.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick.fzz)
 
 
 

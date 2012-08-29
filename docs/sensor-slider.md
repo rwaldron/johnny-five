@@ -49,7 +49,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sensor-slider.png">
 
-[sensor-slider.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-slider.fzz)
+[docs/breadboard/sensor-slider.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-slider.fzz)
 
 
 

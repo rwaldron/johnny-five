@@ -55,7 +55,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/ping.png">
 
-[ping.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/ping.fzz)
+[docs/breadboard/ping.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/ping.fzz)
 
 
 

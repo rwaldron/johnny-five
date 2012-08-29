@@ -36,7 +36,7 @@ var five = require("johnny-five"),
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sensor-fsr.png">
 
-[sensor-fsr.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-fsr.fzz)
+[docs/breadboard/sensor-fsr.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-fsr.fzz)
 
 
 

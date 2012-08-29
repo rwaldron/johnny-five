@@ -32,7 +32,7 @@ five.Board().on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button-bumper.png">
 
-[button-bumper.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-bumper.fzz)
+[docs/breadboard/button-bumper.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-bumper.fzz)
 
 
 

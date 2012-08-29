@@ -44,7 +44,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/photoresistor.png">
 
-[photoresistor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/photoresistor.fzz)
+[docs/breadboard/photoresistor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/photoresistor.fzz)
 
 
 

@@ -37,6 +37,14 @@ function ED( opts ) {
   // be defined and assigned to this.degrees object.
   this.degrees = {};
 
+  // Store "next" move function calls here, if necessary.
+  // Used by attn to allow bot to stop walking before commencing
+  // in the next direction.
+  //
+  //    1. attn() -> stop walking stand, set this.next = dir
+  //    2. recall attn(), comple
+  this.next = null;
+
   // Table of times (avg) to complete tasks
   this.times = {
     step: 0,
@@ -125,7 +133,7 @@ ED.prototype.attn = function( next ) {
   this.side = "right";
 
   // Check to see if the bot is currently walking
-  if ( priv.get(this).isWalking ) {
+  if ( priv.get(this).isWalking && this.next === null ) {
 
     // If so, update the private isWalking state,
     // setting the value to `false`
@@ -137,7 +145,8 @@ ED.prototype.attn = function( next ) {
     // recall this.attn();
     this.wait( 500, this.attn.bind(this) );
 
-    this.attn.next = next;
+    // Set next
+    this.next = next;
 
   } else {
     // Center all servos
@@ -179,18 +188,18 @@ ED.prototype.attn = function( next ) {
       {
         wait: 150,
         task: function() {
-          if ( this.attn.next ) {
-            this[ this.attn.next ]();
+          if ( this.next !== null && this[ this.next ] ) {
+            // Call next specified
+            this[ this.next ]();
+
+            // Reset this.next as cleanup measure.
+            this.next = null;
           }
-          console.log( this.attn.next );
         }.bind(this)
       }
     ]);
-
   }
 };
-
-ED.prototype.attn.next = null;
 
 /**
  * step Take a step
@@ -291,14 +300,14 @@ ED.prototype.step = function( instruct ) {
         //     ( isFwd ? 40 : 140 ) :
         //     ( isFwd ? 140 : 40 );
 
-        // var degrees = isLeft ?
-        //     ( isFwd ? 60 : 120 ) :
-        //     ( isFwd ? 120 : 60 );
-
-
         var degrees = isLeft ?
-            ( isFwd ? 120 : 60 ) :
-            ( isFwd ? 60 : 120 );
+            ( isFwd ? 60 : 120 ) :
+            ( isFwd ? 120 : 60 );
+
+
+        // var degrees = isLeft ?
+        //     ( isFwd ? 120 : 60 ) :
+        //     ( isFwd ? 60 : 120 );
 
         // Swing currently stepping hips
         this.move({
@@ -314,7 +323,7 @@ ED.prototype.step = function( instruct ) {
     }
   ]);
 
-  console.log( "Stepped ", this.side );
+  // console.log( "Stepped ", this.side );
 };
 
 [
@@ -342,8 +351,8 @@ ED.prototype.step = function( instruct ) {
 
   ED.prototype[ dir.name ] = ED.prototype[ dir.abbr ] = function() {
 
-    if ( this.direction !== dir.abbr ) {
-      this.attn( dir.abbr );
+    if ( this.direction === dir.abbr ) {
+      return;
     }
     // Update the private state to indicate
     // that the bot is currently walking.
@@ -353,6 +362,8 @@ ED.prototype.step = function( instruct ) {
     //
     // Walk termination occurs in the ED.prototype.attn method
     //
+
+    this.direction = dir.abbr;
 
     // Initiate a loop behaviour of 2000ms (2s)
     //
@@ -364,7 +375,7 @@ ED.prototype.step = function( instruct ) {
     //
     this.queue([
       {
-        wait: 1000,
+        wait: 10,
         task: function() {
           this.step( dir.abbr );
         }.bind(this)

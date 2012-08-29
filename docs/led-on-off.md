@@ -39,7 +39,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-on-off.png">
 
-[led-on-off.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-on-off.fzz)
+[docs/breadboard/led-on-off.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-on-off.fzz)
 
 
 

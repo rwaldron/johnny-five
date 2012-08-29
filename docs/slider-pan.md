@@ -41,7 +41,7 @@ board.on("ready", function() {
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/slider-pan.png">
 
-[slider-pan.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-pan.fzz)
+[docs/breadboard/slider-pan.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-pan.fzz)
 
 
 

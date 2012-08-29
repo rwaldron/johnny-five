@@ -343,7 +343,7 @@ Navigator.prototype.pivot = function( which, time ) {
   gripper = new five.Gripper({
     servo: {
       pin: 13,
-      range: [ 20, 180 ]
+      range: [ 20, 160 ]
     },
     scale: [ 0, 10 ]
   });
