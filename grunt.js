@@ -79,7 +79,7 @@ module.exports = function(grunt) {
     entries.forEach(function( entry ) {
 
       var values, devices, eg, md, png, fzz, title,
-          hasPng, hasFzz, fritzfile, fritzpath;
+          hasPng, hasFzz, filepath, fritzfile, fritzpath;
 
       if ( Array.isArray(entry) ) {
         // Produces:
