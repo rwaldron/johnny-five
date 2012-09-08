@@ -84,7 +84,7 @@ module.exports = function(grunt) {
       if ( Array.isArray(entry) ) {
         // Produces:
         // "### Heading\n"
-        readme.push( "### " + entry[0] + "\n" );
+        readme.push( "\n### " + entry[0] + "\n" );
 
         // TODO: figure out a way to have tiered subheadings
         // readme.push(

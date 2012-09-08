@@ -84,16 +84,19 @@ board.on("ready", function() {
 
 ## More Input
 
+
 ### Board
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
 - [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
+
 ### Nodebots
 - [Bug](https://github.com/rwldrn/johnny-five/blob/master/docs/bug.md)
 - [Ed](https://github.com/rwldrn/johnny-five/blob/master/docs/ed.md)
 - [Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator.md)
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
+
 ### Servo/Motor
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
@@ -103,32 +106,40 @@ board.on("ready", function() {
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
+
 ### Sonar/Ultrasonic
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
+
 ### Button
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Button Bumper](https://github.com/rwldrn/johnny-five/blob/master/docs/button-bumper.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
+
 ### Claw
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
+
 ### Gripper
 - [Gripper](https://github.com/rwldrn/johnny-five/blob/master/docs/gripper.md)
+
 ### Infrared
 - [Ir Motion](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
 - [Ir Reflect](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect.md)
+
 ### Joystick
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
 - [Joystick Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-claw.md)
 - [Joystick Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-laser.md)
 - [Joystick Motor Led](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick-motor-led.md)
+
 ### LCD
 - [Lcd](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd.md)
 - [Lcd Enumeratechars](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [Lcd Runner 20x4](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
+
 ### LED
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
@@ -137,17 +148,21 @@ board.on("ready", function() {
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
+
 ### Magnetometer (Compass)
 - [Magnetometer Log](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer-log.md)
 - [Magnetometer North](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer-north.md)
 - [Magnetometer](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer.md)
+
 ### NodeConf Demos
 - [Nodeconf Compass](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-compass.md)
 - [Nodeconf Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-navigator.md)
 - [Nodeconf Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-radar.md)
 - [Nodeconf Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-slider.md)
+
 ### Wii Nunchuk
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
+
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
