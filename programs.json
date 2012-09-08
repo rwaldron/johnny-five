@@ -73,6 +73,7 @@
     "led-pulse.js",
     "led-rgb.js",
     "led-strobe.js",
+    "seven-segment.js",
 
 
   [ "Magnetometer (Compass)" ],

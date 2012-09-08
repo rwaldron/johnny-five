@@ -136,6 +136,7 @@ board.on("ready", function() {
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
+- [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
 ### Magnetometer (Compass)
 - [Magnetometer Log](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer-log.md)
 - [Magnetometer North](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer-north.md)
