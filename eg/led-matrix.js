@@ -24,7 +24,8 @@ board.on("ready", function() {
     data: 2,
     clock: 3,
     cs: 4,
-    devices: 1
+    devices: 1,
+    matrixMode: true
   });
 
   function queue(fn) {
@@ -39,7 +40,21 @@ board.on("ready", function() {
 
   lc.on( 0 );
 
+  var msg = "johnny-five";
+  var idx = 0;
+
+  function next() {
+    var c = msg[ idx ];
+    lc.setChar( 0, c );
+    idx++;
+    if ( idx === msg.length ) { return; }
+    setTimeout( next, 800 );
+  }
+
+  next();
+
   board.repl.inject({
     lc: lc
   });
+
 });
