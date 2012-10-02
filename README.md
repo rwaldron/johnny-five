@@ -15,6 +15,7 @@
 
 
 ### [Biped Nodebot](http://jsfiddle.net/rwaldron/WZkn5/show/light/) NEW!
+### [LCD Running Man](http://jsfiddle.net/rwaldron/xKwaU/show/light/) NEW!
 ### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
 ### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
