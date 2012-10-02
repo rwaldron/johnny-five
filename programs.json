@@ -68,6 +68,7 @@
 
   [ "LED" ],
     "laser.js",
+    "led-matrix.js",
     "led-fade.js",
     "led-on-off.js",
     "led-pulse.js",
