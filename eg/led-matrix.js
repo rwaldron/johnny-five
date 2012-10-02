@@ -1,5 +1,3 @@
-var LedControl = require("../lib/led-control");
-
 var five = require("../lib/johnny-five"),
     board, lc;
 
@@ -20,12 +18,12 @@ board.on("ready", function() {
     "00000000"
   ];
 
-  lc = new LedControl({
+  lc = new five.LedControl({
     data: 2,
     clock: 3,
     cs: 4,
     devices: 1,
-    matrixMode: true
+    isMatrix: true
   });
 
   function queue(fn) {
@@ -34,7 +32,7 @@ board.on("ready", function() {
 
   lc.heart = function() {
     heart.forEach(function(row, rowIndex) {
-      queue( function() { lc.setRow( 0, rowIndex, parseInt( row, 2 ) ); } );
+      queue( function() { lc.row( 0, rowIndex, parseInt( row, 2 ) ); } );
     });
   };
 
@@ -45,7 +43,7 @@ board.on("ready", function() {
 
   function next() {
     var c = msg[ idx ];
-    lc.setChar( 0, c );
+    lc.char( 0, c );
     idx++;
     if ( idx === msg.length ) { return; }
     setTimeout( next, 800 );
