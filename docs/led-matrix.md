@@ -28,9 +28,11 @@ board.on("ready", function() {
   ];
 
   lc = new five.LedControl({
-    data: 2,
-    clock: 3,
-    cs: 4,
+    pins: {
+      data: 2,
+      clock: 3,
+      cs: 4
+    },
     devices: 1,
     isMatrix: true
   });
