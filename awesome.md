@@ -1,6 +1,19 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
+## Irene Ros [@ireneros](http://twitter/ireneros)
+
+- Wii Nunchuk Controller for AR Drone (nodecopter event)
+    [video](http://twitter.yfrog.com/n4u1nrxrakmkyopxxpjmxzmzz)
+    [code](https://github.com/iros/nodecoptering)
+
+
+## Chris Williams [@voodootikigod](http://twitter/voodootikigod)
+
+- Wii Nunchuk Controller for AR Drone (nodecopter event)
+    [code](https://github.com/voodootikigod/wii-drone/)
+
+
 ## Andreas Haugstrup Pedersen [@hgstrp](http://twitter/hgstrp)
 
 - LCD Controller (First successful implementation!!)
