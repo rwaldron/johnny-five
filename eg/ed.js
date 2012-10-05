@@ -49,6 +49,9 @@ function ED( opts ) {
   // Initialize the right and left cooperative servos
   // TODO: Support pre-initialized servo instances
   this.servos = {
+    balance: opts.balance && new five.Servo({
+      pin: opts.balance /*, range: [ 40, 140 ]*/
+    }),
     right: {
       hip: opts.right.hip && new five.Servo( opts.right.hip ),
       foot: opts.right.foot && new five.Servo( opts.right.foot )
@@ -161,6 +164,12 @@ ED.prototype.attn = function( next ) {
           // this.servos.right.foot.center();
           // this.servos.left.hip.center();
           // this.servos.left.foot.center();
+          //
+
+          if ( this.servos.balance ) {
+            this.servos.balance.move( 90 );
+          }
+
 
           this.move({
             type: "attn",
@@ -219,6 +228,7 @@ ED.prototype.step = function( instruct ) {
   // direction.
   if ( this.direction !== direction && !this.isCentered ) {
 
+    console.log( "RECALIBRATION" );
     // Return to attention (centered on all joints)
     this.attn();
 
@@ -250,68 +260,193 @@ ED.prototype.step = function( instruct ) {
   // Begin stepping movements.
   //
   //
+
   // Prestep
-  this.servos[ opposing ].foot.center();
-  this.servos[ this.side ].foot.center();
+  // Set both foot servos to 90°
+  // this.servos[ opposing ].foot.center();
+  // this.servos[ this.side ].foot.center();
+
+  console.log( this.side );
+
+
+  if ( this.servos.balance ) {
+    this.servos.balance[ isLeft ? "min" : "max" ]();
+  }
+
 
 
   this.queue([
 
     // Phase 1
     {
-      wait: 100,
+      wait: 500,
       task: function() {
+
+        // // Lift the currently stepping foot
+        // this.servos[ this.side ].foot.move(
+        //   isLeft ? 120 : 60
+        // );
+        var instruct = {};
 
         // Lift the currently stepping foot
-        this.servos[ this.side ].foot.move(
-          isLeft ? 120 : 60
-        );
+        instruct[ this.side ] = {
+          foot: isLeft ? 40 : 140
+        };
 
-      }.bind(this)
-    },
-
-    // Phase 2
-    {
-      wait: 100,
-      task: function() {
-
-        // Lean on the opposing foot
-        this.servos[ opposing ].foot.move(
-          isLeft ? 60 : 120
-        );
-
-      }.bind(this)
-    },
-
-    // Phase 3
-    {
-      wait: 1000,
-      task: function() {
-        // Previously using....
-        //     ( isFwd ? 40 : 140 ) :
-        //     ( isFwd ? 140 : 40 );
-
-        var degrees = isLeft ?
-            ( isFwd ? 60 : 120 ) :
-            ( isFwd ? 120 : 60 );
-
-
-        // var degrees = isLeft ?
-        //     ( isFwd ? 120 : 60 ) :
-        //     ( isFwd ? 60 : 120 );
+        instruct[ opposing ] = {
+          foot: isLeft ? 70 : 110
+        };
 
         // Swing currently stepping hips
-        this.move({
-          type: "step",
-          right: {
-            hip: degrees
-          },
-          left: {
-            hip: degrees
-          }
-        });
+        this.move( instruct );
+
+
       }.bind(this)
     }
+    //,
+
+    // Phase 2
+    // {
+    //   wait: 1500,
+    //   task: function() {
+    //     // Previously using....
+    //     //     ( isFwd ? 40 : 140 ) :
+    //     //     ( isFwd ? 140 : 40 );
+    //     // var degrees = isLeft ?
+    //     //     ( isFwd ? 60 : 120 ) :
+    //     //     ( isFwd ? 120 : 60 );
+    //     // var degrees = isLeft ?
+    //     //     ( isFwd ? 120 : 60 ) :
+    //     //     ( isFwd ? 60 : 120 );
+    //     // var degrees = isLeft ?
+    //     //     ( isFwd ? 40 : 140 ) :
+    //     //     ( isFwd ? 140 : 40 );
+
+    //     var degrees = isLeft ?
+    //         ( isFwd ? 120 : 60 ) :
+    //         ( isFwd ? 60 : 120 );
+
+
+    //     // Swing currently stepping hips
+    //     this.move({
+    //       type: "swing",
+    //       right: {
+    //         hip: degrees
+    //       },
+    //       left: {
+    //         hip: degrees
+    //       }
+    //     });
+
+    //   }.bind(this)
+    // }
+
+//     ,
+
+//     // Phase 3
+//     {
+//       wait: 2000,
+//       task: function() {
+
+//         // // Lift the currently stepping foot
+//         // this.servos[ this.side ].foot.move(
+//         //   isLeft ? 120 : 60
+//         // );
+//         var instruct = {};
+
+//         // Lift the currently stepping foot
+//         instruct[ this.side ] = {
+//           foot: this.servos[ this.side ].foot.last.degrees
+//         };
+
+
+// // console.log( this.servos[ opposing ].foot.last.degrees );
+//         instruct[ opposing ] = {
+//           foot: this.servos[ opposing ].foot.last.degrees
+//         };
+
+//         // Swing currently stepping hips
+//         this.move( instruct );
+
+
+//       }.bind(this)
+//     }
+
+    // // Phase 2
+    // {
+    //   wait: 1000,
+    //   task: function() {
+    //     var instruct = {};
+
+    //     // lean the opposing foot
+    //     // this.servos[ opposing ].foot.move(
+    //     //   isLeft ? 70 : 110
+    //     // );
+
+    //     // Lean on the opposing foot
+    //     // this.servos[ this.side ].foot.move(
+    //     //   // isLeft ? 60 : 120
+    //     //   90
+    //     // );
+
+
+    //     instruct[ this.side ] = {
+    //       foot: 90
+    //     };
+
+    //     instruct[ opposing ] = {
+    //       foot: this.servos[ opposing ].foot.last.degrees
+    //     };
+
+    //     // Swing currently stepping hips
+    //     this.move( instruct );
+
+
+    //   }.bind(this)
+    // },
+
+    // Phase 2
+    // {
+    //   wait: 500,
+    //   task: function() {
+
+    //     // Lean on the opposing foot
+    //     this.servos[ opposing ].foot.move(
+    //       isLeft ? 60 : 120
+    //     );
+
+    //   }.bind(this)
+    // },
+
+    // // Phase 3
+    // {
+    //   wait: 1000,
+    //   task: function() {
+    //     // Previously using....
+    //     //     ( isFwd ? 40 : 140 ) :
+    //     //     ( isFwd ? 140 : 40 );
+
+    //     // var degrees = isLeft ?
+    //     //     ( isFwd ? 60 : 120 ) :
+    //     //     ( isFwd ? 120 : 60 );
+
+
+    //     var degrees = isLeft ?
+    //         ( isFwd ? 120 : 60 ) :
+    //         ( isFwd ? 60 : 120 );
+
+    //     // Swing currently stepping hips
+    //     this.move({
+    //       type: "step",
+    //       right: {
+    //         hip: degrees
+    //       },
+    //       left: {
+    //         hip: degrees
+    //       }
+    //     });
+    //   }.bind(this)
+    // }
   ]);
 
   // console.log( "Stepped ", this.side );
@@ -373,7 +508,7 @@ ED.prototype.step = function( instruct ) {
       },
       {
         // may need to extend this length. previously 2250
-        loop: 1000,
+        loop: 2000,
         // this.times.step + this.times.attn
         task: function( loop ) {
           if ( !priv.get(this).isWalking ) {
@@ -403,8 +538,10 @@ ED.prototype.step = function( instruct ) {
  * @param  {Object} positions left/right hip/foot positions
  *
  */
-ED.prototype.move = function( positions ) {
 
+
+
+ED.prototype.move = function( positions ) {
   var start, type;
 
   if ( this.history.length ) {
@@ -416,14 +553,16 @@ ED.prototype.move = function( positions ) {
 
   [ "foot", "hip" ].forEach(function( section ) {
     [ "right", "left" ].forEach(function( side ) {
-      var interval, endAt, startAt, servo, degree, step;
+      var interval, endAt, startAt, servo, degree, step,
+          s, sTime;
 
       endAt = positions[ side ][ section ];
       servo = this.servos[ side ][ section ];
       degree = this.degrees[ side ][ section ];
 
 
-      var s = Date.now();
+      s = Date.now();
+      sTime = Date.now();
 
       if ( !endAt || endAt === degree ) {
         return;
@@ -433,19 +572,48 @@ ED.prototype.move = function( positions ) {
         startAt = start[ side ][ section ];
         step = 2;
 
+        // console.log( "startAt", side, section, startAt );
+
         // Determine degree step direction
         if ( endAt < startAt ) {
           step *= -1;
         }
 
-        interval = setInterval(function() {
-          if ( startAt === endAt ) {
-            clearInterval( interval );
-            this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / 2;
-          }
-          // Move the servo to the next 2° step
+        // // First Attemp...
+        // interval = setInterval(function() {
+        //   // console.log( startAt, endAt );
+        //   if ( startAt === endAt ) {
+        //     clearInterval( interval );
+        //     this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / 2;
+        //   }
+        //   // Move the servo to the next 2° step
+        //   servo.move( startAt += step );
+        // }.bind(this), 10);
+
+
+        // // Second Attemp...
+        // process.nextTick(function tick() {
+
+        //   // console.log( startAt, endAt );
+        //   if ( startAt === endAt ) {
+        //     this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / 2;
+        //   } else {
+
+        //     if ( Date.now() > sTime + 10 ) {
+        //       // Move the servo to the next 2° step
+        //       servo.move( startAt += step );
+        //       sTime = Date.now();
+        //     }
+        //     process.nextTick( tick.bind(this) );
+        //   }
+        // }.bind(this));
+
+        // Final
+        this.repeat( Math.abs( endAt - startAt ) / 2, 10, function() {
           servo.move( startAt += step );
-        }.bind(this), 20);
+        });
+
+
 
       } else {
         // TODO: Stop doing this
@@ -466,7 +634,7 @@ ED.prototype.move = function( positions ) {
 };
 
 // Borrow API from Compulsive
-[ "wait", "loop", "queue" ].forEach(function( api ) {
+[ "wait", "loop", "queue", "repeat" ].forEach(function( api ) {
   ED.prototype[ api ] = compulsive[ api ];
 });
 
@@ -477,6 +645,7 @@ ED.prototype.move = function( positions ) {
   // Create new Enforcement Droid
   // assign servos
   biped = new ED({
+    // balance: 6,
     right: {
       hip: 9,
       foot: 11
@@ -493,6 +662,16 @@ ED.prototype.move = function( positions ) {
     b: biped,
     ED: ED
   });
+
+
+
+  biped.attn();
+
+  biped.wait(1000, function() {
+    biped.step();
+  });
+
+
 
   // Controlled via REPL:
   // b.fwd(), b.back(), b.attn()
