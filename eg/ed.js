@@ -49,9 +49,9 @@ function ED( opts ) {
   // Initialize the right and left cooperative servos
   // TODO: Support pre-initialized servo instances
   this.servos = {
-    balance: opts.balance && new five.Servo({
-      pin: opts.balance /*, range: [ 40, 140 ]*/
-    }),
+    // balance: opts.balance && new five.Servo({
+    //   pin: opts.balance /*, range: [ 40, 140 ]*/
+    // }),
     right: {
       hip: opts.right.hip && new five.Servo( opts.right.hip ),
       foot: opts.right.foot && new five.Servo( opts.right.foot )
@@ -300,7 +300,7 @@ ED.prototype.step = function( instruct ) {
 
     // Phase 2
     {
-      wait: 1500,
+      wait: 1000,
       task: function() {
         var degrees = isLeft ?
             ( isFwd ? 120 : 60 ) :
@@ -322,11 +322,10 @@ ED.prototype.step = function( instruct ) {
 
     // Phase 3
     {
-      wait: 2000,
+      wait: 1000,
       task: function() {
 
         // Flatten feet to surface
-
         this.servos[ opposing ].foot.center();
         this.servos[ this.side ].foot.center();
 
@@ -417,7 +416,7 @@ ED.prototype.step = function( instruct ) {
 
 
 ED.prototype.move = function( positions ) {
-  var start, type, step;
+  var start, type;
 
   if ( this.history.length ) {
     start = this.history[ this.history.length - 1 ];
@@ -425,18 +424,18 @@ ED.prototype.move = function( positions ) {
 
   type = positions.type || "step";
 
-  // Degrees per step
-  step = 2;
-
-
   [ "foot", "hip" ].forEach(function( section ) {
     [ "right", "left" ].forEach(function( side ) {
-      var interval, endAt, startAt, servo,
+      var interval, endAt, startAt, servo, step,
           s, sTime;
 
       endAt = positions[ side ][ section ];
       servo = this.servos[ side ][ section ];
       startAt = this.degrees[ side ][ section ];
+
+      // Degrees per step
+      step = 2;
+
 
       s = Date.now();
       sTime = Date.now();
@@ -453,13 +452,13 @@ ED.prototype.move = function( positions ) {
 
         // Repeat each step for required number of steps to move
         // servo into new position. Each step is ~20ms duration
-        this.repeat( Math.abs( endAt - startAt ) / step, 10, function() {
-          console.log( startAt );
+        this.repeat( Math.abs( endAt - startAt ) / 2, 10, function() {
+          // console.log( startAt );
           servo.move( startAt += step );
 
-          // if ( startAt === endAt ) {
-          //   this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / step;
-          // }
+          if ( startAt === endAt ) {
+            this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / 2;
+          }
         }.bind(this));
 
       } else {
@@ -469,9 +468,6 @@ ED.prototype.move = function( positions ) {
       }
     }, this );
   }, this );
-
-// console.log( "positions.right", positions.right );
-// console.log( "last", this.degrees.right.hip );
 
   // Push a record object into the stepping history
   this.history.push({
