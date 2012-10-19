@@ -1,8 +1,8 @@
-# Nunchuk Classic Controller
+# Classic Controller
 
 Run with:
 ```bash
-node eg/nunchuk-classic-controller.js
+node eg/classic-controller.js
 ```
 
 

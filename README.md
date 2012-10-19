@@ -162,9 +162,9 @@ board.on("ready", function() {
 - [Nodeconf Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-radar.md)
 - [Nodeconf Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-slider.md)
 
-### Wii Nunchuk
+### Wii
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
-- [Nunchuk Classic Controller](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk-classic-controller.md)
+- [Classic Controller](https://github.com/rwldrn/johnny-five/blob/master/docs/classic-controller.md)
 
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)

@@ -90,9 +90,9 @@
     "nodeconf-slider.js",
 
 
-  [ "Wii Nunchuk" ],
+  [ "Wii" ],
     "nunchuk.js",
-    "nunchuk-classic-controller.js",
+    "classic-controller.js",
 
 
   [ "Sensors" ],
