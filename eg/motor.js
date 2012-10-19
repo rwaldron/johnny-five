@@ -4,14 +4,10 @@ var five = require("../lib/johnny-five.js"),
 board = new five.Board();
 
 board.on("ready", function() {
-  var timer;
-
   // Create a new `motor` hardware instance.
   motor = new five.Motor({
     pin: 5
   });
-
-  (led = new five.Led()).on();
 
   // Inject the `motor` hardware into
   // the Repl instance's context;
