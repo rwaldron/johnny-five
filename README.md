@@ -164,6 +164,7 @@ board.on("ready", function() {
 
 ### Wii Nunchuk
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
+- [Nunchuk Classic Controller](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk-classic-controller.md)
 
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)

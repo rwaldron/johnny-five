@@ -1,13 +1,32 @@
-var five = require("../lib/johnny-five.js"),
+# Nunchuk Classic Controller
+
+Run with:
+```bash
+node eg/nunchuk-classic-controller.js
+```
+
+
+```javascript
+var five = require("johnny-five"),
     board, nunchuk;
 
 board = new five.Board();
 
+
+// Setup for bread board
+// Wire Color   =>  Meaning   =>  Arduino Pin Down
+// Yellow       =>  SCK       =>  A04
+// White        =>  GND       =>  Ground
+// Red          =>  5v        =>  5v
+// Green        =>  SDA       =>  A05
+
+
 board.on("ready", function() {
 
-  // Create a new `nunchuk` hardware instance.
-  nunchuk = new five.Wii.Nunchuk({
-    freq: 50
+  // Create a new `Wii.Classic` hardware instance,
+  // specifically the RVL-005 device (classic controller).
+  var classicController = five.Wii.Classic({
+    freq: 100
   });
 
 
@@ -28,22 +47,17 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on( "change", function( err, event ) {
+  nunchuk.joystick.left.on( "change", function( err, event ) {
     console.log(
-      "joystick " + event.axis,
+      "Left joystick " + event.axis,
       event.target[ event.axis ],
       event.axis, event.direction
     );
   });
 
-  // "change", "axischange" (accelerometer)
-  //
-  // Fired when the accelerometer detects a change in
-  // axis position.
-  //
-  nunchuk.accelerometer.on( "change", function( err, event ) {
+  nunchuk.joystick.right.on( "change", function( err, event ) {
     console.log(
-      "accelerometer " + event.axis,
+      "Right joystick " + event.axis,
       event.target[ event.axis ],
       event.axis, event.direction
     );
@@ -90,3 +104,39 @@ board.on("ready", function() {
 // http://media.pragprog.com/titles/msard/tinker.pdf
 // http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
 });
+
+```
+
+## Breadboard
+
+
+
+
+
+## Devices
+
+
+
+
+## Documentation
+
+_(Nothing yet)_
+
+
+
+
+
+
+
+
+
+## Contributing
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+
+## Release History
+_(Nothing yet)_
+
+## License
+Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.

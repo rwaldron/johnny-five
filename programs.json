@@ -92,6 +92,7 @@
 
   [ "Wii Nunchuk" ],
     "nunchuk.js",
+    "nunchuk-classic-controller.js",
 
 
   [ "Sensors" ],

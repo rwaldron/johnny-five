@@ -14,11 +14,10 @@ board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create a new `nunchuk` hardware instance, specifically the RVL-005 device (classic controller).
-  var classicController = five.Nunchuk({ 
-    pins: ["A4", "A5"], 
-    freq: 100, 
-    device: "RVL-005" 
+  // Create a new `Wii.Classic` hardware instance,
+  // specifically the RVL-005 device (classic controller).
+  var classicController = five.Wii.Classic({
+    freq: 100
   });
 
 
@@ -39,7 +38,7 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.left_joystick.on( "change", function( err, event ) {
+  nunchuk.joystick.left.on( "change", function( err, event ) {
     console.log(
       "Left joystick " + event.axis,
       event.target[ event.axis ],
@@ -47,7 +46,7 @@ board.on("ready", function() {
     );
   });
 
-  nunchuk.right_joystick.on( "change", function( err, event ) {
+  nunchuk.joystick.right.on( "change", function( err, event ) {
     console.log(
       "Right joystick " + event.axis,
       event.target[ event.axis ],

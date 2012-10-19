@@ -15,7 +15,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a new `nunchuk` hardware instance.
-  nunchuk = new five.Nunchuk({
+  nunchuk = new five.Wii.Nunchuk({
     freq: 50
   });
 
