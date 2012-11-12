@@ -12,7 +12,7 @@ var five = require("johnny-five"),
     es6 = require("es6-collections"),
     WeakMap = es6.WeakMap;
 
-var board, ED, biped, servos,
+var ED,
     priv = new WeakMap();
 
 
@@ -20,6 +20,18 @@ var board, ED, biped, servos,
  * ED
  *
  * Enforcement Droid Series
+ *
+ * http://www.lynxmotion.com/images/jpg/bratjr00.jpg
+ * http://www.lynxmotion.com/images/html/build112.htm
+ * Hardware:
+  - 1 x Alum. Channel - 3" Single Pack (ASB-503)
+  - 2 x Multi-Purpose Servo Bracket Two Pack (ASB-04)
+  - 1 x "L" Connector Bracket Two Pack (ASB-06)
+  - 1 x "C" Servo Bracket w/ Ball Bearings Two Pack (ASB-09)
+  - 1 x Robot Feet Pair (ARF-01)
+  - 1 x SES Electronics Carrier (EC-02)
+  - 1 x SSC-32 Servo Controller (SSC-32)
+  - 4 x HS-422 (57oz.in.) Standard Servo (S422)
  *
  * @param {Object} opts Optional properties object
  */
@@ -30,20 +42,15 @@ function ED( opts ) {
   // Standard servos center at 90°
   this.center = opts.center || 90;
 
-  // Initiale movement is fwd
+  // Initiale movement is forward
   this.direction = "fwd";
 
   // Accessor for reading the current servo position will
   // be defined and assigned to this.degrees object.
   this.degrees = {};
 
-  // Store "next" move function calls here, if necessary.
-  // Used by attn to allow bot to stop walking before commencing
-  // in the next direction.
-  //
-  //    1. attn() -> stop walking stand, set this.next = dir
-  //    2. recall attn(), comple
-  this.next = null;
+  // holds a reference to the current repeating/looping sequence
+  this.sequence = null;
 
   // Table of times (avg) to complete tasks
   this.times = {
@@ -68,8 +75,15 @@ function ED( opts ) {
     }
   };
 
+  // Create shortcut properties
+  this.right = this.servos.right;
+  this.left = this.servos.left;
 
-  // Setup degree history accessor descriptors
+  // Create accessor descriptors:
+  //
+  //  .left { .foot, .hip }
+  //  .right { .foot, .hip }
+  //
   [ "right", "left" ].forEach(function( key ) {
 
     var descriptor = {};
@@ -107,21 +121,25 @@ function ED( opts ) {
     }
   });
 
-
   // Store a recallable history of movement
   // TODO: Include in savable history
-  this.history = [];
+  this.history = [{
+    timestamp: Date.now(),
+    side: "right",
+    right: { hip: 0, foot: 0 },
+    left: { hip: 0, foot: 0 }
+  }];
 
   // Create an entry in the private data store.
   priv.set( this, {
     // `isWalking` is used in:
-    //    Ed.prototype.(attn|stop)
-    //    Ed.prototype.(forward|fwd;reverse|rev)
-    isWalking: false
-  });
+    //    ED.prototype.(attn|stop)
+    //    ED.prototype.(forward|fwd;reverse|rev)
+    isWalking: false,
 
-  // Wait 10ms, stand at attention
-  this.wait( 10, this.attn.bind(this) );
+    // Allowed to hit the dance floor.
+    canDance: true
+  });
 }
 
 /**
@@ -129,76 +147,32 @@ function ED( opts ) {
  * @return {Object} this
  */
 //ED.prototype.attn = ED.prototype.stop = function() {
-ED.prototype.attn = function( next ) {
-  this.side = "right";
+ED.prototype.attn = function( options ) {
+  options = options || {};
 
-  // Check to see if the bot is currently walking
-  if ( priv.get(this).isWalking && this.next === null ) {
+  if ( !options.isWalking ) {
 
-    // If so, update the private isWalking state,
-    // setting the value to `false`
+    if ( this.sequence ) {
+      this.sequence.stop();
+      this.sequence = null;
+    }
+
     priv.set( this, {
       isWalking: false
     });
-
-    // Initiate a wait behaviour of 500ms, then
-    // recall this.attn();
-    this.wait( 500, this.attn.bind(this) );
-
-    // Set next
-    this.next = next;
-
-  } else {
-    // Center all servos
-    // this.move({
-    //   type: "attn",
-    //   right: {
-    //     hip: 90,
-    //     foot: 90
-    //   },
-    //   left: {
-    //     hip: 90,
-    //     foot: 90
-    //   }
-    // });
-
-    this.queue([
-      {
-        wait: 10,
-        task: function() {
-          // this.servos.right.hip.center();
-          // this.servos.right.foot.center();
-          // this.servos.left.hip.center();
-          // this.servos.left.foot.center();
-
-          this.move({
-            type: "attn",
-            right: {
-              hip: 90,
-              foot: 90
-            },
-            left: {
-              hip: 90,
-              foot: 90
-            }
-          });
-
-        }.bind(this)
-      },
-      {
-        wait: 150,
-        task: function() {
-          if ( this.next !== null && this[ this.next ] ) {
-            // Call next specified
-            this[ this.next ]();
-
-            // Reset this.next as cleanup measure.
-            this.next = null;
-          }
-        }.bind(this)
-      }
-    ]);
   }
+
+  this.move({
+    type: "attn",
+    right: {
+      hip: 90,
+      foot: 90
+    },
+    left: {
+      hip: 90,
+      foot: 90
+    }
+  });
 };
 
 /**
@@ -208,110 +182,76 @@ ED.prototype.attn = function( next ) {
  *                          one of: (fwd, rev, left, right)
  *
  */
-ED.prototype.step = function( instruct ) {
-  var isLeft, isFwd, opposing, direction;
+ED.prototype.step = function( direct ) {
+  var isLeft, isFwd, opposing, direction, state;
 
-  if ( instruct === "fwd" || instruct === "rev" ) {
-    direction = instruct;
-    instruct = undefined;
+  state = priv.get(this);
+
+  if ( /fwd|rev/.test(direct) ) {
+    direction = direct;
+    direct = undefined;
   }
   else {
     direction = "fwd";
   }
 
   // Derive which side to step on; based on last step or explicit step
-  this.side = instruct || ( this.side !== "right" ? "right" : "left" );
-
-  // When changing direction, the bot needs to first stand at
-  // attention. This is done to provide a discreet means of
-  // re-calibrating the servos before proceeding in the new
-  // direction.
-  if ( this.direction !== direction && !this.isCentered ) {
-
-    // Return to attention (centered on all joints)
-    this.attn();
-
-    // Initiate a wait behaviour of 1500ms (1.5s);
-    // Update current direction and
-    // continue with new stepping direction
-    this.wait( 1500, function() {
-      this.direction = direction;
-      this.step( direction );
-    }.bind(this));
-
-    return;
-  }
+  this.side = direct || ( this.side !== "right" ? "right" : "left" );
 
   // Update the value of the current direction
   this.direction = direction;
-
-  // Determine if this is the left foot
-  // Used in phase 3 to conditionally control the servo degrees
-  isLeft = this.side === "left";
 
   // Determine if the bot is moving fwd
   // Used in phase 3 to conditionally control the servo degrees
   isFwd = this.direction === "fwd";
 
+  // Determine if this is the left foot
+  // Used in phase 3 to conditionally control the servo degrees
+  isLeft = this.side === "left";
+
   // Opposing leg side, used in prestep and phase 2;
-  opposing = isLeft ? "right" : "left";
+  // opposing = isLeft ? "right" : "left";
 
   // Begin stepping movements.
   //
-  //
-  // Prestep
-  this.servos[ opposing ].foot.center();
-  this.servos[ this.side ].foot.center();
-
-
   this.queue([
 
     // Phase 1
     {
-      wait: 100,
+      wait: 500,
       task: function() {
+        var stepping, opposing, instruct;
 
-        // Lift the currently stepping foot
-        this.servos[ this.side ].foot.move(
-          isLeft ? 120 : 60
-        );
+        stepping = isLeft ? "left" : "right";
+        opposing = isLeft ? "right" : "left";
 
+        instruct = {};
+
+        // Lift the currently stepping foot, while
+        // leaning on the currently opposing foot.
+        instruct[ stepping ] = {
+          foot: isLeft ? 40 : 140
+        };
+        instruct[ opposing ] = {
+          foot: isLeft ? 70 : 110
+        };
+
+        // Swing currently stepping hips
+        this.move( instruct );
       }.bind(this)
     },
 
     // Phase 2
     {
-      wait: 100,
+      wait: 500,
       task: function() {
-
-        // Lean on the opposing foot
-        this.servos[ opposing ].foot.move(
-          isLeft ? 60 : 120
-        );
-
-      }.bind(this)
-    },
-
-    // Phase 3
-    {
-      wait: 1000,
-      task: function() {
-        // Previously using....
-        //     ( isFwd ? 40 : 140 ) :
-        //     ( isFwd ? 140 : 40 );
-
         var degrees = isLeft ?
-            ( isFwd ? 60 : 120 ) :
-            ( isFwd ? 120 : 60 );
-
-
-        // var degrees = isLeft ?
-        //     ( isFwd ? 120 : 60 ) :
-        //     ( isFwd ? 60 : 120 );
+            ( isFwd ? 120 : 60 ) :
+            ( isFwd ? 60 : 120 );
 
         // Swing currently stepping hips
         this.move({
-          type: "step",
+          type: "swing",
           right: {
             hip: degrees
           },
@@ -319,11 +259,24 @@ ED.prototype.step = function( instruct ) {
             hip: degrees
           }
         });
+
+      }.bind(this)
+    },
+
+    // Phase 3
+    {
+      wait: 500,
+      task: function() {
+
+        // Flatten feet to surface
+        this.servos.right.foot.center();
+        this.servos.left.foot.center();
+
+
+
       }.bind(this)
     }
   ]);
-
-  // console.log( "Stepped ", this.side );
 };
 
 [
@@ -350,10 +303,27 @@ ED.prototype.step = function( instruct ) {
 ].forEach(function( dir ) {
 
   ED.prototype[ dir.name ] = ED.prototype[ dir.abbr ] = function() {
+    var startAt, stepper, state;
 
-    if ( this.direction === dir.abbr ) {
+    startAt = 10;
+    state = priv.get(this);
+
+    // If ED is already walking in this direction, return immediately;
+    // This prevents multiple movement loops from being scheduled.
+    if ( this.direction === dir.abbr && state.isWalking ) {
       return;
     }
+
+    // If a sequence reference exists, kill it. This will
+    // clear all pending queue repeaters.
+    if ( this.sequence ) {
+      this.sequence.stop();
+      this.sequence = null;
+    }
+
+
+    this.direction = dir.abbr;
+
     // Update the private state to indicate
     // that the bot is currently walking.
     //
@@ -362,49 +332,160 @@ ED.prototype.step = function( instruct ) {
     //
     // Walk termination occurs in the ED.prototype.attn method
     //
+    priv.set(this, {
+      isWalking: true
+    });
 
-    this.direction = dir.abbr;
+    stepper = function( loop ) {
+      // Capture of sequence queue reference
+      if ( this.sequence === null ) {
+        this.sequence = loop;
+      }
 
-    // Initiate a loop behaviour of 2000ms (2s)
-    //
-    // During each turn, check if the but is still
-    // in the `isWalking` state. If true, continue
-    // with the next step.
-    //
-    // Otherwise, stop the loop
-    //
+      this.step( dir.abbr );
+
+      if ( !priv.get(this).isWalking ) {
+        loop.stop();
+      }
+    }.bind(this);
+
+    // If the bot is not centered, ie. all servos at 90degrees,
+    // bring the bot to attention before proceeding.
+    if ( !this.isCentered ) {
+      this.attn({ isWalking: true });
+      // Offset the amount ms required for attn() to complete
+      startAt = 750;
+    }
+
     this.queue([
       {
-        wait: 10,
+        wait: startAt,
         task: function() {
           this.step( dir.abbr );
         }.bind(this)
       },
       {
-        // may need to extend this length. previously 2250
-        loop: 1000,
-        // this.times.step + this.times.attn
-        task: function( loop ) {
-          if ( !priv.get(this).isWalking ) {
-            this.step( dir.abbr );
-          } else {
-            loop.stop();
-          }
-        }.bind(this)
+        loop: 1500,
+        task: stepper
       }
     ]);
-
-    // this.loop( 2250, function( loop ) {
-    //   if ( priv.get(this).isWalking ) {
-
-    //     this.step( dir.abbr );
-
-    //   } else {
-    //     loop.stop();
-    //   }
-    // }.bind(this));
   };
 });
+
+ED.prototype.dance = function() {
+  var restore, state;
+
+  // Derive which side to step on; based on last step or explicit step
+  this.side = this.side !== "right" ? "right" : "left";
+
+  // Determine if this is the left foot
+  // Used in phase 3 to conditionally control the servo degrees
+  isLeft = this.side === "left";
+
+  this.attn();
+
+  if ( typeof this.moves === "undefined" ) {
+    this.moves = 0;
+  }
+
+  this.queue([
+    // Phase 1
+    {
+      wait: 500,
+      task: function() {
+        var degrees = isLeft ? 120 : 60;
+
+        if ( this.moves % 2 === 0 ) {
+          this.move({
+            type: "attn",
+            right: {
+              hip: 90,
+              foot: 60
+            },
+            left: {
+              hip: 90,
+              foot: 120
+            }
+          });
+        } else {
+
+          this.move({
+            type: "attn",
+            right: {
+              hip: 90,
+              foot: 120
+            },
+            left: {
+              hip: 90,
+              foot: 60
+            }
+          });
+        }
+
+        // Swing currently stepping hips
+        this.move({
+          type: "swing",
+          right: {
+            hip: degrees
+          },
+          left: {
+            hip: degrees
+          }
+        });
+
+        // restore = this.servos[ this.side ].foot.last.degrees;
+        // this.servos[ this.side ].foot.move( restore === 140 ? 120 : 60 );
+
+      }.bind(this)
+    },
+
+    // Phase 2
+    {
+      wait: 500,
+      task: function() {
+        var degrees = isLeft ? 60 : 120;
+
+        // Swing currently stepping hips
+        this.move({
+          type: "swing",
+          right: {
+            hip: degrees
+          },
+          left: {
+            hip: degrees
+          }
+        });
+
+        // this.servos[ this.side ].foot.move( restore );
+
+      }.bind(this)
+    },
+
+    // Phase 3
+    {
+      wait: 500,
+      task: function() {
+
+        this.move({
+          type: "attn",
+          right: {
+            hip: 90,
+            foot: 90
+          },
+          left: {
+            hip: 90,
+            foot: 90
+          }
+        });
+
+        this.dance();
+
+      }.bind(this)
+    }
+  ]);
+
+  this.moves++;
+};
 
 
 /**
@@ -413,7 +494,6 @@ ED.prototype.step = function( instruct ) {
  *
  */
 ED.prototype.move = function( positions ) {
-
   var start, type;
 
   if ( this.history.length ) {
@@ -422,39 +502,43 @@ ED.prototype.move = function( positions ) {
 
   type = positions.type || "step";
 
-
   [ "foot", "hip" ].forEach(function( section ) {
     [ "right", "left" ].forEach(function( side ) {
-      var interval, endAt, startAt, servo, degree, step;
+      var interval, endAt, startAt, servo, step, s;
+
+      if ( typeof positions[ side ] === "undefined" ) {
+        return;
+      }
 
       endAt = positions[ side ][ section ];
       servo = this.servos[ side ][ section ];
-      degree = this.degrees[ side ][ section ];
+      startAt = this.degrees[ side ][ section ];
 
+      // Degrees per step
+      step = 2;
 
-      var s = Date.now();
+      s = Date.now();
 
-      if ( !endAt || endAt === degree ) {
+      if ( !endAt || endAt === startAt ) {
         return;
       }
 
       if ( start ) {
-        startAt = start[ side ][ section ];
-        step = 2;
-
         // Determine degree step direction
         if ( endAt < startAt ) {
           step *= -1;
         }
 
-        interval = setInterval(function() {
+        // Repeat each step for required number of steps to move
+        // servo into new position. Each step is ~20ms duration
+        this.repeat( Math.abs( endAt - startAt ) / 2, 10, function() {
+          // console.log( startAt );
+          servo.move( startAt += step );
+
           if ( startAt === endAt ) {
-            clearInterval( interval );
             this.times[ type ] = (this.times[ type ] + (Date.now() - s)) / 2;
           }
-          // Move the servo to the next 2° step
-          servo.move( startAt += step );
-        }.bind(this), 20);
+        }.bind(this));
 
       } else {
         // TODO: Stop doing this
@@ -464,47 +548,54 @@ ED.prototype.move = function( positions ) {
     }, this );
   }, this );
 
-
   // Push a record object into the stepping history
   this.history.push({
     timestamp: Date.now(),
     side: this.side,
-    right: five.Fn.extend({ hip: 0, foot: 0 }, positions.right ),
-    left: five.Fn.extend({ hip: 0, foot: 0 }, positions.left )
+    right: five.Fn.extend(
+      { hip: 0, foot: 0 }, this.degrees.right, positions.right
+    ),
+    left: five.Fn.extend(
+      { hip: 0, foot: 0 }, this.degrees.left, positions.left
+    )
   });
 };
 
 // Borrow API from Compulsive
-[ "wait", "loop", "queue" ].forEach(function( api ) {
+[ "wait", "loop", "queue", "repeat" ].forEach(function( api ) {
   ED.prototype[ api ] = compulsive[ api ];
 });
 
 // Begin program when the board, serial and
 // firmata are connected and ready
-(board = new five.Board()).on("ready", function() {
+(new five.Board()).on("ready", function() {
+  var biped;
 
   // Create new Enforcement Droid
   // assign servos
   biped = new ED({
     right: {
-      hip: 9,
-      foot: 11
+      hip: 9, foot: 11
     },
     left: {
-      hip: 10,
-      foot: 12
+      hip: 10, foot: 12
     }
   });
 
   // Inject into REPL for manual controls
   this.repl.inject({
     s: new five.Servo.Array(),
-    b: biped,
-    ED: ED
+    b: biped
+  });
+
+  biped.attn();
+
+  biped.wait(1000, function() {
+    biped.fwd();
   });
 
   // Controlled via REPL:
-  // b.fwd(), b.back(), b.attn()
+  // b.fwd(), b.rev(), b.attn()
 });
 
 

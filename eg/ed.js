@@ -3,7 +3,7 @@ var five = require("../lib/johnny-five.js"),
     es6 = require("es6-collections"),
     WeakMap = es6.WeakMap;
 
-var board, ED, biped, servos,
+var ED,
     priv = new WeakMap();
 
 
@@ -11,6 +11,18 @@ var board, ED, biped, servos,
  * ED
  *
  * Enforcement Droid Series
+ *
+ * http://www.lynxmotion.com/images/jpg/bratjr00.jpg
+ * http://www.lynxmotion.com/images/html/build112.htm
+ * Hardware:
+  - 1 x Alum. Channel - 3" Single Pack (ASB-503)
+  - 2 x Multi-Purpose Servo Bracket Two Pack (ASB-04)
+  - 1 x "L" Connector Bracket Two Pack (ASB-06)
+  - 1 x "C" Servo Bracket w/ Ball Bearings Two Pack (ASB-09)
+  - 1 x Robot Feet Pair (ARF-01)
+  - 1 x SES Electronics Carrier (EC-02)
+  - 1 x SSC-32 Servo Controller (SSC-32)
+  - 4 x HS-422 (57oz.in.) Standard Servo (S422)
  *
  * @param {Object} opts Optional properties object
  */
@@ -44,9 +56,6 @@ function ED( opts ) {
   // Initialize the right and left cooperative servos
   // TODO: Support pre-initialized servo instances
   this.servos = {
-    // balance: opts.balance && new five.Servo({
-    //   pin: opts.balance /*, range: [ 40, 140 ]*/
-    // }),
     right: {
       hip: opts.right.hip && new five.Servo( opts.right.hip ),
       foot: opts.right.foot && new five.Servo( opts.right.foot )
@@ -57,10 +66,15 @@ function ED( opts ) {
     }
   };
 
+  // Create shortcut properties
   this.right = this.servos.right;
   this.left = this.servos.left;
 
-  // Setup degree history accessor descriptors
+  // Create accessor descriptors:
+  //
+  //  .left { .foot, .hip }
+  //  .right { .foot, .hip }
+  //
   [ "right", "left" ].forEach(function( key ) {
 
     var descriptor = {};
@@ -98,7 +112,6 @@ function ED( opts ) {
     }
   });
 
-
   // Store a recallable history of movement
   // TODO: Include in savable history
   this.history = [{
@@ -111,16 +124,13 @@ function ED( opts ) {
   // Create an entry in the private data store.
   priv.set( this, {
     // `isWalking` is used in:
-    //    Ed.prototype.(attn|stop)
-    //    Ed.prototype.(forward|fwd;reverse|rev)
+    //    ED.prototype.(attn|stop)
+    //    ED.prototype.(forward|fwd;reverse|rev)
     isWalking: false,
 
     // Allowed to hit the dance floor.
     canDance: true
   });
-
-  // Wait 10ms, stand at attention
-  // this.wait( 50, this.attn.bind(this) );
 }
 
 /**
@@ -469,7 +479,6 @@ ED.prototype.dance = function() {
 };
 
 
-
 /**
  * move Move the bot in an arbitrary direction
  * @param  {Object} positions left/right hip/foot positions
@@ -500,7 +509,6 @@ ED.prototype.move = function( positions ) {
       step = 2;
 
       s = Date.now();
-
 
       if ( !endAt || endAt === startAt ) {
         return;
@@ -551,27 +559,24 @@ ED.prototype.move = function( positions ) {
 
 // Begin program when the board, serial and
 // firmata are connected and ready
-(board = new five.Board()).on("ready", function() {
+(new five.Board()).on("ready", function() {
+  var biped;
 
   // Create new Enforcement Droid
   // assign servos
   biped = new ED({
-    // balance: 6,
     right: {
-      hip: 9,
-      foot: 11
+      hip: 9, foot: 11
     },
     left: {
-      hip: 10,
-      foot: 12
+      hip: 10, foot: 12
     }
   });
 
   // Inject into REPL for manual controls
   this.repl.inject({
     s: new five.Servo.Array(),
-    b: biped,
-    ED: ED
+    b: biped
   });
 
   biped.attn();
@@ -580,10 +585,8 @@ ED.prototype.move = function( positions ) {
     biped.fwd();
   });
 
-
-
   // Controlled via REPL:
-  // b.fwd(), b.back(), b.attn()
+  // b.fwd(), b.rev(), b.attn()
 });
 
 
