@@ -29,10 +29,10 @@
 
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11022)
 - Download Arduino IDE
-  - [OSX](http://arduino.googlecode.com/files/arduino-1.0-macosx.zip)
-  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0-linux.tgz)
-  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0-linux64.tgz)
-  - Windows support coming soon.
+  - [OSX](http://arduino.googlecode.com/files/arduino-1.0.2-macosx.zip)
+  - [Linux 32 bit](https://arduino.googlecode.com/files/arduino-1.0.2-linux.tgz)
+  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0.2-linux64.tgz)
+  - [Windows](http://arduino.googlecode.com/files/arduino-1.0.2-windows.zip)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
 - Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
   - Make sure that the version of Firmata is [2.2](http://at.or.at/hans/pd/Firmata-2.2.zip). There are known issues with 2.3
