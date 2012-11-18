@@ -27,7 +27,7 @@
 
 ## Setup and Assemble Arduino
 
-- Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11022)
+- Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11236)
 - Download Arduino IDE
   - [OSX](http://arduino.googlecode.com/files/arduino-1.0-macosx.zip)
   - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0-linux.tgz)
