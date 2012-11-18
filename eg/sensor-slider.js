@@ -6,10 +6,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a new `slider` hardware instance.
-  slider = new five.Sensor({
-    pin: "A0",
-    freq: 250
-  });
+  slider = new five.Sensor("A2");
 
   // Inject the `slider` hardware into
   // the Repl instance's context;
@@ -23,9 +20,9 @@ board.on("ready", function() {
   //
   // Fires when value of sensor changes
   //
-  slider.scale([ 0, 100 ]).on("slide", function( err, value ) {
+  slider.scale([ 0, 100 ]).on("slide", function() {
 
-    console.log( "slide", value, this.value, this.scaled );
+    console.log( "slide", this.value, this.scaled );
 
   });
 });

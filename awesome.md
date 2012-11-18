@@ -1,20 +1,26 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
-## Irene Ros [@ireneros](http://twitter/ireneros)
+## Kelly Korevec [@korevec](http://twitter.com/korevec)
+
+- Medibot
+    [Picture](https://twitter.com/korevec/status/267848987711766528/photo/1)
+    [code](https://github.com/korevec/medibot)
+
+## Irene Ros [@ireneros](http://twitter.com/ireneros)
 
 - Wii Nunchuk Controller for AR Drone (nodecopter event)
     [video](http://twitter.yfrog.com/n4u1nrxrakmkyopxxpjmxzmzz)
     [code](https://github.com/iros/nodecoptering)
 
 
-## Chris Williams [@voodootikigod](http://twitter/voodootikigod)
+## Chris Williams [@voodootikigod](http://twitter.com/voodootikigod)
 
 - Wii Nunchuk Controller for AR Drone (nodecopter event)
     [code](https://github.com/voodootikigod/wii-drone/)
 
 
-## Andreas Haugstrup Pedersen [@hgstrp](http://twitter/hgstrp)
+## Andreas Haugstrup Pedersen [@hgstrp](http://twitter.com/hgstrp)
 
 - LCD Controller (First successful implementation!!)
     [video](http://vimeo.com/46577266)
@@ -22,13 +28,16 @@
     (Became the basis for the LCD constructor!)
 
 
-## Rebecca Murphey [@rmurphey](http://twitter/rmurphey)
+## Rebecca Murphey [@rmurphey](http://twitter.com/rmurphey)
+
+- Johnny-Five Projects
+    [On Github](https://github.com/rmurphey/johnny-five-projects)
 
 - Shift Register Implementation w/ Led Counter Display
     [video](http://vimeo.com/46463390)
     [code](http://gist.github.com/3185390)
 
-## Jonathan Blanchet [@jblanchefr](http://twitter/jblanchefr)
+## Jonathan Blanchet [@jblanchefr](http://twitter.com/jblanchefr)
 
 - Arduino + Websockets + particles:
     [video](http://www.youtube.com/watch?v=MXEGLGmpCfo)
