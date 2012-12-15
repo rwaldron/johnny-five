@@ -8,6 +8,7 @@
 
 ## Adafruit
 
+- [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
 - [Motor Shield](http://www.adafruit.com/products/81)
 - [MaxSonar](https://www.adafruit.com/products/172)
 - [Bumper Switch](https://www.adafruit.com/products/818)
@@ -55,6 +56,7 @@
 ## Sparkfun
 
 
+- [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
 - [Arcade Joystick](http://www.sparkfun.com/products/9136)
 - [Laser Card Module - Red](http://www.sparkfun.com/products/594)
 - [Pan/Tilt Bracket](http://www.sparkfun.com/products/10335)
