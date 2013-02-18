@@ -1,5 +1,4 @@
 var five = require("../lib/johnny-five.js"),
-    child = require("child_process"),
     http = require("http"),
     socket = require("socket.io"),
     fs = require("fs"),
@@ -34,43 +33,38 @@ io.set( "log level", 1 );
 board = new five.Board();
 
 board.on("ready", function() {
-var defs, servos;
+  var defs, servos;
+
   // http://www.ranchbots.com/robot_arm/images/arm_diagram.jpg
   defs = [
-
-    // Pivot
-    { id: "a", pin:  6, range: [  0, 180 ], at: 90 },
+    // Pivot/Rotator
+    { id: "rotator", pin:  6, range: [  10, 170 ], startAt: 90 },
     // Shoulder
-    { id: "b", pin:  9, range: [ 60, 150 ], at: 20 },
+    { id: "shoulder", pin:  9, range: [ 20, 150 ], startAt: 90 },
     // Elbow
-    { id: "c", pin: 10, range: [  0, 120 ], at: 0 },
+    { id: "elbow", pin: 10, range: [  10, 120 ], startAt: 90 },
     // Wrist
-    { id: "d", pin: 11, range: [  0, 180 ], at: 40 },
+    { id: "wrist", pin: 11, range: [  10, 170 ], startAt: 40 },
     // Grip
-    { id: "e", pin: 12, range: [  0, 180 ], at: 0 }
+    { id: "claw", pin: 12, range: [  10, 170 ], startAt: 0 }
   ];
 
-  servos = {};
+  // Reduce the des array into an object of servo instances,
+  // where the servo id is the property name
+  servos = defs.reduce(function( accum, def ) {
+    return (accum[ def.id ] = five.Servo( def )) && accum;
+  }, {});
 
-  defs.forEach(function( def ) {
-    servos[def.id] = five.Servo( def ).move( def.at );
-  });
-
-
-  // Open Radar view
-  console.log( "Opened Browser" );
   io.sockets.on( "connection", function( socket ) {
-    console.log( "Socket Connected" );
     defs.forEach(function( key ) {
-      socket.emit('createServo', {servo: key.id, min: key.range[0], max: key.range[1]});
+      socket.emit("createServo", {
+        id: key.id,
+        min: key.range[0],
+        max: key.range[1]
+      });
     });
-    socket.on('range', function(data) {
-      servos[data.servo].move(data.value);
+    socket.on("range", function( data ) {
+      servos[ data.id ].move( data.value );
     });
   });
 });
-
-
-// // Reference
-// //
-// // http://www.maxbotix.com/pictures/articles/012_Diagram_690X480.jpg

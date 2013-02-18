@@ -1,28 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-  <meta charset=utf-8 />
-  <title>Radar</title>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=3, user-scalable=no">
+  <title>clawhand</title>
+  <script src="//code.jquery.com/jquery-git2.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <style type="text/css">
-  input[type=range] {
+  /*
+
+    Don't get me wrong... All browsers are rad in their own way,
+    but this was written to run in Mobile Safari on an iPad and
+    designed for multi-touch interaction (the range input are huge)
+
+    So we used prefixes, get over it.
+
+   */
+  input[type="range"] {
     -webkit-appearance: none;
     background-color: silver;
     width: 200px;
-    height:20px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-     -webkit-appearance: none;
+    height: 20px;
+  }
+  input[type="range"]::after {
+    color:red;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
     background-color: red;
     opacity: 0.5;
-    width: 10px;
+    width: 30px;
     height: 26px;
-}
+  }
+  body {
+    overflow: hidden;
+    font: 14px monospace;
+  }
+  span.label {
+    position: absolute;
+    margin: 5px;
+  }
   </style>
 </head>
 <body>
   <script src="/handclaw42-client.js"></script>
+  <script>
+  document.body.addEventListener("touchmove", function( ev ) {
+    if ( ev.target.nodeName !== "INPUT" ) {
+      ev.preventDefault();
+    }
+  });
+  </script>
+</body>
 </html>
-
