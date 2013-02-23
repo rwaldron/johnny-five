@@ -15,7 +15,11 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a new `servo` hardware instance.
-  servo = new five.Servo(10);
+  servo = new five.Servo({
+    pin: 10,
+    startAt: 90, // Immediately moves to this degree on startup
+    range: [0, 180] // The range defaults to 0-180 degrees
+  });
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -44,7 +48,7 @@ board.on("ready", function() {
   //
   // centers the servo to 90°
   //
-  servo.center();
+  // servo.center();
 
   // move( deg )
   //
@@ -96,13 +100,7 @@ board.on("ready", function() {
 
 ## Documentation
 
-_(Nothing yet)_
-
-
-
-
-
-
+The constructor takes either a pin number or an options object.
 
 
 
