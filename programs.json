@@ -17,6 +17,7 @@
 
   [ "Servo/Motor" ],
     "servo.js",
+    "servo-options.js",
     "servo-array.js",
     "servo-digital.js",
     "servo-dual.js",

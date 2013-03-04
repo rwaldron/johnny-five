@@ -364,7 +364,7 @@ ED.prototype.step = function( direct ) {
 });
 
 ED.prototype.dance = function() {
-  var restore, state;
+  var isLeft, restore, state;
 
   // Derive which side to step on; based on last step or explicit step
   this.side = this.side !== "right" ? "right" : "left";

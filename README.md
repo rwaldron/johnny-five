@@ -100,6 +100,7 @@ board.on("ready", function() {
 
 ### Servo/Motor
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
+- [Servo Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-options.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Servo Digital](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-digital.md)
 - [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
