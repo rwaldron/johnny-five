@@ -108,5 +108,9 @@
     "sensor-slider.js",
     "slider-log.js",
     "slider-pan.js",
-    "slider-servo-control.js"
+    "slider-servo-control.js",
+
+  [ "TinkerKit" ],
+    "tinkerkit-blink.js"
+
 ]
