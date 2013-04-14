@@ -1,6 +1,15 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
+## Tim Walker [@timwalker2k](https://twitter.com/timwalker2k)
+
+- An experimental Theremin using a proximity sensor and JavaScript.
+    [code](https://github.com/twalker/sine5)
+
+- A build status light for use within a continuous integration workflow
+    [code](https://github.com/twalker/cilite)
+
+
 ## Kelly Korevec [@korevec](http://twitter.com/korevec)
 
 - Medibot
