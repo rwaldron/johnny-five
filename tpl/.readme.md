@@ -29,9 +29,9 @@
 
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11236)
 - Download Arduino IDE
-  - [OSX](http://arduino.googlecode.com/files/arduino-1.0-macosx.zip)
-  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0-linux.tgz)
-  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0-linux64.tgz)
+  - [OSX](http://arduino.googlecode.com/files/arduino-1.0.2-macosx.zip)
+  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0.2-linux.tgz)
+  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0.2-linux64.tgz)
   - Windows support coming soon.
 - Plug in your Arduino or Arduino compatible microcontroller via USB
 - Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
