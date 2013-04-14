@@ -3,6 +3,7 @@
 
   [ "Board" ],
     "board.js",
+    "board-with-port.js",
     "board-multi.js",
     "repl.js",
     "shiftregister.js",

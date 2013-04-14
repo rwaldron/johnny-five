@@ -88,6 +88,7 @@ board.on("ready", function() {
 
 ### Board
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
+- [Board With Port](https://github.com/rwldrn/johnny-five/blob/master/docs/board-with-port.md)
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
 - [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
