@@ -92,6 +92,7 @@ board.on("ready", function() {
 - [Board Multi](https://github.com/rwldrn/johnny-five/blob/master/docs/board-multi.md)
 - [Repl](https://github.com/rwldrn/johnny-five/blob/master/docs/repl.md)
 - [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
+- [Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/pin.md)
 
 ### Nodebots
 - [Bug](https://github.com/rwldrn/johnny-five/blob/master/docs/bug.md)

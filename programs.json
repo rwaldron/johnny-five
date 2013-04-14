@@ -7,6 +7,7 @@
     "board-multi.js",
     "repl.js",
     "shiftregister.js",
+    "pin.js",
 
 
   [ "Nodebots" ],
