@@ -71,3 +71,10 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
+
+## Francis Gulotta [@reconbot](https://twitter.com/reconbot)
+
+- Dorby the DoorBot
+    [video howto](http://www.youtube.com/watch?v=6VnSIbRAlFw)
+    [video servo operation](http://www.youtube.com/watch?v=gh7LtDA6EL0)
+    [code](https://github.com/reconbot/dorby)
