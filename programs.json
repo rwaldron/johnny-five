@@ -8,6 +8,7 @@
     "repl.js",
     "shiftregister.js",
     "pin.js",
+    "pin-circuit-event.js",
 
 
   [ "Nodebots" ],
@@ -113,6 +114,13 @@
     "slider-servo-control.js",
 
   [ "TinkerKit" ],
-    "tinkerkit-blink.js"
+    "tinkerkit-blink.js",
+    "tinkerkit-button.js",
+    "tinkerkit-continuous-servo.js",
+    "tinkerkit-linear-pot.js",
+    "tinkerkit-rotary.js",
+    "tinkerkit-thermistor.js",
+    "tinkerkit-tilt.js",
+    "tinkerkit-touch.js"
 
 ]
