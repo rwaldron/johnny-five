@@ -65,7 +65,7 @@ colors = {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

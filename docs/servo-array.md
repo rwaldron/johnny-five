@@ -88,7 +88,7 @@ board.on("ready", function() {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

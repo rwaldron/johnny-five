@@ -13,6 +13,8 @@ var five = require("johnny-five"),
 board = new five.Board();
 
 board.on("ready", function() {
+  console.log( "Ready event. Repl instance auto-initialized" );
+
   this.repl.inject({
     test: "foo"
   });
@@ -20,7 +22,7 @@ board.on("ready", function() {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/repl.png">
 

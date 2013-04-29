@@ -36,7 +36,7 @@ var five = require("johnny-five"),
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/pin.png">
 

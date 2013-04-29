@@ -541,7 +541,7 @@ Navigator.prototype.pivot = function( which, time ) {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

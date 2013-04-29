@@ -604,7 +604,7 @@ ED.prototype.move = function( positions ) {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

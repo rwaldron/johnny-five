@@ -34,7 +34,7 @@ boards.forEach(function( board ) {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

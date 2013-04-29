@@ -121,7 +121,7 @@ colors = {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

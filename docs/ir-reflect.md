@@ -35,7 +35,7 @@ five.Board().on("ready", function() {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 
 

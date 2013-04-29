@@ -66,7 +66,7 @@ board.on("ready", function() {
 
 ```
 
-## Breadboard
+## Breadboard/Illustration
 
 <img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/joystick.png">
 
