@@ -14,7 +14,9 @@ var five = require("johnny-five"),
   var events, strobe;
 
   events = [];
-  strobe = new five.Pin(13);
+  strobe = new five.Pin({
+    addr: 13
+  });
 
   temporal.loop(500, function( loop ) {
     strobe[ loop.called % 2 === 0 ? "high" : "low" ]();
