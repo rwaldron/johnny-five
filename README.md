@@ -95,6 +95,9 @@ board.on("ready", function() {
 - [Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/pin.md)
 - [Pin Circuit Event](https://github.com/rwldrn/johnny-five/blob/master/docs/pin-circuit-event.md)
 
+### JSConf
+- [Jsconf Nodebot](https://github.com/rwldrn/johnny-five/blob/master/docs/jsconf-nodebot.md)
+
 ### Nodebots
 - [Bug](https://github.com/rwldrn/johnny-five/blob/master/docs/bug.md)
 - [Ed](https://github.com/rwldrn/johnny-five/blob/master/docs/ed.md)

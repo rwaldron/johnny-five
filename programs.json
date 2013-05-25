@@ -11,6 +11,10 @@
     "pin-circuit-event.js",
 
 
+  [ "JSConf" ],
+    "jsconf-nodebot.js",
+
+
   [ "Nodebots" ],
     "bug.js",
     "ed.js",
