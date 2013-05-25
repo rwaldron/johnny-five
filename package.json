@@ -34,7 +34,8 @@
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
     "compulsive": "latest",
-    "descriptor": "latest"
+    "descriptor": "latest",
+    "serialport": "latest"
   },
   "devDependencies": {
     "nodeunit": ">=0.7.4",
