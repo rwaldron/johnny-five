@@ -12,7 +12,7 @@
 
 
   [ "JSConf" ],
-    "jsconf-nodebot.js",
+    "nodebot.js",
 
 
   [ "Nodebots" ],
