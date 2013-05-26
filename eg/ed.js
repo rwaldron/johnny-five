@@ -1,7 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    compulsive = require("compulsive"),
-    es6 = require("es6-collections"),
-    WeakMap = es6.WeakMap;
+    compulsive = require("compulsive");
 
 var ED,
     priv = new WeakMap();

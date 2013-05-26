@@ -8,9 +8,7 @@ node eg/ed.js
 
 ```javascript
 var five = require("johnny-five"),
-    compulsive = require("compulsive"),
-    es6 = require("es6-collections"),
-    WeakMap = es6.WeakMap;
+    compulsive = require("compulsive");
 
 var ED,
     priv = new WeakMap();
