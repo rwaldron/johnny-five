@@ -196,7 +196,12 @@ function angleOf( vec1, vec2, axis ) {
 }
 
 five.Board().on("ready", function() {
-  var defs, servos, kinect;
+  var status, defs, servos, kinect;
+
+  status = {
+    true: "IN FRAME",
+    false: "OUT OF FRAME"
+  };
 
   // http://www.ranchbots.com/robot_arm/images/arm_diagram.jpg
   defs = [
@@ -256,7 +261,7 @@ five.Board().on("ready", function() {
 
   Skeleton.Events.forEach(function( type ) {
     kinect.on( type , function( id ) {
-      var isPresence, status, skeleton;
+      var isPresence, skeleton;
 
       // Limit the number of skeletons to one.
       if ( id !== 1 ) {
@@ -268,11 +273,6 @@ five.Board().on("ready", function() {
       isPresence = [ "newuser", "lostuser" ].some(function(val) {
         return val === type;
       });
-
-      status = {
-        true: "IN FRAME",
-        false: "OUT OF FRAME"
-      };
 
       if ( isPresence ) {
         skeleton = Skeletons[ id ];
@@ -348,6 +348,7 @@ five.Board().on("ready", function() {
         if ( rlow === 0 || rlow > rotator.z ) {
           rlow = Math.round( rotator.z );
         }
+
         if ( rhigh === 0 || rhigh < rotator.z ) {
           rhigh = Math.round( rotator.z );
         }
@@ -360,9 +361,14 @@ five.Board().on("ready", function() {
           angleOf( right.rotator, right.fore, orientation.arm )
         );
 
-        values.rotator = scale( rotator.z, rlow, rhigh, 0, 180 );
         values.upper = scale( angles.upper, 0, 180, 180, 0 );
         values.fore = scale( angles.fore, 180, 0, 90, 180 );
+
+        // When the elbow/hand are higher then the shoulder,
+        // flip the scaled rotator value.
+        values.rotator = values.upper < 110 && values.fore > 110 ?
+          scale( rotator.z, rlow, rhigh, 180, 0 ) :
+          scale( rotator.z, rlow, rhigh, 0, 180 );
 
         // Once all of the Kinect joint vectors have been
         // calculated and scaled to a value in degrees,
