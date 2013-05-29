@@ -27,12 +27,14 @@
 
 ## Setup and Assemble Arduino
 
+- *Note: If you're at [JSConf](http://2013.jsconf.us/), do not do anything yet. We will cover additional details at the NodeBots event.
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11236)
 - Download Arduino IDE
-  - [OSX](http://arduino.googlecode.com/files/arduino-1.0-macosx.zip)
-  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0-linux.tgz)
-  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0-linux64.tgz)
-  - Windows support coming soon.
+  - [OSX](http://arduino.googlecode.com/files/arduino-1.0.5-macosx.zip)
+  - [Linux 32 bit](http://arduino.googlecode.com/files/arduino-1.0.5-linux32.tgz)
+  - [Linux 64 bit](http://arduino.googlecode.com/files/arduino-1.0.5-linux64.tgz)
+  - [Windows Installer](http://arduino.googlecode.com/files/arduino-1.0.5-windows.exe)
+  - [Windows ZIP](http://arduino.googlecode.com/files/arduino-1.0.5-windows.zip)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
 - Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
   - Make sure that the version of Firmata is [2.2](http://at.or.at/hans/pd/Firmata-2.2.zip). There are known issues with 2.3
