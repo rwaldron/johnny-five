@@ -78,3 +78,7 @@
     [video howto](http://www.youtube.com/watch?v=6VnSIbRAlFw)
     [video servo operation](http://www.youtube.com/watch?v=gh7LtDA6EL0)
     [code](https://github.com/reconbot/dorby)
+
+## Travis Thieman [@thieman](https://twitter.com/thieman)
+
+- Power Glove (OS X Volume Control): [video](http://www.youtube.com/watch?v=j1BimT0hPSQ) and also [code](https://github.com/tthieman/arduino-projects/blob/master/hackathon_20130217/power_glove.js)
