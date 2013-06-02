@@ -1,6 +1,12 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
 
+## Sara Gorecki [@opheliasdaisies] (https://twitter.com/opheliasdaisies)
+
+- A tri-color LED that cycles according to pressure sensor input.
+    [video](http://youtu.be/ePiiaja1CuI)
+    [code](https://github.com/opheliasdaisies/tri-color-led)
+
 ## Tim Walker [@timwalker2k](https://twitter.com/timwalker2k)
 
 - An experimental Theremin using a proximity sensor and JavaScript.
