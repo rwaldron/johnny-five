@@ -7,6 +7,28 @@
     [video](http://youtu.be/ePiiaja1CuI)
     [code](https://github.com/opheliasdaisies/tri-color-led)
 
+
+## Rahul Ravikumar [@tikurahul](https://twitter.com/tikurahul), Bryan Hughes[@nebrius](https://twitter.com/nebrius)
+
+- Typing Bot (nodebots, jsconf)
+    [video](http://www.youtube.com/watch?v=kjTO2OkGnD8)
+
+
+## Travis Thieman [@thieman](https://twitter.com/thieman)
+
+- Power Glove (OS X Volume Control):
+    [video](http://www.youtube.com/watch?v=j1BimT0hPSQ)
+    [code](https://github.com/tthieman/arduino-projects/blob/master/hackathon_20130217/power_glove.js)
+
+
+## Francis Gulotta [@reconbot](https://twitter.com/reconbot)
+
+- Dorby the DoorBot
+    [video howto](http://www.youtube.com/watch?v=6VnSIbRAlFw)
+    [video servo operation](http://www.youtube.com/watch?v=gh7LtDA6EL0)
+    [code](https://github.com/reconbot/dorby)
+
+
 ## Tim Walker [@timwalker2k](https://twitter.com/timwalker2k)
 
 - An experimental Theremin using a proximity sensor and JavaScript.
@@ -77,19 +99,3 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
-
-## Francis Gulotta [@reconbot](https://twitter.com/reconbot)
-
-- Dorby the DoorBot
-    [video howto](http://www.youtube.com/watch?v=6VnSIbRAlFw)
-    [video servo operation](http://www.youtube.com/watch?v=gh7LtDA6EL0)
-    [code](https://github.com/reconbot/dorby)
-
-## Travis Thieman [@thieman](https://twitter.com/thieman)
-
-- Power Glove (OS X Volume Control): [video](http://www.youtube.com/watch?v=j1BimT0hPSQ) and also [code](https://github.com/tthieman/arduino-projects/blob/master/hackathon_20130217/power_glove.js)
-
-## Rahul Ravikumar [@tikurahul](https://twitter.com/tikurahul), Bryan Hughes[@nebrius](https://twitter.com/nebrius)
-
-- Typing Bot (nodebots, jsconf) [video](http://www.youtube.com/watch?v=kjTO2OkGnD8)
-
