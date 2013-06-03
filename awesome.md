@@ -99,3 +99,10 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
+
+## Andrew Homeyer [@andrewhomeyer](https://twitter.com/andrewhomeyer), Matt Parrish [@mattparrish](https://twitter.com/mattparrish), Nicholas Boll [@nicholasboll](https://twitter.com/nicholasboll)
+
+- Missile Command: A rubber band launcher that took down a nodecopter
+    [video](http://youtu.be/0FAfu-Zowuo)
+    [code](https://github.com/homeyer/missile-command/)
+
