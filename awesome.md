@@ -21,6 +21,13 @@
     [video](http://www.youtube.com/watch?v=kjTO2OkGnD8)
 
 
+## Raquel Vélez [@rockbot](https://twitter.com/rockbot)
+
+- Manny the Manipulator: A 2-dimensional serial manipulator using forward/inverse kinematics (via [vektor](https://github.com/rockbot/vektor))
+    [video](http://www.youtube.com/watch?v=JKumEFyOvuI)
+    [code](https://github.com/rockbot/vektor/tree/master/manipulator)
+
+
 ## Travis Thieman [@thieman](https://twitter.com/thieman)
 
 - Power Glove (OS X Volume Control):
