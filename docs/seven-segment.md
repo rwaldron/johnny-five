@@ -118,9 +118,9 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/seven-segment.png">
+![alt text](breadboard/seven-segment.png "seven-segment.png")
 
-[docs/breadboard/seven-segment.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/seven-segment.fzz)
+[seven-segment Fritzing File](breadboard/seven-segment.fzz)
 
 
 

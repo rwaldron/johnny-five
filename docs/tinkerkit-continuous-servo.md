@@ -25,7 +25,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/tinkerkit-continuous-servo.png">
+![alt text](breadboard/tinkerkit-continuous-servo.png "tinkerkit-continuous-servo.png")
 
 
 

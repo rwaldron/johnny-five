@@ -53,9 +53,9 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/ping.png">
+![alt text](breadboard/ping.png "ping.png")
 
-[docs/breadboard/ping.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/ping.fzz)
+[ping Fritzing File](breadboard/ping.fzz)
 
 
 
