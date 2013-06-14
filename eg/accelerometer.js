@@ -21,7 +21,7 @@ board.on("ready", function() {
   //
 
   accel = new five.Accelerometer({
-    pins: [ "A3", "A4", "A5" ],
+    pins: [ "I0", "I1" ],
     freq: 100
   });
 
@@ -34,7 +34,7 @@ board.on("ready", function() {
   //
   accel.on("acceleration", function( err, timestamp ) {
 
-    console.log( "acceleration", this.pitch, this.roll );
+    console.log( "pitch:", this.pitch, "roll:", this.roll );
   });
 
   // "axischange"
@@ -42,7 +42,7 @@ board.on("ready", function() {
   // Fires only when X, Y or Z has changed
   //
   accel.on("axischange", function( err, timestamp ) {
-
-    console.log( "axischange", this.raw );
+    // this.raw can be computed, but it isn't conditioned on voltage range
+    console.log( "axischange", this.accel );
   });
 });

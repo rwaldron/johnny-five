@@ -29,8 +29,9 @@ board.on("ready", function() {
   // });
   //
 
+  // Tinkerkit Accelerometer uses two pins
   accel = new five.Accelerometer({
-    pins: [ "A3", "A4", "A5" ],
+    pins: [ "I0", "I1" ],
     freq: 100
   });
 
@@ -41,9 +42,11 @@ board.on("ready", function() {
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function( err, timestamp ) {
 
-    console.log( "acceleration", this.pitch, this.roll );
+
+  accel.on("acceleration", function( err, timestamp ) {
+    // Pitch and roll are computed by comparing x/y
+    console.log( "pitch:", this.pitch, "roll:", this.roll );
   });
 
   // "axischange"
@@ -51,8 +54,9 @@ board.on("ready", function() {
   // Fires only when X, Y or Z has changed
   //
   accel.on("axischange", function( err, timestamp ) {
-
-    console.log( "axischange", this.raw );
+    // this.raw can still be accessed, but it isn't conditioned on
+    // the voltage range
+    console.log( "axischange", this.accel );
   });
 });
 
@@ -60,7 +64,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/accelerometer.png">
+
+![alt](https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/accelerometer.png "Breadboard Hookup")
 
 [docs/breadboard/accelerometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/accelerometer.fzz)
 
@@ -68,8 +73,10 @@ board.on("ready", function() {
 
 ## Devices
 
-
-
+* [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
+* [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
+* [TinkerKit 2/3 Axis Accelerometer, T000020](http://store.arduino.cc/ww/index.php?main_page=product_info&cPath=16&products_id=97)
+  * Based on [ST Microelectronics LIS344AL](http://www.alldatasheet.com/datasheet-pdf/pdf/243308/STMICROELECTRONICS/LIS344AL.html). Z-axis must be jumpered together.
 
 ## Documentation
 
