@@ -65,9 +65,9 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![alt](docs/breadboard/accelerometer.png "Breadboard Hookup")
+![alt](breadboard/accelerometer.png "Breadboard Hookup")
 
-[docs/breadboard/accelerometer.fzz](docs/breadboard/accelerometer.fzz)
+[docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
 
 
 
