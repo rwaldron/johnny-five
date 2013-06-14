@@ -24,7 +24,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/pin-circuit-event.png">
+![alt text](breadboard/pin-circuit-event.png "pin-circuit-event.png")
 
 [docs/breadboard/pin-circuit-event.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/pin-circuit-event.fzz)
 

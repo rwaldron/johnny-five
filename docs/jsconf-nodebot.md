@@ -89,7 +89,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/jsconf-nodebot.png">
+![alt text](breadboard/jsconf-nodebot.png "jsconf-nodebot.png")
 
 
 

@@ -52,7 +52,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/lcd.png">
+![alt text](breadboard/lcd.png "lcd.png")
 
 [docs/breadboard/lcd.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/lcd.fzz)
 

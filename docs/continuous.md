@@ -43,7 +43,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/continuous.png">
+![alt text](breadboard/continuous.png "continuous.png")
 
 [docs/breadboard/continuous.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/continuous.fzz)
 

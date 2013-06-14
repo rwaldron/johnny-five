@@ -83,7 +83,7 @@ var five = require("johnny-five"),
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/gripper.png">
+![alt text](breadboard/gripper.png "gripper.png")
 
 
 

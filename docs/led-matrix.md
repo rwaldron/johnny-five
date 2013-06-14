@@ -72,7 +72,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-matrix.png">
+![alt text](breadboard/led-matrix.png "led-matrix.png")
 
 [docs/breadboard/led-matrix.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-matrix.fzz)
 

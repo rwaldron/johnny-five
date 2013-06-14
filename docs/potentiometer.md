@@ -42,7 +42,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/potentiometer.png">
+![alt text](breadboard/potentiometer.png "potentiometer.png")
 
 [docs/breadboard/potentiometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/potentiometer.fzz)
 

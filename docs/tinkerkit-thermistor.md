@@ -49,7 +49,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/tinkerkit-thermistor.png">
+![alt text](breadboard/tinkerkit-thermistor.png "tinkerkit-thermistor.png")
 
 
 

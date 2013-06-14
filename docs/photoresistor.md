@@ -42,7 +42,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/photoresistor.png">
+![alt text](breadboard/photoresistor.png "photoresistor.png")
 
 [docs/breadboard/photoresistor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/photoresistor.fzz)
 

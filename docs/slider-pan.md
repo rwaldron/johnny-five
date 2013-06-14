@@ -39,7 +39,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/slider-pan.png">
+![alt text](breadboard/slider-pan.png "slider-pan.png")
 
 [docs/breadboard/slider-pan.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-pan.fzz)
 

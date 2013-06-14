@@ -53,7 +53,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button-options.png">
+![alt text](breadboard/button-options.png "button-options.png")
 
 [docs/breadboard/button-options.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-options.fzz)
 

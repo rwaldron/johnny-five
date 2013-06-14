@@ -34,7 +34,7 @@ var five = require("johnny-five"),
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sensor-fsr.png">
+![alt text](breadboard/sensor-fsr.png "sensor-fsr.png")
 
 [docs/breadboard/sensor-fsr.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-fsr.fzz)
 

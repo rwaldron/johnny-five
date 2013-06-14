@@ -30,7 +30,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button-bumper.png">
+![alt text](breadboard/button-bumper.png "button-bumper.png")
 
 [docs/breadboard/button-bumper.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-bumper.fzz)
 

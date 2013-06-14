@@ -44,7 +44,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sensor-slider.png">
+![alt text](breadboard/sensor-slider.png "sensor-slider.png")
 
 [docs/breadboard/sensor-slider.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-slider.fzz)
 

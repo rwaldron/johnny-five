@@ -25,7 +25,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-strobe.png">
+![alt text](breadboard/led-strobe.png "led-strobe.png")
 
 [docs/breadboard/led-strobe.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-strobe.fzz)
 

@@ -43,7 +43,7 @@ board.on("ready", function() {
 
 ## Breadboard
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/toggle-switch.png">
+![alt text](breadboard/toggle-switch.png "toggle-switch.png")
 
 
 

@@ -50,7 +50,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/button.png">
+![alt text](breadboard/button.png "button.png")
 
 
 

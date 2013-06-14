@@ -47,7 +47,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-pulse.png">
+![alt text](breadboard/led-pulse.png "led-pulse.png")
 
 
 
