@@ -55,7 +55,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/ping.png "ping.png")
 
-[docs/breadboard/ping.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/ping.fzz)
+[ping Fritzing File](breadboard/ping.fzz)
 
 
 

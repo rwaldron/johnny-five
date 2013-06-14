@@ -44,7 +44,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/photoresistor.png "photoresistor.png")
 
-[docs/breadboard/photoresistor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/photoresistor.fzz)
+[photoresistor Fritzing File](breadboard/photoresistor.fzz)
 
 
 

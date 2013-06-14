@@ -43,7 +43,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/shiftregister.png "shiftregister.png")
 
-[docs/breadboard/shiftregister.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/shiftregister.fzz)
+[shiftregister Fritzing File](breadboard/shiftregister.fzz)
 
 
 

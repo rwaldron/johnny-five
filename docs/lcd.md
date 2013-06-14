@@ -54,7 +54,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/lcd.png "lcd.png")
 
-[docs/breadboard/lcd.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/lcd.fzz)
+[lcd Fritzing File](breadboard/lcd.fzz)
 
 
 

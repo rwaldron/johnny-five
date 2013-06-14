@@ -44,7 +44,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/potentiometer.png "potentiometer.png")
 
-[docs/breadboard/potentiometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/potentiometer.fzz)
+[potentiometer Fritzing File](breadboard/potentiometer.fzz)
 
 
 

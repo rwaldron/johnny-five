@@ -70,7 +70,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/joystick.png "joystick.png")
 
-[docs/breadboard/joystick.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick.fzz)
+[joystick Fritzing File](breadboard/joystick.fzz)
 
 
 

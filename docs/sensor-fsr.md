@@ -36,7 +36,7 @@ var five = require("johnny-five"),
 
 ![alt text](breadboard/sensor-fsr.png "sensor-fsr.png")
 
-[docs/breadboard/sensor-fsr.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-fsr.fzz)
+[sensor-fsr Fritzing File](breadboard/sensor-fsr.fzz)
 
 
 

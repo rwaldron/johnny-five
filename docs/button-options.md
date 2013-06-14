@@ -55,7 +55,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/button-options.png "button-options.png")
 
-[docs/breadboard/button-options.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-options.fzz)
+[button-options Fritzing File](breadboard/button-options.fzz)
 
 
 

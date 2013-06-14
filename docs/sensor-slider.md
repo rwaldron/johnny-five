@@ -46,7 +46,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/sensor-slider.png "sensor-slider.png")
 
-[docs/breadboard/sensor-slider.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sensor-slider.fzz)
+[sensor-slider Fritzing File](breadboard/sensor-slider.fzz)
 
 
 

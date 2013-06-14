@@ -26,7 +26,7 @@ new five.Board().on("ready", function() {
 
 ![alt text](breadboard/pin-circuit-event.png "pin-circuit-event.png")
 
-[docs/breadboard/pin-circuit-event.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/pin-circuit-event.fzz)
+[pin-circuit-event Fritzing File](breadboard/pin-circuit-event.fzz)
 
 
 

@@ -85,7 +85,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/servo.png "servo.png")
 
-[docs/breadboard/servo.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/servo.fzz)
+[servo Fritzing File](breadboard/servo.fzz)
 
 
 

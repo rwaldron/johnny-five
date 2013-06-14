@@ -120,7 +120,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/seven-segment.png "seven-segment.png")
 
-[docs/breadboard/seven-segment.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/seven-segment.fzz)
+[seven-segment Fritzing File](breadboard/seven-segment.fzz)
 
 
 

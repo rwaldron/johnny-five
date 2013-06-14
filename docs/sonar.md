@@ -64,7 +64,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/sonar.png "sonar.png")
 
-[docs/breadboard/sonar.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sonar.fzz)
+[sonar Fritzing File](breadboard/sonar.fzz)
 
 
 

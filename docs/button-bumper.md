@@ -32,7 +32,7 @@ five.Board().on("ready", function() {
 
 ![alt text](breadboard/button-bumper.png "button-bumper.png")
 
-[docs/breadboard/button-bumper.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/button-bumper.fzz)
+[button-bumper Fritzing File](breadboard/button-bumper.fzz)
 
 
 

@@ -48,7 +48,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/servo-digital.png "servo-digital.png")
 
-[docs/breadboard/servo-digital.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/servo-digital.fzz)
+[servo-digital Fritzing File](breadboard/servo-digital.fzz)
 
 
 

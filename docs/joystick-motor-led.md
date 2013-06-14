@@ -82,7 +82,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/joystick-motor-led.png "joystick-motor-led.png")
 
-[docs/breadboard/joystick-motor-led.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick-motor-led.fzz)
+[joystick-motor-led Fritzing File](breadboard/joystick-motor-led.fzz)
 
 
 

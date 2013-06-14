@@ -50,7 +50,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/led-fade.png "led-fade.png")
 
-[docs/breadboard/led-fade.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-fade.fzz)
+[led-fade Fritzing File](breadboard/led-fade.fzz)
 
 
 

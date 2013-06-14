@@ -41,7 +41,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/slider-pan.png "slider-pan.png")
 
-[docs/breadboard/slider-pan.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-pan.fzz)
+[slider-pan Fritzing File](breadboard/slider-pan.fzz)
 
 
 

@@ -67,7 +67,7 @@ board.on("ready", function() {
 
 ![alt](breadboard/accelerometer.png "Breadboard Hookup")
 
-[docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
+[accelerometer Fritzing File](breadboard/accelerometer.fzz)
 
 
 

@@ -74,7 +74,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/led-matrix.png "led-matrix.png")
 
-[docs/breadboard/led-matrix.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-matrix.fzz)
+[led-matrix Fritzing File](breadboard/led-matrix.fzz)
 
 
 

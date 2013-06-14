@@ -27,7 +27,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/led-strobe.png "led-strobe.png")
 
-[docs/breadboard/led-strobe.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-strobe.fzz)
+[led-strobe Fritzing File](breadboard/led-strobe.fzz)
 
 
 

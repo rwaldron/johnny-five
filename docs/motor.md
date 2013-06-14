@@ -58,7 +58,7 @@ board.on("ready", function() {
 
 ![alt text](breadboard/motor.png "motor.png")
 
-[docs/breadboard/motor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/motor.fzz)
+[motor Fritzing File](breadboard/motor.fzz)
 
 
 

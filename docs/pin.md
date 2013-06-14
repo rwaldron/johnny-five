@@ -40,7 +40,7 @@ var five = require("johnny-five"),
 
 ![alt text](breadboard/pin.png "pin.png")
 
-[docs/breadboard/pin.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/pin.fzz)
+[pin Fritzing File](breadboard/pin.fzz)
 
 
 
