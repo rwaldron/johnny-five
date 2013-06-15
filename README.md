@@ -96,6 +96,7 @@ board.on("ready", function() {
 - [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
 - [Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/pin.md)
 - [Pin Circuit Event](https://github.com/rwldrn/johnny-five/blob/master/docs/pin-circuit-event.md)
+- [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
 ### JSConf
 - [Nodebot](https://github.com/rwldrn/johnny-five/blob/master/docs/nodebot.md)
@@ -105,6 +106,7 @@ board.on("ready", function() {
 - [Ed](https://github.com/rwldrn/johnny-five/blob/master/docs/ed.md)
 - [Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator.md)
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
+- [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
 ### Servo/Motor
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
@@ -193,6 +195,8 @@ board.on("ready", function() {
 - [Tinkerkit Blink](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-blink.md)
 - [Tinkerkit Button](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-button.md)
 - [Tinkerkit Continuous Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
+- [Tinkerkit Combo](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-combo.md)
+- [Tinkerkit Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-joystick.md)
 - [Tinkerkit Linear Pot](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-linear-pot.md)
 - [Tinkerkit Rotary](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-rotary.md)
 - [Tinkerkit Thermistor](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-thermistor.md)

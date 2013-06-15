@@ -20,7 +20,7 @@ var five = require("johnny-five");
   // 10 kOhm
   rb = 10000;
   // Ginf = 1/Rinf
-  ginf = 120.6685
+  ginf = 120.6685;
 
   global.Thermistor = {
     c: function( raw ) {

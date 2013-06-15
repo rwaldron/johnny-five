@@ -9,6 +9,7 @@
     "shiftregister.js",
     "pin.js",
     "pin-circuit-event.js",
+    "whisker.js",
 
 
   [ "JSConf" ],
@@ -20,6 +21,7 @@
     "ed.js",
     "navigator.js",
     "radar.js",
+    "whisker.js",
 
 
   [ "Servo/Motor" ],
