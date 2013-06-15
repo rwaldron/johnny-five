@@ -13,6 +13,7 @@
 
 ## Many fragments. Some large, some small.
 
+### [Wireless Nodebot](http://jsfiddle.net/rwaldron/88M6b/show/light) NEW!
 ### [Kinect Controlled Robot Arm](http://jsfiddle.net/rwaldron/XMsGQ/show/light/) NEW!
 ### [Biped Nodebot](http://jsfiddle.net/rwaldron/WZkn5/show/light/)
 ### [LCD Running Man](http://jsfiddle.net/rwaldron/xKwaU/show/light/)
