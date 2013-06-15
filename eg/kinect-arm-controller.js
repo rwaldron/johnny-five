@@ -129,7 +129,7 @@ var Skeletons  = [];
  * to determine if a given value has changed
  * drastically enough
  */
-function Change(margin) {
+function Change( margin ) {
   this.last = 0;
   this.margin = margin || 0;
 }

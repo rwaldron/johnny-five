@@ -61,7 +61,9 @@ module.exports = function(grunt) {
         exports: true,
         document: true,
         $: true,
-        Radar: true
+        Radar: true,
+        WeakMap: true,
+        window: true
       }
     }
   });

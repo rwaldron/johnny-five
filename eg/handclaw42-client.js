@@ -1,5 +1,6 @@
 $(document).ready(function() {
   var $body = $("body");
+  var socket = window.socket;
 
   socket = io.connect("http://192.168.1.186:8080");
 
