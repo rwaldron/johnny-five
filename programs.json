@@ -121,6 +121,8 @@
     "tinkerkit-blink.js",
     "tinkerkit-button.js",
     "tinkerkit-continuous-servo.js",
+    "tinkerkit-combo.js",
+    "tinkerkit-joystick.js",
     "tinkerkit-linear-pot.js",
     "tinkerkit-rotary.js",
     "tinkerkit-thermistor.js",
