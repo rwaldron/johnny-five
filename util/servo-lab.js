@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    args, pins, ranges;
+    args, servos;
 
 /**
  * This program is useful for manual servo administration.
@@ -14,44 +14,48 @@ var five = require("../lib/johnny-five.js"),
  *
  *     node eg/servo-lab.js 10:10:170 11
  *
+ *     To setup continuous servos on pins 10 and 11:
+ *
+ *     node eg/servo-lab.js C10  C11
+ *
  *     Note: Ranges default to 0-180
  *
  */
 
 args = process.argv.slice(2);
+servos = args.map(function( val ) {
+  var servo = {};
+  var isContinuous = val.charAt(0).toUpperCase() === "C";
+  var vals = val.split(":").map(function(v) {
+    if ( isContinuous ) {
+      v = v.slice(1);
+    }
+    return +v;
+  });
 
-pins = [];
-ranges = [];
+  servo.pin = vals[0];
+  servo.range =  vals.length === 3 ?
+    vals.slice(1) : [ 0, 180 ];
 
-args.forEach(function( val ) {
-  var vals = val.split(":").map(function(v) { return +v; });
+  if ( isContinuous ) {
+    servo.type = "continuous";
+  }
 
-  pins.push( vals[0] );
-
-  ranges.push(
-    vals.length === 3 ?
-    vals.slice(1) :
-    [ 0, 180 ]
-  );
+  return servo;
 });
 
 (new five.Board()).on("ready", function() {
-  var servos;
+  var s;
 
   // With each provided pin number, create a servo instance
-  pins.forEach(function( pin, k ) {
-    new five.Servo({
-      pin: pin,
-      range: ranges[ k ]
-    });
-  }, this);
+  servos.forEach(five.Servo);
 
-  servos = new five.Servos();
+  s = new five.Servos();
 
-  servos.center();
+  s.center();
 
   // Inject a Servo Array into the REPL as "s"
   this.repl.inject({
-    s: servos
+    s: s
   });
 });
