@@ -78,12 +78,45 @@ exports["static"] = {
     test.equal( typeof five.Board.uid, "function", "Board.uid" );
     test.done();
   },
-  "Board.options": function( test ) {
+  "Board.Options": function( test ) {
     test.expect( 1 );
-    test.ok( five.Board.options );
+    test.ok( five.Board.Options );
     test.done();
   },
-  "Board.options()": function( test ) {
+
+  // Transform string, number and array args into
+  // options objects with pin or pins property.
+  "Board.Options": function( test ) {
+    var Board = five.Board,
+      tests = [
+        { opt: 0,    result: { pin: 0 } },
+        { opt: 9,    result: { pin: 9 } },
+        { opt: "A0", result: { pin: "A0" } },
+        { opt: [ "A0", "A1" ], result: { pins: [ "A0", "A1" ] } },
+        { opt: [ 5, 6 ],       result: { pins: [ 5, 6 ] } },
+        { opt: { pin: 0 },    result: { pin: 0 } },
+        { opt: { pin: 9 },    result: { pin: 9 } },
+        { opt: { pin: "A0" }, result: { pin: "A0" } },
+        { opt: { pins: [ "A0", "A1" ] }, result: { pins: [ "A0", "A1" ] } },
+        { opt: { pins: [ 5, 6 ] },       result: { pins: [ 5, 6 ] } }
+      ],
+      board = {
+        pins: { length: 20, type: "UNO" },
+        firmata: {
+          analogPins: { length: 6 }
+        }
+      };
+
+    test.expect( tests.length );
+
+    tests.forEach(function( set ) {
+      test.deepEqual( Board.Options(set.opt), set.result );
+    });
+
+    test.done();
+  },
+
+  "Board.Pins.normalize()": function( test ) {
     var Board = five.Board,
       tests = [
         // Supports short arguments form, string|number
@@ -106,12 +139,18 @@ exports["static"] = {
         { opt: { pin: "A0" }, result: { pin: 0 } },
         { opt: { pins: [ "A0", "A1" ] }, result: { pins: [ 0, 1 ] } },
         { opt: { pins: [ 5, 6 ] },       result: { pins: [ 5, 6 ] } }
-      ];
+      ],
+      board = {
+        pins: { length: 20, type: "UNO" },
+        firmata: {
+          analogPins: { length: 6 }
+        }
+      };
 
     test.expect( tests.length );
 
     tests.forEach(function( set ) {
-      test.deepEqual( Board.options(set.opt), set.result );
+      test.deepEqual( Board.Pins.normalize(set.opt, board), set.result );
     });
 
     test.done();
@@ -144,49 +183,49 @@ exports["static"] = {
     test.ok( five.Board.Pins, "Board.Pins" );
     test.done();
   },
-  "Board.Pins.*": function( test ) {
-    test.expect(3);
-    test.ok( five.Board.Pins.analog, "Board.Pins.analog" );
-    test.ok( five.Board.Pins.digital, "Board.Pins.digital" );
-    test.ok( five.Board.Pins.pwm, "Board.Pins.pwm" );
-    test.done();
-  },
-  "Board.Pins.analog": function( test ) {
-    test.expect(6);
+  // "Board.Pins.*": function( test ) {
+  //   test.expect(3);
+  //   test.ok( five.Board.Pins.analog, "Board.Pins.analog" );
+  //   test.ok( five.Board.Pins.digital, "Board.Pins.digital" );
+  //   test.ok( five.Board.Pins.pwm, "Board.Pins.pwm" );
+  //   test.done();
+  // },
+  // "Board.Pins.analog": function( test ) {
+  //   test.expect(6);
 
-    [ "A0", "A1", "A2", "A3", "A4", "A5" ].forEach(function( pin, mapsTo ) {
-      test.equal( five.Board.Pins.analog[pin], mapsTo );
-    });
-    test.done();
-  },
-  "Board.Pins.pwm": function( test ) {
-    test.expect(6);
-    [ 3, 5, 6, 9, 10, 11 ].forEach(function( pin ) {
-      test.ok( five.Board.Pins.pwm[pin] );
-    });
-    test.done();
-  },
-  "Board.Pins.serial": function( test ) {
-    test.expect(2);
-    [ 0, 1 ].forEach(function( pin ) {
-      test.ok( five.Board.Pins.serial[pin] );
-    });
-    test.done();
-  },
-  "Board.Pins.spi": function( test ) {
-    test.expect(4);
-    [ 10, 11, 12, 13 ].forEach(function( pin ) {
-      test.ok( five.Board.Pins.spi[pin] );
-    });
-    test.done();
-  },
-  "Board.Pins.led": function( test ) {
-    test.expect(1);
+  //   [ "A0", "A1", "A2", "A3", "A4", "A5" ].forEach(function( pin, mapsTo ) {
+  //     test.equal( five.Board.Pins.analog[pin], mapsTo );
+  //   });
+  //   test.done();
+  // },
+  // "Board.Pins.pwm": function( test ) {
+  //   test.expect(6);
+  //   [ 3, 5, 6, 9, 10, 11 ].forEach(function( pin ) {
+  //     test.ok( five.Board.Pins.pwm[pin] );
+  //   });
+  //   test.done();
+  // },
+  // "Board.Pins.serial": function( test ) {
+  //   test.expect(2);
+  //   [ 0, 1 ].forEach(function( pin ) {
+  //     test.ok( five.Board.Pins.serial[pin] );
+  //   });
+  //   test.done();
+  // },
+  // "Board.Pins.spi": function( test ) {
+  //   test.expect(4);
+  //   [ 10, 11, 12, 13 ].forEach(function( pin ) {
+  //     test.ok( five.Board.Pins.spi[pin] );
+  //   });
+  //   test.done();
+  // },
+  // "Board.Pins.led": function( test ) {
+  //   test.expect(1);
 
-    test.ok( five.Board.Pins.led[13] );
+  //   test.ok( five.Board.Pins.led[13] );
 
-    test.done();
-  },
+  //   test.done();
+  // },
   "Board.Event": function( test ) {
     test.expect(2);
 
@@ -195,36 +234,36 @@ exports["static"] = {
 
     test.done();
   },
-  "Board.Pin.is___()": function( test ) {
-    var fixture = {
-      0: "Serial",
-      3: "PWM",
-      7: "Digital",
-      "A3": "Analog",
-      "A5": "Analog"
-    };
+  // "Board.Pin.is___()": function( test ) {
+  //   var fixture = {
+  //     0: "Serial",
+  //     3: "PWM",
+  //     7: "Digital",
+  //     "A3": "Analog",
+  //     "A5": "Analog"
+  //   };
 
-    test.expect( Object.keys(fixture).length * 2 );
+  //   test.expect( Object.keys(fixture).length * 2 );
 
-    Object.keys( fixture ).forEach(function( pin ) {
-      test.ok( five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
-    }, fixture );
+  //   Object.keys( fixture ).forEach(function( pin ) {
+  //     test.ok( five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
+  //   }, fixture );
 
-    // Now test for false
-    fixture = {
-      0: "Analog",
-      3: "Analog",
-      7: "Serial",
-      "A3": "Digital",
-      "A5": "Digital"
-    };
+  //   // Now test for false
+  //   fixture = {
+  //     0: "Analog",
+  //     3: "Analog",
+  //     7: "Serial",
+  //     "A3": "Digital",
+  //     "A5": "Digital"
+  //   };
 
-    Object.keys( fixture ).forEach(function( pin ) {
-      test.ok( !five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
-    }, fixture );
+  //   Object.keys( fixture ).forEach(function( pin ) {
+  //     test.ok( !five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
+  //   }, fixture );
 
-    test.done();
-  }
+  //   test.done();
+  // }
 
 };
 
@@ -232,30 +271,35 @@ exports["static"] = {
 exports["instance"] = {
   "cache": function( test ) {
     test.expect(1);
-    test.equal( five.Board.cache.length, 1, "Board cached" );
+    test.equal( five.Board.cache.length, 1 );
     test.done();
   },
   "instance": function( test ) {
     test.expect(1);
-    test.ok( board, "Board instance" );
+    test.ok( board );
     test.done();
   },
   "firmata": function( test ) {
     test.expect(1);
-    test.ok( board.firmata, "Board instance firmata" );
+    test.ok( board.firmata );
     test.done();
   },
   "id": function( test ) {
     test.expect(1);
-    test.ok( board.id, "Board instance id" );
+    test.ok( board.id );
     test.done();
   },
   "repl": function( test ) {
     test.expect(2);
-    test.ok( board.repl, "Board instance repl session" );
-    test.ok( board.repl.context, "Board instance repl context" );
+    test.ok( board.repl );
+    test.ok( board.repl.context );
     test.done();
-  }
+  },
+  "pins": function( test ) {
+    test.expect(1);
+    test.ok( typeof board.pins !== "undefined" );
+    test.done();
+  },
 };
 
 

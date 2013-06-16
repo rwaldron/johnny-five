@@ -1,28 +1,16 @@
-var five = require("../lib/johnny-five.js"),
-    board;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
 
 // The board's pins will not be accessible until
 // the board has reported that it is ready
-board.on("ready", function() {
+five.Board().on("ready", function() {
   var val = 0;
 
   // Set pin 13 to OUTPUT mode
   this.pinMode( 13, 1 );
 
-  // Mode Table
-  // INPUT:   0
-  // OUTPUT:  1
-  // ANALOG:  2
-  // PWM:     3
-  // SERVO:   4
-
   // Create a loop to "flash/blink/strobe" an led
-  this.loop( 50, function() {
-
+  this.loop( 100, function() {
     this.digitalWrite( 13, (val = val ? 0 : 1) );
-
   });
 });
 

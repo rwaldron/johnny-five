@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       files: ["programs.json"]
     },
     test: {
-      files: ["test/board.js"]
+      files: ["test/board.js", "test/capabilities.js"]
     },
     lint: {
       files: ["grunt.js", "lib/**/!(johnny-five)*.js", "test/**/*.js", "eg/**/*.js"]
