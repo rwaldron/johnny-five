@@ -37,9 +37,6 @@
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
 
 
-**Attention** There is a known issue in where the Firmata protocol layer has issues freeing itself on the serial line which results in the program hanging in when it tries to connect. For now, the only way to get around the issue is to send a SIGINT ` ^C ` to kill the hanging program and simply run it again.
-
-
 ## Hey you, here's Johnny!
 
 #### Source Code:
