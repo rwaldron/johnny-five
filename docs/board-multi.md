@@ -12,6 +12,9 @@ var five = require("johnny-five");
 // Create 2 board instances with IDs "A" & "B"
 new five.Boards([ "A", "B" ]).on("ready", function() {
 
+  // Both "A" and "B" are initialized
+  // (connected and available for communication)
+
   // |this| is an array-like object containing references
   // to each initialized board.
   this.each(function(board) {
