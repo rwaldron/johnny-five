@@ -22,6 +22,31 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
   });
 });
 
+/**
+ * When initializing multiple boards with only an ID string,
+ * the order of initialization and connection is the order
+ * that your OS enumerates ports.
+ *
+ * Given the above program, "A" and "B" would be assigned as:
+ *
+ * A => /dev/cu.usbmodem411
+ * B => /dev/cu.usbmodem621
+ *
+ *
+ * You may override this by providing explicit port paths:
+ *
+ * var ports = [
+ *   { id: "A", port: "/dev/cu.usbmodem621" },
+ *   { id: "B", port: "/dev/cu.usbmodem411" }
+ * ];
+ *
+ * new five.Boards(ports).on("ready", function() {
+ *
+ *   // Boards are initialized!
+ *
+ * });
+ */
+
 ```
 
 ## Breadboard/Illustration
