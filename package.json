@@ -151,9 +151,6 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {
-    "test": "nodeunit test/board.js"
-  },
   "dependencies": {
     "colors": ">=0.5.1",
     "firmata": ">=0.2.0",
