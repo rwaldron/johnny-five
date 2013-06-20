@@ -83,9 +83,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/servo.png">
-
-[docs/breadboard/servo.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/servo.fzz)
+![docs/breadboard/servo.png](breadboard/servo.png)
+[docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 
 

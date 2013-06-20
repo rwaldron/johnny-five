@@ -37,9 +37,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-on-off.png">
-
-[docs/breadboard/led-on-off.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-on-off.fzz)
+![docs/breadboard/led-on-off.png](breadboard/led-on-off.png)
+[docs/breadboard/led-on-off.fzz](breadboard/led-on-off.fzz)
 
 
 

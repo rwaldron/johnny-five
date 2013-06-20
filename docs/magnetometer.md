@@ -79,8 +79,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/magnetometer.png">
-
+![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)
 
 
 

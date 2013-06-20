@@ -40,8 +40,7 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/slider-servo-control.png">
-
+![docs/breadboard/slider-servo-control.png](breadboard/slider-servo-control.png)
 
 
 

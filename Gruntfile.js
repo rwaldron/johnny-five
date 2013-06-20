@@ -32,10 +32,6 @@ module.exports = function(grunt) {
     nodeunit: {
       tests: ["test/board.js", "test/capabilities.js"]
     },
-    watch: {
-      files: "<config:lint.files>",
-      tasks: "default"
-    },
     jshint: {
       options: {
         curly: true,

@@ -80,9 +80,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/joystick-motor-led.png">
-
-[docs/breadboard/joystick-motor-led.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick-motor-led.fzz)
+![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)
+[docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
 
 
 
