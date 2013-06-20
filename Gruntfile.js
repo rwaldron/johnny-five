@@ -25,16 +25,12 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: "<json:package.json>",
-
+    pkg: grunt.file.readJSON("package.json"),
     docs: {
       files: ["programs.json"]
     },
-    test: {
-      files: ["test/board.js", "test/capabilities.js"]
-    },
-    lint: {
-      files: ["grunt.js", "lib/**/!(johnny-five)*.js", "test/**/*.js", "eg/**/*.js"]
+    nodeunit: {
+      tests: ["test/board.js", "test/capabilities.js"]
     },
     watch: {
       files: "<config:lint.files>",
@@ -54,21 +50,25 @@ module.exports = function(grunt) {
         eqnull: true,
         node: true,
         strict: false,
-        es5: true
+        globals: {
+          exports: true,
+          document: true,
+          $: true,
+          Radar: true,
+          WeakMap: true,
+          window: true
+        }
       },
-      globals: {
-        exports: true,
-        document: true,
-        $: true,
-        Radar: true,
-        WeakMap: true,
-        window: true
+      files: {
+        src: ["Gruntfile.js", "lib/**/!(johnny-five)*.js", "test/**/*.js", "eg/**/*.js"]
       }
     }
   });
-
+  // Default tasks are contrib plugins
+  grunt.loadNpmTasks("grunt-contrib-nodeunit");
+  grunt.loadNpmTasks("grunt-contrib-jshint");
   // Default task.
-  grunt.registerTask("default", "lint test");
+  grunt.registerTask("default", ["jshint", "nodeunit"]);
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.

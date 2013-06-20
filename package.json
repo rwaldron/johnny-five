@@ -8,41 +8,132 @@
     "email": "waldron.rick@gmail.com"
   },
   "contributors": [
-    { "name": "Adam Hyland", "email": "<protonk@gmail.com>" },
-    { "name": "Andreas Haugstrup Pedersen", "email": "<haugstrup@podio.com>" },
-    { "name": "Andrew Homeyer", "email": "<homeyer@gmail.com>" },
-    { "name": "Ben Gillies", "email": "<bengillies@gmail.com>" },
-    { "name": "Carl Danley", "email": "<carldanley@gmail.com>" },
-    { "name": "Chris Williams", "email": "<chris@saferaging.com>" },
-    { "name": "Colin Vernon", "email": "<colin@littlebits.cc>" },
-    { "name": "Corey Daniels", "email": "<corey@skookum.com>" },
-    { "name": "FotoVerite", "email": "<mzbphoto@gmail.com>" },
-    { "name": "Francis Gulotta", "email": "<wizard@roborooter.com>" },
-    { "name": "Irene Ros", "email": "<irene@bocoup.com>" },
-    { "name": "Jonathan Beri", "email": "<jmberi@gmail.com>" },
-    { "name": "Julian Gautier", "email": "<julian.gautier@alumni.neumont.edu>" },
-    { "name": "Linus Larsson", "email": "<linus@devshm.net>" },
-    { "name": "Mike Breen", "email": "<hardbap@gmail.com>" },
-    { "name": "Mike Harsch", "email": "<mike@harschsystems.com>" },
-    { "name": "Mike Sherov", "email": "<mike.sherov@gmail.com>" },
-    { "name": "Paul Tagliamonte", "email": "<paultag@sunlightfoundation.com>" },
-    { "name": "Rahul Ravikumar", "email": "<rahulrav@a2z.com>" },
-    { "name": "Randall A. Gordon", "email": "<randall@randallagordon.com>" },
-    { "name": "Rebecca Murphey", "email": "<rmurphey@gmail.com>" },
-    { "name": "Ryan Neufeld", "email": "<ryan@neucode.org>" },
-    { "name": "Scott González", "email": "<scott.gonzalez@gmail.com>" },
-    { "name": "Swift", "email": "<theycallmeswift@gmail.com>" },
-    { "name": "Travis Thieman", "email": "<travis.thieman@gmail.com>" },
-    { "name": "Vincent Agnano", "email": "<vincent.agnano@scopyleft.fr>" },
-    { "name": "Cole", "email": "<mcg42387@gmail.com>" },
-    { "name": "Divan Visagie", "email": "<visagiedivan@gmail.com>" },
-    { "name": "Sara Gorecki", "email": "<sgorecki@gmail.com>" },
-    { "name": "Raquel Velez", "email": "<rockbot01@gmail.com>" },
-    { "name": "Tim Walker", "email": "<tim.twalker@gmail.com>" }
+    {
+      "name": "Adam Hyland",
+      "email": "<protonk@gmail.com>"
+    },
+    {
+      "name": "Andreas Haugstrup Pedersen",
+      "email": "<haugstrup@podio.com>"
+    },
+    {
+      "name": "Andrew Homeyer",
+      "email": "<homeyer@gmail.com>"
+    },
+    {
+      "name": "Ben Gillies",
+      "email": "<bengillies@gmail.com>"
+    },
+    {
+      "name": "Carl Danley",
+      "email": "<carldanley@gmail.com>"
+    },
+    {
+      "name": "Chris Williams",
+      "email": "<chris@saferaging.com>"
+    },
+    {
+      "name": "Colin Vernon",
+      "email": "<colin@littlebits.cc>"
+    },
+    {
+      "name": "Corey Daniels",
+      "email": "<corey@skookum.com>"
+    },
+    {
+      "name": "FotoVerite",
+      "email": "<mzbphoto@gmail.com>"
+    },
+    {
+      "name": "Francis Gulotta",
+      "email": "<wizard@roborooter.com>"
+    },
+    {
+      "name": "Irene Ros",
+      "email": "<irene@bocoup.com>"
+    },
+    {
+      "name": "Jonathan Beri",
+      "email": "<jmberi@gmail.com>"
+    },
+    {
+      "name": "Julian Gautier",
+      "email": "<julian.gautier@alumni.neumont.edu>"
+    },
+    {
+      "name": "Linus Larsson",
+      "email": "<linus@devshm.net>"
+    },
+    {
+      "name": "Mike Breen",
+      "email": "<hardbap@gmail.com>"
+    },
+    {
+      "name": "Mike Harsch",
+      "email": "<mike@harschsystems.com>"
+    },
+    {
+      "name": "Mike Sherov",
+      "email": "<mike.sherov@gmail.com>"
+    },
+    {
+      "name": "Paul Tagliamonte",
+      "email": "<paultag@sunlightfoundation.com>"
+    },
+    {
+      "name": "Rahul Ravikumar",
+      "email": "<rahulrav@a2z.com>"
+    },
+    {
+      "name": "Randall A. Gordon",
+      "email": "<randall@randallagordon.com>"
+    },
+    {
+      "name": "Rebecca Murphey",
+      "email": "<rmurphey@gmail.com>"
+    },
+    {
+      "name": "Ryan Neufeld",
+      "email": "<ryan@neucode.org>"
+    },
+    {
+      "name": "Scott González",
+      "email": "<scott.gonzalez@gmail.com>"
+    },
+    {
+      "name": "Swift",
+      "email": "<theycallmeswift@gmail.com>"
+    },
+    {
+      "name": "Travis Thieman",
+      "email": "<travis.thieman@gmail.com>"
+    },
+    {
+      "name": "Vincent Agnano",
+      "email": "<vincent.agnano@scopyleft.fr>"
+    },
+    {
+      "name": "Cole",
+      "email": "<mcg42387@gmail.com>"
+    },
+    {
+      "name": "Divan Visagie",
+      "email": "<visagiedivan@gmail.com>"
+    },
+    {
+      "name": "Sara Gorecki",
+      "email": "<sgorecki@gmail.com>"
+    },
+    {
+      "name": "Raquel Velez",
+      "email": "<rockbot01@gmail.com>"
+    },
+    {
+      "name": "Tim Walker",
+      "email": "<tim.twalker@gmail.com>"
+    }
   ],
-  "keywords": [
-    "arduino", "usb", "serial", "serialport", "firmata"
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
     "url": "git://github.com/rwldrn/johnny-five.git"
@@ -74,6 +165,9 @@
     "descriptor": "latest",
     "serialport": "latest"
   },
-  "devDependencies": {},
-  "keywords": []
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0"
+  }
 }
