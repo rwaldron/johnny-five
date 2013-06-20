@@ -6,14 +6,13 @@ module.exports = function(grunt) {
 
   var task = grunt.task;
   var file = grunt.file;
-  var utils = grunt.utils;
   var log = grunt.log;
   var verbose = grunt.verbose;
   var fail = grunt.fail;
   var option = grunt.option;
   var config = grunt.config;
   var template = grunt.template;
-  var _ = utils._;
+  var _ = grunt.util._;
 
   var templates = {
     doc: _.template( file.read("tpl/.docs.md") ),
@@ -73,9 +72,8 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
-    var files, entries, readme;
-
-    entries = JSON.parse(file.read(file.expandFiles( this.file.src )[0]));
+    var entries, readme;
+    entries = JSON.parse(file.read(file.expand( this.data )));
     readme = [];
 
     entries.forEach(function( entry ) {
