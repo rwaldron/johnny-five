@@ -221,5 +221,15 @@ exports["UNO Pin Capabilities"] = {
     test.ok( !board.pins.isOutput(-1) );
 
     test.done();
+  },
+  translate: function( test ) {
+    test.expect(3);
+
+    test.equal( five.Board.Pins.translate("I0", "UNO"), "A0" );
+    test.equal( five.Board.Pins.translate("I0", "uno"), "A0" );
+
+    test.equal( five.Board.Pins.translate("I0", "?"), "I0" );
+
+    test.done();
   }
 };
