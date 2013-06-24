@@ -31,8 +31,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/board.png">
-
+![docs/breadboard/board.png](breadboard/board.png)
 
 
 

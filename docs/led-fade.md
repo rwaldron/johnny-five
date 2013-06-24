@@ -48,9 +48,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-fade.png">
-
-[docs/breadboard/led-fade.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-fade.fzz)
+![docs/breadboard/led-fade.png](breadboard/led-fade.png)
+[docs/breadboard/led-fade.fzz](breadboard/led-fade.fzz)
 
 
 

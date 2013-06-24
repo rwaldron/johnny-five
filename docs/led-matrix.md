@@ -72,9 +72,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/led-matrix.png">
-
-[docs/breadboard/led-matrix.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/led-matrix.fzz)
+![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)
+[docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
 
 
 

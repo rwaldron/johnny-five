@@ -60,9 +60,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/accelerometer.png">
-
-[docs/breadboard/accelerometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/accelerometer.fzz)
+![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)
+[docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
 
 
 

@@ -604,8 +604,7 @@ ED.prototype.move = function( positions ) {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/ed.png">
-
+![docs/breadboard/ed.png](breadboard/ed.png)
 
 
 
