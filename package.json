@@ -69,7 +69,9 @@
     "compulsive": "latest",
     "temporal": "latest",
     "descriptor": "latest",
-    "serialport": "latest"
+    "serialport": "latest",
+    "optimist": "~0.5.2",
+    "async": "~0.2.9"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
