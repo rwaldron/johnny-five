@@ -78,7 +78,7 @@ exports["static"] = {
     test.equal( typeof five.Board.uid, "function", "Board.uid" );
     test.done();
   },
-  "Board.Options": function( test ) {
+  "Board.Options 1": function( test ) {
     test.expect( 1 );
     test.ok( five.Board.Options );
     test.done();
@@ -86,7 +86,7 @@ exports["static"] = {
 
   // Transform string, number and array args into
   // options objects with pin or pins property.
-  "Board.Options": function( test ) {
+  "Board.Options 2": function( test ) {
     var Board = five.Board,
       tests = [
         { opt: 0,    result: { pin: 0 } },
