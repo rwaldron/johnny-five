@@ -183,49 +183,6 @@ exports["static"] = {
     test.ok( five.Board.Pins, "Board.Pins" );
     test.done();
   },
-  // "Board.Pins.*": function( test ) {
-  //   test.expect(3);
-  //   test.ok( five.Board.Pins.analog, "Board.Pins.analog" );
-  //   test.ok( five.Board.Pins.digital, "Board.Pins.digital" );
-  //   test.ok( five.Board.Pins.pwm, "Board.Pins.pwm" );
-  //   test.done();
-  // },
-  // "Board.Pins.analog": function( test ) {
-  //   test.expect(6);
-
-  //   [ "A0", "A1", "A2", "A3", "A4", "A5" ].forEach(function( pin, mapsTo ) {
-  //     test.equal( five.Board.Pins.analog[pin], mapsTo );
-  //   });
-  //   test.done();
-  // },
-  // "Board.Pins.pwm": function( test ) {
-  //   test.expect(6);
-  //   [ 3, 5, 6, 9, 10, 11 ].forEach(function( pin ) {
-  //     test.ok( five.Board.Pins.pwm[pin] );
-  //   });
-  //   test.done();
-  // },
-  // "Board.Pins.serial": function( test ) {
-  //   test.expect(2);
-  //   [ 0, 1 ].forEach(function( pin ) {
-  //     test.ok( five.Board.Pins.serial[pin] );
-  //   });
-  //   test.done();
-  // },
-  // "Board.Pins.spi": function( test ) {
-  //   test.expect(4);
-  //   [ 10, 11, 12, 13 ].forEach(function( pin ) {
-  //     test.ok( five.Board.Pins.spi[pin] );
-  //   });
-  //   test.done();
-  // },
-  // "Board.Pins.led": function( test ) {
-  //   test.expect(1);
-
-  //   test.ok( five.Board.Pins.led[13] );
-
-  //   test.done();
-  // },
   "Board.Event": function( test ) {
     test.expect(2);
 
@@ -233,38 +190,7 @@ exports["static"] = {
     test.ok( boardEvent.target === serial );
 
     test.done();
-  },
-  // "Board.Pin.is___()": function( test ) {
-  //   var fixture = {
-  //     0: "Serial",
-  //     3: "PWM",
-  //     7: "Digital",
-  //     "A3": "Analog",
-  //     "A5": "Analog"
-  //   };
-
-  //   test.expect( Object.keys(fixture).length * 2 );
-
-  //   Object.keys( fixture ).forEach(function( pin ) {
-  //     test.ok( five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
-  //   }, fixture );
-
-  //   // Now test for false
-  //   fixture = {
-  //     0: "Analog",
-  //     3: "Analog",
-  //     7: "Serial",
-  //     "A3": "Digital",
-  //     "A5": "Digital"
-  //   };
-
-  //   Object.keys( fixture ).forEach(function( pin ) {
-  //     test.ok( !five.Board.Pin[ "is" + this[ pin ] ]( pin ) );
-  //   }, fixture );
-
-  //   test.done();
-  // }
-
+  }
 };
 
 
