@@ -89,8 +89,7 @@ five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/nodebot.png">
-
+![docs/breadboard/nodebot.png](breadboard/nodebot.png)
 
 
 

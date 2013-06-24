@@ -62,9 +62,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/sonar.png">
-
-[docs/breadboard/sonar.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/sonar.fzz)
+![docs/breadboard/sonar.png](breadboard/sonar.png)
+[docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
 
 
 

@@ -20,8 +20,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/tinkerkit-linear-pot.png">
-
+![docs/breadboard/tinkerkit-linear-pot.png](breadboard/tinkerkit-linear-pot.png)
 
 
 

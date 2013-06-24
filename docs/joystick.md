@@ -68,9 +68,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/joystick.png">
-
-[docs/breadboard/joystick.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/joystick.fzz)
+![docs/breadboard/joystick.png](breadboard/joystick.png)
+[docs/breadboard/joystick.fzz](breadboard/joystick.fzz)
 
 
 

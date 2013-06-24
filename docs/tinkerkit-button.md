@@ -27,8 +27,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/tinkerkit-button.png">
-
+![docs/breadboard/tinkerkit-button.png](breadboard/tinkerkit-button.png)
 
 
 

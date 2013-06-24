@@ -42,9 +42,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/potentiometer.png">
-
-[docs/breadboard/potentiometer.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/potentiometer.fzz)
+![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)
+[docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
 
 
 

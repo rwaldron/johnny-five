@@ -54,9 +54,8 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/board-multi.png">
-
-[docs/breadboard/board-multi.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/board-multi.fzz)
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)
+[docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
 
 
 

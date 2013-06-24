@@ -60,9 +60,6 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "scripts": {
-    "test": "nodeunit test/board.js"
-  },
   "dependencies": {
     "colors": ">=0.5.1",
     "firmata": ">=0.2.0",
@@ -74,6 +71,10 @@
     "descriptor": "latest",
     "serialport": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-nodeunit": "~0.2.0"
+  },
   "keywords": []
 }

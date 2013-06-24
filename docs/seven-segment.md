@@ -118,9 +118,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/seven-segment.png">
-
-[docs/breadboard/seven-segment.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/seven-segment.fzz)
+![docs/breadboard/seven-segment.png](breadboard/seven-segment.png)
+[docs/breadboard/seven-segment.fzz](breadboard/seven-segment.fzz)
 
 
 

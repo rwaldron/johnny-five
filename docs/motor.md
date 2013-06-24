@@ -56,9 +56,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/motor.png">
-
-[docs/breadboard/motor.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/motor.fzz)
+![docs/breadboard/motor.png](breadboard/motor.png)
+[docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 
 

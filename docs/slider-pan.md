@@ -39,9 +39,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/slider-pan.png">
-
-[docs/breadboard/slider-pan.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/slider-pan.fzz)
+![docs/breadboard/slider-pan.png](breadboard/slider-pan.png)
+[docs/breadboard/slider-pan.fzz](breadboard/slider-pan.fzz)
 
 
 

@@ -46,9 +46,8 @@ board.on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/servo-digital.png">
-
-[docs/breadboard/servo-digital.fzz](https://github.com/rwldrn/johnny-five/blob/master/docs/breadboard/servo-digital.fzz)
+![docs/breadboard/servo-digital.png](breadboard/servo-digital.png)
+[docs/breadboard/servo-digital.fzz](breadboard/servo-digital.fzz)
 
 
 

@@ -22,8 +22,7 @@ new five.Board().on("ready", function() {
 
 ## Breadboard/Illustration
 
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/tinkerkit-tilt.png">
-
+![docs/breadboard/tinkerkit-tilt.png](breadboard/tinkerkit-tilt.png)
 
 
 
