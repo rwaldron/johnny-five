@@ -2,9 +2,9 @@
 
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
-var readline = require("serialport").parsers.readline;
-var optimist = require('optimist');
-var async = require('async');
+var readline = serialport.parsers.readline;
+var optimist = require("optimist");
+var async = require("async");
 
 /**
  * This program will setup an xbee 802.15.4 (series 1) to talk serially at 57600bps
@@ -15,30 +15,30 @@ var async = require('async');
  */
 
 var args = optimist
-  .alias('h', 'help')
-  .alias('h', '?')
-  .options('portname', {
-    alias: 'p',
-    describe: 'Name of serial port.'
+  .alias("h", "help")
+  .alias("h", "?")
+  .options("portname", {
+    alias: "p",
+    describe: "Name of serial port."
   })
-  .options('baud', {
-    describe: 'Baud rate.',
+  .options("baud", {
+    describe: "Baud rate.",
     default: 9600
   })
-  .options('databits', {
-    describe: 'Data bits.',
+  .options("databits", {
+    describe: "Data bits.",
     default: 8
   })
-  .options('parity', {
-    describe: 'Parity.',
-    default: 'none'
+  .options("parity", {
+    describe: "Parity.",
+    default: "none"
   })
-  .options('stopbits', {
-    describe: 'Stop bits.',
+  .options("stopbits", {
+    describe: "Stop bits.",
     default: 1
   }) // see rf module config
-  .options('guardtime', {
-    describe: 'XBEE Guard Time (seconds)',
+  .options("guardtime", {
+    describe: "XBEE Guard Time (seconds)",
     default: 1
   })
   .argv;
@@ -73,7 +73,7 @@ var port = new SerialPort(args.portname, openOptions);
 
 var open = function (cb) {
   console.log("port open!");
-  port.once('open', cb);
+  port.once("open", cb);
 };
 
 var wait = function(ms) {
@@ -84,7 +84,7 @@ var wait = function(ms) {
 
 var sendCmd = function (str) {
   return function (cb) {
-    port.once('data', function (data) {
+    port.once("data", function (data) {
       if (data === "OK") {
         cb(null, data);
       } else {
@@ -97,7 +97,7 @@ var sendCmd = function (str) {
 
 var readCmd = function (str) {
   return function (cb) {
-    port.once('data', function (data) {
+    port.once("data", function (data) {
       cb(null, data);
     });
     port.write(str);
@@ -106,7 +106,6 @@ var readCmd = function (str) {
 
 var exit = function () {
   console.log("quiting");
-  readCmd
   // port.close();
   process.exit(0);
 };
@@ -154,14 +153,14 @@ var exitCmdMode = function (cb) {
 };
 
 async.series([
-    open,
-    cmdMode,
-    systemInfo,
-    // readCmd("ATBD\r"),
-    // // sendCmd("ATBD 6\r"),
-    // readCmd("ATBD\r"),
-    // sendCmd("ATWR\r"),
-    exitCmdMode,
-    exit
+  open,
+  cmdMode,
+  systemInfo,
+  // readCmd("ATBD\r"),
+  // // sendCmd("ATBD 6\r"),
+  // readCmd("ATBD\r"),
+  // sendCmd("ATWR\r"),
+  exitCmdMode,
+  exit
 ]);
 
