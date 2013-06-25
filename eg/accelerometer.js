@@ -4,7 +4,30 @@ var five = require("../lib/johnny-five.js"),
 board = new five.Board();
 
 board.on("ready", function() {
+  // exponential smoother
+  function exponential() {
+    var alpha = this.alpha;
 
+    this.axes.forEach(function( axis, index ) {
+      var diff, priorsm;
+      // Exponential smoothing
+      // see http://people.duke.edu/~rnau/411avg.htm
+      // bootstrap for initial state
+      if ( this.initial ) {
+        this.update("smooth", axis, this.get("accel", axis, 0));
+        this.initial = false;
+      } else {
+
+        priorsm = this.get("smooth", axis, 0);
+        // diff last stage smoothing and real output
+        diff = this.get("accel", axis, 0) - priorsm;
+        // update current smooth 
+        this.update("smooth", axis, priorsm + alpha * diff);
+      }
+    }, this);
+
+    return this.get("smooth");
+  }
   // Create a new `Accelerometer` hardware instance.
   //
   // Supported devices:
@@ -22,7 +45,9 @@ board.on("ready", function() {
 
   accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
-    freq: 100
+    freq: 100,
+    axes: ["x", "y"],
+    smoother: exponential
   });
 
   // Accelerometer Event API
@@ -32,9 +57,9 @@ board.on("ready", function() {
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function( err, timestamp ) {
+  accel.on("acceleration", function( err, data ) {
 
-    console.log( "acceleration", this.pitch, this.roll );
+    console.log( "acceleration", data.smooth );
   });
 
   // "axischange"
