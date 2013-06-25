@@ -47,7 +47,8 @@ board.on("ready", function() {
     pins: [ "A3", "A4", "A5" ],
     freq: 100,
     axes: ["x", "y"],
-    smoother: exponential
+    smoother: exponential,
+    threshold: 0.2
   });
 
   // Accelerometer Event API
