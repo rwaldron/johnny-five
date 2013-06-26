@@ -3,7 +3,7 @@
 # Node-isassemble Johnny-Five
 
 
-#### [Firmata](https://github.com/jgautier/firmata) & [SerialPort](https://github.com/voodootikigod/node-serialport) powered JavaScript Arduino programming framework.
+#### Johnny-Five is an Open Source, JavaScript Arduino programming framework, developed at [Bocoup](http://bocoup.com).
 
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
