@@ -5,9 +5,7 @@ five = require("../lib/johnny-five.js");
 temporal = require("temporal");
 
 new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
-
-
-  var controllers, changes, nodebot, whiskers, opposing, directions;
+  var controllers, changes, nodebot, whiskers, opposing, directions, speed;
 
   controllers = {
     x: new five.Sensor({
@@ -17,6 +15,10 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
     y: new five.Sensor({
       board: boards.controller,
       pin: "I1"
+    }),
+    speed: new five.Sensor({
+      board: boards.controller,
+      pin: "I2"
     })
   };
 
@@ -39,7 +41,8 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
 
   changes = {
     x: new Change(),
-    y: new Change()
+    y: new Change(),
+    speed: new Change()
   };
 
   opposing = {
@@ -68,7 +71,7 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
         turn.toUpperCase()
       );
 
-      nodebot[ turn ]();
+      nodebot.stop()[ turn ]( 500 );
     });
   });
 
@@ -78,15 +81,31 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
     controllers[ axis ].scale(1, 3).on("change", function() {
       var round = Math.round( this.value );
 
-      if ( round !== 2 && changes[ axis ].isNoticeable( round ) ) {
-        console.log( "%s changed noticeably (%d)", axis,  round);
-
-        nodebot[ directions[ axis ][ round ] ]();
-
+      if ( changes[ axis ].isNoticeable( round ) ) {
+        if ( round === 2 ) {
+          nodebot.stop();
+        } else {
+          // console.log( axis, round, directions[ axis ][ round ] );
+          nodebot[ directions[ axis ][ round ] ]();
+        }
       } else {
         changes[ axis ].last = round;
       }
     });
+  });
+
+  controllers.speed.scale(0, 6).on("change", function() {
+    var value = Math.round( this.scaled );
+
+    if ( changes.speed.isNoticeable( value ) ) {
+      // console.log( "update nodebot.speed: %d", value );
+      // console.log( nodebot.motion );
+      nodebot.speed = value;
+
+      if ( nodebot.motion !== "stop" ) {
+        nodebot[ nodebot.motion ]();
+      }
+    }
   });
 
   boards.control.repl.inject({
