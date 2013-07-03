@@ -23,7 +23,6 @@ board.on("ready", function() {
   accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
     freq: 100,
-    axes: ["x", "y", "z"],
     threshold: 0.2
   });
 
