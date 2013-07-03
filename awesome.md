@@ -1,5 +1,14 @@
 # Awesome Nodebots Built with Johnny-Five
 ----------------
+(Entries listed newest to oldest)
+
+
+## Richard Key [@busyrich](http://twitter.com/busyrich)
+
+- Arduino Attack!
+    [video](http://www.youtube.com/watch?v=1NalU4d7a20)
+    [code](https://github.com/BusyRich/arduino-attack)
+
 
 ## Andrew Homeyer [@andrewhomeyer](https://twitter.com/andrewhomeyer), Matt Parrish [@mattparrish](https://twitter.com/mattparrish), Nicholas Boll [@nicholasboll](https://twitter.com/nicholasboll)
 
@@ -113,9 +122,3 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
-
-## Richard Key [@busyrich](http://twitter.com/busyrich)
-
-- Arduino Attack!
-    [video](http://www.youtube.com/watch?v=1NalU4d7a20)
-    [code](https://github.com/BusyRich/arduino-attack)

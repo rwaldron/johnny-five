@@ -31,7 +31,8 @@ board.on("ready", function() {
 
   accel = new five.Accelerometer({
     pins: [ "A3", "A4", "A5" ],
-    freq: 100
+    freq: 100,
+    threshold: 0.2
   });
 
   // Accelerometer Event API
@@ -41,9 +42,9 @@ board.on("ready", function() {
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function( err, timestamp ) {
+  accel.on("acceleration", function( err, data ) {
 
-    console.log( "acceleration", this.pitch, this.roll );
+    console.log( "acceleration", data.smooth );
   });
 
   // "axischange"
