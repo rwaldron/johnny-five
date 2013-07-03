@@ -118,6 +118,7 @@
     "slider-log.js",
     "slider-pan.js",
     "slider-servo-control.js",
+    "sensor-temperature.js",
 
   [ "TinkerKit" ],
     "tinkerkit-blink.js",

@@ -1,24 +1,15 @@
+var five = require("johnny-five");
 
-var five = require('johnny-five'),
-    board, sensor;
+five.Board().on("ready", function(){
+  var sensor = new five.Sensor("A0");
 
-board = new five.Board();
+  sensor.on("read", function(){
+    var celsius = -(100 * (this.value / 1000) - 50);
+    var fahrenheit = celsius * (9/5) + 32;
 
-board.on('ready', function(){
-    sensor = new five.Sensor({
-        pin: 'A0',
-        freq: 250
-    });
-
-    board.repl.inject({
-        sensor: sensor
-    });
-
-    sensor.on('read', function(){
-        var celsius = -(100 * (this.value / 1000) - 50);
-        var fahrenheit = celsius * (9/5) + 32;
-
-        console.log(celsius + '°C', fahrenheit + '°F');
-    });
+    console.log(celsius + "°C", fahrenheit + "°F");
+  });
 });
 
+
+// @device [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
