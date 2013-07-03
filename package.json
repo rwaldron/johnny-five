@@ -38,7 +38,9 @@
     { "name": "Divan Visagie", "email": "<visagiedivan@gmail.com>" },
     { "name": "Sara Gorecki", "email": "<sgorecki@gmail.com>" },
     { "name": "Raquel Velez", "email": "<rockbot01@gmail.com>" },
-    { "name": "Tim Walker", "email": "<tim.twalker@gmail.com>" }
+    { "name": "Tim Walker", "email": "<tim.twalker@gmail.com>" },
+    { "name": "Toby Miller", "email": "<tmiller@localhost.localhost>" },
+    { "name": "Richard Key", "email": "<rich@busyrich.com>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"

@@ -181,6 +181,7 @@ board.on("ready", function() {
 - [Slider Log](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-log.md)
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
+- [Sensor Temperature](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature.md)
 
 ### TinkerKit
 - [Tinkerkit Blink](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-blink.md)
