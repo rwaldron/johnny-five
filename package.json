@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.6.14",
+  "version": "0.6.15",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -41,7 +41,8 @@
     { "name": "Tim Walker", "email": "<tim.twalker@gmail.com>" },
     { "name": "Toby Miller", "email": "<tmiller@localhost.localhost>" },
     { "name": "Richard Key", "email": "<rich@busyrich.com>" },
-    { "name": "Patrick Clark", "email": "<pat@hellop.at>" }
+    { "name": "Patrick Clark", "email": "<pat@hellop.at>" },
+    { "name": "Boros Márton", "email": "<martonboros@gmail.com>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"
