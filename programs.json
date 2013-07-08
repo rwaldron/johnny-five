@@ -125,6 +125,7 @@
     "tinkerkit-button.js",
     "tinkerkit-continuous-servo.js",
     "tinkerkit-combo.js",
+    "tinkerkit-gyroscope.js",
     "tinkerkit-joystick.js",
     "tinkerkit-linear-pot.js",
     "tinkerkit-rotary.js",
