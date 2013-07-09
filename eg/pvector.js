@@ -19,7 +19,7 @@ PVector.degrees = function(angle) {
 };
 
 PVector.fromAngle = function(angle, v) {
-  if (v === undef || v === null) {
+  if (v === undefined || v === null) {
     v = new PVector();
   }
   v.x = Math.cos(angle);
@@ -78,7 +78,7 @@ PVector.prototype = {
     return (x * x + y * y + z * z);
   },
   setMag: function(v_or_len, len) {
-    if (len === undef) {
+    if (len === undefined) {
       len = v_or_len;
       this.normalize();
       this.mult(len);
