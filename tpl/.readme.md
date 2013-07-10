@@ -75,6 +75,7 @@ board.on("ready", function() {
 
 #### [Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
 
+Note: Node will crash if you try to run johnny-five in the node REPL, but board instances will create their own contextual REPL. Put your script in a file.
 
 ## More Input
 
