@@ -42,7 +42,8 @@
     { "name": "Toby Miller", "email": "<tmiller@localhost.localhost>" },
     { "name": "Richard Key", "email": "<rich@busyrich.com>" },
     { "name": "Patrick Clark", "email": "<pat@hellop.at>" },
-    { "name": "Boros Márton", "email": "<martonboros@gmail.com>" }
+    { "name": "Boros Márton", "email": "<martonboros@gmail.com>" },
+    { "name": "Jeremy Morrell", "email": "<morrell.jeremy@gmail.com>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"
