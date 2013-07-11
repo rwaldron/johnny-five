@@ -7,11 +7,10 @@ node eg/whisker.js
 
 
 ```javascript
-var Change, five, temporal;
+var Change, five;
 
 Change = require("../eg/change.js");
 five = require("johnny-five");
-temporal = require("temporal");
 
 new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
   var controllers, changes, nodebot, whiskers, opposing, directions, speed;
