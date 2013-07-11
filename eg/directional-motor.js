@@ -1,19 +1,16 @@
+// A directional motor example as would be used via n h-bridge controller
+// such as an ardumoto shield (controls direction and uses PWM for speed)
+
 var five = require('../lib/johnny-five.js');
 var board, motor;
 
 var PWM_LEFT = 11;
-var PWM_RIGHT = 3;
 var L_MOTOR_DIR = 13;
-var R_MOTOR_DIR = 12;
-
-console.log("Connecting to robot");
 
 board = new five.Board();
 
 board.on("ready", function() {
-    "use strict"
-
-    console.log("Connected to bot. Time for tests");
+    // simply goes forward for 5 seconds, reverse for 5 seconds then stops.
 
     this.pinMode(L_MOTOR_DIR, this.firmata.MODES.OUTPUT);
 
@@ -38,7 +35,6 @@ board.on("ready", function() {
         console.log("forward", timestamp);
 
         board.wait(5000, function() {
-            // reverse now
             motor.reverse(50);
         });
     });
