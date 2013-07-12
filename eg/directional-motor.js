@@ -13,8 +13,10 @@ board.on("ready", function() {
     // simply goes forward for 5 seconds, reverse for 5 seconds then stops.
 
     motor = new five.DirectionalMotor({
-        motorPin: PWM_LEFT,
-        dirPin: L_MOTOR_DIR
+        pins: {
+            motor: PWM_LEFT,
+            dir: L_MOTOR_DIR
+        }
     });
 
     board.repl.inject({
@@ -23,15 +25,17 @@ board.on("ready", function() {
 
     motor.on("start", function(err, timestamp) {
         console.log("start", timestamp);
+
     });
 
     motor.on("stop", function(err, timestamp) {
-        console.log("stop", timestamp);
+        console.log("automated stop on timer", timestamp);
     });
 
     motor.on("forward", function(err, timestamp) {
         console.log("forward", timestamp);
 
+        // demonstrate switching to reverse after 5 seconds
         board.wait(5000, function() {
             motor.reverse(50);
         });
@@ -40,10 +44,12 @@ board.on("ready", function() {
     motor.on("reverse", function(err, timestamp) {
         console.log("reverse", timestamp);
 
+        // demonstrate stopping after 5 seconds
         board.wait(5000, function() {
             motor.stop();
         });
     });
 
+    // set the motor going forward at speed 50
     motor.forward(50);
 });
