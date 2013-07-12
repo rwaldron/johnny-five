@@ -2,7 +2,7 @@
 
 Run with:
 ```bash
-node eg/directional-motor.js
+node eg/motor-directional.js
 ```
 
 
