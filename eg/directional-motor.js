@@ -12,8 +12,6 @@ board = new five.Board();
 board.on("ready", function() {
     // simply goes forward for 5 seconds, reverse for 5 seconds then stops.
 
-    this.pinMode(L_MOTOR_DIR, this.firmata.MODES.OUTPUT);
-
     motor = new five.DirectionalMotor({
         motorPin: PWM_LEFT,
         dirPin: L_MOTOR_DIR
