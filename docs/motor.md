@@ -7,55 +7,49 @@ node eg/motor.js
 
 
 ```javascript
-var five = require('../lib/johnny-five.js');
-var board, motor;
-
-var PWM_LEFT = 11;
-var L_MOTOR_DIR = 13;
+var five = require("johnny-five"),
+    board, motor, led;
 
 board = new five.Board();
 
-board.on('ready', function() {
-    // simply goes forward for 5 seconds, reverse for 5 seconds then stops.
-    motor = new five.Motor({
-        pins: {
-            motor: PWM_LEFT,
-            dir: L_MOTOR_DIR
-        }
+board.on("ready", function() {
+  // Create a new `motor` hardware instance.
+  motor = new five.Motor({
+    pin: 5
+  });
+
+  // Inject the `motor` hardware into
+  // the Repl instance's context;
+  // allows direct command line access
+  board.repl.inject({
+    motor: motor
+  });
+
+  // Motor Event API
+
+  // "start" events fire when the motor is started.
+  motor.on("start", function( err, timestamp ) {
+    console.log( "start", timestamp );
+
+    // Demonstrate motor stop in 2 seconds
+    board.wait( 2000, function() {
+      this.stop();
     });
+  });
 
-    board.repl.inject({
-        motor: motor
-    });
+  // "stop" events fire when the motor is started.
+  motor.on("stop", function( err, timestamp ) {
+    console.log( "stop", timestamp );
+  });
 
-    motor.on("start", function(err, timestamp) {
-        console.log("start", timestamp);
-    });
+  // Motor API
 
-    motor.on("stop", function(err, timestamp) {
-        console.log("automated stop on timer", timestamp);
-    });
+  // start()
+  // Start the motor. `isOn` property set to |true|
+  motor.start();
 
-    motor.on("forward", function(err, timestamp) {
-        console.log("forward", timestamp);
-
-        // demonstrate switching to reverse after 5 seconds
-        board.wait(5000, function() {
-            motor.reverse(50);
-        });
-    });
-
-    motor.on("reverse", function(err, timestamp) {
-        console.log("reverse", timestamp);
-
-        // demonstrate stopping after 5 seconds
-        board.wait(5000, function() {
-            motor.stop();
-        });
-    });
-
-    // set the motor going forward at speed 50
-    motor.forward(50);
+  // stop()
+  // Stop the motor. `isOn` property set to |false|
 });
 
 ```
