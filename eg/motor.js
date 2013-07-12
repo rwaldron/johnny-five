@@ -1,55 +1,44 @@
-// A  motor example as would be used via n h-bridge controller
-// such as an ardumoto shield (controls direction and uses PWM for speed)
-
-var five = require('../lib/johnny-five.js');
-var board, motor;
-
-var PWM_LEFT = 11;
-var L_MOTOR_DIR = 13;
+var five = require("../lib/johnny-five.js"),
+    board, motor, led;
 
 board = new five.Board();
 
 board.on("ready", function() {
-    // simply goes forward for 5 seconds, reverse for 5 seconds then stops.
+  // Create a new `motor` hardware instance.
+  motor = new five.Motor({
+    pin: 11
+  });
 
-    motor = new five.Motor({
-        pins: {
-            motor: PWM_LEFT,
-            dir: L_MOTOR_DIR
-        }
+  // Inject the `motor` hardware into
+  // the Repl instance's context;
+  // allows direct command line access
+  board.repl.inject({
+    motor: motor
+  });
+
+  // Motor Event API
+
+  // "start" events fire when the motor is started.
+  motor.on("start", function( err, timestamp ) {
+    console.log( "start", timestamp );
+
+    // Demonstrate motor stop in 2 seconds
+    board.wait( 2000, function() {
+      motor.stop();
     });
+  });
 
-    board.repl.inject({
-        motor: motor
-    });
+  // "stop" events fire when the motor is started.
+  motor.on("stop", function( err, timestamp ) {
+    console.log( "stop", timestamp );
+  });
 
-    motor.on("start", function(err, timestamp) {
-        console.log("start", timestamp);
+  // Motor API
 
-    });
+  // start()
+  // Start the motor. `isOn` property set to |true|
+  motor.start();
 
-    motor.on("stop", function(err, timestamp) {
-        console.log("automated stop on timer", timestamp);
-    });
-
-    motor.on("forward", function(err, timestamp) {
-        console.log("forward", timestamp);
-
-        // demonstrate switching to reverse after 5 seconds
-        board.wait(5000, function() {
-            motor.reverse(50);
-        });
-    });
-
-    motor.on("reverse", function(err, timestamp) {
-        console.log("reverse", timestamp);
-
-        // demonstrate stopping after 5 seconds
-        board.wait(5000, function() {
-            motor.stop();
-        });
-    });
-
-    // set the motor going forward at speed 50
-    motor.forward(50);
+  // stop()
+  // Stop the motor. `isOn` property set to |false|
 });
