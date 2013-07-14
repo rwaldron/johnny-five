@@ -33,7 +33,7 @@ board.on("ready", function() {
 
     // Demonstrate motor stop in 2 seconds
     board.wait( 2000, function() {
-      this.stop();
+      motor.stop();
     });
   });
 
