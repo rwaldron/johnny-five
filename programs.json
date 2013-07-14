@@ -46,6 +46,7 @@
     "button.js",
     "button-bumper.js",
     "button-options.js",
+    "button-pullup.js",
 
 
   [ "Claw" ],

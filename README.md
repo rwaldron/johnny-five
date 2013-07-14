@@ -120,6 +120,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Button Bumper](https://github.com/rwldrn/johnny-five/blob/master/docs/button-bumper.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
+- [Button Pullup](https://github.com/rwldrn/johnny-five/blob/master/docs/button-pullup.md)
 
 ### Claw
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
