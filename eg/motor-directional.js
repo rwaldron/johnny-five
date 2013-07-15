@@ -4,8 +4,8 @@
 var five = require('../lib/johnny-five.js');
 var board, motor;
 
-var PWM_LEFT = 11;
-var L_MOTOR_DIR = 13;
+var PWM_LEFT = 3;
+var L_MOTOR_DIR = 12;
 
 board = new five.Board();
 
