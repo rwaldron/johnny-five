@@ -1,8 +1,8 @@
-# Led Rgb
+# Led Rainbow
 
 Run with:
 ```bash
-node eg/led-rgb.js
+node eg/led-rainbow.js
 ```
 
 
@@ -10,30 +10,28 @@ node eg/led-rgb.js
 var five = require("johnny-five");
 
 five.Board().on("ready", function() {
-  var a = new five.Led.RGB([ 9, 10, 11 ]);
+  var rgb, rainbow, index;
 
-  var b = new five.Led.RGB({
-    pins: {
-      red: 3,
-      green: 5,
-      blue: 6
+  rgb = new five.Led.RGB([ 3, 5, 6 ]);
+  rainbow = [ "FF000", "FF7F00", "00FF00", "FFFF00", "0000FF", "4B0082", "8F00FF" ];
+  index = 0;
+
+  setInterval(function() {
+    if ( index + 1 === rainbow.length ) {
+      index = 0;
     }
-  });
-
-  this.repl.inject({
-    a: a,
-    b: b
-  });
-
-  a.pulse();
-  b.pulse();
+    rgb.color( rainbow[ index++ ] );
+  }, 500);
 });
 
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/led-rainbow.png](breadboard/led-rainbow.png)
+[docs/breadboard/led-rainbow.fzz](breadboard/led-rainbow.fzz)
 
 
 

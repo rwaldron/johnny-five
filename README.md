@@ -156,6 +156,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
+- [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
 
