@@ -54,21 +54,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/motor.png](breadboard/motor.png)
 [docs/breadboard/motor.fzz](breadboard/motor.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

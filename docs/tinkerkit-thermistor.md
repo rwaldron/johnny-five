@@ -47,25 +47,16 @@ new five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/tinkerkit-thermistor.png](breadboard/tinkerkit-thermistor.png)
 
 
 
-## Devices
-
-- http://www.tinkerkit.com/thermistor/
-- http://www.tinkerkit.com/shield/
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
+- [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
+- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
 

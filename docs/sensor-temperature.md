@@ -21,28 +21,18 @@ five.Board().on("ready", function(){
 });
 
 
-
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/sensor-temperature.png](breadboard/sensor-temperature.png)
 [docs/breadboard/sensor-temperature.fzz](breadboard/sensor-temperature.fzz)
 
 
 
-## Devices
-
 - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
 
 
 

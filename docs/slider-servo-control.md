@@ -38,20 +38,11 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/slider-servo-control.png](breadboard/slider-servo-control.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

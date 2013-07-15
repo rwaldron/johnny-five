@@ -35,6 +35,9 @@
     "continuous.js",
     "motor.js",
 
+  [ "Stepper" ],
+    "stepper-driver.js",
+    "stepper-sweep.js",
 
   [ "Sonar/Ultrasonic" ],
     "ping.js",

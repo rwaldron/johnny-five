@@ -602,20 +602,11 @@ ED.prototype.move = function( positions ) {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/ed.png](breadboard/ed.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -66,21 +66,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/joystick.png](breadboard/joystick.png)
 [docs/breadboard/joystick.fzz](breadboard/joystick.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -116,21 +116,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/seven-segment.png](breadboard/seven-segment.png)
 [docs/breadboard/seven-segment.fzz](breadboard/seven-segment.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

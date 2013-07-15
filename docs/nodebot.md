@@ -87,20 +87,11 @@ five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/nodebot.png](breadboard/nodebot.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

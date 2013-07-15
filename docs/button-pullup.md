@@ -43,20 +43,11 @@ five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

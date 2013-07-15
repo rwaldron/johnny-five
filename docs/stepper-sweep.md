@@ -1,39 +1,38 @@
-# Board
+# Stepper Sweep
 
 Run with:
 ```bash
-node eg/board.js
+node eg/stepper-sweep.js
 ```
 
 
 ```javascript
-var five = require("johnny-five");
+var five = require("../lib/johnny-five");
 
-// The board's pins will not be accessible until
-// the board has reported that it is ready
 five.Board().on("ready", function() {
-  var val = 0;
+  var stepper, k = 0;
 
-  // Set pin 13 to OUTPUT mode
-  this.pinMode( 13, 1 );
-
-  // Create a loop to "flash/blink/strobe" an led
-  this.loop( 100, function() {
-    this.digitalWrite( 13, (val = val ? 0 : 1) );
+  stepper = new five.Stepper({
+    type: five.Stepper.TYPE.DRIVER,
+    stepsPerRev: 200,
+    pins: [ 11, 12 ]
   });
+
+  function sweep() {
+    // 200 stepsPerRev / 2 = 100 (180degree sweeps)
+    stepper[ ++k % 2 === 0 ? "ccw" : "cw" ]().step(100, function() {
+      sweep();
+    });
+  }
+
+  sweep();
 });
-
-
-// Schematic
-// http://arduino.cc/en/uploads/Tutorial/ExampleCircuit_bb.png
 
 ```
 
 
-## Breadboard/Illustration
 
 
-![docs/breadboard/board.png](breadboard/board.png)
 
 
 

@@ -37,21 +37,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/slider-pan.png](breadboard/slider-pan.png)
 [docs/breadboard/slider-pan.fzz](breadboard/slider-pan.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -16,11 +16,6 @@ board.on("ready", function() {
 
   // Create a new `Accelerometer` hardware instance.
   //
-  // Supported devices:
-  //
-  // - Triple Axis Accelerometer, MMA7361 https://www.sparkfun.com/products/9652
-  // - Triple-Axis Accelerometer, ADXL326 http://www.adafruit.com/products/1018
-  //
   // five.Accelerometer([ x, y[, z] ]);
   //
   // five.Accelerometer({
@@ -57,26 +52,21 @@ board.on("ready", function() {
   });
 });
 
+
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)
 [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
 
 
 
-## Devices
 
-
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
+- [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
+- [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
 
 
 

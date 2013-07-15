@@ -45,6 +45,7 @@ new five.Board().on("ready", function() {
   });
 });
 
-
-// @device http://www.tinkerkit.com/joystick/
-// @device http://www.tinkerkit.com/shield/
+// @markdown
+// - [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
+// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// @markdown

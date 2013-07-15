@@ -541,20 +541,9 @@ Navigator.prototype.pivot = function( which, time ) {
 
 ```
 
-## Breadboard/Illustration
 
 
 
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

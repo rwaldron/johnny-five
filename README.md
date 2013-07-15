@@ -111,6 +111,10 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
 
+### Stepper
+- [Stepper Driver](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-driver.md)
+- [Stepper Sweep](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-sweep.md)
+
 ### Sonar/Ultrasonic
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)

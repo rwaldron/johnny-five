@@ -124,20 +124,9 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
 
 ```
 
-## Breadboard/Illustration
 
 
 
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

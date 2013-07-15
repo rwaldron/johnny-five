@@ -1,9 +1,4 @@
-# Stepper using stepper driver with dir/step pins
-
-Note about using the stepper functionality: The firmware support is not currently in StandardFirmata
-
-AdvancedFirmata has the support for asynchronously controlling steppers: https://github.com/soundanalogous/AdvancedFirmata/
-
+# Stepper Driver
 
 Run with:
 ```bash
@@ -12,37 +7,72 @@ node eg/stepper-driver.js
 
 
 ```javascript
-var five = require("johnny-five");
+var five = require("../lib/johnny-five");
 
 var board = new five.Board();
 
-board.on('ready', function() {
-  var stepperConfig = {
-    type: board.firmata.STEPPER.TYPE.DRIVER,
+board.on("ready", function() {
+
+  /**
+   * var stepper = new five.Stepper({
+   *   type: five.Stepper.TYPE.DRIVER,
+   *   stepsPerRev: 200,
+   *   pins: {
+   *     step: 11,
+   *     dir: 12
+   *   }
+   * });
+  */
+
+  var stepper = new five.Stepper({
+    type: five.Stepper.TYPE.DRIVER,
     stepsPerRev: 200,
-    pins: {
-      step: 13,
-      dir: 12
-    }
-  };
-
-  var stepper = new five.Stepper(stepperConfig);
-
-  // make 10 full revolutions counter-clockwise at 180 rpm with acceleration and deceleration
-  stepper.rpm(180).direction(board.firmata.STEPPER.DIRECTION.CCW).accel(1600).decel(1600).step(2000, function() {
-    console.log("done moving CCW")
+    pins: [ 11, 12 ]
   });
-})
+
+  // Make 10 full revolutions counter-clockwise at 180 rpm with acceleration and deceleration
+  stepper.rpm(180).ccw().accel(1600).decel(1600).step(2000, function() {
+
+    console.log("Done moving CCW");
+
+    // once first movement is done, make 10 revolutions clockwise at previously
+    //      defined speed, accel, and decel by passing an object into stepper.step
+    stepper.step({ steps: 2000, direction: five.Stepper.DIRECTION.CW }, function() {
+      console.log("Done moving CW");
+    });
+  });
+});
+
+
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)
 [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
 
 
 
-## Devices
+- [A4988 Stepper Motor Driver Carrier](http://www.pololu.com/catalog/product/1182)
+- [100uf 35v electrolytic cap](http://www.amazon.com/100uF-Radial-Mini-Electrolytic-Capacitor/dp/B0002ZP530)
+- [Stepper Motor (4 wire, bipolar)](https://www.sparkfun.com/products/9238)
+
+![docs/breadboard/stepper-driver-A4988.png](breadboard/stepper-driver-A4988.png)
 
 
 
+
+
+
+## Contributing
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+
+## Release History
+_(Nothing yet)_
+
+## License
+Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.

@@ -45,20 +45,11 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/led-pulse.png](breadboard/led-pulse.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

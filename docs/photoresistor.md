@@ -40,21 +40,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)
 [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

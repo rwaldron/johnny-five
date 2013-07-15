@@ -124,20 +124,9 @@ colors = {
 
 ```
 
-## Breadboard/Illustration
 
 
 
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -52,21 +52,12 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/board-multi.png](breadboard/board-multi.png)
 [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

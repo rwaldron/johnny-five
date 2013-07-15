@@ -22,20 +22,11 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/repl.png](breadboard/repl.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

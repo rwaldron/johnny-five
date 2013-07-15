@@ -46,21 +46,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/led-fade.png](breadboard/led-fade.png)
 [docs/breadboard/led-fade.fzz](breadboard/led-fade.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

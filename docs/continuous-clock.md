@@ -52,20 +52,9 @@ board.on("ready", function() {
 
 ```
 
-## Breadboard/Illustration
 
 
 
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

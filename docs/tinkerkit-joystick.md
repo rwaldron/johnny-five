@@ -55,28 +55,16 @@ new five.Board().on("ready", function() {
 });
 
 
-
 ```
 
-## Breadboard/Illustration
 
 
 
 
 
-## Devices
 
-- http://www.tinkerkit.com/joystick/
-- http://www.tinkerkit.com/shield/
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
+- [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
+- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
 

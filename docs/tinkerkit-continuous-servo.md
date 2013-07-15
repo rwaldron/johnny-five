@@ -23,26 +23,17 @@ new five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/tinkerkit-continuous-servo.png](breadboard/tinkerkit-continuous-servo.png)
 
 
 
-## Devices
-
-- http://www.tinkerkit.com/servo/
-- http://www.tinkerkit.com/linear-pot/
-- http://www.tinkerkit.com/shield/
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
+- [TinkerKit Servo](http://www.tinkerkit.com/servo/)
+- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
+- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
 
