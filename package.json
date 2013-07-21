@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "colors": ">=0.5.1",
-    "firmata": ">=0.2.0",
+    "firmata": ">=0.2.9",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
@@ -78,7 +78,8 @@
     "descriptor": "latest",
     "serialport": "latest",
     "optimist": "~0.5.2",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "keypress": "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

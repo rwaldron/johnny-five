@@ -100,7 +100,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
-### Servo/Motor
+### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Servo Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-options.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
@@ -109,7 +109,11 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+
+### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
+- [Motor Directional](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-directional.md)
+- [Motobot](https://github.com/rwldrn/johnny-five/blob/master/docs/motobot.md)
 
 ### Stepper
 - [Stepper Driver](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-driver.md)

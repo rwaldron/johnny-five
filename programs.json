@@ -24,7 +24,7 @@
     "whisker.js",
 
 
-  [ "Servo/Motor" ],
+  [ "Servo" ],
     "servo.js",
     "servo-options.js",
     "servo-array.js",
@@ -33,7 +33,12 @@
     "servo-tutorial.js",
     "continuous-clock.js",
     "continuous.js",
+
+  [ "Motor" ],
     "motor.js",
+    "motor-directional.js",
+    "motobot.js",
+
 
   [ "Stepper" ],
     "stepper-driver.js",
