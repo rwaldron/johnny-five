@@ -15,7 +15,7 @@ board = new five.Board();
 board.on("ready", function() {
   // Create a new `motor` hardware instance.
   motor = new five.Motor({
-    pin: 5
+    pin: 11
   });
 
   // Inject the `motor` hardware into
