@@ -24,19 +24,19 @@ board.on("ready", function() {
         motors.b.stop();
       }
       if ( key.name === "up" ) {
-        motors.a.fwd(speed);
+        motors.a.rev(speed);
         motors.b.fwd(speed);
       }
       if ( key.name == "down" ) {
-        motors.a.rev(speed);
+        motors.a.fwd(speed);
         motors.b.rev(speed);
       }
       if ( key.name == "right" ) {
-        motors.a.rev(speed);
+        motors.a.fwd(speed);
         motors.b.fwd(speed);
       }
       if ( key.name == "left" ) {
-        motors.a.fwd(speed);
+        motors.a.rev(speed);
         motors.b.rev(speed);
       }
 
