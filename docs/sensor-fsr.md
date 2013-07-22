@@ -32,21 +32,12 @@ var five = require("johnny-five"),
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)
 [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -40,21 +40,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)
 [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

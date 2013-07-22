@@ -25,25 +25,16 @@ new five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/tinkerkit-button.png](breadboard/tinkerkit-button.png)
 
 
 
-## Devices
-
-- http://www.tinkerkit.com/button/
-- http://www.tinkerkit.com/shield/
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
+- [TinkerKit Button](http://www.tinkerkit.com/button/)
+- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
 

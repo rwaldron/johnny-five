@@ -18,25 +18,16 @@ new five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/tinkerkit-linear-pot.png](breadboard/tinkerkit-linear-pot.png)
 
 
 
-## Devices
-
-- http://www.tinkerkit.com/linear-pot/
-- http://www.tinkerkit.com/shield/
-
-
-## Documentation
-
-_(Nothing yet)_
-
-
-
-
+- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
+- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
 

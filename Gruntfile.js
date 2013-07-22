@@ -74,8 +74,8 @@ module.exports = function(grunt) {
 
     entries.forEach(function( entry ) {
 
-      var values, devices, eg, md, png, fzz, title,
-          hasPng, hasFzz, filepath, fritzfile, fritzpath;
+      var values, markdown, eg, md, png, fzz, title,
+          hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
 
       if ( Array.isArray(entry) ) {
         // Produces:
@@ -102,7 +102,7 @@ module.exports = function(grunt) {
         title = entry;
 
 
-        devices = [];
+        markdown = [];
 
         // Generate a title string from the file name
         [ [ /^.+\//, "" ],
@@ -114,29 +114,43 @@ module.exports = function(grunt) {
 
         fritzpath = fzz.split("/");
         fritzfile = fritzpath[ fritzpath.length - 1 ];
+        inMarkdown = false;
 
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace("../lib/johnny-five.js", "johnny-five")
               .split("\n").filter(function( line ) {
 
-          // TODO: Abstract "tag" support into easily extended system
-          if ( /@device/.test(line) ) {
-            devices.push( "- " + line.replace(/^\/\/ @device/, "").trim() );
+          if ( /@markdown/.test(line) ) {
+            inMarkdown = !inMarkdown;
             return false;
           }
+
+          if ( inMarkdown ) {
+            line = line.trim();
+            if ( line ) {
+              markdown.push(
+                line.replace(/^\/\//, "").trim()
+              );
+            }
+            // Filter out the markdown lines
+            // from the main content.
+            return false;
+          }
+
           return true;
         }).join("\n");
 
         hasPng = fs.existsSync(png);
         hasFzz = fs.existsSync(fzz);
 
+        // console.log( markdown );
 
         values = {
           title: _.titleize(title),
           command: "node " + filepath,
           example: eg,
           file: md,
-          devices: devices.join("\n"),
+          markdown: markdown.join("\n"),
           breadboard: hasPng ? templates.img({ png: png }) : "",
           fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
         };

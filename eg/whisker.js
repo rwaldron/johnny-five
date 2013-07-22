@@ -1,8 +1,7 @@
-var Change, five, temporal;
+var Change, five;
 
 Change = require("../eg/change.js");
 five = require("../lib/johnny-five.js");
-temporal = require("temporal");
 
 new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
   var controllers, changes, nodebot, whiskers, opposing, directions, speed;

@@ -23,21 +23,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/led-strobe.png](breadboard/led-strobe.png)
 [docs/breadboard/led-strobe.fzz](breadboard/led-strobe.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

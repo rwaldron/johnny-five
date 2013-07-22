@@ -44,21 +44,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/servo-digital.png](breadboard/servo-digital.png)
 [docs/breadboard/servo-digital.fzz](breadboard/servo-digital.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

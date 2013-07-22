@@ -28,21 +28,12 @@ five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)
 [docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

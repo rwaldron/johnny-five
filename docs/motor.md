@@ -15,7 +15,7 @@ board = new five.Board();
 board.on("ready", function() {
   // Create a new `motor` hardware instance.
   motor = new five.Motor({
-    pin: 5
+    pin: 11
   });
 
   // Inject the `motor` hardware into
@@ -33,7 +33,7 @@ board.on("ready", function() {
 
     // Demonstrate motor stop in 2 seconds
     board.wait( 2000, function() {
-      this.stop();
+      motor.stop();
     });
   });
 
@@ -54,21 +54,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/motor.png](breadboard/motor.png)
 [docs/breadboard/motor.fzz](breadboard/motor.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

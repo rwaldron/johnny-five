@@ -81,21 +81,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/servo.png](breadboard/servo.png)
 [docs/breadboard/servo.fzz](breadboard/servo.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

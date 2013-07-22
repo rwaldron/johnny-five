@@ -35,5 +35,7 @@ new five.Board().on("ready", function() {
   });
 });
 
-// @device http://www.tinkerkit.com/thermistor/
-// @device http://www.tinkerkit.com/shield/
+// @markdown
+// - [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
+// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// @markdown

@@ -35,21 +35,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/led-on-off.png](breadboard/led-on-off.png)
 [docs/breadboard/led-on-off.fzz](breadboard/led-on-off.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

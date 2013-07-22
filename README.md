@@ -100,7 +100,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
-### Servo/Motor
+### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Servo Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-options.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
@@ -109,7 +109,15 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+
+### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
+- [Motor Directional](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-directional.md)
+- [Motobot](https://github.com/rwldrn/johnny-five/blob/master/docs/motobot.md)
+
+### Stepper
+- [Stepper Driver](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-driver.md)
+- [Stepper Sweep](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-sweep.md)
 
 ### Sonar/Ultrasonic
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
@@ -120,6 +128,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)
 - [Button Bumper](https://github.com/rwldrn/johnny-five/blob/master/docs/button-bumper.md)
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
+- [Button Pullup](https://github.com/rwldrn/johnny-five/blob/master/docs/button-pullup.md)
 
 ### Claw
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
@@ -151,6 +160,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
+- [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
 

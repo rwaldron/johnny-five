@@ -16,5 +16,7 @@ new five.Board().on("ready", function() {
   });
 });
 
-// @device http://www.tinkerkit.com/touch/
-// @device http://www.tinkerkit.com/shield/
+// @markdown
+// - [TinkerKit Touch](http://www.tinkerkit.com/touch/)
+// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// @markdown

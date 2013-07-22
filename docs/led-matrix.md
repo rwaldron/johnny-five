@@ -70,21 +70,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)
 [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

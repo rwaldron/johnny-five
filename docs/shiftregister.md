@@ -39,21 +39,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/shiftregister.png](breadboard/shiftregister.png)
 [docs/breadboard/shiftregister.fzz](breadboard/shiftregister.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

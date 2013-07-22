@@ -51,21 +51,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/ping.png](breadboard/ping.png)
 [docs/breadboard/ping.fzz](breadboard/ping.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

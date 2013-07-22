@@ -41,21 +41,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/continuous.png](breadboard/continuous.png)
 [docs/breadboard/continuous.fzz](breadboard/continuous.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

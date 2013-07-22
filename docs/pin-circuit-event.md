@@ -22,21 +22,12 @@ new five.Board().on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/pin-circuit-event.png](breadboard/pin-circuit-event.png)
 [docs/breadboard/pin-circuit-event.fzz](breadboard/pin-circuit-event.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

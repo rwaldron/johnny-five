@@ -24,7 +24,7 @@
     "whisker.js",
 
 
-  [ "Servo/Motor" ],
+  [ "Servo" ],
     "servo.js",
     "servo-options.js",
     "servo-array.js",
@@ -33,8 +33,16 @@
     "servo-tutorial.js",
     "continuous-clock.js",
     "continuous.js",
-    "motor.js",
 
+  [ "Motor" ],
+    "motor.js",
+    "motor-directional.js",
+    "motobot.js",
+
+
+  [ "Stepper" ],
+    "stepper-driver.js",
+    "stepper-sweep.js",
 
   [ "Sonar/Ultrasonic" ],
     "ping.js",
@@ -46,6 +54,7 @@
     "button.js",
     "button-bumper.js",
     "button-options.js",
+    "button-pullup.js",
 
 
   [ "Claw" ],
@@ -83,6 +92,7 @@
     "led-on-off.js",
     "led-pulse.js",
     "led-rgb.js",
+    "led-rainbow.js",
     "led-strobe.js",
     "seven-segment.js",
 

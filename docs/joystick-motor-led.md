@@ -78,21 +78,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)
 [docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

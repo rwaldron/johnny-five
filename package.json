@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.6.16",
+  "version": "0.7.0",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -43,7 +43,10 @@
     { "name": "Richard Key", "email": "<rich@busyrich.com>" },
     { "name": "Patrick Clark", "email": "<pat@hellop.at>" },
     { "name": "Boros Márton", "email": "<martonboros@gmail.com>" },
-    { "name": "Jeremy Morrell", "email": "<morrell.jeremy@gmail.com>" }
+    { "name": "Jeremy Morrell", "email": "<morrell.jeremy@gmail.com>" },
+    { "name": "Bob Holt", "email": "<bholt@constantcontact.com>" },
+    { "name": "Dwayn Matthies", "email": "<dwayn.matthies@gmail.com>" },
+    { "name": "AJ Fisher", "email": "<ajfisher.td@gmail.com>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"
@@ -67,7 +70,7 @@
   },
   "dependencies": {
     "colors": ">=0.5.1",
-    "firmata": ">=0.2.0",
+    "firmata": ">=0.2.9",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
@@ -76,7 +79,8 @@
     "descriptor": "latest",
     "serialport": "latest",
     "optimist": "~0.5.2",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "keypress": "latest"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

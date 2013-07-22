@@ -36,21 +36,12 @@ var five = require("johnny-five"),
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/pin.png](breadboard/pin.png)
 [docs/breadboard/pin.fzz](breadboard/pin.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 
