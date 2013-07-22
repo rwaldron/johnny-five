@@ -32,12 +32,12 @@ board.on("ready", function() {
         motors.b.rev(speed);
       }
       if ( key.name == "right" ) {
-        motors.a.fwd(speed);
-        motors.b.fwd(speed);
+        motors.a.fwd(speed * 0.75);
+        motors.b.fwd(speed * 0.75);
       }
       if ( key.name == "left" ) {
-        motors.a.rev(speed);
-        motors.b.rev(speed);
+        motors.a.rev(speed * 0.75);
+        motors.b.rev(speed * 0.75);
       }
 
       commands = [].slice.call(arguments);
