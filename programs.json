@@ -92,7 +92,6 @@
     "led-on-off.js",
     "led-pulse.js",
     "led-rgb.js",
-    "led-rainbow.js",
     "led-strobe.js",
     "seven-segment.js",
 
@@ -119,6 +118,7 @@
     "accelerometer.js",
     "accelerometer-pan-tilt.js",
     "photoresistor.js",
+    "photoresistor-servo.js",
     "potentiometer.js",
     "sensor.js",
     "sensor-fsr-servo.js",

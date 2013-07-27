@@ -5,8 +5,9 @@ Run with:
 node eg/photoresistor-servo.js
 ```
 
+
 ```javascript
-var five = require("../lib/johnny-five.js"),
+var five = require("johnny-five"),
     board, photoresistor, servo, range;
 
 board = new five.Board();
