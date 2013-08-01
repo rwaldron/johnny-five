@@ -300,7 +300,7 @@ five.Board().on("ready", function() {
     rotator: new Change(2)
   };
 
-  void function main() {
+  void (function main() {
     setImmediate( main );
 
     var values, angles, now, joints, right,
@@ -388,7 +388,7 @@ five.Board().on("ready", function() {
         }
       }
     }
-  }();
+  })();
 
 
 // References
