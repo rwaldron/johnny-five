@@ -46,7 +46,11 @@
     { "name": "Jeremy Morrell", "email": "<morrell.jeremy@gmail.com>" },
     { "name": "Bob Holt", "email": "<bobholt@gmail.com>" },
     { "name": "Dwayn Matthies", "email": "<dwayn.matthies@gmail.com>" },
-    { "name": "AJ Fisher", "email": "<ajfisher.td@gmail.com>" }
+    { "name": "AJ Fisher", "email": "<ajfisher.td@gmail.com>" },
+    { "name": "Julian Duque", "email": "<julianduquej@gmail.com>" },
+    { "name": "Daan van Berkel", "email": "<daan.v.berkel.1980@gmail.com>" },
+    { "name": "Oli Evans", "email": "<oli@zilla.org.uk>" }
+
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"
