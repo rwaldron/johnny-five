@@ -18,7 +18,7 @@ board.on('ready', function() {
 
   // make 10 full revolutions counter-clockwise at 180 rpm with acceleration and deceleration
   stepper.rpm(180).direction(board.firmata.STEPPER.DIRECTION.CCW).accel(1600).decel(1600).step(2000, function() {
-    console.log("done moving CCW")
+    console.log("done moving CCW");
 
     // once first movement is done, make 10 revolutions clockwise at previously
     //      defined speed, accel, and decel by passing an object into stepper.step

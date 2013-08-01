@@ -1,4 +1,4 @@
-var five = require("../lib/johnny-five.js");
+var five = require("../lib/johnny-five.js"), Thermistor;
 
 (function() {
   var adcres, beta, kelvin, rb, ginf;
@@ -13,7 +13,7 @@ var five = require("../lib/johnny-five.js");
   // Ginf = 1/Rinf
   ginf = 120.6685;
 
-  global.Thermistor = {
+  Thermistor = {
     c: function( raw ) {
       var rthermistor, tempc;
 
