@@ -20,7 +20,7 @@ board.on("ready", function() {
 
   // "read" get the current reading from the photoresistor
   photoresistor.on("read", function( err, value ) {
-    console.log( value, this.normalized );
+    console.log( this.value );
   });
 });
 
