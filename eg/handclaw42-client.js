@@ -1,3 +1,4 @@
+/* global io */
 $(document).ready(function() {
   var $body = $("body");
   var socket = window.socket;

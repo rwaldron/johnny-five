@@ -4,7 +4,7 @@ var five = require("../lib/johnny-five.js"),
 
 
 board.on("ready", function() {
-  var speed, command, motors;
+  var speed, commands, motors;
 
   speed = 100;
   commands = null;
@@ -27,15 +27,15 @@ board.on("ready", function() {
         motors.a.rev(speed);
         motors.b.fwd(speed);
       }
-      if ( key.name == "down" ) {
+      if ( key.name === "down" ) {
         motors.a.fwd(speed);
         motors.b.rev(speed);
       }
-      if ( key.name == "right" ) {
+      if ( key.name === "right" ) {
         motors.a.fwd(speed * 0.75);
         motors.b.fwd(speed * 0.75);
       }
-      if ( key.name == "left" ) {
+      if ( key.name === "left" ) {
         motors.a.rev(speed * 0.75);
         motors.b.rev(speed * 0.75);
       }
