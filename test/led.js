@@ -3,14 +3,14 @@ var SerialPort = require("./mock-serial").SerialPort,
     five = require("../lib/johnny-five.js"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
-    Led = five.Led
+    Led = five.Led,
     board = new five.Board({
       repl: false,
       debug: true,
       mock: serial
     });
 
-board.firmata.pins = pins.UNO
+board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
 board.pins = Board.Pins( board );
 
@@ -20,7 +20,7 @@ board.pins = Board.Pins( board );
 exports["Led"] = {
   setUp: function( done ) {
 
-    this.led = new five.Led({ pin: 11, board: board });
+    this.led = new Led({ pin: 11, board: board });
 
     this.proto = [
       { name: "on" },

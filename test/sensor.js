@@ -4,7 +4,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     events = require("events"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
-    Sensor = five.Sensor
+    Sensor = five.Sensor,
     board = new five.Board({
       repl: false,
       debug: true,
@@ -12,7 +12,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     });
 
 board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO
+board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
 board.pins = Board.Pins( board );
 

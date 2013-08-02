@@ -4,7 +4,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     events = require("events"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
-    Pin = five.Pin
+    Pin = five.Pin,
     board = new five.Board({
       repl: false,
       debug: true,
@@ -12,7 +12,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     });
 
 board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO
+board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
 board.pins = new Board.Pins( board );
 
@@ -22,8 +22,8 @@ board.firmata.setMaxListeners(1000);
 exports["Pin"] = {
   setUp: function( done ) {
 
-    this.digital = new five.Pin({ pin: 11, board: board });
-    this.analog = new five.Pin({ pin: "A1", board: board });
+    this.digital = new Pin({ pin: 11, board: board });
+    this.analog = new Pin({ pin: "A1", board: board });
 
     this.proto = [
       { name: "query" },
