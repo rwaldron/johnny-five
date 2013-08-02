@@ -30,7 +30,13 @@ module.exports = function(grunt) {
       files: ["programs.json"]
     },
     nodeunit: {
-      tests: ["test/board.js", "test/capabilities.js"]
+      tests: [
+        "test/board.js",
+        "test/capabilities.js",
+        "test/led.js",
+        "test/pin.js",
+        "test/sensor.js",
+      ]
     },
     jshint: {
       options: {
