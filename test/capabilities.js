@@ -111,11 +111,9 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 exports["UNO Pin Capabilities"] = {
   setUp: function( done ) {
     board.pins = new five.Board.Pins({
-      firmata: {
-        pins: capabilities.uno,
-        analogPins: [ 14, 15, 16, 17, 18, 19 ]
-
-      }
+      pins: capabilities.uno,
+      analogPins: [ 14, 15, 16, 17, 18, 19 ],
+      firmata: {pins:[]}
     });
     done();
   },
