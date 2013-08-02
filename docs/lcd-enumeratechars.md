@@ -52,7 +52,7 @@ board.on("ready", function() {
           display += ":" + char + ":";
         });
 
-        lcd.clear().setCursor(0,0).print( display );
+        lcd.clear().cursor(0, 0).print( display );
 
         k++;
       }

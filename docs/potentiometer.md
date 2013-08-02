@@ -28,8 +28,8 @@ board.on("ready", function() {
   });
 
   // "read" get the current reading from the potentiometer
-  potentiometer.on("read", function( err, value ) {
-    console.log( value, this.normalized );
+  potentiometer.on("read", function() {
+    console.log( this.value, this.raw );
   });
 });
 

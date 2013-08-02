@@ -13,7 +13,7 @@ var five = require("johnny-five"),
 
 
 board.on("ready", function() {
-  var speed, command, motors;
+  var speed, commands, motors;
 
   speed = 100;
   commands = null;
@@ -33,20 +33,20 @@ board.on("ready", function() {
         motors.b.stop();
       }
       if ( key.name === "up" ) {
-        motors.a.fwd(speed);
-        motors.b.fwd(speed);
-      }
-      if ( key.name == "down" ) {
-        motors.a.rev(speed);
-        motors.b.rev(speed);
-      }
-      if ( key.name == "right" ) {
         motors.a.rev(speed);
         motors.b.fwd(speed);
       }
-      if ( key.name == "left" ) {
+      if ( key.name === "down" ) {
         motors.a.fwd(speed);
         motors.b.rev(speed);
+      }
+      if ( key.name === "right" ) {
+        motors.a.fwd(speed * 0.75);
+        motors.b.fwd(speed * 0.75);
+      }
+      if ( key.name === "left" ) {
+        motors.a.rev(speed * 0.75);
+        motors.b.rev(speed * 0.75);
       }
 
       commands = [].slice.call(arguments);
@@ -68,20 +68,11 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
 
+
 ![docs/breadboard/motobot.png](breadboard/motobot.png)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

@@ -31,7 +31,7 @@ board.on("ready", function() {
 
     board.loop( 300, function() {
 
-      lcd.clear().setCursor( col, row ).print(
+      lcd.clear().cursor( row, col ).print(
         ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
       );
 

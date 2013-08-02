@@ -29,11 +29,6 @@ board.on("ready", function() {
 
   // Properties
 
-  // sensor.normalized
-  //
-  // Current value of a sensor 0-255
-  //
-
   // sensor.scaled
   //
   // Current value of a sensor, scaled to a value
@@ -51,7 +46,7 @@ board.on("ready", function() {
   // Fires when the pin is read for a value
   //
   sensor.scale([ 0, 100 ]).on("read", function() {
-    console.log( this.normalized, this.scaled );
+    console.log( this.value, this.raw );
   });
 
   // "change"

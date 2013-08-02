@@ -101,21 +101,12 @@ board.on("ready", function() {
 
 ```
 
+
 ## Breadboard/Illustration
+
 
 ![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)
 [docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 

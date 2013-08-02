@@ -7,7 +7,7 @@ node eg/tinkerkit-thermistor.js
 
 
 ```javascript
-var five = require("johnny-five");
+var five = require("johnny-five"), Thermistor;
 
 (function() {
   var adcres, beta, kelvin, rb, ginf;
@@ -22,7 +22,7 @@ var five = require("johnny-five");
   // Ginf = 1/Rinf
   ginf = 120.6685;
 
-  global.Thermistor = {
+  Thermistor = {
     c: function( raw ) {
       var rthermistor, tempc;
 
