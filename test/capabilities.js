@@ -1,4 +1,5 @@
 var SerialPort = require("./mock-serial").SerialPort,
+    pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     serial = new SerialPort("/path/to/fake/usb"),
     board = new five.Board({
@@ -20,58 +21,6 @@ Object.keys( modes ).forEach(function( key ) {
   modes[ modes[key] ] = key;
 });
 
-capabilities = {
-  uno: [
-    // RX/TX
-    { supportedModes: [], mode: 1, value: 0 },
-    { supportedModes: [], mode: 1, value: 0 },
-    // DIGITAL
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    // ANALOG
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 }
-  ],
-  mega: [
-    // RX/TX
-    { supportedModes: [], mode: 1, value: 0 },
-    { supportedModes: [], mode: 1, value: 0 },
-    // DIGITAL
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    // ANALOG
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 }
-  ]
-};
 
 /*
 UNO
@@ -111,9 +60,10 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 exports["UNO Pin Capabilities"] = {
   setUp: function( done ) {
     board.pins = new five.Board.Pins({
-      pins: capabilities.uno,
-      analogPins: [ 14, 15, 16, 17, 18, 19 ],
-      firmata: {pins:[]}
+      firmata: {
+        pins: pins.UNO,
+        analogPins: [ 14, 15, 16, 17, 18, 19 ]
+      }
     });
     done();
   },
