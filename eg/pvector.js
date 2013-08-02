@@ -171,13 +171,19 @@ PVector.prototype = {
   }
 };
 
+
+function returnFunc(method) {
+  return function(v1, v2) {
+    var v = v1.get();
+    v[method](v2);
+    return v;
+  };
+}
+
+
 for (var method in PVector.prototype) {
   if (!PVector[method]) {
-    PVector[method] = function(v1, v2) {
-      var v = v1.get();
-      v[method](v2);
-      return v;
-    };
+    PVector[method] = returnFunc(method);
   }
 }
 
