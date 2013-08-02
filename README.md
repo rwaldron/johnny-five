@@ -2,6 +2,8 @@
 
 # Node-isassemble Johnny-Five
 
+[![Build Status](https://travis-ci.org/rwldrn/johnny-five.png?branch=master)](https://travis-ci.org/rwldrn/johnny-five)
+
 
 #### Johnny-Five is an Open Source, JavaScript Arduino programming framework, developed at [Bocoup](http://bocoup.com).
 
