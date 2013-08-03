@@ -122,3 +122,9 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
+
+## Sara Chipps [@sarajchipps](https://twitter.com/sarajchipps)
+
+- LEDs that change color based on Twitter sentiment
+   [video](http://www.youtube.com/watch?v=ws7svZuq29c)
+   [code](https://github.com/SaraJo/twitter-ring)
