@@ -111,6 +111,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Photoresistor Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor-servo.md)
 
 ### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
@@ -185,6 +186,7 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Photoresistor](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor.md)
+- [Photoresistor Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor-servo.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
 - [Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor.md)
 - [Sensor Fsr Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-fsr-servo.md)
