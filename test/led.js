@@ -8,7 +8,8 @@ var SerialPort = require("./mock-serial").SerialPort,
       repl: false,
       debug: true,
       mock: serial
-    });
+    }),
+    sinon = require("sinon");
 
 board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
@@ -113,17 +114,21 @@ exports["Led"] = {
   },
 
   pulse: function( test ) {
+    sinon.spy(global, "clearInterval");
+    sinon.spy(global, "setInterval");
     test.expect(3);
 
     this.led.off();
     test.equal( this.led.interval, null );
 
     this.led.pulse();
-    test.notEqual( this.led.interval._idleTimeout, -1 );
+    test.equal( setInterval.callCount, 1);
 
     this.led.stop();
-    test.equal( this.led.interval._idleTimeout, -1 );
+    test.equal( clearInterval.callCount, 1);
 
+    clearInterval.restore();
+    setInterval.restore();
     test.done();
   },
 
