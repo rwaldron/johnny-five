@@ -7,7 +7,7 @@ new five.Board().on("ready", function() {
   });
 
   new five.Sensor("I0").scale(0, 1).on("change", function() {
-    servo.cw( this.scaled );
+    servo.cw( this.value );
   });
 });
 

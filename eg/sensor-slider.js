@@ -22,7 +22,7 @@ board.on("ready", function() {
   //
   slider.scale([ 0, 100 ]).on("slide", function() {
 
-    console.log( "slide", this.value, this.scaled );
+    console.log( "slide", this.value );
 
   });
 });

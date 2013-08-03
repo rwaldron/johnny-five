@@ -94,7 +94,7 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
   });
 
   controllers.speed.scale(0, 6).on("change", function() {
-    var value = Math.round( this.scaled );
+    var value = Math.round( this.value );
 
     if ( changes.speed.isNoticeable( value ) ) {
       // console.log( "update nodebot.speed: %d", value );
