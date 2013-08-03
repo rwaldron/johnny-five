@@ -1,4 +1,4 @@
-var Pins = require("../lib/pins.js");
+var Pins = require("../lib/board.pins.js");
 
 exports["static"] = {
   "Pins.normalize()": function( test ) {

@@ -1,4 +1,4 @@
-var Options = require("../lib/options.js");
+var Options = require("../lib/board.options.js");
 
 exports["static"] = {
 
