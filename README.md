@@ -111,7 +111,6 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
-- [Photoresistor Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor-servo.md)
 
 ### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)

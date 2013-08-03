@@ -37,7 +37,7 @@ board.on("ready", function() {
 
   //equate the photoresistor values to the servo scale
   //do something when the a value is read from the photoresistor
-  photoresistor.scale( range ).on("read", function() {
+  photoresistor.scale( range ).on("data", function() {
     //outputs to screen the values being used from the photoresistor
     //console.log( "Normalized value: " + this.normalized + "  Scaled Value: " + this.scaled );
 
