@@ -52,7 +52,7 @@ exports["Sensor"] = {
   },
 
   tearDown: function( done ) {
-    board.firmata._events['analog-read-1'] = [];
+    board.firmata._events["analog-read-1"] = [];
 
     done();
   },
