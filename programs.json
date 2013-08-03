@@ -119,6 +119,7 @@
     "accelerometer.js",
     "accelerometer-pan-tilt.js",
     "photoresistor.js",
+    "photoresistor-servo.js",
     "potentiometer.js",
     "sensor.js",
     "sensor-fsr-servo.js",
