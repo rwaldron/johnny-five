@@ -4,7 +4,8 @@ five.Board().on("ready", function(){
   var sensor = new five.Sensor("A0");
 
   sensor.on("read", function(){
-    var celsius = -(100 * (this.value / 1000) - 50);
+    var voltage = this.value * 0.004882814;
+    var celsius = (voltage - 0.5) * 100;
     var fahrenheit = celsius * (9/5) + 32;
 
     console.log(celsius + "°C", fahrenheit + "°F");
