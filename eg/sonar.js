@@ -30,7 +30,7 @@ board.on("ready", function() {
   //
   // "read" fired continuously
   //
-  sonar.on("read", function( err, timestamp ) {
+  sonar.on("read", function() {
     /*
 
       this.voltage - raw voltage reading
@@ -44,7 +44,7 @@ board.on("ready", function() {
   //
   // "change" fired when distance reading changes
   //
-  sonar.on("change", function( err, timestamp ) {
+  sonar.on("change", function() {
     console.log( "change", "Object is " + this.inches + "inches away" );
   });
 });
