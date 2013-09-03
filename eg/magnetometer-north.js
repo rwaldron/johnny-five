@@ -44,7 +44,7 @@ board.on("ready", function() {
   servo.move( 90 );
 
   // As the heading changes, log heading value
-  mag.on("read", function() {
+  mag.on("data", function() {
     var heading = Math.floor( this.heading );
 
     if ( heading > 345 || heading < 15 ) {

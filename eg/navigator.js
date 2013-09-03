@@ -454,7 +454,7 @@ Navigator.prototype.pivot = function( which, time ) {
   // distance reading has changed since the previous reading
   //
   // TODO: Avoid false positives?
-  ping.on("read", function( err ) {
+  ping.on("data", function( err ) {
     var release = 750,
         distance = Math.abs(this.inches),
         isReverse = false,

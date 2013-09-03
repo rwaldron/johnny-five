@@ -12,7 +12,7 @@ var five = require("../lib/johnny-five.js"),
   led = new five.Led(9);
 
   // Scale the sensor's value to the LED's brightness range
-  fsr.scale([ 0, 255 ]).on("read", function() {
+  fsr.scale([ 0, 255 ]).on("data", function() {
 
     // set the led's brightness based on force
     // applied to force sensitive resistor

@@ -28,9 +28,9 @@ board.on("ready", function() {
 
   // Ping Event API
 
-  // "read" get the current reading from the ping
-  ping.on("read", function( err, value ) {
-    console.log( "read", value );
+  // "data" get the current reading from the ping
+  ping.on("data", function( err, value ) {
+    console.log( "data", value );
   });
 
   ping.on("change", function( err, value ) {

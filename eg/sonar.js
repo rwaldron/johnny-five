@@ -28,9 +28,9 @@ board.on("ready", function() {
 
   // Sonar Event API
   //
-  // "read" fired continuously
+  // "data" fired continuously
   //
-  sonar.on("read", function() {
+  sonar.on("data", function() {
     /*
 
       this.voltage - raw voltage reading
@@ -38,7 +38,7 @@ board.on("ready", function() {
       this.cm  - calculated distance, centimeters
 
     */
-    console.log( "read", "Object is " + this.inches + "inches away" );
+    console.log( "data", "Object is " + this.inches + "inches away" );
   });
 
   //

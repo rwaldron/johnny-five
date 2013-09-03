@@ -40,11 +40,11 @@ five.Board().on("ready", function() {
 
   });
 
-  // "read"
+  // "data"
   //
   // Fires continuously, every 66ms.
   //
-  ir.on("read", function( err, timestamp ) {
-    // console.log( "read" );
+  ir.on("data", function( err, timestamp ) {
+    // console.log( "data" );
   });
 });

@@ -13,7 +13,7 @@ board.on("ready", function() {
 
   servo = new five.Servo(10);
 
-  fsr.scale([ 0, 180 ]).on("read", function() {
+  fsr.scale([ 0, 180 ]).on("data", function() {
 
     servo.move( this.value );
 

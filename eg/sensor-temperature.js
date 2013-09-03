@@ -3,7 +3,7 @@ var five = require("johnny-five");
 five.Board().on("ready", function(){
   var sensor = new five.Sensor("A0");
 
-  sensor.on("read", function(){
+  sensor.on("data", function(){
     var voltage = this.value * 0.004882814;
     var celsius = (voltage - 0.5) * 100;
     var fahrenheit = celsius * (9/5) + 32;

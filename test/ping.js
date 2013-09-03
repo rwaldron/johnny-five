@@ -18,7 +18,7 @@ board.pins = Board.Pins( board );
 
 exports["Ping"] = {
 
-  setUp: function( done ){
+  setUp: function( done ) {
 
     this.ping = new Ping({ pin: 7, freq: 5, board: board });
 
@@ -33,13 +33,13 @@ exports["Ping"] = {
 
     done();
   },
-  tearDown: function( done ){
+  tearDown: function( done ) {
     //board.firmata._events["analog-read-1"] = [];
 
     done();
   },
 
-  shape: function( test ){
+  shape: function( test ) {
 
     test.expect( this.proto.length + this.instance.length );
 
@@ -54,7 +54,7 @@ exports["Ping"] = {
     test.done();
   },
 
-  data: function( test ){
+  data: function( test ) {
     test.expect(1);
 
     var counter = 0;
@@ -63,8 +63,8 @@ exports["Ping"] = {
     this.ping.on("data", function() {
       counter++;
       //console.log( this.value );
-      if ( counter === 5 ){
-        clearInterval(interval);
+      if ( counter === 5 ) {
+        clearInterval( interval );
         test.ok( true );
         test.done();
       }
@@ -75,17 +75,17 @@ exports["Ping"] = {
     });
   },
 
-  change: function( test ){
+  change: function( test ) {
     test.expect(1);
 
     var counter = 0;
     var interval;
 
     this.ping.on("change", function() {
-      
+
       counter++;
-      if (counter === 10){
-        clearInterval(interval);
+      if (counter === 10) {
+        clearInterval( interval );
         test.ok( true );
         test.done();
       }
@@ -95,5 +95,4 @@ exports["Ping"] = {
       serial.emit( "data", [ 200 , 255 , 225 ]);
     });
   }
-  
 };
