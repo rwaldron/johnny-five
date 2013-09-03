@@ -68,11 +68,37 @@ module.exports = function(grunt) {
       files: {
         src: ["Gruntfile.js", "lib/**/!(johnny-five)*.js", "test/**/*.js", "eg/**/*.js"]
       }
+    },
+
+    jsbeautifier: {
+      files: ["lib/**/*.js"],
+      options: {
+        js: {
+          braceStyle: "collapse",
+          breakChainedMethods: false,
+          e4x: false,
+          evalCode: false,
+          indentChar: " ",
+          indentLevel: 0,
+          indentSize: 2,
+          indentWithTabs: false,
+          jslintHappy: false,
+          keepArrayIndentation: false,
+          keepFunctionIndentation: false,
+          maxPreserveNewlines: 10,
+          preserveNewlines: true,
+          spaceBeforeConditional: true,
+          spaceInParen: false,
+          unescapeStrings: false,
+          wrapLineLength: 0
+        }
+      }
     }
   });
   // Default tasks are contrib plugins
   grunt.loadNpmTasks("grunt-contrib-nodeunit");
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-jsbeautifier");
   // Default task.
   grunt.registerTask("default", ["jshint", "nodeunit"]);
 
