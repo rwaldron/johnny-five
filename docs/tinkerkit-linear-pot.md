@@ -10,7 +10,7 @@ node eg/tinkerkit-linear-pot.js
 var five = require("johnny-five");
 
 new five.Board().on("ready", function() {
-  new five.Sensor("I0").scale(0, 100).on("read", function() {
+  new five.Sensor("I0").scale(0, 255).on("data", function() {
     console.log( Math.round(this.value) );
   });
 });
@@ -27,6 +27,7 @@ new five.Board().on("ready", function() {
 
 
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
+- [TinkerKit Led](http://www.tinkerkit.com/led/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 

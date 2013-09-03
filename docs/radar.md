@@ -118,7 +118,7 @@ board.on("ready", function() {
 
     soi = socket;
 
-    ping.on("read", function() {
+    ping.on("data", function() {
 
       if ( last !== degrees ) {
         io.sockets.emit( "ping", {

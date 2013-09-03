@@ -22,7 +22,7 @@ board.on("ready", function() {
     })
   };
 
-  ir.receive.scale([ 0, 100 ]).on("read", function() {
+  ir.receive.scale([ 0, 100 ]).on("data", function() {
 
     // console.log( this.value );
 

@@ -41,11 +41,11 @@ board.on("ready", function() {
 
   // Sensor Event API
 
-  // "read"
+  // "data"
   //
   // Fires when the pin is read for a value
   //
-  sensor.scale([ 0, 100 ]).on("read", function() {
+  sensor.scale([ 0, 100 ]).on("data", function() {
     console.log( this.value, this.raw );
   });
 

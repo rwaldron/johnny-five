@@ -27,8 +27,8 @@ board.on("ready", function() {
     pot: potentiometer
   });
 
-  // "read" get the current reading from the potentiometer
-  potentiometer.on("read", function() {
+  // "data" get the current reading from the potentiometer
+  potentiometer.on("data", function() {
     console.log( this.value, this.raw );
   });
 });
