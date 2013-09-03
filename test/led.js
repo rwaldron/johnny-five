@@ -285,7 +285,58 @@ exports["Led - PWM (Analog)"] = {
 
 // };
 
-// exports["Led.RGB"] = {
+exports["Led.RGB"] = {
 
+  setUp: function( done ) {
 
-// };
+    this.led = new Led.RGB({ 
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      },
+      board: board 
+    });
+
+    this.proto = [
+      { name: "on" },
+      { name: "off" },
+      { name: "toggle" },
+      { name: "brightness" },
+      { name: "pulse" },
+      { name: "fade" },
+      { name: "fadeIn" },
+      { name: "fadeOut" },
+      { name: "strobe" },
+      { name: "stop" }
+    ];
+
+    //test shape
+    this.instance = [
+     
+    ];
+
+    done();
+  },
+  on: function( test ) {
+    test.expect(1);
+
+    this.led.on();
+    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+
+    test.done();
+  },
+
+  off: function( test ) {
+    test.expect(2);
+
+    this.led.off();
+    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
+
+    this.led.on();
+    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+
+    test.done();
+  }
+
+};
