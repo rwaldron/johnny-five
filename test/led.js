@@ -289,7 +289,7 @@ exports["Led.RGB"] = {
 
   setUp: function( done ) {
 
-    this.led = new Led.RGB({ 
+    this.ledRgb = new Led.RGB({ 
       pins: {
         red: 9,
         green: 10,
@@ -311,30 +311,38 @@ exports["Led.RGB"] = {
       { name: "stop" }
     ];
 
-    //test shape
     this.instance = [
-     
+      { name: "red" },
+      { name: "green" },
+      { name: "blue" },
     ];
 
     done();
   },
-  on: function( test ) {
-    test.expect(1);
+  shape: function( test ) {
+    test.expect( this.proto.length + this.instance.length );
 
-    this.led.on();
-    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+    this.proto.forEach(function( method ) {
+      test.equal( typeof this.ledRgb[ method.name ], "function" );
+    }, this);
+
+    this.instance.forEach(function( property ) {
+      test.notEqual( typeof this.ledRgb[ property.name ], "undefined" );
+    }, this);
 
     test.done();
   },
+  color: function( test ) {
+    test.expect(3);
 
-  off: function( test ) {
-    test.expect(2);
+    this.ledRgb.color("#0000ff");
+    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
 
-    this.led.off();
-    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
+    this.ledRgb.color("#ffff00");
+    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
 
-    this.led.on();
-    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+    this.ledRgb.color("#0000aa");
+    test.deepEqual( serial.lastWrite, [ 235, 42, 1 ] );
 
     test.done();
   }
