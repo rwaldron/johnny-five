@@ -285,7 +285,66 @@ exports["Led - PWM (Analog)"] = {
 
 // };
 
-// exports["Led.RGB"] = {
+exports["Led.RGB"] = {
 
+  setUp: function( done ) {
 
-// };
+    this.ledRgb = new Led.RGB({
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      },
+      board: board
+    });
+
+    this.proto = [
+      { name: "on" },
+      { name: "off" },
+      { name: "toggle" },
+      { name: "brightness" },
+      { name: "pulse" },
+      { name: "fade" },
+      { name: "fadeIn" },
+      { name: "fadeOut" },
+      { name: "strobe" },
+      { name: "stop" }
+    ];
+
+    this.instance = [
+      { name: "red" },
+      { name: "green" },
+      { name: "blue" },
+    ];
+
+    done();
+  },
+  shape: function( test ) {
+    test.expect( this.proto.length + this.instance.length );
+
+    this.proto.forEach(function( method ) {
+      test.equal( typeof this.ledRgb[ method.name ], "function" );
+    }, this);
+
+    this.instance.forEach(function( property ) {
+      test.notEqual( typeof this.ledRgb[ property.name ], "undefined" );
+    }, this);
+
+    test.done();
+  },
+  color: function( test ) {
+    test.expect(3);
+
+    this.ledRgb.color("#0000ff");
+    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+
+    this.ledRgb.color("#ffff00");
+    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
+
+    this.ledRgb.color("#0000aa");
+    test.deepEqual( serial.lastWrite, [ 235, 42, 1 ] );
+
+    test.done();
+  }
+
+};
