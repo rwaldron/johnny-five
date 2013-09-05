@@ -289,13 +289,13 @@ exports["Led.RGB"] = {
 
   setUp: function( done ) {
 
-    this.ledRgb = new Led.RGB({ 
+    this.ledRgb = new Led.RGB({
       pins: {
         red: 9,
         green: 10,
         blue: 11,
       },
-      board: board 
+      board: board
     });
 
     this.proto = [
