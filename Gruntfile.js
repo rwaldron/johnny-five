@@ -39,7 +39,8 @@ module.exports = function(grunt) {
         "test/pin.js",
         "test/pir.js",
         "test/sensor.js",
-        "test/ping.js"
+        "test/ping.js",
+        "test/shiftregister.js"
       ]
     },
     jshint: {
