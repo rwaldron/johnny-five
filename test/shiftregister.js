@@ -21,7 +21,7 @@ exports["ShiftRegister"] = {
   
   setUp: function( done ) {
 
-    this.shiftRegister = new five.ShiftRegister({
+    this.shiftRegister = new ShiftRegister({
       pins: {
         data: 2,
         clock: 3,
@@ -38,10 +38,16 @@ exports["ShiftRegister"] = {
       { name: "pins" }
     ];
 
+    this.pins = [
+      { name: "data" },
+      { name: "clock" },
+      { name: "latch" }
+    ];
+
     done();
   },
   shape: function( test ) {
-    test.expect( this.proto.length + this.instance.length );
+    test.expect( this.proto.length + this.instance.length + this.pins.length );
 
     this.proto.forEach(function( method ) {
       test.equal( typeof this.shiftRegister[ method.name ], "function" );
@@ -50,15 +56,21 @@ exports["ShiftRegister"] = {
     this.instance.forEach(function( property ) {
       test.notEqual( typeof this.shiftRegister[ property.name ], "undefined" );
     }, this);
+    
+    this.pins.forEach(function( property ) {
+      test.notEqual( typeof this.shiftRegister.pins[ property.name ], "undefined" );
+    }, this);
 
     test.done();
   },
   send: function( test ){
-    test.expect(1);
+    test.expect(2);
 
-    test.ok(0x11);
+    this.shiftRegister.send(0x01);
+    test.deepEqual( serial.lastWrite, [ 144, 28, 0 ] );
 
-    console.log( serial.lastWrite );
+    this.shiftRegister.send(0x10);
+    test.deepEqual( serial.lastWrite, [ 144, 24, 0 ] );
 
     test.done();
   }
