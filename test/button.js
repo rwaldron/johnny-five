@@ -16,8 +16,6 @@ board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
 board.pins = Board.Pins( board );
 
-
-
 exports["Button"] = {
   setUp: function( done ) {
     
@@ -30,12 +28,15 @@ exports["Button"] = {
       { name: "invert" },
       { name: "downValue" },
       { name: "upValue" },
-      { name: "holdtime" }
+      { name: "holdtime" },
+      { name: "isDown" },
+      { name: "downValue" },
+      { name: "upValue" }
     ];
 
     done();
   },
-  shape: function( test ){
+  shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
     this.proto.forEach(function( method ) {
