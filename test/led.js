@@ -112,7 +112,7 @@ exports["Led - Digital"] = {
       if ( Date.now() > startAt + 500 ) {
         clearInterval( interval );
 
-        test.deepEqual( captured, [
+        test.deepEqual( captured.slice(0, 5), [
           [ 145, 96, 1 ],
           [ 145, 64, 1 ],
           [ 145, 96, 1 ],
@@ -264,7 +264,7 @@ exports["Led - PWM (Analog)"] = {
         clearInterval( interval );
 
         // NOTE: Strobe will always switch to digital!!
-        test.deepEqual( captured, [
+        test.deepEqual( captured.slice(0, 5), [
           [ 145, 72, 1 ],
           [ 145, 96, 1 ],
           [ 145, 72, 1 ],
