@@ -32,6 +32,7 @@ module.exports = function(grunt) {
     nodeunit: {
       tests: [
         "test/board.js",
+        "test/button.js",
         "test/options.js",
         "test/pins.js",
         "test/capabilities.js",
