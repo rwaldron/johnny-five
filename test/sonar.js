@@ -4,7 +4,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     events = require("events"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
-    Switch = five.Switch,
+    Sonar = five.Sonar,
     board = new five.Board({
       repl: false,
       debug: true,
@@ -16,15 +16,16 @@ board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
 board.pins = Board.Pins( board );
 
-exports["Switch"] = {
+exports["Sonar"] = {
   setUp: function( done ) {
     
-    this.switch = new Switch({ pin: 8, freq: 5, board: board });
+    this.sonar = new Sonar({ pin: "A2", board: board });
 
     this.proto = [];
 
     this.instance = [
-      { name: "isClosed" }
+      { name: "inches" },
+      { name: "cm" }
     ];
 
     done();
@@ -33,11 +34,11 @@ exports["Switch"] = {
     test.expect( this.proto.length + this.instance.length );
 
     this.proto.forEach(function( method ) {
-      test.equal( typeof this.switch[ method.name ], "function" );
+      test.equal( typeof this.sonar[ method.name ], "function" );
     }, this);
 
     this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.switch[ property.name ], "undefined" );
+      test.notEqual( typeof this.sonar[ property.name ], "undefined" );
     }, this);
 
     test.done();
