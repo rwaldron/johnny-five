@@ -1,27 +1,32 @@
 var SerialPort = require("./mock-serial").SerialPort,
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
-    serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     Led = five.Led,
-    board = new five.Board({
-      repl: false,
-      debug: true,
-      mock: serial
-    }),
     sinon = require("sinon");
 
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
+function createNewBoard() {
+  var serial = new SerialPort("/path/to/fake/usb"),
+      board = new five.Board({
+        repl: false,
+        debug: true,
+        mock: serial
+      });
 
+  board.firmata.pins = pins.UNO;
+  board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
+  board.pins = Board.Pins( board );
+  return board;
+}
 
 // END
 
 exports["Led - Digital"] = {
   setUp: function( done ) {
+    this.board = createNewBoard();
+    this.spy = sinon.spy(this.board.firmata, 'digitalWrite');
 
-    this.led = new Led({ pin: 13, board: board });
+    this.led = new Led({ pin: 13, board: this.board });
 
     this.proto = [
       { name: "on" },
@@ -65,19 +70,16 @@ exports["Led - Digital"] = {
     test.expect(1);
 
     this.led.on();
-    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+    test.ok(this.spy.calledWith(13, 1));
 
     test.done();
   },
 
   off: function( test ) {
-    test.expect(2);
+    test.expect(1);
 
     this.led.off();
-    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
-
-    this.led.on();
-    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+    test.ok(this.spy.calledWith(13, 0));
 
     test.done();
   },
@@ -88,41 +90,31 @@ exports["Led - Digital"] = {
     this.led.off();
     this.led.toggle();
 
-    test.deepEqual( serial.lastWrite, [ 145, 96, 1 ] );
+    test.ok(this.spy.calledWith(13, 1));
 
     this.led.toggle();
-    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
+    test.ok(this.spy.calledWith(13, 0));
 
     test.done();
   },
 
   strobe: function( test ) {
-    var captured = [];
-    var startAt = Date.now();
+    var clock = sinon.useFakeTimers();
 
-    test.expect(1);
+    test.expect(3);
 
     this.led.off();
     this.led.strobe(100);
 
-    var interval = setInterval(function() {
-
-      captured.push( serial.lastWrite.slice() );
-
-      if ( Date.now() > startAt + 500 ) {
-        clearInterval( interval );
-
-        test.deepEqual( captured.slice(0, 5), [
-          [ 145, 96, 1 ],
-          [ 145, 64, 1 ],
-          [ 145, 96, 1 ],
-          [ 145, 64, 1 ],
-          [ 145, 96, 1 ]
-        ]);
-
-        test.done();
-      }
-    }, 100);
+    clock.tick(100);
+    test.ok(this.spy.calledWith(13, 1));
+    clock.tick(100);
+    test.ok(this.spy.calledWith(13, 0));
+    this.led.stop();
+    clock.tick(100);
+    test.equal(this.spy.callCount, 3);
+    clock.restore();
+    test.done();
   },
 
   blink: function( test ) {
@@ -135,8 +127,10 @@ exports["Led - Digital"] = {
 
 exports["Led - PWM (Analog)"] = {
   setUp: function( done ) {
+    this.board = createNewBoard();
+    this.spy = sinon.spy(this.board.firmata, 'analogWrite');
 
-    this.led = new Led({ pin: 11, board: board });
+    this.led = new Led({ pin: 11, board: this.board });
 
     this.proto = [
       { name: "on" },
@@ -180,19 +174,16 @@ exports["Led - PWM (Analog)"] = {
     test.expect(1);
 
     this.led.on();
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok( this.spy.calledWith(11, 255) );
 
     test.done();
   },
 
   off: function( test ) {
-    test.expect(2);
+    test.expect(1);
 
     this.led.off();
-    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
-
-    this.led.on();
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok( this.spy.calledWith(11, 0) );
 
     test.done();
   },
@@ -203,10 +194,10 @@ exports["Led - PWM (Analog)"] = {
     this.led.off();
     this.led.toggle();
 
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok( this.spy.calledWith(11, 255) );
 
     this.led.toggle();
-    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
+    test.ok( this.spy.calledWith(11, 0) );
 
     test.done();
   },
@@ -216,14 +207,13 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.off();
     this.led.brightness(255);
-
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok( this.spy.calledWith(11, 255) );
 
     this.led.brightness(100);
-    test.deepEqual( serial.lastWrite, [ 235, 100, 0 ] );
+    test.ok( this.spy.calledWith(11, 100) );
 
     this.led.brightness(0);
-    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
+    test.ok( this.spy.calledWith(11, 0) );
 
     test.done();
   },
@@ -245,37 +235,8 @@ exports["Led - PWM (Analog)"] = {
     clearInterval.restore();
     setInterval.restore();
     test.done();
-  },
-
-  strobe: function( test ) {
-    var captured = [];
-    var startAt = Date.now();
-
-    test.expect(1);
-
-    this.led.off();
-    this.led.strobe(100);
-
-    var interval = setInterval(function() {
-
-      captured.push( serial.lastWrite.slice() );
-
-      if ( Date.now() > startAt + 500 ) {
-        clearInterval( interval );
-
-        // NOTE: Strobe will always switch to digital!!
-        test.deepEqual( captured.slice(0, 5), [
-          [ 145, 72, 1 ],
-          [ 145, 96, 1 ],
-          [ 145, 72, 1 ],
-          [ 145, 96, 1 ],
-          [ 145, 72, 1 ]
-        ]);
-
-        test.done();
-      }
-    }, 100);
   }
+
 };
 
 
@@ -288,6 +249,7 @@ exports["Led - PWM (Analog)"] = {
 exports["Led.RGB"] = {
 
   setUp: function( done ) {
+    this.board = createNewBoard();
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -295,7 +257,7 @@ exports["Led.RGB"] = {
         green: 10,
         blue: 11,
       },
-      board: board
+      board: this.board
     });
 
     this.proto = [
@@ -319,6 +281,7 @@ exports["Led.RGB"] = {
 
     done();
   },
+
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
@@ -332,17 +295,27 @@ exports["Led.RGB"] = {
 
     test.done();
   },
+
   color: function( test ) {
-    test.expect(3);
+    var redPin = 9, greenPin = 10, bluePin = 11;
+    var spy = sinon.spy(this.board.firmata, 'analogWrite');
+
+    test.expect(9);
 
     this.ledRgb.color("#0000ff");
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok(spy.calledWith(redPin, 0x00));
+    test.ok(spy.calledWith(greenPin, 0x00));
+    test.ok(spy.calledWith(bluePin, 0xff));
 
     this.ledRgb.color("#ffff00");
-    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
+    test.ok(spy.calledWith(redPin, 0xff));
+    test.ok(spy.calledWith(greenPin, 0xff));
+    test.ok(spy.calledWith(bluePin, 0x00));
 
-    this.ledRgb.color("#0000aa");
-    test.deepEqual( serial.lastWrite, [ 235, 42, 1 ] );
+    this.ledRgb.color("#bbccaa");
+    test.ok(spy.calledWith(redPin, 0xbb));
+    test.ok(spy.calledWith(greenPin, 0xcc));
+    test.ok(spy.calledWith(bluePin, 0xaa));
 
     test.done();
   }
