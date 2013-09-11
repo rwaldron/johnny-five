@@ -29,14 +29,6 @@ board.on("ready", function() {
     s: servos
   });
 
-
-  // Log moves to repl
-  // Object.keys( servos ).forEach(function( which ) {
-  //   servos[ which ].on("move", function( err, degrees ) {
-  //     console.log( which + " moved to " + degrees + "°. Range: ", servos[ which ].range.toString()  );
-  //   });
-  // });
-
   servos.claw.min();
 
   this.wait( 1000, function() {
