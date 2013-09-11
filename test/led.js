@@ -24,7 +24,7 @@ function createNewBoard() {
 exports["Led - Digital"] = {
   setUp: function( done ) {
     this.board = createNewBoard();
-    this.spy = sinon.spy(this.board.firmata, 'digitalWrite');
+    this.spy = sinon.spy( this.board.firmata, "digitalWrite" );
 
     this.led = new Led({ pin: 13, board: this.board });
 
@@ -128,7 +128,7 @@ exports["Led - Digital"] = {
 exports["Led - PWM (Analog)"] = {
   setUp: function( done ) {
     this.board = createNewBoard();
-    this.spy = sinon.spy(this.board.firmata, 'analogWrite');
+    this.spy = sinon.spy(this.board.firmata, "analogWrite");
 
     this.led = new Led({ pin: 11, board: this.board });
 
@@ -298,7 +298,7 @@ exports["Led.RGB"] = {
 
   color: function( test ) {
     var redPin = 9, greenPin = 10, bluePin = 11;
-    var spy = sinon.spy(this.board.firmata, 'analogWrite');
+    var spy = sinon.spy(this.board.firmata, "analogWrite");
 
     test.expect(9);
 

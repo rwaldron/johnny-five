@@ -25,8 +25,8 @@ exports["Pin"] = {
 
     this.digital = new Pin({ pin: 11, board: board });
     this.analog = new Pin({ pin: "A1", board: board });
-    this.digiatlSpy = sinon.spy(board.firmata, 'digitalWrite');
-    this.analogSpy = sinon.spy(board.firmata, 'analogWrite');
+    this.digitalSpy = sinon.spy( board.firmata, "digitalWrite" );
+    this.analogSpy = sinon.spy( board.firmata, "analogWrite" );
 
     this.proto = [
       { name: "query" },
@@ -48,8 +48,8 @@ exports["Pin"] = {
     done();
   },
 
-  tearDown: function (done) {
-    this.digiatlSpy.restore();
+  tearDown: function( done ) {
+    this.digitalSpy.restore();
     this.analogSpy.restore();
     done();
   },
@@ -97,7 +97,7 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.high();
-    test.ok(this.digiatlSpy.calledWith(11, 1));
+    test.ok(this.digitalSpy.calledWith(11, 1));
 
     this.analog.high();
     test.ok(this.analogSpy.calledWith(1, 1));
@@ -109,7 +109,7 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.low();
-    test.ok(this.digiatlSpy.calledWith(11, 0));
+    test.ok(this.digitalSpy.calledWith(11, 0));
 
     this.analog.low();
     test.ok(this.analogSpy.calledWith(1, 0));
@@ -121,10 +121,10 @@ exports["Pin"] = {
     test.expect(4);
 
     this.digital.write(1);
-    test.ok(this.digiatlSpy.calledWith(11, 1));
+    test.ok(this.digitalSpy.calledWith(11, 1));
 
     this.digital.write(0);
-    test.ok(this.digiatlSpy.calledWith(11, 0));
+    test.ok(this.digitalSpy.calledWith(11, 0));
 
 
     this.analog.write(1023);
