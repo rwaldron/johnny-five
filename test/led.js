@@ -5,7 +5,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     Led = five.Led,
     sinon = require("sinon");
 
-function createNewBoard(){
+function createNewBoard() {
   var serial = new SerialPort("/path/to/fake/usb"),
       board = new five.Board({
         repl: false,
@@ -297,17 +297,25 @@ exports["Led.RGB"] = {
   },
 
   color: function( test ) {
-    test.expect(3);
-    var serial = this.board.mock;
+    var redPin = 9, greenPin = 10, bluePin = 11;
+    var spy = sinon.spy(this.board.firmata, 'analogWrite');
+
+    test.expect(9);
 
     this.ledRgb.color("#0000ff");
-    test.deepEqual( serial.lastWrite, [ 235, 127, 1 ] );
+    test.ok(spy.calledWith(redPin, 0x00));
+    test.ok(spy.calledWith(greenPin, 0x00));
+    test.ok(spy.calledWith(bluePin, 0xff));
 
     this.ledRgb.color("#ffff00");
-    test.deepEqual( serial.lastWrite, [ 235, 0, 0 ] );
+    test.ok(spy.calledWith(redPin, 0xff));
+    test.ok(spy.calledWith(greenPin, 0xff));
+    test.ok(spy.calledWith(bluePin, 0x00));
 
-    this.ledRgb.color("#0000aa");
-    test.deepEqual( serial.lastWrite, [ 235, 42, 1 ] );
+    this.ledRgb.color("#bbccaa");
+    test.ok(spy.calledWith(redPin, 0xbb));
+    test.ok(spy.calledWith(greenPin, 0xcc));
+    test.ok(spy.calledWith(bluePin, 0xaa));
 
     test.done();
   }
