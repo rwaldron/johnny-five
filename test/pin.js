@@ -128,10 +128,10 @@ exports["Pin"] = {
 
 
     this.analog.write(1023);
-    test.deepEqual( serial.lastWrite, [ 225, 127, 7 ] );
+    test.ok(this.analogSpy.calledWith(1, 1023));
 
     this.analog.write(0);
-    test.deepEqual( serial.lastWrite, [ 225, 0, 0 ] );
+    test.ok(this.analogSpy.calledWith(1, 0));
 
     test.done();
   },
