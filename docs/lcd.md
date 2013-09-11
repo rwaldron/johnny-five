@@ -26,17 +26,23 @@ board.on("ready", function() {
   });
 
   lcd.on("ready", function() {
-    // creates a heart!
-    lcd.createChar( 0x07,
-      [ 0x00, 0x0a, 0x1f, 0x1f, 0x0e, 0x04, 0x00, 0x00 ]
-    );
+    // Tell the LCD you will use the heart character
+    lcd.useChar("check");
+    lcd.useChar("heart");
+    lcd.useChar("duck");
 
     // Line 1: Hi rmurphey & hgstrp!
     lcd.clear().print("rmurphey, hgstrp");
     lcd.cursor(1, 0);
 
     // Line 2: I <3 johnny-five
-    lcd.print("I ").write(7).print(" johnny-five");
+    // lcd.print("I").write(7).print(" johnny-five");
+    // can now be written as:
+    lcd.print("I :heart: johnny-five");
+
+    setTimeout(function() {
+      lcd.clear().cursor(0, 0).print("I :check::heart: 2 :duck: :)");
+    }, 3000);
   });
 
   this.repl.inject({
