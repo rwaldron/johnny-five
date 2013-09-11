@@ -176,6 +176,8 @@ exports["fn"] = {
   }
 };
 
+// TODO: need tests for board.shiftOut
+
 // TODO: need mock firmata object
 // exports["modules"] = {
 //   "optional-new": function( test ) {
