@@ -266,8 +266,9 @@ exports["LCD"] = {
       var text = pair[0], comparison = pair[1];
 
       (text.match(/:\w+?:/g) || []).forEach(function(match) {
-        if (':unknown:' !== match)
+        if (':unknown:' !== match) {
           this.lcd.useChar(match.slice(1, -1));
+        }
       }, this);
       var cSpy = sinon.spy(this.lcd, 'command');
       this.lcd.print(text);
@@ -275,8 +276,9 @@ exports["LCD"] = {
       test.strictEqual(cSpy.callCount, comparison.length,
         'Unexpected amount of #command calls for ' + util.inspect(text));
       var i, output = '';
-      for (i = 0; i < cSpy.callCount; ++i)
+      for (i = 0; i < cSpy.callCount; ++i) {
         output += String.fromCharCode(cSpy.getCall(i).args[0]);
+      }
       for (i = 0; i < cSpy.callCount; ++i) {
         test.strictEqual(cSpy.getCall(i).args[0], comparison.charCodeAt(i),
           'Unexpected byte #' + i + " on " + util.inspect(text) +
