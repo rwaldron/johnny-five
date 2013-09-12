@@ -100,7 +100,7 @@ exports["Pin"] = {
     test.ok(this.digitalSpy.calledWith(11, 1));
 
     this.analog.high();
-    test.ok(this.analogSpy.calledWith(1, 1));
+    test.ok(this.analogSpy.calledWith(1, 255));
 
     test.done();
   },
