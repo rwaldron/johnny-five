@@ -222,7 +222,6 @@ exports["LCD"] = {
   printRegularTexts: function(test) {
     // No test.expect() as these are a bit cumbersome/coupled to obtain
 
-    // FIXME: lib inconsistency bug here: whitespaces turn into 0x32 if specials, preserved otherwise.
     var sentences = ['hello world', '', '   ', ' hello ', ' hello  '];
     var cSpy = sinon.spy(this.lcd, 'command');
 
@@ -258,14 +257,17 @@ exports["LCD"] = {
 
       ['I :heart: JS :smile:',                 'I \07 JS \06'],
       ['I:heart:JS :smile:',                   'I\07JS \06'],
-      ['I :heart::heart::heart: JS :smile: !', 'I \07\07\07 JS \06 !']
+      ['I :heart::heart::heart: JS :smile: !', 'I \07\07\07 JS \06 !'],
+
+      ['I :heart: :unknown: symbols',          'I \07 :unknown: symbols']
     ];
 
     sentences.forEach(function(pair) {
       var text = pair[0], comparison = pair[1];
 
       (text.match(/:\w+?:/g) || []).forEach(function(match) {
-        this.lcd.useChar(match.slice(1, -1));
+        if (':unknown:' !== match)
+          this.lcd.useChar(match.slice(1, -1));
       }, this);
       var cSpy = sinon.spy(this.lcd, 'command');
       this.lcd.print(text);
