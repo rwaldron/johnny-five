@@ -15,13 +15,12 @@ function MockFirmata( opt ) {
   };
   this.HIGH = 1;
   this.LOW = 0;
-  this.firmware = {};
 }
 
 util.inherits( MockFirmata, events.EventEmitter );
 
-MockFirmata.prototype.digitalWrite = function() { };
-MockFirmata.prototype.analogWrite = function() { };
-MockFirmata.prototype.pinMode = function() { };
+["digitalWrite", "analogWrite", "analogRead", "digitalRead", "pinMode"].forEach(function (value) {
+  MockFirmata.prototype[value] = function () {};
+});
 
 module.exports = MockFirmata;

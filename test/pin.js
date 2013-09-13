@@ -1,32 +1,23 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
-    five = require("../lib/johnny-five.js"),
+var five = require("../lib/johnny-five.js"),
     events = require("events"),
-    serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     Pin = five.Pin,
-    board = new five.Board({
-      repl: false,
-      debug: true,
-      mock: serial
-    }),
+    MockFirmata = require("./mock-firmata"),
     sinon = require("sinon");
 
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = new Board.Pins( board );
-
-
-board.firmata.setMaxListeners(1000);
-
 exports["Pin"] = {
-  setUp: function( done ) {
-
+  setUp: function ( done ) {
+    var board = new five.Board({
+          repl: false,
+          firmata: new MockFirmata()
+        });
     this.digital = new Pin({ pin: 11, board: board });
     this.analog = new Pin({ pin: "A1", board: board });
-    this.digitalSpy = sinon.spy( board.firmata, "digitalWrite" );
-    this.analogSpy = sinon.spy( board.firmata, "analogWrite" );
+
+    this.spies = ["digitalWrite", "analogWrite", "analogRead", "digitalRead"];
+    this.spies.forEach(function (value) {
+      this[value] = sinon.spy( board.firmata, value );
+    }.bind(this));
 
     this.proto = [
       { name: "query" },
@@ -49,8 +40,9 @@ exports["Pin"] = {
   },
 
   tearDown: function( done ) {
-    this.digitalSpy.restore();
-    this.analogSpy.restore();
+    this.spies.forEach(function (value) {
+      this[value].restore();
+    }.bind(this));
     done();
   },
 
@@ -97,10 +89,10 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.high();
-    test.ok(this.digitalSpy.calledWith(11, 1));
+    test.ok(this.digitalWrite.calledWith(11, 1));
 
     this.analog.high();
-    test.ok(this.analogSpy.calledWith(1, 255));
+    test.ok(this.analogWrite.calledWith(1, 255));
 
     test.done();
   },
@@ -109,10 +101,10 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.low();
-    test.ok(this.digitalSpy.calledWith(11, 0));
+    test.ok(this.digitalWrite.calledWith(11, 0));
 
     this.analog.low();
-    test.ok(this.analogSpy.calledWith(1, 0));
+    test.ok(this.analogWrite.calledWith(1, 0));
 
     test.done();
   },
@@ -121,17 +113,17 @@ exports["Pin"] = {
     test.expect(4);
 
     this.digital.write(1);
-    test.ok(this.digitalSpy.calledWith(11, 1));
+    test.ok(this.digitalWrite.calledWith(11, 1));
 
     this.digital.write(0);
-    test.ok(this.digitalSpy.calledWith(11, 0));
+    test.ok(this.digitalWrite.calledWith(11, 0));
 
 
     this.analog.write(1023);
-    test.ok(this.analogSpy.calledWith(1, 1023));
+    test.ok(this.analogWrite.calledWith(1, 1023));
 
     this.analog.write(0);
-    test.ok(this.analogSpy.calledWith(1, 0));
+    test.ok(this.analogWrite.calledWith(1, 0));
 
     test.done();
   },
@@ -140,74 +132,17 @@ exports["Pin"] = {
   //
   readDigital: function( test ) {
     test.expect(1);
-
-    var counter = 0;
-    var order = [ 1, 0, 1, 0 ];
-
-    this.digital.read(function() {
-      if ( this.value === 1 ) {
-        counter++;
-      }
-      if ( this.value === 0 ) {
-        counter++;
-      }
-      if ( order[0] === this.value ) {
-        order.shift();
-      }
-      if ( counter === 4 ) {
-        test.equal( order.length, 0 );
-        test.done();
-      }
-    });
-
-    // Single Byte
-    serial.emit( "data", [ 145 ]);
-    serial.emit( "data", [ 8 ]);
-    serial.emit( "data", [ 0 ]);
-
-    serial.emit( "data", [ 145 ]);
-    serial.emit( "data", [ 0 ]);
-    serial.emit( "data", [ 0 ]);
-
-    // Multi Byte
-    serial.emit( "data", [ 145, 8, 0 ]);
-    serial.emit( "data", [ 145, 0, 0 ]);
+    this.digital.read(function () {});
+    test.ok(this.digitalRead.calledWith(this.digital.addr));
+    test.done();
   },
 
   readAnalog: function( test ) {
     test.expect(1);
-
-    var counter = 0;
-    var order = [ 1023, 0, 1023, 0 ];
-
-    this.analog.read(function() {
-      if ( this.value === 1023 ) {
-        counter++;
-      }
-      if ( this.value === 0 ) {
-        counter++;
-      }
-      if ( order[0] === this.value ) {
-        order.shift();
-      }
-      if ( counter === 4 ) {
-        test.equal( order.length, 0 );
-        test.done();
-      }
-    });
-
-    // Single Byte
-    serial.emit( "data", [ 0xE0 | (1 & 0xF) ]);
-    serial.emit( "data", [ 1023%128 ]);
-    serial.emit( "data", [ 1023>>7 ]);
-
-    serial.emit( "data", [ 0xE0 | (1 & 0xF) ]);
-    serial.emit( "data", [ 0%128 ]);
-    serial.emit( "data", [ 0>>7 ]);
-
-    // Multi Byte
-    serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-    serial.emit( "data", [ 0xE0 | (1 & 0xF), 0%128, 0>>7 ]);
+    var spy = sinon.spy();
+    this.analog.read(function () {});
+    test.ok(this.analogRead.calledWith(this.analog.addr));
+    test.done();
   }
 };
 
