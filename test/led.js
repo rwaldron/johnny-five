@@ -1,29 +1,18 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
-    five = require("../lib/johnny-five.js"),
-    Board = five.Board,
-    Led = five.Led,
-    sinon = require("sinon");
+var five = require("../lib/johnny-five.js"),
+    sinon = require("sinon"),
+    MockFirmata = require("./mock-firmata"),
+    Led = five.Led;
 
-function createNewBoard() {
-  var serial = new SerialPort("/path/to/fake/usb"),
-      board = new five.Board({
-        repl: false,
-        debug: true,
-        mock: serial
-      });
-
-  board.firmata.pins = pins.UNO;
-  board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-  board.pins = Board.Pins( board );
-  return board;
+function newBoard() {
+  return new five.Board({
+    firmata: new MockFirmata(),
+    repl: false
+  });
 }
-
-// END
 
 exports["Led - Digital"] = {
   setUp: function( done ) {
-    this.board = createNewBoard();
+    this.board = newBoard();
     this.spy = sinon.spy( this.board.firmata, "digitalWrite" );
 
     this.led = new Led({ pin: 13, board: this.board });
@@ -127,7 +116,7 @@ exports["Led - Digital"] = {
 
 exports["Led - PWM (Analog)"] = {
   setUp: function( done ) {
-    this.board = createNewBoard();
+    this.board = newBoard();
     this.spy = sinon.spy(this.board.firmata, "analogWrite");
 
     this.led = new Led({ pin: 11, board: this.board });
@@ -249,7 +238,7 @@ exports["Led - PWM (Analog)"] = {
 exports["Led.RGB"] = {
 
   setUp: function( done ) {
-    this.board = createNewBoard();
+    this.board = newBoard();
 
     this.ledRgb = new Led.RGB({
       pins: {
