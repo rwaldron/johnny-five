@@ -1,24 +1,17 @@
-var SerialPort = require("./mock-serial").SerialPort,
+var MockFirmata = require("./mock-firmata"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
-    serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     Button = five.Button,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     });
-
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
 
 exports["Button"] = {
   setUp: function( done ) {
-    
+
     this.button = new Button({ pin: 8, freq: 5, board: board });
 
     this.proto = [];
@@ -36,6 +29,7 @@ exports["Button"] = {
 
     done();
   },
+
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
