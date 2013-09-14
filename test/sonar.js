@@ -3,35 +3,22 @@ var SerialPort = require("./mock-serial").SerialPort,
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
+    sinon = require("sinon"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     Sonar = five.Sonar,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
-    }),
-    sinon = require("sinon");
-
-
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
-
-function newBoard() {
-  return new five.Board({
-    firmata: new MockFirmata(),
-    repl: false
-  });
-}
-
+      firmata: new MockFirmata()
+    });
+   
 exports["Sonar"] = {
 
   setUp: function( done ) {
-    
-    this.board = newBoard();
-    this.sonar = new Sonar({ pin: 9, board: this.board });
+
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.sonar = new Sonar({ pin: 9, board: board });
 
     this.proto = [];
 
@@ -40,6 +27,12 @@ exports["Sonar"] = {
       { name: "cm" }
     ];
 
+    done();
+  },
+
+  tearDown: function( done ) {
+    this.analogRead.restore();
+    this.clock.restore();
     done();
   },
 
@@ -58,24 +51,35 @@ exports["Sonar"] = {
   },
 
   data: function( test ) {
+    
+    var callback = this.analogRead.args[0][1],
+        spy = sinon.spy();
+
     test.expect(1);
+    this.sonar.on("data", spy);
+    // this.clock.tick(250);
 
-    var board = this.board;
-    var counter = 0;
-    var interval;
+    callback(0);
+    callback(1);
 
-    this.sonar.on("data", function() {
-      counter++;
-      if ( counter === 5 ) {
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
-    });
+    test.ok(spy.calledOnce);
+    test.done();
+  },
 
-    interval = setInterval(function() {
-      board.firmata.analogWrite( 9 , 255 );
-    });
-  }
+  change: function( test ) {
+    
+    var callback = this.analogRead.args[0][1],
+        spy = sinon.spy();
+
+    test.expect(1);
+    this.sonar.on("change", spy);
+    // this.clock.tick(250);
+
+    callback(0);
+    callback(1);
+
+    test.ok(spy.calledOnce);
+    test.done();
+  },
 
 };

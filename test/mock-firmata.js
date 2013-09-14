@@ -21,13 +21,9 @@ function MockFirmata( opt ) {
 util.inherits( MockFirmata, events.EventEmitter );
 
 MockFirmata.prototype.digitalWrite = function() { };
-MockFirmata.prototype.analogWrite = function( pin, value ) {
-  this.emit("analog-read-" + pin, value);
-};
+MockFirmata.prototype.analogWrite = function() { };
+MockFirmata.prototype.analogRead = function() { };
+MockFirmata.prototype.digitalRead = function() { };
 MockFirmata.prototype.pinMode = function() { };
-
-MockFirmata.prototype.analogRead = function( pin, callback ) {
-  this.addListener("analog-read-" + pin, callback);
-};
 
 module.exports = MockFirmata;

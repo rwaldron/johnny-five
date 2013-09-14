@@ -1,24 +1,21 @@
 var SerialPort = require("./mock-serial").SerialPort,
+    MockFirmata = require("./mock-firmata"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
     serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
+    sinon = require("sinon"),
     Switch = five.Switch,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     });
-
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
 
 exports["Switch"] = {
   setUp: function( done ) {
     
+    this.clock = sinon.useFakeTimers();
     this.switch = new Switch({ pin: 8, freq: 5, board: board });
 
     this.proto = [];
@@ -29,6 +26,12 @@ exports["Switch"] = {
 
     done();
   },
+
+  tearDown: function( done ) {
+    this.clock.restore();
+    done();
+  },
+
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
