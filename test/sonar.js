@@ -18,7 +18,7 @@ exports["Sonar"] = {
 
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.firmata, "analogRead");
-    this.sonar = new Sonar({ pin: 9, board: board });
+    this.sonar = new Sonar({ pin: 9, freq: 100 , board: board });
 
     this.proto = [];
 
@@ -57,10 +57,11 @@ exports["Sonar"] = {
 
     test.expect(1);
     this.sonar.on("data", spy);
-    // this.clock.tick(250);
+   
+    callback(225);
+    callback(255);
 
-    callback(0);
-    callback(1);
+    this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.done();
@@ -73,10 +74,13 @@ exports["Sonar"] = {
 
     test.expect(1);
     this.sonar.on("change", spy);
-    // this.clock.tick(250);
 
-    callback(0);
-    callback(1);
+    callback(225);
+
+    this.clock.tick(100);
+    callback(255);
+
+    this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.done();
