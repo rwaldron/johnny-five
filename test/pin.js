@@ -9,7 +9,8 @@ var SerialPort = require("./mock-serial").SerialPort,
       repl: false,
       debug: true,
       mock: serial
-    });
+    }),
+    sinon = require("sinon");
 
 board.firmata.versionReceived = true;
 board.firmata.pins = pins.UNO;
@@ -24,6 +25,8 @@ exports["Pin"] = {
 
     this.digital = new Pin({ pin: 11, board: board });
     this.analog = new Pin({ pin: "A1", board: board });
+    this.digitalSpy = sinon.spy( board.firmata, "digitalWrite" );
+    this.analogSpy = sinon.spy( board.firmata, "analogWrite" );
 
     this.proto = [
       { name: "query" },
@@ -42,6 +45,12 @@ exports["Pin"] = {
       { name: "value" }
     ];
 
+    done();
+  },
+
+  tearDown: function( done ) {
+    this.digitalSpy.restore();
+    this.analogSpy.restore();
     done();
   },
 
@@ -88,10 +97,10 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.high();
-    test.deepEqual( serial.lastWrite, [ 145, 72, 1 ] );
+    test.ok(this.digitalSpy.calledWith(11, 1));
 
     this.analog.high();
-    test.deepEqual( serial.lastWrite, [ 225, 1, 0 ] );
+    test.ok(this.analogSpy.calledWith(1, 255));
 
     test.done();
   },
@@ -100,10 +109,10 @@ exports["Pin"] = {
     test.expect(2);
 
     this.digital.low();
-    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
+    test.ok(this.digitalSpy.calledWith(11, 0));
 
     this.analog.low();
-    test.deepEqual( serial.lastWrite, [ 225, 0, 0 ] );
+    test.ok(this.analogSpy.calledWith(1, 0));
 
     test.done();
   },
@@ -112,17 +121,17 @@ exports["Pin"] = {
     test.expect(4);
 
     this.digital.write(1);
-    test.deepEqual( serial.lastWrite, [ 145, 72, 1 ] );
+    test.ok(this.digitalSpy.calledWith(11, 1));
 
     this.digital.write(0);
-    test.deepEqual( serial.lastWrite, [ 145, 64, 1 ] );
+    test.ok(this.digitalSpy.calledWith(11, 0));
 
 
     this.analog.write(1023);
-    test.deepEqual( serial.lastWrite, [ 225, 127, 7 ] );
+    test.ok(this.analogSpy.calledWith(1, 1023));
 
     this.analog.write(0);
-    test.deepEqual( serial.lastWrite, [ 225, 0, 0 ] );
+    test.ok(this.analogSpy.calledWith(1, 0));
 
     test.done();
   },

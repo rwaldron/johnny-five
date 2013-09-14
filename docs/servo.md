@@ -64,14 +64,6 @@ board.on("ready", function() {
   // }
   //
   // servo.sweep();
-
-
-  // Servo Event API
-
-  // "move" events fire after a successful move.
-  servo.on("move", function( err, degrees ) {
-    console.log( "move", degrees );
-  });
 });
 
 

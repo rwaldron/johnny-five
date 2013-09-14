@@ -8,7 +8,8 @@ var SerialPort = require("./mock-serial").SerialPort,
       repl: false,
       debug: true,
       mock: serial
-    });
+    }),
+    sinon = require("sinon");
 
 board.firmata.pins = pins.UNO;
 board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
@@ -18,7 +19,7 @@ board.pins = Board.Pins( board );
 // END
 
 exports["ShiftRegister"] = {
-  
+
   setUp: function( done ) {
 
     this.shiftRegister = new ShiftRegister({
@@ -56,7 +57,7 @@ exports["ShiftRegister"] = {
     this.instance.forEach(function( property ) {
       test.notEqual( typeof this.shiftRegister[ property.name ], "undefined" );
     }, this);
-    
+
     this.pins.forEach(function( property ) {
       test.notEqual( typeof this.shiftRegister.pins[ property.name ], "undefined" );
     }, this);
@@ -64,14 +65,22 @@ exports["ShiftRegister"] = {
     test.done();
   },
   send: function( test ){
-    test.expect(2);
+    var spy = sinon.spy(board.firmata, 'digitalWrite');
+    var shiftOutSpy = sinon.spy(board, 'shiftOut');
+    test.expect(6);
 
     this.shiftRegister.send(0x01);
-    test.deepEqual( serial.lastWrite, [ 144, 28, 0 ] );
+    test.ok(spy.getCall(0).calledWith(4, 0)); // latch, low
+    test.ok(shiftOutSpy.calledWith(2, 3, true, 1));
+    test.ok(spy.getCall(25).calledWith(4, 1)); // latch, high
 
     this.shiftRegister.send(0x10);
-    test.deepEqual( serial.lastWrite, [ 144, 24, 0 ] );
+    test.ok(spy.getCall(26).calledWith(4, 0)); // latch, low
+    test.ok(shiftOutSpy.calledWith(2, 3, true, 16));
+    test.ok(spy.getCall(51).calledWith(4, 1)); // latch, high
 
+    shiftOutSpy.restore();
+    spy.restore();
     test.done();
   }
 

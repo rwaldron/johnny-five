@@ -1,3 +1,5 @@
+module.exports.UNOANALOG = [ 14, 15, 16, 17, 18, 19 ];
+
 module.exports.UNO = [
 { supportedModes: [],
   mode: 1,
