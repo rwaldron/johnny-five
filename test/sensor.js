@@ -1,30 +1,19 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
+var MockFirmata = require("./mock-firmata"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
-    serial = new SerialPort("/path/to/fake/usb"),
+    sinon = require("sinon"),
     Board = five.Board,
     Sensor = five.Sensor,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     });
-
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
-
-
 
 exports["Sensor"] = {
   setUp: function( done ) {
-
-
-
-
-    this.sensor = new Sensor({ pin: "A1", freq: 5, board: board });
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.firmata, 'analogRead');
+    this.sensor = new Sensor({ pin: "A1", board: board });
 
     this.proto = [
       { name: "scale" },
@@ -52,11 +41,10 @@ exports["Sensor"] = {
   },
 
   tearDown: function( done ) {
-    board.firmata._events["analog-read-1"] = [];
-
+    this.clock.restore();
+    this.analogRead.restore();
     done();
   },
-
 
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
@@ -81,184 +69,105 @@ exports["Sensor"] = {
   },
 
   data: function( test ) {
+    var spy = sinon.spy();
     test.expect(1);
-
-    var counter = 0;
-    var interval;
-
-    this.sensor.on("data", function() {
-      if ( this.value === 1023 ) {
-        counter++;
-      }
-      if ( counter === 10 ) {
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
-    });
-
-    interval = setInterval(function() {
-      // 1023 uninterrupted
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-    });
+    this.sensor.on("data", spy);
+    this.clock.tick(25);
+    test.ok(spy.calledOnce);
+    test.done();
   },
 
   change: function( test ) {
-    test.expect(1);
+    var callback = this.analogRead.args[0][1],
+        spy = sinon.spy();
 
-    var counter = 0;
-    var interval;
+    test.expect(2);
+    this.sensor.on("change", spy);
+    callback(1023);
+    this.clock.tick(25);
+    callback(512);
+    this.clock.tick(25);
 
-    this.sensor.on("data", function() {
-      if ( this.value === 1023 ) {
-        counter++;
-      }
-    });
-
-    this.sensor.on("change", function() {
-      // We'll ignore the first change,
-      // which is null -> 1023
-      //
-      if ( this.value === 512 ) {
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
-    });
-
-    interval = setInterval(function() {
-      // 1023 then changes to 512
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-
-      if ( counter > 50 ) {
-        serial.emit( "data", [ 0xE0 | (1 & 0xF), 512%128, 512>>7 ]);
-      }
-    });
+    test.equal(spy.getCall(0).args[1], 1023);
+    test.equal(spy.getCall(1).args[1], 512);
+    test.done();
   },
 
   scale: function( test ) {
-    test.expect(1);
+    var callback = this.analogRead.args[0][1];
 
-    var counter = 0;
-    var interval;
+    test.expect(2);
 
     // Scale the expected 0-1023 to a value between 50-100 (~75)
     this.sensor.scale(50, 100);
 
-    this.sensor.on("data", function() {
-      if ( this.value|0 === 100 ) {
-        counter++;
-      }
+    this.sensor.once("change", function() {
+      test.equal(this.value, 100);
     });
+    callback(1023);
+    this.clock.tick(25);
 
-    this.sensor.on("change", function() {
-      if ( this.value|0 === 75 ) {
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
+    this.sensor.once("change", function() {
+      test.equal(this.value, 50);
     });
+    callback(0);
+    this.clock.tick(25);
 
-    interval = setInterval(function() {
-      // 1023 then changes to 512
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-
-      if ( counter > 50 ) {
-        serial.emit( "data", [ 0xE0 | (1 & 0xF), 512%128, 512>>7 ]);
-      }
-    });
+    test.done();
   },
 
   within: function( test ) {
+    var callback = this.analogRead.args[0][1];
+
     test.expect(1);
-
-    var counter = 0;
-    var isComplete = false;
-    var interval;
-
-    this.sensor.on("data", function() {
-      if ( this.value === 1023 ) {
-        counter++;
-      }
-    });
 
     // While the sensor value is between the given values,
     // invoke the registered handler.
     this.sensor.within([ 400, 600 ], function() {
-      if ( !isComplete && this.value === 512 ) {
-        isComplete = true;
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
+      test.equal(this.value, 500);
     });
 
-    interval = setInterval(function() {
-      // 1023 then changes to 512
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
+    callback(1023);
+    this.clock.tick(25);
+    callback(500);
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
 
-      if ( counter > 50 ) {
-        serial.emit( "data", [ 0xE0 | (1 & 0xF), 512%128, 512>>7 ]);
-      }
-    });
+    test.done();
   },
 
   booleanAt: function( test ) {
-    test.expect(1);
-
-    var counter = 0;
-    var isComplete = false;
-    var interval;
+    var callback = this.analogRead.args[0][1],
+        expected = false;
+    test.expect(2);
 
     this.sensor.booleanAt(512);
 
     this.sensor.on("data", function() {
-      if ( this.boolean === true ) {
-        counter++;
-      }
+      test.equals(this.boolean, expected);
     });
 
-    // While the sensor value is between the given values,
-    // invoke the registered handler.
-    this.sensor.on("change", function() {
-      if ( !isComplete && this.boolean === false ) {
-        isComplete = true;
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
-    });
+    callback(500);
+    this.clock.tick(25);
+    expected = true;
+    callback(600);
+    this.clock.tick(25);
 
-    interval = setInterval(function() {
-      // 1023 then changes to 512
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-
-      if ( counter > 50 ) {
-        serial.emit( "data", [ 0xE0 | (1 & 0xF), 0%128, 0>>7 ]);
-      }
-    });
+    test.done();
   },
 
 
   constrained: function( test ) {
+    var callback = this.analogRead.args[0][1];
     test.expect(1);
 
-    var counter = 0;
-    var isComplete = false;
-    var interval;
-
     this.sensor.on("data", function() {
-      if ( !isComplete && this.constrained === 255 ) {
-        isComplete = true;
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
+      test.equals(this.constrained, 255);
     });
 
-    interval = setInterval(function() {
-      // 1023
-      serial.emit( "data", [ 0xE0 | (1 & 0xF), 1023%128, 1023>>7 ]);
-    });
+    callback(1023);
+    this.clock.tick(25);
+    test.done();
   }
 };
