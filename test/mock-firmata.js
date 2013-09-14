@@ -23,4 +23,8 @@ util.inherits( MockFirmata, events.EventEmitter );
   MockFirmata.prototype[value] = function () {};
 });
 
+MockFirmata.prototype.pulseIn = function (opt, callback) {
+  callback(this.pulseValue);
+};
+
 module.exports = MockFirmata;
