@@ -1,22 +1,12 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
+var MockFirmata = require("./mock-firmata"),
     five = require("../lib/johnny-five.js"),
-    serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     ShiftRegister = five.ShiftRegister,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     }),
     sinon = require("sinon");
-
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
-
-
-// END
 
 exports["ShiftRegister"] = {
 
@@ -47,6 +37,7 @@ exports["ShiftRegister"] = {
 
     done();
   },
+
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length + this.pins.length );
 
@@ -64,6 +55,7 @@ exports["ShiftRegister"] = {
 
     test.done();
   },
+
   send: function( test ){
     var spy = sinon.spy(board.firmata, 'digitalWrite');
     var shiftOutSpy = sinon.spy(board, 'shiftOut');
