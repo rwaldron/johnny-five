@@ -12,7 +12,7 @@ var MockFirmata = require("./mock-firmata"),
 exports["Ping"] = {
 
   setUp: function( done ) {
-    this.clock = sinon.useFakeTimers(),
+    this.clock = sinon.useFakeTimers();
     this.ping = new Ping({ pin: 7, board: board });
 
     this.proto = [];

@@ -1,7 +1,6 @@
 var MockFirmata = require("./mock-firmata"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
-    serial = new SerialPort("/path/to/fake/usb"),
     board = new five.Board({
       repl: false,
       firmata: new MockFirmata()
