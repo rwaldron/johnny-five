@@ -1,27 +1,20 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
+var MockFirmata = require("./mock-firmata"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
-    serial = new SerialPort("/path/to/fake/usb"),
+    sinon = require("sinon"),
     Board = five.Board,
     Pir = five.Pir,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     });
-
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
-
 
 
 exports["Pir"] = {
   setUp: function( done ) {
-
-    this.pir = new Pir({ pin: 11, freq: 50, board: board });
+    this.clock = sinon.useFakeTimers();
+    this.digitalRead = sinon.spy(board.firmata, 'digitalRead');
+    this.pir = new Pir({ pin: 11, board: board });
 
     this.instance = [
       { name: "id" },
@@ -37,9 +30,8 @@ exports["Pir"] = {
 
   tearDown: function( done ) {
     this.pir.removeAllListeners();
-
-    // board.firmata._events['digital-read-11'] = [];
-
+    this.clock.restore();
+    this.digitalRead.restore();
     done();
   },
 
@@ -62,77 +54,41 @@ exports["Pir"] = {
   },
 
   data: function( test ) {
+    var spy = sinon.spy();
     test.expect(1);
-
-    var counter = 0;
-    var interval;
-
-    this.pir.on("data", function() {
-      if ( this.value === 1 ) {
-        counter++;
-      }
-      if ( counter === 10 ) {
-        clearInterval( interval );
-        test.ok( true );
-        test.done();
-      }
-    });
-
-    interval = setInterval(function() {
-      // 1 uninterrupted
-      serial.emit( "data", [ 145, 8, 0 ]);
-    });
+    this.pir.on("data", spy);
+    this.clock.tick(25);
+    test.ok(spy.calledOnce);
+    test.done();
   },
 
   motionstart: function( test ) {
+    var callback = this.digitalRead.args[0][1],
+        spy = sinon.spy();
+
     test.expect(1);
+    this.pir.on("motionstart", spy);
 
-    var counter = 0;
-    var interval;
+    // 0 then changes to 1
+    callback(0);
+    callback(1);
 
-    this.pir.on("data", function() {
-      counter++;
-    });
-
-    this.pir.on("motionstart", function() {
-      clearInterval( interval );
-      test.ok( true );
-      test.done();
-    });
-
-    interval = setInterval(function() {
-      // 0 then changes to 1
-      serial.emit( "data", [ 145, 0, 0 ]);
-
-      if ( counter > 10 ) {
-        serial.emit( "data", [ 145, 8, 0 ]);
-      }
-    });
+    test.ok(spy.calledOnce);
+    test.done();
   },
 
   motionend: function( test ) {
+    var callback = this.digitalRead.args[0][1],
+        spy = sinon.spy();
+
     test.expect(1);
+    this.pir.on("motionend", spy);
 
-    var counter = 0;
-    var interval;
+    // 1 then changes to 0
+    callback(1);
+    callback(0);
 
-    this.pir.on("data", function() {
-      counter++;
-    });
-
-    this.pir.on("motionend", function() {
-      clearInterval( interval );
-      test.ok( true );
-      test.done();
-    });
-
-    interval = setInterval(function() {
-      // 1 then changes to 0
-      serial.emit( "data", [ 145, 8, 0 ]);
-
-      if ( counter > 10 ) {
-        serial.emit( "data", [ 145, 0, 0 ]);
-      }
-    });
+    test.ok(spy.calledOnce);
+    test.done();
   }
 };
