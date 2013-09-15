@@ -1,10 +1,8 @@
 var MockFirmata = require("./mock-firmata"),
-    SerialPort = require("./mock-serial").SerialPort,
     sinon = require("sinon"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
-    serial = new SerialPort("/path/to/fake/usb"),
     Board = five.Board,
     Button = five.Button,
     board = new five.Board({
