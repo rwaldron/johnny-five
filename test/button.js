@@ -10,11 +10,6 @@ var MockFirmata = require("./mock-firmata"),
       firmata: new MockFirmata()
     });
 
-// board.firmata.versionReceived = true;
-// board.firmata.pins = pins.UNO;
-// board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-// board.pins = Board.Pins( board );
-
 exports["Button"] = {
   setUp: function( done ) {
     
