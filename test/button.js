@@ -1,4 +1,6 @@
-var SerialPort = require("./mock-serial").SerialPort,
+var MockFirmata = require("./mock-firmata"),
+    SerialPort = require("./mock-serial").SerialPort,
+    sinon = require("sinon"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
     events = require("events"),
@@ -7,18 +9,18 @@ var SerialPort = require("./mock-serial").SerialPort,
     Button = five.Button,
     board = new five.Board({
       repl: false,
-      debug: true,
-      mock: serial
+      firmata: new MockFirmata()
     });
 
-board.firmata.versionReceived = true;
-board.firmata.pins = pins.UNO;
-board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-board.pins = Board.Pins( board );
+// board.firmata.versionReceived = true;
+// board.firmata.pins = pins.UNO;
+// board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
+// board.pins = Board.Pins( board );
 
 exports["Button"] = {
   setUp: function( done ) {
     
+    this.digitalRead = sinon.spy(board.firmata, 'digitalRead');
     this.button = new Button({ pin: 8, freq: 5, board: board });
 
     this.proto = [];
@@ -36,6 +38,11 @@ exports["Button"] = {
 
     done();
   },
+
+  tearDown: function( done ) {
+    this.digitalRead.restore();
+    done();
+  },
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
@@ -48,5 +55,51 @@ exports["Button"] = {
     }, this);
 
     test.done();
+  },
+
+  down: function( test ) {
+    
+    var callback = this.digitalRead.args[0][1];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("down",function(){
+
+      test.ok(true);
+      test.done();
+    });
+    
+    callback(this.button.downValue);
+  },
+
+  up: function( test ) {
+    
+    var callback = this.digitalRead.args[0][1];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("up",function(){
+
+      test.ok(true);
+      test.done();
+    });
+    callback(this.button.downValue);
+    callback(this.button.upValue);
+  },
+
+  release: function( test ) {
+    
+    var callback = this.digitalRead.args[0][1];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("release",function(){
+
+      test.ok(true);
+      test.done();
+    });
+    callback(this.button.downValue);
+    callback(this.button.upValue);
   }
+
 };
