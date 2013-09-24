@@ -1,9 +1,9 @@
-var SerialPort = require("./mock-serial").SerialPort,
+var MockFirmata = require("./mock-firmata"),
     pins = require("./mock-pins"),
     five = require("../lib/johnny-five.js"),
-    serial = new SerialPort("/path/to/fake/usb"),
     board = new five.Board({
-      mock: serial
+      repl: false,
+      firmata: new MockFirmata()
     });
 
 
@@ -43,15 +43,7 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 
 
 exports["UNO Pin Capabilities"] = {
-  setUp: function( done ) {
-    board.pins = new five.Board.Pins({
-      firmata: {
-        pins: pins.UNO,
-        analogPins: [ 14, 15, 16, 17, 18, 19 ]
-      }
-    });
-    done();
-  },
+
   isDigital: function( test ) {
     test.expect(7);
 
@@ -70,6 +62,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   isAnalog: function( test ) {
     test.expect(7);
 
@@ -88,6 +81,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   isPWM: function( test ) {
     test.expect(7);
 
@@ -106,6 +100,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   isServo: function( test ) {
     test.expect(7);
 
@@ -124,6 +119,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   isInput: function( test ) {
     test.expect(6);
 
@@ -141,6 +137,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   isOutput: function( test ) {
     test.expect(6);
 
@@ -158,6 +155,7 @@ exports["UNO Pin Capabilities"] = {
 
     test.done();
   },
+
   translate: function( test ) {
     test.expect(3);
 

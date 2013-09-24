@@ -1,17 +1,13 @@
 var SerialPort = require("./mock-serial").SerialPort,
     five = require("../lib/johnny-five.js"),
+    Repl = require("../lib/repl"),
     __ = require("../lib/fn.js"),
-
-    serial = new SerialPort("/path/to/fake/usb"),
+    _ = require('lodash'),
+    MockFirmata = require("./mock-firmata"),
     board = new five.Board({
-      debug: true,
-      mock: serial
-    }),
-    boardEvent = new five.Board.Event({
-      type: "read",
-      target: serial
+      repl: false,
+      firmata: new MockFirmata()
     });
-
 
 // use:
 // serial.emit( "data", [---] ) to  trigger testable events
@@ -25,6 +21,7 @@ exports["static"] = {
     test.ok( Array.isArray(five.Board.cache), "Board.cache" );
     test.done();
   },
+
   "Board.constrain()": function( test ) {
     test.expect(5);
 
@@ -36,6 +33,7 @@ exports["static"] = {
 
     test.done();
   },
+
   "Board.map()": function( test ) {
     test.expect(3);
 
@@ -62,6 +60,7 @@ exports["static"] = {
 
     test.done();
   },
+
   "Board.range.prefixed()": function( test ) {
     test.expect(4);
 
@@ -73,6 +72,7 @@ exports["static"] = {
 
     test.done();
   },
+
   "Board.uid()": function( test ) {
     test.expect(1);
     test.equal( typeof five.Board.uid, "function", "Board.uid" );
@@ -90,31 +90,41 @@ exports["static"] = {
     test.equal( typeof five.Board.mount, "function", "Board.mount" );
     test.done();
   },
+
   "Board.mount(obj)": function( test ) {
     test.expect(2);
     test.ok( five.Board.mount({ board: board }), "five.Board.mount({ board: board })" );
     test.deepEqual( five.Board.mount({ board: board }), board, "five.Board.mount({ board: board }) deep equals board" );
     test.done();
   },
+
   "Board.mount(index)": function( test ) {
     test.expect(2);
     test.ok( five.Board.mount(0), "five.Board.mount(0)" );
     test.deepEqual( five.Board.mount(), board, "five.Board.mount(0)" );
     test.done();
   },
+
   "Board.mount(/*none*/)": function( test ) {
     test.expect(2);
     test.ok( five.Board.mount(), "five.Board.mount()" );
     test.deepEqual( five.Board.mount(), board, "five.Board.mount() matches board instance" );
     test.done();
   },
+
   "Board.Pins": function( test ) {
     test.expect(1);
     test.ok( five.Board.Pins, "Board.Pins" );
     test.done();
   },
+
   "Board.Event": function( test ) {
     test.expect(2);
+    var serial = {},
+        boardEvent = new five.Board.Event({
+          type: "read",
+          target: serial
+        });
 
     test.ok( boardEvent.type === "read" );
     test.ok( boardEvent.target === serial );
@@ -125,35 +135,46 @@ exports["static"] = {
 
 
 exports["instance"] = {
+
   "cache": function( test ) {
     test.expect(1);
-    test.equal( five.Board.cache.length, 1 );
+    test.ok( _.contains(five.Board.cache, board) );
     test.done();
   },
+
   "instance": function( test ) {
     test.expect(1);
     test.ok( board );
     test.done();
   },
+
   "firmata": function( test ) {
     test.expect(1);
-    test.ok( board.firmata );
+    test.ok( board.firmata instanceof MockFirmata );
     test.done();
   },
+
   "id": function( test ) {
     test.expect(1);
     test.ok( board.id );
     test.done();
   },
+
   "repl": function( test ) {
+    var board = new five.Board({
+          firmata: new MockFirmata()
+        });
     test.expect(2);
-    test.ok( board.repl );
+    test.ok( board.repl instanceof Repl );
     test.ok( board.repl.context );
+
+    process.stdin.pause();
     test.done();
   },
+
   "pins": function( test ) {
     test.expect(1);
-    test.ok( typeof board.pins !== "undefined" );
+    test.ok( board.pins );
     test.done();
   },
 };

@@ -12,7 +12,6 @@ var MockFirmata = require("./mock-firmata"),
 
 exports["Button"] = {
   setUp: function( done ) {
-    
     this.digitalRead = sinon.spy(board.firmata, "digitalRead");
     this.button = new Button({ pin: 8, freq: 5, board: board });
 
@@ -36,6 +35,7 @@ exports["Button"] = {
     this.digitalRead.restore();
     done();
   },
+
   shape: function( test ) {
     test.expect( this.proto.length + this.instance.length );
 
@@ -51,7 +51,7 @@ exports["Button"] = {
   },
 
   down: function( test ) {
-    
+
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
@@ -61,12 +61,12 @@ exports["Button"] = {
       test.ok(true);
       test.done();
     });
-    
+
     callback(this.button.downValue);
   },
 
   up: function( test ) {
-    
+
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
@@ -81,7 +81,7 @@ exports["Button"] = {
   },
 
   release: function( test ) {
-    
+
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
