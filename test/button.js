@@ -13,7 +13,7 @@ var MockFirmata = require("./mock-firmata"),
 exports["Button"] = {
   setUp: function( done ) {
     
-    this.digitalRead = sinon.spy(board.firmata, 'digitalRead');
+    this.digitalRead = sinon.spy(board.firmata, "digitalRead");
     this.button = new Button({ pin: 8, freq: 5, board: board });
 
     this.proto = [];
