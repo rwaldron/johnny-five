@@ -22,6 +22,8 @@ util.inherits( MockFirmata, events.EventEmitter );
 
 MockFirmata.prototype.digitalWrite = function() { };
 MockFirmata.prototype.analogWrite = function() { };
+MockFirmata.prototype.analogRead = function() { };
+MockFirmata.prototype.digitalRead = function() { };
 MockFirmata.prototype.pinMode = function() { };
 
 module.exports = MockFirmata;
