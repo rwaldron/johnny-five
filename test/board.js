@@ -4,6 +4,7 @@ var SerialPort = require("./mock-serial").SerialPort,
     __ = require("../lib/fn.js"),
     _ = require('lodash'),
     MockFirmata = require("./mock-firmata"),
+	FirmataIOBoard = require("firmata-ioboard"),
     board = new five.Board({
       repl: false,
       firmata: new MockFirmata()
@@ -150,7 +151,7 @@ exports["instance"] = {
 
   "firmata": function( test ) {
     test.expect(1);
-    test.ok( board.firmata instanceof MockFirmata );
+    test.ok( board.firmata instanceof FirmataIOBoard );
     test.done();
   },
 
