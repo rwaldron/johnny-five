@@ -110,6 +110,22 @@ exports["Led - Digital"] = {
     test.expect(1);
     test.equal( this.led.blink, this.led.strobe );
     test.done();
+  },
+
+  brightness: function( test ) {
+    test.expect(3);
+
+    this.led.off();
+    this.led.brightness(255);
+    test.ok( this.spy.calledWith(13, this.board.firmata.HIGH) );
+
+    this.led.brightness(100);
+    test.ok( this.spy.calledWith(13, this.board.firmata.HIGH) );
+
+    this.led.brightness(0);
+    test.ok( this.spy.calledWith(13, this.board.firmata.LOW) );
+
+    test.done();
   }
 };
 
