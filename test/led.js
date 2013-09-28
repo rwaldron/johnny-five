@@ -310,3 +310,12 @@ exports["Led.RGB"] = {
   }
 
 };
+
+exports["Led - Default Pin"] = {
+  shape: function( test ) {
+    test.expect(2);
+    test.equal(new Led().pin, 9);
+    test.equal(new Led(0).pin, 0);
+    test.done();
+  }
+};
