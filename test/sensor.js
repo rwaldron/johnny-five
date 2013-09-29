@@ -31,6 +31,7 @@ exports["Sensor"] = {
       { name: "threshold" },
       { name: "isScaled" },
       { name: "raw" },
+      { name: "analog" },
       { name: "constrained" },
       { name: "boolean" },
       { name: "scaled" },
@@ -157,7 +158,6 @@ exports["Sensor"] = {
     test.done();
   },
 
-
   constrained: function( test ) {
     var callback = this.analogRead.args[0][1];
     test.expect(1);
@@ -168,6 +168,31 @@ exports["Sensor"] = {
 
     callback(1023);
     this.clock.tick(25);
+    test.done();
+  },
+
+  analog: function( test ) {
+    var callback = this.analogRead.args[0][1],
+        expected;
+
+    test.expect(3);
+
+    this.sensor.on("data", function() {
+      expected = this.analog;
+    });
+
+    callback(1023);
+    this.clock.tick(25);
+    test.equals(expected, 255);
+
+    callback(0);
+    this.clock.tick(25);
+    test.equals(expected, 0);
+
+    callback(512);
+    this.clock.tick(25);
+    test.equals(expected, 127);
+
     test.done();
   }
 };
