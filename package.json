@@ -52,7 +52,8 @@
     { "name": "Oli Evans", "email": "<oli@zilla.org.uk>" },
     { "name": "Cory Gackenheimer", "email": "<cory.gack@gmail.com>" },
     { "name": "Ray Pierce", "email": "<ray@digitalpierce.com>" },
-    { "name": "Jonathan Clem", "email": "<jonathan@jclem.net>" }
+    { "name": "Jonathan Clem", "email": "<jonathan@jclem.net>" },
+    { "name": "achingbrain", "email": "<alex@achingbrain.net>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"

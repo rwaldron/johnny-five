@@ -319,3 +319,40 @@ exports["Led - Default Pin"] = {
     test.done();
   }
 };
+
+exports["Led - Pulse"] = {
+  setUp: function( done ) {
+    this.clock = sinon.useFakeTimers();
+
+    this.board = newBoard();
+    this.spy = sinon.spy(this.board.firmata, "analogWrite");
+
+    this.led = new Led({ pin: 11, board: this.board });
+
+    done();
+  },
+
+  tearDown: function ( done ) {
+    this.clock.restore();
+
+    done();
+  },
+
+  pulse: function( test ) {
+    test.expect(1);
+
+    // pulse length 1s
+    this.led.pulse(1000);
+
+    // move the clock forwards 1001 ms so we have a complete set of values
+    this.clock.tick(1001);
+
+    // stop pulsing
+    this.led.stop();
+
+    // make sure NaN was not passed to firmata
+    test.ok( ! isNaN( this.spy.firstCall.args[1] ) );
+
+    test.done();
+  }
+};
