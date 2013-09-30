@@ -12,7 +12,7 @@ var MockFirmata = require("./mock-firmata"),
 exports["Sensor"] = {
   setUp: function( done ) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, 'analogRead');
+    this.analogRead = sinon.spy(board.firmata, "analogRead");
     this.sensor = new Sensor({ pin: "A1", board: board });
 
     this.proto = [
@@ -172,26 +172,18 @@ exports["Sensor"] = {
   },
 
   analog: function( test ) {
-    var callback = this.analogRead.args[0][1],
-        expected;
+    var callback = this.analogRead.args[0][1];
 
     test.expect(3);
 
-    this.sensor.on("data", function() {
-      expected = this.analog;
-    });
-
     callback(1023);
-    this.clock.tick(25);
-    test.equals(expected, 255);
+    test.equals(this.sensor.analog, 255);
 
     callback(0);
-    this.clock.tick(25);
-    test.equals(expected, 0);
+    test.equals(this.sensor.analog, 0);
 
     callback(512);
-    this.clock.tick(25);
-    test.equals(expected, 127);
+    test.equals(this.sensor.analog, 127);
 
     test.done();
   }
