@@ -45,6 +45,7 @@
     "stepper-sweep.js",
 
   [ "Sonar/Ultrasonic" ],
+    "hc-sr04.js",
     "ping.js",
     "sonar-scan.js",
     "sonar.js",
