@@ -12,7 +12,6 @@
 #### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
 
 
-
 ## Many fragments. Some large, some small.
 
 #### [Wireless Nodebot](http://jsfiddle.net/rwaldron/88M6b/show/light) NEW!
