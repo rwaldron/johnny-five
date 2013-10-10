@@ -1,19 +1,21 @@
-# Hc Sr04
+# Ping with HC-SR04
 
 Run with:
 ```bash
-node eg/hc-sr04.js
+node eg/ping.js
 ```
 
 
 ```javascript
 var five = require("johnny-five"),
-    board = new five.Board();
+    board, ping;
+
+board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
-  var ping = new five.Ping(7);
+  ping = new five.Ping(7);
 
   // Properties
 

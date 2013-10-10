@@ -122,7 +122,6 @@ Note: Node will crash if you try to run johnny-five in the node REPL, but board 
 - [Stepper Sweep](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-sweep.md)
 
 ### Sonar/Ultrasonic
-- [Hc Sr04](https://github.com/rwldrn/johnny-five/blob/master/docs/hc-sr04.md)
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
