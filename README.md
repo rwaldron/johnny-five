@@ -59,7 +59,6 @@ npm install johnny-five
 
 ## Johnny-Five is...
 
-
 ```javascript
 var five = require("johnny-five"),
     // or "./lib/johnny-five" when running from the source
@@ -73,10 +72,14 @@ board.on("ready", function() {
 
 });
 ```
+[Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
 
-#### [Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
+> Note: Node will crash if you try to run johnny-five in the node REPL, but board instances will create their own contextual REPL. Put your script in a file.
 
-Note: Node will crash if you try to run johnny-five in the node REPL, but board instances will create their own contextual REPL. Put your script in a file.
+## A Little More Guidance
+
+For step-by-step examples, including an electronics primer, check out [Arduino Experimenter's Guide for NodeJS](http://node-ardx.org/) by [@AnnaGerber](https://twitter.com/AnnaGerber)
+
 
 ## More Input
 
