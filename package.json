@@ -84,7 +84,7 @@
     "compulsive": "latest",
     "temporal": "latest",
     "descriptor": "latest",
-    "serialport": "latest",
+    "serialport": "~1.1.3",
     "optimist": "~0.5.2",
     "async": "~0.2.9",
     "keypress": "latest"
