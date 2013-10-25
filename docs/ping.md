@@ -59,7 +59,7 @@ board.on("ready", function() {
 [docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 
-I'll put my updated ping.png|fzz here when I figure out how. 
+
 
 
 
