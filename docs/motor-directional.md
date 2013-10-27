@@ -51,6 +51,26 @@ board.on("ready", function() {
           dir: 12
         }
       });
+      
+      OR for Bi-Directional motor shields that require two pins to specify direction:
+      
+      new five.Motor([ 3, 12, 11 ]);
+
+    ...is the same as...
+
+      new five.Motor({
+        pins: [ 3, 12, 11 ]
+      });
+
+    ...is the same as...
+
+      new five.Motor({
+        pins: {
+          pwm: 3,
+          dir: 12,
+          cdir: 11
+        }
+      });
 
    */
 
@@ -59,10 +79,9 @@ board.on("ready", function() {
     pins: {
       pwm: 3,
       dir: 12
+      //, cdir: 11 //this pin specification is optional and only required for specific motor shields
     }
   });
-
-
 
 
   board.repl.inject({
