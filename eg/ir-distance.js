@@ -2,6 +2,16 @@
 //
 //    node eg/ir-distance.js GP2Y0A02YK0F
 //
+//    You may also use the model number printed on the
+//    device itself. eg
+//
+//    2Y0A21
+//    2D120X
+//    2Y0A02
+//
+//    Without a specific model number, the readings will
+//    be wrong (unless you've connected a GP2Y0A02YK0F/2Y0A02)
+//
 // Valid models:
 //
 // - GP2Y0A21YK
