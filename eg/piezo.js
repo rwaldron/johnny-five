@@ -11,6 +11,6 @@ board.on("ready", function() {
     piezo: piezo
   });
 
-  piezo.song("cdfda ag cdfdg gf ", "111111442111111442")
+  piezo.song("cdfda ag cdfdg gf ", "111111442111111442");
 
 });
