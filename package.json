@@ -78,7 +78,6 @@
   },
   "dependencies": {
     "colors": ">=0.5.1",
-    "firmata": ">=0.2.9",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
     "socket.io": "latest",
@@ -88,7 +87,8 @@
     "serialport": "~1.2.4",
     "optimist": "~0.5.2",
     "async": "~0.2.9",
-    "keypress": "latest"
+    "keypress": "latest",
+    "firmata-ioboard": "~1.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
