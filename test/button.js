@@ -23,9 +23,7 @@ exports["Button"] = {
       { name: "downValue" },
       { name: "upValue" },
       { name: "holdtime" },
-      { name: "isDown" },
-      { name: "downValue" },
-      { name: "upValue" }
+      { name: "isDown" }
     ];
 
     done();
