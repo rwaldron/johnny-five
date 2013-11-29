@@ -20,11 +20,12 @@ exports["Piezo"] = {
     this.proto = [
       { name: "tone" },
       { name: "noTone" },
+      { name: "off" },
       { name: "song" }
     ];
 
     this.instance = [
-      { name: "playing" }
+      { name: "isPlaying" }
     ];
 
     done();
@@ -34,6 +35,27 @@ exports["Piezo"] = {
     this.clock.restore();
 
     done();
+  },
+
+  notes: function( test ) {
+    test.expect(8);
+
+    var notes = {
+      "c": 1915,
+      "d": 1700,
+      "e": 1519,
+      "f": 1432,
+      "g": 1275,
+      "a": 1136,
+      "b": 1014,
+      "C": 956
+    };
+
+    Object.keys(notes).forEach(function(note) {
+      test.equal(notes[note], Piezo.Notes[note]);
+    });
+
+    test.done();
   },
 
   shape: function( test ) {
@@ -51,30 +73,36 @@ exports["Piezo"] = {
   },
 
   tone: function( test ) {
-    test.expect(1);
+    test.expect(2);
 
-    this.piezo.tone( 1915, 1000 );
+    var returned = this.piezo.tone( 1915, 1000 );
     test.ok(this.spy.called);
+    test.equal(returned, this.piezo);
 
     test.done();
   },
 
   noTone: function( test ) {
-    test.expect(1);
+    test.expect(2);
 
-    this.piezo.noTone();
+    var returned = this.piezo.noTone();
     test.ok(this.spy.calledWith(3, 0));
+    test.equal(returned, this.piezo);
 
     test.done();
   },
 
   song: function( test ) {
-    test.expect(1);
+    test.expect(3);
 
-    this.piezo.song(" ", "1");
+    var returned = this.piezo.song(" ", "1");
+    test.ok(this.spy.calledWith(3, 0));
+    test.equal(returned, this.piezo);
+
+
+    this.piezo.song(" ", [ 1 ]);
     test.ok(this.spy.calledWith(3, 0));
 
     test.done();
-  },
-
+  }
 };
