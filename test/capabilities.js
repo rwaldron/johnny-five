@@ -157,12 +157,15 @@ exports["UNO Pin Capabilities"] = {
   },
 
   translate: function( test ) {
-    test.expect(3);
+    test.expect(6);
 
     test.equal( five.Board.Pins.translate("I0", "UNO"), "A0" );
     test.equal( five.Board.Pins.translate("I0", "uno"), "A0" );
-
     test.equal( five.Board.Pins.translate("I0", "?"), "I0" );
+
+    test.equal( five.Board.Pins.translate(14, "UNO"), "A0" );
+    test.equal( five.Board.Pins.translate(54, "MEGA"), "A0" );
+    test.equal( five.Board.Pins.translate(14, "LEONARDO"), "A0" );
 
     test.done();
   }
