@@ -41,6 +41,7 @@ module.exports = function(grunt) {
         "test/lcd.js",
         "test/led.js",
         "test/pin.js",
+        "test/piezo.js",
         "test/ping.js",
         "test/pir.js",
         "test/sensor.js",
