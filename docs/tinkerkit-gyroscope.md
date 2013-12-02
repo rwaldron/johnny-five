@@ -17,15 +17,16 @@ board.on("ready", function() {
   // Create a new `Gyroscope` hardware instance.
 
   gyro = new five.Gyroscope({
-    pins: [ "I0", "I1" ],
+    pins: ["I0", "I1"],
     freq: 200,
     extent: 4
   });
 
-  gyro.on("acceleration", function( err, data ) {
+  gyro.on("acceleration", function(err, data) {
     console.log(data.position);
   });
 });
+
 ```
 
 

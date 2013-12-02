@@ -8,7 +8,7 @@ node eg/motor-directional.js
 
 ```javascript
 var five = require("johnny-five"),
-    board = new five.Board();
+  board = new five.Board();
 
 board.on("ready", function() {
   var motor;

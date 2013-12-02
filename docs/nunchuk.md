@@ -8,7 +8,7 @@ node eg/nunchuk.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, nunchuk;
+  board, nunchuk;
 
 board = new five.Board();
 
@@ -40,10 +40,10 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on( "change", function( err, event ) {
+  nunchuk.joystick.on("change", function(err, event) {
     console.log(
       "joystick " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
@@ -53,10 +53,10 @@ board.on("ready", function() {
   // Fired when the accelerometer detects a change in
   // axis position.
   //
-  nunchuk.accelerometer.on( "change", function( err, event ) {
+  nunchuk.accelerometer.on("change", function(err, event) {
     console.log(
       "accelerometer " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
@@ -83,13 +83,14 @@ board.on("ready", function() {
   //
 
 
-  [ "down", "up", "hold" ].forEach(function( type ) {
+  ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on( type, function( err, event ) {
+    nunchuk.on(type, function(err, event) {
       console.log(
         event.target.which + " is " + type,
 
-        { isUp: event.target.isUp,
+        {
+          isUp: event.target.isUp,
           isDown: event.target.isDown
         }
       );
@@ -98,9 +99,9 @@ board.on("ready", function() {
   });
 
 
-// Further reading
-// http://media.pragprog.com/titles/msard/tinker.pdf
-// http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
+  // Further reading
+  // http://media.pragprog.com/titles/msard/tinker.pdf
+  // http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
 });
 
 ```

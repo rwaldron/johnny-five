@@ -8,7 +8,7 @@ node eg/led-on-off.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, led;
+  board, led;
 
 board = new five.Board();
 
@@ -26,7 +26,7 @@ board.on("ready", function() {
   led.off();
 
   // Turn the led back on after 3 seconds (shown in ms)
-  this.wait( 3000, function() {
+  this.wait(3000, function() {
 
     led.on();
 

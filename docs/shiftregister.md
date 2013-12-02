@@ -8,7 +8,7 @@ node eg/shiftregister.js
 
 ```javascript
 var five = require("../lib/johnny-five"),
-    board, shiftRegister;
+  board, shiftRegister;
 
 board = new five.Board();
 
@@ -29,7 +29,7 @@ board.on("ready", function() {
 
   function next() {
     value = value > 0x11 ? value >> 1 : 0x88;
-    shiftRegister.send( value );
+    shiftRegister.send(value);
     setTimeout(next, 200);
   }
 

@@ -8,7 +8,7 @@ node eg/sensor.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, sensor;
+  board, sensor;
 
 board = new five.Board();
 
@@ -45,8 +45,8 @@ board.on("ready", function() {
   //
   // Fires when the pin is read for a value
   //
-  sensor.scale([ 0, 100 ]).on("data", function() {
-    console.log( this.value, this.raw );
+  sensor.scale([0, 100]).on("data", function() {
+    console.log(this.value, this.raw);
   });
 
   // "change"

@@ -8,7 +8,7 @@ node eg/servo-tutorial.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, servo;
+  board, servo;
 
 board = new five.Board();
 
@@ -17,7 +17,7 @@ board.on("ready", function() {
   five.Servo({
     pin: 9,
     // Limit this servo to 170°
-    range: [ 45, 135 ]
+    range: [45, 135]
   });
 
   five.Servo(10);

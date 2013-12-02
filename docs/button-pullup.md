@@ -20,7 +20,7 @@ node eg/button-pullup.js
 // https://learn.sparkfun.com/tutorials/pull-up-resistors
 
 var five = require("../lib/johnny-five"),
-    button, led;
+  button, led;
 
 five.Board().on("ready", function() {
 
@@ -31,11 +31,11 @@ five.Board().on("ready", function() {
 
   led = new five.Led(13);
 
-  button.on("down", function(value){
+  button.on("down", function(value) {
     led.on();
   });
 
-  button.on("up", function(){
+  button.on("up", function() {
     led.off();
   });
 

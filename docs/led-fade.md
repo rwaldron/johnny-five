@@ -8,7 +8,7 @@ node eg/led-fade.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, led;
+  board, led;
 
 board = new five.Board();
 
@@ -37,7 +37,7 @@ board.on("ready", function() {
 
 
   // Toggle the led after 10 seconds (shown in ms)
-  this.wait( 5000, function() {
+  this.wait(5000, function() {
 
     led.fadeOut();
 

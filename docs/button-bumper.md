@@ -8,7 +8,7 @@ node eg/button-bumper.js
 
 ```javascript
 var five = require("johnny-five"),
-    bumper, led;
+  bumper, led;
 
 five.Board().on("ready", function() {
 

@@ -8,7 +8,7 @@ node eg/potentiometer.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, potentiometer;
+  board, potentiometer;
 
 board = new five.Board();
 
@@ -29,7 +29,7 @@ board.on("ready", function() {
 
   // "data" get the current reading from the potentiometer
   potentiometer.on("data", function() {
-    console.log( this.value, this.raw );
+    console.log(this.value, this.raw);
   });
 });
 

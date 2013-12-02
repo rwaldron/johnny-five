@@ -8,7 +8,7 @@ node eg/joystick-motor-led.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, joystick, motor, led;
+  board, joystick, motor, led;
 
 board = new five.Board();
 
@@ -20,7 +20,7 @@ board.on("ready", function() {
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: [ "A0", "A1" ],
+    pins: ["A0", "A1"],
     freq: 25
   });
 
@@ -46,13 +46,13 @@ board.on("ready", function() {
 
   // Pushing the joystick to up position should start the motor,
   // releasing it will turn the motor off.
-  joystick.on("axismove", function( err, timestamp ) {
+  joystick.on("axismove", function(err, timestamp) {
 
-    if ( !motor.isOn && this.axis.y > 0.51 ) {
+    if (!motor.isOn && this.axis.y > 0.51) {
       motor.start();
     }
 
-    if ( motor.isOn && this.axis.y < 0.51 ) {
+    if (motor.isOn && this.axis.y < 0.51) {
       motor.stop();
     }
   });
@@ -60,7 +60,7 @@ board.on("ready", function() {
   // While the motor is on, blink the led
   motor.on("start", function() {
     // 250ms
-    led.strobe( 250 );
+    led.strobe(250);
   });
 
   motor.on("stop", function() {

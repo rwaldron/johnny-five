@@ -8,14 +8,14 @@ node eg/joystick-laser.js
 
 ```javascript
 var five = require("johnny-five"),
-    board = new five.Board({
-      debug: true
-    });
+  board = new five.Board({
+    debug: true
+  });
 
 board.on("ready", function() {
   var range, pan, tilt, joystick;
 
-  range = [ 0, 170 ];
+  range = [0, 170];
 
   // Servo to control panning
   pan = new five.Servo({
@@ -33,7 +33,7 @@ board.on("ready", function() {
   // Read Analog 0, 1
   // Limit events to every 50ms
   joystick = new five.Joystick({
-    pins: [ "A0", "A1" ],
+    pins: ["A0", "A1"],
     freq: 100
   });
 
@@ -42,8 +42,8 @@ board.on("ready", function() {
 
   joystick.on("axismove", function() {
 
-    tilt.move( Math.ceil(170 * this.fixed.y) );
-    pan.move( Math.ceil(170 * this.fixed.x) );
+    tilt.move(Math.ceil(170 * this.fixed.y));
+    pan.move(Math.ceil(170 * this.fixed.x));
 
   });
 });

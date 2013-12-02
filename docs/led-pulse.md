@@ -8,7 +8,7 @@ node eg/led-pulse.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, led;
+  board, led;
 
 board = new five.Board();
 
@@ -36,7 +36,7 @@ board.on("ready", function() {
 
 
   // Turn off the led pulse loop after 10 seconds (shown in ms)
-  this.wait( 10000, function() {
+  this.wait(10000, function() {
 
     led.stop().off();
 

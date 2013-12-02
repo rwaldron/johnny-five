@@ -8,7 +8,7 @@ node eg/sensor-ir-led-receiver.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, ir;
+  board, ir;
 
 board = new five.Board();
 board.on("ready", function() {
@@ -22,7 +22,7 @@ board.on("ready", function() {
     })
   };
 
-  ir.receive.scale([ 0, 100 ]).on("data", function() {
+  ir.receive.scale([0, 100]).on("data", function() {
 
     // console.log( this.value );
 

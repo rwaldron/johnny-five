@@ -10,7 +10,7 @@ node eg/led-rgb.js
 var five = require("johnny-five");
 
 five.Board().on("ready", function() {
-  var a = new five.Led.RGB([ 9, 10, 11 ]);
+  var a = new five.Led.RGB([9, 10, 11]);
 
   var b = new five.Led.RGB({
     pins: {

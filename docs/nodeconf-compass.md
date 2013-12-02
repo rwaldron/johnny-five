@@ -8,8 +8,8 @@ node eg/nodeconf-compass.js
 
 ```javascript
 var color = require("colors"),
-    five = require("johnny-five"),
-    colors, mag;
+  five = require("johnny-five"),
+  colors, mag;
 
 five.Board().on("ready", function() {
 
@@ -20,10 +20,10 @@ five.Board().on("ready", function() {
   mag.on("headingchange", function() {
     var log;
 
-    log = ( this.bearing.name + " " + Math.floor(this.heading) + "°" );
+    log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
 
     console.log(
-      log[ colors[ this.bearing.abbr ] ]
+      log[colors[this.bearing.abbr]]
     );
   });
 });

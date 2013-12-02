@@ -8,7 +8,7 @@ node eg/magnetometer.js
 
 ```javascript
 var five = require("johnny-five"),
-    mag;
+  mag;
 
 five.Board().on("ready", function() {
 
@@ -61,8 +61,8 @@ five.Board().on("ready", function() {
   //
   mag.on("headingchange", function() {
 
-    console.log( "heading", Math.floor(this.heading) );
-    console.log( "bearing", this.bearing );
+    console.log("heading", Math.floor(this.heading));
+    console.log("bearing", this.bearing);
 
   });
 
@@ -70,7 +70,7 @@ five.Board().on("ready", function() {
   //
   // Fires continuously, every 66ms.
   //
-  mag.on("read", function( err, timestamp ) {
+  mag.on("read", function(err, timestamp) {
     // console.log( "read", this.axis );
   });
 });

@@ -8,7 +8,7 @@ node eg/button.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, button;
+  board, button;
 
 board = new five.Board();
 

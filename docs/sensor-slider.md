@@ -8,7 +8,7 @@ node eg/sensor-slider.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, slider;
+  board, slider;
 
 board = new five.Board();
 
@@ -29,9 +29,9 @@ board.on("ready", function() {
   //
   // Fires when value of sensor changes
   //
-  slider.scale([ 0, 100 ]).on("slide", function() {
+  slider.scale([0, 100]).on("slide", function() {
 
-    console.log( "slide", this.value );
+    console.log("slide", this.value);
 
   });
 });

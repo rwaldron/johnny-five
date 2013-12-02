@@ -8,7 +8,7 @@ node eg/laser.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, laser;
+  board, laser;
 
 board = new five.Board();
 

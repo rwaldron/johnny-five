@@ -34,7 +34,7 @@ five.Board().on("ready", function() {
 
   ir.on("motionstart", function() {
 
-    console.log( "motionstart" );
+    console.log("motionstart");
 
   });
 
@@ -45,7 +45,7 @@ five.Board().on("ready", function() {
 
   ir.on("motionend", function() {
 
-    console.log( "motionend" );
+    console.log("motionend");
 
   });
 
@@ -53,7 +53,7 @@ five.Board().on("ready", function() {
   //
   // Fires continuously, every 66ms.
   //
-  ir.on("data", function( err, timestamp ) {
+  ir.on("data", function(err, timestamp) {
     // console.log( "data" );
   });
 });

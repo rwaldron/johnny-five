@@ -8,37 +8,37 @@ node eg/radar.js
 
 ```javascript
 var five = require("johnny-five"),
-    child = require("child_process"),
-    http = require("http"),
-    socket = require("socket.io"),
-    fs = require("fs"),
-    app, board, io;
+  child = require("child_process"),
+  http = require("http"),
+  socket = require("socket.io"),
+  fs = require("fs"),
+  app, board, io;
 
-function handler( req, res ) {
+function handler(req, res) {
   var path = __dirname;
 
-  if ( req.url === "/" ) {
+  if (req.url === "/") {
     path += "/radar.html";
   } else {
     path += req.url;
   }
 
-  fs.readFile( path, function( err, data ) {
-    if ( err ) {
-      res.writeHead( 500 );
-      return res.end( "Error loading " + path );
+  fs.readFile(path, function(err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end("Error loading " + path);
     }
 
-    res.writeHead( 200 );
-    res.end( data );
+    res.writeHead(200);
+    res.end(data);
   });
 }
 
-app = http.createServer( handler );
-app.listen( 8080 );
+app = http.createServer(handler);
+app.listen(8080);
 
-io = socket.listen( app );
-io.set( "log level", 1 );
+io = socket.listen(app);
+io.set("log level", 1);
 
 board = new five.Board();
 
@@ -47,7 +47,7 @@ board.on("ready", function() {
 
 
   // Open Radar view
-  child.exec( "open http://localhost:8080/" );
+  child.exec("open http://localhost:8080/");
 
   // Starting scanner scanning position (degrees)
   degrees = 1;
@@ -61,10 +61,10 @@ board.on("ready", function() {
   last = 0;
 
   // Scanning range (degrees)
-  range = [ 0, 170 ];
+  range = [0, 170];
 
   // Servo center point (degrees)
-  center = range[ 1 ] / 2;
+  center = range[1] / 2;
 
   // ping instance (distance detection)
   ping = new five.Ping(7);
@@ -83,7 +83,7 @@ board.on("ready", function() {
   scanner.min();
 
   // Scanner/Panning loop
-  this.loop( 100, function() {
+  this.loop(100, function() {
     var bounds, isOver, isUnder;
 
     bounds = {
@@ -95,8 +95,8 @@ board.on("ready", function() {
     isUnder = degrees <= scanner.range[0];
 
     // Calculate the next step position
-    if ( isOver || isUnder ) {
-      if ( isOver ) {
+    if (isOver || isUnder) {
+      if (isOver) {
         io.sockets.emit("reset");
         degrees = 0;
         step = 1;
@@ -110,18 +110,18 @@ board.on("ready", function() {
     degrees += step;
 
     // Update servo position
-    scanner.move( degrees );
+    scanner.move(degrees);
   });
 
-  io.sockets.on( "connection", function( socket ) {
-    console.log( "Socket Connected" );
+  io.sockets.on("connection", function(socket) {
+    console.log("Socket Connected");
 
     soi = socket;
 
     ping.on("data", function() {
 
-      if ( last !== degrees ) {
-        io.sockets.emit( "ping", {
+      if (last !== degrees) {
+        io.sockets.emit("ping", {
           degrees: degrees,
           distance: this.cm
         });

@@ -8,19 +8,19 @@ node eg/continuous-clock.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, servo;
+  board, servo;
 
 board = new five.Board();
 
 board.on("ready", function() {
 
   [
-    [ 91, "ccw" ],
-    [ 89, "cw" ]
+    [91, "ccw"],
+    [89, "cw"]
 
-  ].forEach(function( def ) {
-    five.Servo.prototype[ def[1] ] = function() {
-      this.move( def[0] );
+  ].forEach(function(def) {
+    five.Servo.prototype[def[1]] = function() {
+      this.move(def[0]);
     };
   });
 
@@ -46,7 +46,7 @@ board.on("ready", function() {
   // move( speed )
   // Set the speed at which the continuous rotation
   // servo will rotate at.
-  servo.move( 90 );
+  servo.move(90);
 
 });
 

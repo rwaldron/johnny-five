@@ -10,7 +10,7 @@ node eg/board-multi.js
 var five = require("johnny-five");
 
 // Create 2 board instances with IDs "A" & "B"
-new five.Boards([ "A", "B" ]).on("ready", function() {
+new five.Boards(["A", "B"]).on("ready", function() {
 
   // Both "A" and "B" are initialized
   // (connected and available for communication)
@@ -21,7 +21,10 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
 
     // Initialize an Led instance on pin 13 of
     // each initialized board and strobe it.
-    new five.Led({ pin: 13, board: board }).strobe();
+    new five.Led({
+      pin: 13,
+      board: board
+    }).strobe();
   });
 });
 

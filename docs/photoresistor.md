@@ -8,7 +8,7 @@ node eg/photoresistor.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, photoresistor;
+  board, photoresistor;
 
 board = new five.Board();
 
@@ -29,7 +29,7 @@ board.on("ready", function() {
 
   // "data" get the current reading from the photoresistor
   photoresistor.on("data", function() {
-    console.log( this.value );
+    console.log(this.value);
   });
 });
 

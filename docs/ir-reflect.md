@@ -28,8 +28,8 @@ five.Board().on("ready", function() {
   //
   // Fires continuously, every 66ms.
   //
-  ir.on("data", function( err, timestamp ) {
-    console.log( "data" );
+  ir.on("data", function(err, timestamp) {
+    console.log("data");
   });
 });
 

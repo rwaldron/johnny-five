@@ -8,7 +8,7 @@ node eg/photoresistor-servo.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, photoresistor, servo, range;
+  board, photoresistor, servo, range;
 
 board = new five.Board();
 
@@ -17,7 +17,7 @@ board.on("ready", function() {
   //range for the servo (degrees)
   //CAUTION: don't set the numbers past what you servo can handle
   //         it could potentially damage the servo
-  range = [ 0, 159 ];
+  range = [0, 159];
 
   // Create a new `photoresistor` hardware instance.
   photoresistor = new five.Sensor({
@@ -46,12 +46,12 @@ board.on("ready", function() {
 
   //equate the photoresistor values to the servo scale
   //do something when the a value is read from the photoresistor
-  photoresistor.scale( range ).on("data", function() {
+  photoresistor.scale(range).on("data", function() {
     //outputs to screen the values being used from the photoresistor
     //console.log( "Normalized value: " + this.normalized + "  Scaled Value: " + this.scaled );
 
     //tell the servo arm to move the scaled value.
-    servo.move( Math.floor(this.scaled));
+    servo.move(Math.floor(this.scaled));
   });
 
 });

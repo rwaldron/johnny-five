@@ -8,7 +8,7 @@ node eg/led-strobe.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, led;
+  board, led;
 
 board = new five.Board();
 
@@ -18,7 +18,7 @@ board.on("ready", function() {
   led = new five.Led(13);
 
   // "strobe" the led in 100ms on-off phases
-  led.strobe( 100 );
+  led.strobe(100);
 });
 
 ```

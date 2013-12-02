@@ -8,13 +8,13 @@ node eg/slider-pan.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, slider, tilt, scalingRange;
+  board, slider, tilt, scalingRange;
 
 board = new five.Board();
 
 board.on("ready", function() {
 
-  scalingRange = [ 0, 170 ];
+  scalingRange = [0, 170];
 
   slider = new five.Sensor({
     pin: "A0",
@@ -26,11 +26,11 @@ board.on("ready", function() {
     range: scalingRange
   });
 
-  slider.scale( scalingRange ).on("slide", function( err, value ) {
+  slider.scale(scalingRange).on("slide", function(err, value) {
 
     // The slider's value will be scaled to match the tilt servo range
 
-    tilt.move( Math.floor(this.value) );
+    tilt.move(Math.floor(this.value));
 
   });
 });
