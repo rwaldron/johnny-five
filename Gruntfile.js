@@ -74,7 +74,12 @@ module.exports = function(grunt) {
         }
       },
       files: {
-        src: ["Gruntfile.js", "lib/**/!(johnny-five)*.js", "test/**/*.js", "eg/**/*.js"]
+        src: [
+          "Gruntfile.js",
+          "lib/**/!(johnny-five)*.js",
+          "test/**/*.js",
+          "eg/**/*.js"
+        ]
       }
     },
 
