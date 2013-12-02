@@ -84,7 +84,7 @@ module.exports = function(grunt) {
     },
 
     jsbeautifier: {
-      files: ["lib/**/*.js"],
+      files: ["lib/**/*.js", "eg/**/*.js", "test/**/*.js"],
       options: {
         js: {
           braceStyle: "collapse",
