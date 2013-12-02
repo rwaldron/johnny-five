@@ -6,11 +6,11 @@ five.Board().on("ready", function() {
   var val = 0;
 
   // Set pin 13 to OUTPUT mode
-  this.pinMode( 13, 1 );
+  this.pinMode(13, 1);
 
   // Create a loop to "flash/blink/strobe" an led
-  this.loop( 100, function() {
-    this.digitalWrite( 13, (val = val ? 0 : 1) );
+  this.loop(100, function() {
+    this.digitalWrite(13, (val = val ? 0 : 1));
   });
 });
 

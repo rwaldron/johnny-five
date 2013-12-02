@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
-  var a = new five.Led.RGB([ 9, 10, 11 ]);
+  var a = new five.Led.RGB([9, 10, 11]);
 
   var b = new five.Led.RGB({
     pins: {

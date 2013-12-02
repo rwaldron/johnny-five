@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, servos;
+  board, servos;
 
 board = new five.Board();
 
@@ -8,7 +8,7 @@ board.on("ready", function() {
   servos = {
     claw: five.Servo({
       pin: 9,
-      range: [ 0, 170 ]
+      range: [0, 170]
     }),
     arm: five.Servo(10)
   };
@@ -22,7 +22,7 @@ board.on("ready", function() {
 
   servos.claw.min();
 
-  this.wait( 1000, function() {
+  this.wait(1000, function() {
     servos.claw.sweep();
   });
 });

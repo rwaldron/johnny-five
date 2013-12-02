@@ -23,8 +23,8 @@
 //
 //
 var five = require("../lib/johnny-five.js"),
-    board = new five.Board(),
-    device = process.argv[2] || "GP2Y0A02YK0F";
+  board = new five.Board(),
+  device = process.argv[2] || "GP2Y0A02YK0F";
 
 board.on("ready", function() {
   var distance = new five.IR.Distance({
@@ -35,10 +35,10 @@ board.on("ready", function() {
 
   distance.on("data", function() {
     if (device) {
-      console.log( "inches: ", this.inches );
-      console.log( "cm: ", this.cm, this.raw );
+      console.log("inches: ", this.inches);
+      console.log("cm: ", this.cm, this.raw);
     } else {
-      console.log( "value: ", this.value );
+      console.log("value: ", this.value);
     }
   });
 });

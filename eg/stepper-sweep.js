@@ -6,12 +6,12 @@ five.Board().on("ready", function() {
   stepper = new five.Stepper({
     type: five.Stepper.TYPE.DRIVER,
     stepsPerRev: 200,
-    pins: [ 11, 12 ]
+    pins: [11, 12]
   });
 
   function sweep() {
     // 200 stepsPerRev / 2 = 100 (180degree sweeps)
-    stepper[ ++k % 2 === 0 ? "ccw" : "cw" ]().step(100, function() {
+    stepper[++k % 2 === 0 ? "ccw" : "cw"]().step(100, function() {
       sweep();
     });
   }

@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, ir;
+  board, ir;
 
 board = new five.Board();
 board.on("ready", function() {
@@ -13,7 +13,7 @@ board.on("ready", function() {
     })
   };
 
-  ir.receive.scale([ 0, 100 ]).on("data", function() {
+  ir.receive.scale([0, 100]).on("data", function() {
 
     // console.log( this.value );
 

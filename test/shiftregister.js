@@ -1,16 +1,16 @@
 var MockFirmata = require("./mock-firmata"),
-    five = require("../lib/johnny-five.js"),
-    Board = five.Board,
-    ShiftRegister = five.ShiftRegister,
-    board = new five.Board({
-      repl: false,
-      firmata: new MockFirmata()
-    }),
-    sinon = require("sinon");
+  five = require("../lib/johnny-five.js"),
+  Board = five.Board,
+  ShiftRegister = five.ShiftRegister,
+  board = new five.Board({
+    repl: false,
+    firmata: new MockFirmata()
+  }),
+  sinon = require("sinon");
 
 exports["ShiftRegister"] = {
 
-  setUp: function( done ) {
+  setUp: function(done) {
 
     this.shiftRegister = new ShiftRegister({
       pins: {
@@ -21,42 +21,44 @@ exports["ShiftRegister"] = {
       board: board
     });
 
-    this.proto = [
-      { name: "send" }
-    ];
+    this.proto = [{
+      name: "send"
+    }];
 
-    this.instance = [
-      { name: "pins" }
-    ];
+    this.instance = [{
+      name: "pins"
+    }];
 
-    this.pins = [
-      { name: "data" },
-      { name: "clock" },
-      { name: "latch" }
-    ];
+    this.pins = [{
+      name: "data"
+    }, {
+      name: "clock"
+    }, {
+      name: "latch"
+    }];
 
     done();
   },
 
-  shape: function( test ) {
-    test.expect( this.proto.length + this.instance.length + this.pins.length );
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length + this.pins.length);
 
-    this.proto.forEach(function( method ) {
-      test.equal( typeof this.shiftRegister[ method.name ], "function" );
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.shiftRegister[method.name], "function");
     }, this);
 
-    this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.shiftRegister[ property.name ], "undefined" );
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.shiftRegister[property.name], "undefined");
     }, this);
 
-    this.pins.forEach(function( property ) {
-      test.notEqual( typeof this.shiftRegister.pins[ property.name ], "undefined" );
+    this.pins.forEach(function(property) {
+      test.notEqual(typeof this.shiftRegister.pins[property.name], "undefined");
     }, this);
 
     test.done();
   },
 
-  send: function( test ){
+  send: function(test) {
     var spy = sinon.spy(board.firmata, 'digitalWrite');
     var shiftOutSpy = sinon.spy(board, 'shiftOut');
     test.expect(6);

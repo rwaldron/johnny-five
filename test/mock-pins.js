@@ -1,458 +1,546 @@
-module.exports.UNOANALOG = [ 14, 15, 16, 17, 18, 19 ];
+module.exports.UNOANALOG = [14, 15, 16, 17, 18, 19];
 
-module.exports.UNO = [
-{ supportedModes: [],
+module.exports.UNO = [{
+  supportedModes: [],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [],
+  analogChannel: 127
+}, {
+  supportedModes: [],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 134,
   report: 1,
-  analogChannel: 0 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 0
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 132,
   report: 1,
-  analogChannel: 1 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 1
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 131,
   report: 1,
-  analogChannel: 2 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 2
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 128,
   report: 1,
-  analogChannel: 3 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 3
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 127,
   report: 1,
-  analogChannel: 4 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 4
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 121,
   report: 1,
-  analogChannel: 5 }
-];
+  analogChannel: 5
+}];
 
 
-module.exports.MEGA = [
-{ supportedModes: [],
+module.exports.MEGA = [{
+  supportedModes: [],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [],
+  analogChannel: 127
+}, {
+  supportedModes: [],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 3, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 4 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 4],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 127 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 127
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 0 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 0
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 1 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 1
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 2 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 2
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 3 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 3
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 4 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 4
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 5 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 5
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 6 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 6
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 7 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 7
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 8 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 8
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 9 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 9
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 10 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 10
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 11 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 11
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 12 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 12
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 13 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 13
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 14 },
-{ supportedModes: [ 0, 1, 2 ],
+  analogChannel: 14
+}, {
+  supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
   report: 1,
-  analogChannel: 15 }
-];
+  analogChannel: 15
+}];

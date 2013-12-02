@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   socket = io.connect("http://192.168.1.186:8080");
 
-  socket.on("createServo", function( data ) {
+  socket.on("createServo", function(data) {
     var div, span, input;
 
     div = $("<div>");
@@ -27,6 +27,6 @@ $(document).ready(function() {
     });
 
     div.append(span, input);
-    $body.append( div );
+    $body.append(div);
   });
 });

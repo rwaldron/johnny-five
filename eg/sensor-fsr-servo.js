@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, fsr, servo;
+  board, fsr, servo;
 
 board = new five.Board();
 
@@ -13,9 +13,9 @@ board.on("ready", function() {
 
   servo = new five.Servo(10);
 
-  fsr.scale([ 0, 180 ]).on("data", function() {
+  fsr.scale([0, 180]).on("data", function() {
 
-    servo.move( this.value );
+    servo.move(this.value);
 
   });
 });

@@ -8,7 +8,7 @@ Copyright (C) 2009-2011; see the AUTHORS file for authors and
 copyright holders.
 */
 
-function PVector( x, y, z ) {
+function PVector(x, y, z) {
   this.x = x || 0;
   this.y = y || 0;
   this.z = z || 0;
@@ -54,8 +54,8 @@ PVector.prototype = {
   set: function(v, y, z) {
     if (arguments.length === 1) {
       this.set(v.x || v[0] || 0,
-               v.y || v[1] || 0,
-               v.z || v[2] || 0);
+        v.y || v[1] || 0,
+        v.z || v[2] || 0);
     } else {
       this.x = v;
       this.y = y;
@@ -67,14 +67,14 @@ PVector.prototype = {
   },
   mag: function() {
     var x = this.x,
-        y = this.y,
-        z = this.z;
+      y = this.y,
+      z = this.z;
     return Math.sqrt(x * x + y * y + z * z);
   },
   magSq: function() {
     var x = this.x,
-        y = this.y,
-        z = this.z;
+      y = this.y,
+      z = this.z;
     return (x * x + y * y + z * z);
   },
   setMag: function(v_or_len, len) {
@@ -142,8 +142,8 @@ PVector.prototype = {
   },
   dist: function(v) {
     var dx = this.x - v.x,
-        dy = this.y - v.y,
-        dz = this.z - v.z;
+      dy = this.y - v.y,
+      dz = this.z - v.z;
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
   },
   dot: function(v, y, z) {
@@ -154,11 +154,11 @@ PVector.prototype = {
   },
   cross: function(v) {
     var x = this.x,
-        y = this.y,
-        z = this.z;
+      y = this.y,
+      z = this.z;
     return new PVector(y * v.z - v.y * z,
-                       z * v.x - v.z * x,
-                       x * v.y - v.x * y);
+      z * v.x - v.z * x,
+      x * v.y - v.x * y);
   },
   normalize: function() {
     var m = this.mag();

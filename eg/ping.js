@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, ping;
+  board, ping;
 
 board = new five.Board();
 
@@ -29,13 +29,13 @@ board.on("ready", function() {
   // Ping Event API
 
   // "data" get the current reading from the ping
-  ping.on("data", function( err, value ) {
-    console.log( "data", value );
+  ping.on("data", function(err, value) {
+    console.log("data", value);
   });
 
-  ping.on("change", function( err, value ) {
+  ping.on("change", function(err, value) {
 
-    console.log( typeof this.inches );
-    console.log( "Object is " + this.inches + "inches away" );
+    console.log(typeof this.inches);
+    console.log("Object is " + this.inches + "inches away");
   });
 });

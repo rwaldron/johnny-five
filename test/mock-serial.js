@@ -1,15 +1,15 @@
 // Derived and adapted from firmata/test/MockSerialPort.js
 
 var util = require("util"),
-    events = require("events");
+  events = require("events");
 
-var MockSerialPort = function( path ) {
+var MockSerialPort = function(path) {
   this.isClosed = false;
 };
 
-util.inherits( MockSerialPort, events.EventEmitter );
+util.inherits(MockSerialPort, events.EventEmitter);
 
-MockSerialPort.prototype.write = function( buffer ) {
+MockSerialPort.prototype.write = function(buffer) {
   // this.lastWrite = buffer;
 };
 

@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, joystick;
+  board, joystick;
 
 board = new five.Board();
 
@@ -11,7 +11,7 @@ board.on("ready", function() {
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: [ "A0", "A1" ],
+    pins: ["A0", "A1"],
     freq: 500
   });
 
@@ -24,7 +24,7 @@ board.on("ready", function() {
 
   // Joystick Event API
 
-  joystick.on("axismove", function( err, timestamp ) {
+  joystick.on("axismove", function(err, timestamp) {
 
     // Axis data is available on:
     // this.axis
@@ -40,9 +40,9 @@ board.on("ready", function() {
     // console.log( "UD:", this.axis.y, this.normalized.y );
     // console.log( "MAG:", this.magnitude );
 
-    console.log( "LR:", this.fixed.x );
-    console.log( "UD:", this.fixed.y );
-    console.log( "MAG:", this.magnitude );
+    console.log("LR:", this.fixed.x);
+    console.log("UD:", this.fixed.y);
+    console.log("MAG:", this.magnitude);
 
   });
 });

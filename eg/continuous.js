@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, servo;
+  board, servo;
 
 board = new five.Board();
 
@@ -26,6 +26,6 @@ board.on("ready", function() {
   // move( speed )
   // Set the speed at which the continuous rotation
   // servo will rotate at.
-  servo.move( 90 );
+  servo.move(90);
 
 });

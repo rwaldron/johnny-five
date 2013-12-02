@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, motor, led;
+  board, motor, led;
 
 board = new five.Board();
 
@@ -19,18 +19,18 @@ board.on("ready", function() {
   // Motor Event API
 
   // "start" events fire when the motor is started.
-  motor.on("start", function( err, timestamp ) {
-    console.log( "start", timestamp );
+  motor.on("start", function(err, timestamp) {
+    console.log("start", timestamp);
 
     // Demonstrate motor stop in 2 seconds
-    board.wait( 2000, function() {
+    board.wait(2000, function() {
       motor.stop();
     });
   });
 
   // "stop" events fire when the motor is started.
-  motor.on("stop", function( err, timestamp ) {
-    console.log( "stop", timestamp );
+  motor.on("stop", function(err, timestamp) {
+    console.log("stop", timestamp);
   });
 
   // Motor API

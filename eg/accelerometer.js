@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, accel;
+  board, accel;
 
 board = new five.Board();
 
@@ -16,7 +16,7 @@ board.on("ready", function() {
   //
 
   accel = new five.Accelerometer({
-    pins: [ "A3", "A4", "A5" ],
+    pins: ["A3", "A4", "A5"],
     freq: 100,
     threshold: 0.2
   });
@@ -28,18 +28,18 @@ board.on("ready", function() {
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function( err, data ) {
+  accel.on("acceleration", function(err, data) {
 
-    console.log( "acceleration", data.smooth );
+    console.log("acceleration", data.smooth);
   });
 
   // "axischange"
   //
   // Fires only when X, Y or Z has changed
   //
-  accel.on("axischange", function( err, timestamp ) {
+  accel.on("axischange", function(err, timestamp) {
 
-    console.log( "axischange", this.raw );
+    console.log("axischange", this.raw);
   });
 });
 

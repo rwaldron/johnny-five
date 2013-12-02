@@ -1,43 +1,49 @@
 var five = require("../lib/johnny-five.js"),
-    sinon = require("sinon"),
-    MockFirmata = require("./mock-firmata"),
-    Board = five.Board,
-    Piezo = five.Piezo;
+  sinon = require("sinon"),
+  MockFirmata = require("./mock-firmata"),
+  Board = five.Board,
+  Piezo = five.Piezo;
 
 exports["Piezo"] = {
 
-  setUp: function( done ) {
+  setUp: function(done) {
     this.board = new Board({
       repl: false,
       firmata: new MockFirmata()
     });
 
     this.clock = sinon.useFakeTimers();
-    this.spy = sinon.spy( this.board.firmata, "digitalWrite" );
+    this.spy = sinon.spy(this.board.firmata, "digitalWrite");
 
-    this.piezo = new Piezo({ pin: 3, board: this.board });
+    this.piezo = new Piezo({
+      pin: 3,
+      board: this.board
+    });
 
-    this.proto = [
-      { name: "tone" },
-      { name: "noTone" },
-      { name: "off" },
-      { name: "song" }
-    ];
+    this.proto = [{
+      name: "tone"
+    }, {
+      name: "noTone"
+    }, {
+      name: "off"
+    }, {
+      name: "song"
+    }];
 
-    this.instance = [
-      { name: "isPlaying" }
-    ];
+    this.instance = [{
+      name: "isPlaying"
+    }];
 
     done();
   },
 
-  tearDown: function( done ) {
+  tearDown: function(done) {
     this.clock.restore();
 
     done();
   },
 
-  notes: function( test ) {
+  notes: function(test) {
     test.expect(8);
 
     var notes = {
@@ -58,31 +64,31 @@ exports["Piezo"] = {
     test.done();
   },
 
-  shape: function( test ) {
-    test.expect( this.proto.length + this.instance.length );
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function( method ) {
-      test.equal( typeof this.piezo[ method.name ], "function" );
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.piezo[method.name], "function");
     }, this);
 
-    this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.piezo[ property.name ], "undefined" );
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.piezo[property.name], "undefined");
     }, this);
 
     test.done();
   },
 
-  tone: function( test ) {
+  tone: function(test) {
     test.expect(2);
 
-    var returned = this.piezo.tone( 1915, 1000 );
+    var returned = this.piezo.tone(1915, 1000);
     test.ok(this.spy.called);
     test.equal(returned, this.piezo);
 
     test.done();
   },
 
-  noTone: function( test ) {
+  noTone: function(test) {
     test.expect(2);
 
     var returned = this.piezo.noTone();
@@ -92,7 +98,7 @@ exports["Piezo"] = {
     test.done();
   },
 
-  song: function( test ) {
+  song: function(test) {
     test.expect(3);
 
     var returned = this.piezo.song(" ", "1");
@@ -100,7 +106,7 @@ exports["Piezo"] = {
     test.equal(returned, this.piezo);
 
 
-    this.piezo.song(" ", [ 1 ]);
+    this.piezo.song(" ", [1]);
     test.ok(this.spy.calledWith(3, 0));
 
     test.done();

@@ -22,7 +22,10 @@ board.on('ready', function() {
 
     // once first movement is done, make 10 revolutions clockwise at previously
     //      defined speed, accel, and decel by passing an object into stepper.step
-    stepper.step({ steps:2000, direction: board.firmata.STEPPER.DIRECTION.CCW }, function() {
+    stepper.step({
+      steps: 2000,
+      direction: board.firmata.STEPPER.DIRECTION.CCW
+    }, function() {
       console.log('done moving CW');
     });
 

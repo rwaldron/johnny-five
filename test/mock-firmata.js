@@ -1,8 +1,8 @@
 var util = require("util"),
-    events = require("events"),
-    pins = require("./mock-pins");
+  events = require("events"),
+  pins = require("./mock-pins");
 
-function MockFirmata( opt ) {
+function MockFirmata(opt) {
   opt = opt || {};
   this.pins = opt.pins || pins.UNO;
   this.analogPins = opt.analogPins || pins.UNOANALOG;
@@ -17,13 +17,13 @@ function MockFirmata( opt ) {
   this.LOW = 0;
 }
 
-util.inherits( MockFirmata, events.EventEmitter );
+util.inherits(MockFirmata, events.EventEmitter);
 
-["digitalWrite", "analogWrite", "analogRead", "digitalRead", "pinMode"].forEach(function (value) {
-  MockFirmata.prototype[value] = function () {};
+["digitalWrite", "analogWrite", "analogRead", "digitalRead", "pinMode"].forEach(function(value) {
+  MockFirmata.prototype[value] = function() {};
 });
 
-MockFirmata.prototype.pulseIn = function (opt, callback) {
+MockFirmata.prototype.pulseIn = function(opt, callback) {
   callback(this.pulseValue);
 };
 

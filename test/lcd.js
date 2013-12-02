@@ -1,77 +1,103 @@
 var SerialPort = require("./mock-serial").SerialPort,
-    pins = require("./mock-pins"),
-    five = require("../lib/johnny-five.js"),
-    Board = five.Board,
-    LCD = five.LCD,
-    sinon = require("sinon"),
-    util = require("util");
+  pins = require("./mock-pins"),
+  five = require("../lib/johnny-five.js"),
+  Board = five.Board,
+  LCD = five.LCD,
+  sinon = require("sinon"),
+  util = require("util");
 
 function createNewBoard() {
   var serial = new SerialPort("/path/to/fake/usb"),
-      board = new five.Board({
-        repl: false,
-        debug: true,
-        mock: serial
-      });
+    board = new five.Board({
+      repl: false,
+      debug: true,
+      mock: serial
+    });
 
   board.firmata.pins = pins.UNO;
-  board.firmata.analogPins = [ 14, 15, 16, 17, 18, 19 ];
-  board.pins = Board.Pins( board );
+  board.firmata.analogPins = [14, 15, 16, 17, 18, 19];
+  board.pins = Board.Pins(board);
   return board;
 }
 
 // END
 
 exports["LCD"] = {
-  setUp: function( done ) {
+  setUp: function(done) {
     this.board = createNewBoard();
-    this.spy = sinon.spy( this.board.firmata, "digitalWrite" );
+    this.spy = sinon.spy(this.board.firmata, "digitalWrite");
 
-    this.lcd = new LCD({ pins: [7, 8, 9, 10, 11, 12], board: this.board });
+    this.lcd = new LCD({
+      pins: [7, 8, 9, 10, 11, 12],
+      board: this.board
+    });
 
-    this.proto = [
-      { name: "autoscroll" },
-      { name: "blink" },
-      { name: "clear" },
-      { name: "command" },
-      { name: "createChar" },
-      { name: "cursor" },
-      { name: "display" },
-      { name: "home" },
-      { name: "noAutoscroll" },
-      { name: "noBlink" },
-      { name: "noCursor" },
-      { name: "noDisplay" },
-      { name: "print" },
-      { name: "pulse" },
-      { name: "setCursor" },
-      { name: "useChar" },
-      { name: "write" },
-      { name: "writeBits" }
-    ];
+    this.proto = [{
+      name: "autoscroll"
+    }, {
+      name: "blink"
+    }, {
+      name: "clear"
+    }, {
+      name: "command"
+    }, {
+      name: "createChar"
+    }, {
+      name: "cursor"
+    }, {
+      name: "display"
+    }, {
+      name: "home"
+    }, {
+      name: "noAutoscroll"
+    }, {
+      name: "noBlink"
+    }, {
+      name: "noCursor"
+    }, {
+      name: "noDisplay"
+    }, {
+      name: "print"
+    }, {
+      name: "pulse"
+    }, {
+      name: "setCursor"
+    }, {
+      name: "useChar"
+    }, {
+      name: "write"
+    }, {
+      name: "writeBits"
+    }];
 
-    this.instance = [
-      { name: "bitMode" },
-      { name: "cols" },
-      { name: "dots" },
-      { name: "id" },
-      { name: "lines" },
-      { name: "pins" },
-      { name: "rows" }
-    ];
+    this.instance = [{
+      name: "bitMode"
+    }, {
+      name: "cols"
+    }, {
+      name: "dots"
+    }, {
+      name: "id"
+    }, {
+      name: "lines"
+    }, {
+      name: "pins"
+    }, {
+      name: "rows"
+    }];
 
     done();
   },
 
-  shape: function( test ) {
-    test.expect( this.proto.length + this.instance.length );
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function( method ) {
-      test.equal( typeof this.lcd[ method.name ], "function" );
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.lcd[method.name], "function");
     }, this);
 
-    this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.lcd[ property.name ], "undefined" );
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.lcd[property.name], "undefined");
     }, this);
 
     test.done();
@@ -246,30 +272,31 @@ exports["LCD"] = {
 
     // These assume LCD.MEMORYLIMIT is 8, for readability
     var sentences = [
-      [":heart:",         "\07"],
+      [":heart:", "\07"],
 
-      [":heart: JS",      "\07 JS"],
-      [":heart:JS",       "\07JS"],
-      ["JS :heart:",      "JS \07"],
-      ["JS:heart:",       "JS\07"],
-      ["I  :heart:  JS",  "I  \07  JS"],
-      ["I:heart:JS",      "I\07JS"],
+      [":heart: JS", "\07 JS"],
+      [":heart:JS", "\07JS"],
+      ["JS :heart:", "JS \07"],
+      ["JS:heart:", "JS\07"],
+      ["I  :heart:  JS", "I  \07  JS"],
+      ["I:heart:JS", "I\07JS"],
 
-      ["I :heart: JS :smile:",                 "I \07 JS \06"],
-      ["I:heart:JS :smile:",                   "I\07JS \06"],
+      ["I :heart: JS :smile:", "I \07 JS \06"],
+      ["I:heart:JS :smile:", "I\07JS \06"],
       ["I :heart::heart::heart: JS :smile: !", "I \07\07\07 JS \06 !"],
 
-      ["I :heart: :unknown: symbols",          "I \07 :unknown: symbols"]
+      ["I :heart: :unknown: symbols", "I \07 :unknown: symbols"]
     ];
 
     sentences.forEach(function(pair) {
-      var text = pair[0], comparison = pair[1];
+      var text = pair[0],
+        comparison = pair[1];
 
       (text.match(/:\w+?:/g) || []).forEach(function(match) {
-        if (":unknown:" !== match) {
-          this.lcd.useChar(match.slice(1, -1));
-        }
-      }, this);
+          if (":unknown:" !== match) {
+            this.lcd.useChar(match.slice(1, -1));
+          }
+        }, this);
       var cSpy = sinon.spy(this.lcd, "command");
       this.lcd.print(text);
 

@@ -1,30 +1,32 @@
 var five = require("../lib/johnny-five.js"),
-    when = require("when"),
-    boards, readyList, joystick, led, servo;
+  when = require("when"),
+  boards, readyList, joystick, led, servo;
 
 boards = {};
 readyList = [];
 
-[ "navigator", "controller" ].forEach(function( name ) {
+["navigator", "controller"].forEach(function(name) {
   var deferred = when.defer();
 
-  readyList.push( deferred.promise );
+  readyList.push(deferred.promise);
 
   (
-    boards[ name ] = new five.Board({ id: name })
-  ).on( "ready", function() {
+    boards[name] = new five.Board({
+      id: name
+    })
+  ).on("ready", function() {
 
-    deferred.resolve( this );
+    deferred.resolve(this);
   });
 });
 
-when.all( readyList, function() {
+when.all(readyList, function() {
   // console.log( "resolved" );
   var last, dirs, turn;
 
   joystick = new five.Joystick({
     board: boards.controller,
-    pins: [ "A0", "A1" ],
+    pins: ["A0", "A1"],
     freq: 100
   });
 
@@ -36,12 +38,12 @@ when.all( readyList, function() {
   servo = new five.Servo({
     board: boards.navigator,
     pin: 12,
-    range: [ 10, 170 ]
+    range: [10, 170]
   });
 
   last = 1;
-  dirs = [ "left", undefined, "right" ];
-  turn = [ "max", "center", "min" ];
+  dirs = ["left", undefined, "right"];
+  turn = ["max", "center", "min"];
 
   servo.center();
 
@@ -53,15 +55,15 @@ when.all( readyList, function() {
 
     // If the joystick has actually moved and it's
     // not in the center...
-    if ( last !== position ) {
+    if (last !== position) {
       last = position;
 
-      if ( position !== 1 ) {
-        console.log( dirs[ position ] );
+      if (position !== 1) {
+        console.log(dirs[position]);
       }
 
 
-      servo[ turn[ position ] ]();
+      servo[turn[position]]();
     }
   });
 });

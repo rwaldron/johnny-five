@@ -1,75 +1,93 @@
 var MockFirmata = require("./mock-firmata"),
-    five = require("../lib/johnny-five.js"),
-    events = require("events"),
-    sinon = require("sinon"),
-    Board = five.Board,
-    Sensor = five.Sensor,
-    board = new five.Board({
-      repl: false,
-      firmata: new MockFirmata()
-    });
+  five = require("../lib/johnny-five.js"),
+  events = require("events"),
+  sinon = require("sinon"),
+  Board = five.Board,
+  Sensor = five.Sensor,
+  board = new five.Board({
+    repl: false,
+    firmata: new MockFirmata()
+  });
 
 exports["Sensor"] = {
-  setUp: function( done ) {
+  setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.firmata, "analogRead");
-    this.sensor = new Sensor({ pin: "A1", board: board });
+    this.sensor = new Sensor({
+      pin: "A1",
+      board: board
+    });
 
-    this.proto = [
-      { name: "scale" },
-      { name: "scaleTo" },
-      { name: "booleanAt" },
-      { name: "within" }
-    ];
+    this.proto = [{
+      name: "scale"
+    }, {
+      name: "scaleTo"
+    }, {
+      name: "booleanAt"
+    }, {
+      name: "within"
+    }];
 
-    this.instance = [
-      { name: "id" },
-      { name: "pin" },
-      { name: "mode" },
-      { name: "freq" },
-      { name: "range" },
-      { name: "threshold" },
-      { name: "isScaled" },
-      { name: "raw" },
-      { name: "analog" },
-      { name: "constrained" },
-      { name: "boolean" },
-      { name: "scaled" },
-      { name: "value" },
-    ];
+    this.instance = [{
+      name: "id"
+    }, {
+      name: "pin"
+    }, {
+      name: "mode"
+    }, {
+      name: "freq"
+    }, {
+      name: "range"
+    }, {
+      name: "threshold"
+    }, {
+      name: "isScaled"
+    }, {
+      name: "raw"
+    }, {
+      name: "analog"
+    }, {
+      name: "constrained"
+    }, {
+      name: "boolean"
+    }, {
+      name: "scaled"
+    }, {
+      name: "value"
+    }, ];
 
     done();
   },
 
-  tearDown: function( done ) {
+  tearDown: function(done) {
     this.clock.restore();
     this.analogRead.restore();
     done();
   },
 
-  shape: function( test ) {
-    test.expect( this.proto.length + this.instance.length );
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function( method ) {
-      test.equal( typeof this.sensor[ method.name ], "function" );
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.sensor[method.name], "function");
     }, this);
 
-    this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.sensor[ property.name ], "undefined" );
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.sensor[property.name], "undefined");
     }, this);
 
     test.done();
   },
 
-  emitter: function( test ) {
-    test.expect( 1 );
+  emitter: function(test) {
+    test.expect(1);
 
-    test.ok( this.sensor instanceof events.EventEmitter );
+    test.ok(this.sensor instanceof events.EventEmitter);
 
     test.done();
   },
 
-  data: function( test ) {
+  data: function(test) {
     var spy = sinon.spy();
     test.expect(1);
     this.sensor.on("data", spy);
@@ -78,9 +96,9 @@ exports["Sensor"] = {
     test.done();
   },
 
-  change: function( test ) {
+  change: function(test) {
     var callback = this.analogRead.args[0][1],
-        spy = sinon.spy();
+      spy = sinon.spy();
 
     test.expect(2);
     this.sensor.on("change", spy);
@@ -94,7 +112,7 @@ exports["Sensor"] = {
     test.done();
   },
 
-  scale: function( test ) {
+  scale: function(test) {
     var callback = this.analogRead.args[0][1];
 
     test.expect(2);
@@ -117,14 +135,14 @@ exports["Sensor"] = {
     test.done();
   },
 
-  within: function( test ) {
+  within: function(test) {
     var callback = this.analogRead.args[0][1];
 
     test.expect(1);
 
     // While the sensor value is between the given values,
     // invoke the registered handler.
-    this.sensor.within([ 400, 600 ], function() {
+    this.sensor.within([400, 600], function() {
       test.equal(this.value, 500);
     });
 
@@ -138,9 +156,9 @@ exports["Sensor"] = {
     test.done();
   },
 
-  booleanAt: function( test ) {
+  booleanAt: function(test) {
     var callback = this.analogRead.args[0][1],
-        expected = false;
+      expected = false;
     test.expect(2);
 
     this.sensor.booleanAt(512);
@@ -158,7 +176,7 @@ exports["Sensor"] = {
     test.done();
   },
 
-  constrained: function( test ) {
+  constrained: function(test) {
     var callback = this.analogRead.args[0][1];
     test.expect(1);
 
@@ -171,7 +189,7 @@ exports["Sensor"] = {
     test.done();
   },
 
-  analog: function( test ) {
+  analog: function(test) {
     var callback = this.analogRead.args[0][1];
 
     test.expect(3);

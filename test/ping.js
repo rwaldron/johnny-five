@@ -1,53 +1,60 @@
 var MockFirmata = require("./mock-firmata"),
-    sinon = require("sinon"),
-    pins = require("./mock-pins"),
-    five = require("../lib/johnny-five.js"),
-    Board = five.Board,
-    Ping = five.Ping,
-    board = new five.Board({
-      repl: false,
-      firmata: new MockFirmata()
-    });
+  sinon = require("sinon"),
+  pins = require("./mock-pins"),
+  five = require("../lib/johnny-five.js"),
+  Board = five.Board,
+  Ping = five.Ping,
+  board = new five.Board({
+    repl: false,
+    firmata: new MockFirmata()
+  });
 
 exports["Ping"] = {
 
-  setUp: function( done ) {
+  setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.ping = new Ping({ pin: 7, board: board });
+    this.ping = new Ping({
+      pin: 7,
+      board: board
+    });
 
     this.proto = [];
-    this.instance = [
-      { name: "id" },
-      { name: "freq" },
-      { name: "pulse" },
-      { name: "inches" },
-      { name: "cm" }
-    ];
+    this.instance = [{
+      name: "id"
+    }, {
+      name: "freq"
+    }, {
+      name: "pulse"
+    }, {
+      name: "inches"
+    }, {
+      name: "cm"
+    }];
 
     done();
   },
 
-  tearDown: function( done ) {
+  tearDown: function(done) {
     this.clock.restore();
     done();
   },
 
-  shape: function( test ) {
+  shape: function(test) {
 
-    test.expect( this.proto.length + this.instance.length );
+    test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function( method ) {
-      test.equal( typeof this.ping[ method.name ], "function" );
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.ping[method.name], "function");
     }, this);
 
-    this.instance.forEach(function( property ) {
-      test.notEqual( typeof this.ping[ property.name ], "undefined" );
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.ping[property.name], "undefined");
     }, this);
 
     test.done();
   },
 
-  data: function( test ) {
+  data: function(test) {
     var spy = sinon.spy();
     test.expect(1);
     this.ping.on("data", spy);
@@ -56,7 +63,7 @@ exports["Ping"] = {
     test.done();
   },
 
-  change: function( test ) {
+  change: function(test) {
     var spy = sinon.spy();
     test.expect(1);
     this.ping.on("change", spy);

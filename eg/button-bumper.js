@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    bumper, led;
+  bumper, led;
 
 five.Board().on("ready", function() {
 

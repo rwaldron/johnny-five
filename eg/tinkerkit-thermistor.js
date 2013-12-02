@@ -1,4 +1,5 @@
-var five = require("../lib/johnny-five.js"), Thermistor;
+var five = require("../lib/johnny-five.js"),
+  Thermistor;
 
 (function() {
   var adcres, beta, kelvin, rb, ginf;
@@ -14,24 +15,24 @@ var five = require("../lib/johnny-five.js"), Thermistor;
   ginf = 120.6685;
 
   Thermistor = {
-    c: function( raw ) {
+    c: function(raw) {
       var rthermistor, tempc;
 
       rthermistor = rb * (adcres / raw - 1);
-      tempc = beta / ( Math.log( rthermistor * ginf ) );
+      tempc = beta / (Math.log(rthermistor * ginf));
 
       return tempc - kelvin;
     },
-    f: function( raw ) {
-      return ( this.c(raw) * 9 ) / 5 + 32;
+    f: function(raw) {
+      return (this.c(raw) * 9) / 5 + 32;
     }
   };
 }());
 
 new five.Board().on("ready", function() {
   new five.Sensor("I0").on("change", function() {
-    console.log( "F: ", Thermistor.f(this.value) );
-    console.log( "C: ", Thermistor.c(this.value) );
+    console.log("F: ", Thermistor.f(this.value));
+    console.log("C: ", Thermistor.c(this.value));
   });
 });
 

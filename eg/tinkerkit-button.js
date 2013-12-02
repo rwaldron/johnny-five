@@ -6,9 +6,9 @@ new five.Board().on("ready", function() {
   // the button to an I* pin.
   var button = new five.Button("O5");
 
-  [ "down", "up", "hold" ].forEach(function( type ) {
-    button.on( type, function() {
-      console.log( type );
+  ["down", "up", "hold"].forEach(function(type) {
+    button.on(type, function() {
+      console.log(type);
     });
   });
 });

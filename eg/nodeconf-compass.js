@@ -1,6 +1,6 @@
 var color = require("colors"),
-    five = require("../lib/johnny-five.js"),
-    colors, mag;
+  five = require("../lib/johnny-five.js"),
+  colors, mag;
 
 five.Board().on("ready", function() {
 
@@ -11,10 +11,10 @@ five.Board().on("ready", function() {
   mag.on("headingchange", function() {
     var log;
 
-    log = ( this.bearing.name + " " + Math.floor(this.heading) + "°" );
+    log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
 
     console.log(
-      log[ colors[ this.bearing.abbr ] ]
+      log[colors[this.bearing.abbr]]
     );
   });
 });

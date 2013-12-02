@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, sonar;
+  board, sonar;
 
 board = new five.Board();
 
@@ -38,13 +38,13 @@ board.on("ready", function() {
       this.cm  - calculated distance, centimeters
 
     */
-    console.log( "data", "Object is " + this.inches + "inches away" );
+    console.log("data", "Object is " + this.inches + "inches away");
   });
 
   //
   // "change" fired when distance reading changes
   //
   sonar.on("change", function() {
-    console.log( "change", "Object is " + this.inches + "inches away" );
+    console.log("change", "Object is " + this.inches + "inches away");
   });
 });

@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, array;
+  board, array;
 
 board = new five.Board();
 
@@ -8,7 +8,7 @@ board.on("ready", function() {
   five.Servo({
     pin: 9,
     // Limit this servo to 170°
-    range: [ 0, 170 ]
+    range: [0, 170]
   });
 
   five.Servo(10);

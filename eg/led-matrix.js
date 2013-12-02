@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five"),
-    board, lc;
+  board, lc;
 
 board = new five.Board();
 
@@ -29,26 +29,30 @@ board.on("ready", function() {
   });
 
   function queue(fn) {
-    process.nextTick( fn );
+    process.nextTick(fn);
   }
 
   lc.heart = function() {
     heart.forEach(function(row, rowIndex) {
-      queue( function() { lc.row( 0, rowIndex, parseInt( row, 2 ) ); } );
+      queue(function() {
+        lc.row(0, rowIndex, parseInt(row, 2));
+      });
     });
   };
 
-  lc.on( 0 );
+  lc.on(0);
 
   var msg = "johnny-five";
   var idx = 0;
 
   function next() {
-    var c = msg[ idx ];
-    lc.char( 0, c );
+    var c = msg[idx];
+    lc.char(0, c);
     idx++;
-    if ( idx === msg.length ) { return; }
-    setTimeout( next, 800 );
+    if (idx === msg.length) {
+      return;
+    }
+    setTimeout(next, 800);
   }
 
   next();

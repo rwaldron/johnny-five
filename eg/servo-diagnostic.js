@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    args, pins, ranges;
+  args, pins, ranges;
 
 /**
  * This program is useful for manual servo administration.
@@ -23,15 +23,16 @@ args = process.argv.slice(2);
 pins = [];
 ranges = [];
 
-args.forEach(function( val ) {
-  var vals = val.split(":").map(function(v) { return +v; });
+args.forEach(function(val) {
+  var vals = val.split(":").map(function(v) {
+    return +v;
+  });
 
-  pins.push( vals[0] );
+  pins.push(vals[0]);
 
   ranges.push(
     vals.length === 3 ?
-    vals.slice(1) :
-    [ 0, 180 ]
+    vals.slice(1) : [0, 180]
   );
 });
 
@@ -39,10 +40,10 @@ args.forEach(function( val ) {
   var servos;
 
   // With each provided pin number, create a servo instance
-  pins.forEach(function( pin, k ) {
+  pins.forEach(function(pin, k) {
     new five.Servo({
       pin: pin,
-      range: ranges[ k ]
+      range: ranges[k]
     });
   }, this);
 

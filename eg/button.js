@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, button;
+  board, button;
 
 board = new five.Board();
 
