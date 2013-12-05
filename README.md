@@ -11,6 +11,9 @@
 
 #### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
 
+## API Documentation
+
+Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki)
 
 ## Many fragments. Some large, some small.
 
