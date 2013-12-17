@@ -52,6 +52,8 @@ exports["Led - Digital"] = {
       name: "value"
     }, {
       name: "interval"
+    },{
+      name: "mode"
     }];
 
     done();
@@ -68,6 +70,12 @@ exports["Led - Digital"] = {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
+    test.done();
+  },
+
+  defaultMode: function(test) {
+    test.expect(1);
+    test.equal(this.led.mode, 1);
     test.done();
   },
 
@@ -191,6 +199,12 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  defaultMode: function(test) {
+    test.expect(1);
+    test.equal(this.led.mode, 3);
+    test.done();
+  },
+
   on: function(test) {
     test.expect(1);
 
@@ -256,8 +270,28 @@ exports["Led - PWM (Analog)"] = {
     clearInterval.restore();
     setInterval.restore();
     test.done();
-  }
+  },
 
+  autoMode: function(test) {
+    test.expect(4);
+
+    this.led.mode = 1;
+    this.led.brightness(255);
+    test.equal(this.led.mode, 3);
+
+    this.led.mode = 1;
+    this.led.pulse();
+    test.equal(this.led.mode, 3);
+
+    this.led.mode = 1;
+    this.led.fade();
+    test.equal(this.led.mode, 3);
+
+    this.led.strobe();
+    test.equal(this.led.mode, 1);
+
+    test.done();
+  }
 };
 
 
