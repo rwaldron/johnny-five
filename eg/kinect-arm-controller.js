@@ -403,15 +403,15 @@ five.Board().on("ready", function() {
         // making and if so, set the servo position
         //
         if (change.rotator.isNoticeable(values.rotator)) {
-          servos.rotator.move(values.rotator);
+          servos.rotator.to(values.rotator);
         }
 
         if (change.upper.isNoticeable(values.upper)) {
-          servos.upper.move(values.upper);
+          servos.upper.to(values.upper);
         }
 
         if (change.fore.isNoticeable(values.fore)) {
-          servos.fore.move(values.fore);
+          servos.fore.to(values.fore);
         }
       }
     }

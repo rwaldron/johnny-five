@@ -33,8 +33,8 @@ board.on("ready", function() {
   accel.on("acceleration", function(err, timestamp) {
     // console.log( "acceleration", this.axis );
 
-    tilt.move(Math.abs(Math.ceil(170 * this.pitch.toFixed(2)) - 180));
-    pan.move(Math.ceil(170 * this.roll.toFixed(2)));
+    tilt.to(Math.abs(Math.ceil(170 * this.pitch.toFixed(2)) - 180));
+    pan.to(Math.ceil(170 * this.roll.toFixed(2)));
 
     // TODO: Math.abs(v - 180) as inversion function ?
   });

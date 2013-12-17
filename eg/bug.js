@@ -56,8 +56,8 @@ Bug.prototype.idle = function() {
   }
 
   // set to center position°
-  this.front.move(90);
-  this.rear.move(90);
+  this.front.to(90);
+  this.rear.to(90);
 
   //return this;
 };
@@ -102,8 +102,8 @@ Bug.prototype.step = function(opts) {
   rear = 90 + move[1];
 
   // Write position° to servos
-  this.front.move(front);
-  this.rear.move(rear);
+  this.front.to(front);
+  this.rear.to(rear);
 
   // Allow half step or full if provided,
   // defaults to full

@@ -56,7 +56,7 @@ board.on("ready", function() {
   //
   // set all servos to deg
   //
-  // eg. array.move( deg );
+  // eg. array.to( deg );
 
   // stop()
   //

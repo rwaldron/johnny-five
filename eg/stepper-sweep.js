@@ -9,12 +9,22 @@ five.Board().on("ready", function() {
     pins: [11, 12]
   });
 
-  function sweep() {
-    // 200 stepsPerRev / 2 = 100 (180degree sweeps)
-    stepper[++k % 2 === 0 ? "ccw" : "cw"]().step(100, function() {
-      sweep();
-    });
-  }
+  // function sweep() {
+  //   // 200 stepsPerRev / 2 = 100 (180degree sweeps)
+  //   stepper[++k % 2 === 0 ? "ccw" : "cw"]().step(100, function() {
+  //     sweep();
+  //   });
+  // }
 
-  sweep();
+  stepper.rpm(180).ccw().step(2000, function() {
+    console.log( "done" );
+  });
+
+  this.repl.inject({
+    stepper: stepper
+  });
+
+
+
+  // sweep();
 });

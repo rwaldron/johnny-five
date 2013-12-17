@@ -13,10 +13,10 @@ var five = require("../lib/johnny-five.js"),
 
 
     function slice() {
-      wrist.move(100);
+      wrist.to(100);
 
       compulsive.wait(100, function() {
-        wrist.move(120);
+        wrist.to(120);
       });
     }
 

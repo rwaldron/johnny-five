@@ -89,7 +89,7 @@ board.on("ready", function() {
       });
     });
     socket.on("range", function(data) {
-      servos[data.id].move(data.value);
+      servos[data.id].to(data.value);
     });
   });
 });
