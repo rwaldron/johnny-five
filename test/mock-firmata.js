@@ -19,7 +19,11 @@ function MockFirmata(opt) {
 
 util.inherits(MockFirmata, events.EventEmitter);
 
-["digitalWrite", "analogWrite", "analogRead", "digitalRead", "pinMode"].forEach(function(value) {
+[
+  "digitalWrite", "analogWrite", "servoWrite",
+  "analogRead", "digitalRead",
+  "pinMode"
+].forEach(function(value) {
   MockFirmata.prototype[value] = function() {};
 });
 
