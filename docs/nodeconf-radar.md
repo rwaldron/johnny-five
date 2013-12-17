@@ -110,7 +110,7 @@ board.on("ready", function() {
     degrees += step;
 
     // Update servo position
-    scanner.move(degrees);
+    scanner.to(degrees);
   });
 
   io.sockets.on("connection", function(socket) {

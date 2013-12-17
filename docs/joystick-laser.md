@@ -42,8 +42,8 @@ board.on("ready", function() {
 
   joystick.on("axismove", function() {
 
-    tilt.move(Math.ceil(170 * this.fixed.y));
-    pan.move(Math.ceil(170 * this.fixed.x));
+    tilt.to(Math.ceil(170 * this.fixed.y));
+    pan.to(Math.ceil(170 * this.fixed.x));
 
   });
 });

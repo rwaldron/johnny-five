@@ -24,7 +24,7 @@ board.on("ready", function() {
 
   fsr.scale([0, 180]).on("data", function() {
 
-    servo.move(this.value);
+    servo.to(this.value);
 
   });
 });

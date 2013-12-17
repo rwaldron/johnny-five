@@ -31,7 +31,7 @@ board.on("ready", function() {
 
   slider.scale(scalingRange).on("slide", function(err, value) {
 
-    servo.move(Math.floor(this.value));
+    servo.to(Math.floor(this.value));
 
   });
 });

@@ -22,10 +22,10 @@ var five = require("johnny-five"),
 
 
     function slice() {
-      wrist.move(100);
+      wrist.to(100);
 
       compulsive.wait(100, function() {
-        wrist.move(120);
+        wrist.to(120);
       });
     }
 

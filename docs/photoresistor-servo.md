@@ -51,7 +51,7 @@ board.on("ready", function() {
     //console.log( "Normalized value: " + this.normalized + "  Scaled Value: " + this.scaled );
 
     //tell the servo arm to move the scaled value.
-    servo.move(Math.floor(this.scaled));
+    servo.to(Math.floor(this.scaled));
   });
 
 });

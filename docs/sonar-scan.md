@@ -74,8 +74,8 @@ board.on("ready", function() {
   // lower and upper bound
   scanner.center();
 
-  servos.right.move(90);
-  servos.left.move(90);
+  servos.right.to(90);
+  servos.left.to(90);
 
   // Scanner/Panning loop
   this.loop(100, function() {
@@ -112,7 +112,7 @@ board.on("ready", function() {
         facing = "forward";
       }
 
-      scanner.move(degrees);
+      scanner.to(degrees);
     }
   });
 

@@ -30,7 +30,7 @@ board.on("ready", function() {
 
     // The slider's value will be scaled to match the tilt servo range
 
-    tilt.move(Math.floor(this.value));
+    tilt.to(Math.floor(this.value));
 
   });
 });

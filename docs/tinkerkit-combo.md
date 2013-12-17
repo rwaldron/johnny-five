@@ -36,7 +36,7 @@ new five.Board().on("ready", function() {
   servos = new five.Servo.Array();
 
   slider.scale(0, 180).on("change", function() {
-    servos.move(this.value);
+    servos.to(this.value);
   });
 
   accel.on("acceleration", function() {

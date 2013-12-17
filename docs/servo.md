@@ -20,9 +20,9 @@ board.on("ready", function() {
   // Inject the `servo` hardware into
   // the Repl instance's context;
   // allows direct command line access
-  board.repl.inject({
-    servo: servo
-  });
+  // board.repl.inject({
+  //   servo: servo
+  // });
 
   // Servo API
 
@@ -50,7 +50,7 @@ board.on("ready", function() {
   //
   // Moves the servo to position by degrees
   //
-  // servo.move( 90 );
+  // servo.to( 90 );
 
   // sweep( obj )
   //

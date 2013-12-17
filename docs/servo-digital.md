@@ -37,7 +37,7 @@ board.on("ready", function() {
   // update the servo's position
   slider.scale(range).on("slide", function() {
 
-    servo.move(Math.floor(this.value));
+    servo.to(Math.floor(this.value));
 
   });
 });

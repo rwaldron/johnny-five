@@ -38,10 +38,10 @@ board.on("ready", function() {
       } else {
         last = 90;
       }
-      arm.move(last);
+      arm.to(last);
     }
 
-    claw.move(degrees);
+    claw.to(degrees);
   });
 });
 
