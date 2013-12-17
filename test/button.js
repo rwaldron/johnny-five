@@ -7,12 +7,12 @@ var MockFirmata = require("./mock-firmata"),
   Button = five.Button,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["Button"] = {
   setUp: function(done) {
-    this.digitalRead = sinon.spy(board.firmata, "digitalRead");
+    this.digitalRead = sinon.spy(board.io, "digitalRead");
     this.button = new Button({
       pin: 8,
       freq: 5,

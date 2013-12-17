@@ -82,7 +82,7 @@ exports["static"] = {
           length: 20,
           type: "UNO"
         },
-        firmata: {
+        io: {
           analogPins: {
             length: 6
           }

@@ -9,11 +9,11 @@ exports["Piezo"] = {
   setUp: function(done) {
     this.board = new Board({
       repl: false,
-      firmata: new MockFirmata()
+      io: new MockFirmata()
     });
 
     this.clock = sinon.useFakeTimers();
-    this.spy = sinon.spy(this.board.firmata, "digitalWrite");
+    this.spy = sinon.spy(this.board.io, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,

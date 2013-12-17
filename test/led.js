@@ -5,7 +5,7 @@ var five = require("../lib/johnny-five.js"),
 
 function newBoard() {
   return new five.Board({
-    firmata: new MockFirmata(),
+    io: new MockFirmata(),
     repl: false
   });
 }
@@ -13,7 +13,7 @@ function newBoard() {
 exports["Led - Digital"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.firmata, "digitalWrite");
+    this.spy = sinon.spy(this.board.io, "digitalWrite");
 
     this.led = new Led({
       pin: 13,
@@ -133,7 +133,7 @@ exports["Led - Digital"] = {
 exports["Led - PWM (Analog)"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.firmata, "analogWrite");
+    this.spy = sinon.spy(this.board.io, "analogWrite");
 
     this.led = new Led({
       pin: 11,
@@ -332,7 +332,7 @@ exports["Led.RGB"] = {
     var redPin = 9,
       greenPin = 10,
       bluePin = 11;
-    var spy = sinon.spy(this.board.firmata, "analogWrite");
+    var spy = sinon.spy(this.board.io, "analogWrite");
 
     test.expect(9);
 
@@ -370,7 +370,7 @@ exports["Led - Pulse"] = {
     this.clock = sinon.useFakeTimers();
 
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.firmata, "analogWrite");
+    this.spy = sinon.spy(this.board.io, "analogWrite");
 
     this.led = new Led({
       pin: 11,
@@ -398,7 +398,7 @@ exports["Led - Pulse"] = {
     // stop pulsing
     this.led.stop();
 
-    // make sure NaN was not passed to firmata
+    // make sure NaN was not passed to io
     test.ok(!isNaN(this.spy.firstCall.args[1]));
 
     test.done();

@@ -7,13 +7,13 @@ var MockFirmata = require("./mock-firmata"),
   Switch = five.Switch,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["Switch"] = {
   setUp: function(done) {
 
-    this.digitalRead = sinon.spy(board.firmata, "digitalRead");
+    this.digitalRead = sinon.spy(board.io, "digitalRead");
     this.
     switch = new Switch({
       pin: 8,

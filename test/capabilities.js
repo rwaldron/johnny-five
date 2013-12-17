@@ -3,7 +3,7 @@ var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 

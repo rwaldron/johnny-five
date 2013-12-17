@@ -6,14 +6,14 @@ var MockFirmata = require("./mock-firmata"),
   Pir = five.Pir,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 
 exports["Pir"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(board.firmata, 'digitalRead');
+    this.digitalRead = sinon.spy(board.io, 'digitalRead');
     this.pir = new Pir({
       pin: 11,
       board: board

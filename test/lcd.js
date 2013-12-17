@@ -14,8 +14,8 @@ function createNewBoard() {
       mock: serial
     });
 
-  board.firmata.pins = pins.UNO;
-  board.firmata.analogPins = [14, 15, 16, 17, 18, 19];
+  board.io.pins = pins.UNO;
+  board.io.analogPins = [14, 15, 16, 17, 18, 19];
   board.pins = Board.Pins(board);
   return board;
 }
@@ -25,7 +25,7 @@ function createNewBoard() {
 exports["LCD"] = {
   setUp: function(done) {
     this.board = createNewBoard();
-    this.spy = sinon.spy(this.board.firmata, "digitalWrite");
+    this.spy = sinon.spy(this.board.io, "digitalWrite");
 
     this.lcd = new LCD({
       pins: [7, 8, 9, 10, 11, 12],

@@ -6,7 +6,7 @@ var MockFirmata = require("./mock-firmata"),
   Ping = five.Ping,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["Ping"] = {
@@ -67,7 +67,7 @@ exports["Ping"] = {
     var spy = sinon.spy();
     test.expect(1);
     this.ping.on("change", spy);
-    // board.firmata.pulseValue = 1;
+    // board.io.pulseValue = 1;
     // this.clock.tick(500);
     this.clock.tick(100);
     test.ok(spy.calledOnce);

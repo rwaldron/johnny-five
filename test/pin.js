@@ -9,7 +9,7 @@ exports["Pin"] = {
   setUp: function(done) {
     var board = new five.Board({
       repl: false,
-      firmata: new MockFirmata()
+      io: new MockFirmata()
     });
     this.digital = new Pin({
       pin: 11,
@@ -22,7 +22,7 @@ exports["Pin"] = {
 
     this.spies = ["digitalWrite", "analogWrite", "analogRead", "digitalRead"];
     this.spies.forEach(function(value) {
-      this[value] = sinon.spy(board.firmata, value);
+      this[value] = sinon.spy(board.io, value);
     }.bind(this));
 
     this.proto = [{

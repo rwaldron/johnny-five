@@ -7,13 +7,13 @@ var MockFirmata = require("./mock-firmata"),
   Distance = five.IR.Distance,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["IR.Distance"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
       pin: "A1",
       board: board
@@ -60,7 +60,7 @@ exports["IR.Distance"] = {
 exports["IR.Distance: GP2Y0A21YK"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
       device: "GP2Y0A21YK",
       pin: "A1",
@@ -94,7 +94,7 @@ exports["IR.Distance: GP2Y0A21YK"] = {
 exports["IR.Distance: GP2D120XJ00F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
       device: "GP2D120XJ00F",
       pin: "A1",
@@ -127,7 +127,7 @@ exports["IR.Distance: GP2D120XJ00F"] = {
 exports["IR.Distance: GP2Y0A02YK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
       device: "GP2Y0A02YK0F",
       pin: "A1",

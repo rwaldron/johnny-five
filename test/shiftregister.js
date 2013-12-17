@@ -4,7 +4,7 @@ var MockFirmata = require("./mock-firmata"),
   ShiftRegister = five.ShiftRegister,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   }),
   sinon = require("sinon");
 
@@ -59,7 +59,7 @@ exports["ShiftRegister"] = {
   },
 
   send: function(test) {
-    var spy = sinon.spy(board.firmata, 'digitalWrite');
+    var spy = sinon.spy(board.io, 'digitalWrite');
     var shiftOutSpy = sinon.spy(board, 'shiftOut');
     test.expect(6);
 

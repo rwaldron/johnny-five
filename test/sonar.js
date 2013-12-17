@@ -7,7 +7,7 @@ var MockFirmata = require("./mock-firmata"),
   Sonar = five.Sonar,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["Sonar"] = {
@@ -15,7 +15,7 @@ exports["Sonar"] = {
   setUp: function(done) {
 
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.sonar = new Sonar({
       pin: 9,
       freq: 100,

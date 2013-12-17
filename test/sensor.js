@@ -6,13 +6,13 @@ var MockFirmata = require("./mock-firmata"),
   Sensor = five.Sensor,
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 exports["Sensor"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.firmata, "analogRead");
+    this.analogRead = sinon.spy(board.io, "analogRead");
     this.sensor = new Sensor({
       pin: "A1",
       board: board

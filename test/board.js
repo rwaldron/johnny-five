@@ -6,7 +6,7 @@ var SerialPort = require("./mock-serial").SerialPort,
   MockFirmata = require("./mock-firmata"),
   board = new five.Board({
     repl: false,
-    firmata: new MockFirmata()
+    io: new MockFirmata()
   });
 
 // use:
@@ -152,9 +152,9 @@ exports["instance"] = {
     test.done();
   },
 
-  "firmata": function(test) {
+  "io": function(test) {
     test.expect(1);
-    test.ok(board.firmata instanceof MockFirmata);
+    test.ok(board.io instanceof MockFirmata);
     test.done();
   },
 
@@ -166,7 +166,7 @@ exports["instance"] = {
 
   "repl": function(test) {
     var board = new five.Board({
-      firmata: new MockFirmata()
+      io: new MockFirmata()
     });
     test.expect(2);
     test.ok(board.repl instanceof Repl);
@@ -203,7 +203,7 @@ exports["fn"] = {
 
 // TODO: need tests for board.shiftOut
 
-// TODO: need mock firmata object
+// TODO: need mock io object
 // exports["modules"] = {
 //   "optional-new": function( test ) {
 //     var modules = Object.keys(five);
