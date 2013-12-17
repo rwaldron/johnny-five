@@ -66,8 +66,8 @@ Navigator.prototype.move = function(right, left) {
   // Servos are mounted opposite of each other,
   // the values for left and right will be in
   // opposing directions.
-  this.servos.right.move(right);
-  this.servos.left.move(left);
+  this.servos.right.to(right);
+  this.servos.left.to(left);
 
   // Store a recallable history of movement
   this.history.push({
@@ -102,7 +102,7 @@ Navigator.prototype.forward = Navigator.prototype.fwd = function(speed) {
   this.speed = speed;
   this.which = "forward";
 
-  return this.move(this.center - (scaled - this.center), scaled);
+  return this.to(this.center - (scaled - this.center), scaled);
 };
 
 /**
@@ -122,7 +122,7 @@ Navigator.prototype.reverse = Navigator.prototype.rev = function(speed) {
 
   console.log(scaled, this.center - (scaled - this.center));
 
-  return this.move(scaled, this.center - (scaled - this.center));
+  return this.to(scaled, this.center - (scaled - this.center));
 };
 
 /**
@@ -133,7 +133,7 @@ Navigator.prototype.stop = function() {
   this.speed = this.center;
   this.which = "stop";
 
-  return this.move(this.center, this.center);
+  return this.to(this.center, this.center);
 };
 
 /**
@@ -153,7 +153,7 @@ Navigator.prototype.stop = function() {
 
     if (!this.isTurning) {
       this.isTurning = true;
-      this.move(actual, actual);
+      this.to(actual, actual);
 
       // Restore direction after turn
       setTimeout(function() {
@@ -202,16 +202,16 @@ Navigator.prototype.pivot = function(which, time) {
 
   directions = {
     "forward-right": function() {
-      this.move(this.center, scaled);
+      this.to(this.center, scaled);
     },
     "forward-left": function() {
-      this.move(this.center - (scaled - this.center), this.center);
+      this.to(this.center - (scaled - this.center), this.center);
     },
     "reverse-right": function() {
-      this.move(scaled, this.center);
+      this.to(scaled, this.center);
     },
     "reverse-left": function() {
-      this.move(this.center, this.center - (scaled - this.center));
+      this.to(this.center, this.center - (scaled - this.center));
     }
   };
 

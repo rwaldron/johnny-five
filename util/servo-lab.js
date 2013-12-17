@@ -53,7 +53,7 @@ servos = args.map(function( val ) {
   return servo;
 });
 
-console.log( servos );
+// console.log( servos );
 (new five.Board()).on("ready", function() {
   var s, i = 0;
 
@@ -75,7 +75,7 @@ console.log( servos );
       if (!t) {
         t = 2000;
       }
-      s[0].move(d, t);
+      s[0].to(d, t);
     },
     sweep: function() {
       setInterval(function() {

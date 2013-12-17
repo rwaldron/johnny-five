@@ -11,7 +11,7 @@ board.on("ready", function() {
 
   ].forEach(function(def) {
     five.Servo.prototype[def[1]] = function() {
-      this.move(def[0]);
+      this.to(def[0]);
     };
   });
 
@@ -37,6 +37,6 @@ board.on("ready", function() {
   // move( speed )
   // Set the speed at which the continuous rotation
   // servo will rotate at.
-  servo.move(90);
+  servo.to(90);
 
 });
