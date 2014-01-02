@@ -11,12 +11,19 @@ exports["Pin"] = {
       repl: false,
       io: new MockFirmata()
     });
+
     this.digital = new Pin({
       pin: 11,
       board: board
     });
+
     this.analog = new Pin({
       pin: "A1",
+      board: board
+    });
+
+    this.dtoa = new Pin({
+      pin: 14,
       board: board
     });
 
@@ -40,8 +47,6 @@ exports["Pin"] = {
       name: "read"
     }, {
       name: "write"
-    }, {
-      name: "mode"
     }];
 
     this.instance = [{
@@ -54,6 +59,8 @@ exports["Pin"] = {
       name: "addr"
     }, {
       name: "value"
+    }, {
+      name: "mode"
     }];
 
     done();
@@ -90,17 +97,28 @@ exports["Pin"] = {
 
 
   digital: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     test.equal(this.digital.type, "digital");
+    test.equal(this.digital.mode, 1);
 
     test.done();
   },
 
   analog: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     test.equal(this.analog.type, "analog");
+    test.equal(this.analog.mode, 0);
+
+    test.done();
+  },
+
+  dtoa: function(test) {
+    test.expect(2);
+
+    test.equal(this.dtoa.type, "digital");
+    test.equal(this.dtoa.mode, 1);
 
     test.done();
   },
