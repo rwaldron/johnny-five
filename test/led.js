@@ -52,7 +52,7 @@ exports["Led - Digital"] = {
       name: "value"
     }, {
       name: "interval"
-    },{
+    }, {
       name: "mode"
     }];
 

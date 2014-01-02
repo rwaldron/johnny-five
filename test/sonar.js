@@ -96,11 +96,11 @@ exports["Sonar"] = {
 
     test.expect(2);
 
-    this.sonar.within([0,120], "inches", function() {
+    this.sonar.within([0, 120], "inches", function() {
       test.equal(this.inches, 111.6);
     });
 
-    this.sonar.on("change",spy);
+    this.sonar.on("change", spy);
 
     callback(225);
 
