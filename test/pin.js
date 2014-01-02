@@ -20,9 +20,14 @@ exports["Pin"] = {
       board: board
     });
 
-    this.spies = ["digitalWrite", "analogWrite", "analogRead", "digitalRead"];
-    this.spies.forEach(function(value) {
-      this[value] = sinon.spy(board.io, value);
+    this.spies = [
+      "analogWrite", "digitalWrite",
+      "analogRead", "digitalRead",
+      "queryPinState"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(board.io, method);
     }.bind(this));
 
     this.proto = [{
@@ -157,6 +162,21 @@ exports["Pin"] = {
     var spy = sinon.spy();
     this.analog.read(function() {});
     test.ok(this.analogRead.calledWith(this.analog.addr));
+    test.done();
+  },
+
+  query: function(test) {
+    test.expect(2);
+    var spy = sinon.spy();
+
+    this.analog.query(function() {});
+    this.digital.query(function() {});
+
+    // A1 => 15
+    test.ok(this.queryPinState.calledWith(15));
+    // 11 => 11
+    test.ok(this.queryPinState.calledWith(11));
+
     test.done();
   }
 };

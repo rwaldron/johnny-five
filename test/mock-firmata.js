@@ -22,7 +22,7 @@ util.inherits(MockFirmata, events.EventEmitter);
 [
   "digitalWrite", "analogWrite", "servoWrite",
   "analogRead", "digitalRead",
-  "pinMode"
+  "pinMode", "queryPinState"
 ].forEach(function(value) {
   MockFirmata.prototype[value] = function() {};
 });
