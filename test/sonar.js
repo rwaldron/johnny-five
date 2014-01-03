@@ -124,7 +124,7 @@ exports["Sonar"] = {
       test.equal(this.inches, 111.6);
     });
 
-    this.sonar.on("change",spy);
+    this.sonar.on("change", spy);
 
     callback(225);
 

@@ -46,9 +46,9 @@ board.on("ready", function() {
   //
   // Fires only when X, Y or Z has changed
   //
-  accel.on("axischange", function(err, timestamp) {
+  accel.on("axischange", function(err, data) {
 
-    console.log("axischange", this.raw);
+    console.log("axischange", data.smooth);
   });
 });
 

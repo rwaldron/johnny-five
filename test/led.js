@@ -52,7 +52,7 @@ exports["Led - Digital"] = {
       name: "value"
     }, {
       name: "interval"
-    },{
+    }, {
       name: "mode"
     }];
 
@@ -392,9 +392,23 @@ exports["Led.RGB"] = {
 
 exports["Led - Default Pin"] = {
   shape: function(test) {
-    test.expect(2);
+    test.expect(8);
     test.equal(new Led().pin, 9);
     test.equal(new Led(0).pin, 0);
+
+    test.equal(new Led("A0").pin, 14);
+    test.equal(new Led(14).pin, 14);
+
+    // 13 & 14 are OUTPUT
+    test.equal(new Led(13).mode, 1);
+    test.equal(new Led(14).mode, 1);
+
+    // 12 is PWM, but the mechanism is stubbed
+    sinon.stub(five.Board.Pins.prototype, "isPwm").returns(true);
+
+    test.equal(new Led(12).mode, 3);
+    test.equal(new Led({ type: "PWM" }).mode, 3);
+
     test.done();
   }
 };

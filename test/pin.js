@@ -11,18 +11,30 @@ exports["Pin"] = {
       repl: false,
       io: new MockFirmata()
     });
+
     this.digital = new Pin({
       pin: 11,
       board: board
     });
+
     this.analog = new Pin({
       pin: "A1",
       board: board
     });
 
-    this.spies = ["digitalWrite", "analogWrite", "analogRead", "digitalRead"];
-    this.spies.forEach(function(value) {
-      this[value] = sinon.spy(board.io, value);
+    this.dtoa = new Pin({
+      pin: 14,
+      board: board
+    });
+
+    this.spies = [
+      "analogWrite", "digitalWrite",
+      "analogRead", "digitalRead",
+      "queryPinState"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(board.io, method);
     }.bind(this));
 
     this.proto = [{
@@ -35,8 +47,6 @@ exports["Pin"] = {
       name: "read"
     }, {
       name: "write"
-    }, {
-      name: "mode"
     }];
 
     this.instance = [{
@@ -49,6 +59,8 @@ exports["Pin"] = {
       name: "addr"
     }, {
       name: "value"
+    }, {
+      name: "mode"
     }];
 
     done();
@@ -85,17 +97,28 @@ exports["Pin"] = {
 
 
   digital: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     test.equal(this.digital.type, "digital");
+    test.equal(this.digital.mode, 1);
 
     test.done();
   },
 
   analog: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     test.equal(this.analog.type, "analog");
+    test.equal(this.analog.mode, 0);
+
+    test.done();
+  },
+
+  dtoa: function(test) {
+    test.expect(2);
+
+    test.equal(this.dtoa.type, "digital");
+    test.equal(this.dtoa.mode, 1);
 
     test.done();
   },
@@ -157,6 +180,21 @@ exports["Pin"] = {
     var spy = sinon.spy();
     this.analog.read(function() {});
     test.ok(this.analogRead.calledWith(this.analog.addr));
+    test.done();
+  },
+
+  query: function(test) {
+    test.expect(2);
+    var spy = sinon.spy();
+
+    this.analog.query(function() {});
+    this.digital.query(function() {});
+
+    // A1 => 15
+    test.ok(this.queryPinState.calledWith(15));
+    // 11 => 11
+    test.ok(this.queryPinState.calledWith(11));
+
     test.done();
   }
 };
