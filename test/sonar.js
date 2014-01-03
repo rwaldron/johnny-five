@@ -96,6 +96,30 @@ exports["Sonar"] = {
 
     test.expect(2);
 
+    this.sonar.within([0,230], function() {
+      test.equal(this.value, 225);
+    });
+
+    this.sonar.on("change",spy);
+
+    callback(225);
+
+    this.clock.tick(100);
+    callback(255);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.done();
+  },
+
+  within_unit: function(test) {
+
+    var callback = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(2);
+
     this.sonar.within([0,120], "inches", function() {
       test.equal(this.inches, 111.6);
     });
