@@ -4,7 +4,7 @@ var MockFirmata = require("./mock-firmata"),
   sinon = require("sinon"),
   Board = five.Board,
   Motor = five.Motor;
-  
+
 function newBoard() {
   return new five.Board({
     io: new MockFirmata(),
@@ -50,7 +50,7 @@ exports["Motor: Non-Directional"] = {
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.motor[property.name], "undefined");
     }, this);
-    
+
     test.done();
   },
 
@@ -60,7 +60,7 @@ exports["Motor: Non-Directional"] = {
     test.equal(this.motor.pins.pwm, 11);
     test.equal(this.motor.opts.device, 'NONDIRECTIONAL');
     test.equal(typeof this.motor.pins.dir, "undefined");
-    
+
     test.done();
   },
 
@@ -130,16 +130,16 @@ exports["Motor: Directional"] = {
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.motor[property.name], "undefined");
     }, this);
-    
+
     test.done();
   },
 
   pinList: function(test) {
     test.expect(2);
-    
+
     test.equal(this.motor.pins.pwm, 11);
     test.equal(this.motor.pins.dir, 12);
-    
+
     test.done();
   },
 
@@ -163,7 +163,7 @@ exports["Motor: Directional"] = {
 
   forward: function(test) {
     test.expect(2);
-    
+
     this.motor.forward(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 1));
@@ -183,7 +183,7 @@ exports["Motor: Directional"] = {
 
   reverse: function(test) {
     test.expect(2);
-    
+
     this.motor.reverse(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 0));
@@ -193,7 +193,7 @@ exports["Motor: Directional"] = {
 
   rev: function(test) {
     test.expect(2);
-    
+
     this.motor.rev(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 0));
@@ -249,7 +249,7 @@ exports["Motor: Directional - Three Pin"] = {
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.motor[property.name], "undefined");
     }, this);
-    
+
     test.done();
   },
 
@@ -259,7 +259,7 @@ exports["Motor: Directional - Three Pin"] = {
     test.equal(this.motor.pins.pwm, 11);
     test.equal(this.motor.pins.dir, 12);
     test.equal(this.motor.pins.cdir, 13);
-    
+
     test.done();
   },
 
@@ -283,7 +283,7 @@ exports["Motor: Directional - Three Pin"] = {
 
   forward: function(test) {
     test.expect(3);
-    
+
     this.motor.forward(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 1));
@@ -305,7 +305,7 @@ exports["Motor: Directional - Three Pin"] = {
 
   reverse: function(test) {
     test.expect(3);
-    
+
     this.motor.reverse(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 0));
@@ -316,7 +316,7 @@ exports["Motor: Directional - Three Pin"] = {
 
   rev: function(test) {
     test.expect(3);
-    
+
     this.motor.rev(128);
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 0));
