@@ -87,38 +87,6 @@ exports["Motor: Non-Directional"] = {
     test.ok(this.spy.calledWith(11, 0));
 
     test.done();
-  },
-
-  forward: function(test) {
-    test.expect(1);
-    this.motor.forward(128);
-    test.ok(this.spy.notCalled);
-
-    test.done();
-  },
-
-  fwd: function(test) {
-    test.expect(1);
-    this.motor.fwd(128);
-    test.ok(this.spy.notCalled);
-
-    test.done();
-  },
-
-  reverse: function(test) {
-    test.expect(1);
-    this.motor.reverse(128);
-    test.ok(this.spy.notCalled);
-
-    test.done();
-  },
-
-  rev: function(test) {
-    test.expect(1);
-    this.motor.rev(128);
-    test.ok(this.spy.notCalled);
-
-    test.done();
   }
 };
 
