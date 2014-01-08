@@ -32,6 +32,8 @@ exports["Relay"] = {
 
     this.instance = [{
       name: "isOn"
+    }, {
+      name: "value"
     }];
 
     done();
