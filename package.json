@@ -57,7 +57,8 @@
     { "name": "Jeff Albrecht", "email": "<jeffa@iea-software.com>" },
     { "name": "Isaac Durazo", "email": "<isaacdurazo@gmail.com>" },
     { "name": "Pawel Szymczykowski", "email": "<makenai@gmail.com>" },
-    { "name": "Alex Crooks", "email": "<alexcrooks@gmail.com>" }
+    { "name": "Alex Crooks", "email": "<alexcrooks@gmail.com>" },
+    { "name": "Donovan Buck", "email": "<donovan@donovan.bz>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata"
