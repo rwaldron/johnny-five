@@ -137,6 +137,9 @@ For step-by-step examples, including an electronics primer, check out [Arduino E
 - [Button Options](https://github.com/rwldrn/johnny-five/blob/master/docs/button-options.md)
 - [Button Pullup](https://github.com/rwldrn/johnny-five/blob/master/docs/button-pullup.md)
 
+### Relay
+- [Relay](https://github.com/rwldrn/johnny-five/blob/master/docs/relay.md)
+
 ### Claw
 - [Claw](https://github.com/rwldrn/johnny-five/blob/master/docs/claw.md)
 
