@@ -562,14 +562,6 @@ exports["Motor: Directional - Three Pin"] = {
       name: "start"
     }, {
       name: "stop"
-    }, {
-      name: "forward"
-    }, {
-      name: "fwd"
-    }, {
-      name: "reverse"
-    }, {
-      name: "rev"
     }];
 
     this.instance = [{
