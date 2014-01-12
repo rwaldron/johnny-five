@@ -27,14 +27,6 @@ exports["Motor: Non-Directional"] = {
       name: "start"
     }, {
       name: "stop"
-    }, {
-      name: "forward"
-    }, {
-      name: "fwd"
-    }, {
-      name: "reverse"
-    }, {
-      name: "rev"
     }];
 
     this.instance = [{
