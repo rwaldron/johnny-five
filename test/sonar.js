@@ -22,7 +22,9 @@ exports["Sonar"] = {
       board: board
     });
 
-    this.proto = [];
+    this.proto = [{
+      name: "within"
+    }];
 
     this.instance = [{
       name: "inches"
@@ -50,6 +52,7 @@ exports["Sonar"] = {
       test.notEqual(typeof this.sonar[property.name], "undefined");
     }, this);
 
+    // console.log( this.sonar );
     test.done();
   },
 
@@ -121,7 +124,7 @@ exports["Sonar"] = {
     test.expect(2);
 
     this.sonar.within([0,120], "inches", function() {
-      test.equal(this.inches, 111.6);
+      test.equal(this.inches, 111.46);
     });
 
     this.sonar.on("change", spy);
