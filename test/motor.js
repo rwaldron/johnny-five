@@ -194,6 +194,160 @@ exports["Motor: Directional"] = {
   }
 };
 
+
+exports["Motor: Directional with Brake"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.analogSpy = sinon.spy(this.board.io, "analogWrite");
+    this.digitalSpy = sinon.spy(this.board.io, "digitalWrite");
+    this.motor = new Motor({
+      board: this.board,
+      pins: {
+        pwm: 3,
+        dir: 12,
+        brake: 9
+      }
+    });
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+    }, {
+      name: "brake"
+    }, {
+      name: "release"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }];
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.motor[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.motor[property.name], "undefined");
+    }, this);
+    
+    test.done();
+  },
+
+  pinList: function(test) {
+    test.expect(3);
+    
+    test.equal(this.motor.pins.pwm, 3);
+    test.equal(this.motor.pins.dir, 12);
+    test.equal(this.motor.pins.brake, 9);
+    
+    test.done();
+  },
+
+  start: function(test) {
+    test.expect(2);
+
+    this.motor.start();
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(2);
+
+    this.motor.stop();
+    test.ok(this.analogSpy.calledWith(3, 0));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
+  },
+
+  forward: function(test) {
+    test.expect(3);
+    
+    this.motor.forward(128);
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
+  },
+
+  brake: function(test) {
+    test.expect(1);
+    
+    this.motor.brake();
+    test.ok(this.digitalSpy.calledWith(9, 1));
+
+    test.done();
+  },
+  
+  release: function(test) {
+    test.expect(1);
+    
+    this.motor.release();
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
+  },
+
+  fwd: function(test) {
+    test.expect(3);
+
+    this.motor.fwd(128);
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+    
+    test.done();
+  },
+
+  reverse: function(test) {
+    test.expect(3);
+    
+    this.motor.reverse(128);
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+    
+    test.done();
+  },
+
+  rev: function(test) {
+    test.expect(3);
+    
+    this.motor.rev(128);
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
+  }
+};
+
+
 exports["Motor: Directional - Three Pin"] = {
   setUp: function(done) {
     this.board = newBoard();
