@@ -3,7 +3,8 @@ var MockFirmata = require("./mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Motor = five.Motor;
+  Motor = five.Motor,
+  Sensor = five.Sensor;
   
 function newBoard() {
   return new five.Board({
@@ -202,7 +203,6 @@ exports["Motor: Directional"] = {
   }
 };
 
-
 exports["Motor: Directional with Brake"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -355,6 +355,89 @@ exports["Motor: Directional with Brake"] = {
   }
 };
 
+exports["Motor: Directional with Current Sensing Pin"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.analogSpy = sinon.spy(this.board.io, "analogWrite");
+    this.digitalSpy = sinon.spy(this.board.io, "digitalWrite");
+    this.motor = new Motor({
+      board: this.board,
+      pins: {
+        pwm: 3,
+        dir: 12
+      },
+      current: {
+        pin: "A0",
+        freq: 250
+      }
+    });
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+    }, {
+      name: "brake"
+    }, {
+      name: "release"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }, {
+      name: "current"
+    }];
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.motor[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.motor[property.name], "undefined");
+    }, this);
+    
+    test.done();
+  },
+
+  current: function(test) {
+    test.expect(2);
+    
+    test.ok(this.motor.current instanceof Sensor);
+    
+    test.done();
+  },
+
+  pinList: function(test) {
+    test.expect(3);
+    
+    test.equal(this.motor.pins.pwm, 3);
+    test.equal(this.motor.pins.dir, 12);
+    test.equal(this.motor.current.pin, "0");
+    
+    test.done();
+  }
+  
+};
 
 exports["Motor: Directional - Three Pin"] = {
   setUp: function(done) {
