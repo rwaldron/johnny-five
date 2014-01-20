@@ -7,23 +7,20 @@ node eg/tinkerkit-gyroscope.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, gyro;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var collection = [];
-  // Create a new `Gyroscope` hardware instance.
+  // Create a new `Gyro` hardware instance.
 
-  gyro = new five.Gyroscope({
+  var gyro = new five.Gyro({
     pins: ["I0", "I1"],
-    freq: 200,
-    extent: 4
+    sensitivity: 0.67
   });
 
-  gyro.on("acceleration", function(err, data) {
-    console.log(data.position);
+  gyro.on("change", function() {
+    console.log("X raw: %d rate: %d", this.x, this.rate.x);
+    console.log("Y raw: %d rate: %d", this.y, this.rate.y);
   });
 });
 

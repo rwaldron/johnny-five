@@ -193,6 +193,7 @@ For step-by-step examples, including an electronics primer, check out [Arduino E
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
+- [Gyro](https://github.com/rwldrn/johnny-five/blob/master/docs/gyro.md)
 - [Photoresistor](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor.md)
 - [Photoresistor Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor-servo.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)

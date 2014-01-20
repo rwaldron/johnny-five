@@ -121,6 +121,7 @@
   [ "Sensors" ],
     "accelerometer.js",
     "accelerometer-pan-tilt.js",
+    "gyro.js",
     "photoresistor.js",
     "photoresistor-servo.js",
     "potentiometer.js",
