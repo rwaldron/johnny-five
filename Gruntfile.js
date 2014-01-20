@@ -108,13 +108,28 @@ module.exports = function(grunt) {
           wrapLineLength: 0
         }
       }
+    },
+    watch: {
+      src: {
+        files: [
+          "Gruntfile.js",
+          "lib/**/!(johnny-five)*.js",
+          "test/**/*.js",
+          "eg/**/*.js"
+        ],
+        tasks: ["default"],
+        options: {
+          interrupt: true,
+        },
+      }
     }
   });
-  // Default tasks are contrib plugins
+
+  grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-nodeunit");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-jsbeautifier");
-  // Default task.
+
   grunt.registerTask("default", ["jshint", "nodeunit"]);
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
