@@ -1,4 +1,4 @@
-var five = require("./lib/johnny-five.js"),
+var five = require("../lib/johnny-five.js"),
   board, gyro;
 
 board = new five.Board();
