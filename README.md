@@ -130,6 +130,7 @@ For step-by-step examples, including an electronics primer, check out [Arduino E
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar.md)
+- [Sonar I2c](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-i2c.md)
 
 ### Button
 - [Button](https://github.com/rwldrn/johnny-five/blob/master/docs/button.md)

@@ -48,6 +48,7 @@
     "ping.js",
     "sonar-scan.js",
     "sonar.js",
+    "sonar-i2c.js",
 
 
   [ "Button" ],

@@ -1,29 +1,31 @@
-# Tinkerkit Gyroscope
+# Sonar I2c
 
 Run with:
 ```bash
-node eg/tinkerkit-gyroscope.js
+node eg/sonar-i2c.js
 ```
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, gyro;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var collection = [];
-  // Create a new `Gyroscope` hardware instance.
 
-  gyro = new five.Gyroscope({
-    pins: ["I0", "I1"],
-    freq: 200,
-    extent: 4
+  var sonar = new five.Sonar({
+    device: "SRF10"
   });
 
-  gyro.on("acceleration", function(err, data) {
-    console.log(data.position);
+  function display(type, value, unit) {
+    console.log("%s event: object is %d %s away", type, value, unit);
+  }
+
+  sonar.on("data", function() {
+    display("data", this.inches, "inches");
+  });
+
+  sonar.on("change", function() {
+    display("data", this.inches, "inches");
   });
 });
 
