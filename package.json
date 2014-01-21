@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.7.14",
+  "version": "0.7.15",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -89,7 +89,8 @@
     "temporal": "latest",
     "descriptor": "latest",
     "serialport": "latest",
-    "nanotimer": "0.3.0"
+    "nanotimer": "0.3.0",
+    "spark-io": "latest"
   },
   "devDependencies": {
     "async": "~0.2.9",
