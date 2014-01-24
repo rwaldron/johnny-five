@@ -3,7 +3,8 @@ var MockFirmata = require("./mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Motor = five.Motor;
+  Motor = five.Motor,
+  Sensor = five.Sensor;
 
 function newBoard() {
   return new five.Board({
@@ -411,7 +412,7 @@ exports["Motor: Directional with Current Sensing Pin"] = {
   },
 
   current: function(test) {
-    test.expect(2);
+    test.expect(1);
 
     test.ok(this.motor.current instanceof Sensor);
 
