@@ -195,6 +195,69 @@ exports["Motor: Directional"] = {
   }
 };
 
+exports["Motor: Directional with no speed passed"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.analogSpy = sinon.spy(this.board.io, "analogWrite");
+    this.digitalSpy = sinon.spy(this.board.io, "digitalWrite");
+    this.motor = new Motor({
+      board: this.board,
+      pins: [11, 12]
+    });
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }];
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.motor[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.motor[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  start: function(test) {
+    test.expect(6);
+
+    this.motor.forward();
+    test.ok(this.analogSpy.calledWith(11, 128));
+    this.motor.stop();
+    test.ok(this.analogSpy.calledWith(11, 0));
+    this.motor.forward(200);
+    test.ok(this.analogSpy.calledWith(11, 200));
+    this.motor.stop();
+    test.ok(this.analogSpy.calledWith(11, 0));
+    this.motor.start();
+    test.ok(this.analogSpy.calledWith(11, 200));
+    this.motor.stop();
+    test.ok(this.analogSpy.calledWith(11, 0));
+    
+    test.done();
+  }
+};
+
 exports["Motor: Directional with Brake"] = {
   setUp: function(done) {
     this.board = newBoard();
