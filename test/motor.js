@@ -253,7 +253,7 @@ exports["Motor: Directional with no speed passed"] = {
     test.ok(this.analogSpy.calledWith(11, 200));
     this.motor.stop();
     test.ok(this.analogSpy.calledWith(11, 0));
-    
+
     test.done();
   }
 };
