@@ -100,6 +100,17 @@ exports["Motor: Directional"] = {
       name: "start"
     }, {
       name: "stop"
+<<<<<<< HEAD
+=======
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
     }];
 
     this.instance = [{
@@ -129,10 +140,17 @@ exports["Motor: Directional"] = {
 
   pinList: function(test) {
     test.expect(2);
+<<<<<<< HEAD
 
     test.equal(this.motor.pins.pwm, 11);
     test.equal(this.motor.pins.dir, 12);
 
+=======
+    
+    test.equal(this.motor.pins.pwm, 11);
+    test.equal(this.motor.pins.dir, 12);
+    
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
     test.done();
   },
 
@@ -195,6 +213,7 @@ exports["Motor: Directional"] = {
   }
 };
 
+<<<<<<< HEAD
 exports["Motor: Directional with no speed passed"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -258,6 +277,8 @@ exports["Motor: Directional with no speed passed"] = {
   }
 };
 
+=======
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
 exports["Motor: Directional with Brake"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -319,11 +340,19 @@ exports["Motor: Directional with Brake"] = {
 
   pinList: function(test) {
     test.expect(3);
+<<<<<<< HEAD
 
     test.equal(this.motor.pins.pwm, 3);
     test.equal(this.motor.pins.dir, 12);
     test.equal(this.motor.pins.brake, 9);
 
+=======
+    
+    test.equal(this.motor.pins.pwm, 3);
+    test.equal(this.motor.pins.dir, 12);
+    test.equal(this.motor.pins.brake, 9);
+    
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
     test.done();
   },
 
@@ -366,10 +395,17 @@ exports["Motor: Directional with Brake"] = {
 
     test.done();
   },
+<<<<<<< HEAD
 
   release: function(test) {
     test.expect(1);
 
+=======
+  
+  release: function(test) {
+    test.expect(1);
+    
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
     this.motor.release();
     test.ok(this.digitalSpy.calledWith(9, 0));
 
@@ -476,13 +512,20 @@ exports["Motor: Directional with Current Sensing Pin"] = {
 
   current: function(test) {
     test.expect(1);
+<<<<<<< HEAD
 
     test.ok(this.motor.current instanceof Sensor);
 
+=======
+    
+    test.ok(this.motor.current instanceof Sensor);
+    
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
     test.done();
   },
 
   pinList: function(test) {
+<<<<<<< HEAD
     test.expect(3);
 
     test.equal(this.motor.pins.pwm, 3);
@@ -616,6 +659,20 @@ exports["Motor: Directional - Three Pin"] = {
 
     test.done();
   }
+=======
+    test.expect(2);
+    
+    test.equal(this.motor.pins.pwm, 3);
+    test.equal(this.motor.pins.dir, 12);
+    /* this doesn't work and I don't understand why
+    / this.motor.current.pin = 0
+    test.equal(this.motor.current.pin, "A0");
+    */
+    
+    test.done();
+  }
+  
+>>>>>>> 1924cd241cb193f7a7a070fe19398522d54b26ef
 };
 
 exports["Motor: Directional - Three Pin"] = {
