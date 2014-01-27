@@ -81,6 +81,28 @@ exports["Motor: Non-Directional"] = {
     test.ok(this.spy.calledWith(11, 0));
 
     test.done();
+  },
+
+  brake: function(test) {
+    test.expect(1);
+
+    this.motor.stop();
+    test.ok(this.spy.calledWith(11, 0));
+
+    test.done();
+  },
+
+  release: function(test) {
+    test.expect(3);
+
+    this.motor.start(200);
+    test.ok(this.spy.calledWith(11, 200));
+    this.motor.brake();
+    test.ok(this.spy.calledWith(11, 0));
+    this.motor.release();
+    test.ok(this.spy.calledWith(11, 200));
+
+    test.done();
   }
 };
 
@@ -559,7 +581,25 @@ exports["Motor: Directional with Brake"] = {
     test.ok(this.digitalSpy.calledWith(9, 0));
 
     test.done();
+  },
+
+  brake: function(test) {
+    test.expect(6);
+
+    this.motor.rev(128);
+    this.motor.brake();
+    test.ok(this.analogSpy.calledWith(3, 255));
+    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.digitalSpy.calledWith(9, 1));
+
+    this.motor.release();
+    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.done();
   }
+
 };
 
 exports["Motor: Directional with Current Sensing Pin"] = {
@@ -1012,60 +1052,16 @@ exports["Motor: Directional - Three Pin"] = {
     test.done();
   },
 
-  pinList: function(test) {
-    test.expect(3);
+  brakeRelease: function(test) {
+    test.expect(6);
 
-    test.equal(this.motor.pins.pwm, 11);
-    test.equal(this.motor.pins.dir, 12);
-    test.equal(this.motor.pins.cdir, 13);
-
-    test.done();
-  },
-
-  start: function(test) {
-    test.expect(1);
-
-    this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 128));
-
-    test.done();
-  },
-
-  stop: function(test) {
-    test.expect(1);
-
-    this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
-
-    test.done();
-  },
-
-  forward: function(test) {
-    test.expect(3);
-
-    this.motor.forward(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
+    this.motor.rev(128);
+    this.motor.brake();
+    test.ok(this.analogSpy.calledWith(11, 255));
     test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(13, 0));
+    test.ok(this.digitalSpy.calledWith(13, 1));
 
-    test.done();
-  },
-
-  fwd: function(test) {
-    test.expect(3);
-
-    this.motor.fwd(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(13, 0));
-
-    test.done();
-  },
-
-  reverse: function(test) {
-    test.expect(3);
-
-    this.motor.reverse(128);
+    this.motor.release();
     test.ok(this.analogSpy.calledWith(11, 128));
     test.ok(this.digitalSpy.calledWith(12, 0));
     test.ok(this.digitalSpy.calledWith(13, 1));
