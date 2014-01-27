@@ -428,6 +428,26 @@ exports["Motor: Directional with Brake"] = {
     test.ok(this.digitalSpy.calledWith(9, 0));
 
     test.done();
+  },
+  
+  timedBrake: function(test) {
+    var clock = sinon.useFakeTimers();
+    test.expect(6);
+
+    this.motor.rev(128);
+    
+    this.motor.brake(1000);
+    test.ok(this.analogSpy.calledWith(3, 255));
+    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.digitalSpy.calledWith(9, 1));
+    
+    clock.tick(1000);
+    test.ok(this.analogSpy.calledWith(3, 0));
+    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    clock.restore();
+    test.done();
   }
   
 };
