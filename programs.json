@@ -37,9 +37,9 @@
   [ "Motor" ],
     "motor.js",
     "motor-directional.js",
-    "motor-3-pin.js",
     "motor-brake.js",
     "motor-current.js",
+    "motor-3-pin.js",
     "motobot.js",
 
 
