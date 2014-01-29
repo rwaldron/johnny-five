@@ -120,15 +120,9 @@ For step-by-step examples, including an electronics primer, check out [Arduino E
 ### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
 - [Motor Directional](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-directional.md)
-<<<<<<< HEAD
 - [Motor Brake](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor Current](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-current.md)
 - [Motor 3 Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-3-pin.md)
-=======
-- [Motor 3 Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-3-pin.md)
-- [Motor Brake](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-brake.md)
-- [Motor Current](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-current.md)
->>>>>>> 4333af00f3f3282004bee7476b6922d7d87425a7
 - [Motobot](https://github.com/rwldrn/johnny-five/blob/master/docs/motobot.md)
 
 ### Stepper
