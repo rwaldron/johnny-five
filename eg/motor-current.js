@@ -30,8 +30,7 @@ board.on("ready", function() {
     current: {
       pin: "A0",
       freq: 250,
-      range: [0, 2000],
-      threshold: 50
+      threshold: 10
     }
   });
 
@@ -39,8 +38,8 @@ board.on("ready", function() {
     motor: motor
   });
 
-  motor.current.scale([0, 2000]).on("data", function() {
-    console.log("Motor A: " + this.value + "mA");
+  motor.current.scale([0, 3030]).on("change", function() {
+    console.log("Motor A: " + this.value.toFixed(2) + "mA");
   });
   
   motor.on("start", function(err, timestamp) {
