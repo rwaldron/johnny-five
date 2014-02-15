@@ -51,7 +51,7 @@ board.on("ready", function() {
   motor.on("stop", function(err, timestamp) {
     console.log("automated stop on timer", timestamp);
   });
-  
+
   motor.on("brake", function(err, timestamp) {
     console.log("automated brake on timer", timestamp);
   });

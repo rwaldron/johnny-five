@@ -79,7 +79,7 @@ exports["Ping"] = {
 
     var spy = sinon.spy();
     test.expect(2);
-    this.ping.within([0,120], "inches", function() {
+    this.ping.within([0, 120], "inches", function() {
       test.equal(this.inches, 0);
       spy();
     });

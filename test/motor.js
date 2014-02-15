@@ -101,7 +101,7 @@ exports["Motor: Non-Directional"] = {
     test.ok(this.spy.calledWith(11, 0));
     this.motor.release();
     test.ok(this.spy.calledWith(11, 200));
-    
+
     test.done();
   }
 };
@@ -275,7 +275,7 @@ exports["Motor: Directional with no speed passed"] = {
     test.ok(this.analogSpy.calledWith(11, 200));
     this.motor.stop();
     test.ok(this.analogSpy.calledWith(11, 0));
-    
+
     test.done();
   }
 };
@@ -412,7 +412,7 @@ exports["Motor: Directional with Brake"] = {
 
     test.done();
   },
-  
+
   brake: function(test) {
     test.expect(6);
 
@@ -429,18 +429,18 @@ exports["Motor: Directional with Brake"] = {
 
     test.done();
   },
-  
+
   timedBrake: function(test) {
     var clock = sinon.useFakeTimers();
     test.expect(6);
 
     this.motor.rev(128);
-    
+
     this.motor.brake(1000);
     test.ok(this.analogSpy.calledWith(3, 255));
     test.ok(this.digitalSpy.calledWith(12, 1));
     test.ok(this.digitalSpy.calledWith(9, 1));
-    
+
     clock.tick(1000);
     test.ok(this.analogSpy.calledWith(3, 0));
     test.ok(this.digitalSpy.calledWith(12, 1));
@@ -449,7 +449,7 @@ exports["Motor: Directional with Brake"] = {
     clock.restore();
     test.done();
   }
-  
+
 };
 
 exports["Motor: Directional with Current Sensing Pin"] = {
@@ -658,7 +658,7 @@ exports["Motor: Directional - Three Pin"] = {
 
     test.done();
   },
-  
+
   brakeRelease: function(test) {
     test.expect(6);
 

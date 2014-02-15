@@ -101,11 +101,11 @@ exports["Sonar - Analog"] = {
 
     test.expect(2);
 
-    this.sonar.within([0,230], function() {
+    this.sonar.within([0, 230], function() {
       test.equal(this.value, 225);
     });
 
-    this.sonar.on("change",spy);
+    this.sonar.on("change", spy);
 
     callback(225);
 
@@ -125,7 +125,7 @@ exports["Sonar - Analog"] = {
 
     test.expect(2);
 
-    this.sonar.within([0,120], "inches", function() {
+    this.sonar.within([0, 120], "inches", function() {
       test.equal(this.inches, 111.46);
     });
 
@@ -263,7 +263,7 @@ exports["Sonar - I2C"] = {
       test.equal(this.value, 993);
     });
 
-    this.sonar.on("change",spy);
+    this.sonar.on("change", spy);
 
     callback([3, 225]);
     this.clock.tick(100);

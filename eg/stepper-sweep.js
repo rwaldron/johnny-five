@@ -17,7 +17,7 @@ five.Board().on("ready", function() {
   // }
 
   stepper.rpm(180).ccw().step(2000, function() {
-    console.log( "done" );
+    console.log("done");
   });
 
   this.repl.inject({

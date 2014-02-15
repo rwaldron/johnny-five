@@ -49,7 +49,7 @@ board.on("ready", function() {
   motor.on("brake", function(err, timestamp) {
     console.log("automated brake on timer", timestamp);
   });
-  
+
   motor.on("forward", function(err, timestamp) {
     console.log("forward", timestamp);
 
@@ -64,7 +64,7 @@ board.on("ready", function() {
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {
-      
+
       // Apply the brake for 500ms and call stop()
       motor.brake(500);
     });

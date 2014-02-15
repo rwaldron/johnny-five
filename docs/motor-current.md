@@ -34,7 +34,7 @@ board.on("ready", function() {
       dir: 12,
       brake: 9
     },
-    
+
     // The current options are passed to a new instance of Sensor
     current: {
       pin: "A0",
@@ -50,7 +50,7 @@ board.on("ready", function() {
   motor.current.scale([0, 3030]).on("change", function() {
     console.log("Motor A: " + this.value.toFixed(2) + "mA");
   });
-  
+
   motor.on("start", function(err, timestamp) {
     console.log("start", timestamp);
   });
@@ -62,7 +62,7 @@ board.on("ready", function() {
   motor.on("brake", function(err, timestamp) {
     console.log("automated brake on timer", timestamp);
   });
-  
+
   motor.on("forward", function(err, timestamp) {
     console.log("forward", timestamp);
 
@@ -77,7 +77,7 @@ board.on("ready", function() {
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {
-      
+
       // Apply the brake for 500ms and call stop()
       motor.brake(500);
     });
