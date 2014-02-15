@@ -21,7 +21,7 @@ For step-by-step examples, including an electronics primer, check out [Arduino E
 
 ## Setup and Assemble Arduino
 
-- Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/11576)
+- Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/12001)
 - Download [Arduino IDE](http://arduino.cc/en/main/software)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
 - Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
