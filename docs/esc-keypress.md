@@ -16,9 +16,6 @@ board.on("ready", function() {
 
   var esc = new five.ESC(12);
 
-  // Initialize the ESCs speed to 0
-  esc.to(0);
-
   // Hold shift+arrow-up, shift+arrow-down to incrementally
   // increase or decrease speed.
 
@@ -28,12 +25,12 @@ board.on("ready", function() {
 
     if (key && key.shift) {
       if (key.name === "up") {
-        speed += 1;
+        speed += 0.01;
         isThrottle = true;
       }
 
       if (key.name === "down") {
-        speed -= 1;
+        speed -= 0.01;
         isThrottle = true;
       }
 
@@ -42,11 +39,6 @@ board.on("ready", function() {
       }
     }
   }
-
-  this.repl.inject({
-    esc: esc
-  });
-
 
   keypress(process.stdin);
 

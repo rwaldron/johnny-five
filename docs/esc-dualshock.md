@@ -25,27 +25,20 @@ board.on("ready", function() {
 
   var esc = new five.ESC(12);
 
-  // Initialize the ESCs speed to 0
-  esc.to(0);
-
-
-
-  this.repl.inject({
-    esc: esc
-  });
-
   controller.on("connected", function() {
     controller.isConnected = true;
   });
 
   controller.on("dpadUp:press", function() {
     var speed = esc.last ? esc.speed : 0;
-    esc.to(++speed);
+    speed += 0.01;
+    esc.to(speed);
   });
 
   controller.on("dpadDown:press", function() {
     var speed = esc.last ? esc.speed : 0;
-    esc.to(--speed);
+    speed -= 0.01;
+    esc.to(speed);
   });
 
   controller.on("circle:press", function() {
@@ -57,7 +50,7 @@ board.on("ready", function() {
 
     if (y > 100) {
       // from the deadzone and up
-      esc.to(scale(y, 100, 180, 0, 180) | 0);
+      esc.to(scale(y, 100, 180, 0, 1));
     }
   });
 

@@ -1,0 +1,120 @@
+var MockFirmata = require("./mock-firmata"),
+  five = require("../lib/johnny-five.js"),
+  events = require("events"),
+  sinon = require("sinon"),
+  Board = five.Board,
+  ESC = five.ESC,
+  board = new five.Board({
+    repl: false,
+    io: new MockFirmata()
+  });
+
+exports["ESC"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.esc = new ESC({
+      pin: 12,
+      board: board
+    });
+
+    this.proto = [{
+      name: "to"
+    }, {
+      name: "min"
+    }, {
+      name: "max"
+    }, {
+      name: "stop"
+    }];
+
+    this.instance = [{
+      name: "id"
+    }, {
+      name: "pin"
+    }, {
+      name: "mode"
+    }, {
+      name: "range"
+    }, {
+      name: "interval"
+    }, {
+      name: "startAt"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.servoWrite.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.esc[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.esc[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  emitter: function(test) {
+    test.expect(1);
+
+    test.ok(this.esc instanceof events.EventEmitter);
+
+    test.done();
+  },
+
+  startAt: function(test) {
+    test.expect(1);
+
+    this.spy = sinon.spy(ESC.prototype, "to");
+
+    this.esc = new ESC({
+      pin: 12,
+      board: board,
+      startAt: 0
+    });
+
+    test.ok(this.spy.called);
+
+    test.done();
+  },
+
+  to: function(test) {
+    test.expect(3);
+
+    this.esc = new ESC({
+      pin: 12,
+      board: board,
+      startAt: 0
+    });
+
+    this.esc.to(0.10);
+    this.clock.tick(120);
+    test.equal(this.servoWrite.callCount, 10);
+
+    this.servoWrite.reset();
+
+    this.esc.to(0.09);
+    this.clock.tick(50);
+    test.equal(this.servoWrite.callCount, 1);
+
+    this.servoWrite.reset();
+
+    this.esc.to(0.12);
+    this.clock.tick(30);
+    test.equal(this.servoWrite.callCount, 3);
+
+    test.done();
+  }
+
+};
