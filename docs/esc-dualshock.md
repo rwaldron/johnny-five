@@ -57,7 +57,7 @@ board.on("ready", function() {
 
     if (y > 100) {
       // from the deadzone and up
-      esc.to(scale(y, 90, 180, 0, 180) | 0);
+      esc.to(scale(y, 100, 180, 0, 180) | 0);
     }
   });
 
