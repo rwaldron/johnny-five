@@ -47,6 +47,10 @@
     "stepper-driver.js",
     "stepper-sweep.js",
 
+  [ "ESC & Brushless Motor" ],
+    "esc-keypress.js",
+    "esc-dualshock.js",
+
   [ "Sonar/Ultrasonic" ],
     "ping.js",
     "sonar-scan.js",

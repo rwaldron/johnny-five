@@ -129,6 +129,10 @@ board.on("ready", function() {
 - [Stepper Driver](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-driver.md)
 - [Stepper Sweep](https://github.com/rwldrn/johnny-five/blob/master/docs/stepper-sweep.md)
 
+### ESC & Brushless Motor
+- [Esc Keypress](https://github.com/rwldrn/johnny-five/blob/master/docs/esc-keypress.md)
+- [Esc Dualshock](https://github.com/rwldrn/johnny-five/blob/master/docs/esc-dualshock.md)
+
 ### Sonar/Ultrasonic
 - [Ping](https://github.com/rwldrn/johnny-five/blob/master/docs/ping.md)
 - [Sonar Scan](https://github.com/rwldrn/johnny-five/blob/master/docs/sonar-scan.md)
