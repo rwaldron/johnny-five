@@ -128,3 +128,8 @@
 - LEDs that change color based on Twitter sentiment
    [video](http://www.youtube.com/watch?v=ws7svZuq29c)
    [code](https://github.com/SaraJo/twitter-ring)
+
+## Yusuf Çakmak [@yukocan](https://twitter.com/yukocan)
+   Control Led's Color with Leap Motion + Arduino
+   [Code](https://github.com/yusufcakmak/leapmotion-arduino/blob/master/examples/ledcontrolhands.js) 
+   [Vine](https://vine.co/v/MmhnAKO7aLx)
