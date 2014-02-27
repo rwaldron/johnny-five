@@ -3,6 +3,13 @@
 (Entries listed newest to oldest)
 
 
+## Ricardo de Pena [@ricardodepena](https://twitter.com/ricardodepena)
+
+- Clawbot: bluetooth bot with a claw, controlled via a ps3 controller
+    [video](http://vimeo.com/86788094)
+    [code](https://github.com/rdepena/clawbot)
+
+
 ## Richard Key [@busyrich](http://twitter.com/busyrich)
 
 - Arduino Attack!
