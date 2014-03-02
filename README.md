@@ -193,6 +193,9 @@ board.on("ready", function() {
 - [Nodeconf Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-radar.md)
 - [Nodeconf Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/nodeconf-slider.md)
 
+### Sound
+- [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
+
 ### Wii
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
 - [Classic Controller](https://github.com/rwldrn/johnny-five/blob/master/docs/classic-controller.md)
