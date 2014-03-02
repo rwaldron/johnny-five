@@ -119,6 +119,8 @@
     "nodeconf-radar.js",
     "nodeconf-slider.js",
 
+  [ "Sound" ],
+    "piezo.js",
 
   [ "Wii" ],
     "nunchuk.js",
