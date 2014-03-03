@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.7.18",
+  "version": "0.7.19",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -79,7 +79,7 @@
   ],
   "main": "lib/johnny-five",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.8.0"
   },
   "dependencies": {
     "colors": ">=0.5.1",
