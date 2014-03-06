@@ -1,3 +1,6 @@
-/node_modules/
+node_modules/
 assets/
-docs/breadboard/
+docs/
+tpl/
+util/
+wip/
