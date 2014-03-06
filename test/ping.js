@@ -4,9 +4,10 @@ var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Ping = five.Ping,
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
 
 exports["Ping"] = {

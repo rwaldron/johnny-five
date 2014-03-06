@@ -1,18 +1,19 @@
 var SerialPort = require("./mock-serial").SerialPort,
+  MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Repl = require("../lib/repl"),
   __ = require("../lib/fn.js"),
-  _ = require('lodash'),
-  MockFirmata = require("./mock-firmata"),
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  _ = require("lodash"),
+  Board = five.Board,
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
+
 
 // use:
 // serial.emit( "data", [---] ) to  trigger testable events
-
-// console.log( board );
 
 exports["static"] = {
   "Board.cache": function(test) {
@@ -142,12 +143,14 @@ exports["static"] = {
     var io = new MockFirmata();
 
     var boards = new five.Boards([{
-        id: 'A',
+        id: "A",
         repl: false,
+        mock: true,
         io: io
       },{
-        id: 'B',
+        id: "B",
         repl: false,
+        mock: true,
         io: io
       }]);
 
@@ -185,7 +188,8 @@ exports["instance"] = {
 
   "repl": function(test) {
     var board = new five.Board({
-      io: new MockFirmata()
+      io: new MockFirmata(),
+      mock: true
     });
     test.expect(2);
     test.ok(board.repl instanceof Repl);

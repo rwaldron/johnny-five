@@ -4,6 +4,7 @@ var util = require("util"),
 
 function MockFirmata(opt) {
   opt = opt || {};
+  this.name = "Mock";
   this.isReady = true;
   this.pins = opt.pins || pins.UNO;
   this.analogPins = opt.analogPins || pins.UNOANALOG;

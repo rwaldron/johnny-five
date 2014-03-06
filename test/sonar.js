@@ -5,10 +5,12 @@ var MockFirmata = require("./mock-firmata"),
   sinon = require("sinon"),
   Board = five.Board,
   Sonar = five.Sonar,
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
+
 
 
 

@@ -1,9 +1,11 @@
 var MockFirmata = require("./mock-firmata"),
   pins = require("./mock-pins"),
   five = require("../lib/johnny-five.js"),
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  Board = five.Board,
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
 
 

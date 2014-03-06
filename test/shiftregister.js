@@ -1,12 +1,13 @@
 var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
+  sinon = require("sinon"),
   Board = five.Board,
   ShiftRegister = five.ShiftRegister,
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
-  }),
-  sinon = require("sinon");
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
+  });
 
 exports["ShiftRegister"] = {
 

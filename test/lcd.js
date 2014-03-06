@@ -1,4 +1,4 @@
-var SerialPort = require("./mock-serial").SerialPort,
+var MockFirmata = require("./mock-firmata"),
   pins = require("./mock-pins"),
   five = require("../lib/johnny-five.js"),
   Board = five.Board,
@@ -6,25 +6,17 @@ var SerialPort = require("./mock-serial").SerialPort,
   sinon = require("sinon"),
   util = require("util");
 
-function createNewBoard() {
-  var serial = new SerialPort("/path/to/fake/usb"),
-    board = new five.Board({
-      repl: false,
-      debug: true,
-      mock: serial
-    });
-
-  board.io.pins = pins.UNO;
-  board.io.analogPins = [14, 15, 16, 17, 18, 19];
-  board.pins = Board.Pins(board);
-  return board;
+function newBoard() {
+  return new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
+  });
 }
-
-// END
 
 exports["LCD"] = {
   setUp: function(done) {
-    this.board = createNewBoard();
+    this.board = newBoard();
     this.spy = sinon.spy(this.board.io, "digitalWrite");
 
     this.lcd = new LCD({

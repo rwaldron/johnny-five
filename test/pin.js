@@ -1,15 +1,16 @@
 var five = require("../lib/johnny-five.js"),
+  MockFirmata = require("./mock-firmata"),
+  sinon = require("sinon"),
   events = require("events"),
   Board = five.Board,
-  Pin = five.Pin,
-  MockFirmata = require("./mock-firmata"),
-  sinon = require("sinon");
+  Pin = five.Pin;
 
 exports["Pin"] = {
   setUp: function(done) {
-    var board = new five.Board({
-      repl: false,
-      io: new MockFirmata()
+    var board = new Board({
+      io: new MockFirmata(),
+      mock: true,
+      repl: false
     });
 
     this.digital = new Pin({

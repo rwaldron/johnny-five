@@ -5,9 +5,10 @@ var MockFirmata = require("./mock-firmata"),
   Board = five.Board,
   sinon = require("sinon"),
   Switch = five.Switch,
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
 
 exports["Switch"] = {

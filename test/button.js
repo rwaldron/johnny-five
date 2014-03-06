@@ -6,6 +6,7 @@ var MockFirmata = require("./mock-firmata"),
   Board = five.Board,
   Button = five.Button,
   board = new five.Board({
+    mock: true,
     repl: false,
     io: new MockFirmata()
   });

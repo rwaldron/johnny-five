@@ -7,8 +7,9 @@ var MockFirmata = require("./mock-firmata"),
   Sensor = five.Sensor;
 
 function newBoard() {
-  return new five.Board({
+  return new Board({
     io: new MockFirmata(),
+    mock: true,
     repl: false
   });
 }

@@ -5,9 +5,10 @@ var MockFirmata = require("./mock-firmata"),
   Board = five.Board,
   Sensor = five.Sensor,
   Distance = five.IR.Distance,
-  board = new five.Board({
-    repl: false,
-    io: new MockFirmata()
+  board = new Board({
+    io: new MockFirmata(),
+    mock: true,
+    repl: false
   });
 
 exports["IR.Distance"] = {

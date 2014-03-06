@@ -8,8 +8,9 @@ exports["Piezo"] = {
 
   setUp: function(done) {
     this.board = new Board({
-      repl: false,
-      io: new MockFirmata()
+      io: new MockFirmata(),
+      mock: true,
+      repl: false
     });
 
     this.clock = sinon.useFakeTimers();

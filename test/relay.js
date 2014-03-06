@@ -1,11 +1,13 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   MockFirmata = require("./mock-firmata"),
-  Relay = five.Relay;
+  Relay = five.Relay,
+  Board = five.Board;
 
 function newBoard() {
-  return new five.Board({
+  return new Board({
     io: new MockFirmata(),
+    mock: true,
     repl: false
   });
 }
