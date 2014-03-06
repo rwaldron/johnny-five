@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
-  "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.7.21",
+  "description": "The JavaScript Arduino Programming Framework.",
+  "version": "0.7.22",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -63,7 +63,7 @@
     { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" }
   ],
   "keywords": [
-    "arduino", "usb", "serial", "serialport", "firmata"
+    "arduino", "usb", "serial", "serialport", "firmata", "robot"
   ],
   "repository": {
     "type": "git",
