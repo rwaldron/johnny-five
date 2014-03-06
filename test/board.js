@@ -134,6 +134,25 @@ exports["static"] = {
     test.ok(boardEvent.target === serial);
 
     test.done();
+  },
+
+  "Board.Array": function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+
+    var boards = new five.Boards([{
+        id: 'A',
+        repl: false,
+        io: io
+      },{
+        id: 'B',
+        repl: false,
+        io: io
+      }]);
+
+    test.equals(2, boards.length);
+    test.done();
   }
 };
 
