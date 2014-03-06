@@ -84,15 +84,18 @@
   },
   "dependencies": {
     "colors": ">=0.5.1",
-    "firmata": ">=0.2.9",
     "lodash": ">=0.1.0",
     "es6-collections": ">=0.0.1",
     "compulsive": "latest",
     "temporal": "latest",
     "descriptor": "latest",
+    "nanotimer": "0.3.0"
+  },
+  "optionalDependencies": {
+    "firmata": ">=0.2.9",
     "serialport": "latest",
-    "nanotimer": "0.3.0",
-    "spark-io": "latest"
+    "spark-io": "latest",
+    "galileo-io": "latest"
   },
   "devDependencies": {
     "async": "~0.2.9",
