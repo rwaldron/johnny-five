@@ -149,12 +149,9 @@ exports["static"] = {
         id: 'B',
         repl: false,
         io: io
-      }]).on('ready', function(){
-        test.equals(2, this.length);
-      });
+      }]);
 
-    boards[0].emit('ready', null);
-    boards[1].emit('ready', null);
+    test.equals(2, boards.length);
     test.done();
   }
 };
