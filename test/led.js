@@ -317,6 +317,8 @@ exports["Led.RGB"] = {
       board: this.board
     });
 
+    this.spy = sinon.spy(this.board.io, "analogWrite");
+
     this.proto = [{
       name: "on"
     }, {
@@ -368,29 +370,167 @@ exports["Led.RGB"] = {
     var redPin = 9,
       greenPin = 10,
       bluePin = 11;
-    var spy = sinon.spy(this.board.io, "analogWrite");
 
     test.expect(9);
 
     this.ledRgb.color("#0000ff");
-    test.ok(spy.calledWith(redPin, 0x00));
-    test.ok(spy.calledWith(greenPin, 0x00));
-    test.ok(spy.calledWith(bluePin, 0xff));
+    test.ok(this.spy.calledWith(redPin, 0x00));
+    test.ok(this.spy.calledWith(greenPin, 0x00));
+    test.ok(this.spy.calledWith(bluePin, 0xff));
 
     this.ledRgb.color("#ffff00");
-    test.ok(spy.calledWith(redPin, 0xff));
-    test.ok(spy.calledWith(greenPin, 0xff));
-    test.ok(spy.calledWith(bluePin, 0x00));
+    test.ok(this.spy.calledWith(redPin, 0xff));
+    test.ok(this.spy.calledWith(greenPin, 0xff));
+    test.ok(this.spy.calledWith(bluePin, 0x00));
 
     this.ledRgb.color("#bbccaa");
-    test.ok(spy.calledWith(redPin, 0xbb));
-    test.ok(spy.calledWith(greenPin, 0xcc));
-    test.ok(spy.calledWith(bluePin, 0xaa));
+    test.ok(this.spy.calledWith(redPin, 0xbb));
+    test.ok(this.spy.calledWith(greenPin, 0xcc));
+    test.ok(this.spy.calledWith(bluePin, 0xaa));
+
+    test.done();
+  },
+
+  on: function(test) {
+    test.expect(1);
+
+    this.ledRgb.on();
+    test.ok(this.spy.calledWith(11, 255));
+
+    test.done();
+  },
+
+  off: function(test) {
+    test.expect(1);
+
+    this.ledRgb.off();
+    test.ok(this.spy.calledWith(11, 0));
 
     test.done();
   }
 
 };
+
+exports["Led.RGB - Common Anode"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+
+    this.ledRgb = new Led.RGB({
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      },
+      isAnode: true,
+      board: this.board
+    });
+
+    this.io = {
+      analogWrite: function (pin, value) {}
+    };
+
+    this.board.io.analogWrite = function (pin, value) {
+      value = 255 - value;
+      this.io.analogWrite(pin, value);
+    }.bind(this);
+
+    this.spy = sinon.spy(this.io, "analogWrite");
+
+    this.proto = [{
+      name: "on"
+    }, {
+      name: "off"
+    }, {
+      name: "toggle"
+    }, {
+      name: "brightness"
+    }, {
+      name: "pulse"
+    }, {
+      name: "fade"
+    }, {
+      name: "fadeIn"
+    }, {
+      name: "fadeOut"
+    }, {
+      name: "strobe"
+    }, {
+      name: "stop"
+    }];
+
+    this.instance = [{
+      name: "red"
+    }, {
+      name: "green"
+    }, {
+      name: "blue"
+    }, ];
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.ledRgb[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.ledRgb[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  color: function(test) {
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11;
+
+    test.expect(9);
+
+    this.ledRgb.color("#0000ff");
+    test.ok(this.spy.calledWith(redPin, 0xff));
+    test.ok(this.spy.calledWith(greenPin, 0xff));
+    test.ok(this.spy.calledWith(bluePin, 0x00));
+
+    this.ledRgb.color("#ffff00");
+    test.ok(this.spy.calledWith(redPin, 0x00));
+    test.ok(this.spy.calledWith(greenPin, 0x00));
+    test.ok(this.spy.calledWith(bluePin, 0xff));
+
+    this.ledRgb.color("#bbccaa");
+    test.ok(this.spy.calledWith(redPin, 0x44));
+    test.ok(this.spy.calledWith(greenPin, 0x33));
+    test.ok(this.spy.calledWith(bluePin, 0x55));
+
+    test.done();
+  },
+
+  on: function(test) {
+    test.expect(1);
+
+    this.ledRgb.on();
+    test.ok(this.spy.calledWith(11, 0));
+
+    test.done();
+  },
+
+  off: function(test) {
+    test.expect(1);
+
+    this.ledRgb.off();
+    test.ok(this.spy.calledWith(11, 255));
+
+    test.done();
+  }
+
+};
+
+
+
 
 exports["Led - Default Pin"] = {
   shape: function(test) {
