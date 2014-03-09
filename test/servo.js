@@ -189,8 +189,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  // This test will change with issue #246
-  resLimited: function(test) {
+  resolutionLimited: function(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -203,7 +202,7 @@ exports["Servo"] = {
 
     this.clock.tick(1010);
 
-    test.ok(this.servoWrite.callCount === 129);
+    test.ok(this.servoWrite.callCount === 91);
 
     test.done();
   },
