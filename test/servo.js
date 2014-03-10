@@ -154,7 +154,7 @@ exports["Servo"] = {
   },
 
   rate: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.servo = new Servo({
       pin: 11,
@@ -166,6 +166,7 @@ exports["Servo"] = {
 
     this.clock.tick(1010);
 
+    test.equal(this.servo.position, 180);
     test.ok(this.servoWrite.callCount === 101);
 
     test.done();
@@ -191,7 +192,7 @@ exports["Servo"] = {
   },
 
   resolutionLimited: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.servo = new Servo({
       pin: 11,
@@ -204,6 +205,7 @@ exports["Servo"] = {
     this.clock.tick(1010);
 
     test.ok(this.servoWrite.callCount === 91);
+    test.equal(this.servo.position, 90);
 
     test.done();
   },
