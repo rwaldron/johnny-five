@@ -153,6 +153,63 @@ exports["Servo"] = {
     test.done();
   },
 
+  rate: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(0);
+    this.servo.to(180, 1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(this.servo.position, 180);
+    test.ok(this.servoWrite.callCount === 101);
+
+    test.done();
+  },
+
+  fps: function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      fps: 50
+    });
+
+    this.servo.to(0);
+    this.servo.to(180, 1000);
+
+    this.clock.tick(1010);
+
+    test.ok(this.servoWrite.callCount === 51);
+
+    test.done();
+  },
+
+  resolutionLimited: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(0);
+    this.servo.to(90, 1000, 255);
+
+    this.clock.tick(1010);
+
+    test.ok(this.servoWrite.callCount === 91);
+    test.equal(this.servo.position, 90);
+
+    test.done();
+  },
+
   type: function(test) {
     test.expect(1);
 
