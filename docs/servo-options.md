@@ -19,6 +19,7 @@ board.on("ready", function() {
     type: "standard", // Default: "standard". Use "continuous" for continuous rotation servos
     startAt: 90, // if you would like the servo to immediately move to a degree
     center: false // overrides startAt if true and moves the servo to the center of the range
+    fps: 100 // sets the frequency that Servo.to() may write to the PWM pin
   });
 
   // Inject the `servo` hardware into
