@@ -5,7 +5,7 @@ var MockFirmata = require("./mock-firmata"),
   ShiftRegister = five.ShiftRegister,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 

@@ -7,7 +7,7 @@ var SerialPort = require("./mock-serial").SerialPort,
   Board = five.Board,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 
@@ -145,12 +145,12 @@ exports["static"] = {
     var boards = new five.Boards([{
         id: "A",
         repl: false,
-        mock: true,
+        debug: false,
         io: io
       },{
         id: "B",
         repl: false,
-        mock: true,
+        debug: false,
         io: io
       }]);
 
@@ -189,7 +189,7 @@ exports["instance"] = {
   "repl": function(test) {
     var board = new five.Board({
       io: new MockFirmata(),
-      mock: true
+      debug: false
     });
     test.expect(2);
     test.ok(board.repl instanceof Repl);

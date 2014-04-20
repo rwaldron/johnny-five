@@ -7,7 +7,7 @@ var MockFirmata = require("./mock-firmata"),
   Sonar = five.Sonar,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 

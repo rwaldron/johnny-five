@@ -9,7 +9,7 @@ exports["Pin"] = {
   setUp: function(done) {
     var board = new Board({
       io: new MockFirmata(),
-      mock: true,
+      debug: false,
       repl: false
     });
 

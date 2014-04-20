@@ -7,7 +7,7 @@ var five = require("../lib/johnny-five.js"),
 function newBoard() {
   return new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 }

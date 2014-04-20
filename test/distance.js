@@ -7,7 +7,7 @@ var MockFirmata = require("./mock-firmata"),
   Distance = five.IR.Distance,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 

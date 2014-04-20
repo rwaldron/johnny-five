@@ -6,7 +6,7 @@ var MockFirmata = require("./mock-firmata"),
   Pir = five.Pir,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 
