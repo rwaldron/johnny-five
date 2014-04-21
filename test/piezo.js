@@ -9,7 +9,7 @@ exports["Piezo"] = {
   setUp: function(done) {
     this.board = new Board({
       io: new MockFirmata(),
-      mock: true,
+      debug: false,
       repl: false
     });
 

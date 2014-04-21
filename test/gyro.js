@@ -7,7 +7,7 @@ var MockFirmata = require("./mock-firmata"),
   Gyro = five.Gyro,
   board = new Board({
     io: new MockFirmata(),
-    mock: true,
+    debug: false,
     repl: false
   });
 
