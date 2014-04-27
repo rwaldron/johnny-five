@@ -84,8 +84,8 @@
   },
   "dependencies": {
     "colors": ">=0.5.1",
-    "lodash": ">=0.1.0",
-    "es6-collections": ">=0.0.1",
+    "lodash": "latest",
+    "es6-shim": "latest",
     "temporal": "latest",
     "descriptor": "latest",
     "nanotimer": "0.3.0"
