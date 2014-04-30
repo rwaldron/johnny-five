@@ -36,6 +36,7 @@ module.exports = function(grunt) {
         "test/pins.js",
         "test/capabilities.js",
         // ------------------
+        "test/accelerometer.js",
         "test/button.js",
         "test/esc.js",
         "test/distance.js",
@@ -60,7 +61,7 @@ module.exports = function(grunt) {
         eqeqeq: true,
         immed: true,
         latedef: false,
-        newcap: true,
+        newcap: false,
         noarg: true,
         sub: true,
         undef: true,

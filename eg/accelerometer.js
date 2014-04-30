@@ -5,7 +5,7 @@ board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create a new `Accelerometer` hardware instance.
+  // Create a new analog `Accelerometer` hardware instance.
   //
   // five.Accelerometer([ x, y[, z] ]);
   //
@@ -17,8 +17,12 @@ board.on("ready", function() {
 
   accel = new five.Accelerometer({
     pins: ["A3", "A4", "A5"],
-    freq: 100,
-    threshold: 0.2
+
+    // Adjust the following for your device.
+    // These are the default values (LIS344AL)
+    //
+    sensitivity: 96, // mV/degree/seconds
+    zeroV: 478 // volts in ADC
   });
 
   // Accelerometer Event API
@@ -33,13 +37,31 @@ board.on("ready", function() {
     console.log("acceleration", data.smooth);
   });
 
-  // "axischange"
+  // "orientation"
   //
-  // Fires only when X, Y or Z has changed
+  // Fires when orientation changes
   //
-  accel.on("axischange", function(err, data) {
+  accel.on("orientation", function(err, data) {
 
-    console.log("axischange", data.smooth);
+    console.log("orientation", data.smooth);
+  });
+
+  // "inclination"
+  //
+  // Fires when inclination changes
+  //
+  accel.on("inclination", function(err, data) {
+
+    console.log("inclination", data.smooth);
+  });
+
+  // "change"
+  //
+  // Fires when X, Y or Z has changed
+  //
+  accel.on("change", function(err, data) {
+
+    console.log("change", data.smooth);
   });
 });
 
@@ -47,5 +69,7 @@ board.on("ready", function() {
 //
 // - [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
 // - [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
+//
+// - [Two or Three Axis Accelerometer, LIS344AL](http://www.st.ewi.tudelft.nl/~gemund/Courses/In4073/Resources/LIS344AL.pdf)
 //
 // @markdown
