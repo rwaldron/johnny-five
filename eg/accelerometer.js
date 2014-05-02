@@ -27,41 +27,54 @@ board.on("ready", function() {
 
   // Accelerometer Event API
 
+
+  // "data"
+  //
+  // Fires when X, Y or Z has changed.
+  //
+  // The first argument is an object containing raw x, y, z
+  // values as read from the analog input.
+  //
+  accel.on("data", function(data) {
+
+    console.log("raw: ", data);
+  });
+
   // "acceleration"
   //
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function(err, data) {
+  accel.on("acceleration", function(data) {
 
-    console.log("acceleration", data.smooth);
+    console.log("acceleration", data);
   });
 
   // "orientation"
   //
   // Fires when orientation changes
   //
-  accel.on("orientation", function(err, data) {
+  accel.on("orientation", function(data) {
 
-    console.log("orientation", data.smooth);
+    console.log("orientation", data);
   });
 
   // "inclination"
   //
   // Fires when inclination changes
   //
-  accel.on("inclination", function(err, data) {
+  accel.on("inclination", function(data) {
 
-    console.log("inclination", data.smooth);
+    console.log("inclination", data);
   });
 
   // "change"
   //
   // Fires when X, Y or Z has changed
   //
-  accel.on("change", function(err, data) {
+  accel.on("change", function(data) {
 
-    console.log("change", data.smooth);
+    console.log("change", data);
   });
 });
 
