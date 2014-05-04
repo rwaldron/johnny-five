@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/rwaldron/johnny-five.png?branch=master)](https://travis-ci.org/rwaldron/johnny-five)
 
 
-#### Johnny-Five is an Open Source, JavaScript Arduino programming framework, developed at [Bocoup](http://bocoup.com).
+#### Johnny-Five is an Open Source, JavaScript Arduino and Raspberry Pi programming framework, developed at [Bocoup](http://bocoup.com).
 
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
