@@ -61,10 +61,11 @@
     { "name": "Donovan Buck", "email": "<donovan@donovan.bz>" },
     { "name": "Taha Hesham", "email": "<taha@wizylabs.com>" },
     { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" },
-    { "name": "Donald Averill", "email": "<donaldaverill@nakedcitybrewing.com" }
+    { "name": "Donald Averill", "email": "<donaldaverill@nakedcitybrewing.com" },
+    { "name": "Bryan Hughes", "email": "<bryan@theoreticalideations.com>" }
   ],
   "keywords": [
-    "arduino", "usb", "serial", "serialport", "firmata", "robot"
+    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot"
   ],
   "repository": {
     "type": "git",
@@ -95,7 +96,8 @@
     "firmata": ">=0.2.9",
     "serialport": "latest",
     "spark-io": "latest",
-    "galileo-io": "latest"
+    "galileo-io": "latest",
+    "raspi-io": "latest"
   },
   "devDependencies": {
     "async": "~0.2.9",
@@ -108,7 +110,6 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2"
   },
-  "keywords": [],
   "scripts": {
     "test": "grunt"
   }
