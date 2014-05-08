@@ -95,6 +95,7 @@ board.on("ready", function() {
 - [Shiftregister](https://github.com/rwldrn/johnny-five/blob/master/docs/shiftregister.md)
 - [Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/pin.md)
 - [Pin Circuit Event](https://github.com/rwldrn/johnny-five/blob/master/docs/pin-circuit-event.md)
+- [Pin Dtoa](https://github.com/rwldrn/johnny-five/blob/master/docs/pin-dtoa.md)
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
 ### JSConf
@@ -110,12 +111,15 @@ board.on("ready", function() {
 ### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Servo Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-options.md)
+- [Servo Sweep Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-sweep-options.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Servo Digital](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-digital.md)
+- [Servo Diagnostic](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
 - [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
 - [Continuous Clock](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous-clock.md)
 - [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
 
 ### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
@@ -155,8 +159,10 @@ board.on("ready", function() {
 - [Gripper](https://github.com/rwldrn/johnny-five/blob/master/docs/gripper.md)
 
 ### Infrared
+- [Ir Distance](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-distance.md)
 - [Ir Motion](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
+- [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
 - [Ir Reflect](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect.md)
 
 ### Joystick
@@ -173,11 +179,13 @@ board.on("ready", function() {
 
 ### LED
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
+- [Led](https://github.com/rwldrn/johnny-five/blob/master/docs/led.md)
 - [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
+- [Led Rgb Anode](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
@@ -195,6 +203,9 @@ board.on("ready", function() {
 
 ### Sound
 - [Piezo](https://github.com/rwldrn/johnny-five/blob/master/docs/piezo.md)
+
+### Kinect
+- [Kinect Arm Controller](https://github.com/rwldrn/johnny-five/blob/master/docs/kinect-arm-controller.md)
 
 ### Wii
 - [Nunchuk](https://github.com/rwldrn/johnny-five/blob/master/docs/nunchuk.md)
@@ -218,6 +229,7 @@ board.on("ready", function() {
 - [Sensor Temperature](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature.md)
 
 ### TinkerKit
+- [Tinkerkit Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)
 - [Tinkerkit Blink](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-blink.md)
 - [Tinkerkit Button](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-button.md)
 - [Tinkerkit Continuous Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
@@ -229,6 +241,9 @@ board.on("ready", function() {
 - [Tinkerkit Thermistor](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-thermistor.md)
 - [Tinkerkit Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-tilt.md)
 - [Tinkerkit Touch](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-touch.md)
+
+### Spark
+- [Spark Io Blink](https://github.com/rwldrn/johnny-five/blob/master/docs/spark-io-blink.md)
 
 
 
