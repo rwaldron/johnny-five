@@ -149,20 +149,23 @@ exports["Pin"] = {
   },
 
   write: function(test) {
-    test.expect(4);
+    test.expect(8);
 
     this.digital.write(1);
     test.ok(this.digitalWrite.calledWith(11, 1));
+    test.equal(this.digital.value, 1);
 
     this.digital.write(0);
     test.ok(this.digitalWrite.calledWith(11, 0));
-
+    test.equal(this.digital.value, 0);
 
     this.analog.write(1023);
     test.ok(this.analogWrite.calledWith(1, 1023));
+    test.equal(this.analog.value, 1023);
 
     this.analog.write(0);
     test.ok(this.analogWrite.calledWith(1, 0));
+    test.equal(this.analog.value, 0);
 
     test.done();
   },
