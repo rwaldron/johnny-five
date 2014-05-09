@@ -60,8 +60,7 @@
     { "name": "Alex Crooks", "email": "<alexcrooks@gmail.com>" },
     { "name": "Donovan Buck", "email": "<donovan@donovan.bz>" },
     { "name": "Taha Hesham", "email": "<taha@wizylabs.com>" },
-    { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" },
-    { "name": "Ray Pierce", "email": "<ray@digitalpierce.com>" }
+    { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata", "robot"
