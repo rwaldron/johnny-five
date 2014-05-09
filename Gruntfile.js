@@ -69,6 +69,7 @@ module.exports = function(grunt) {
         eqnull: true,
         node: true,
         strict: false,
+        esnext: true,
         globals: {
           exports: true,
           document: true,
