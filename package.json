@@ -103,13 +103,13 @@
     "keypress": "latest",
     "sinon": "~1.7.3",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.3.3",
+    "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2"
   },
   "keywords": [],
   "scripts": {
-    "test" : "grunt"
+    "test": "grunt"
   }
 }
