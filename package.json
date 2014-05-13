@@ -61,7 +61,7 @@
     { "name": "Donovan Buck", "email": "<donovan@donovan.bz>" },
     { "name": "Taha Hesham", "email": "<taha@wizylabs.com>" },
     { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" },
-    { "name": "HumulusMaximus", "email": "<no email>" }
+    { "name": "Donald Averill", "email": "<donaldaverill@nakedcitybrewing.com" }
   ],
   "keywords": [
     "arduino", "usb", "serial", "serialport", "firmata", "robot"
