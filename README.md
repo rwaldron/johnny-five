@@ -227,6 +227,7 @@ board.on("ready", function() {
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
 - [Sensor Temperature](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature.md)
+- [Sensor Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-lm35.md)
 
 ### TinkerKit
 - [Tinkerkit Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)

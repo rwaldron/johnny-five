@@ -153,6 +153,7 @@
     "slider-pan.js",
     "slider-servo-control.js",
     "sensor-temperature.js",
+    "sensor-temperature-lm35.js",
 
   [ "TinkerKit" ],
     "tinkerkit-accelerometer.js",
