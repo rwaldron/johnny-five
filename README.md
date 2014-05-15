@@ -21,7 +21,7 @@ For non-Arduino based projects, the following platform [IO Plugins](https://gith
 - Intel Galileo
   - [Galileo-IO](https://github.com/rwaldron/galileo-io/)
 - Pinoccio
-  - [Pinoccio-IO](ttps://github.com/soldair/pinoccio-io/)
+  - [Pinoccio-IO](https://github.com/soldair/pinoccio-io/)
 - Rasperry Pi
   - [Raspi-IO](https://gitlab.theoreticalideations.com/nebrius/raspi-io/)
 - Spark Core
