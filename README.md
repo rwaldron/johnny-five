@@ -22,7 +22,7 @@ For non-Arduino based projects, the following platform [IO Plugins](https://gith
   - [Galileo-IO](https://github.com/rwaldron/galileo-io/)
 - Pinoccio
   - [Pinoccio-IO](https://github.com/soldair/pinoccio-io/)
-- Rasperry Pi
+- Raspberry Pi
   - [Raspi-IO](https://gitlab.theoreticalideations.com/nebrius/raspi-io/)
 - Spark Core
   - [Spark-IO](https://github.com/rwaldron/spark-io/)
