@@ -7,9 +7,26 @@
 
 #### Johnny-Five is an Open Source, JavaScript Arduino programming framework, developed at [Bocoup](http://bocoup.com).
 
+
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
 #### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
+
+## IO Plugins
+
+For non-Arduino based projects, the following platform [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available:
+
+- Beagle Bone
+  - [BeagleBone-IO](https://github.com/julianduque/beaglebone-io)
+- Intel Galileo
+  - [Galileo-IO](https://github.com/rwaldron/galileo-io/)
+- Pinoccio
+  - [Pinoccio-IO](https://github.com/soldair/pinoccio-io/)
+- Raspberry Pi
+  - [Raspi-IO](https://gitlab.theoreticalideations.com/nebrius/raspi-io/)
+- Spark Core
+  - [Spark-IO](https://github.com/rwaldron/spark-io/)
+
 
 ## Documentation
 
