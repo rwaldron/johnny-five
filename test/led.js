@@ -142,6 +142,7 @@ exports["Led - Digital"] = {
 
 exports["Led - PWM (Analog)"] = {
   setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
     this.board = newBoard();
     this.spy = sinon.spy(this.board.io, "analogWrite");
 
@@ -184,6 +185,11 @@ exports["Led - PWM (Analog)"] = {
       name: "interval"
     }];
 
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
     done();
   },
 
@@ -291,6 +297,52 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.strobe();
     test.equal(this.led.mode, 1);
+
+    test.done();
+  },
+
+  fadeIn: function(test) {
+    test.expect(7);
+
+    test.equal(this.led.value, null);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
+
+    this.led.fadeIn(10);
+    this.clock.tick(5);
+    test.equal(this.led.isRunning, true);
+    this.clock.tick(6);
+
+    test.equal(this.led.value, 255);
+    test.equal(this.led.isOn, true);
+    test.equal(this.led.isRunning, false);
+
+    test.done();
+  },
+
+  fadeOut: function(test) {
+    test.expect(10);
+
+    test.equal(this.led.value, null);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
+
+    this.led.fadeIn(10);
+    this.clock.tick(11);
+
+    test.equal(this.led.value, 255);
+    test.equal(this.led.isOn, true);
+    test.equal(this.led.isRunning, false);
+
+    this.led.fadeOut(10);
+    this.clock.tick(5);
+    test.equal(this.led.isRunning, true);
+    this.clock.tick(6);
+
+
+    test.equal(this.led.value, 0);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
 
     test.done();
   }
