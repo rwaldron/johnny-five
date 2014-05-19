@@ -218,3 +218,69 @@ exports["Servo"] = {
     test.done();
   },
 };
+
+exports["Servo - Continuous"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.servoWrite = sinon.spy(board.io, "servoWrite");
+
+    this.a = new Servo({
+      pin: 11,
+      type: "continuous",
+      board: board
+    });
+
+    this.b = new Servo.Continuous({
+      pin: 11,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.servoWrite.restore();
+    done();
+  },
+
+  type: function(test) {
+    test.expect(2);
+
+    test.equal(this.a.type, "continuous");
+    test.equal(this.b.type, "continuous");
+
+
+    test.done();
+  },
+
+  cw: function(test) {
+    test.expect(2);
+
+    this.a.cw();
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servoWrite.restore();
+
+    this.b.cw();
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+
+    test.done();
+  },
+
+  ccw: function(test) {
+    test.expect(2);
+
+    this.a.ccw();
+    test.ok(this.servoWrite.calledWith(11, 0));
+
+    this.servoWrite.restore();
+
+    this.b.ccw();
+    test.ok(this.servoWrite.calledWith(11, 0));
+
+
+    test.done();
+  },
+};
