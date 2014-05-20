@@ -34,7 +34,6 @@
     "servo-diagnostic.js",
     "servo-dual.js",
     "servo-tutorial.js",
-    "continuous-clock.js",
     "continuous.js",
     "boe-test-servos.js",
 
