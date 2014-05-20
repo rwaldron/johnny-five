@@ -32,10 +32,15 @@ board.on("ready", function() {
 
   // Continuous Rotation Servo API
 
-  // move( speed )
+  // cw( speed )
+  // clockWise( speed)
+  // ccw( speed )
+  // counterClockwise( speed )
+  //
   // Set the speed at which the continuous rotation
-  // servo will rotate at.
-  servo.move(90);
+  // servo will rotate at, either clockwise or counter
+  // clockwise, respectively
+  servo.cw(0.5); // half speed clockwise
 
 });
 
