@@ -62,7 +62,9 @@
     { "name": "Taha Hesham", "email": "<taha@wizylabs.com>" },
     { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" },
     { "name": "Donald Averill", "email": "<donaldaverill@nakedcitybrewing.com" },
-    { "name": "Bryan Hughes", "email": "<bryan@theoreticalideations.com>" }
+    { "name": "Bryan Hughes", "email": "<bryan@theoreticalideations.com>" },
+    { "name": "rmyers", "email": "<rmyers@euro-pro.com>" }
+
   ],
   "keywords": [
     "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot"
