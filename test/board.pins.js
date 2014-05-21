@@ -1,21 +1,5 @@
 var Pins = require("../lib/board.pins.js");
-
-
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
-// var SerialPort = require("./mock-serial").SerialPort,
-
-  // MockFirmata = require("./mock-firmata"),
-  // five = require("../lib/johnny-five.js"),
-  // Repl = require("../lib/repl"),
-  // __ = require("../lib/fn.js"),
-  // _ = require("lodash"),
-  // Board = five.Board,
-  // board = new Board({
-    // io: new MockFirmata(),
-    // debug: false,
-    // repl: false
-  // });
-
 
 exports["static"] = {
   tearDown: function(done) {
