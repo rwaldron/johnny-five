@@ -3,17 +3,18 @@ var Spark = require("spark-io");
 
 var board = new five.Board({
   io: new Spark({
-    token: "a81cf99a8c1fe45b74d749d521a32671eb443d5e",
-    deviceId: "53ff6f065067544840551187"
+    token: process.env.SPARK_TOKEN,
+    deviceId: process.env.SPARK_DEVICE_ID
   })
 });
 
 board.on("ready", function() {
-  var led = new five.Led("D7");
+  var pin = "A7";
+  var led = new five.Led(pin);
 
-  led.strobe(1000);
+  led.strobe(500);
 
-  this.repl.inject({
-    led: led
-  });
+  // this.repl.inject({
+  //   led: led
+  // });
 });
