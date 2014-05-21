@@ -582,12 +582,10 @@ exports["Led.RGB - Common Anode"] = {
 };
 
 
-
-
-exports["Led - Default Pin"] = {
+exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
     test.expect(8);
-    test.equal(new Led().pin, 9);
+    test.equal(new Led().pin, 13);
     test.equal(new Led(0).pin, 0);
 
     test.equal(new Led("A0").pin, 14);
