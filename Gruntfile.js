@@ -51,6 +51,7 @@ module.exports = function(grunt) {
         "test/sensor.js",
         "test/servo.js",
         "test/sonar.js",
+        "test/stepper.js",
         "test/switch.js",
         "test/shiftregister.js"
       ]

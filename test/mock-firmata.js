@@ -17,6 +17,12 @@ function MockFirmata(opt) {
   };
   this.HIGH = 1;
   this.LOW = 0;
+
+  // set/override for special cases
+  // like AdvancedFirmata
+  for(var i in opt) {
+    this[i] = opt[i];
+  }
 }
 
 util.inherits(MockFirmata, events.EventEmitter);
