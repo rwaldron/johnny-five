@@ -46,7 +46,7 @@ board.on("ready", function() {
   //
   servo.center();
 
-  // move( deg )
+  // to( deg )
   //
   // Moves the servo to position by degrees
   //

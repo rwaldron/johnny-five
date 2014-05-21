@@ -61,7 +61,7 @@ board.on("ready", function() {
   //
   // eg. array.max();
 
-  // move( deg )
+  // to( deg )
   //
   // set all servos to deg
   //
