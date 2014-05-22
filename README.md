@@ -36,6 +36,10 @@ Documentation for the Johnny-Five API can be found [here](https://github.com/rwa
 
 For step-by-step examples, including an electronics primer, check out [Arduino Experimenter's Guide for NodeJS](http://node-ardx.org/) by [@AnnaGerber](https://twitter.com/AnnaGerber)
 
+Here is a list of [prerequites](https://github.com/rwaldron/johnny-five/wiki/Prerequites) for Linux, OSX or Windows.
+
+Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-MCU-Bluetooth-Serial-Port-Module-Notes) if you want to remotely controll your robot.
+
 ## Setup and Assemble Arduino
 
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/12001)
