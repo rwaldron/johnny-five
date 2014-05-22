@@ -97,9 +97,7 @@
   "optionalDependencies": {
     "firmata": ">=0.2.9",
     "serialport": "latest",
-    "spark-io": "latest",
-    "galileo-io": "latest",
-    "raspi-io": "latest"
+    "galileo-io": "latest"
   },
   "devDependencies": {
     "async": "~0.2.9",
