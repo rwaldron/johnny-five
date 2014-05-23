@@ -35,7 +35,7 @@ exports["Relay"] = {
     this.instance = [{
       name: "isOn"
     }, {
-      name: "value"
+      name: "type"
     }];
 
     done();
@@ -55,6 +55,24 @@ exports["Relay"] = {
     test.done();
   },
 
+  NC: function(test) {
+    test.expect(2);
+
+    // NC should send inverted values
+    this.relay = new Relay({
+      pin: 10,
+      type: "NC",
+      board: this.board
+    });
+
+    this.relay.on();
+    test.ok(this.spy.calledWith(10, 0));
+
+    this.relay.off();
+    test.ok(this.spy.calledWith(10, 1));
+
+    test.done();
+  },
   on: function(test) {
     test.expect(1);
 
