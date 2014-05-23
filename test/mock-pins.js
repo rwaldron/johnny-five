@@ -63,6 +63,7 @@ module.exports.UNO = [{
   report: 1,
   analogChannel: 127
 }, {
+  port: "P9_22",
   supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,

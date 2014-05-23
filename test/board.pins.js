@@ -19,12 +19,13 @@ exports["Pin"] = {
   },
 
   isPwm: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     test.equal(this.pins.isPwm("foo"), false);
     test.equal(this.pins.isPwm("bar"), true);
     test.equal(this.pins.isPwm(0), false);
     test.equal(this.pins.isPwm(3), true);
+    test.equal(this.pins.isPwm("P9_22"), true);
 
     test.done();
   },
@@ -373,17 +374,20 @@ exports["static"] = {
     test.done();
   },
 
-  "Pin.index(haystack, needle)": function(test) {
-    test.expect(3);
+  "Pin.identity(haystack, needle)": function(test) {
+    test.expect(4);
 
     var haystack = [
       {id: "foo"},
-      {name: "bar"}
+      {name: "bar"},
+      {port: "P9_22"}
     ];
 
-    test.equal(Pins.index(haystack, "foo"), 0);
-    test.equal(Pins.index(haystack, "bar"), 1);
-    test.equal(Pins.index(haystack, "baz"), -1);
+    test.equal(Pins.identity(haystack, "foo"), 0);
+    test.equal(Pins.identity(haystack, "bar"), 1);
+    test.equal(Pins.identity(haystack, "baz"), -1);
+    test.equal(Pins.identity(haystack, "P9_22"), 2);
+
 
     test.done();
   }
