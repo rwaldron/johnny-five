@@ -1,9 +1,40 @@
+var pins = require("./mock-pins");
 var Pins = require("../lib/board.pins.js");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
+exports["Pin"] = {
+  setUp: function(done) {
+    this.pins = new Pins({
+      io: {
+        pins: pins.UNO
+      }
+    });
+
+    done();
+  },
+  tearDown: function(done) {
+    // Reset the cached conversion mechanism.
+    Pins.normalize.convert = null;
+    done();
+  },
+
+  isPwm: function(test) {
+    test.expect(4);
+
+    test.equal(this.pins.isPwm("foo"), false);
+    test.equal(this.pins.isPwm("bar"), true);
+    test.equal(this.pins.isPwm(0), false);
+    test.equal(this.pins.isPwm(3), true);
+
+    test.done();
+  },
+
+  // TODO add tests for other isFoo methods
+
+};
+
 exports["static"] = {
   tearDown: function(done) {
-
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
 
@@ -338,6 +369,21 @@ exports["static"] = {
 
       test.deepEqual(Pins.normalize(set.arg, board), expect);
     });
+
+    test.done();
+  },
+
+  "Pin.index(haystack, needle)": function(test) {
+    test.expect(3);
+
+    var haystack = [
+      {id: "foo"},
+      {name: "bar"}
+    ];
+
+    test.equal(Pins.index(haystack, "foo"), 0);
+    test.equal(Pins.index(haystack, "bar"), 1);
+    test.equal(Pins.index(haystack, "baz"), -1);
 
     test.done();
   }

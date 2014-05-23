@@ -1,6 +1,7 @@
 module.exports.UNOANALOG = [14, 15, 16, 17, 18, 19];
 
 module.exports.UNO = [{
+  name: "foo",
   supportedModes: [],
   mode: 1,
   value: 0,
@@ -19,6 +20,7 @@ module.exports.UNO = [{
   report: 1,
   analogChannel: 127
 }, {
+  id: "bar",
   supportedModes: [0, 1, 3, 4],
   mode: 1,
   value: 0,
@@ -448,6 +450,7 @@ module.exports.MEGA = [{
   report: 1,
   analogChannel: 127
 }, {
+  id: "A0",
   supportedModes: [0, 1, 2],
   mode: 1,
   value: 0,
