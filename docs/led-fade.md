@@ -36,7 +36,7 @@ board.on("ready", function() {
   led.fadeIn();
 
 
-  // Toggle the led after 10 seconds (shown in ms)
+  // Toggle the led after 5 seconds (shown in ms)
   this.wait(5000, function() {
 
     led.fadeOut();
