@@ -352,72 +352,116 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
-  // autoMode: function(test) {
-  //   test.expect(4);
+  autoMode: function(test) {
+    test.expect(4);
 
-  //   this.led.mode = 1;
-  //   this.led.brightness(255);
-  //   test.equal(this.led.mode, 3);
+    this.led.mode = 1;
+    this.led.brightness(255);
+    test.equal(this.led.mode, 3);
 
-  //   this.led.mode = 1;
-  //   this.led.pulse();
-  //   test.equal(this.led.mode, 3);
+    this.led.mode = 1;
+    this.led.pulse();
+    test.equal(this.led.mode, 3);
 
-  //   this.led.mode = 1;
-  //   this.led.fade();
-  //   test.equal(this.led.mode, 3);
+    this.led.mode = 1;
+    this.led.fade();
+    test.equal(this.led.mode, 3);
 
-  //   this.led.strobe();
-  //   test.equal(this.led.mode, 1);
+    this.led.strobe();
+    test.equal(this.led.mode, 1);
 
-  //   test.done();
-  // },
+    test.done();
+  },
 
-  // fadeIn: function(test) {
-  //   test.expect(7);
+  fadeIn: function(test) {
+    test.expect(7);
 
-  //   test.equal(this.led.value, null);
-  //   test.equal(this.led.isOn, false);
-  //   test.equal(this.led.isRunning, false);
+    test.equal(this.led.value, null);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
 
-  //   this.led.fadeIn(10);
-  //   this.clock.tick(5);
-  //   test.equal(this.led.isRunning, true);
-  //   this.clock.tick(6);
+    this.led.fadeIn(10);
+    this.clock.tick(5);
+    test.equal(this.led.isRunning, true);
+    this.clock.tick(6);
 
-  //   test.equal(this.led.value, 255);
-  //   test.equal(this.led.isOn, true);
-  //   test.equal(this.led.isRunning, false);
+    test.equal(this.led.value, 255);
+    test.equal(this.led.isOn, true);
+    test.equal(this.led.isRunning, false);
 
-  //   test.done();
-  // },
+    test.done();
+  },
 
-  // fadeOut: function(test) {
-  //   test.expect(10);
+  fadeOut: function(test) {
+    test.expect(10);
 
-  //   test.equal(this.led.value, null);
-  //   test.equal(this.led.isOn, false);
-  //   test.equal(this.led.isRunning, false);
+    test.equal(this.led.value, null);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
 
-  //   this.led.fadeIn(10);
-  //   this.clock.tick(11);
+    this.led.fadeIn(10);
+    this.clock.tick(11);
 
-  //   test.equal(this.led.value, 255);
-  //   test.equal(this.led.isOn, true);
-  //   test.equal(this.led.isRunning, false);
+    test.equal(this.led.value, 255);
+    test.equal(this.led.isOn, true);
+    test.equal(this.led.isRunning, false);
 
-  //   this.led.fadeOut(10);
-  //   this.clock.tick(5);
-  //   test.equal(this.led.isRunning, true);
-  //   this.clock.tick(6);
+    this.led.fadeOut(10);
+    this.clock.tick(5);
+    test.equal(this.led.isRunning, true);
+    this.clock.tick(6);
 
 
-  //   test.equal(this.led.value, 0);
-  //   test.equal(this.led.isOn, false);
-  //   test.equal(this.led.isRunning, false);
+    test.equal(this.led.value, 0);
+    test.equal(this.led.isOn, false);
+    test.equal(this.led.isRunning, false);
 
-  //   test.done();
-  // }
+    test.done();
+  },
+
+  fadeCallback: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.led.on().fade(0, 100, spy);
+    this.clock.tick(101);
+    test.equal(spy.calledOnce, true);
+    test.done();
+  },
+
+  fadeInCallback: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.led.off().fadeIn(spy);
+    this.clock.tick(1001);
+    test.equal(spy.calledOnce, true);
+    test.done();
+  },
+
+  fadeOutCallback: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.led.on().fadeOut(spy);
+    this.clock.tick(1001);
+    test.equal(spy.calledOnce, true);
+    test.done();
+  },
+
+  pulseCallback: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.led.pulse(spy);
+    this.clock.tick(1001);
+    test.equal(spy.calledOnce, true);
+    test.done();
+  }
 };
 
 
