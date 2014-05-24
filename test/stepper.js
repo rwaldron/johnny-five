@@ -28,7 +28,7 @@ exports["Stepper - rpm / speed"] = {
   "rpm to speed": function(test) {
     test.expect(1);
     this.stepper.rpm(180);
-    test.equal(this.stepper.speed().toFixed(), 1885);
+    test.equal(this.stepper.speed(), 1885);
     test.done();
   },
 
