@@ -202,6 +202,7 @@ board.on("ready", function() {
 - [Led](https://github.com/rwldrn/johnny-five/blob/master/docs/led.md)
 - [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
+- [Led Fade Callback](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade-callback.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
