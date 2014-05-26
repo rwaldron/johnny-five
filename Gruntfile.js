@@ -239,4 +239,52 @@ module.exports = function(grunt) {
 
     log.writeln("Docs created.");
   });
+
+  grunt.registerTask("bump", "Bump the version", function(version) {
+
+    // THIS IS SLIGHTLY INSANE.
+    //
+    //
+    //
+    // I don't want the whole package.json file reformatted,
+    // (because it makes the contributors section look insane)
+    // so we're going to look at lines and update the version
+    // line with either the next version of the specified version.
+    //
+    // It's either this or the whole contributors section
+    // changes from 1 line per contributor to 3 lines per.
+    //
+
+    var pkg = grunt.file.read("package.json").split(/\n/).map(function(line) {
+      var replacement, minor, data;
+
+      if (/version/.test(line)) {
+        data = line.replace(/"|,/g, "").split(":")[1].split(".");
+
+        if (version) {
+          replacement = version;
+        } else {
+          minor = +data[2];
+          data[2] = ++minor;
+          replacement = data.join(".").trim();
+        }
+
+        return '  "version": "' + replacement + '",';
+      }
+
+      return line;
+    });
+
+    grunt.file.write("package.json", pkg.join("\n"));
+
+
+
+    // TODO:
+    //
+    //  - git commit with "vX.X.X" for commit message
+    //  - npm publish
+    //
+    //
+  });
+
 };
