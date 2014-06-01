@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "The JavaScript Arduino Programming Framework.",
-  "version": "0.7.46",
+  "version": "0.7.47",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -65,7 +65,9 @@
     { "name": "Bryan Hughes", "email": "<bryan@theoreticalideations.com>" },
     { "name": "Robert Myers", "email": "<rmyers@euro-pro.com>" },
     { "name": "David Resseguie", "email": "<david@resseguie.com>" },
-    { "name": "Lyza Danger Gardner", "email": "<lyza@lyza.com>" }
+    { "name": "Lyza Danger Gardner", "email": "<lyza@lyza.com>" },
+    { "name": "Adam Magaluk", "email": "<AdamMagaluK@gmail.com>" },
+    { "name": "Udo Kramer", "email": "<optikfluffel@gmail.com>" }
   ],
   "keywords": [
     "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io"
