@@ -63,6 +63,8 @@ exports["Servo"] = {
       name: "specs"
     }, {
       name: "interval"
+    }, {
+      name: "value"
     }];
 
     done();
@@ -214,6 +216,16 @@ exports["Servo"] = {
     test.expect(1);
 
     test.equal(this.servo.type, "standard");
+
+    test.done();
+  },
+
+  value: function(test) {
+    test.expect(1);
+
+    this.servo.to(100);
+
+    test.equal(this.servo.value, 100);
 
     test.done();
   },

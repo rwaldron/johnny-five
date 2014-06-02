@@ -26,6 +26,8 @@ For non-Arduino based projects, the following platform [IO Plugins](https://gith
   - [Raspi-IO](https://gitlab.theoreticalideations.com/nebrius/raspi-io/)
 - Spark Core
   - [Spark-IO](https://github.com/rwaldron/spark-io/)
+- IO Board (Generic IO Plugin class to make your own!)
+  - [IOBoard](https://github.com/achingbrain/node-ioboard)
 
 
 ## Documentation
@@ -202,6 +204,7 @@ board.on("ready", function() {
 - [Led](https://github.com/rwldrn/johnny-five/blob/master/docs/led.md)
 - [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
+- [Led Fade Callback](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade-callback.md)
 - [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
 - [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)

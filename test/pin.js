@@ -96,6 +96,14 @@ exports["Pin"] = {
     test.done();
   },
 
+  addr: function(test) {
+    test.expect(2);
+
+    test.equal(this.digital.addr, 11, "11 -> 11");
+    test.equal(this.analog.addr, 1, "A1 -> 1");
+
+    test.done();
+  },
 
   digital: function(test) {
     test.expect(2);

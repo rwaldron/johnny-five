@@ -105,6 +105,7 @@
     "led.js",
     "led-matrix.js",
     "led-fade.js",
+    "led-fade-callback.js",
     "led-on-off.js",
     "led-pulse.js",
     "led-rgb.js",
