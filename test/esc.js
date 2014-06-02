@@ -20,7 +20,7 @@ exports["ESC"] = {
     });
 
     this.proto = [{
-      name: "to"
+      name: "speed"
     }, {
       name: "min"
     }, {
@@ -77,7 +77,7 @@ exports["ESC"] = {
   startAt: function(test) {
     test.expect(1);
 
-    this.spy = sinon.spy(ESC.prototype, "to");
+    this.spy = sinon.spy(ESC.prototype, "speed");
 
     this.esc = new ESC({
       pin: 12,
@@ -99,19 +99,19 @@ exports["ESC"] = {
       startAt: 0
     });
 
-    this.esc.to(0.10);
+    this.esc.speed(10);
     this.clock.tick(120);
     test.equal(this.servoWrite.callCount, 10);
 
     this.servoWrite.reset();
 
-    this.esc.to(0.09);
+    this.esc.speed(9);
     this.clock.tick(50);
     test.equal(this.servoWrite.callCount, 1);
 
     this.servoWrite.reset();
 
-    this.esc.to(0.12);
+    this.esc.speed(12);
     this.clock.tick(30);
     test.equal(this.servoWrite.callCount, 3);
 
