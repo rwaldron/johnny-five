@@ -33,10 +33,11 @@ five.Board().on("ready", function() {
 
 
 
+## Breadboard/Illustration
 
 
-
-
+![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb.png)
+[docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb.fzz)
 
 
 
