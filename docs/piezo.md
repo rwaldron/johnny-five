@@ -20,14 +20,19 @@ board.on("ready", function() {
   });
 
   // Plays a song
+  // The first argument is the notes of the song (space means "no note")
+  // The second argument is the length of time (beats) each note (or non-note)
+  // should play
   piezo.song("cdfda ag cdfdg gf ", "111111442111111442");
 });
-
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/piezo.png](breadboard/piezo.png)
+[docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
 
 
 
