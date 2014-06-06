@@ -36,7 +36,7 @@ board.on("ready", function() {
       //
       // Pulse the led (fade on/off)
       // pinMode will be changed to PWM automatically
-      led.pulse( 2000 );
+      led.pulse(2000);
       console.log("led pulse");
     }
   }, {
