@@ -104,14 +104,11 @@
     "laser.js",
     "led.js",
     "led-matrix.js",
-    "led-fade.js",
+    "led-capabilities.js",
     "led-fade-callback.js",
-    "led-on-off.js",
-    "led-pulse.js",
     "led-rgb.js",
     "led-rgb-anode.js",
     "led-rainbow.js",
-    "led-strobe.js",
     "seven-segment.js",
 
 
