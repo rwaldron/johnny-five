@@ -2,7 +2,6 @@ var five = require("../lib/johnny-five.js"),
   temporal = require("temporal"),
   board = new five.Board();
 
-// Default to pin 11 (PWM)
 board.on("ready", function() {
 
   // Defaults to pin 11 (must be PWM)
