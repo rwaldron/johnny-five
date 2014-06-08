@@ -8,6 +8,8 @@ board.on("ready", function() {
   this.repl.inject({
     led: led
   });
+
+  led.blink();  
 });
 
 // @markdown
