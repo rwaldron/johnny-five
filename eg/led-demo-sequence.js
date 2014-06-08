@@ -26,14 +26,14 @@ var demoSequence = [{
   method: "fadeIn",
   args: [
     2000,
-    function(){ console.log("fadeIn complete!")}
+    function(){ console.log("fadeIn complete!");}
   ],
   duration: 2500
 }, {
   method: "fadeOut",
   args: [
     5000,
-    function(){ console.log("fadeOut complete!")}
+    function(){ console.log("fadeOut complete!"); }
   ],
   duration: 5500
 }, {
@@ -63,7 +63,7 @@ function execute(step){
   step++;
 
   // If we're at the end, start over (loop==true) or exit
-  if(step == demoSequence.length){
+  if(step === demoSequence.length){
     if (loop) {
       step = 0;
     } else {
