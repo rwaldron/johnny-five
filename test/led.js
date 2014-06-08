@@ -506,6 +506,8 @@ exports["Led.RGB"] = {
     }, {
       name: "strobe"
     }, {
+      name: "blink"
+    }, {
       name: "stop"
     }];
 
@@ -595,6 +597,12 @@ exports["Led.RGB"] = {
     test.ok(this.analog.calledWith(11, 0));
 
     test.done();
+  },
+
+  blink: function(test) {
+    test.expect(1);
+    test.equal(this.ledRgb.blink, this.ledRgb.strobe);
+    test.done();
   }
 
 };
@@ -643,6 +651,8 @@ exports["Led.RGB - Common Anode"] = {
       name: "fadeOut"
     }, {
       name: "strobe"
+    }, {
+      name: "blink"
     }, {
       name: "stop"
     }];
@@ -712,6 +722,12 @@ exports["Led.RGB - Common Anode"] = {
     this.ledRgb.off();
     test.ok(this.spy.calledWith(11, 255));
 
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(1);
+    test.equal(this.ledRgb.blink, this.ledRgb.strobe);
     test.done();
   }
 
