@@ -107,7 +107,7 @@
     "led-pulse.js",
     "led-fade.js",
     "led-fade-callback.js",
-    "led-digital.js"
+    "led-digital.js",
     "led-analog.js",
     "led-status.js",
     "led-array.js",

@@ -200,18 +200,23 @@ board.on("ready", function() {
 - [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
 
 ### LED
-- [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
 - [Led](https://github.com/rwldrn/johnny-five/blob/master/docs/led.md)
-- [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
+- [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
+- [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
+- [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Fade](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade.md)
 - [Led Fade Callback](https://github.com/rwldrn/johnny-five/blob/master/docs/led-fade-callback.md)
-- [Led On Off](https://github.com/rwldrn/johnny-five/blob/master/docs/led-on-off.md)
-- [Led Pulse](https://github.com/rwldrn/johnny-five/blob/master/docs/led-pulse.md)
+- [Led Digital](https://github.com/rwldrn/johnny-five/blob/master/docs/led-digital.md)
+- [Led Analog](https://github.com/rwldrn/johnny-five/blob/master/docs/led-analog.md)
+- [Led Status](https://github.com/rwldrn/johnny-five/blob/master/docs/led-status.md)
+- [Led Array](https://github.com/rwldrn/johnny-five/blob/master/docs/led-array.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Rgb Anode](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
-- [Led Strobe](https://github.com/rwldrn/johnny-five/blob/master/docs/led-strobe.md)
+- [Led Demo Sequence](https://github.com/rwldrn/johnny-five/blob/master/docs/led-demo-sequence.md)
+- [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
+- [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
 
 ### Magnetometer (Compass)
 - [Magnetometer Log](https://github.com/rwldrn/johnny-five/blob/master/docs/magnetometer-log.md)
@@ -276,9 +281,9 @@ board.on("ready", function() {
 All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
 by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
 
-## Release History
-_(Nothing yet)_
 
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
+Copyright (c) 2014 The Johnny-Five Contributors
 Licensed under the MIT license.
