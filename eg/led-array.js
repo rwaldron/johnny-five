@@ -1,7 +1,7 @@
 var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
-  var array = new five.Led.Array([3,5,6]);
+  var array = new five.Led.Array([3, 5, 6]);
 
   this.repl.inject({
     array: array

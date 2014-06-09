@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board;
+  board;
 
 board = new five.Board();
 
@@ -9,18 +9,18 @@ board.on("ready", function() {
   // fading the next LED in sequence out, and so on.
   // If randomFade is true, then fading will happen in random
   // order instead of sequentially.
-  var pins       = [11, 10, 9, 6, 5, 3],
-      timing     = 250,
-      randomFade = true,
-      myLEDS     = [], 
-      fadeIndex  = 0,
-      ledCount   = pins.length,
-      i;
+  var pins = [11, 10, 9, 6, 5, 3],
+    timing = 250,
+    randomFade = true,
+    myLEDS = [],
+    fadeIndex = 0,
+    ledCount = pins.length,
+    i;
 
   function fadeNext() {
     var candidateIndex = fadeIndex;
     myLEDS[fadeIndex].fadeIn(timing);
-    
+
     // Determine the next LED to fade
     if (randomFade) {
       while (candidateIndex === fadeIndex) {

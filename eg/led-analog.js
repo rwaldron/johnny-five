@@ -16,7 +16,7 @@ five.Board().on("ready", function() {
   // fadeIn( duration ) , fadeOut( duration )
   // Wait 3 seconds, then fade the LED to full brightness
   // over 5 second duration
-  this.wait(3000,function(){
+  this.wait(3000, function() {
     // We have to call stop() or it will keep pulsing
     led.stop().off();
 
@@ -32,11 +32,11 @@ five.Board().on("ready", function() {
   // not 10 seconds from the previous wait call.
   // You would need to nest the waits or use something
   // like `temporal` to be more precise in sequencing.
-  this.wait(10000,function(){
+  this.wait(10000, function() {
     led.stop(); // resetting in case previous animation running
-    
+
     console.log("led.fade(10,4000,callback)");
-    led.fade(10,4000,function(){
+    led.fade(10, 4000, function() {
       console.log("fade finished");
     });
   });
@@ -44,7 +44,7 @@ five.Board().on("ready", function() {
   // brightness(value)
   // 
   // Set analog brightness to 125
-  this.wait(20000,function(){
+  this.wait(20000, function() {
     console.log("led.brightness(125)");
     led.brightness(125);
   });

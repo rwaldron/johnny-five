@@ -20,7 +20,7 @@ function MockFirmata(opt) {
 
   // set/override for special cases
   // like AdvancedFirmata
-  for(var i in opt) {
+  for (var i in opt) {
     this[i] = opt[i];
   }
 }

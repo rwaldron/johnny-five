@@ -9,7 +9,7 @@ board.on("ready", function() {
     led: led
   });
 
-  led.blink();  
+  led.blink();
 });
 
 // @markdown

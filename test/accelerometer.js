@@ -80,7 +80,11 @@ exports["Accelerometer"] = {
     this.clock.tick(100);
 
     test.ok(spy.calledTwice);
-    test.deepEqual(spy.args[1], [ { x: 512, y: 560, z: 0 } ]);
+    test.deepEqual(spy.args[1], [{
+      x: 512,
+      y: 560,
+      z: 0
+    }]);
 
     test.done();
   },

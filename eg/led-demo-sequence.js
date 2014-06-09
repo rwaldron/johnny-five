@@ -26,14 +26,18 @@ var demoSequence = [{
   method: "fadeIn",
   args: [
     2000,
-    function(){ console.log("fadeIn complete!");}
+    function() {
+      console.log("fadeIn complete!");
+    }
   ],
   duration: 2500
 }, {
   method: "fadeOut",
   args: [
     5000,
-    function(){ console.log("fadeOut complete!"); }
+    function() {
+      console.log("fadeOut complete!");
+    }
   ],
   duration: 5500
 }, {
@@ -46,24 +50,24 @@ var demoSequence = [{
 
 
 // Execute a method in the demo sequence
-function execute(step){
-  
+function execute(step) {
+
   // Grab everything we need for this step
   var method = demoSequence[step].method;
   var args = demoSequence[step].args;
   var duration = demoSequence[step].duration || 3000;
 
   // Just print out what we're executing
-  console.log( "led." + method + "("+ ( args ? args.join() : "" ) + ")" );
+  console.log("led." + method + "(" + (args ? args.join() : "") + ")");
 
   // Make the actual call to the LED
-  five.Led.prototype[method].apply( led, args );
+  five.Led.prototype[method].apply(led, args);
 
   // Increment the step
   step++;
 
   // If we're at the end, start over (loop==true) or exit
-  if(step === demoSequence.length){
+  if (step === demoSequence.length) {
     if (loop) {
       step = 0;
     } else {
@@ -73,7 +77,7 @@ function execute(step){
   }
 
   // Recursively call the next step after specified duration
-  board.wait(duration,function(){
+  board.wait(duration, function() {
     execute(step);
   });
 

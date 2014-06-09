@@ -20,7 +20,7 @@ exports["Stepper - rpm / speed"] = {
       board: board,
       type: five.Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
-      pins: [ 2, 3 ]
+      pins: [2, 3]
     });
     done();
   },

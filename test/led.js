@@ -615,10 +615,10 @@ exports["Led.RGB - Common Anode"] = {
     });
 
     this.io = {
-      analogWrite: function (pin, value) {}
+      analogWrite: function(pin, value) {}
     };
 
-    this.board.io.analogWrite = function (pin, value) {
+    this.board.io.analogWrite = function(pin, value) {
       value = 255 - value;
       this.io.analogWrite(pin, value);
     }.bind(this);
@@ -735,7 +735,9 @@ exports["Led - Default Pin w/ Firmata"] = {
     sinon.stub(five.Board.Pins.prototype, "isPwm").returns(true);
 
     test.equal(new Led(12).mode, 3);
-    test.equal(new Led({ type: "PWM" }).mode, 3);
+    test.equal(new Led({
+      type: "PWM"
+    }).mode, 3);
 
     test.done();
   }

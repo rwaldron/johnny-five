@@ -143,16 +143,16 @@ exports["static"] = {
     var io = new MockFirmata();
 
     var boards = new five.Boards([{
-        id: "A",
-        repl: false,
-        debug: false,
-        io: io
-      },{
-        id: "B",
-        repl: false,
-        debug: false,
-        io: io
-      }]);
+      id: "A",
+      repl: false,
+      debug: false,
+      io: io
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: io
+    }]);
 
     test.equals(2, boards.length);
     test.done();

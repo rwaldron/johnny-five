@@ -14,7 +14,7 @@ five.Board().on("ready", function() {
   led.on();
 
   // Wait 3 seconds, then start strobing the LED
-  this.wait(3000,function(){
+  this.wait(3000, function() {
     console.log("led.strobe(100)");
     led.strobe(100);
   });
@@ -24,9 +24,9 @@ five.Board().on("ready", function() {
   // not 10 seconds from when strobe starts.
   // You would need to nest the waits or use something
   // like `temporal` to be more precise in sequencing.
-  this.wait(10000,function(){
+  this.wait(10000, function() {
     led.stop(); // required or it will keep strobing
-    
+
     console.log("led.off()");
     led.off();
   });

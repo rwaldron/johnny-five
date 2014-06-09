@@ -45,9 +45,21 @@ exports["static"] = {
   "Pins.isFirmata(board)": function(test) {
     test.expect(3);
 
-    test.equal(Pins.isFirmata({ io: { name: "Firmata" } }), true);
-    test.equal(Pins.isFirmata({ io: { name: "Mock" } }), true);
-    test.equal(Pins.isFirmata({ io: { name: "Other" } }), false);
+    test.equal(Pins.isFirmata({
+      io: {
+        name: "Firmata"
+      }
+    }), true);
+    test.equal(Pins.isFirmata({
+      io: {
+        name: "Mock"
+      }
+    }), true);
+    test.equal(Pins.isFirmata({
+      io: {
+        name: "Other"
+      }
+    }), false);
 
     test.done();
   },
@@ -364,9 +376,13 @@ exports["static"] = {
     tests.forEach(function(set) {
       // Ignore the given result object values in favor of our
       // control normalization value
-      var expect = typeof set.result.pin !== "undefined" ?
-        { pin: MAX_SAFE_INTEGER } :
-        { pins: set.result.pins.map(function() { return MAX_SAFE_INTEGER; }) };
+      var expect = typeof set.result.pin !== "undefined" ? {
+        pin: MAX_SAFE_INTEGER
+      } : {
+        pins: set.result.pins.map(function() {
+          return MAX_SAFE_INTEGER;
+        })
+      };
 
       test.deepEqual(Pins.normalize(set.arg, board), expect);
     });
@@ -377,11 +393,13 @@ exports["static"] = {
   "Pin.identity(haystack, needle)": function(test) {
     test.expect(4);
 
-    var haystack = [
-      {id: "foo"},
-      {name: "bar"},
-      {port: "P9_22"}
-    ];
+    var haystack = [{
+      id: "foo"
+    }, {
+      name: "bar"
+    }, {
+      port: "P9_22"
+    }];
 
     test.equal(Pins.identity(haystack, "foo"), 0);
     test.equal(Pins.identity(haystack, "bar"), 1);

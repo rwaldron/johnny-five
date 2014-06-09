@@ -41,7 +41,7 @@ board.on("ready", function() {
   printStatus();
 
   // Wait 3 seconds, stop, and print status
-  this.wait(3000,function(){
+  this.wait(3000, function() {
     console.log("led.stop()");
     led.stop();
     // Note that value/isOn will reflect the state of
@@ -51,10 +51,10 @@ board.on("ready", function() {
 
 });
 
-function printStatus(){
-  console.log('led.value = ' + led.value); // print analog brightness of LED
-  console.log('led.mode = ' + led.mode);   // print the pin mode (1 is OUTPUT, 3 is PWM)
-  console.log('led.isOn = ' + led.isOn);   // print if the LED is on
-  console.log('led.isRunning = ' + led.isRunning); // print if animation currently running
-  console.log('');
+function printStatus() {
+  console.log("led.value = %d", led.value); // print analog brightness of LED
+  console.log("led.mode = %d", led.mode); // print the pin mode (1 is OUTPUT, 3 is PWM)
+  console.log("led.isOn = %s", led.isOn); // print if the LED is on
+  console.log("led.isRunning = %s", led.isRunning); // print if animation currently running
+  console.log("");
 }

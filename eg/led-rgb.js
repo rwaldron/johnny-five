@@ -41,7 +41,7 @@ five.Board().on("ready", function() {
     r: "#FF0000", // red
     g: "#00FF00", // green
     b: "#0000FF", // blue
-    w: "#FFFFFF"  // white
+    w: "#FFFFFF" // white
   };
 
   process.stdin.on("keypress", function(ch, key) {
