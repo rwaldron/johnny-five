@@ -11,8 +11,31 @@ board.on("ready", function() {
   });
 
   // Plays a song
-  // The first argument is the notes of the song (space means "no note")
-  // The second argument is the length of time (beats) each note (or non-note)
-  // should play
-  piezo.song("cdfda ag cdfdg gf ", "111111442111111442");
+  piezo.play({
+    // song is composed by an array of pairs of notes and beats
+    // The first argument is the note (null means "no note")
+    // The second argument is the length of time (beat) of the note (or non-note)
+    song: [
+      ["C4", 1],
+      ["D4", 1],
+      ["F4", 1],
+      ["D4", 1],
+      ["A4", 1],
+      [null, 1],
+      ["A4", 4],
+      ["G4", 4],
+      [null, 2],
+      ["C4", 1],
+      ["D4", 1],
+      ["F4", 1],
+      ["D4", 1],
+      ["G4", 1],
+      [null, 1],
+      ["G4", 4],
+      ["F4", 4],
+      [null, 2]
+    ],
+    tempo: 150
+  });
+
 });
