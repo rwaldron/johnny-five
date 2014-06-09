@@ -101,19 +101,23 @@
 
 
   [ "LED" ],
-    "laser.js",
     "led.js",
-    "led-matrix.js",
+    "led-on-off.js",
+    "led-strobe.js",
+    "led-pulse.js",
     "led-fade.js",
     "led-fade-callback.js",
-    "led-on-off.js",
-    "led-pulse.js",
+    "led-digital.js"
+    "led-analog.js",
+    "led-status.js",
+    "led-array.js",
     "led-rgb.js",
     "led-rgb-anode.js",
     "led-rainbow.js",
-    "led-strobe.js",
+    "led-demo-sequence.js",
+    "led-matrix.js",
     "seven-segment.js",
-
+    "laser.js",
 
   [ "Magnetometer (Compass)" ],
     "magnetometer-log.js",

@@ -6,7 +6,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a standard `led` hardware instance
-  led = new five.Led(9);
+  led = new five.Led(11);
 
   // pinMode is set to OUTPUT by default
 
