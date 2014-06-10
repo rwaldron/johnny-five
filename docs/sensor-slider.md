@@ -15,7 +15,7 @@ board = new five.Board();
 board.on("ready", function() {
 
   // Create a new `slider` hardware instance.
-  slider = new five.Sensor("A2");
+  slider = new five.Sensor("A0");
 
   // Inject the `slider` hardware into
   // the Repl instance's context;

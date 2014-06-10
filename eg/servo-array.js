@@ -5,6 +5,7 @@ board = new five.Board();
 
 board.on("ready", function() {
 
+  // Create two example servos on pins 9 and 10
   five.Servo({
     pin: 9,
     // Limit this servo to 170°
@@ -57,6 +58,12 @@ board.on("ready", function() {
   // set all servos to deg
   //
   // eg. array.to( deg );
+
+  // step( deg )
+  //
+  // step all servos by deg
+  //
+  // eg. array.step( -20 );
 
   // stop()
   //

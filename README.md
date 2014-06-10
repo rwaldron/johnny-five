@@ -133,14 +133,14 @@ board.on("ready", function() {
 
 ### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
-- [Servo Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-options.md)
-- [Servo Sweep Options](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-sweep-options.md)
-- [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
-- [Servo Digital](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-digital.md)
+- [Servo Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-continuous.md)
+- [Servo Sweep](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-sweep.md)
+- [Servo Slider](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-slider.md)
+- [Servo Prompt](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-prompt.md)
+- [Servo Keypress](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-keypress.md)
+- [Servo Drive](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-drive.md)
 - [Servo Diagnostic](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-diagnostic.md)
-- [Servo Dual](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-dual.md)
-- [Servo Tutorial](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-tutorial.md)
-- [Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/continuous.md)
+- [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
 
 ### Motor

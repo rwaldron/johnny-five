@@ -7,22 +7,36 @@ node eg/servo.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, servo;
+var five = require("johnny-five");
 
-board = new five.Board();
+five.Board().on("ready", function() {
+  console.log("Connected");
 
-board.on("ready", function() {
+  // Initialize the servo
+  var servo = new five.Servo(process.argv[2] || 10);
 
-  // Create a new `servo` hardware instance.
-  servo = new five.Servo(10);
+  // Servo alternate constructor with options
+  /*
+  var servo = new five.Servo({
+    id: "MyServo",     // User defined id
+    pin: 10,           // Which pin is it attached to?
+    type: "standard",  // Default: "standard". Use "continuous" for continuous rotation servos
+    range: [0,180],    // Default: 0-180
+    fps: 100,          // Used to calculate rate of movement between positions
+    isInverted: false, // Invert all specified positions
+    startAt: 90,       // Immediately move to a degree
+    center: true,      // overrides startAt if true and moves the servo to the center of the range
+    specs: {           // Is it running at 5V or 3.3V?
+      speed: five.Servo.Continuous.speeds["@5.0V"] 
+    }
+  });
+  */
 
-  // Inject the `servo` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  // board.repl.inject({
-  //   servo: servo
-  // });
+  // Add servo to REPL (optional)
+  this.repl.inject({
+    servo: servo
+  });
+
 
   // Servo API
 
@@ -44,13 +58,19 @@ board.on("ready", function() {
   //
   // centers the servo to 90°
   //
-  servo.center();
+  // servo.center();
 
   // to( deg )
   //
   // Moves the servo to position by degrees
   //
   // servo.to( 90 );
+
+  // step( deg )
+  //
+  // Moves the servo step degrees relative to current position
+  //
+  // servo.step( -10 );
 
   // sweep( obj )
   //
@@ -63,7 +83,8 @@ board.on("ready", function() {
   //           defaults to 10°
   // }
   //
-  // servo.sweep();
+  servo.sweep();
+
 });
 
 

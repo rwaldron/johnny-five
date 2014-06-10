@@ -69,8 +69,11 @@ args.forEach(function(val) {
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/servo-diagnostic.png](breadboard/servo-diagnostic.png)
+[docs/breadboard/servo-diagnostic.fzz](breadboard/servo-diagnostic.fzz)
 
 
 

@@ -12,7 +12,7 @@ board.on("ready", function() {
 
   // Create a new servo instance on PWM 10, w/ a 0-90° range
   servo = new five.Servo({
-    pin: 10,
+    pin: process.argv[2] || 10,
     range: range
   });
 
