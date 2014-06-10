@@ -255,34 +255,77 @@ module.exports = function(grunt) {
     // changes from 1 line per contributor to 3 lines per.
     //
 
-    var pkg = grunt.file.read("package.json").split(/\n/).map(function(line) {
-      var minor, data;
+    var pkg, done, steps;
 
-      if (/version/.test(line)) {
-        data = line.replace(/"|,/g, "").split(":")[1].split(".");
+    function exec(command, msg, errCondition) {
+      var cp = require("child_process");
 
-        if (!version) {
-          minor = +data[2];
-          data[2] = ++minor;
-          version = data.join(".").trim();
+      grunt.log.writeln("C:\\> " + command);
+
+      return cp.exec(command, function(error, result) {
+          if (error || (_.isFunction(errCondition) && errCondition(result))) {
+            grunt.log.error();
+            grunt.fail.warn("failed on: " + msg);
+
+            done(error);
+          } else {
+            grunt.log.writeln(msg.green);
+            nextStep();
+          }
         }
+      );
+    }
 
-        return '  "version": "' + version + '",';
-      }
+    function nextStep() {
+      steps.shift()();
+    }
 
-      return line;
-    });
+    done = this.async();
 
-    grunt.file.write("package.json", pkg.join("\n"));
+    steps = [
+      function() {
+        // Check if package.json is clean;
+        exec("git status --porcelain package.json", "package.json is clean.", function(result) {
+          return result.toString().length > 0;
+        });
+      },
+      function() {
+        // Then set package.json's version
+        pkg = grunt.file.read("package.json").split(/\n/).map(function(line) {
+          var minor, data;
 
+          if (/version/.test(line)) {
+            data = line.replace(/"|,/g, "").split(":")[1].split(".");
 
+            if (!version) {
+              minor = +data[2];
+              data[2] = ++minor;
+              version = data.join(".").trim();
+            }
 
-    // TODO:
-    //
-    //  - git commit with "vX.X.X" for commit message
-    //  - npm publish
-    //
-    //
+            return '  "version": "' + version + '",';
+          }
+
+          return line;
+        });
+
+        grunt.file.write("package.json", pkg.join("\n"));
+        grunt.log.writeln(("package.json new version set to " + version + ".").green);
+        nextStep();
+      },
+      function() {
+        // Commit package.json with "vX.X.X"
+        exec("git commit package.json -m 'v"+ version + "'", "package.json commited.");
+      },
+      function() {
+        // And publish to NPM
+        exec("npm publish", "published to npm.");
+      },
+      done
+    ];
+
+    nextStep();
+
   });
 
 };
