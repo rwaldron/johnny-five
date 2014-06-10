@@ -7,26 +7,26 @@ node eg/servo-prompt.js
 
 
 ```javascript
-var five = require('johnny-five'),
-  readline = require('readline');
+var five = require("johnny-five"),
+  readline = require("readline");
 
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-five.Board().on('ready', function() {
+five.Board().on("ready", function() {
 
   var servo = new five.Servo(process.argv[2] || 10);
 
-  rl.setPrompt('SERVO TEST (0-180)> ');
+  rl.setPrompt("SERVO TEST (0-180)> ");
   rl.prompt();
 
-  rl.on('line', function(line) {
+  rl.on("line", function(line) {
     var pos = line.trim();
     servo.to(pos);
     rl.prompt();
-  }).on('close', function() {
+  }).on("close", function() {
     process.exit(0);
   });
 

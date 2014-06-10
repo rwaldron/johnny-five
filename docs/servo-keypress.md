@@ -8,7 +8,7 @@ node eg/servo-keypress.js
 
 ```javascript
 var five = require("johnny-five"),
-  keypress = require('keypress'),
+  keypress = require("keypress"),
   board;
 
 keypress(process.stdin);
@@ -21,37 +21,37 @@ board.on("ready", function() {
 
   var servo = new five.Servo({
     pin: "10",
-    type: 'continuous'
+    type: "continuous"
   }).stop();
 
   process.stdin.resume();
-  process.stdin.setEncoding('utf8');
+  process.stdin.setEncoding("utf8");
   process.stdin.setRawMode(true);
 
-  process.stdin.on('keypress', function(ch, key) {
+  process.stdin.on("keypress", function(ch, key) {
 
     if (!key) {
       return;
     }
 
-    if (key.name === 'q') {
+    if (key.name === "q") {
 
-      console.log('Quitting');
+      console.log("Quitting");
       process.exit();
 
-    } else if (key.name === 'up') {
+    } else if (key.name === "up") {
 
-      console.log('CW');
+      console.log("CW");
       servo.cw();
 
-    } else if (key.name === 'down') {
+    } else if (key.name === "down") {
 
-      console.log('CCW');
+      console.log("CCW");
       servo.ccw();
 
-    } else if (key.name === 'space') {
+    } else if (key.name === "space") {
 
-      console.log('Stopping');
+      console.log("Stopping");
       servo.stop();
 
     }
