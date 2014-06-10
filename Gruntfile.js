@@ -256,20 +256,18 @@ module.exports = function(grunt) {
     //
 
     var pkg = grunt.file.read("package.json").split(/\n/).map(function(line) {
-      var replacement, minor, data;
+      var minor, data;
 
       if (/version/.test(line)) {
         data = line.replace(/"|,/g, "").split(":")[1].split(".");
 
-        if (version) {
-          replacement = version;
-        } else {
+        if (!version) {
           minor = +data[2];
           data[2] = ++minor;
-          replacement = data.join(".").trim();
+          version = data.join(".").trim();
         }
 
-        return '  "version": "' + replacement + '",';
+        return '  "version": "' + version + '",';
       }
 
       return line;
