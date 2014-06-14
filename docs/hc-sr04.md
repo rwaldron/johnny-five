@@ -1,5 +1,7 @@
 # Ping with HC-SR04
 
+Before getting started, please review the special setup instructions required for using the [Ping class](https://github.com/rwaldron/johnny-five/wiki/Ping#setup).
+
 Run with:
 ```bash
 node eg/ping.js
