@@ -1,4 +1,4 @@
-var five = require("johnny-five");
+var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
   var sensor = new five.Sensor("A0");
