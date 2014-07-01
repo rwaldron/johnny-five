@@ -1,8 +1,8 @@
 var inspect = require("util").inspect,
-  fs = require("fs");
+    fs = require("fs");
 
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   var task = grunt.task;
   var file = grunt.file;
@@ -15,11 +15,11 @@ module.exports = function (grunt) {
   var _ = grunt.util._;
 
   var templates = {
-    doc: _.template(file.read("tpl/.docs.md")),
-    img: _.template(file.read("tpl/.img.md")),
-    fritzing: _.template(file.read("tpl/.fritzing.md")),
-    doclink: _.template(file.read("tpl/.readme.doclink.md")),
-    readme: _.template(file.read("tpl/.readme.md"))
+    doc: _.template( file.read("tpl/.docs.md") ),
+    img: _.template( file.read("tpl/.img.md") ),
+    fritzing: _.template( file.read("tpl/.fritzing.md") ),
+    doclink: _.template( file.read("tpl/.readme.doclink.md") ),
+    readme: _.template( file.read("tpl/.readme.md") )
   };
 
 
@@ -58,7 +58,27 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        jshintrc: true
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: false,
+        newcap: false,
+        noarg: true,
+        sub: true,
+        undef: true,
+        boss: true,
+        eqnull: true,
+        node: true,
+        strict: false,
+        esnext: true,
+        globals: {
+          exports: true,
+          document: true,
+          $: true,
+          Radar: true,
+          WeakMap: true,
+          window: true
+        }
       },
       files: {
         src: [
@@ -117,21 +137,21 @@ module.exports = function (grunt) {
 
   grunt.registerTask("default", ["jshint", "nodeunit"]);
 
-  grunt.registerMultiTask("docs", "generate simple docs from examples", function () {
+  grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
     var entries, readme;
-    entries = JSON.parse(file.read(file.expand(this.data)));
+    entries = JSON.parse(file.read(file.expand( this.data )));
     readme = [];
 
-    entries.forEach(function (entry) {
+    entries.forEach(function( entry ) {
 
       var values, markdown, eg, md, png, fzz, title,
-        hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
+          hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
 
-      if (Array.isArray(entry)) {
+      if ( Array.isArray(entry) ) {
         // Produces:
         // "### Heading\n"
-        readme.push("\n### " + entry[0] + "\n");
+        readme.push( "\n### " + entry[0] + "\n" );
 
         // TODO: figure out a way to have tiered subheadings
         // readme.push(
@@ -141,11 +161,12 @@ module.exports = function (grunt) {
         //     return prev + (Array(k + 4).join("#")) + " " + val + "\n";
         //   }, "")
         // );
-      } else {
+      }
+      else {
 
         filepath = "eg/" + entry;
 
-        eg = file.read(filepath);
+        eg = file.read( filepath );
         md = "docs/" + entry.replace(".js", ".md");
         png = "docs/breadboard/" + entry.replace(".js", ".png");
         fzz = "docs/breadboard/" + entry.replace(".js", ".fzz");
@@ -155,41 +176,40 @@ module.exports = function (grunt) {
         markdown = [];
 
         // Generate a title string from the file name
-        [
-          [/^.+\//, ""],
-          [/\.js/, ""],
-          [/\-/g, " "]
-        ].forEach(function (args) {
-          title = "".replace.apply(title, args);
+        [ [ /^.+\//, "" ],
+          [ /\.js/, "" ],
+          [ /\-/g, " " ]
+        ].forEach(function( args ) {
+          title = "".replace.apply( title, args );
         });
 
         fritzpath = fzz.split("/");
-        fritzfile = fritzpath[fritzpath.length - 1];
+        fritzfile = fritzpath[ fritzpath.length - 1 ];
         inMarkdown = false;
 
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace("../lib/johnny-five.js", "johnny-five")
-          .split("\n").filter(function (line) {
+              .split("\n").filter(function( line ) {
 
-            if (/@markdown/.test(line)) {
-              inMarkdown = !inMarkdown;
-              return false;
+          if ( /@markdown/.test(line) ) {
+            inMarkdown = !inMarkdown;
+            return false;
+          }
+
+          if ( inMarkdown ) {
+            line = line.trim();
+            if ( line ) {
+              markdown.push(
+                line.replace(/^\/\//, "").trim()
+              );
             }
+            // Filter out the markdown lines
+            // from the main content.
+            return false;
+          }
 
-            if (inMarkdown) {
-              line = line.trim();
-              if (line) {
-                markdown.push(
-                  line.replace(/^\/\//, "").trim()
-                );
-              }
-              // Filter out the markdown lines
-              // from the main content.
-              return false;
-            }
-
-            return true;
-          }).join("\n");
+          return true;
+        }).join("\n");
 
         hasPng = fs.existsSync(png);
         hasFzz = fs.existsSync(fzz);
@@ -202,31 +222,25 @@ module.exports = function (grunt) {
           example: eg,
           file: md,
           markdown: markdown.join("\n"),
-          breadboard: hasPng ? templates.img({
-            png: png
-          }) : "",
-          fritzing: hasFzz ? templates.fritzing({
-            fzz: fzz
-          }) : ""
+          breadboard: hasPng ? templates.img({ png: png }) : "",
+          fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
         };
 
         // Write the file to /docs/*
-        file.write(md, templates.doc(values));
+        file.write( md, templates.doc(values) );
 
         // Push a rendered markdown link into the readme "index"
-        readme.push(templates.doclink(values));
+        readme.push( templates.doclink(values) );
       }
     });
 
     // Write the readme with doc link index
-    file.write("README.md", templates.readme({
-      doclinks: readme.join("")
-    }));
+    file.write( "README.md", templates.readme({ doclinks: readme.join("") }) );
 
     log.writeln("Docs created.");
   });
 
-  grunt.registerTask("bump", "Bump the version", function (version) {
+  grunt.registerTask("bump", "Bump the version", function(version) {
 
     // THIS IS SLIGHTLY INSANE.
     //
@@ -241,7 +255,7 @@ module.exports = function (grunt) {
     // changes from 1 line per contributor to 3 lines per.
     //
 
-    var pkg = grunt.file.read("package.json").split(/\n/).map(function (line) {
+    var pkg = grunt.file.read("package.json").split(/\n/).map(function(line) {
       var replacement, minor, data;
 
       if (/version/.test(line)) {
