@@ -95,7 +95,7 @@
     "es6-shim": "latest",
     "temporal": "latest",
     "descriptor": "latest",
-    "nanotimer": "0.3.0"
+    "nanotimer": "0.3.1"
   },
   "optionalDependencies": {
     "firmata": ">=0.2.9",
@@ -103,13 +103,13 @@
     "galileo-io": "latest"
   },
   "devDependencies": {
-    "async": "~0.2.9",
-    "optimist": "~0.5.2",
+    "async": "~0.9.0",
+    "optimist": "~0.6.1",
     "keypress": "latest",
-    "sinon": "~1.7.3",
-    "grunt": "~0.4.1",
+    "sinon": "~1.10.2",
+    "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.3.3",
+    "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2"
   },
