@@ -18,7 +18,8 @@ exports["Piezo"] = {
 
     this.piezo = new Piezo({
       pin: 3,
-      board: this.board
+      board: this.board,
+      timer: this.timer
     });
 
     this.proto = [{
@@ -102,6 +103,19 @@ exports["Piezo"] = {
     var returned = this.piezo.tone(1915, 1000);
     test.ok(this.spy.called);
     test.equal(returned, this.piezo);
+
+    test.done();
+  },
+
+  toneStopsAfterTime: function(test) {
+    test.expect(2);
+
+    this.piezo.tone(1915, 30);
+    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
+
+    this.clock.tick(60);
+    test.ok(timerSpy.called);
+    test.equal(this.piezo.timer, undefined);
 
     test.done();
   },
