@@ -14,8 +14,14 @@ exports["Ping"] = {
 
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
+
+    sinon.stub(board.io, "pulseIn", function(settings, handler) {
+      handler(1000);
+    });
+
     this.ping = new Ping({
       pin: 7,
+      freq: 100,
       board: board
     });
 
@@ -25,7 +31,7 @@ exports["Ping"] = {
     }, {
       name: "freq"
     }, {
-      name: "pulse"
+      name: "value"
     }, {
       name: "inches"
     }, {
@@ -36,6 +42,7 @@ exports["Ping"] = {
   },
 
   tearDown: function(done) {
+    board.io.pulseIn.restore();
     this.clock.restore();
     done();
   },
@@ -58,8 +65,12 @@ exports["Ping"] = {
   data: function(test) {
     var spy = sinon.spy();
     test.expect(1);
+
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
+
     this.ping.on("data", spy);
-    this.clock.tick(100); // default freq
+    this.clock.tick(100);
     test.ok(spy.calledOnce);
     test.done();
   },
@@ -67,6 +78,10 @@ exports["Ping"] = {
   change: function(test) {
     var spy = sinon.spy();
     test.expect(1);
+
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
+
     this.ping.on("change", spy);
     // board.io.pulseValue = 1;
     // this.clock.tick(500);
@@ -77,11 +92,16 @@ exports["Ping"] = {
   },
 
   within: function(test) {
-
     var spy = sinon.spy();
     test.expect(2);
+
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
+
     this.ping.within([0, 120], "inches", function() {
-      test.equal(this.inches, 0);
+      // The fake microseconds value is 1000, which
+      // calculates to 6.76 inches.
+      test.equal(this.inches, 6.76);
       spy();
     });
 
