@@ -118,6 +118,18 @@ exports["Piezo"] = {
     }.bind(this), 20);
   },
 
+  toneWhileNewToneIsPlayingCancelsExisting: function(test) {
+    test.expect(1);
+
+    this.piezo.tone(1915, 100);
+    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
+    this.piezo.tone(1915, 100);
+
+    test.ok(timerSpy.called);
+    
+    test.done();
+  },
+
   noTone: function(test) {
     test.expect(2);
 
