@@ -13,7 +13,6 @@ exports["Piezo"] = {
       repl: false
     });
 
-    this.clock = sinon.useFakeTimers();
     this.spy = sinon.spy(this.board.io, "digitalWrite");
 
     this.piezo = new Piezo({
@@ -40,8 +39,6 @@ exports["Piezo"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-
     done();
   },
 
@@ -110,14 +107,15 @@ exports["Piezo"] = {
   toneStopsAfterTime: function(test) {
     test.expect(2);
 
-    this.piezo.tone(1915, 30);
+    this.piezo.tone(1915, 10);
     var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
 
-    this.clock.tick(60);
-    test.ok(timerSpy.called);
-    test.equal(this.piezo.timer, undefined);
+    setTimeout(function() {
+      test.ok(timerSpy.called);
+      test.equal(this.piezo.timer, undefined);
 
-    test.done();
+      test.done();
+    }.bind(this), 20);
   },
 
   noTone: function(test) {
