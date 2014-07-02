@@ -22,6 +22,8 @@ exports["Piezo"] = {
     });
 
     this.proto = [{
+      name: "frequency",
+    }, {
       name: "tone"
     }, {
       name: "noTone"
@@ -127,6 +129,17 @@ exports["Piezo"] = {
 
     test.ok(timerSpy.called);
     
+    test.done();
+  },
+
+  frequency: function(test) {
+    test.expect(2);
+    var toneSpy = sinon.spy(this.piezo, "tone");
+
+    var returned = this.piezo.frequency(440, 100);
+    test.ok(toneSpy.calledWith(1136, 100));
+    test.equal(returned, this.piezo);
+
     test.done();
   },
 
