@@ -24,7 +24,6 @@ board.on("ready", function() {
       clock: 3,
       cs: 4
     },
-    devices: 1,
     isMatrix: true
   });
 
@@ -40,7 +39,7 @@ board.on("ready", function() {
     });
   };
 
-  lc.on(0);
+  lc.on();
 
   var msg = "johnny-five";
   var idx = 0;
@@ -52,7 +51,7 @@ board.on("ready", function() {
     if (idx === msg.length) {
       return;
     }
-    setTimeout(next, 800);
+    setTimeout(next, 500);
   }
 
   next();
