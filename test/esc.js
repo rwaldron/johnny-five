@@ -219,13 +219,13 @@ exports["ESC"] = {
 
     this.esc.speed(10);
     this.clock.tick(10);
-    test.equal(this.esc.last.speed, 1);
-    test.equal(this.servoWrite.args.length, 1);
+    test.equal(this.esc.last.speed, 10);
+    test.equal(this.servoWrite.args.length, 10);
 
-    this.esc.speed(1);
+    this.esc.speed(0);
     this.clock.tick(10);
-    test.equal(this.esc.last.speed, 1);
-    test.equal(this.servoWrite.args.length, 1);
+    test.equal(this.esc.last.speed, 0);
+    test.equal(this.servoWrite.args.length, 20);
 
     test.done();
   },
