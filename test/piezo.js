@@ -189,5 +189,49 @@ exports["Piezo"] = {
     test.ok(this.spy.calledWith(3, 0));
 
     test.done();
+  },
+
+  playTune: function(test) {
+    var tempo = 2;
+    test.expect(5);
+    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var returned = this.piezo.play({
+      song: [
+        ["c4", 1],
+        ["d4", 1],
+        [null, 1],
+        672,
+        "e4",
+        null
+      ],
+      tempo: tempo // Make it real fast
+    });
+    setTimeout(function() {
+      // frequency should get called 4x; not for the null notes
+      test.ok(freqSpy.callCount === 4);
+      test.ok(freqSpy.neverCalledWith(null));
+      // First call should have been with frequency for 'c4'
+      test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
+      // Default duration === tempo if not provided
+      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], tempo));
+      // OK to pass frequency directly...
+      test.ok(freqSpy.calledWith(672, tempo));
+      test.done();
+    }.bind(this), 20);
+  },
+
+  playSingleNoteTune: function(test) {
+    var tempo = 2;
+    test.expect(2);
+    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var returned = this.piezo.play({
+      song: "c4",
+      tempo: tempo // Make it real fast
+    });
+    setTimeout(function() {
+      test.ok(freqSpy.calledOnce);
+      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], tempo));
+      test.done();
+    }.bind(this), 10);
   }
 };
