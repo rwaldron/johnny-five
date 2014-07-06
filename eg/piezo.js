@@ -35,7 +35,7 @@ board.on("ready", function() {
       ["F4", 4],
       [null, 2]
     ],
-    tempo: 150
+    tempo: 250
   });
 
 });

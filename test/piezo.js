@@ -192,13 +192,13 @@ exports["Piezo"] = {
   },
 
   playTune: function(test) {
-    var tempo = 2;
-    test.expect(5);
+    var tempo = 10000; // Make it really fast
+    test.expect(6);
     var freqSpy = sinon.spy(this.piezo, "frequency");
     var returned = this.piezo.play({
       song: [
         ["c4", 1],
-        ["d4", 1],
+        ["d4", 2],
         [null, 1],
         672,
         "e4",
@@ -213,15 +213,17 @@ exports["Piezo"] = {
       // First call should have been with frequency for 'c4'
       test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
       // Default duration === tempo if not provided
-      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], tempo));
+      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 / tempo));
+      // Duration should change if different beat value given
+      test.ok(freqSpy.calledWith(Piezo.Notes["d4"], (60000 / tempo) * 2));
       // OK to pass frequency directly...
-      test.ok(freqSpy.calledWith(672, tempo));
+      test.ok(freqSpy.calledWith(672, 60000 / tempo));
       test.done();
-    }.bind(this), 20);
+    }.bind(this), 40);
   },
 
   playSingleNoteTune: function(test) {
-    var tempo = 2;
+    var tempo = 10000;
     test.expect(2);
     var freqSpy = sinon.spy(this.piezo, "frequency");
     var returned = this.piezo.play({
@@ -230,8 +232,25 @@ exports["Piezo"] = {
     });
     setTimeout(function() {
       test.ok(freqSpy.calledOnce);
-      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], tempo));
+      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], 60000 / tempo));
       test.done();
     }.bind(this), 10);
   }
+/**
+ * This is a slow test by necessity because the default tempo (which can't 
+ * be overridden if `play` is invoked with a non-object arg) is 250.
+ * It does pass.
+ */
+ /*
+  playSingleNote: function(test) {
+    test.expect(2);
+    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var returned = this.piezo.play("c4");
+    setTimeout(function() {
+      test.ok(freqSpy.calledOnce);
+      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], (60000 / 250)));
+      test.done();
+    }.bind(this), 260);
+  }
+  */
 };
