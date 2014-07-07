@@ -12,8 +12,34 @@ var SerialPort = require("./mock-serial").SerialPort,
   });
 
 
-// use:
-// serial.emit( "data", [---] ) to  trigger testable events
+exports["Initialization"] = {
+  // setUp: function(done) {
+  //   done();
+  // },
+
+  // tearDown: function(done) {
+  //   done();
+  // },
+
+  explicit: function(test) {
+    test.expect(1);
+
+    var sp = new SerialPort("/dev/foo", {
+      baudrate: 57600,
+      buffersize: 128
+    });
+
+    var board = new Board({
+      port: sp,
+      debug: false,
+      repl: false
+    });
+
+    test.equal(board.io.sp, sp);
+
+    test.done();
+  }
+};
 
 exports["static"] = {
   "Board.cache": function(test) {
