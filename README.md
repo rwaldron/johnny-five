@@ -148,6 +148,7 @@ board.on("ready", function() {
 - [Motor Directional](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-directional.md)
 - [Motor Brake](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor Current](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-current.md)
+- [Motor Hbridge](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor 3 Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motobot](https://github.com/rwldrn/johnny-five/blob/master/docs/motobot.md)
 
