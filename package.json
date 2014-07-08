@@ -104,6 +104,7 @@
   },
   "devDependencies": {
     "async": "~0.9.0",
+    "copy-paste": "~0.3.0",
     "optimist": "~0.6.1",
     "keypress": "latest",
     "sinon": "~1.10.2",

@@ -1,5 +1,7 @@
-var inspect = require("util").inspect,
-    fs = require("fs");
+require("copy-paste");
+
+var inspect = require("util").inspect;
+var fs = require("fs");
 
 
 module.exports = function(grunt) {
@@ -270,6 +272,8 @@ module.exports = function(grunt) {
           data[2] = ++minor;
           replacement = data.join(".").trim();
         }
+
+        copy(replacement);
 
         return '  "version": "' + replacement + '",';
       }
