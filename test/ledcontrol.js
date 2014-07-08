@@ -29,6 +29,17 @@ exports["Led.Matrix => LedControl"] = {
     test.ok(matrix instanceof LedControl);
     test.ok(matrix.isMatrix);
     test.done();
+  },
+  statics: function(test) {
+    var keys = Object.keys(LedControl);
+
+    test.expect(keys.length);
+
+    keys.forEach(function(key) {
+      test.equal(LedMatrix[key], LedControl[key]);
+    });
+
+    test.done();
   }
 };
 
