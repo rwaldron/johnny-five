@@ -42,6 +42,7 @@
     "motor-directional.js",
     "motor-brake.js",
     "motor-current.js",
+    "motor-hbridge.js",
     "motor-3-pin.js",
     "motobot.js",
 
