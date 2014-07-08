@@ -2,7 +2,8 @@ var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   MockFirmata = require("./mock-firmata"),
   Board = five.Board,
-  LedControl = five.LedControl;
+  LedControl = five.LedControl,
+  LedMatrix = five.Led.Matrix;
 
 function newBoard() {
   return new Board({
@@ -11,6 +12,25 @@ function newBoard() {
     repl: false
   });
 }
+
+exports["Led.Matrix => LedControl"] = {
+  wrapper: function(test) {
+    test.expect(2);
+
+    var matrix = new LedMatrix({
+      pins: {
+        data: 2,
+        clock: 3,
+        cs: 4
+      },
+      board: this.board
+    });
+
+    test.ok(matrix instanceof LedControl);
+    test.ok(matrix.isMatrix);
+    test.done();
+  }
+};
 
 exports["LedControl - Matrix"] = {
   setUp: function(done) {
