@@ -29,6 +29,10 @@ exports["Relay"] = {
     }, {
       name: "off"
     }, {
+      name: "close"
+    }, {
+      name: "open"
+    }, {
       name: "toggle"
     }];
 
@@ -73,6 +77,7 @@ exports["Relay"] = {
 
     test.done();
   },
+
   on: function(test) {
     test.expect(1);
 
@@ -87,6 +92,22 @@ exports["Relay"] = {
 
     this.relay.off();
     test.ok(this.spy.calledWith(10, 0));
+
+    test.done();
+  },
+
+  close: function(test) {
+    test.expect(1);
+
+    test.equal(Relay.prototype.close, Relay.prototype.on);
+
+    test.done();
+  },
+
+  open: function(test) {
+    test.expect(1);
+
+    test.equal(Relay.prototype.open, Relay.prototype.off);
 
     test.done();
   },
