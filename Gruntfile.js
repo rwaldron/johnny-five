@@ -81,7 +81,8 @@ module.exports = function(grunt) {
           $: true,
           Radar: true,
           WeakMap: true,
-          window: true
+          window: true,
+          copy: true
         }
       },
       files: {
