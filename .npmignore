@@ -6,3 +6,8 @@ util/
 wip/
 articles.yaml
 articles.js
+*.c
+*.ino
+*.py
+*.cpp
+*.h
