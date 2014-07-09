@@ -235,6 +235,23 @@ exports["Piezo"] = {
       test.ok(freqSpy.calledWith(Piezo.Notes["c4"], 60000 / tempo));
       test.done();
     }.bind(this), 10);
+  },
+
+  playSongWithCallback: function(test) {
+    var tempo = 10000,
+        myCallback = sinon.spy(),
+        tune       = { 
+          song: ['c4'],
+          tempo: tempo
+        };
+    test.expect(2);
+
+    var returned = this.piezo.play(tune, myCallback);
+    setTimeout(function() {
+      test.ok(myCallback.calledOnce);
+      test.ok(myCallback.calledWith(tune));
+      test.done();
+    }.bind(this), 10);
   }
 /**
  * This is a slow test by necessity because the default tempo (which can't 
