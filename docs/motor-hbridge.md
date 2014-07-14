@@ -75,8 +75,11 @@ board.on("ready", function() {
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)
+[docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
 
 
 
