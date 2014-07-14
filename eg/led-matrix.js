@@ -1,11 +1,7 @@
-var five = require("../lib/johnny-five"),
-  board, lc;
-
-board = new five.Board();
+var five = require("../lib/johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var led = new five.Led(13);
-  led.on();
 
   var heart = [
     "01100110",
@@ -18,7 +14,7 @@ board.on("ready", function() {
     "00000000"
   ];
 
-  lc = new five.LedControl({
+  var lc = new five.LedControl({
     pins: {
       data: 2,
       clock: 3,
@@ -27,37 +23,25 @@ board.on("ready", function() {
     isMatrix: true
   });
 
-  function queue(fn) {
-    process.nextTick(fn);
-  }
-
-  lc.heart = function() {
-    heart.forEach(function(row, rowIndex) {
-      queue(function() {
-        lc.row(0, rowIndex, parseInt(row, 2));
-      });
-    });
-  };
-
   lc.on();
 
-  var msg = "johnny-five";
-  var idx = 0;
+  var msg = "johnny-five".split("");
 
   function next() {
-    var c = msg[idx];
-    lc.char(0, c);
-    idx++;
-    if (idx === msg.length) {
-      return;
+    var c;
+
+    if (c = msg.shift()) {
+      lc.draw(c);
+      setTimeout(next, 500);
     }
-    setTimeout(next, 500);
   }
 
   next();
 
-  board.repl.inject({
-    lc: lc
+  this.repl.inject({
+    lc: lc,
+    heart: function() {
+      lc.draw(heart);
+    }
   });
-
 });
