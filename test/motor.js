@@ -31,6 +31,8 @@ exports["Motor: Non-Directional"] = {
       name: "stop"
     }, {
       name: "speed"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -137,6 +139,8 @@ exports["Motor: Directional"] = {
       name: "start"
     }, {
       name: "stop"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -303,6 +307,8 @@ exports["Motor: Directional with no speed passed"] = {
       name: "start"
     }, {
       name: "stop"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -396,6 +402,8 @@ exports["Motor: Directional with Brake"] = {
       name: "brake"
     }, {
       name: "release"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -596,6 +604,8 @@ exports["Motor: Directional with Current Sensing Pin"] = {
       name: "brake"
     }, {
       name: "release"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -669,6 +679,8 @@ exports["Motor: Directional - Three Pin"] = {
       name: "reverse"
     }, {
       name: "rev"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -812,6 +824,8 @@ exports["Motor: Inverse Speed When Forward"] = {
       name: "reverse"
     }, {
       name: "rev"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
@@ -964,6 +978,8 @@ exports["Motor: Inverse Speed With Brake"] = {
       name: "reverse"
     }, {
       name: "rev"
+    }, {
+      name: "resume"
     }];
 
     this.instance = [{
