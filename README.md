@@ -110,6 +110,9 @@ board.on("ready", function() {
 ## Example Programs
 
 
+### Animation
+- [Animation](https://github.com/rwldrn/johnny-five/blob/master/docs/animation.md)
+
 ### Board
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
 - [Board With Port](https://github.com/rwldrn/johnny-five/blob/master/docs/board-with-port.md)
@@ -139,6 +142,7 @@ board.on("ready", function() {
 - [Servo Prompt](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo Keypress](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-keypress.md)
 - [Servo Drive](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-drive.md)
+- [Servo Animation](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-animation.md)
 - [Servo Diagnostic](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)

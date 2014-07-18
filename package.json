@@ -97,7 +97,8 @@
     "es6-shim": "latest",
     "temporal": "latest",
     "descriptor": "latest",
-    "nanotimer": "0.3.1"
+    "nanotimer": "0.3.1",
+    "ease-component": "latest"
   },
   "optionalDependencies": {
     "firmata": ">=0.2.9",

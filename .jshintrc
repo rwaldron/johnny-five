@@ -12,6 +12,7 @@
   "node": true,
   "strict": false,
   "esnext": true,
+  "quotmark": "double",
   "globals": {
     "exports": true,
     "document": true,

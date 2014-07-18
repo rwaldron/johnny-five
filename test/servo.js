@@ -111,6 +111,7 @@ exports["Servo"] = {
 
     test.ok(this.spy.called);
 
+    this.spy.restore();
     test.done();
   },
 
@@ -127,6 +128,7 @@ exports["Servo"] = {
 
     test.ok(this.spy.called);
 
+    this.spy.restore();
     test.done();
 
   },
@@ -228,7 +230,7 @@ exports["Servo"] = {
     test.equal(this.servo.value, 100);
 
     test.done();
-  },
+  }
 };
 
 exports["Servo - Continuous"] = {

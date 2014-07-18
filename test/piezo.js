@@ -288,8 +288,7 @@ exports["Piezo"] = {
         null
       ],
       tempo: tempo // Make it real fast
-    });
-    setTimeout(function() {
+    }, function() {
       // frequency should get called 4x; not for the null notes
       test.ok(freqSpy.callCount === 4);
       test.ok(freqSpy.neverCalledWith(null));
@@ -302,7 +301,7 @@ exports["Piezo"] = {
       // OK to pass frequency directly...
       test.ok(freqSpy.calledWith(672, 60000 / tempo));
       test.done();
-    }.bind(this), 60);
+    });
   },
 
   playSingleNoteTune: function(test) {
