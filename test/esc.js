@@ -106,16 +106,16 @@ exports["ESC"] = {
     this.esc.speed(9);
     this.clock.tick(10);
     test.equal(this.servoWrite.callCount, 1);
-    // (9 * 180 / 100) | 0 = 16
-    test.equal(this.servoWrite.lastCall.args[1], 16);
+    // (9 * 180 / 100) = 16.2
+    test.equal(this.servoWrite.lastCall.args[1], 16.2);
 
     this.servoWrite.reset();
 
     this.esc.speed(12);
     this.clock.tick(30);
     test.equal(this.servoWrite.callCount, 3);
-    // (12 * 180 / 100) | 0 = 16
-    test.equal(this.servoWrite.lastCall.args[1], 21);
+    // (12 * 180 / 100) = 21.6
+    test.equal(this.servoWrite.lastCall.args[1], 21.6);
 
     test.done();
   },
@@ -185,31 +185,6 @@ exports["ESC"] = {
     this.esc.speed(70);
     // constrained to the upper range boundary
     test.equal(this.esc.value, 60);
-
-    test.done();
-  },
-
-  pwmRange: function(test) {
-    // test.expect(2);
-
-    this.esc = new ESC({
-      pin: 12,
-      board: board,
-      startAt: 0, // This will be constrained to the range!
-      pwmRange: [1000, 1100]
-    });
-
-    // PWM Range is processed into 0-100 range
-    test.equal(this.esc.range[0], 22);
-    test.equal(this.esc.range[1], 27);
-
-    this.esc.speed(25);
-    this.clock.tick(250);
-
-    var length = this.servoWrite.args.length;
-
-    // (25 * 180 / 100) | 0 = 45
-    test.equal(this.servoWrite.lastCall.args[1], 45);
 
     test.done();
   },
