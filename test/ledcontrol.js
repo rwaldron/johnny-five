@@ -60,35 +60,44 @@ exports["LedControl - Matrix"] = {
 
     this.digitalWrite = sinon.spy(this.board, "digitalWrite");
     this.shiftOut = sinon.spy(this.board, "shiftOut");
-    this.each = sinon.spy(this.lc, "each");
-    this.row = sinon.spy(this.lc, "row");
 
     this.proto = [{
-      name: "on"
+      name: "on",
+      args: []
     }, {
-      name: "off"
+      name: "off",
+      args: []
     },
     // {
     //   name: "shutdown"
     // },
     {
-      name: "scanLimit"
+      name: "scanLimit",
+      args: [0]
     }, {
-      name: "brightness"
+      name: "brightness",
+      args: [0]
     }, {
-      name: "clear"
+      name: "clear",
+      args: []
     }, {
-      name: "led"
+      name: "led",
+      args: [0, 0, 1]
     }, {
-      name: "row"
+      name: "row",
+      args: [0, 255]
     }, {
-      name: "column"
+      name: "column",
+      args: [0, 255]
     }, {
-      name: "digit"
+      name: "digit",
+      args: [1, 1, true]
     }, {
-      name: "char"
+      name: "draw",
+      args: [1]
     }, {
-      name: "send"
+      name: "send",
+      args: [0, 1, 1]
     }];
 
     this.instance = [{
@@ -96,6 +105,18 @@ exports["LedControl - Matrix"] = {
     }, {
       name: "isMatrix"
     }];
+
+
+    this.each = sinon.spy(this.lc, "each");
+    this.row = sinon.spy(this.lc, "row");
+    this.column = sinon.spy(this.lc, "column");
+    this.draw = sinon.spy(this.lc, "draw");
+    this.on = sinon.spy(this.lc, "on");
+    this.off = sinon.spy(this.lc, "off");
+    this.scanLimit = sinon.spy(this.lc, "scanLimit");
+    this.brightness = sinon.spy(this.lc, "brightness");
+    this.clear = sinon.spy(this.lc, "clear");
+    this.led = sinon.spy(this.lc, "led");
 
     done();
   },
@@ -166,10 +187,19 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
+  returns: function(test) {
+    test.expect(this.proto.length);
+
+    this.proto.forEach(function(proto) {
+      test.equal(this[proto.name].apply(this, proto.args), this);
+    }, this.lc);
+
+    test.done();
+  },
+
   on: function(test) {
     test.expect(1);
 
-    this.shiftOut.reset();
     this.lc.on(0);
     test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 1 ] ]);
 
@@ -179,7 +209,7 @@ exports["LedControl - Matrix"] = {
   onAll: function(test) {
     test.expect(2);
 
-    this.shiftOut.reset();
+
     this.lc.on();
     test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 1 ] ]);
     test.equal(this.each.callCount, 1);
@@ -190,7 +220,6 @@ exports["LedControl - Matrix"] = {
   off: function(test) {
     test.expect(1);
 
-    this.shiftOut.reset();
     this.lc.off(0);
     test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ] ]);
 
@@ -200,7 +229,6 @@ exports["LedControl - Matrix"] = {
   offAll: function(test) {
     test.expect(2);
 
-    this.shiftOut.reset();
     this.lc.off();
     test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ] ]);
     test.equal(this.each.callCount, 1);
@@ -556,11 +584,50 @@ exports["LedControl - Segments"] = {
   },
 
   initialization: function(test) {
-    test.expect(2);
+    test.expect(3);
 
-    test.equal(this.lc.isMatrix, false);
-    test.equal(this.lc.devices, 1);
+    var send = sinon.spy(LedControl.prototype, "send");
+    var expected = [
+      // this.send(device, LedControl.OP.DECODING, 0);
+      // this.send(device, LedControl.OP.BRIGHTNESS, 3);
+      // this.send(device, LedControl.OP.SCANLIMIT, 7);
+      // this.send(device, LedControl.OP.SHUTDOWN, 1);
+      // this.send(device, LedControl.OP.DISPLAYTEST, 0);
 
+      [ 0, 10, 3 ],
+      [ 0, 11, 7 ],
+      [ 0, 12, 1 ],
+      [ 0, 15, 0 ],
+
+      // this.clear(device);
+      [ 0, 1, 0 ],
+      [ 0, 2, 0 ],
+      [ 0, 3, 0 ],
+      [ 0, 4, 0 ],
+      [ 0, 5, 0 ],
+      [ 0, 6, 0 ],
+      [ 0, 7, 0 ],
+      [ 0, 8, 0 ],
+
+      // this.off(device);
+      [ 0, 12, 0 ]
+    ];
+
+    var lc = new LedControl({
+      pins: {
+        data: 2,
+        clock: 3,
+        cs: 4
+      },
+      board: this.board
+    });
+
+    test.deepEqual(send.args, expected);
+    test.equal(lc.isMatrix, false);
+    test.equal(lc.devices, 1);
+
+
+    send.restore();
     test.done();
   },
 
