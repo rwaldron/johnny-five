@@ -117,7 +117,7 @@ exports["Piezo"] = {
       test.equal(this.piezo.timer, undefined);
 
       test.done();
-    }.bind(this), 20);
+    }.bind(this), 30);
   },
 
   toneWhileNewToneIsPlayingCancelsExisting: function(test) {
@@ -219,7 +219,7 @@ exports["Piezo"] = {
       // OK to pass frequency directly...
       test.ok(freqSpy.calledWith(672, 60000 / tempo));
       test.done();
-    }.bind(this), 40);
+    }.bind(this), 60);
   },
 
   playSingleNoteTune: function(test) {
@@ -240,7 +240,7 @@ exports["Piezo"] = {
   playSongWithCallback: function(test) {
     var tempo = 10000,
         myCallback = sinon.spy(),
-        tune       = { 
+        tune       = {
           song: ['c4'],
           tempo: tempo
         };
@@ -254,7 +254,7 @@ exports["Piezo"] = {
     }.bind(this), 10);
   }
 /**
- * This is a slow test by necessity because the default tempo (which can't 
+ * This is a slow test by necessity because the default tempo (which can't
  * be overridden if `play` is invoked with a non-object arg) is 250.
  * It does pass.
  */
