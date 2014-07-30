@@ -557,7 +557,7 @@ exports["LedControl - Matrix"] = {
 };
 
 
-exports["LedControl - Segments"] = {
+exports["LedControl - Digits"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
@@ -574,6 +574,7 @@ exports["LedControl - Segments"] = {
     this.digitalWrite = sinon.spy(this.board, "digitalWrite");
     this.shiftOut = sinon.spy(this.board, "shiftOut");
     this.each = sinon.spy(this.lc, "each");
+    this.send = sinon.spy(this.lc, "send");
 
     done();
   },
@@ -631,4 +632,68 @@ exports["LedControl - Segments"] = {
     test.done();
   },
 
+  digit: function(test) {
+    test.expect(1);
+
+    this.lc.digit(0, 0, 1);
+    test.deepEqual(this.send.args, [[ 0, 8, 48 ]]);
+
+    test.done();
+  },
+  digitDigitWithDecimal: function(test) {
+    test.expect(1);
+
+    this.lc.digit(0, 0, "1.");
+    test.deepEqual(this.send.args, [[ 0, 8, 176 ]]);
+
+    test.done();
+  },
+  draw: function(test) {
+    test.expect(1);
+
+    this.lc.draw(0, 0, 1);
+    test.deepEqual(this.send.args, [[ 0, 8, 48 ]]);
+
+    test.done();
+  },
+  drawAlphaWithDecimal: function(test) {
+    test.expect(1);
+
+    this.lc.draw(0, 0, "1.");
+    test.deepEqual(this.send.args, [[ 0, 8, 176 ]]);
+
+    test.done();
+  },
+  digitAll: function(test) {
+    test.expect(1);
+
+    this.lc.digit(0, 1);
+    test.deepEqual(this.send.args, [[ 0, 8, 48 ]]);
+
+    test.done();
+  },
+  digitDigitWithDecimalAll: function(test) {
+    test.expect(1);
+
+    this.lc.digit(0, "1.");
+    test.deepEqual(this.send.args, [[ 0, 8, 176 ]]);
+
+    test.done();
+  },
+  drawAll: function(test) {
+    test.expect(1);
+
+    this.lc.draw(0, 1);
+    test.deepEqual(this.send.args, [[ 0, 8, 48 ]]);
+
+    test.done();
+  },
+  drawAlphaWithDecimalAll: function(test) {
+    test.expect(1);
+
+    this.lc.draw(0, "1.");
+    test.deepEqual(this.send.args, [[ 0, 8, 176 ]]);
+
+    test.done();
+  }
 };
