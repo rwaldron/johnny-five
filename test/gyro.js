@@ -70,7 +70,7 @@ exports["Gyro"] = {
     test.expect(2);
     test.ok(!this.gyro.isCalibrated);
 
-    for (var i = 0; i < 60; i++) {
+    for (var i = 0; i < 101; i++) {
       x(225);
       y(255);
     }
