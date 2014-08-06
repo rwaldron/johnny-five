@@ -26,6 +26,8 @@ exports["Gyro"] = {
     this.proto = [];
 
     this.instance = [{
+      name: "isCalibrated"
+    }, {
       name: "pitch"
     }, {
       name: "roll"
@@ -60,11 +62,27 @@ exports["Gyro"] = {
     test.done();
   },
 
-  data: function(test) {
+  isCalibrated: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var spy = sinon.spy();
 
-    var x = this.analogRead.args[0][1],
-      y = this.analogRead.args[1][1],
-      spy = sinon.spy();
+    test.expect(2);
+    test.ok(!this.gyro.isCalibrated);
+
+    for (var i = 0; i < 60; i++) {
+      x(225);
+      y(255);
+    }
+
+    test.ok(this.gyro.isCalibrated);
+    test.done();
+  },
+
+  data: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var spy = sinon.spy();
 
     test.expect(1);
     this.gyro.on("data", spy);
@@ -79,10 +97,9 @@ exports["Gyro"] = {
   },
 
   change: function(test) {
-
-    var x = this.analogRead.args[0][1],
-      y = this.analogRead.args[1][1],
-      spy = sinon.spy();
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var spy = sinon.spy();
 
     test.expect(1);
     this.gyro.on("change", spy);
