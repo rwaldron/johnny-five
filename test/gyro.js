@@ -79,6 +79,35 @@ exports["Gyro"] = {
     test.done();
   },
 
+  recalibrate: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var spy = sinon.spy();
+
+    test.expect(4);
+    test.ok(!this.gyro.isCalibrated);
+
+    for (var i = 0; i < 101; i++) {
+      x(225);
+      y(255);
+    }
+
+    test.ok(this.gyro.isCalibrated);
+
+    this.gyro.recalibrate();
+
+    test.ok(!this.gyro.isCalibrated);
+
+    for (i = 0; i < 101; i++) {
+      x(225);
+      y(255);
+    }
+
+    test.ok(this.gyro.isCalibrated);
+
+    test.done();
+  },
+
   data: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
