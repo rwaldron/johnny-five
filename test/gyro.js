@@ -114,6 +114,8 @@ exports["Gyro"] = {
     var spy = sinon.spy();
 
     test.expect(1);
+
+    this.gyro.isCalibrated = true;
     this.gyro.on("data", spy);
 
     x(225);
@@ -131,8 +133,9 @@ exports["Gyro"] = {
     var spy = sinon.spy();
 
     test.expect(1);
-    this.gyro.on("change", spy);
 
+    this.gyro.isCalibrated = true;
+    this.gyro.on("change", spy);
 
     x(225);
 
