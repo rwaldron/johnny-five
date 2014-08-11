@@ -232,6 +232,31 @@ exports["instance"] = {
   },
 };
 
+exports["bubbled events from io"] = {
+  setUp: function(done) {
+    this.io = new MockFirmata();
+
+    this.board = new Board({
+      io: this.io,
+      debug: false,
+      repl: false
+    });
+
+    done();
+  },
+  string: function(test) {
+    test.expect(1);
+
+    this.board.once("string", function(data) {
+      console.log("message");
+      test.equal(data, 1);
+      test.done();
+    });
+
+    this.io.emit("string", 1);
+  }
+};
+
 
 exports["fn"] = {
   "cache": function(test) {
