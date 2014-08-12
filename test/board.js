@@ -188,31 +188,31 @@ exports["static"] = {
 
 exports["instance"] = {
 
-  "cache": function(test) {
+  cache: function(test) {
     test.expect(1);
     test.ok(_.contains(five.Board.cache, board));
     test.done();
   },
 
-  "instance": function(test) {
+  instance: function(test) {
     test.expect(1);
     test.ok(board);
     test.done();
   },
 
-  "io": function(test) {
+  io: function(test) {
     test.expect(1);
     test.ok(board.io instanceof MockFirmata);
     test.done();
   },
 
-  "id": function(test) {
+  id: function(test) {
     test.expect(1);
     test.ok(board.id);
     test.done();
   },
 
-  "repl": function(test) {
+  repl: function(test) {
     var board = new five.Board({
       io: new MockFirmata(),
       debug: false
@@ -225,7 +225,7 @@ exports["instance"] = {
     test.done();
   },
 
-  "pins": function(test) {
+  pins: function(test) {
     test.expect(1);
     test.ok(board.pins);
     test.done();
@@ -248,7 +248,6 @@ exports["bubbled events from io"] = {
     test.expect(1);
 
     this.board.once("string", function(data) {
-      console.log("message");
       test.equal(data, 1);
       test.done();
     });
@@ -259,7 +258,7 @@ exports["bubbled events from io"] = {
 
 
 exports["fn"] = {
-  "cache": function(test) {
+  cache: function(test) {
     test.expect(6);
 
     test.equal(__.scale(10, 0, 20, 0, 100), 50, "scale up");
