@@ -167,8 +167,8 @@ exports["LedControl - Matrix"] = {
       [ 0, 7, 0 ],
       [ 0, 8, 0 ],
 
-      // this.off(device);
-      [ 0, 12, 0 ]
+      // this.on(device);
+      [ 0, 12, 1 ]
     ];
 
     var lc = new LedControl({
@@ -610,8 +610,8 @@ exports["LedControl - Digits"] = {
       [ 0, 7, 0 ],
       [ 0, 8, 0 ],
 
-      // this.off(device);
-      [ 0, 12, 0 ]
+      // this.on(device);
+      [ 0, 12, 1 ]
     ];
 
     var lc = new LedControl({
