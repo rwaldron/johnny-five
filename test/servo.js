@@ -296,3 +296,50 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 };
+
+exports["Servo - Allowed Pin Names"] = {
+  firmata: function(test) {
+    test.expect(10);
+
+    test.equal(new Servo(2).pin, 2);
+    test.equal(new Servo(12).pin, 12);
+
+    test.equal(new Servo({ pin: 2 }).pin, 2);
+    test.equal(new Servo({ pin: 12 }).pin, 12);
+
+    test.equal(new Servo("A0").pin, 14);
+    test.equal(new Servo(14).pin, 14);
+
+    test.equal(new Servo({ pin: "A0" }).pin, 14);
+    test.equal(new Servo({ pin: 14 }).pin, 14);
+
+    // Modes is SERVO
+    test.equal(new Servo(12).mode, 4);
+    test.equal(new Servo(14).mode, 4);
+
+    test.done();
+  },
+
+  nonFirmata: function(test) {
+    test.expect(5);
+
+    var nonFirmata = new MockFirmata();
+    var board = new Board({
+      io: nonFirmata,
+      debug: false,
+      repl: false
+    });
+
+    nonFirmata.name = "FooBoard";
+
+    test.equal(new Servo({ pin: 2, board: board }).pin, 2);
+    test.equal(new Servo({ pin: 12, board: board }).pin, 12);
+    test.equal(new Servo({ pin: "A0", board: board }).pin, 0);
+
+    // Modes is SERVO
+    test.equal(new Servo({ pin: 12, board: board }).mode, 4);
+    test.equal(new Servo({ pin: "A0", board: board }).mode, 4);
+
+    test.done();
+  }
+};
