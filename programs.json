@@ -3,7 +3,8 @@
 
   [ "Animation"],
     "animation.js",
-    
+    "phoenix.js",
+
   [ "Board" ],
     "board.js",
     "board-with-port.js",

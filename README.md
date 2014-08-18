@@ -112,6 +112,7 @@ board.on("ready", function() {
 
 ### Animation
 - [Animation](https://github.com/rwldrn/johnny-five/blob/master/docs/animation.md)
+- [Phoenix](https://github.com/rwldrn/johnny-five/blob/master/docs/phoenix.md)
 
 ### Board
 - [Board](https://github.com/rwldrn/johnny-five/blob/master/docs/board.md)
