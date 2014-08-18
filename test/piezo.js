@@ -215,6 +215,30 @@ exports["Piezo"] = {
     test.done();
   },
 
+  toneRejectsWonkyToneValues: function(test) {
+    var lameValues = [
+      ["florp", 5],
+      ["ding", "dong"],
+      ["c4", "zimple"],
+      ["?", 'foof']
+      // ["C4", 1][null, 1/2] Original bad value; jshint won't allow
+    ];
+    test.expect(lameValues.length);
+    lameValues.forEach(function(element) {
+      var fail = this.piezo.tone(element[0], element[1]);
+      test.strictEqual(fail, false);
+    }, this);
+
+    test.done();
+  },
+
+  toneLovesHappyValues: function(test) {
+    test.expect(1);
+    var happy = this.piezo.tone(350, 500);
+    test.equal(happy, this.piezo);  // tone returns piezo obj when happy
+    test.done();
+  },
+
   frequency: function(test) {
     test.expect(2);
     var toneSpy = sinon.spy(this.piezo, "tone");
@@ -222,7 +246,6 @@ exports["Piezo"] = {
     var returned = this.piezo.frequency(440, 100);
     test.ok(toneSpy.calledWith(1136, 100));
     test.equal(returned, this.piezo);
-
     test.done();
   },
 
@@ -335,7 +358,26 @@ exports["Piezo"] = {
       test.ok(myCallback.calledWith(tune));
       test.done();
     }.bind(this), 10);
-  }
+  },
+
+  playCanDealWithWonkyValues: function(test) {
+    var tempo = 10000,
+      tune = {
+        song: [
+          ['c4'],
+          ['drunk'],
+          ['d4', 0]
+        ],
+        tempo: tempo
+      };
+    test.expect(1);
+
+    this.piezo.play(tune, function() {
+      test.ok(1); // We made it this far, no choking on bad values
+      test.done();
+    }.bind(this));
+
+  },
   /**
    * This is a slow test by necessity because the default tempo (which can't
    * be overridden if `play` is invoked with a non-object arg) is 250.
