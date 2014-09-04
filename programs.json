@@ -48,6 +48,7 @@
     "motor-brake.js",
     "motor-current.js",
     "motor-hbridge.js",
+    "motor-PCA9685.js",
     "motor-3-pin.js",
     "motobot.js",
 
