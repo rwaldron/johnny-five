@@ -2,7 +2,7 @@
   IMPORTANT!!! This example is not intended for off the shelf
   H-Bridge based motor controllers. It is for home made H-Bridge
   controllers. Off the shelf controllers abstract away the need
-  to invert the PWM (AKA Speed) value when the direction pin is set 
+  to invert the PWM (AKA Speed) value when the direction pin is set
   to high. This is for controllers that do not have that feature.
 */
 

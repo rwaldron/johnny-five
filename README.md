@@ -156,6 +156,7 @@ board.on("ready", function() {
 - [Motor Brake](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor Current](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-current.md)
 - [Motor Hbridge](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-hbridge.md)
+- [Motor PCA9685](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-PCA9685.md)
 - [Motor 3 Pin](https://github.com/rwldrn/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motobot](https://github.com/rwldrn/johnny-five/blob/master/docs/motobot.md)
 
