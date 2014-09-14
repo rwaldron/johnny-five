@@ -26,6 +26,8 @@ For non-Arduino based projects, the following platform [IO Plugins](https://gith
   - [Raspi-IO](https://gitlab.theoreticalideations.com/nebrius/raspi-io/)
 - Spark Core
   - [Spark-IO](https://github.com/rwaldron/spark-io/)
+- LightBlue Bean
+  - [Bean-IO](https://github.com/monteslu/bean-io/)
 - IO Board (Generic IO Plugin class to make your own!)
   - [IOBoard](https://github.com/achingbrain/node-ioboard)
 
