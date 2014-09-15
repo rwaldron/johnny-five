@@ -492,6 +492,8 @@ exports["Led.RGB"] = {
     }, {
       name: "off"
     }, {
+      name: "color"
+    }, {
       name: "toggle"
     }, {
       name: "brightness"
@@ -582,19 +584,41 @@ exports["Led.RGB"] = {
     test.done();
   },
   on: function(test) {
-    test.expect(1);
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11;
+
+    test.expect(6);
 
     this.ledRgb.on();
-    test.ok(this.analog.calledWith(11, 255));
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 255));
+    test.ok(this.analog.calledWith(bluePin, 255));
+
+    var color = this.ledRgb.color();
+    test.equal(color.red, 255);
+    test.equal(color.green, 255);
+    test.equal(color.blue, 255);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11;
+
+    test.expect(6);
 
     this.ledRgb.off();
-    test.ok(this.analog.calledWith(11, 0));
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 0));
+    test.ok(this.analog.calledWith(bluePin, 0));
+
+    var color = this.ledRgb.color();
+    test.equal(color.red, 0);
+    test.equal(color.green, 0);
+    test.equal(color.blue, 0);
 
     test.done();
   },
@@ -637,6 +661,8 @@ exports["Led.RGB - Common Anode"] = {
       name: "on"
     }, {
       name: "off"
+    }, {
+      name: "color"
     }, {
       name: "toggle"
     }, {
@@ -708,19 +734,41 @@ exports["Led.RGB - Common Anode"] = {
   },
 
   on: function(test) {
-    test.expect(1);
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11;
+
+    test.expect(6);
 
     this.ledRgb.on();
-    test.ok(this.spy.calledWith(11, 0));
+    test.ok(this.spy.calledWith(redPin, 0));
+    test.ok(this.spy.calledWith(greenPin, 0));
+    test.ok(this.spy.calledWith(bluePin, 0));
+
+    var color = this.ledRgb.color();
+    test.equal(color.red, 255);
+    test.equal(color.green, 255);
+    test.equal(color.blue, 255);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11;
+
+    test.expect(6);
 
     this.ledRgb.off();
-    test.ok(this.spy.calledWith(11, 255));
+    test.ok(this.spy.calledWith(redPin, 255));
+    test.ok(this.spy.calledWith(greenPin, 255));
+    test.ok(this.spy.calledWith(bluePin, 255));
+
+    var color = this.ledRgb.color();
+    test.equal(color.red, 0);
+    test.equal(color.green, 0);
+    test.equal(color.blue, 0);
 
     test.done();
   },
