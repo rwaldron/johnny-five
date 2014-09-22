@@ -2,19 +2,25 @@
 
 # Node-isassemble Johnny-Five
 
+_Artwork by [Mike Sgier](http://msgierillustration.com)_
+
 [![Build Status](https://travis-ci.org/rwaldron/johnny-five.png?branch=master)](https://travis-ci.org/rwaldron/johnny-five)
 
 
 #### Johnny-Five is an Open Source, JavaScript Arduino programming framework, developed at [Bocoup](http://bocoup.com).
 
+Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with: 
 
-#### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
+- Popular application libraries such as [Express.js](http://expressjs.com/) and [Socket.io](http://socket.io/).
+- Fellow hardware projects like [ar-drone](https://github.com/felixge/node-ar-drone), [Aerogel](https://github.com/ceejbot/aerogel) and [Spheron](https://github.com/alchemycs/spheron)
+- Bluetooth game controllers like [XBox Controller](https://github.com/andrew/node-xbox-controller) and [DualShock](https://github.com/rdepena/node-dualshock-controller)
+- IoT frameworks, such as [Octoblu](http://www.octoblu.com/)
 
-#### Johnny-Five artwork by [Mike Sgier](http://msgierillustration.com)
+...And that's only a few of the many explorable possibilities. Check out these exciting projects: [node-pulsesensor](https://www.npmjs.org/package/node-pulsesensor), [footballbot-workshop-ui](https://www.npmjs.org/package/footballbot-workshop-ui), [nodebotui](https://www.npmjs.org/package/nodebotui), [dublin-disco](https://www.npmjs.org/package/dublin-disco), [node-slot-car-bot](https://www.npmjs.org/package/node-slot-car-bot), [servo-calibrator](https://www.npmjs.org/package/servo-calibrator), [node-ardx](https://www.npmjs.org/package/node-ardx), [nodebot-workshop](https://www.npmjs.org/package/nodebot-workshop), [phone-home](https://www.npmjs.org/package/phone-home), [purple-unicorn](https://www.npmjs.org/package/purple-unicorn), [webduino](https://www.npmjs.org/package/webduino), [leapduino](https://www.npmjs.org/package/leapduino), [lasercat-workshop](https://www.npmjs.org/package/lasercat-workshop), [simplesense](https://www.npmjs.org/package/simplesense), [five-redbot](https://www.npmjs.org/package/five-redbot), [robotnik](https://www.npmjs.org/package/robotnik), [the-blender](https://www.npmjs.org/package/the-blender)
 
 ## IO Plugins
 
-For non-Arduino based projects, the following platform [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available:
+IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks! For non-Arduino based projects, the following platform [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available:
 
 - Beagle Bone
   - [BeagleBone-IO](https://github.com/julianduque/beaglebone-io)
@@ -30,6 +36,9 @@ For non-Arduino based projects, the following platform [IO Plugins](https://gith
   - [Bean-IO](https://github.com/monteslu/bean-io/)
 - IO Board (Generic IO Plugin class to make your own!)
   - [IOBoard](https://github.com/achingbrain/node-ioboard)
+
+
+#### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
 
 ## Documentation
