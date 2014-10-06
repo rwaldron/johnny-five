@@ -368,7 +368,8 @@ exports["Led - PWM (Analog)"] = {
     test.equal(this.led.mode, 3);
 
     this.led.strobe();
-    test.equal(this.led.mode, 1);
+    // pre 0.8.13, this would change to 1
+    test.equal(this.led.mode, 3);
 
     test.done();
   },
@@ -575,7 +576,7 @@ exports["Led.RGB"] = {
     // Set a color and make sure .on() doesn't override
     this.ledRgb.color("#bbccaa");
     this.ledRgb.on();
-    
+
     color = this.ledRgb.color();
     test.equal(color.red, 0xbb);
     test.equal(color.green, 0xcc);
@@ -594,7 +595,7 @@ exports["Led.RGB"] = {
     test.equal(color.red, 0xbb);
     test.equal(color.green, 0xcc);
     test.equal(color.blue, 0xaa);
-    
+
     values = this.ledRgb.values;
     test.equal(values.red, 0xbb);
     test.equal(values.green, 0xcc);
@@ -644,7 +645,7 @@ exports["Led.RGB"] = {
 
     this.ledRgb.color("#bbccaa");
     this.ledRgb.toggle();
-    
+
     // Color should still be #bbccaa
     // but values should be 0
     color = this.ledRgb.color();
@@ -659,7 +660,7 @@ exports["Led.RGB"] = {
 
     this.ledRgb.toggle();
 
-    // Should have gone back to #bbccaa    
+    // Should have gone back to #bbccaa
     values = this.ledRgb.values;
     test.equal(values.red, 0xbb);
     test.equal(values.green, 0xcc);
@@ -754,7 +755,7 @@ exports["Led.RGB - Common Anode"] = {
     // Set a color and make sure .on() doesn't override
     this.ledRgb.color("#bbccaa");
     this.ledRgb.on();
-    
+
     color = this.ledRgb.color();
     test.equal(color.red, 0xbb);
     test.equal(color.green, 0xcc);
@@ -773,7 +774,7 @@ exports["Led.RGB - Common Anode"] = {
     test.equal(color.red, 0xbb);
     test.equal(color.green, 0xcc);
     test.equal(color.blue, 0xaa);
-    
+
     values = this.ledRgb.values;
     test.equal(values.red, 0xbb);
     test.equal(values.green, 0xcc);
