@@ -374,6 +374,28 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  fade: function(test) {
+    test.expect(4);
+
+    this.led.fade(50, 500);
+    this.clock.tick(500);
+    test.equal(this.led.value, 50);
+
+    this.led.fade(0, 500);
+    this.clock.tick(500);
+    test.equal(this.led.value, 0);
+
+    this.led.fade(0, 500);
+    this.clock.tick(500);
+    test.equal(this.led.value, 0);
+
+    this.led.fade(255, 500);
+    this.clock.tick(500);
+    test.equal(this.led.value, 255);
+
+    test.done();
+  },
+
   fadeIn: function(test) {
     test.expect(7);
 
