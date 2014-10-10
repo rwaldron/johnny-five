@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, sensor;
+  board, sensor;
 
 board = new five.Board();
 
@@ -13,13 +13,13 @@ board.on("ready", function() {
   }
 
   function analogToFahrenheit(analogValue) {
-    return analogToCelsius(analogValue) * ( 9/5 ) + 32;
+    return analogToCelsius(analogValue) * (9 / 5) + 32;
   }
 
   sensor.on("data", function() {
     var celsiusValue, fahrenheitValue;
     // Obtain temperature from current analog value
-    celsiusValue    = analogToCelsius(this.value);
+    celsiusValue = analogToCelsius(this.value);
     fahrenheitValue = analogToFahrenheit(this.value);
     console.log(celsiusValue + "°C", fahrenheitValue + "°F");
   });

@@ -23,8 +23,8 @@ board.on("ready", function() {
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-     servo: servo,
-     animation: animation
+    servo: servo,
+    animation: animation
   });
 
 });

@@ -221,7 +221,7 @@ exports["Piezo"] = {
       ["ding", "dong"],
       ["c4", "zimple"],
       ["?", 'foof']
-    //  ["C4", 1][null, 1/2] // Original bad value; jshint won't allow
+      //  ["C4", 1][null, 1/2] // Original bad value; jshint won't allow
     ];
     test.expect(lameValues.length);
     lameValues.forEach(function(element) {
@@ -241,7 +241,7 @@ exports["Piezo"] = {
   toneLovesHappyValues: function(test) {
     test.expect(1);
     var happy = this.piezo.tone(350, 500);
-    test.equal(happy, this.piezo);  // tone returns piezo obj when happy
+    test.equal(happy, this.piezo); // tone returns piezo obj when happy
     test.done();
   },
 

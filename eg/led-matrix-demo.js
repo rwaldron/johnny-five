@@ -44,39 +44,39 @@ board.on("ready", function() {
     //   }
     // },
     function() {
-      console.log( "Row: 255" );
+      console.log("Row: 255");
       for (var x = 0; x < 8; x++) {
         lc.row(x, 255);
       }
     },
     function() {
-      console.log( "Row: 0" );
+      console.log("Row: 0");
       for (var x = 0; x < 8; x++) {
         lc.row(x, 0);
       }
     },
     function() {
-      console.log( "Column: 255" );
+      console.log("Column: 255");
       for (var y = 0; y < 8; y++) {
         lc.column(y, 255);
       }
     },
     function() {
-      console.log( "Column: 0" );
+      console.log("Column: 0");
       for (var y = 0; y < 8; y++) {
         lc.column(0, y, 0);
         lc.column(1, y, 0);
       }
     },
     function() {
-      console.log( "All on" );
+      console.log("All on");
 
       lc.each(function(addr) {
         this.draw(addr, [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]);
       });
     },
     function() {
-      console.log( "Pulse" );
+      console.log("Pulse");
 
       var brightness = 0;
       var direction = 1;
@@ -103,7 +103,10 @@ board.on("ready", function() {
   function demo() {
     temporal.queue(
       fns.map(function(task, index) {
-        return { delay: delays[index], task: task };
+        return {
+          delay: delays[index],
+          task: task
+        };
       }).filter(function(_, i) {
         return omits.indexOf(i) === -1;
       })

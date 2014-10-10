@@ -14,15 +14,20 @@
  *
  */
 
- var five = require("../lib/johnny-five.js"),
+var five = require("../lib/johnny-five.js"),
   temporal = require("temporal"),
-  board, ph = { state: "sleep" },
+  board, ph = {
+    state: "sleep"
+  },
   easeIn = "inQuad",
   easeOut = "outQuad",
   easeInOut = "inOutQuad",
 
   // This object describes the "leg lift" used in walking
-  lift = { femur: 30, tibia: -20 },
+  lift = {
+    femur: 30,
+    tibia: -20
+  },
 
   // By default, the gait length is about 2". Adjusting this
   // value scales the gait and can really help out if your
@@ -36,17 +41,17 @@
   // walking.
   s = {
     front: {
-      coxa: [66-26*gait, 66, 66+19*gait],
+      coxa: [66 - 26 * gait, 66, 66 + 19 * gait],
       femur: [100, 94, 65],
       tibia: [115, 93, 40]
     },
     mid: {
-      coxa: [68-16*gait, 68, 68+16*gait],
+      coxa: [68 - 16 * gait, 68, 68 + 16 * gait],
       femur: [92, 93, 86],
       tibia: [95, 96, 82]
     },
     rear: {
-      coxa: [59+18*gait, 59, 59-22*gait],
+      coxa: [59 + 18 * gait, 59, 59 - 22 * gait],
       femur: [80, 92, 100],
       tibia: [70, 100, 113]
     }
@@ -55,35 +60,115 @@
 // Your port addresses will vary
 board = new five.Board().on("ready", function() {
 
-  ph.r1c = new five.Servo({pin:23, offset: 10, startAt: 45 });
-  ph.r1f = new five.Servo({pin:22, offset: -6, startAt: 180 });
-  ph.r1t = new five.Servo({pin:21, offset: -7, startAt: 180 });
-  ph.r1 = new five.Servo.Array([ ph.r1c, ph.r1f, ph.r1t ]);
+  ph.r1c = new five.Servo({
+    pin: 23,
+    offset: 10,
+    startAt: 45
+  });
+  ph.r1f = new five.Servo({
+    pin: 22,
+    offset: -6,
+    startAt: 180
+  });
+  ph.r1t = new five.Servo({
+    pin: 21,
+    offset: -7,
+    startAt: 180
+  });
+  ph.r1 = new five.Servo.Array([ph.r1c, ph.r1f, ph.r1t]);
 
-  ph.l1c = new five.Servo({pin:27, isInverted: true, offset: -7, startAt: 45 });
-  ph.l1f = new five.Servo({pin:25, isInverted: true, offset: -2, startAt: 180 });
-  ph.l1t = new five.Servo({pin:24, isInverted: true, offset: -8, startAt: 180 });
-  ph.l1 = new five.Servo.Array([ ph.l1c, ph.l1f, ph.l1t ]);
+  ph.l1c = new five.Servo({
+    pin: 27,
+    isInverted: true,
+    offset: -7,
+    startAt: 45
+  });
+  ph.l1f = new five.Servo({
+    pin: 25,
+    isInverted: true,
+    offset: -2,
+    startAt: 180
+  });
+  ph.l1t = new five.Servo({
+    pin: 24,
+    isInverted: true,
+    offset: -8,
+    startAt: 180
+  });
+  ph.l1 = new five.Servo.Array([ph.l1c, ph.l1f, ph.l1t]);
 
-  ph.r2c = new five.Servo({pin:17, offset: 16, startAt: 45 });
-  ph.r2f = new five.Servo({pin:16, offset: 12, startAt: 180 });
-  ph.r2t = new five.Servo({pin:15, offset: 2, startAt: 180 });
-  ph.r2 = new five.Servo.Array([ ph.r2c, ph.r2f, ph.r2t ]);
+  ph.r2c = new five.Servo({
+    pin: 17,
+    offset: 16,
+    startAt: 45
+  });
+  ph.r2f = new five.Servo({
+    pin: 16,
+    offset: 12,
+    startAt: 180
+  });
+  ph.r2t = new five.Servo({
+    pin: 15,
+    offset: 2,
+    startAt: 180
+  });
+  ph.r2 = new five.Servo.Array([ph.r2c, ph.r2f, ph.r2t]);
 
-  ph.l2c = new five.Servo({pin:20, isInverted: true, offset: 21, startAt: 45 });
-  ph.l2f = new five.Servo({pin:19, isInverted: true, offset: -19, startAt: 180 });
-  ph.l2t = new five.Servo({pin:18, isInverted: true, offset: -3, startAt: 180 });
-  ph.l2 = new five.Servo.Array([ ph.l2c, ph.l2f, ph.l2t ]);
+  ph.l2c = new five.Servo({
+    pin: 20,
+    isInverted: true,
+    offset: 21,
+    startAt: 45
+  });
+  ph.l2f = new five.Servo({
+    pin: 19,
+    isInverted: true,
+    offset: -19,
+    startAt: 180
+  });
+  ph.l2t = new five.Servo({
+    pin: 18,
+    isInverted: true,
+    offset: -3,
+    startAt: 180
+  });
+  ph.l2 = new five.Servo.Array([ph.l2c, ph.l2f, ph.l2t]);
 
-  ph.r3c = new five.Servo({pin:9, isInverted: true, offset: 10, startAt: 45});
-  ph.r3f = new five.Servo({pin:4, offset: 1, startAt: 180 });
-  ph.r3t = new five.Servo({pin:5, offset: -10, startAt: 180 });
-  ph.r3 = new five.Servo.Array([ ph.r3c, ph.r3f, ph.r3t ]);
+  ph.r3c = new five.Servo({
+    pin: 9,
+    isInverted: true,
+    offset: 10,
+    startAt: 45
+  });
+  ph.r3f = new five.Servo({
+    pin: 4,
+    offset: 1,
+    startAt: 180
+  });
+  ph.r3t = new five.Servo({
+    pin: 5,
+    offset: -10,
+    startAt: 180
+  });
+  ph.r3 = new five.Servo.Array([ph.r3c, ph.r3f, ph.r3t]);
 
-  ph.l3c = new five.Servo({pin:14, offset: 5, startAt: 45 });
-  ph.l3f = new five.Servo({pin:2, isInverted: true, offset: -5, startAt: 180 });
-  ph.l3t = new five.Servo({pin:3, isInverted: true, startAt: 180 });
-  ph.l3 = new five.Servo.Array([ ph.l3c, ph.l3f, ph.l3t ]);
+  ph.l3c = new five.Servo({
+    pin: 14,
+    offset: 5,
+    startAt: 45
+  });
+  ph.l3f = new five.Servo({
+    pin: 2,
+    isInverted: true,
+    offset: -5,
+    startAt: 180
+  });
+  ph.l3t = new five.Servo({
+    pin: 3,
+    isInverted: true,
+    startAt: 180
+  });
+  ph.l3 = new five.Servo.Array([ph.l3c, ph.l3f, ph.l3t]);
 
   ph.femurs = new five.Servo.Array([ph.r1f, ph.l1f, ph.r2f, ph.l2f, ph.r3f, ph.l3f]);
   ph.tibia = new five.Servo.Array([ph.r1t, ph.l1t, ph.r2t, ph.l2t, ph.r3t, ph.l3t]);
@@ -104,9 +189,23 @@ board = new five.Board().on("ready", function() {
       ph.state = "stand";
     },
     keyFrames: [
-      [null, { degrees: s.front.coxa[1] }],
-      [null, false, false, { degrees: s.front.femur[1] + 26, easing: easeOut}, { degrees: s.front.femur[1], easing: easeIn}],
-      [null, false, { degrees: s.front.tibia[1] + 13}, false, { degrees: s.front.tibia[1] }]
+      [null, {
+        degrees: s.front.coxa[1]
+      }],
+      [null, false, false, {
+        degrees: s.front.femur[1] + 26,
+        easing: easeOut
+      }, {
+        degrees: s.front.femur[1],
+        easing: easeIn
+      }],
+      [null, false, {
+          degrees: s.front.tibia[1] + 13
+        },
+        false, {
+          degrees: s.front.tibia[1]
+        }
+      ]
     ]
   };
 
@@ -163,8 +262,10 @@ board = new five.Board().on("ready", function() {
       loop: true,
       loopback: 0.5,
       fps: 100,
-      onstop: function() { ph.att(); },
-      oncomplete: function() { },
+      onstop: function() {
+        ph.att();
+      },
+      oncomplete: function() {},
       keyFrames: [
         [ null, null, {degrees: s.front.coxa[a]}, {degrees: s.front.coxa[1]}, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}],
         [ null, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}, {degrees: s.front.femur[1]}, {degrees: s.front.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}],
@@ -204,7 +305,9 @@ board = new five.Board().on("ready", function() {
       cuePoints: [0, 0.25, 0.5, 0.625, 0.75, 0.875, 1.0],
       loop: true,
       loopback: 0.5,
-      onstop: function() { ph.att(); },
+      onstop: function() {
+        ph.att();
+      },
       keyFrames: [
         [ null, null, {degrees: s.front.coxa[a]}, null, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}],
         [ null, null, {degrees: s.front.femur[a]}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[b]}, null, {degrees: s.front.femur[a]}],
@@ -247,39 +350,41 @@ board = new five.Board().on("ready", function() {
     ];
 
     work.forEach(function(leg, i) {
-      work[i].offset = Math.abs(ph[leg.name+"f"].last.reqDegrees - leg.home);
+      work[i].offset = Math.abs(ph[leg.name + "f"].last.reqDegrees - leg.home);
     });
 
     if (work[1].offset > work[4].offset) {
-      grouped = [ [0, 2, 4], [1, 3, 5] ];
+      grouped = [
+        [0, 2, 4],
+        [1, 3, 5]
+      ];
     } else {
-      grouped = [ [1, 3, 5], [0, 2, 4] ];
+      grouped = [
+        [1, 3, 5],
+        [0, 2, 4]
+      ];
     }
 
     grouped.forEach(function(group, i) {
       group.forEach(function(leg, j) {
-        temporal.queue([
-          {
-            delay: 250*i,
-            task: function() {
-              ph[work[leg].name+"f"].to(work[leg].home + lift.femur);
-              ph[work[leg].name+"t"].to(work[leg].thome + lift.tibia);
-            }
-          },
-          {
-            delay: 50,
-            task: function() {
-              ph[work[leg].name+"c"].to(work[leg].chome);
-            }
-          },
-          {
-            delay: 50,
-            task: function() {
-              ph[work[leg].name+"f"].to(work[leg].home);
-              ph[work[leg].name+"t"].to(work[leg].thome);
-            }
+        temporal.queue([{
+          delay: 250 * i,
+          task: function() {
+            ph[work[leg].name + "f"].to(work[leg].home + lift.femur);
+            ph[work[leg].name + "t"].to(work[leg].thome + lift.tibia);
           }
-        ]);
+        }, {
+          delay: 50,
+          task: function() {
+            ph[work[leg].name + "c"].to(work[leg].chome);
+          }
+        }, {
+          delay: 50,
+          task: function() {
+            ph[work[leg].name + "f"].to(work[leg].home);
+            ph[work[leg].name + "t"].to(work[leg].thome);
+          }
+        }]);
       });
     });
     ph.state = "stand";
@@ -309,7 +414,7 @@ board = new five.Board().on("ready", function() {
   // the Repl instance's context
   // allows direct command line access
   this.repl.inject({
-     ph: ph
+    ph: ph
   });
 
   ph.sleep();
