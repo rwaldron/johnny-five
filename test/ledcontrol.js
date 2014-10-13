@@ -43,6 +43,160 @@ exports["Led.Matrix => LedControl"] = {
   }
 };
 
+exports["LedControl - I2C Matrix"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+
+    this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
+
+    this.lc = new LedControl({
+      device: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    this.each = sinon.spy(this.lc, "each");
+    this.row = sinon.spy(this.lc, "row");
+    done();
+  },
+  tearDown: function(done) {
+    this.clock.restore();
+    done();
+  },
+  initialize: function(test) {
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ];
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.done();
+  },
+  clearAll: function(test) {
+    test.expect(2);
+
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ];
+
+    this.lc.clear();
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.equal(this.each.callCount, 1);
+
+    test.done();
+  },
+  on: function(test) {
+    test.expect(1);
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // oscillator on
+      [ 0x70, [ 0x21 ]]
+    ];
+    this.lc.on(0);
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+
+    test.done();
+  },
+  off: function(test) {
+    test.expect(1);
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // oscillator off
+      [ 0x70, [ 0x20 ]]
+    ];
+    this.lc.off(0);
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+
+    test.done();
+  },
+  row: function(test) {
+    test.expect(1);
+
+    var expected = [
+       // oscillator on
+      [ 0x70, [ 0x21 ] ],
+      // blink off
+      [ 0x70, [ 0x81 ] ],
+      // brightness at max
+      [ 0x70, [ 0xEF ] ],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // setting the values
+      [ 0x70, [ 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70,  [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0 ]] 
+    ];
+
+    this.lc.row(0, 1, 255);
+
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+
+    test.done();
+  },
+  column: function(test) {
+    test.expect(1);
+
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ] ],
+      // blink off
+      [ 0x70, [ 0x81 ] ],
+      // brightness at max
+      [ 0x70, [ 0xEF ] ],
+      // clear
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 124, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 126, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]] 
+    ];
+
+    this.lc.column(0, 3, 255);
+
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+
+    test.done();
+  },
+};
+
 exports["LedControl - Matrix"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -62,31 +216,6 @@ exports["LedControl - Matrix"] = {
     this.shiftOut = sinon.spy(this.board, "shiftOut");
 
     this.proto = [{
-        name: "on",
-        args: []
-      }, {
-        name: "off",
-        args: []
-      },
-      // {
-      //   name: "shutdown"
-      // },
-      {
-        name: "scanLimit",
-        args: [0]
-      }, {
-        name: "brightness",
-        args: [0]
-      }, {
-        name: "clear",
-        args: []
-      }, {
-        name: "led",
-        args: [0, 0, 1]
-      }, {
-        name: "row",
-        args: [0, 255]
-      }, {
         name: "column",
         args: [0, 255]
       }, {
@@ -102,6 +231,27 @@ exports["LedControl - Matrix"] = {
     ];
 
     this.instance = [{
+      name: "on",
+      args: []
+    }, {
+      name: "off",
+      args: []
+    }, {
+      name: "scanLimit",
+      args: [0]
+    }, {
+      name: "brightness",
+      args: [0]
+    }, {
+      name: "clear",
+      args: []
+    }, {
+      name: "led",
+      args: [0, 0, 1]
+    }, {
+      name: "row",
+      args: [0, 255]
+    }, {
       name: "devices"
     }, {
       name: "isMatrix"
@@ -118,6 +268,8 @@ exports["LedControl - Matrix"] = {
     this.brightness = sinon.spy(this.lc, "brightness");
     this.clear = sinon.spy(this.lc, "clear");
     this.led = sinon.spy(this.lc, "led");
+    this.initialize = sinon.spy(this.lc,"initialize");
+    this.send = sinon.spy(this.lc, "send");
 
     done();
   },
@@ -142,9 +294,8 @@ exports["LedControl - Matrix"] = {
   },
 
   initialization: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var send = sinon.spy(LedControl.prototype, "send");
     var expected = [
       // this.send(device, LedControl.OP.DECODING, 0);
       // this.send(device, LedControl.OP.BRIGHTNESS, 3);
@@ -172,7 +323,7 @@ exports["LedControl - Matrix"] = {
       [0, 12, 1]
     ];
 
-    var lc = new LedControl({
+    this.lc.initialize({
       pins: {
         data: 2,
         clock: 3,
@@ -182,9 +333,9 @@ exports["LedControl - Matrix"] = {
       board: this.board
     });
 
-    test.deepEqual(send.args, expected);
+    test.ok(this.initialize.called);
+    test.deepEqual(this.send.args, expected);
 
-    send.restore();
     test.done();
   },
 
@@ -248,32 +399,6 @@ exports["LedControl - Matrix"] = {
 
     test.done();
   },
-
-  // shutdown: function(test) {
-  //   test.expect(2);
-
-  //   this.lc.shutdown(0, 1);
-  //   test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ] ]);
-
-  //   this.lc.shutdown(0, 0);
-  //   test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ], [ 2, 3, 12 ], [ 2, 3, 1 ] ]);
-
-  //   test.done();
-  // },
-
-  // shutdownAll: function(test) {
-  //   test.expect(3);
-
-  //   this.lc.shutdown(1);
-  //   test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ] ]);
-
-  //   this.lc.shutdown(0);
-  //   test.deepEqual(this.shiftOut.args, [ [ 2, 3, 12 ], [ 2, 3, 0 ], [ 2, 3, 12 ], [ 2, 3, 1 ] ]);
-
-  //   test.equal(this.each.callCount, 2);
-
-  //   test.done();
-  // },
 
   scanLimit: function(test) {
     test.expect(1);
