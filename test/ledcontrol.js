@@ -51,7 +51,7 @@ exports["LedControl - I2C Matrix"] = {
     this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
 
     this.lc = new LedControl({
-      device: "HT16K33",
+      controller: "HT16K33",
       isMatrix: true,
       board: this.board
     });
@@ -67,38 +67,38 @@ exports["LedControl - I2C Matrix"] = {
   initialize: function(test) {
     var expected = [
       // oscillator on
-      [ 0x70, [ 0x21 ]],
+      [0x70, [0x21]],
       // blink off
-      [ 0x70, [ 0x81 ]],
+      [0x70, [0x81]],
       // brightness at max
-      [ 0x70, [ 0xEF ]],
+      [0x70, [0xEF]],
       // clear
-      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+      [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     ];
     test.deepEqual(this.sendI2CWriteRequest.args, expected);
     test.done();
   },
   clearAll: function(test) {
-    test.expect(2);
+      test.expect(2);
 
-    var expected = [
-      // oscillator on
-      [ 0x70, [ 0x21 ]],
-      // blink off
-      [ 0x70, [ 0x81 ]],
-      // brightness at max
-      [ 0x70, [ 0xEF ]],
-      // clear
-      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
-      // clear
-      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
-    ];
+      var expected = [
+        // oscillator on
+        [0x70, [0x21]],
+        // blink off
+        [0x70, [0x81]],
+        // brightness at max
+        [0x70, [0xEF]],
+        // clear
+        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+        // clear
+        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+      ];
 
-    this.lc.clear();
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
-    test.equal(this.each.callCount, 1);
+      this.lc.clear();
+      test.deepEqual(this.sendI2CWriteRequest.args, expected);
+      test.equal(this.each.callCount, 1);
 
-    test.done();
+      test.done();
   },
   on: function(test) {
     test.expect(1);
@@ -138,6 +138,28 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
+  brightness: function(test) {
+    test.expect(1);
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // min brightness
+      [ 0x70, [ 0xE0 ]],
+      // max brightness
+      [ 0x70, [ 0xEF ]]
+    ];
+    this.lc.brightness(0); // set min brightness
+    this.lc.brightness(100); // set max brightness
+    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+
+    test.done();
+  },
   row: function(test) {
     test.expect(1);
 
@@ -155,7 +177,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
       [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
       [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
-      [ 0x70,  [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0, 0, 0 ]],
       [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0, 0, 0 ]],
       [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 0, 0 ]],
       [ 0x70, [ 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0, 32, 0 ]] 
@@ -179,6 +201,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0xEF ] ],
       // clear
       [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // setting the values
       [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
       [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
       [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 112, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]], 
