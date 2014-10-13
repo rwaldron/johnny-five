@@ -195,6 +195,36 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
+  drawStringArray: function(test) {
+    test.expect(2);
+
+    var expected = [
+       [ 0, 0, 60 ],
+       [ 0, 1, 66 ],
+       [ 0, 2, 165 ],
+       [ 0, 3, 129 ],
+       [ 0, 4, 165 ],
+       [ 0, 5, 153 ],
+       [ 0, 6, 66 ],
+       [ 0, 7, 60 ]
+    ];
+
+    this.lc.draw(0, [
+    "00111100",
+    "01000010",
+    "10100101",
+    "10000001",
+    "10100101",
+    "10011001",
+    "01000010",
+    "00111100"
+    ]);
+
+    test.deepEqual(this.row.args, expected);
+    test.equal(this.row.callCount, 8);
+
+    test.done();
+  }
 };
 
 exports["LedControl - Matrix"] = {
