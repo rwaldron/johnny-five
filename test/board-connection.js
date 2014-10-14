@@ -28,7 +28,11 @@ exports["Board Connection"] = {
   },
 
   lateConnection: function(test) {
+    test.expect(3);
 
+    Serial.used.length = 0;
+
+    var attempts = Serial.attempts;
     var connect = sinon.stub(Serial, "connect", function() {
       board.emit("connect");
     });
@@ -39,7 +43,15 @@ exports["Board Connection"] = {
     });
 
     board.on("connect", function() {
+      // Two calls to detect
       test.equal(this.detect.callCount, 2);
+
+      // One attempt unsuccessful
+      test.equal(attempts, 1);
+
+      // One attempt successful
+      test.equal(connect.callCount, 1);
+
       test.done();
     }.bind(this));
   }
