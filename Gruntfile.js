@@ -33,7 +33,9 @@ module.exports = function(grunt) {
     },
     nodeunit: {
       tests: [
+        "test/bootstrap.js",
         "test/board.js",
+        "test/board-connection.js",
         "test/options.js",
         "test/board.pins.js",
         "test/capabilities.js",
