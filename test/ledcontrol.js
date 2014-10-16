@@ -806,7 +806,6 @@ exports["LedControl - Digits"] = {
   initialization: function(test) {
     test.expect(3);
 
-    var send = sinon.spy(LedControl.prototype, "send");
     var expected = [
       // this.send(device, LedControl.OP.DECODING, 0);
       // this.send(device, LedControl.OP.BRIGHTNESS, 3);
@@ -833,21 +832,17 @@ exports["LedControl - Digits"] = {
       [0, 12, 1]
     ];
 
-    var lc = new LedControl({
+    this.lc.initialize({
       pins: {
         data: 2,
         clock: 3,
         cs: 4
-      },
-      board: this.board
+      }
     });
+    test.deepEqual(this.send.args, expected);
+    test.equal(this.lc.isMatrix, false);
+    test.equal(this.lc.devices, 1);
 
-    test.deepEqual(send.args, expected);
-    test.equal(lc.isMatrix, false);
-    test.equal(lc.devices, 1);
-
-
-    send.restore();
     test.done();
   },
 
