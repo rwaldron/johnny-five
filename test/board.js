@@ -66,11 +66,18 @@ exports["static"] = {
 
     test.equal(five.Board.map(1009, 300, 1009, 0, 255), 255);
     test.equal(five.Board.map(300, 300, 1009, 0, 255), 0);
-    test.equal(five.Board.map(500, 0, 1000, 0, 255), 127.5);
+    test.equal(five.Board.map(500, 0, 1000, 0, 255), 127);
 
     test.done();
   },
 
+  "Board.fmap()": function(test) {
+    test.expect(1);
+
+    test.equal(five.Board.fmap(500, 0, 1000, 0, 255), 127.5);
+
+    test.done();
+  },
   "Board.range()": function(test) {
     test.expect(7);
 
