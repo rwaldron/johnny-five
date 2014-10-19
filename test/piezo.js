@@ -193,7 +193,7 @@ exports["Piezo"] = {
     // 0 - 9 only, remembers last good value.
     test.equal(5, this.piezo.defaultOctave(-1));
     test.equal(5, this.piezo.defaultOctave(9));
-    test.equal(5, this.piezo.defaultOctave('foo'));
+    test.equal(5, this.piezo.defaultOctave("foo"));
     test.equal(5, this.piezo.defaultOctave(null));
 
     test.done();
@@ -206,11 +206,11 @@ exports["Piezo"] = {
     var toneSpy = sinon.spy(this.piezo, "tone");
 
     // accepts octave.
-    test.equal(this.piezo.note('c4', 100), this.piezo);
+    test.equal(this.piezo.note("c4", 100), this.piezo);
     test.ok(toneSpy.calledWith(262, 100));
 
     // or not.
-    test.equal(this.piezo.note('c#', 100), this.piezo);
+    test.equal(this.piezo.note("c#", 100), this.piezo);
     test.ok(toneSpy.calledWith(277, 100));
 
     test.done();
