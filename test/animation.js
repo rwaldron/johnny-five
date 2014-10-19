@@ -126,10 +126,10 @@ exports["Animation"] = {
     };
 
     this.animation.enqueue(tempSegment);
-    test.equal(this.animation.keyFrames[0][0].degrees, 90);
-    test.equal(this.animation.keyFrames[0][1].degrees, 90);
-    test.equal(this.animation.keyFrames[0][2].degrees, 45);
-    test.equal(this.animation.keyFrames[0][3].degrees, 78);
+    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
   },
 
   normalizeServoArray: function(test) {
@@ -144,18 +144,18 @@ exports["Animation"] = {
 
     this.animation.enqueue(tempSegment);
 
-    test.equal(this.animation.keyFrames[0][0].degrees, 90);
-    test.equal(this.animation.keyFrames[0][1].degrees, 90);
-    test.equal(this.animation.keyFrames[0][2].degrees, 45);
-    test.equal(this.animation.keyFrames[0][3].degrees, 78);
-    test.equal(this.animation.keyFrames[1][0].degrees, 20);
-    test.equal(this.animation.keyFrames[1][1].degrees, 66);
-    test.equal(this.animation.keyFrames[1][2].degrees, 180);
-    test.equal(this.animation.keyFrames[1][3].degrees, 60);
-    test.equal(this.animation.keyFrames[2][0].degrees, 90);
-    test.equal(this.animation.keyFrames[2][1].degrees, 120);
-    test.equal(this.animation.keyFrames[2][2].degrees, 180);
-    test.equal(this.animation.keyFrames[2][3].degrees, 180);
+    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(this.animation.normalizedKeyFrames[1][0].degrees, 20);
+    test.equal(this.animation.normalizedKeyFrames[1][1].degrees, 66);
+    test.equal(this.animation.normalizedKeyFrames[1][2].degrees, 180);
+    test.equal(this.animation.normalizedKeyFrames[1][3].degrees, 60);
+    test.equal(this.animation.normalizedKeyFrames[2][0].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[2][1].degrees, 120);
+    test.equal(this.animation.normalizedKeyFrames[2][2].degrees, 180);
+    test.equal(this.animation.normalizedKeyFrames[2][3].degrees, 180);
 
   },
 
@@ -173,12 +173,12 @@ exports["Animation"] = {
 
     this.animation.enqueue(tempSegment);
 
-    test.equal(this.animation.keyFrames[0][0].degrees, 90);
-    test.equal(this.animation.keyFrames[0][1].degrees, 90);
-    test.equal(this.animation.keyFrames[0][2].degrees, 45);
-    test.equal(this.animation.keyFrames[0][3].degrees, 78);
-    test.equal(this.animation.keyFrames[1], null);
-    test.equal(this.animation.keyFrames[2], null);
+    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(this.animation.normalizedKeyFrames[1], null);
+    test.equal(this.animation.normalizedKeyFrames[2], null);
   },
 
   callCountServo: function(test) {
@@ -296,8 +296,7 @@ exports["Animation"] = {
       testContext.count++;
       if (testContext.count > 2) {
         testContext.animation.playLoop.stop();
-        // test.ok(Math.abs(Date.now() - startTime - 1500) < 10);
-        test.ok(Math.abs(testContext.servoWrite.callCount - 15) <= 1);
+        test.ok(Math.abs(testContext.servoWrite.callCount - 13) <= 1);
         test.done();
       }
     };
@@ -478,9 +477,9 @@ exports["Animation"] = {
       test.ok(Math.abs(testContext.servoWrite.args[4][1] - 58) <= 1);
       test.ok(Math.abs(testContext.servoWrite.args[5][1] - 78) <= 1);
       test.ok(Math.abs(testContext.servoWrite.args[6][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[7][1] - 53) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[8][1] - 80) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[9][1] - 90) < 1);
+      test.ok(Math.abs(testContext.servoWrite.args[7][1] - 51) <= 1);
+      test.ok(Math.abs(testContext.servoWrite.args[8][1] - 71) <= 1);
+      test.ok(Math.abs(testContext.servoWrite.args[9][1] - 78) < 1);
       test.ok(testContext.servoWrite.callCount === 10);
       test.done();
     };
@@ -548,7 +547,7 @@ exports["Animation"] = {
     }, {
       delay: 850,
       task: function() {
-        test.ok(testContext.servoWrite.callCount === 11);
+        test.ok(testContext.servoWrite.callCount === 10);
         test.done();
       }
     }]);
@@ -603,23 +602,23 @@ exports["Animation"] = {
     tempSegment.cuePoints = [0, 0.3, 0.4, 0.5, 0.8, 1.0];
 
     tempSegment.oncomplete = function() {
-      test.ok(Math.abs(testContext.mockChain.result[0][0] - 56.66) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[0][1] - 6.66) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[0][2]) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[1][0] - 35) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[1][1] - 25) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[1][2] - 15) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[2][0] - 10) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[2][1] - 53.33) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[2][2] - 20) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[3][0] - 10) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[3][1] - 80) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[3][2] - 20) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[4][0] - 50) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[4][1] - 60) <= 0.5);
-      test.ok(Math.abs(testContext.mockChain.result[4][2] + 20) <= 0.5);
-      tempSegment.result = [];
-      test.done();
+        test.ok(Math.abs(testContext.mockChain.result[0][0] - 56.66) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[0][1] - 6.66) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[0][2]) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[1][0] - 35) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[1][1] - 25) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[1][2] - 15) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[2][0] - 10) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[2][1] - 53.33) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[2][2] - 20) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[3][0] - 10) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[3][1] - 80) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[3][2] - 20) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[4][0] - 50) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[4][1] - 60) <= 1);
+        test.ok(Math.abs(testContext.mockChain.result[4][2] + 20) <= 1);
+        tempSegment.result = [];
+        test.done();
     };
 
     this.animation.enqueue(tempSegment);
