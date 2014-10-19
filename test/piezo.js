@@ -41,6 +41,8 @@ exports["Piezo"] = {
   },
 
   tearDown: function(done) {
+    this.piezo.defaultOctave(4);
+
     done();
   },
 
@@ -179,6 +181,41 @@ exports["Piezo"] = {
     test.done();
   },
 
+  defaultOctave: function(test) {
+    test.expect(6);
+
+    // 4 is the default.
+    test.equal(4, this.piezo.defaultOctave());
+
+    // Changes are returned as well as stored.
+    test.equal(5, this.piezo.defaultOctave(5));
+
+    // 0 - 9 only, remembers last good value.
+    test.equal(5, this.piezo.defaultOctave(-1));
+    test.equal(5, this.piezo.defaultOctave(9));
+    test.equal(5, this.piezo.defaultOctave("foo"));
+    test.equal(5, this.piezo.defaultOctave(null));
+
+    test.done();
+  },
+
+  note: function(test) {
+    test.expect(4);
+
+    // note delegates to tone;
+    var toneSpy = sinon.spy(this.piezo, "tone");
+
+    // accepts octave.
+    test.equal(this.piezo.note("c4", 100), this.piezo);
+    test.ok(toneSpy.calledWith(262, 100));
+
+    // or not.
+    test.equal(this.piezo.note("c#", 100), this.piezo);
+    test.ok(toneSpy.calledWith(277, 100));
+
+    test.done();
+  },
+
   tone: function(test) {
     test.expect(2);
 
@@ -309,8 +346,8 @@ exports["Piezo"] = {
     var freqSpy = sinon.spy(this.piezo, "frequency");
     var returned = this.piezo.play({
       song: [
-        ["c4", 1],
-        ["d4", 2],
+        ["c", 1],
+        ["d", 2],
         [null, 1],
         672,
         "e4",
@@ -344,6 +381,21 @@ exports["Piezo"] = {
     setTimeout(function() {
       test.ok(freqSpy.calledOnce);
       test.ok(freqSpy.calledWith(Piezo.Notes["c4"], 60000 / tempo));
+      test.done();
+    }.bind(this), 10);
+  },
+
+  playSingleNoteTuneNoOctave: function(test) {
+    var tempo = 10000;
+    test.expect(2);
+    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var returned = this.piezo.play({
+      song: "c#",
+      tempo: tempo // Make it real fast
+    });
+    setTimeout(function() {
+      test.ok(freqSpy.calledOnce);
+      test.ok(freqSpy.calledWith(Piezo.Notes["c#4"], 60000 / tempo));
       test.done();
     }.bind(this), 10);
   },
