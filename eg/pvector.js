@@ -112,7 +112,7 @@ PVector.prototype = {
     }
   },
   mult: function(v) {
-    if (typeof v === 'number') {
+    if (typeof v === "number") {
       this.x *= v;
       this.y *= v;
       this.z *= v;
@@ -123,7 +123,7 @@ PVector.prototype = {
     }
   },
   div: function(v) {
-    if (typeof v === 'number') {
+    if (typeof v === "number") {
       this.x /= v;
       this.y /= v;
       this.z /= v;

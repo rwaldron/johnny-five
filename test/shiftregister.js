@@ -60,8 +60,8 @@ exports["ShiftRegister"] = {
   },
 
   send: function(test) {
-    var spy = sinon.spy(board.io, 'digitalWrite');
-    var shiftOutSpy = sinon.spy(board, 'shiftOut');
+    var spy = sinon.spy(board.io, "digitalWrite");
+    var shiftOutSpy = sinon.spy(board, "shiftOut");
     test.expect(6);
 
     this.shiftRegister.send(0x01);

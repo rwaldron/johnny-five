@@ -93,11 +93,47 @@ module.exports = function(grunt) {
           "Gruntfile.js",
           "lib/**/!(johnny-five)*.js",
           "test/**/*.js",
-          "eg/**/*.js"
+          "eg/**/*.js",
+          "wip/autobot-2.js"
         ]
       }
     },
-
+    jscs: {
+      files: {
+        src: [
+          "lib/**/!(johnny-five)*.js",
+          "test/**/*.js",
+          "eg/**/*.js",
+          ]
+      },
+      options: {
+        config: ".jscsrc",
+        requireCurlyBraces: [
+          "if",
+          "else",
+          "for",
+          "while",
+          "do",
+          "try",
+          "catch",
+        ],
+        requireSpaceBeforeBlockStatements: true,
+        requireParenthesesAroundIIFE: true,
+        requireSpacesInConditionalExpression: true,
+        // requireSpaceBeforeKeywords: true,
+        requireSpaceAfterKeywords: [
+          "if", "else",
+          "switch", "case",
+          "try", "catch",
+          "do", "while", "for",
+          "return", "typeof", "void",
+        ],
+        validateQuoteMarks: {
+          mark: "\"",
+          escape: true
+        }
+      }
+    },
     jsbeautifier: {
       files: ["lib/**/*.js", "eg/**/*.js", "test/**/*.js"],
       options: {
@@ -142,8 +178,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-nodeunit");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-jsbeautifier");
+  grunt.loadNpmTasks("grunt-jscs");
 
-  grunt.registerTask("default", ["jshint", "nodeunit"]);
+  grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.

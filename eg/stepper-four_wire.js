@@ -2,7 +2,7 @@ var five = require("../lib/johnny-five");
 var board = new five.Board();
 var Stepper = Stepper;
 
-board.on('ready', function() {
+board.on("ready", function() {
   var config = {
     type: Stepper.TYPE.FOUR_WIRE,
     stepsPerRev: 200,
@@ -26,7 +26,7 @@ board.on('ready', function() {
       steps: 2000,
       direction: Stepper.DIRECTION.CCW
     }, function() {
-      console.log('done moving CW');
+      console.log("done moving CW");
     });
 
   });

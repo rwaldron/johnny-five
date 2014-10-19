@@ -220,8 +220,8 @@ exports["Piezo"] = {
       ["florp", 5],
       ["ding", "dong"],
       ["c4", "zimple"],
-      ["?", 'foof']
-      //  ["C4", 1][null, 1/2] // Original bad value; jshint won't allow
+      ["?", "foof"]
+      //  ["C4", 1][null, 1/2] // Original bad value; jshint won"t allow
     ];
     test.expect(lameValues.length);
     lameValues.forEach(function(element) {
@@ -321,7 +321,7 @@ exports["Piezo"] = {
       // frequency should get called 4x; not for the null notes
       test.ok(freqSpy.callCount === 4);
       test.ok(freqSpy.neverCalledWith(null));
-      // First call should have been with frequency for 'c4'
+      // First call should have been with frequency for "c4"
       test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
       // Default duration === tempo if not provided
       test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 / tempo));
@@ -352,7 +352,7 @@ exports["Piezo"] = {
     var tempo = 10000,
       myCallback = sinon.spy(),
       tune = {
-        song: ['c4'],
+        song: ["c4"],
         tempo: tempo
       };
     test.expect(2);
@@ -369,9 +369,9 @@ exports["Piezo"] = {
     var tempo = 10000,
       tune = {
         song: [
-          ['c4'],
-          ['drunk'],
-          ['d4', 0]
+          ["c4"],
+          ["drunk"],
+          ["d4", 0]
         ],
         tempo: tempo
       };
@@ -384,7 +384,7 @@ exports["Piezo"] = {
 
   },
   /**
-   * This is a slow test by necessity because the default tempo (which can't
+   * This is a slow test by necessity because the default tempo (which can"t
    * be overridden if `play` is invoked with a non-object arg) is 250.
    * It does pass.
    */

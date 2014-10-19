@@ -115,7 +115,8 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-jsbeautifier": "~0.2.2"
+    "grunt-jsbeautifier": "~0.2.2",
+    "grunt-jscs": "~0.8.0"
   },
   "scripts": {
     "test": "grunt"
