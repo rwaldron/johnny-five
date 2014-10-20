@@ -258,7 +258,7 @@ exports["Piezo"] = {
       ["ding", "dong"],
       ["c4", "zimple"],
       ["?", "foof"]
-      //  ["C4", 1][null, 1/2] // Original bad value; jshint won"t allow
+      //  ["C4", 1][null, 1/2] // Original bad value; jshint won't allow
     ];
     test.expect(lameValues.length);
     lameValues.forEach(function(element) {
