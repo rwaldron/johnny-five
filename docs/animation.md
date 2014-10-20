@@ -8,7 +8,9 @@ node eg/animation.js
 
 ```javascript
 var five = require("johnny-five"),
-  ph = { state: "sleep" };
+  ph = {
+    state: "sleep"
+  };
 
 var board = new five.Board().on("ready", function() {
 
@@ -18,12 +20,21 @@ var board = new five.Board().on("ready", function() {
    * leg on a hexapod. A full hexapod might need 18
    * servo instances (assuming 3 degrees of freedom)
    */
-  ph.coxa = new five.Servo({pin:9, startAt: 45 });
-  ph.femur = new five.Servo({pin:10, startAt: 180 });
-  ph.tibia = new five.Servo({pin:11, startAt: 180 });
+  ph.coxa = new five.Servo({
+    pin: 9,
+    startAt: 45
+  });
+  ph.femur = new five.Servo({
+    pin: 10,
+    startAt: 180
+  });
+  ph.tibia = new five.Servo({
+    pin: 11,
+    startAt: 180
+  });
 
   // Create a Servo.Array for those leg parts
-  ph.leg = new five.Servo.Array([ ph.coxa, ph.femur, ph.tibia ]);
+  ph.leg = new five.Servo.Array([ph.coxa, ph.femur, ph.tibia]);
 
   /**
    * Create an Animation(target) object. A newly initialized
@@ -39,7 +50,7 @@ var board = new five.Board().on("ready", function() {
    * property is keyFrames. See the Animation wiki page for a full
    * list of available properties
    */
-   var sleep = {
+  var sleep = {
     duration: 500,
     cuePoints: [0, 0.5, 1.0],
     oncomplete: function() {
@@ -82,7 +93,7 @@ var board = new five.Board().on("ready", function() {
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-     ph: ph
+    ph: ph
   });
 
   console.log("Try running ph.stand() or ph.sleep()");

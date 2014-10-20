@@ -36,7 +36,8 @@ IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hard
   - [Bean-IO](https://github.com/monteslu/bean-io/)
 - IO Board (Generic IO Plugin class to make your own!)
   - [IOBoard](https://github.com/achingbrain/node-ioboard)
-
+- [TI Launchpad](http://www.ti.com/ww/en/launchpad/launchpad.html?DCMP=mcu-launchpad&HQS=launchpad) (with Energia's Firmata)
+  - [Energia Firmata](https://github.com/energia/Energia/tree/master/libraries/Firmata)
 
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 

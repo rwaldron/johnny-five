@@ -15,12 +15,12 @@ board = new five.Board();
 /*
  * The PCA9685 controller has been test on
  * the Adafruit Motor/Stepper/Servo Shield v2
-*/
+ */
 
 board.on("ready", function() {
   // Create a new `motor` hardware instance.
   motor = new five.Motor({
-    pins: [ 8, 9, 10 ],
+    pins: [8, 9, 10],
     controller: "PCA9685",
     address: 0x60
   });
