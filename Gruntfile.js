@@ -43,6 +43,7 @@ module.exports = function(grunt) {
         "test/accelerometer.js",
         "test/animation.js",
         "test/button.js",
+        "test/compass.js",
         "test/esc.js",
         "test/distance.js",
         "test/gyro.js",
