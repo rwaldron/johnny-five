@@ -30,7 +30,8 @@ util.inherits(MockFirmata, events.EventEmitter);
 [
   "digitalWrite", "analogWrite", "servoWrite", "sendI2CWriteRequest",
   "analogRead", "digitalRead", "sendI2CReadRequest",
-  "pinMode", "queryPinState", "sendI2CConfig"
+  "pinMode", "queryPinState", "sendI2CConfig",
+  "stepperStep", "stepperConfig",
 ].forEach(function(value) {
   MockFirmata.prototype[value] = function() {};
 });
