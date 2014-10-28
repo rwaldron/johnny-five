@@ -1,14 +1,14 @@
 var MockFirmata = require("./mock-firmata"),
   pins = require("./mock-pins"),
   five = require("../lib/johnny-five.js"),
+  sinon = require("sinon"),
   Board = five.Board,
   Stepper = five.Stepper,
   board = new Board({
     io: new MockFirmata({
       firmware: {
         name: "AdvancedFirmata"
-      },
-      stepperConfig: function() {}
+      }
     }),
     debug: false,
     repl: false
@@ -16,6 +16,8 @@ var MockFirmata = require("./mock-firmata"),
 
 exports["Stepper - rpm / speed"] = {
   setUp: function(done) {
+
+    this.pinMode = sinon.spy(board.io, "pinMode");
     this.stepper = new Stepper({
       board: board,
       type: five.Stepper.TYPE.DRIVER,
@@ -23,6 +25,16 @@ exports["Stepper - rpm / speed"] = {
       pins: [2, 3]
     });
     done();
+  },
+  tearDown: function(done) {
+    this.pinMode.restore();
+    done();
+  },
+
+  pinMode: function(test) {
+    test.expect(1);
+    test.equal(this.pinMode.callCount, 2);
+    test.done();
   },
 
   "rpm to speed": function(test) {
