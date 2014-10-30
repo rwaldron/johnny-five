@@ -1,7 +1,6 @@
 <img src="https://github.com/rwldrn/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
 # Node-isassemble Johnny-Five
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
