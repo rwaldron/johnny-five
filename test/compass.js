@@ -6,6 +6,7 @@ var five = require("../lib/johnny-five.js"),
 
 exports["Compass"] = {
   setUp : function(done) {
+
     this.compass = new Compass({
       board: this.board,
       device: "HMC5883L",
@@ -13,7 +14,6 @@ exports["Compass"] = {
       gauss: 1.3
     });
 
- 
     this.proto = [];
 
     this.instance = [{
