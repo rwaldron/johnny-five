@@ -3,7 +3,7 @@ var five = require("../lib/johnny-five.js"),
 
 board = new five.Board();
 
-board.on('ready',function(){
+board.on("ready",function() {
 
   compass = new five.Compass({
     device: "HMC6352",

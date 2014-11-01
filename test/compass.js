@@ -4,8 +4,19 @@ var five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Compass = five.Compass;
 
+
+function newBoard() {
+  return new Board({
+    io: new MockFirmata(),
+    debug: false,
+    repl: false
+  });
+}
+
 exports["Compass"] = {
   setUp : function(done) {
+
+    this.board = newBoard();
 
     this.compass = new Compass({
       board: this.board,
@@ -40,5 +51,34 @@ exports["Compass"] = {
   tearDown : function(done) {
     done();
   }
+};
+
+exports["HMC6352"] = {
+
+  setUp : function(done) {
+
+    this.board = newBoard();
+    this.compass = new Compass({
+      board: this.board,
+      device: "HMC6352",
+      freq: 50,
+      gauss: 1.3
+    });
+
+    done();
+  },
+
+  default : function(test) {
+
+    test.expect(1);
+    test.ok(true);
+    test.done();
+  },
+
+  tearDown : function(done) {
+    done();
+  }
+
+
 };
 
