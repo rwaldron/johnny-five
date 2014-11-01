@@ -12,18 +12,18 @@ board.on('ready',function(){
     gauss: 1.3
   });
 
-  //compass.on("headingchange", function() {
-  //
-  //  console.log("heading", Math.floor(this.heading));
-  //  console.log("bearing", this.bearing);
-  //});
+  compass.on("headingchange", function() {
+
+    console.log("heading", Math.floor(this.heading));
+    console.log("bearing", this.bearing);
+  });
   
   // "read"
   //
   // Fires continuously, every 66ms.
   //
   compass.on("data", function(err, timestamp) {
-    console.log( "data", this.axis );
+    //console.log( "data", this.axis );
   });
 });
 

@@ -62,6 +62,6 @@ five.Board().on("ready", function() {
   // Fires continuously, every 66ms.
   //
   mag.on("read", function(err, timestamp) {
-    // console.log( "read", this.axis );
+     console.log( "read", this.axis );
   });
 });
