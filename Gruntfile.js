@@ -36,6 +36,7 @@ module.exports = function(grunt) {
         "test/bootstrap.js",
         "test/board.js",
         "test/board-connection.js",
+        "test/compass.js",
         "test/options.js",
         "test/board.pins.js",
         "test/capabilities.js",
