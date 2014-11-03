@@ -12,100 +12,63 @@ function newBoard() {
   });
 }
 
-exports["Compass"] = {
-  setUp: function(done) {
+["HMC6352", "HMC5883L"].forEach(function(model) {
 
-    this.clock = sinon.useFakeTimers();
+  exports[model] = {
+    setUp: function(done) {
 
-    this.board = newBoard();
-    sinon.stub(this.board.io, "pulseIn", function(settings, handler) {
-      handler(1000);
-    });
+      this.clock = sinon.useFakeTimers();
 
-    this.compass = new Compass({
-      board: this.board,
-      device: "HMC5883L",
-      freq: 50,
-      gauss: 1.3
-    });
+      this.board = newBoard();
+      sinon.stub(this.board.io, "pulseIn", function(settings, handler) {
+        handler(1000);
+      });
 
-    this.instance = [{
-      name: "scale"
-    }, {
-      name: "register"
-    }, {
-      name: "freq"
-    }];
+      this.compass = new Compass({
+        board: this.board,
+        device: model,
+        freq: 50,
+        gauss: 1.3
+      });
 
-    done();
-  },
+      this.instance = [{
+        name: "scale"
+      }, {
+        name: "register"
+      }, {
+        name: "freq"
+      }];
 
-  shape: function(test) {
-    test.expect(this.instance.length);
+      done();
+    },
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.compass[property.name], "undefined");
-    }, this);
+    shape: function(test) {
+      test.expect(this.instance.length);
 
-    test.done();
-  },
+      this.instance.forEach(function(property) {
+        test.notEqual(typeof this.compass[property.name], "undefined");
+      }, this);
+      test.done();
+    },
 
-  data: function(test) {
-   var spy = sinon.spy();
-    test.expect(1);
+    data: function(test) {
+     var spy = sinon.spy();
+      test.expect(1);
 
-    this.compass.on("data", function() {
-      test.ok(true);
-    });
-    this.clock.tick(66);
-    test.done();
-  },
+      this.compass.on("data", function() {
+        test.ok(true);
+      });
+      this.clock.tick(66);
+      test.done();
+    },
 
-  tearDown: function(done) {
-    this.board.io.pulseIn.restore();
-    this.clock.restore();
-    done();
-  }
+    tearDown: function(done) {
+      this.board.io.pulseIn.restore();
+      this.clock.restore();
+      done();
+    }
 
-};
+  };
 
-exports["HMC6352"] = {
+});
 
-  setUp: function(done) {
-
-    this.clock = sinon.useFakeTimers();
-    this.board = newBoard();
-    sinon.stub(this.board.io, "pulseIn", function(settings, handler) {
-      handler(1000);
-    });
-
-    this.compass = new Compass({
-      board: this.board,
-      device: "HMC6352",
-      freq: 50,
-      gauss: 1.3
-    });
-
-    done();
-  },
-
-  data: function(test) {
-
-    var spy = sinon.spy();
-    test.expect(1);
-
-    this.compass.on("data", function() {
-      test.ok(true);
-    });
-    this.clock.tick(66);
-    test.done();
-
-  },
-
-  tearDown: function(done) {
-    this.board.io.pulseIn.restore();
-    this.clock.restore();
-    done();
-  }
-
-};
