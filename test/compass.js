@@ -52,12 +52,26 @@ function newBoard() {
     },
 
     data: function(test) {
-     var spy = sinon.spy();
       test.expect(1);
 
       this.compass.on("data", function() {
         test.ok(true);
       });
+      this.clock.tick(66);
+      test.done();
+    },
+
+    headingchange: function(test) {
+    
+      test.expect(1);
+
+      this.compass.on("headingchange", function() {
+
+        console.log("heading", Math.floor(this.heading));
+        console.log("bearing", this.bearing);
+        test.ok(true);
+      });
+
       this.clock.tick(66);
       test.done();
     },
