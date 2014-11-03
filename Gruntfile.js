@@ -43,8 +43,9 @@ module.exports = function(grunt) {
         "test/accelerometer.js",
         "test/animation.js",
         "test/button.js",
-        "test/esc.js",
         "test/distance.js",
+        "test/esc.js",
+        "test/fn.js",
         "test/gyro.js",
         "test/lcd.js",
         "test/led.js",
@@ -57,10 +58,10 @@ module.exports = function(grunt) {
         "test/relay.js",
         "test/sensor.js",
         "test/servo.js",
+        "test/shiftregister.js",
         "test/sonar.js",
         "test/stepper.js",
-        "test/switch.js",
-        "test/shiftregister.js"
+        "test/switch.js"
       ]
     },
     jshint: {
