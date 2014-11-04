@@ -20,9 +20,7 @@ function newBoard() {
       this.clock = sinon.useFakeTimers();
 
       this.board = newBoard();
-      sinon.stub(this.board.io, "pulseIn", function(settings, handler) {
-        handler(1000);
-      });
+      this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
 
       this.compass = new Compass({
         board: this.board,
@@ -30,6 +28,8 @@ function newBoard() {
         freq: 50,
         gauss: 1.3
       });
+
+      this.clock.tick(500);
 
       this.instance = [{
         name: "scale"
@@ -62,27 +62,27 @@ function newBoard() {
     },
 
     headingchange: function(test) {
-    
       test.expect(1);
 
-      this.compass.on("headingchange", function() {
+      var callback = this.sendI2CReadRequest.args[0][2];
 
-        console.log("heading", Math.floor(this.heading));
-        console.log("bearing", this.bearing);
+      this.compass.on("headingchange", function() {
         test.ok(true);
+        test.done();
       });
 
-      this.clock.tick(66);
-      test.done();
+      callback([0, 100, 0, 100, 0, 100]);
+      this.clock.tick(500);
+
+      callback([0, 32, 0, 32, 0, 32]);
+      this.clock.tick(500);
     },
 
     tearDown: function(done) {
-      this.board.io.pulseIn.restore();
       this.clock.restore();
+      this.sendI2CReadRequest.restore();
       done();
     }
-
   };
-
 });
 
