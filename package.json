@@ -120,5 +120,8 @@
   },
   "scripts": {
     "test": "grunt"
+  },
+  "browser": {
+    "galileo-io" : false
   }
 }
