@@ -14,6 +14,8 @@ exports["Servo"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.servoConfig = sinon.spy(board.io, "servoConfig");
+    this.pinMode = sinon.spy(board.io, "pinMode");
     this.servo = new Servo({
       pin: 11,
       board: board
@@ -73,6 +75,8 @@ exports["Servo"] = {
   tearDown: function(done) {
     this.clock.restore();
     this.servoWrite.restore();
+    this.servoConfig.restore();
+    this.pinMode.restore();
     done();
   },
 
@@ -229,6 +233,48 @@ exports["Servo"] = {
 
     test.equal(this.servo.value, 100);
 
+    test.done();
+  }
+};
+
+
+exports["Servo mode and config"] = {
+  setUp: function(done) {
+    this.servoConfig = sinon.spy(board.io, "servoConfig");
+    this.pinMode = sinon.spy(board.io, "pinMode");
+    done();
+  },
+
+  tearDown: function(done) {
+    this.servoConfig.restore();
+    this.pinMode.restore();
+    done();
+  },
+
+  noRange: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    test.equal(this.servoConfig.callCount, 0);
+    test.equal(this.pinMode.callCount, 1);
+    test.done();
+  },
+
+  pwmRange: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      pwmRange: [1000, 2000]
+    });
+
+    test.equal(this.servoConfig.callCount, 1);
+    test.equal(this.pinMode.callCount, 0);
     test.done();
   }
 };
