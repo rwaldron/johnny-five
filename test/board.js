@@ -2,6 +2,7 @@ var SerialPort = require("./mock-serial").SerialPort,
   MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Repl = require("../lib/repl"),
+  sinon = require("sinon"),
   __ = require("../lib/fn.js"),
   _ = require("lodash"),
   Board = five.Board,
@@ -40,6 +41,20 @@ exports["Initialization"] = {
     test.done();
   }
 };
+
+exports["samplingInterval"] = {
+
+  samplingInterval : function(test) {
+    test.expect(1);
+
+    board.io.setSamplingInterval = sinon.spy();
+    board.samplingInterval(100);
+    test.ok(board.io.setSamplingInterval.calledOnce);
+
+    test.done();
+  }
+};
+
 
 exports["static"] = {
   "Board.cache": function(test) {
