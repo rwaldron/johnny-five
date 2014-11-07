@@ -44,8 +44,7 @@ board.on("ready", function() {
 
   // Motor API
 
-  // start([speed])
-  // Optional argument of speed 0-225 if using a Pin that supports PWM.
+  // start()
   // Start the motor. `isOn` property set to |true|
   motor.start();
 
