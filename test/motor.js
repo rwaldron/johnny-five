@@ -1390,11 +1390,9 @@ exports["Motor: ShiftRegister"] = {
   },
 
   pinList: function(test) {
-    test.expect(3);
+    test.expect(1);
 
     test.equal(this.motor.pins.pwm, 11);
-    test.equal(this.motor.bits.a, 2);
-    test.equal(this.motor.bits.b, 3);
 
     test.done();
   },
