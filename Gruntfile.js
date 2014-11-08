@@ -175,6 +175,13 @@ module.exports = function(grunt) {
     }
   });
 
+  // Support running a single test suite:
+  // grunt nodeunit:just:motor for example
+  grunt.registerTask('nodeunit:just', function(file) {
+    if (file) grunt.config('nodeunit.tests', 'test/' + file + '.js');
+    grunt.task.run('nodeunit');
+  });
+
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-nodeunit");
   grunt.loadNpmTasks("grunt-contrib-jshint");
