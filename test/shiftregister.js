@@ -62,17 +62,20 @@ exports["ShiftRegister"] = {
   send: function(test) {
     var spy = sinon.spy(board.io, "digitalWrite");
     var shiftOutSpy = sinon.spy(board, "shiftOut");
-    test.expect(6);
+    test.expect(8);
 
     this.shiftRegister.send(0x01);
     test.ok(spy.getCall(0).calledWith(4, 0)); // latch, low
     test.ok(shiftOutSpy.calledWith(2, 3, true, 1));
     test.ok(spy.getCall(25).calledWith(4, 1)); // latch, high
+    test.equals(this.shiftRegister.state, 1);
 
     this.shiftRegister.send(0x10);
     test.ok(spy.getCall(26).calledWith(4, 0)); // latch, low
     test.ok(shiftOutSpy.calledWith(2, 3, true, 16));
     test.ok(spy.getCall(51).calledWith(4, 1)); // latch, high
+    test.equals(this.shiftRegister.state, 16);
+
 
     shiftOutSpy.restore();
     spy.restore();
