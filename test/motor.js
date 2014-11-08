@@ -1326,3 +1326,120 @@ exports["Motor: I2C - PCA9685"] = {
   },
 
 };
+
+exports["Motor: ShiftRegister"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.digitalSpy = sinon.spy(this.board.io, "digitalWrite");
+    this.analogSpy = sinon.spy(this.board.io, "analogWrite");
+    this.shiftOutSpy = sinon.spy(this.board, "shiftOut");
+    this.motor = new Motor({
+      board: this.board,
+      pins: {pwm: 11},
+      register: { data: 8, clock: 4, latch: 12 },
+      bits: { a: 2, b: 3 }
+    });
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+    }, {
+      name: "resume"
+    }, {
+      name: "setPin"
+    }, {
+      name: "setPWM"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }];
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.motor[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.motor[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  pinList: function(test) {
+    test.expect(1);
+
+    test.equal(this.motor.pins.pwm, 11);
+
+    test.done();
+  },
+  
+  start: function(test) {
+    test.expect(1);
+
+    this.motor.start();
+
+    test.ok(this.analogSpy.calledWith(11, 128));
+
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(1);
+
+    this.motor.stop();
+
+    test.ok(this.analogSpy.calledWith(11, 0));
+
+    test.done();
+  },
+
+  forward: function(test) {
+    test.expect(4);
+
+    this.motor.forward(128);
+
+    test.ok(this.analogSpy.calledWith(11, 128));
+
+    test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
+    test.ok(this.shiftOutSpy.calledWith(8, 4, true, 0x04));
+    test.ok(this.digitalSpy.getCall(25).calledWith(12, 1)); // Latch 1
+    
+    test.done();
+  },
+
+  reverse: function(test) {
+    test.expect(4);
+
+    this.motor.reverse(128);
+    
+    test.ok(this.analogSpy.calledWith(11, 128));
+
+    test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
+    test.ok(this.shiftOutSpy.calledWith(8, 4, true, 0x08));
+    test.ok(this.digitalSpy.getCall(25).calledWith(12, 1)); // Latch 1
+
+    test.done();
+  },
+};

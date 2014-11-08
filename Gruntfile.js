@@ -103,6 +103,7 @@ module.exports = function(grunt) {
     jscs: {
       files: {
         src: [
+          "Gruntfile.js",
           "lib/**/!(johnny-five)*.js",
           "test/**/*.js",
           "eg/**/*.js",
@@ -119,6 +120,7 @@ module.exports = function(grunt) {
           "try",
           "catch",
         ],
+        disallowNewlineBeforeBlockStatements: true,
         requireSpaceBeforeBlockStatements: true,
         requireParenthesesAroundIIFE: true,
         requireSpacesInConditionalExpression: true,
@@ -174,6 +176,16 @@ module.exports = function(grunt) {
         },
       }
     }
+  });
+
+  // Support running a single test suite:
+  // grunt nodeunit:just:motor for example
+  grunt.registerTask("nodeunit:just", function(file) {
+    if (file) {
+      grunt.config("nodeunit.tests", "test/" + file + ".js");
+    }
+
+    grunt.task.run("nodeunit");
   });
 
   grunt.loadNpmTasks("grunt-contrib-watch");
