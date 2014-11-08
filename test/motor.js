@@ -1360,8 +1360,6 @@ exports["Motor: ShiftRegister"] = {
       name: "setPin"
     }, {
       name: "setPWM"
-    }, {
-      name: "updateShiftRegister"
     }];
 
     this.instance = [{

@@ -178,7 +178,10 @@ module.exports = function(grunt) {
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
   grunt.registerTask('nodeunit:just', function(file) {
-    if (file) grunt.config('nodeunit.tests', 'test/' + file + '.js');
+    if (file) {
+      grunt.config('nodeunit.tests', 'test/' + file + '.js');
+    }
+    
     grunt.task.run('nodeunit');
   });
 
