@@ -30,6 +30,12 @@ exports["ReflectanceArray"] = {
       name: "enable"
     }, {
       name: "disable"
+    }, {
+      name: "calibrate"
+    }, {
+      name: "calibrateUntil"
+    }, {
+      name: "loadCalibration"
     }];
 
     this.instance = [{
@@ -44,8 +50,6 @@ exports["ReflectanceArray"] = {
       name: "sensors"
     }, {
       name: "calibration"
-    }, {
-      name: "loadCalibration"
     }, {
       name: "raw"
     }, {
@@ -167,6 +171,37 @@ exports["ReflectanceArray"] = {
 
     test.deepEqual(this.eyes.calibration.min, [1, 2, 3]);
     test.deepEqual(this.eyes.calibration.max, [5, 6, 7]);
+
+    test.done();
+  },
+
+  calibrateUntil: function(test) {
+    var count = 0;
+
+    test.expect(2);
+
+    this.eyes.calibrateUntil(function() {
+      return ++count === 2;
+    });
+
+    this.sendAnalogValue(0, 55);
+    this.sendAnalogValue(1, 66);
+    this.sendAnalogValue(2, 77);
+    this.clock.tick(25);
+
+    this.sendAnalogValue(0, 44);
+    this.sendAnalogValue(1, 88);
+    this.sendAnalogValue(2, 77);
+    this.clock.tick(25);
+
+    // Expect these values to not have been read.  Only calibrate twice
+    this.sendAnalogValue(0, 500);
+    this.sendAnalogValue(1, 500);
+    this.sendAnalogValue(2, 500);
+    this.clock.tick(25);
+
+    test.deepEqual(this.eyes.calibration.min, [44, 66, 77]);
+    test.deepEqual(this.eyes.calibration.max, [55, 88, 77]);
 
     test.done();
   }
