@@ -39,6 +39,8 @@ exports["ReflectanceArray"] = {
     }, {
       name: "sensors"
     }, {
+      name: "calibration"
+    }, {
       name: "raw"
     }, {
       name: "values"
@@ -102,5 +104,58 @@ exports["ReflectanceArray"] = {
     test.deepEqual(dataSpy.getCall(0).args[1], [55, 66, 77]);
     
     test.done();
-  }
+  },
+
+  calibrateOnce: function(test) {
+    var calibratedSpy = sinon.spy(),
+      sendValue = function(index, value) {
+      this.analogRead.args[index][1](value);
+    }.bind(this);
+
+    test.expect(5);
+
+    this.eyes.on("calibrated", calibratedSpy);
+
+    test.deepEqual(this.eyes.calibration.min, []);
+    test.deepEqual(this.eyes.calibration.max, []);
+
+    this.eyes.calibrate();
+
+    sendValue(0, 55);
+    sendValue(1, 66);
+    sendValue(2, 77);
+    this.clock.tick(25);
+
+    test.deepEqual(this.eyes.calibration.min, [55, 66, 77]);
+    test.deepEqual(this.eyes.calibration.max, [55, 66, 77]);
+    test.ok(calibratedSpy.calledOnce);
+
+    test.done();
+  },
+
+  calibrateTwice: function(test) {
+    var sendValue = function(index, value) {
+      this.analogRead.args[index][1](value);
+    }.bind(this);
+
+    test.expect(2);
+
+    this.eyes.calibrate();
+    sendValue(0, 55);
+    sendValue(1, 66);
+    sendValue(2, 77);
+    this.clock.tick(25);
+
+    this.eyes.calibrate();
+    sendValue(0, 44);
+    sendValue(1, 88);
+    sendValue(2, 77);
+    this.clock.tick(25);
+
+    test.deepEqual(this.eyes.calibration.min, [44, 66, 77]);
+    test.deepEqual(this.eyes.calibration.max, [55, 88, 77]);
+
+    test.done();
+  },
+
 };
