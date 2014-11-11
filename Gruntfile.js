@@ -338,8 +338,6 @@ module.exports = function(grunt) {
 
     grunt.file.write("package.json", pkg.join("\n"));
 
-
-
     // TODO:
     //
     //  - git commit with "vX.X.X" for commit message
@@ -347,5 +345,4 @@ module.exports = function(grunt) {
     //
     //
   });
-
 };
