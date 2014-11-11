@@ -62,7 +62,8 @@ module.exports = function(grunt) {
         "test/shiftregister.js",
         "test/sonar.js",
         "test/stepper.js",
-        "test/switch.js"
+        "test/switch.js",
+        "test/wii.js"
       ]
     },
     jshint: {
