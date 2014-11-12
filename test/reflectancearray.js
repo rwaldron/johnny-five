@@ -47,6 +47,8 @@ exports["ReflectanceArray"] = {
     }, {
       name: "isOn"
     }, {
+      name: "isCalibrated"
+    }, {
       name: "sensors"
     }, {
       name: "calibration"
@@ -116,12 +118,13 @@ exports["ReflectanceArray"] = {
   calibrateOnce: function(test) {
     var calibratedSpy = sinon.spy();
 
-    test.expect(5);
+    test.expect(7);
 
     this.eyes.on("calibrated", calibratedSpy);
 
     test.deepEqual(this.eyes.calibration.min, []);
     test.deepEqual(this.eyes.calibration.max, []);
+    test.equal(this.eyes.isCalibrated, false);
 
     this.eyes.calibrate();
 
@@ -133,6 +136,7 @@ exports["ReflectanceArray"] = {
     test.deepEqual(this.eyes.calibration.min, [55, 66, 77]);
     test.deepEqual(this.eyes.calibration.max, [55, 66, 77]);
     test.ok(calibratedSpy.calledOnce);
+    test.equal(this.eyes.isCalibrated, true);
 
     test.done();
   },
