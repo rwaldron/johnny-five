@@ -1,6 +1,6 @@
 var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  __ = require("../lib/fn.js")
+  __ = require("../lib/fn.js"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -49,6 +49,8 @@ exports["ReflectanceArray"] = {
       name: "isOn"
     }, {
       name: "isCalibrated"
+    }, {
+      name: "isOnLine"
     }, {
       name: "sensors"
     }, {
@@ -237,4 +239,66 @@ exports["ReflectanceArray"] = {
     
     test.done();
   },
+
+  solidLine: function(test) {
+    var dataSpy = sinon.spy();
+
+    test.expect(2);
+    this.eyes.loadCalibration({
+      min: [30, 30, 30],
+      max: [600, 600, 600]
+    });
+
+    this.eyes.on("line", dataSpy);
+    
+    this.sendAnalogValue(0, 50);
+    this.sendAnalogValue(1, 300);
+    this.sendAnalogValue(2, 50);
+    this.clock.tick(25);
+    
+    test.deepEqual(dataSpy.getCall(0).args[1], 1000);
+    test.equal(this.eyes.isOnLine, true);
+    
+    test.done();
+  },
+
+  partialLine: function(test) {
+    var dataSpy = sinon.spy();
+
+    test.expect(2);
+    this.eyes.loadCalibration({
+      min: [30, 30, 30],
+      max: [600, 600, 600]
+    });
+
+    this.eyes.on("line", dataSpy);
+    
+    this.sendAnalogValue(0, 50);
+    this.sendAnalogValue(1, 300);
+    this.sendAnalogValue(2, 435);
+    this.clock.tick(25);
+    
+    test.deepEqual(dataSpy.getCall(0).args[1], 1600);
+    test.equal(this.eyes.isOnLine, true);
+    
+    test.done();
+  },
+
+  isOnLine: function(test) {
+    test.expect(1);
+    
+    this.eyes.loadCalibration({
+      min: [30, 30, 30],
+      max: [600, 600, 600]
+    });
+
+    this.sendAnalogValue(0, 50);
+    this.sendAnalogValue(1, 50);
+    this.sendAnalogValue(2, 50);
+    this.clock.tick(25);
+    
+    test.equal(this.eyes.isOnLine, false);
+    
+    test.done();
+  }
 };
