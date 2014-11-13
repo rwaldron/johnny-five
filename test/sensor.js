@@ -116,7 +116,7 @@ exports["Sensor - Analog"] = {
   scale: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(2);
+    test.expect(3);
 
     // Scale the expected 0-1023 to a value between 50-100 (~75)
     this.sensor.scale(50, 100);
@@ -131,6 +131,14 @@ exports["Sensor - Analog"] = {
       test.equal(this.value, 50);
     });
     callback(0);
+    this.clock.tick(25);
+
+    // Ensure sensors may return float values
+    this.sensor.scale([0, 102.3]);
+    this.sensor.once("change", function() {
+      test.equal(this.value, 1.2);
+    });
+    callback(12);
     this.clock.tick(25);
 
     test.done();
