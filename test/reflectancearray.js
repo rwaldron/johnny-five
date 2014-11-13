@@ -1,5 +1,6 @@
 var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
+  __ = require("../lib/fn.js")
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -208,5 +209,32 @@ exports["ReflectanceArray"] = {
     test.deepEqual(this.eyes.calibration.max, [55, 88, 77]);
 
     test.done();
-  }
+  },
+
+  calibratedData: function(test) {
+    var dataSpy = sinon.spy();
+
+    var testValues = [
+      {min: 100, max: 200, raw: 150, expected: 500},
+      {min: 100, max: 200, raw: 50,  expected: 0},
+      {min: 100, max: 200, raw: 300, expected: 1000}
+    ];
+
+    test.expect(1);
+    this.eyes.loadCalibration({
+      min: __.pluck(testValues, "min"),
+      max: __.pluck(testValues, "max")
+    });
+
+    this.eyes.on("calibratedData", dataSpy);
+    
+    this.sendAnalogValue(0, testValues[0].raw);
+    this.sendAnalogValue(1, testValues[1].raw);
+    this.sendAnalogValue(2, testValues[2].raw);
+    this.clock.tick(25);
+    
+    test.deepEqual(dataSpy.getCall(0).args[1], __.pluck(testValues, "expected"));
+    
+    test.done();
+  },
 };
