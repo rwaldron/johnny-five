@@ -343,6 +343,45 @@ exports["Servo - Continuous"] = {
 
     test.done();
   },
+
+  deadband: function(test) {
+    test.expect(2);
+
+    this.continuousServo = new Servo.Continuous({
+      pin: 5,
+      board: board,
+      deadband: [85,95]
+    });
+
+    this.continuousServo.cw(0.5);
+    test.equal(this.continuousServo.value, 138);
+
+    this.continuousServo.ccw(0.5);
+    test.equal(this.continuousServo.value, 42);
+
+    test.done();
+  },
+
+  rangePlusDeadband: function(test) {
+    test.expect(2);
+
+    this.continuousServo = new Servo.Continuous({
+      pin: 5,
+      board: board,
+      deadband: [85,95],
+      range: [20, 160]
+    });
+
+    this.continuousServo.cw();
+    test.ok(this.servoWrite.calledWith(5, 160));
+
+    this.servoWrite.reset();
+
+    this.continuousServo.cw(0.5);
+    test.ok(this.servoWrite.calledWith(5, 128));
+
+    test.done();
+  }
 };
 
 exports["Servo - Allowed Pin Names"] = {
@@ -390,4 +429,43 @@ exports["Servo - Allowed Pin Names"] = {
 
     test.done();
   }
+};
+
+exports["Servo - PCA9685"] = {
+  setUp: function(done) {
+    this.writeSpy = sinon.spy(board.io, "sendI2CWriteRequest");
+    this.readSpy = sinon.spy(board.io, "sendI2CReadRequest");
+    this.servo = new Servo({
+      pin: 0,
+      board: board,
+      controller: "PCA9685",
+      address: 0x40
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.writeSpy.restore();
+    this.readSpy.restore();
+    done();
+  },
+
+  to: function(test) {
+    test.expect(6);
+    this.writeSpy.reset();
+
+    this.servo.to(20);
+
+    test.equal(this.writeSpy.args[0][0], 0x40);
+    test.equal(this.writeSpy.args[0][1][0], 6);
+    test.equal(this.writeSpy.args[0][1][1], 0);
+    test.equal(this.writeSpy.args[0][1][2], 0);
+    test.equal(this.writeSpy.args[0][1][3], 187);
+    test.equal(this.writeSpy.args[0][1][4], 0);
+
+    test.done();
+
+  }
+
 };

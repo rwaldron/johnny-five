@@ -1163,23 +1163,24 @@ exports["Motor: I2C - PCA9685"] = {
 
   start: function(test) {
     test.expect(6);
+    this.writeSpy.reset();
 
     this.motor.start();
-
     test.equal(this.writeSpy.args[0][0], 0x60);
-    test.equal(this.writeSpy.args[3][1][0], 38);
-    test.equal(this.writeSpy.args[3][1][1], 0);
-    test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 2048);
-    test.equal(this.writeSpy.args[3][1][4], 8);
+    test.equal(this.writeSpy.args[0][1][0], 38);
+    test.equal(this.writeSpy.args[0][1][1], 0);
+    test.equal(this.writeSpy.args[0][1][2], 0);
+    test.equal(this.writeSpy.args[0][1][3], 2048);
+    test.equal(this.writeSpy.args[0][1][4], 8);
 
     test.done();
   },
 
   stop: function(test) {
     test.expect(6);
-
+    this.writeSpy.reset();
     this.motor.stop();
+
 
     test.equal(this.writeSpy.args[0][0], 0x60);
     test.equal(this.writeSpy.args[0][1][0], 38);
@@ -1193,6 +1194,7 @@ exports["Motor: I2C - PCA9685"] = {
 
   forward: function(test) {
     test.expect(21);
+    this.writeSpy.reset();
 
     this.motor.forward(128);
 
@@ -1219,15 +1221,17 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.writeSpy.args[3][1][0], 38);
     test.equal(this.writeSpy.args[3][1][1], 0);
     test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 0);
-    test.equal(this.writeSpy.args[3][1][4], 0);
+    test.equal(this.writeSpy.args[3][1][3], 2048);
+    test.equal(this.writeSpy.args[3][1][4], 8);
     test.done();
   },
 
   reverse: function(test) {
     test.expect(21);
+    this.writeSpy.reset();
 
     this.motor.reverse(128);
+
     test.equal(this.writeSpy.args[0][0], 0x60);
 
     test.equal(this.writeSpy.args[0][1][0], 38);
@@ -1239,26 +1243,27 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.writeSpy.args[1][1][0], 46);
     test.equal(this.writeSpy.args[1][1][1], 0);
     test.equal(this.writeSpy.args[1][1][2], 0);
-    test.equal(this.writeSpy.args[1][1][3], 0);
-    test.equal(this.writeSpy.args[1][1][4], 0);
+    test.equal(this.writeSpy.args[1][1][3], 4080);
+    test.equal(this.writeSpy.args[1][1][4], 15);
 
     test.equal(this.writeSpy.args[2][1][0], 42);
     test.equal(this.writeSpy.args[2][1][1], 0);
     test.equal(this.writeSpy.args[2][1][2], 0);
-    test.equal(this.writeSpy.args[2][1][3], 4080);
-    test.equal(this.writeSpy.args[2][1][4], 15);
+    test.equal(this.writeSpy.args[2][1][3], 0);
+    test.equal(this.writeSpy.args[2][1][4], 0);
 
     test.equal(this.writeSpy.args[3][1][0], 38);
     test.equal(this.writeSpy.args[3][1][1], 0);
     test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 0);
-    test.equal(this.writeSpy.args[3][1][4], 0);
+    test.equal(this.writeSpy.args[3][1][3], 2048);
+    test.equal(this.writeSpy.args[3][1][4], 8);
 
     test.done();
   },
 
   brakeRelease: function(test) {
     test.expect(42);
+    this.writeSpy.reset();
 
     this.motor.rev(128);
     this.writeSpy.reset();
@@ -1394,7 +1399,7 @@ exports["Motor: ShiftRegister"] = {
 
     test.done();
   },
-  
+
   start: function(test) {
     test.expect(1);
 
@@ -1425,7 +1430,7 @@ exports["Motor: ShiftRegister"] = {
     test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
     test.ok(this.shiftOutSpy.calledWith(8, 4, true, 0x04));
     test.ok(this.digitalSpy.getCall(25).calledWith(12, 1)); // Latch 1
-    
+
     test.done();
   },
 
@@ -1433,7 +1438,7 @@ exports["Motor: ShiftRegister"] = {
     test.expect(4);
 
     this.motor.reverse(128);
-    
+
     test.ok(this.analogSpy.calledWith(11, 128));
 
     test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
