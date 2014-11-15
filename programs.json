@@ -41,6 +41,7 @@
     "servo-diagnostic.js",
     "servo-array.js",
     "boe-test-servos.js",
+    "servo-PCA9685.js",
 
   [ "Motor" ],
     "motor.js",

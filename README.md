@@ -159,6 +159,7 @@ board.on("ready", function() {
 - [Servo Diagnostic](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Array](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-array.md)
 - [Boe Test Servos](https://github.com/rwldrn/johnny-five/blob/master/docs/boe-test-servos.md)
+- [Servo PCA9685](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-PCA9685.md)
 
 ### Motor
 - [Motor](https://github.com/rwldrn/johnny-five/blob/master/docs/motor.md)
