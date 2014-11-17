@@ -70,26 +70,25 @@ exports["Nunchuk"] = {
   "joystick change": function(test) {
     test.expect(1);
 
-    this.clock.tick(50);
-
     var callback = this.sendI2CReadRequest.args[0][2];
+
     this.nunchuk.joystick.on("change", function(err, event) {
       console.log(
         "joystick " + event.axis,
         event.target[event.axis],
         event.axis, event.direction
       );
-
       test.ok(true);
-
       test.done();
     });
+    this.nunchuk.accelerometer.on("change", function(err, event) {});
 
-    callback([0, 100, 0, 100, 0, 100]);
-    this.clock.tick(500);
+    callback([31,127,149,88,134,135]);
+    this.clock.tick(50);
 
-    callback([0, 32, 0, 32, 0, 32]);
-    this.clock.tick(500);
+    callback([199,127,156,92,151,127]);
+    this.clock.tick(50);
+
   }
 
 };
