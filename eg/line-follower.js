@@ -1,9 +1,9 @@
 var fs = require("fs"),
-    five = require("johnny-five"),
-    ReflectArray = require("./reflect.array"),
-    board = new five.Board();
+  five = require("johnny-five"),
+  ReflectArray = require("./reflect.array"),
+  board = new five.Board();
 
-// Setup Standard input.  We use this to let the bot know that we've finished
+// Setup Standard input.  We use this to let the bot know that we"ve finished
 // calibrating
 var stdin = process.stdin;
 stdin.setRawMode(true);
@@ -15,55 +15,103 @@ var calibrationFile = ".calibration";
 // from the Reflectance Array to the left and right wheel of the bot.
 // This can be made much better, but it is a good start.
 var drivingRules = {
-    0: {
-      left: { dir: 'cw', speed: 0.01},
-      right: { dir: 'ccw', speed: 0.07}
+  0: {
+    left: {
+      dir: "cw",
+      speed: 0.01
     },
-
-    1000: {
-      left: { dir: 'cw', speed: 0.02},
-      right: { dir: 'ccw', speed: 0.05}
-    },
-
-    2000: {
-      left: { dir: 'cw', speed: 0.04},
-      right: { dir: 'ccw', speed: 0.05}
-    },
-
-    2500: {
-      left: { dir: 'cw', speed: 0.05},
-      right: { dir: 'ccw', speed: 0.05}
-    },
-
-    3000: {
-      left: { dir: 'cw', speed: 0.05},
-      right: { dir: 'ccw', speed: 0.04}
-    },
-
-    4000: {
-      left: { dir: 'cw', speed: 0.05},
-      right: { dir: 'ccw', speed: 0.02}
-    },
-
-    5001: {
-      left: { dir: 'cw', speed: 0.07},
-      right: { dir: 'ccw', speed: 0.01}
+    right: {
+      dir: "ccw",
+      speed: 0.07
     }
-  };
+  },
+
+  1000: {
+    left: {
+      dir: "cw",
+      speed: 0.02
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.05
+    }
+  },
+
+  2000: {
+    left: {
+      dir: "cw",
+      speed: 0.04
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.05
+    }
+  },
+
+  2500: {
+    left: {
+      dir: "cw",
+      speed: 0.05
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.05
+    }
+  },
+
+  3000: {
+    left: {
+      dir: "cw",
+      speed: 0.05
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.04
+    }
+  },
+
+  4000: {
+    left: {
+      dir: "cw",
+      speed: 0.05
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.02
+    }
+  },
+
+  5001: {
+    left: {
+      dir: "cw",
+      speed: 0.07
+    },
+    right: {
+      dir: "ccw",
+      speed: 0.01
+    }
+  }
+};
 
 board.on("ready", function() {
 
   // Create an instance of the reflectance array.
   var eyes = new five.IR.Reflect.Array({
     emitter: 13,
-    pins: ['A0', 'A1', 'A2', 'A3', 'A4', 'A5'],
+    pins: ["A0", "A1", "A2", "A3", "A4", "A5"],
     freq: 20
   });
 
   // These are the continuous servos that control the wheels
   var wheels = {
-    left: new five.Servo({ pin: 10, type: "continuous" }),
-    right: new five.Servo({ pin: 9, type: "continuous" })
+    left: new five.Servo({
+      pin: 10,
+      type: "continuous"
+    }),
+    right: new five.Servo({
+      pin: 9,
+      type: "continuous"
+    })
   };
 
   // Make the eyes and wheels available in the REPL UI
@@ -71,7 +119,6 @@ board.on("ready", function() {
     eyes: eyes,
     wheels: wheels
   });
-
 
   // When the bot starts up, enable the IR emitters and tell the wheels
   // to stop.  Calibrate the device.  When complete, drive.
@@ -86,23 +133,25 @@ board.on("ready", function() {
   // Calibrate the bot.  If the calibration has been persisted, use it.
   // If not, calibrate the bot until the user presses a key.  Move the sensor
   // over light and dark regions several times.  Persist the calibration data
-  // to a file so it doesn't need to do it again next time.
+  // to a file so it doesn"t need to do it again next time.
   function calibrate(whenComplete) {
     var savedCalibration, calibrating = true;
 
-    if(fs.existsSync(calibrationFile)) {
-      eyes.loadCalibration(JSON.parse(fs.readFileSync(calibrationFile)))
+    if (fs.existsSync(calibrationFile)) {
+      eyes.loadCalibration(JSON.parse(fs.readFileSync(calibrationFile)));
       whenComplete();
       return;
     }
 
-    console.log('Calibrating.  Press a key...');
+    console.log("Calibrating.  Press a key...");
 
-    eyes.calibrateUntil(function() { return !calibrating; });
+    eyes.calibrateUntil(function() {
+      return !calibrating;
+    });
 
-    stdin.once('keypress', function() {
+    stdin.once("keypress", function() {
       calibrating = false;
-      console.log('Done:', eyes.calibration);
+      console.log("Done:", eyes.calibration);
       fs.writeFile(calibrationFile, JSON.stringify(eyes.calibration));
       whenComplete();
     });
@@ -112,13 +161,13 @@ board.on("ready", function() {
   // rule to follow from the rules mapping.  Tell the left and right wheels
   // which direction and how fast to spin.
   function drive() {
-    eyes.on('line', function(err, line) {
+    eyes.on("line", function(err, line) {
       var rule;
       var threshold = Object.keys(drivingRules).find(function(r) {
         return line <= parseInt(r);
       });
 
-      if(!threshold) {
+      if (!threshold) {
         console.log("Could not find threshold for " + line);
       }
 
