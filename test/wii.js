@@ -18,14 +18,14 @@ exports["Nunchuk"] = {
 
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
 
     this.nunchuk = new Wii.Nunchuk({
       board: this.board,
       freq: 50
     });
 
-    this.proto = [];
+    this.sendI2CReadRequest = sinon.spy(this.nunchuk.io, "sendI2CReadRequest");
+
     this.instance = [{
       name: "threshold"
     }, {
@@ -38,11 +38,7 @@ exports["Nunchuk"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
-
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.nunchuk[method.name], "function");
-    }, this);
+    test.expect(this.instance.length);
 
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.nunchuk[property.name], "undefined");
@@ -70,18 +66,12 @@ exports["Nunchuk"] = {
   "joystick change": function(test) {
     test.expect(1);
 
+    this.clock.tick(100);
     var callback = this.sendI2CReadRequest.args[0][2];
 
-    this.nunchuk.joystick.on("change", function(err, event) {
-      console.log(
-        "joystick " + event.axis,
-        event.target[event.axis],
-        event.axis, event.direction
-      );
-      test.ok(true);
-      test.done();
-    });
-    this.nunchuk.accelerometer.on("change", function(err, event) {});
+    var spy = sinon.spy();
+
+    this.nunchuk.joystick.on("change", spy);
 
     callback([31,127,149,88,134,135]);
     this.clock.tick(50);
@@ -89,6 +79,68 @@ exports["Nunchuk"] = {
     callback([199,127,156,92,151,127]);
     this.clock.tick(50);
 
+    test.ok(spy.called);
+    test.done();
+  },
+
+  "accelerometer change": function(test) {
+    test.expect(1);
+
+    this.clock.tick(100);
+    var callback = this.sendI2CReadRequest.args[0][2];
+
+    var spy = sinon.spy();
+
+    this.nunchuk.accelerometer.on("change", spy);
+
+    callback([31,127,149,88,134,135]);
+    this.clock.tick(50);
+
+    callback([199,127,156,92,151,127]);
+    this.clock.tick(50);
+
+    test.ok(spy.called);
+    test.done();
+  }
+
+};
+
+exports["Classic"] = {
+  setUp: function(done) {
+
+    this.clock = sinon.useFakeTimers();
+    this.board = newBoard();
+
+    this.classic = new Wii.Classic({
+      board: this.board,
+      freq: 50
+    });
+
+    this.sendI2CReadRequest = sinon.spy(this.classic.io, "sendI2CReadRequest");
+
+    this.instance = [{
+      name: "threshold"
+    }, {
+      name: "freq"
+    }, {
+      name: "holdtime"
+    }];
+    done();
+  },
+  tearDown: function(done) {
+    this.clock.restore();
+    this.sendI2CReadRequest.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.instance.length);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.classic[property.name], "undefined");
+    }, this);
+
+    test.done();
   }
 
 };
