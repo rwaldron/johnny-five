@@ -20,7 +20,13 @@ function newBoard() {
       this.clock = sinon.useFakeTimers();
 
       this.board = newBoard();
+
+      var grab = this.board.io.sendI2CReadRequest;
+
       this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
+
+
+
 
       this.compass = new Compass({
         board: this.board,
