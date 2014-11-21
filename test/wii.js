@@ -101,6 +101,13 @@ exports["Nunchuk"] = {
 
     test.ok(spy.called);
     test.done();
+  },
+
+  "empty constructor" : function(test) {
+    test.expect(1);
+
+    test.ok(new Wii.Nunchuk());
+    test.done();
   }
 };
 
@@ -150,6 +157,13 @@ exports["Classic"] = {
       test.ok(true);
     });
     this.clock.tick(50);
+    test.done();
+  },
+
+  "empty constructor" : function(test) {
+    test.expect(1);
+
+    test.ok(new Wii.Classic());
     test.done();
   }
 };
