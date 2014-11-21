@@ -98,7 +98,7 @@
   "dependencies": {
     "colors": ">=0.5.1",
     "lodash": "latest",
-    "es6-shim": "latest",
+    "es6-shim": "~0.20.4",
     "temporal": "latest",
     "descriptor": "latest",
     "nanotimer": "0.3.1",
