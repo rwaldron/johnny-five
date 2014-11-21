@@ -1,3 +1,8 @@
+// This is an example of a line following robot.  It uses a
+// Pololu QTR-8A reflectance array to read a line on my
+// counter drawn with electrical tape.  You can see the 
+// bot in action here: https://www.youtube.com/watch?v=i6n4CwqQer0
+
 var fs = require("fs"),
   five = require("johnny-five"),
   ReflectArray = require("./reflect.array"),

@@ -206,6 +206,7 @@ board.on("ready", function() {
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
 - [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
 - [Ir Reflect](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect.md)
+- [Ir Reflectance Array](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect-array.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
