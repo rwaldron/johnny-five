@@ -1,4 +1,4 @@
-# Ir Reflectance Array
+# Ir Reflect Array
 
 Run with:
 ```bash
@@ -7,7 +7,7 @@ node eg/ir-reflect-array.js
 
 
 ```javascript
-var five = require("johnny-five");
+var five = require("../lib/johnny-five");
 
 five.Board().on("ready", function() {
   var calibrating = true;
@@ -30,7 +30,6 @@ five.Board().on("ready", function() {
     console.log("line: ", line);
   });
 });
-
 ```
 
 

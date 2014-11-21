@@ -146,6 +146,7 @@ board.on("ready", function() {
 - [Navigator](https://github.com/rwldrn/johnny-five/blob/master/docs/navigator.md)
 - [Radar](https://github.com/rwldrn/johnny-five/blob/master/docs/radar.md)
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
+- [Line Follower](https://github.com/rwldrn/johnny-five/blob/master/docs/line-follower.md)
 
 ### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
@@ -206,7 +207,7 @@ board.on("ready", function() {
 - [Ir Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-proximity.md)
 - [Proximity](https://github.com/rwldrn/johnny-five/blob/master/docs/proximity.md)
 - [Ir Reflect](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect.md)
-- [Ir Reflectance Array](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect-array.md)
+- [Ir Reflect Array](https://github.com/rwldrn/johnny-five/blob/master/docs/ir-reflect-array.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwldrn/johnny-five/blob/master/docs/joystick.md)
