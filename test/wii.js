@@ -102,7 +102,6 @@ exports["Nunchuk"] = {
     test.ok(spy.called);
     test.done();
   }
-
 };
 
 exports["Classic"] = {
@@ -127,6 +126,7 @@ exports["Classic"] = {
     }];
     done();
   },
+
   tearDown: function(done) {
     this.clock.restore();
     this.sendI2CReadRequest.restore();
@@ -141,6 +141,15 @@ exports["Classic"] = {
     }, this);
 
     test.done();
-  }
+  },
 
+  data: function(test) {
+    test.expect(1);
+
+    this.classic.on("data", function() {
+      test.ok(true);
+    });
+    this.clock.tick(50);
+    test.done();
+  }
 };
