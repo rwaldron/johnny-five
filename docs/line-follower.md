@@ -1,3 +1,12 @@
+# Line Follower
+
+Run with:
+```bash
+node eg/line-follower.js
+```
+
+
+```javascript
 // This is an example of a line following robot.  It uses a
 // Pololu QTR-8A reflectance array to read a line on my
 // counter drawn with electrical tape.  You can see the 
@@ -187,3 +196,19 @@ board.on("ready", function() {
   init();
 
 });
+
+```
+
+
+
+
+
+
+
+
+
+## License
+Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
+Copyright (c) 2014 The Johnny-Five Contributors
+Licensed under the MIT license.

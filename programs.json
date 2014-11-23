@@ -27,6 +27,7 @@
     "navigator.js",
     "radar.js",
     "whisker.js",
+    "line-follower.js",
 
 
   [ "Servo" ],
@@ -92,6 +93,7 @@
     "ir-proximity.js",
     "proximity.js",
     "ir-reflect.js",
+    "ir-reflect-array.js",
 
 
   [ "Joystick" ],
