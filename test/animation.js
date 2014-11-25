@@ -56,7 +56,8 @@ exports["Animation"] = {
         duration: 500,
         fps: 10,
         cuePoints: [0, 0.33, 0.66, 1.0],
-        keyFrames: [null, false, { degrees: 45 }, 33]
+        keyFrames: [null, false, { degrees: 45 }, 33],
+        paused: true
       },
       multi: {
         duration: 500,
@@ -66,7 +67,8 @@ exports["Animation"] = {
           [null, false, { degrees: 45 }, 33],
           [null, 46, { degrees: 180 }, -120],
           [null, { degrees: 120 }, { step: 60 }]
-        ]
+        ],
+        paused: true
       }
     };
 
@@ -120,16 +122,18 @@ exports["Animation"] = {
     test.expect(4);
 
     var tempSegment = this.segment.single;
-
-    tempSegment.oncomplete = function() {
-      test.done();
-    };
-
     this.animation.enqueue(tempSegment);
-    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
+
+    var normalizedKeyFrames = tempSegment.keyFrames;
+    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
+    normalizedKeyFrames = this.animation.normalizeKeyframes();
+
+    test.equal(normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(normalizedKeyFrames[0][3].degrees, 78);
+
+    test.done();
   },
 
   normalizeServoArray: function(test) {
@@ -138,24 +142,26 @@ exports["Animation"] = {
 
     var tempSegment = this.segment.multi;
 
-    tempSegment.oncomplete = function() {
-      test.done();
-    };
-
     this.animation.enqueue(tempSegment);
 
-    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
-    test.equal(this.animation.normalizedKeyFrames[1][0].degrees, 20);
-    test.equal(this.animation.normalizedKeyFrames[1][1].degrees, 66);
-    test.equal(this.animation.normalizedKeyFrames[1][2].degrees, 180);
-    test.equal(this.animation.normalizedKeyFrames[1][3].degrees, 60);
-    test.equal(this.animation.normalizedKeyFrames[2][0].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[2][1].degrees, 120);
-    test.equal(this.animation.normalizedKeyFrames[2][2].degrees, 180);
-    test.equal(this.animation.normalizedKeyFrames[2][3].degrees, 180);
+    var normalizedKeyFrames = tempSegment.keyFrames;
+    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
+    normalizedKeyFrames = this.animation.normalizeKeyframes();
+
+    test.equal(normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(normalizedKeyFrames[1][0].degrees, 20);
+    test.equal(normalizedKeyFrames[1][1].degrees, 66);
+    test.equal(normalizedKeyFrames[1][2].degrees, 180);
+    test.equal(normalizedKeyFrames[1][3].degrees, 60);
+    test.equal(normalizedKeyFrames[2][0].degrees, 90);
+    test.equal(normalizedKeyFrames[2][1].degrees, 120);
+    test.equal(normalizedKeyFrames[2][2].degrees, 180);
+    test.equal(normalizedKeyFrames[2][3].degrees, 180);
+
+    test.done();
 
   },
 
@@ -167,425 +173,120 @@ exports["Animation"] = {
     var tempKeyFrames = tempSegment.keyFrames;
     tempSegment.keyFrames = [this.segment.multi.keyFrames[0]];
 
-    tempSegment.oncomplete = function() {
-      test.done();
-    };
-
     this.animation.enqueue(tempSegment);
 
-    test.equal(this.animation.normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(this.animation.normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(this.animation.normalizedKeyFrames[0][3].degrees, 78);
-    test.equal(this.animation.normalizedKeyFrames[1], null);
-    test.equal(this.animation.normalizedKeyFrames[2], null);
-  },
+    var normalizedKeyFrames = tempSegment.keyFrames;
+    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
+    normalizedKeyFrames = this.animation.normalizeKeyframes();
 
-  callCountServo: function(test) {
+    test.equal(normalizedKeyFrames[0][0].degrees, 90);
+    test.equal(normalizedKeyFrames[0][1].degrees, 90);
+    test.equal(normalizedKeyFrames[0][2].degrees, 45);
+    test.equal(normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(normalizedKeyFrames[1], null);
+    test.equal(normalizedKeyFrames[2], null);
 
-    this.animation = new five.Animation(this.a);
-    test.expect(6);
-
-    var tempSegment = this.segment.single,
-      testContext = this,
-      startTime = Date.now();
-
-    tempSegment.oncomplete = function() {
-      test.ok(testContext.servoWrite.callCount === 6);
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 90) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 80) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 53) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[5][1] - 78) < 1);
-      test.done();
-    };
-
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  callCountServoArray: function(test) {
-
-    this.animation = new five.Animation(this.servoArray);
-    test.expect(1);
-
-    var tempSegment = this.segment.multi,
-      testContext = this;
-
-    tempSegment.oncomplete = function() {
-      test.ok(testContext.servoWrite.callCount === 15);
-      test.done();
-    };
-
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  duration: function(test) {
-
-    this.animation = new five.Animation(this.a);
-    test.expect(1);
-
-    var tempSegment = this.segment.single,
-      testContext = this,
-      startTime = Date.now();
-
-    tempSegment.duration = 200;
-    tempSegment.oncomplete = function() {
-      // We are within 5ms of expected time
-      test.ok(Math.abs(Date.now() - startTime - 200) < 5);
-      test.done();
-    };
-
-    this.animation.enqueue(tempSegment);
-
+    test.done();
   },
 
   progress: function(test) {
     this.animation = new five.Animation(this.a);
-    test.expect(1);
+    test.expect(2);
 
     var tempSegment = this.segment.single,
       testContext = this,
       startTime = Date.now();
 
     tempSegment.progress = 0.4;
-    tempSegment.oncomplete = function() {
-      // We are within 5ms of expected time
-      test.ok(Math.abs(Date.now() - startTime - 300) < 5);
-      test.done();
-    };
 
     this.animation.enqueue(tempSegment);
+
+    test.ok(Math.abs(this.animation.playLoop.calledAt - this.animation.startTime - 200) < 5);
+    test.ok(Math.abs(this.animation.endTime - this.animation.playLoop.calledAt - 300) < 5);
+    test.done();
+
   },
 
   reverse: function(test) {
     this.animation = new five.Animation(this.a);
-    test.expect(4);
+    test.expect(2);
 
     var tempSegment = this.segment.single,
       testContext = this,
       startTime = Date.now();
 
     tempSegment.reverse = true;
-    tempSegment.oncomplete = function() {
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 53) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 80) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 90) < 1);
-      test.done();
-    };
-
-    this.animation.enqueue(tempSegment);
-  },
-
-  loop: function(test) {
-
-    this.animation = new five.Animation(this.a);
-    this.count = 0;
-
-    test.expect(1);
-
-    var tempSegment = this.segment.single,
-      startTime = Date.now(),
-      testContext = this;
-
-    tempSegment.loop = true;
-
-    tempSegment.onloop = function() {
-      testContext.count++;
-      if (testContext.count > 2) {
-        testContext.animation.playLoop.stop();
-        test.ok(Math.abs(testContext.servoWrite.callCount - 13) <= 1);
-        test.done();
-      }
-    };
-
-    testContext.servoWrite.reset();
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  loopback: function(test) {
-
-    this.animation = new five.Animation(this.a);
-    this.count = 0;
-
-    test.expect(2);
-
-    var tempSegment = this.segment.single,
-      startTime = Date.now(),
-      testContext = this;
-
-    tempSegment.loop = true;
-    tempSegment.loopback = 0.4;
-
-    tempSegment.onloop = function() {
-      testContext.count++;
-      if (testContext.count > 2) {
-        testContext.animation.playLoop.stop();
-        test.ok(Math.abs(Date.now() - startTime - 1100) < 5);
-        test.ok(testContext.servoWrite.callCount === 12);
-        test.done();
-      }
-    };
 
     this.animation.enqueue(tempSegment);
 
-  },
+    var indices = this.animation.findIndices(0.4);
+    var val = this.animation.tweenedValue(indices, 0.4);
 
-  onstop: function(test) {
+    this.animation.target["@@render"](val);
+    test.equal(testContext.servoWrite.args[1][0], 3);
+    test.equal(testContext.servoWrite.args[1][1], 80);
 
-    this.animation = new five.Animation(this.a);
-    test.expect(1);
-
-    var tempSegment = this.segment.single,
-      testContext = this;
-
-    tempSegment.onstop = function() {
-      if (testContext.servoWrite.callCount !== 4) {
-        console.log("Expected servoWrite to be call 4 times.", "Duration:" + String(Date.now() - testContext.startTime), testContext.servoWrite.args);
-      }
-
-      test.ok(testContext.servoWrite.callCount === 4);
-      test.done();
-    };
-
-    testContext.startTime = Date.now();
-    this.animation.enqueue(tempSegment);
-    temporal.queue([{
-      delay: 350,
-      task: function() {
-        testContext.animation.stop();
-        testContext.animation.playLoop.stop();
-      }
-    }]);
-
-  },
-
-  onstart: function(test) {
-
-    this.animation = new five.Animation(this.a);
-    test.expect(1);
-
-    var tempSegment = this.segment.single,
-      testContext = this;
-
-    tempSegment.onstart = function() {
-
-      temporal.queue([{
-        delay: 300,
-        task: function() {
-          testContext.animation.stop();
-          testContext.animation.playLoop.stop();
-          test.ok(testContext.servoWrite.callCount === 3);
-          test.done();
-        }
-      }]);
-    };
-
-    this.animation.enqueue(tempSegment);
-
+    test.done();
   },
 
   timelineEasing: function(test) {
 
     this.animation = new five.Animation(this.a);
-    test.expect(5);
+    test.expect(1);
 
     var tempSegment = this.segment.single,
       testContext = this;
 
     tempSegment.easing = "inOutCirc";
-    tempSegment.oncomplete = function() {
-      test.ok(testContext.servoWrite.callCount === 5);
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 90) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 73) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 78) < 1);
-      test.done();
-    };
-
+    tempSegment.progress = 0.8;
     this.animation.enqueue(tempSegment);
+
+    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+
+    test.ok(Math.abs(progress - 0.958 < 0.001));
+    test.done();
 
   },
 
   keyframeEasing: function(test) {
 
     this.animation = new five.Animation(this.a);
-    test.expect(6);
+    test.expect(1);
 
     var tempSegment = this.segment.single,
       testContext = this;
 
-    tempSegment.keyFrames[3].easing = "inOutCirc";
-    tempSegment.oncomplete = function() {
-      test.ok(testContext.servoWrite.callCount === 6);
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 90) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 80) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 53) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[5][1] - 78) < 1);
-      test.done();
-    };
-
+    tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
+    tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
+    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    var indices = this.animation.findIndices(progress);
+    var val = this.animation.tweenedValue(indices, progress);
+
+    test.ok(Math.abs(val - 74.843 < 0.001));
+    test.done();
   },
 
   additiveEasing: function(test) {
 
     this.animation = new five.Animation(this.a);
-    test.expect(5);
+    test.expect(1);
 
     var tempSegment = this.segment.single,
       testContext = this;
 
     tempSegment.easing = "inOutCirc";
-    tempSegment.keyFrames[2].easing = "inOutCirc";
-
-    tempSegment.oncomplete = function() {
-      test.ok(testContext.servoWrite.callCount === 5);
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 90) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 73) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 78) < 1);
-      test.done();
-    };
-
+    tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
+    tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
-  },
+    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    var indices = this.animation.findIndices(progress);
+    var val = this.animation.tweenedValue(indices, progress);
 
-  // cuePoints: [0, 0.33, 0.66, 1.0],
-  // keyFrames: [null, false, { degrees: 45 }, 33]
-  metronomic: function(test) {
-    this.animation = new five.Animation(this.a);
-
-    test.expect(10);
-
-    var tempSegment = this.segment.single,
-      startTime = Date.now(),
-      testContext = this;
-
-    tempSegment.metronomic = true;
-    tempSegment.oncomplete = function() {
-      testContext.animation.stop();
-      test.ok(Math.abs(testContext.servoWrite.args[1][1] - 90) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[2][1] - 80) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[3][1] - 53) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[4][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[5][1] - 78) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[6][1] - 58) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[7][1] - 51) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[8][1] - 71) <= 1);
-      test.ok(Math.abs(testContext.servoWrite.args[9][1] - 78) < 1);
-      test.ok(testContext.servoWrite.callCount === 10);
-      test.done();
-    };
-
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  speedChange: function(test) {
-
-    this.animation = new five.Animation(this.a);
-
-    test.expect(2);
-
-    var tempSegment = this.segment.single,
-      testContext = this;
-
-    tempSegment.currentSpeed = 0.5;
-
-    temporal.queue([{
-      delay: 525,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 4);
-        testContext.animation.speed(1);
-      }
-    }, {
-      delay: 325,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 7);
-        test.done();
-      }
-    }]);
-
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  enqueueWhilePaused: function(test) {
-
-    this.animation = new five.Animation(this.a);
-
-    test.expect(4);
-
-    var tempSegment = this.segment.single,
-      testContext = this;
-
-    temporal.queue([{
-      delay: 250,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 3);
-        testContext.animation.pause();
-      }
-    }, {
-      delay: 250,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 3);
-        testContext.animation.enqueue(tempSegment);
-      }
-    }, {
-      delay: 250,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 3);
-        testContext.animation.play();
-      }
-    }, {
-      delay: 850,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 10);
-        test.done();
-      }
-    }]);
-
-    this.animation.enqueue(tempSegment);
-
-  },
-
-  synchronousAnimations: function(test) {
-
-    this.animation = new five.Animation(this.a);
-    this.animationTwo = new five.Animation(this.b);
-
-    test.expect(3);
-
-    var tempSegment = this.segment.single,
-      testContext = this;
-
-    temporal.queue([{
-      delay: 250,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 3);
-        testContext.animationTwo.enqueue(tempSegment);
-      }
-    }, {
-      delay: 300,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 8);
-      }
-    }, {
-      delay: 250,
-      task: function() {
-        test.ok(testContext.servoWrite.callCount === 11);
-        test.done();
-      }
-    }]);
-
-    this.animation.enqueue(tempSegment);
+    test.ok(Math.abs(val - 77.970 < 0.001));
+    test.done();
 
   },
 
@@ -593,7 +294,7 @@ exports["Animation"] = {
 
     this.animation = new five.Animation(this.mockChain);
 
-    test.expect(15);
+    test.expect(3);
 
     var tempSegment = this.segment.multi,
       testContext = this;
@@ -601,28 +302,18 @@ exports["Animation"] = {
     tempSegment.keyFrames = [null, { position: [60, 10, 10] }, null, { position: [10, 40, 20] }, { position: [10, 80, 20] }, { position: [50, 60, -20] } ];
     tempSegment.cuePoints = [0, 0.3, 0.4, 0.5, 0.8, 1.0];
 
-    tempSegment.oncomplete = function() {
-        test.ok(Math.abs(testContext.mockChain.result[0][0] - 56.66) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[0][1] - 6.66) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[0][2]) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[1][0] - 35) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[1][1] - 25) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[1][2] - 15) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[2][0] - 10) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[2][1] - 53.33) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[2][2] - 20) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[3][0] - 10) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[3][1] - 80) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[3][2] - 20) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[4][0] - 50) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[4][1] - 60) <= 1);
-        test.ok(Math.abs(testContext.mockChain.result[4][2] + 20) <= 1);
-        tempSegment.result = [];
-        test.done();
-    };
-
+    tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
+    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    var indices = this.animation.findIndices(progress);
+    var val = this.animation.tweenedValue(indices, progress);
+
+    test.equal(val[0][0], 30);
+    test.equal(val[0][1], 70);
+    test.equal(val[0][2], 0);
+
+    test.done();
   }
 
 };
