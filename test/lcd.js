@@ -59,7 +59,7 @@ exports["LCD"] = {
     }, {
       name: "write"
     }, {
-      name: "writeBits"
+      name: "sendByte"
     }];
 
     this.instance = [{
@@ -95,10 +95,10 @@ exports["LCD"] = {
     test.done();
   },
 
-  writeBits: function(test) {
+  sendByte: function(test) {
     test.expect(4);
 
-    this.lcd.writeBits(10);
+    this.lcd.sendByte(10);
     test.ok(this.spy.calledWith(12, 1));
     test.ok(this.spy.calledWith(11, 0));
     test.ok(this.spy.calledWith(10, 1));
@@ -110,7 +110,7 @@ exports["LCD"] = {
   command: function(test) {
     test.expect(10);
 
-    var wbStub = sinon.stub(this.lcd, "writeBits");
+    var wbStub = sinon.stub(this.lcd, "sendByte");
 
     this.lcd.command(15);
     test.ok(wbStub.calledTwice);
@@ -142,12 +142,12 @@ exports["LCD"] = {
     test.expect(3);
 
     var cSpy = sinon.spy(this.lcd, "command");
-    var hiloSpy = sinon.spy(LCD, "hilo");
+    var hiloSpy = sinon.spy(this.lcd, "hilo");
 
     this.lcd.write(42);
     test.ok(hiloSpy.calledOn(this.lcd));
     test.ok(cSpy.calledOnce);
-    test.ok(cSpy.calledWith(42));
+    test.ok(cSpy.calledWith(0x40, 42));
 
     hiloSpy.restore();
 
@@ -163,7 +163,7 @@ exports["LCD"] = {
     this.lcd.cursor();
     test.ok(!scSpy.called);
     test.ok(cSpy.calledOnce);
-    test.ok(cSpy.firstCall.args[0] & LCD.CURSORON, "command not called with LCD.CURSORON bit high");
+    test.ok(cSpy.firstCall.args[0] & this.lcd.OP.CURSORON, "command not called with this.lcd.OP.CURSORON bit high");
 
     cSpy.reset();
     this.lcd.cursor(1, 1);
@@ -181,7 +181,7 @@ exports["LCD"] = {
 
     this.lcd.noCursor();
     test.ok(cSpy.calledOnce);
-    test.ok(0 === (cSpy.firstCall.args[0] & LCD.CURSORON), "command not called with LCD.CURSORON bit low");
+    test.ok(0 === (cSpy.firstCall.args[0] & this.lcd.OP.CURSORON), "command not called with this.lcd.OP.CURSORON bit low");
 
     test.done();
   },
@@ -198,24 +198,24 @@ exports["LCD"] = {
       test.strictEqual(this.lcd.createChar(num, charMap), num & 7, "Incorrect returned address");
 
       test.strictEqual(cSpy.callCount, 9, "Improper command call count");
-      test.ok(cSpy.firstCall.calledWith(LCD.SETCGRAMADDR | ((num > 7 ? num & 7 : num) << 3)),
-        "SETCGRAMADDR mask is incorrect");
+      test.ok(cSpy.firstCall.calledWith(this.lcd.OP.DATA | ((num > 7 ? num & 7 : num) << 3)),
+        "DATA mask is incorrect");
       for (var i = 0, l = charMap.length; i < l; ++i) {
-        test.ok(cSpy.getCall(i + 1).calledWith(charMap[i]), "CharMap call #" + (i + 1) + " incorrect");
+        test.ok(cSpy.getCall(i + 1).calledWith(0x40, charMap[i]), "CharMap call #" + (i + 1) + " incorrect");
       }
     }
 
-    // Named-based: rotating addresses (from LCD.MEMORYLIMIT -1 down), ignores existing name
+    // Named-based: rotating addresses (from this.lcd.OP.MEMORYLIMIT -1 down), ignores existing name
     ["foo", "bar", "baz", "bar"].forEach(function(name, index) {
       cSpy.reset();
-      var addr = LCD.MEMORYLIMIT - (1 + index % LCD.MEMORYLIMIT);
+      var addr = this.lcd.OP.MEMORYLIMIT - (1 + index % this.lcd.OP.MEMORYLIMIT);
       test.strictEqual(this.lcd.createChar(name, charMap), addr, "Incorrect returned address");
 
       test.strictEqual(cSpy.callCount, 9, "Improper command call count");
-      test.ok(cSpy.firstCall.calledWith(LCD.SETCGRAMADDR | (addr << 3)),
-        "SETCGRAMADDR mask is incorrect");
+      test.ok(cSpy.firstCall.calledWith(this.lcd.OP.DATA | (addr << 3)),
+        "DATA mask is incorrect");
       for (var i = 0, l = charMap.length; i < l; ++i) {
-        test.ok(cSpy.getCall(i + 1).calledWith(charMap[i]), "CharMap call #" + (i + 1) + " incorrect");
+        test.ok(cSpy.getCall(i + 1).calledWith(0x40, charMap[i]), "CharMap call #" + (i + 1) + " incorrect");
       }
     }, this);
 
@@ -251,7 +251,7 @@ exports["LCD"] = {
 
       test.strictEqual(cSpy.callCount, comparison.length, "Unexpected amount of #command calls");
       for (var i = 0, l = comparison.length; i < l; ++i) {
-        test.strictEqual(cSpy.getCall(i).args[0], comparison.charCodeAt(i),
+        test.strictEqual(cSpy.getCall(i).args[1], comparison.charCodeAt(i),
           "Unexpected byte #" + i + " on " + util.inspect(text) + " (comparing with " +
           util.inspect(comparison) + ")");
       }
@@ -262,7 +262,7 @@ exports["LCD"] = {
   printSpecialTexts: function(test) {
     // No test.expect() as these are a bit cumbersome/coupled to obtain
 
-    // These assume LCD.MEMORYLIMIT is 8, for readability
+    // These assume this.lcd.OP.MEMORYLIMIT is 8, for readability
     var sentences = [
       [":heart:", "\07"],
 
@@ -296,10 +296,10 @@ exports["LCD"] = {
         "Unexpected amount of #command calls for " + util.inspect(text));
       var i, output = "";
       for (i = 0; i < cSpy.callCount; ++i) {
-        output += String.fromCharCode(cSpy.getCall(i).args[0]);
+        output += String.fromCharCode(cSpy.getCall(i).args[1]);
       }
       for (i = 0; i < cSpy.callCount; ++i) {
-        test.strictEqual(cSpy.getCall(i).args[0], comparison.charCodeAt(i),
+        test.strictEqual(cSpy.getCall(i).args[1], comparison.charCodeAt(i),
           "Unexpected byte #" + i + " on " + util.inspect(text) +
           " (comparing " + util.inspect(output) + " with " +
           util.inspect(comparison) + ")");

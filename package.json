@@ -97,13 +97,14 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
+    "color-convert": "~0.5.2",
     "colors": ">=0.5.1",
-    "lodash": "latest",
-    "es6-shim": "latest",
-    "temporal": "latest",
     "descriptor": "latest",
+    "ease-component": "latest",
+    "es6-shim": "latest",
+    "lodash": "latest",
     "nanotimer": "0.3.1",
-    "ease-component": "latest"
+    "temporal": "latest"
   },
   "optionalDependencies": {
     "firmata": ">=0.2.9",
@@ -127,6 +128,6 @@
     "test": "grunt"
   },
   "browser": {
-    "galileo-io" : false
+    "galileo-io": false
   }
 }
