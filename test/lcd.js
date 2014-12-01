@@ -223,7 +223,7 @@ exports["LCD"] = {
   },
 
   useChar: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var ccSpy = sinon.spy(this.lcd, "createChar");
 
@@ -234,6 +234,7 @@ exports["LCD"] = {
     this.lcd.useChar("heart");
     test.strictEqual(ccSpy.callCount, 0, "createChar should not have been called on an existing name");
 
+    test.equal(this.lcd, this.lcd.useChar("heart"));
     test.done();
   },
 
@@ -311,4 +312,69 @@ exports["LCD"] = {
   }
 
   // TODO: Remaining tests: clear, home, display/noDisplay, blink/noBlink, setCursor, pulse, autoscroll/noAutoscroll
+};
+
+exports["LCD - I2C (JHD1313M1)"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    done();
+  },
+
+  tearDown: function(done) {
+    done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    var spy = sinon.spy(this.board.io, "sendI2CWriteRequest");
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+
+    test.ok(spy.called);
+    test.equal(spy.callCount, 14);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(2);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    var spy = sinon.spy(lcd.io, "sendI2CWriteRequest");
+
+    lcd.command(15);
+    test.equal(spy.called, 1);
+    test.ok(spy.getCall(0).calledWith(62, [ 128, 15 ]));
+
+    test.done();
+  },
+  sendByte: function(test) {
+    test.expect(2);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    var spy = sinon.spy(lcd.io, "sendI2CWriteRequest");
+
+    lcd.sendByte(15);
+    test.equal(spy.called, 1);
+    test.ok(spy.getCall(0).calledWith(62, [ 64, 15 ]));
+
+    test.done();
+  }
 };
