@@ -34,6 +34,8 @@ IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hard
   - [Spark-IO](https://github.com/rwaldron/spark-io/)
 - LightBlue Bean
   - [Bean-IO](https://github.com/monteslu/bean-io/)
+- Electric Imp
+  - [Imp-IO](https://github.com/rwaldron/imp-io/)
 - IO Board (Generic IO Plugin class to make your own!)
   - [IOBoard](https://github.com/achingbrain/node-ioboard)
 - [TI Launchpad](http://www.ti.com/ww/en/launchpad/launchpad.html?DCMP=mcu-launchpad&HQS=launchpad) (with Energia's Firmata)
