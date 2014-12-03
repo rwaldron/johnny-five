@@ -18,28 +18,12 @@ Johnny-Five does not attempt to provide "all the things", but instead focuses on
 
 ...And that's only a few of the many explorable possibilities. Check out these exciting projects: [node-pulsesensor](https://www.npmjs.org/package/node-pulsesensor), [footballbot-workshop-ui](https://www.npmjs.org/package/footballbot-workshop-ui), [nodebotui](https://www.npmjs.org/package/nodebotui), [dublin-disco](https://www.npmjs.org/package/dublin-disco), [node-slot-car-bot](https://www.npmjs.org/package/node-slot-car-bot), [servo-calibrator](https://www.npmjs.org/package/servo-calibrator), [node-ardx](https://www.npmjs.org/package/node-ardx), [nodebot-workshop](https://www.npmjs.org/package/nodebot-workshop), [phone-home](https://www.npmjs.org/package/phone-home), [purple-unicorn](https://www.npmjs.org/package/purple-unicorn), [webduino](https://www.npmjs.org/package/webduino), [leapduino](https://www.npmjs.org/package/leapduino), [lasercat-workshop](https://www.npmjs.org/package/lasercat-workshop), [simplesense](https://www.npmjs.org/package/simplesense), [five-redbot](https://www.npmjs.org/package/five-redbot), [robotnik](https://www.npmjs.org/package/robotnik), [the-blender](https://www.npmjs.org/package/the-blender)
 
-## IO Plugins
+## Supported Hardware
 
-IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks! For non-Arduino based projects, the following platform [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available:
+Johnny-Five has been tested on a variety of Arduino-compatible [Boards](https://github.com/rwaldron/johnny-five/wiki/Board).
 
-- Beagle Bone
-  - [BeagleBone-IO](https://github.com/julianduque/beaglebone-io)
-- Intel Galileo
-  - [Galileo-IO](https://github.com/rwaldron/galileo-io/)
-- Pinoccio
-  - [Pinoccio-IO](https://github.com/soldair/pinoccio-io/)
-- Raspberry Pi
-  - [Raspi-IO](https://github.com/bryan-m-hughes/raspi-io/)
-- Spark Core
-  - [Spark-IO](https://github.com/rwaldron/spark-io/)
-- LightBlue Bean
-  - [Bean-IO](https://github.com/monteslu/bean-io/)
-- Electric Imp
-  - [Imp-IO](https://github.com/rwaldron/imp-io/)
-- IO Board (Generic IO Plugin class to make your own!)
-  - [IOBoard](https://github.com/achingbrain/node-ioboard)
-- [TI Launchpad](http://www.ti.com/ww/en/launchpad/launchpad.html?DCMP=mcu-launchpad&HQS=launchpad) (with Energia's Firmata)
-  - [Energia Firmata](https://github.com/energia/Energia/tree/master/libraries/Firmata)
+For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
+
 
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
