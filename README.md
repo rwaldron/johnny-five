@@ -20,26 +20,8 @@ Johnny-Five does not attempt to provide "all the things", but instead focuses on
 
 ## IO Plugins
 
-IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks! For non-Arduino based projects, the following platform [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available:
+For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
 
-- Beagle Bone
-  - [BeagleBone-IO](https://github.com/julianduque/beaglebone-io)
-- Intel Galileo
-  - [Galileo-IO](https://github.com/rwaldron/galileo-io/)
-- Pinoccio
-  - [Pinoccio-IO](https://github.com/soldair/pinoccio-io/)
-- Raspberry Pi
-  - [Raspi-IO](https://github.com/bryan-m-hughes/raspi-io/)
-- Spark Core
-  - [Spark-IO](https://github.com/rwaldron/spark-io/)
-- LightBlue Bean
-  - [Bean-IO](https://github.com/monteslu/bean-io/)
-- Electric Imp
-  - [Imp-IO](https://github.com/rwaldron/imp-io/)
-- IO Board (Generic IO Plugin class to make your own!)
-  - [IOBoard](https://github.com/achingbrain/node-ioboard)
-- [TI Launchpad](http://www.ti.com/ww/en/launchpad/launchpad.html?DCMP=mcu-launchpad&HQS=launchpad) (with Energia's Firmata)
-  - [Energia Firmata](https://github.com/energia/Energia/tree/master/libraries/Firmata)
 
 #### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
 
