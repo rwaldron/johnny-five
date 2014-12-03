@@ -1,3 +1,7 @@
+require("es6-shim");
+
+global.IS_TEST_MODE = true;
+
 var SerialPort = require("./mock-serial").SerialPort,
   MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
@@ -69,38 +73,6 @@ exports["static"] = {
     test.ok(five.Board.Options);
     test.done();
   },
-
-  "Board.mount()": function(test) {
-    test.expect(1);
-    test.equal(typeof five.Board.mount, "function", "Board.mount");
-    test.done();
-  },
-
-  "Board.mount(obj)": function(test) {
-    test.expect(2);
-    test.ok(five.Board.mount({
-      board: board
-    }), "five.Board.mount({ board: board })");
-    test.deepEqual(five.Board.mount({
-      board: board
-    }), board, "five.Board.mount({ board: board }) deep equals board");
-    test.done();
-  },
-
-  "Board.mount(index)": function(test) {
-    test.expect(2);
-    test.ok(five.Board.mount(0), "five.Board.mount(0)");
-    test.deepEqual(five.Board.mount(), board, "five.Board.mount(0)");
-    test.done();
-  },
-
-  "Board.mount(/*none*/)": function(test) {
-    test.expect(2);
-    test.ok(five.Board.mount(), "five.Board.mount()");
-    test.deepEqual(five.Board.mount(), board, "five.Board.mount() matches board instance");
-    test.done();
-  },
-
   "Board.Pins": function(test) {
     test.expect(1);
     test.ok(five.Board.Pins, "Board.Pins");
@@ -186,6 +158,54 @@ exports["instance"] = {
   pins: function(test) {
     test.expect(1);
     test.ok(board.pins);
+    test.done();
+  },
+};
+
+
+exports["Board.mount"] = {
+  setUp: function(done) {
+
+    this.board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
+  "Board.mount()": function(test) {
+    test.expect(1);
+    test.equal(typeof five.Board.mount, "function", "Board.mount");
+    test.done();
+  },
+
+  "Board.mount(obj)": function(test) {
+    test.expect(2);
+    test.ok(five.Board.mount({
+      board: this.board
+    }), "five.Board.mount({ board: board })");
+    test.deepEqual(five.Board.mount({
+      board: this.board
+    }), this.board, "five.Board.mount({ board: board }) deep equals board");
+    test.done();
+  },
+
+  "Board.mount(index)": function(test) {
+    test.expect(2);
+    test.ok(five.Board.mount(0), "five.Board.mount(0)");
+    test.deepEqual(five.Board.mount(0), this.board, "five.Board.mount(0)");
+    test.done();
+  },
+
+  "Board.mount(/*none*/)": function(test) {
+    test.expect(2);
+    test.ok(five.Board.mount(), "five.Board.mount()");
+    test.deepEqual(five.Board.mount(), this.board, "five.Board.mount() matches board instance");
     test.done();
   },
 };
