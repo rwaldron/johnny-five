@@ -209,6 +209,9 @@ board.on("ready", function() {
 - [Lcd Enumeratechars](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [Lcd Runner 20x4](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
+- [Lcd Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-runner.md)
+- [Lcd I2c](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-i2c.md)
+- [Lcd I2c Runner](https://github.com/rwldrn/johnny-five/blob/master/docs/lcd-i2c-runner.md)
 
 ### LED
 - [Led](https://github.com/rwldrn/johnny-five/blob/master/docs/led.md)
@@ -267,6 +270,15 @@ board.on("ready", function() {
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
 - [Sensor Temperature Tmp36](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-tmp36.md)
 - [Sensor Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-lm35.md)
+
+### Grove IoT Kit
+- [Grove Led](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-led.md)
+- [Grove Button](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-button.md)
+- [Grove Touch](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-touch.md)
+- [Grove Sensor](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-sensor.md)
+- [Grove Lcd Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-lcd-rgb.md)
+- [Grove Lcd Rgb Temperature Display](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
+- [Grove Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-servo.md)
 
 ### TinkerKit
 - [Tinkerkit Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)
