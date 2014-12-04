@@ -58,6 +58,7 @@ module.exports = function(grunt) {
         "test/pir.js",
         "test/reflectancearray.js",
         "test/relay.js",
+        "test/repl.js",
         "test/sensor.js",
         "test/servo.js",
         "test/shiftregister.js",

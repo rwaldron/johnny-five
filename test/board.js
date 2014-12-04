@@ -43,12 +43,31 @@ exports["Initialization"] = {
     test.equal(board.io.sp, sp);
 
     test.done();
+  },
+
+  ioIsReady: function(test) {
+    test.expect(2);
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("connect", function() {
+      test.ok(true);
+    });
+
+    board.on("ready", function() {
+      test.ok(true);
+      test.done();
+    });
   }
 };
 
 exports["samplingInterval"] = {
-
-  samplingInterval : function(test) {
+  samplingInterval: function(test) {
     test.expect(1);
 
     board.io.setSamplingInterval = sinon.spy();
@@ -142,19 +161,6 @@ exports["instance"] = {
     test.done();
   },
 
-  repl: function(test) {
-    var board = new five.Board({
-      io: new MockFirmata(),
-      debug: false
-    });
-    test.expect(2);
-    test.ok(board.repl instanceof Repl);
-    test.ok(board.repl.context);
-
-    process.stdin.pause();
-    test.done();
-  },
-
   pins: function(test) {
     test.expect(1);
     test.ok(board.pins);
@@ -225,12 +231,15 @@ exports["bubbled events from io"] = {
   string: function(test) {
     test.expect(1);
 
-    this.board.once("string", function(data) {
-      test.equal(data, 1);
-      test.done();
-    });
+    this.board.on("ready", function() {
 
-    this.io.emit("string", 1);
+      this.once("string", function(data) {
+        test.equal(data, 1);
+        test.done();
+      });
+
+      this.io.emit("string", 1);
+    });
   }
 };
 
