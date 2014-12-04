@@ -26,12 +26,12 @@ Johnny-Five does not attempt to provide "all the things", but instead focuses on
 
 Johnny-Five has been tested on a variety of Arduino-compatible [Boards](https://github.com/rwaldron/johnny-five/wiki/Board).
 
-For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available. IO Plugins allow Johnny-Five code to communicate with any hardware in whatever language that platforms speaks!
+For non-Arduino based projects, platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins#available-io-plugins) are available. IO Plugins allow Johnny-Five code to communicate with any hardware in whatever language that platforms speaks! 
 
 
 ## Documentation
 
-Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki)
+Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs). 
 
 ## Guidance
 
@@ -52,6 +52,8 @@ Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-
 - Click the "Upload" button.
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
+
+For non-Arduino projects, each IO Plugin's repo will provide its own platform specific setup instructions.
 
 
 ## Hey you, here's Johnny!
@@ -271,7 +273,7 @@ board.on("ready", function() {
 - [Sensor Temperature Tmp36](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-tmp36.md)
 - [Sensor Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-lm35.md)
 
-### Grove IoT Kit
+### Grove IoT Kit (Seeed Studio)
 - [Grove Led](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-led.md)
 - [Grove Button](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-button.md)
 - [Grove Touch](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-touch.md)

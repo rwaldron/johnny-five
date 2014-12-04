@@ -172,7 +172,7 @@
     "sensor-temperature-tmp36.js",
     "sensor-temperature-lm35.js",
 
-  [ "Grove IoT Kit" ],
+  [ "Grove IoT Kit (Seeed Studio)" ],
     "grove-led.js",
     "grove-button.js",
     "grove-touch.js",
