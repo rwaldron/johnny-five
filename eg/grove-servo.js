@@ -21,7 +21,6 @@ board.on("ready", function() {
   });
 });
 
-
 // @markdown
 // For this program, you'll need:
 //
@@ -32,5 +31,3 @@ board.on("ready", function() {
 // ![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
 //
 // @markdown
-
-

@@ -18,7 +18,6 @@ board.on("ready", function() {
   led.blink(500);
 });
 
-
 // @markdown
 // For this program, you'll need:
 //

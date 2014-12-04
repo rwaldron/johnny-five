@@ -23,8 +23,6 @@ board.on("ready", function() {
     led.off();
   });
 });
-
-
 // @markdown
 // For this program, you'll need:
 //
@@ -35,5 +33,3 @@ board.on("ready", function() {
 // ![Grove - Button Module](http://www.seeedstudio.com/depot/images/product/bgpushb1.jpg)
 //
 // @markdown
-
-

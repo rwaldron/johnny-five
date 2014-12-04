@@ -14,11 +14,7 @@ board.on("ready", function() {
   lcd.cursor(0, 0).print("hello :heart:");
 
   lcd.blink().cursor(1, 0).print("Blinking? ");
-
-
 });
-
-
 // @markdown
 // For this program, you'll need:
 //

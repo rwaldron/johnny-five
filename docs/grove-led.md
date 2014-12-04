@@ -28,7 +28,6 @@ board.on("ready", function() {
 });
 
 
-
 ```
 
 

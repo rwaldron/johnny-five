@@ -74,5 +74,3 @@ var Thermistor = (function() {
 //
 //
 // @markdown
-
-

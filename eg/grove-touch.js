@@ -25,7 +25,6 @@ board.on("ready", function() {
   });
 });
 
-
 // @markdown
 // For this program, you'll need:
 //
@@ -36,5 +35,3 @@ board.on("ready", function() {
 // ![Grove - Touch Module](http://www.seeedstudio.com/depot/images/P3202396.jpg)
 //
 // @markdown
-
-

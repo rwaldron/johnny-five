@@ -31,9 +31,6 @@ board.on("ready", function() {
 });
 
 
-
-
-
 ```
 
 
