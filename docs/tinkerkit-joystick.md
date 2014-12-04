@@ -8,7 +8,7 @@ node eg/tinkerkit-joystick.js
 
 ```javascript
 var five = require("johnny-five"),
-  Change = require("../eg/change.js");
+  Change = require("../eg/change");
 
 new five.Board().on("ready", function() {
   // var servo = new five.Servo("O0");

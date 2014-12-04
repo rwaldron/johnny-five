@@ -9,7 +9,7 @@ node eg/whisker.js
 ```javascript
 var Change, five;
 
-Change = require("../eg/change.js");
+Change = require("../eg/change");
 five = require("johnny-five");
 
 new five.Boards(["control", "nodebot"]).on("ready", function(boards) {

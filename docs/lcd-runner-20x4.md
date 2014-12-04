@@ -7,7 +7,7 @@ node eg/lcd-runner-20x4.js
 
 
 ```javascript
-var five = require("../lib/johnny-five"),
+var five = require("johnny-five"),
   board, lcd;
 
 board = new five.Board();

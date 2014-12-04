@@ -7,7 +7,7 @@ node eg/stepper-driver.js
 
 
 ```javascript
-var five = require("../lib/johnny-five");
+var five = require("johnny-five");
 
 var board = new five.Board();
 

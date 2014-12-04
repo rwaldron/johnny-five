@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-  __ = require("../lib/fn.js"),
+  __ = five.Fn,
   board, Navigator, navigator, servos,
   expandedWhich, directionMap, scale;
 

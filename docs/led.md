@@ -44,7 +44,7 @@ To use other `Led` methods, like `fade`, `pulse`, `animate`, you'll need to
 wire the LED to a PWM pin. If you use a different pin, make sure to run
 the script with the correct pin number:
 
-`node eg/led.js [pinNumber]`
+`node eg/led [pinNumber]`
 
 
 

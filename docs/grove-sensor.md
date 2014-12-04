@@ -7,7 +7,7 @@ node eg/grove-sensor.js
 
 
 ```javascript
-var five = require("../lib/johnny-five");
+var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
@@ -18,7 +18,7 @@ board.on("ready", function() {
 
   // Plug the LED module into the
   // Grove Shield's D6 jack. See
-  // grove-led.js for more information.
+  // grove-led for more information.
   var led = new five.Led(6);
 
   // Set scaling of the Rotary angle

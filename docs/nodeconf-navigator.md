@@ -8,7 +8,7 @@ node eg/nodeconf-navigator.js
 
 ```javascript
 var five = require("johnny-five"),
-  __ = require("../lib/fn.js"),
+  __ = five.Fn,
   board, Navigator, navigator, servos,
   expandedWhich, directionMap, scale;
 

@@ -7,7 +7,7 @@ node eg/shiftregister.js
 
 
 ```javascript
-var five = require("../lib/johnny-five"),
+var five = require("johnny-five"),
   board, shiftRegister;
 
 board = new five.Board();

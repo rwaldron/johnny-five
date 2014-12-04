@@ -19,7 +19,7 @@ node eg/button-pullup.js
 // http://arduino.cc/en/Tutorial/DigitalPins
 // https://learn.sparkfun.com/tutorials/pull-up-resistors
 
-var five = require("../lib/johnny-five"),
+var five = require("johnny-five"),
   button, led;
 
 five.Board().on("ready", function() {

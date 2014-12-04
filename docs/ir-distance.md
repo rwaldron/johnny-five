@@ -9,7 +9,7 @@ node eg/ir-distance.js
 ```javascript
 // Run this program with a device model:
 //
-//    node eg/ir-distance.js GP2Y0A02YK0F
+//    node eg/ir-distance GP2Y0A02YK0F
 //
 //    You may also use the model number printed on the
 //    device itself. eg

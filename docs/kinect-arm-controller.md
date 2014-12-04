@@ -16,10 +16,10 @@ five = require("johnny-five");
  * Note:
  *
  * PVector is a slightly-ported version of
- * Processing.js's PVector.
+ * Processing's PVector.
  *
  */
-PVector = require("./pvector.js").PVector;
+PVector = require("./pvector").PVector;
 /**
  * Note:
  *

@@ -7,7 +7,7 @@ node eg/stepper-sweep.js
 
 
 ```javascript
-var five = require("../lib/johnny-five");
+var five = require("johnny-five");
 
 five.Board().on("ready", function() {
   var stepper, k = 0;

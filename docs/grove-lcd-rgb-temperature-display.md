@@ -7,7 +7,7 @@ node eg/grove-lcd-rgb-temperature-display.js
 
 
 ```javascript
-var five = require("../lib/johnny-five");
+var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
