@@ -28,7 +28,7 @@ board.on("ready", function() {
     console.log("motionstart", ts);
   });
 
-  // "motionstart" events are fired following a "motionstart event
+  // "motionend" events are fired following a "motionstart event
   // when no movement has occurred in X ms
   motion.on("motionend", function(err, ts) {
     console.log("motionend", ts);
