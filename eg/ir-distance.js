@@ -8,6 +8,7 @@
 //    2Y0A21
 //    2D120X
 //    2Y0A02
+//    OA41SK
 //
 //    Without a specific model number, the readings will
 //    be wrong (unless you've connected a GP2Y0A02YK0F/2Y0A02)
@@ -20,6 +21,8 @@
 //     https://www.sparkfun.com/products/8959
 // - GP2Y0A02YK0F
 //     https://www.sparkfun.com/products/8958
+// - GP2Y0A41SK0F
+//     https://www.sparkfun.com/products/12728
 //
 //
 var five = require("../lib/johnny-five.js"),
