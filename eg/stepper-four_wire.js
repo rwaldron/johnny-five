@@ -1,6 +1,6 @@
 var five = require("../lib/johnny-five");
 var board = new five.Board();
-var Stepper = Stepper;
+var Stepper = five.Stepper;
 
 board.on("ready", function() {
   var config = {
