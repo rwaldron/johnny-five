@@ -1,3 +1,50 @@
+<!-- 
+
+    Hello!
+
+    Please don't edit this file!
+
+    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example, please put the fil in eg/ and then add an entry to programs.json. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
 <img src="https://github.com/rwldrn/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
 # Node-isassemble Johnny-Five

@@ -21,7 +21,8 @@ module.exports = function(grunt) {
     img: _.template( file.read("tpl/.img.md") ),
     fritzing: _.template( file.read("tpl/.fritzing.md") ),
     doclink: _.template( file.read("tpl/.readme.doclink.md") ),
-    readme: _.template( file.read("tpl/.readme.md") )
+    readme: _.template( file.read("tpl/.readme.md") ),
+    noedit: _.template( file.read("tpl/.noedit.md") ),
   };
 
 
@@ -297,7 +298,10 @@ module.exports = function(grunt) {
     });
 
     // Write the readme with doc link index
-    file.write( "README.md", templates.readme({ doclinks: readme.join("") }) );
+    file.write( "README.md",
+      templates.noedit() +
+      templates.readme({ doclinks: readme.join("") })
+    );
 
     log.writeln("Docs created.");
   });
