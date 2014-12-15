@@ -25,9 +25,6 @@ function newBoard() {
 
       this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
 
-
-
-
       this.compass = new Compass({
         board: this.board,
         device: model,
@@ -91,4 +88,29 @@ function newBoard() {
     }
   };
 });
+
+
+exports["Invalid or missing device"] = {
+  missing: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Compass({
+        board: newBoard()
+      });
+    });
+
+    test.done();
+  },
+  invalid: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Compass({
+        board: newBoard(),
+        device: 1
+      });
+    });
+
+    test.done();
+  },
+};
 
