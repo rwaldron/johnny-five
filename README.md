@@ -175,6 +175,9 @@ board.on("ready", function() {
 - [Pin Dtoa](https://github.com/rwldrn/johnny-five/blob/master/docs/pin-dtoa.md)
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 
+### Plugin Template
+- [Plugin](https://github.com/rwldrn/johnny-five/blob/master/docs/plugin.md)
+
 ### JSConf
 - [Nodebot](https://github.com/rwldrn/johnny-five/blob/master/docs/nodebot.md)
 

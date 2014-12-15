@@ -16,6 +16,8 @@
     "pin-dtoa.js",
     "whisker.js",
 
+  [ "Plugin Template", "plugin" ],
+    "plugin.js",
 
   [ "JSConf" ],
     "nodebot.js",

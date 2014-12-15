@@ -3,7 +3,6 @@ require("copy-paste");
 var inspect = require("util").inspect;
 var fs = require("fs");
 
-
 module.exports = function(grunt) {
 
   var task = grunt.task;
@@ -17,14 +16,14 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
 
   var templates = {
-    doc: _.template( file.read("tpl/.docs.md") ),
-    img: _.template( file.read("tpl/.img.md") ),
-    fritzing: _.template( file.read("tpl/.fritzing.md") ),
-    doclink: _.template( file.read("tpl/.readme.doclink.md") ),
-    readme: _.template( file.read("tpl/.readme.md") ),
-    noedit: _.template( file.read("tpl/.noedit.md") ),
+    doc: _.template(file.read("tpl/.docs.md")),
+    img: _.template(file.read("tpl/.img.md")),
+    fritzing: _.template(file.read("tpl/.fritzing.md")),
+    doclink: _.template(file.read("tpl/.readme.doclink.md")),
+    readme: _.template(file.read("tpl/.readme.md")),
+    noedit: _.template(file.read("tpl/.noedit.md")),
+    plugin: _.template(file.read("tpl/.plugin.md")),
   };
-
 
   // Project configuration.
   grunt.initConfig({
@@ -111,7 +110,7 @@ module.exports = function(grunt) {
           "lib/**/!(johnny-five)*.js",
           "test/**/*.js",
           "eg/**/*.js",
-          ]
+        ]
       },
       options: {
         config: ".jscsrc",
@@ -202,19 +201,26 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
     // Concat specified files.
-    var entries, readme;
-    entries = JSON.parse(file.read(file.expand( this.data )));
-    readme = [];
+    var entries = JSON.parse(file.read(file.expand(this.data)));
+    var readme = [];
+    var tplType = "doc";
 
-    entries.forEach(function( entry ) {
+    entries.forEach(function(entry) {
 
       var values, markdown, eg, md, png, fzz, title,
-          hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
+        hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
 
-      if ( Array.isArray(entry) ) {
+      var isHeading = Array.isArray(entry);
+      var heading = isHeading ? entry[0] : null;
+
+
+      if (isHeading) {
+
+        tplType = entry.length === 2 ? entry[1] : "doc";
+
         // Produces:
         // "### Heading\n"
-        readme.push( "\n### " + entry[0] + "\n" );
+        readme.push("\n### " + heading + "\n");
 
         // TODO: figure out a way to have tiered subheadings
         // readme.push(
@@ -224,55 +230,54 @@ module.exports = function(grunt) {
         //     return prev + (Array(k + 4).join("#")) + " " + val + "\n";
         //   }, "")
         // );
-      }
-      else {
+      } else {
 
         filepath = "eg/" + entry;
 
-        eg = file.read( filepath );
+        eg = file.read(filepath);
         md = "docs/" + entry.replace(".js", ".md");
         png = "docs/breadboard/" + entry.replace(".js", ".png");
         fzz = "docs/breadboard/" + entry.replace(".js", ".fzz");
         title = entry;
 
-
         markdown = [];
 
         // Generate a title string from the file name
-        [ [ /^.+\//, "" ],
-          [ /\.js/, "" ],
-          [ /\-/g, " " ]
-        ].forEach(function( args ) {
-          title = "".replace.apply( title, args );
+        [
+          [/^.+\//, ""],
+          [/\.js/, ""],
+          [/\-/g, " "]
+        ].forEach(function(args) {
+          title = "".replace.apply(title, args);
         });
 
         fritzpath = fzz.split("/");
-        fritzfile = fritzpath[ fritzpath.length - 1 ];
+        fritzfile = fritzpath[fritzpath.length - 1];
         inMarkdown = false;
 
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace(/\.\.\/lib\/|\.js/g, "")
-              .split("\n").filter(function( line ) {
+          .split("\n").filter(function(line) {
 
-          if ( /@markdown/.test(line) ) {
-            inMarkdown = !inMarkdown;
-            return false;
-          }
-
-          if ( inMarkdown ) {
-            line = line.trim();
-            if ( line ) {
-              markdown.push(
-                line.replace(/^\/\//, "").trim()
-              );
+            if (/@markdown/.test(line)) {
+              inMarkdown = !inMarkdown;
+              return false;
             }
-            // Filter out the markdown lines
-            // from the main content.
-            return false;
-          }
 
-          return true;
-        }).join("\n");
+            if (inMarkdown) {
+              line = line.trim();
+              if (line) {
+                markdown.push(
+                  line.replace(/^\/\//, "").trim()
+                );
+              }
+              // Filter out the markdown lines
+              // from the main content.
+              return false;
+            }
+
+            return true;
+          }).join("\n");
 
         hasPng = fs.existsSync(png);
         hasFzz = fs.existsSync(fzz);
@@ -290,15 +295,15 @@ module.exports = function(grunt) {
         };
 
         // Write the file to /docs/*
-        file.write( md, templates.doc(values) );
+        file.write(md, templates[tplType](values));
 
         // Push a rendered markdown link into the readme "index"
-        readme.push( templates.doclink(values) );
+        readme.push(templates.doclink(values));
       }
     });
 
     // Write the readme with doc link index
-    file.write( "README.md",
+    file.write("README.md",
       templates.noedit() +
       templates.readme({ doclinks: readme.join("") })
     );
