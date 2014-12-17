@@ -1,3 +1,5 @@
+var Board = require("../lib/board.js");
+
 module.exports = function(five) {
   return (function() {
 

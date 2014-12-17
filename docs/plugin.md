@@ -2,6 +2,8 @@
 
 
 ```javascript
+var Board = require("board");
+
 module.exports = function(five) {
   return (function() {
 
