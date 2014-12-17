@@ -243,7 +243,7 @@ exports["Animation"] = {
 
     var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
 
-    test.ok(Math.abs(progress - 0.958 < 0.001));
+    test.ok(Math.abs(progress - 0.958 < 0.01));
     test.done();
 
   },
@@ -264,7 +264,7 @@ exports["Animation"] = {
     var indices = this.animation.findIndices(progress);
     var val = this.animation.tweenedValue(indices, progress);
 
-    test.ok(Math.abs(val - 74.843 < 0.001));
+    test.ok(Math.abs(val - 74.843 < 0.01));
     test.done();
   },
 
@@ -285,7 +285,7 @@ exports["Animation"] = {
     var indices = this.animation.findIndices(progress);
     var val = this.animation.tweenedValue(indices, progress);
 
-    test.ok(Math.abs(val - 77.970 < 0.001));
+    test.ok(Math.abs(val - 77.970 < 0.01));
     test.done();
 
   },
@@ -305,9 +305,8 @@ exports["Animation"] = {
     tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
-    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
-    var indices = this.animation.findIndices(progress);
-    var val = this.animation.tweenedValue(indices, progress);
+    var indices = this.animation.findIndices(0.9);
+    var val = this.animation.tweenedValue(indices, 0.9);
 
     test.equal(val[0][0], 30);
     test.equal(val[0][1], 70);
