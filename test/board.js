@@ -63,6 +63,28 @@ exports["Initialization"] = {
       test.ok(true);
       test.done();
     });
+  },
+
+  ioHasError: function(test) {
+    test.expect(1);
+
+    var sp = new SerialPort("/dev/foo", {
+      baudrate: 57600,
+      buffersize: 128
+    });
+
+    var board = new Board({
+      port: sp,
+      debug: false,
+      repl: false
+    });
+
+    board.on("error", function(msg) {
+      test.equals("ioHasError", msg);
+      test.done();
+    });
+
+    sp.emit("error", "ioHasError");
   }
 };
 
