@@ -87,21 +87,21 @@ exports["Button, Digital Pin"] = {
     callback(this.button.upValue);
   },
 
-  release: function(test) {
-
+  hold: function(test) {
+    var clock = sinon.useFakeTimers();
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("release", function() {
-
+    this.button.on("hold", function() {
       test.ok(true);
+      clock.restore();
       test.done();
     });
     callback(this.button.downValue);
+    clock.tick(500);
     callback(this.button.upValue);
-  }
-
+  },
 };
 
 exports["Button, Analog Pin"] = {
@@ -169,19 +169,19 @@ exports["Button, Analog Pin"] = {
     callback(this.button.upValue);
   },
 
-  release: function(test) {
-
+  hold: function(test) {
+    var clock = sinon.useFakeTimers();
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("release", function() {
-
+    this.button.on("hold", function() {
       test.ok(true);
+      clock.restore();
       test.done();
     });
     callback(this.button.downValue);
+    clock.tick(500);
     callback(this.button.upValue);
-  }
-
+  },
 };
