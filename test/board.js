@@ -112,12 +112,18 @@ exports["static"] = {
     test.done();
   },
 
-  "Board.Array": function(test) {
+  "Boards": function(test) {
     test.expect(1);
+    test.equal(five.Boards, five.Board.Array);
+    test.done();
+  },
+
+  "Board.Array": function(test) {
+    test.expect(2);
 
     var io = new MockFirmata();
 
-    var boards = new five.Boards([{
+    var boards = new five.Board.Array([{
       id: "A",
       repl: false,
       debug: false,
@@ -130,7 +136,12 @@ exports["static"] = {
     }]);
 
     test.equals(2, boards.length);
-    test.done();
+
+    boards.on("ready", function() {
+      test.ok(true);
+      test.done();
+    });
+
   }
 };
 
