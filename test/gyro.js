@@ -11,7 +11,7 @@ var MockFirmata = require("./mock-firmata"),
     repl: false
   });
 
-exports["Gyro"] = {
+exports["Gyro -- ANALOG"] = {
 
   setUp: function(done) {
 
@@ -19,6 +19,7 @@ exports["Gyro"] = {
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.gyro = new Gyro({
       pins: ["A0", "A1"],
+      sensitivity: 0.167,
       freq: 100,
       board: board
     });
@@ -158,4 +159,68 @@ exports["Gyro"] = {
   }
 
   // TODO: tests for pitch, roll, x, y, and rate
+};
+
+exports["Gyro -- MPU6050"] = {
+
+  setUp: function(done) {
+
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
+    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.gyro = new Gyro({
+      controller: "MPU6050",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+    var read, spy = sinon.spy();
+
+    test.expect(10);
+    this.gyro.isCalibrated = true;
+    this.gyro.on("data", spy);
+
+    read = this.i2cRead.args[0][3];
+    read([
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // accelerometer
+      0x00, 0x00,                         // temperature
+      0x11, 0x11, 0x11, 0x11, 0x11, 0x11, // gyro
+    ]);
+
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.ok(this.i2cWrite.calledOnce);
+    test.equals(this.i2cWrite.args[0][0], 0x68);
+    test.deepEqual(this.i2cWrite.args[0][1], [0x6B, 0x00]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.equals(this.i2cRead.args[0][0], 0x68);
+    test.deepEqual(this.i2cRead.args[0][1], [0x3B]);
+    test.equals(this.i2cRead.args[0][2], 14);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.deepEqual(spy.args[0], [{
+      x: 130, // will change
+      y: 130, // will change
+      z: 130  // will change
+    }]);
+
+    test.done();
+  }
 };
