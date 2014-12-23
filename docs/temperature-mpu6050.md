@@ -16,11 +16,11 @@ board.on("ready", function() {
   });
 
   temperature.on("change", function() {
-    console.log('temperature');
-    console.log('  celsius      : ', this.celsius);
-    console.log('  fahrenheit   : ', this.fahrenheit);
-    console.log('  kelvin       : ', this.kelvin);
-    console.log('--------------------------------------');
+    console.log("temperature");
+    console.log("  celsius      : ", this.celsius);
+    console.log("  fahrenheit   : ", this.fahrenheit);
+    console.log("  kelvin       : ", this.kelvin);
+    console.log("--------------------------------------");
   });
 });
 
