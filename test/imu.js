@@ -68,7 +68,7 @@ exports["IMU -- MPU6050"] = {
     read([
       0x11, 0x11, 0x22, 0x22, 0x33, 0x33, // accelerometer
       0x11, 0x22,                         // temperature
-      0x11, 0x11, 0x11, 0x11, 0x11, 0x11, // gyro
+      0x11, 0x11, 0x33, 0x33, 0x55, 0x55, // gyro
     ]);
 
 
@@ -80,7 +80,7 @@ exports["IMU -- MPU6050"] = {
 
     test.ok(this.i2cRead.calledOnce);
     test.equals(this.i2cRead.args[0][0], 0x68);
-    test.deepEqual(this.i2cRead.args[0][1], [0x3B]);
+    test.deepEqual(this.i2cRead.args[0][1], 0x3B);
     test.equals(this.i2cRead.args[0][2], 14);
 
     this.clock.tick(100);
@@ -90,9 +90,9 @@ exports["IMU -- MPU6050"] = {
     test.equals(spy.args[0][1].accelerometer.y, 0.51);
     test.equals(spy.args[0][1].accelerometer.z, 0.76);
     test.equals(Math.round(spy.args[0][1].temperature.celsius), 49);
-    test.equals(spy.args[0][1].gyro.x, 130);
-    test.equals(spy.args[0][1].gyro.y, 130);
-    test.equals(spy.args[0][1].gyro.z, 130);
+    test.equals(spy.args[0][1].gyro.x, 127);
+    test.equals(spy.args[0][1].gyro.y, 128);
+    test.equals(spy.args[0][1].gyro.z, 129);
     
     test.done();
   }

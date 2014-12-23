@@ -197,7 +197,7 @@ exports["Gyro -- MPU6050"] = {
     read([
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // accelerometer
       0x00, 0x00,                         // temperature
-      0x11, 0x11, 0x11, 0x11, 0x11, 0x11, // gyro
+      0x11, 0x11, 0x33, 0x33, 0x55, 0x55, // gyro
     ]);
 
 
@@ -209,16 +209,16 @@ exports["Gyro -- MPU6050"] = {
 
     test.ok(this.i2cRead.calledOnce);
     test.equals(this.i2cRead.args[0][0], 0x68);
-    test.deepEqual(this.i2cRead.args[0][1], [0x3B]);
+    test.deepEqual(this.i2cRead.args[0][1], 0x3B);
     test.equals(this.i2cRead.args[0][2], 14);
 
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.deepEqual(spy.args[0], [{
-      x: 130, // will change
-      y: 130, // will change
-      z: 130  // will change
+      x: 127,
+      y: 128,
+      z: 129
     }]);
 
     test.done();
