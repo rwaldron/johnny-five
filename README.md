@@ -195,6 +195,9 @@ board.on("ready", function() {
 - [Whisker](https://github.com/rwldrn/johnny-five/blob/master/docs/whisker.md)
 - [Line Follower](https://github.com/rwldrn/johnny-five/blob/master/docs/line-follower.md)
 
+### IMU
+- [Imu Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/imu-mpu6050.md)
+
 ### Servo
 - [Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/servo.md)
 - [Servo Continuous](https://github.com/rwldrn/johnny-five/blob/master/docs/servo-continuous.md)
