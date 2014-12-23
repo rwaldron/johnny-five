@@ -40,7 +40,7 @@ exports["IMU -- MPU6050"] = {
     this.i2cWrite.restore();
     this.i2cRead.restore();
     this.clock.restore();
-    Board.Breakouts.clear();
+    IMU.Drivers.clear();
     done();
   },
 
