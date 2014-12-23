@@ -316,8 +316,10 @@ board.on("ready", function() {
 
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
+- [Accelerometer Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Gyro](https://github.com/rwldrn/johnny-five/blob/master/docs/gyro.md)
+- [Gyro Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Photoresistor](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor.md)
 - [Photoresistor Servo](https://github.com/rwldrn/johnny-five/blob/master/docs/photoresistor-servo.md)
 - [Potentiometer](https://github.com/rwldrn/johnny-five/blob/master/docs/potentiometer.md)
@@ -331,6 +333,7 @@ board.on("ready", function() {
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
 - [Sensor Temperature Tmp36](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-tmp36.md)
 - [Sensor Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-lm35.md)
+- [Temperature Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove Led](https://github.com/rwldrn/johnny-five/blob/master/docs/grove-led.md)

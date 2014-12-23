@@ -160,8 +160,10 @@
 
   [ "Sensors" ],
     "accelerometer.js",
+    "accelerometer-mpu6050.js",
     "accelerometer-pan-tilt.js",
     "gyro.js",
+    "gyro-mpu6050.js",
     "photoresistor.js",
     "photoresistor-servo.js",
     "potentiometer.js",
@@ -175,6 +177,7 @@
     "slider-servo-control.js",
     "sensor-temperature-tmp36.js",
     "sensor-temperature-lm35.js",
+    "temperature-mpu6050.js",
 
   [ "Grove IoT Kit (Seeed Studio)" ],
     "grove-led.js",
