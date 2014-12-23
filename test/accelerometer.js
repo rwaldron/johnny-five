@@ -212,7 +212,7 @@ exports["Accelerometer -- MPU-6050"] = {
 
     test.ok(this.i2cRead.calledOnce);
     test.equals(this.i2cRead.args[0][0], 0x68);
-    test.deepEqual(this.i2cRead.args[0][1], [0x3B]);
+    test.deepEqual(this.i2cRead.args[0][1], 0x3B);
     test.equals(this.i2cRead.args[0][2], 14);
 
     this.clock.tick(100);
