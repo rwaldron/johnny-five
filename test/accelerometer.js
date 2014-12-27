@@ -226,9 +226,9 @@ exports["Accelerometer -- MPU-6050"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.25,
-      y: 0.51,
-      z: 0.76
+      x: 0.27,
+      y: 0.53,
+      z: 0.8
     }]);
 
     test.done();
