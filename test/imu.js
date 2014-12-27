@@ -86,9 +86,9 @@ exports["IMU -- MPU6050"] = {
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
-    test.equals(spy.args[0][1].accelerometer.x, 0.25);
-    test.equals(spy.args[0][1].accelerometer.y, 0.51);
-    test.equals(spy.args[0][1].accelerometer.z, 0.76);
+    test.equals(spy.args[0][1].accelerometer.x, 0.27);
+    test.equals(spy.args[0][1].accelerometer.y, 0.53);
+    test.equals(spy.args[0][1].accelerometer.z, 0.8);
     test.equals(Math.round(spy.args[0][1].temperature.celsius), 49);
     test.equals(spy.args[0][1].gyro.x, 127);
     test.equals(spy.args[0][1].gyro.y, 128);
