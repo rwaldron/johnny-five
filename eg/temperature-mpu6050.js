@@ -14,3 +14,7 @@ board.on("ready", function() {
     console.log("--------------------------------------");
   });
 });
+
+// @markdown
+// - [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
+// @markdown

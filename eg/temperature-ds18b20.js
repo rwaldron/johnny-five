@@ -13,5 +13,5 @@ five.Board().on("ready", function() {
 });
 
 // @markdown
-// - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
+// - [DS18B20 - Temperature Sensor](http://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/DS18S20.html)
 // @markdown
