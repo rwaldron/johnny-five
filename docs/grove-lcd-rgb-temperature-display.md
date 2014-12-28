@@ -14,7 +14,11 @@ board.on("ready", function() {
 
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
-  var temperature = new five.Sensor("A0");
+  var temperature = new five.Temperature({
+    controller: "ANALOG",
+    pin: "A0",
+    toCelsius: Thermistor.c
+  });
 
   // Plug the LCD module into any of the
   // Grove Shield's I2C jacks.
@@ -30,10 +34,12 @@ board.on("ready", function() {
     // Experiment with sources of hot and
     // cold temperatures!
     //
-    var f = Thermistor.f(this.value);
+    var f = temperature.fahrenheit;
     var r = linear(0x00, 0xFF, f, 100);
     var g = linear(0x00, 0x00, f, 100);
     var b = linear(0xFF, 0x00, f, 100);
+
+    console.log("temp: ", f);
 
     lcd.bgColor(r, g, b).cursor(0, 0).print(f.toFixed(2));
   });
@@ -65,9 +71,6 @@ var Thermistor = (function() {
       tempc = beta / (Math.log(rthermistor * ginf));
 
       return tempc - kelvin;
-    },
-    f: function(raw) {
-      return (this.c(raw) * 9) / 5 + 32;
     }
   };
 }());
