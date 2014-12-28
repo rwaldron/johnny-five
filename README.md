@@ -331,8 +331,9 @@ board.on("ready", function() {
 - [Slider Log](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-log.md)
 - [Slider Pan](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-pan.md)
 - [Slider Servo Control](https://github.com/rwldrn/johnny-five/blob/master/docs/slider-servo-control.md)
-- [Sensor Temperature Tmp36](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-tmp36.md)
-- [Sensor Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/sensor-temperature-lm35.md)
+- [Temperature Tmp36](https://github.com/rwldrn/johnny-five/blob/master/docs/temperature-tmp36.md)
+- [Temperature Lm35](https://github.com/rwldrn/johnny-five/blob/master/docs/temperature-lm35.md)
+- [Temperature Ds18b20](https://github.com/rwldrn/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
 ### Grove IoT Kit (Seeed Studio)
