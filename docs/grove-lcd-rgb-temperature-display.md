@@ -15,9 +15,8 @@ board.on("ready", function() {
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
   var temperature = new five.Temperature({
-    controller: "ANALOG",
-    pin: "A0",
-    toCelsius: Thermistor.c
+    controller: "GROOVE",
+    pin: "A0"
   });
 
   // Plug the LCD module into any of the
@@ -49,31 +48,6 @@ board.on("ready", function() {
 function linear(start, end, step, steps) {
   return (end - start) * step / steps + start;
 }
-
-var Thermistor = (function() {
-  var adcres, beta, kelvin, rb, ginf;
-
-  adcres = 1023;
-  // Beta parameter
-  beta = 3975;
-  // 0°C = 273.15 K
-  kelvin = 273.15;
-  // 10 kOhm (sensor resistance)
-  rb = 10000;
-  // Ginf = 1/Rinf
-  ginf = 120.6685;
-
-  return {
-    c: function(raw) {
-      var rthermistor, tempc;
-
-      rthermistor = rb * (adcres / raw - 1);
-      tempc = beta / (Math.log(rthermistor * ginf));
-
-      return tempc - kelvin;
-    }
-  };
-}());
 
 
 ```
