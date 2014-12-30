@@ -160,6 +160,7 @@
 
   [ "Sensors" ],
     "accelerometer.js",
+    "accelerometer-adxl335.js",
     "accelerometer-mpu6050.js",
     "accelerometer-pan-tilt.js",
     "gyro.js",
