@@ -164,6 +164,52 @@ exports["Accelerometer -- Analog"] = {
   }
 };
 
+exports["Accelerometer -- ADXL335"] = {
+
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      controller: "ADXL335",
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    var changeSpy = sinon.spy();
+
+    test.expect(2);
+    this.accel.on("change", changeSpy);
+
+    x(330);
+    y(360);
+    z(300);
+
+    this.clock.tick(100);
+    test.ok(changeSpy.calledThrice);
+    test.deepEqual(changeSpy.args[2], [{
+      x: 0,
+      y: 0.45,
+      z: -0.45
+    }]);
+
+    test.done();
+  }
+};
+
 exports["Accelerometer -- MPU-6050"] = {
 
   setUp: function(done) {
