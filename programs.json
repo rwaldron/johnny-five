@@ -176,8 +176,9 @@
     "slider-log.js",
     "slider-pan.js",
     "slider-servo-control.js",
-    "sensor-temperature-tmp36.js",
-    "sensor-temperature-lm35.js",
+    "temperature-tmp36.js",
+    "temperature-lm35.js",
+    "temperature-ds18b20.js",
     "temperature-mpu6050.js",
 
   [ "Grove IoT Kit (Seeed Studio)" ],

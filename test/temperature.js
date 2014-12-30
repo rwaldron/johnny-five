@@ -395,3 +395,46 @@ exports["Temperature -- ANALOG"] = {
     test.done();
   }
 };
+
+exports["Temperature -- GROVE"] = {
+
+  setUp: function(done) {
+
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.temperature = new Temperature({
+      controller: "GROVE",
+      pin: "A0",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(4);
+    this.temperature.on("data", spy);
+
+    raw(659);
+    
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), 23);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 74);
+    test.equals(Math.round(spy.args[0][1].kelvin), 296);
+    
+    test.done();
+  }
+};

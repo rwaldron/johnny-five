@@ -1,8 +1,8 @@
-# Sensor Temperature Lm35
+# Temperature Lm35
 
 Run with:
 ```bash
-node eg/sensor-temperature-lm35.js
+node eg/temperature-lm35.js
 ```
 
 
@@ -10,14 +10,13 @@ node eg/sensor-temperature-lm35.js
 var five = require("johnny-five");
 
 five.Board().on("ready", function() {
-  var sensor = new five.Sensor("A0");
+  var temperature = new five.Temperature({
+    controller: "LM35",
+    pin: "A0"
+  });
 
-  sensor.on("data", function() {
-    // LM35
-    var celsius = (5 * this.value * 100) / 1024;
-    var fahrenheit = celsius * (9 / 5) + 32;
-
-    console.log(celsius + "°C", fahrenheit + "°F");
+  temperature.on("data", function(err, data) {
+    console.log(data.celsius + "°C", data.fahrenheit + "°F");
   });
 });
 
