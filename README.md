@@ -317,6 +317,7 @@ board.on("ready", function() {
 ### Sensors
 - [Accelerometer](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
+- [Accelerometer Adxl345](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-adxl345.md)
 - [Accelerometer Pan Tilt](https://github.com/rwldrn/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Gyro](https://github.com/rwldrn/johnny-five/blob/master/docs/gyro.md)
 - [Gyro Mpu6050](https://github.com/rwldrn/johnny-five/blob/master/docs/gyro-mpu6050.md)

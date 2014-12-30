@@ -115,4 +115,17 @@ exports["Fn"] = {
 
     test.done();
   },
+
+  int16fromtwobytes: function(test) {
+    test.expect(6);
+
+    test.equal(Fn.int16(0, 0), 0);
+    test.equal(Fn.int16(0, 1), 1);
+    test.equal(Fn.int16(1, 4), 260);
+    test.equal(Fn.int16(8, 0), 2048);
+    test.equal(Fn.int16(255, 255), -1);
+    test.equal(Fn.int16(240, 240), -3856);
+
+    test.done();
+  },
 };
