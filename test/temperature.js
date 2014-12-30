@@ -396,14 +396,14 @@ exports["Temperature -- ANALOG"] = {
   }
 };
 
-exports["Temperature -- GROOVE"] = {
+exports["Temperature -- GROVE"] = {
 
   setUp: function(done) {
 
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.temperature = new Temperature({
-      controller: "GROOVE",
+      controller: "GROVE",
       pin: "A0",
       freq: 100,
       board: board

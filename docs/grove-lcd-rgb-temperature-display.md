@@ -15,7 +15,7 @@ board.on("ready", function() {
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
   var temperature = new five.Temperature({
-    controller: "GROOVE",
+    controller: "GROVE",
     pin: "A0"
   });
 
