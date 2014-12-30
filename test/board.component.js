@@ -163,4 +163,31 @@ exports["Board.Component"] = {
     test.done();
   },
 
+  componentOccupiedWarning: function(test) {
+    test.expect(6);
+
+    var spy = sinon.spy(this.board, "warn");
+
+    test.equal(this.board.occupied.length, 0);
+
+    new Board.Component({
+      pin: 2
+    });
+
+    test.equal(this.board.occupied.length, 1);
+    test.deepEqual(this.board.occupied[0], {
+      value: 2, type: "pin"
+    });
+
+    new Board.Component({
+      pin: 2
+    });
+
+    test.equal(spy.calledOnce, true);
+    test.deepEqual(spy.getCall(0).args, [ "%s %s already in use", "pin", 2 ]);
+    test.equal(this.board.occupied.length, 1);
+
+    test.done();
+  },
+
 };
