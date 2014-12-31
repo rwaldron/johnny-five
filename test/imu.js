@@ -25,6 +25,8 @@ exports["IMU -- MPU6050"] = {
     this.proto = [];
 
     this.instance = [{
+      name: "components"
+    }, {
       name: "accelerometer"
     }, {
       name: "temperature"
@@ -58,6 +60,14 @@ exports["IMU -- MPU6050"] = {
     test.done();
   },
 
+  components: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.imu.components, ["accelerometer", "temperature", "gyro"]);
+
+    test.done();
+  },
+
   data: function(test) {
     var read, spy = sinon.spy();
 
@@ -86,14 +96,45 @@ exports["IMU -- MPU6050"] = {
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
-    test.equals(spy.args[0][1].accelerometer.x, 0.25);
-    test.equals(spy.args[0][1].accelerometer.y, 0.51);
-    test.equals(spy.args[0][1].accelerometer.z, 0.76);
+    test.equals(spy.args[0][1].accelerometer.x, 0.27);
+    test.equals(spy.args[0][1].accelerometer.y, 0.53);
+    test.equals(spy.args[0][1].accelerometer.z, 0.8);
     test.equals(Math.round(spy.args[0][1].temperature.celsius), 49);
     test.equals(spy.args[0][1].gyro.x, 127);
     test.equals(spy.args[0][1].gyro.y, 128);
     test.equals(spy.args[0][1].gyro.z, 129);
     
+    test.done();
+  },
+
+  change: function(test) {
+    var read, changeSpy = sinon.spy();
+
+    test.expect(2);
+    this.imu.on("change", changeSpy);
+    this.imu.gyro.isCalibrated = true;
+
+    read = this.i2cRead.args[0][3];
+    read([
+      0x11, 0x11, 0x22, 0x22, 0x33, 0x33, // accelerometer
+      0x11, 0x22,                         // temperature
+      0x11, 0x11, 0x33, 0x33, 0x55, 0x55, // gyro
+    ]);
+
+    this.clock.tick(100);
+
+    test.ok(changeSpy.callCount, 3);
+
+    read([
+      0x11, 0x11, 0x22, 0x22, 0x33, 0x33,
+      0x22, 0x33,                         // only change temperature
+      0x11, 0x11, 0x33, 0x33, 0x55, 0x55,
+    ]);
+
+    this.clock.tick(100);
+
+    test.ok(changeSpy.callCount, 4);
+
     test.done();
   }
 };

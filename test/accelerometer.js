@@ -164,6 +164,52 @@ exports["Accelerometer -- Analog"] = {
   }
 };
 
+exports["Accelerometer -- ADXL335"] = {
+
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      controller: "ADXL335",
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    var changeSpy = sinon.spy();
+
+    test.expect(2);
+    this.accel.on("change", changeSpy);
+
+    x(330);
+    y(360);
+    z(300);
+
+    this.clock.tick(100);
+    test.ok(changeSpy.calledThrice);
+    test.deepEqual(changeSpy.args[2], [{
+      x: 0,
+      y: 0.45,
+      z: -0.45
+    }]);
+
+    test.done();
+  }
+};
+
 exports["Accelerometer -- MPU-6050"] = {
 
   setUp: function(done) {
@@ -226,9 +272,76 @@ exports["Accelerometer -- MPU-6050"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.25,
-      y: 0.51,
-      z: 0.76
+      x: 0.27,
+      y: 0.53,
+      z: 0.8
+    }]);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- ADXL345"] = {
+
+  setUp: function(done) {
+
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
+    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.accel = new Accelerometer({
+      controller: "ADXL345",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+
+    // test.expect(12);
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    read = this.i2cRead.args[0][3];
+    read([
+      // Derived from actual reading set.
+      0x03, 0x00, 0x05, 0x00, 0xFE, 0x00
+    ]);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.ok(this.i2cWrite.calledThrice);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 83, 45, 0 ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 83, 45, 8 ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 83, 49, 8 ]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [ 83, 50, 6 ]);
+
+    this.clock.tick(100);
+
+    test.ok(dataSpy.calledOnce);
+    test.deepEqual(dataSpy.args[0], [{
+      x: 3,
+      y: 5,
+      z: 254
+    }]);
+
+    test.ok(changeSpy.calledOnce);
+    test.deepEqual(changeSpy.args[0], [{
+      x: 0.012,
+      y: 0.02,
+      z: 1
     }]);
 
     test.done();
