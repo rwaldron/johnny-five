@@ -12,43 +12,37 @@ function newBoard() {
   });
 }
 
-["HMC6352", "HMC5883L"].forEach(function(model) {
+["HMC6352", "HMC5883L"].forEach(function(controller) {
 
-  exports[model] = {
+
+
+  exports[controller] = {
     setUp: function(done) {
 
       this.clock = sinon.useFakeTimers();
-
       this.board = newBoard();
-
-      var grab = this.board.io.sendI2CReadRequest;
-
-      this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
+      this.i2cRead = sinon.spy(this.board.io, "i2cRead");
 
       this.compass = new Compass({
         board: this.board,
-        device: model,
-        freq: 50,
-        gauss: 1.3
+        controller: controller,
       });
 
       this.clock.tick(500);
 
-      this.instance = [{
-        name: "scale"
+      this.properties = [{
+        name: "bearing"
       }, {
-        name: "register"
-      }, {
-        name: "freq"
+        name: "heading"
       }];
 
       done();
     },
 
     shape: function(test) {
-      test.expect(this.instance.length);
+      test.expect(this.properties.length);
 
-      this.instance.forEach(function(property) {
+      this.properties.forEach(function(property) {
         test.notEqual(typeof this.compass[property.name], "undefined");
       }, this);
       test.done();
@@ -57,40 +51,47 @@ function newBoard() {
     data: function(test) {
       test.expect(1);
 
+      var handler = this.i2cRead.getCall(0).args[3];
+
       this.compass.on("data", function() {
         test.ok(true);
       });
-      this.clock.tick(66);
+
+      handler([1, 2, 3, 4, 5, 6]);
+      this.clock.tick(11);
+
       test.done();
     },
 
-    headingchange: function(test) {
+    change: function(test) {
       test.expect(1);
 
-      var callback = this.sendI2CReadRequest.args[0][2];
+      var compass = new Compass({
+        board: this.board,
+        controller: controller,
+      });
 
-      this.compass.on("headingchange", function() {
+      var handler = this.board.io.i2cRead.getCall(1).args[3];
+
+      compass.once("change", function() {
         test.ok(true);
         test.done();
       });
 
-      callback([0, 100, 0, 100, 0, 100]);
-      this.clock.tick(500);
-
-      callback([0, 32, 0, 32, 0, 32]);
-      this.clock.tick(500);
+      handler([0, 255, 0, 255, 0, 255]);
+      this.clock.tick(20);
     },
 
     tearDown: function(done) {
       this.clock.restore();
-      this.sendI2CReadRequest.restore();
+      this.i2cRead.restore();
       done();
     }
   };
 });
 
 
-exports["Invalid or missing device"] = {
+exports["Invalid or missing controller"] = {
   missing: function(test) {
     test.expect(1);
     test.throws(function() {
@@ -106,7 +107,7 @@ exports["Invalid or missing device"] = {
     test.throws(function() {
       new Compass({
         board: newBoard(),
-        device: 1
+        controller: 1
       });
     });
 

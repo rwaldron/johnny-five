@@ -1,28 +1,27 @@
-var five = require("../lib/johnny-five.js"),
-  board, compass;
-
-board = new five.Board();
+var five = require("../");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  compass = new five.Compass({
-    device: "HMC6352",
-    //device: "HMC5883L",
-    freq: 100,
-    gauss: 1.3
+  var compass = new five.Compass({
+    controller: "HMC6352"
   });
+
+  // Or...
+  // var compass = new five.Compass({
+  //   controller: "HMC5883L"
+  // });
 
   compass.on("headingchange", function() {
-
-    console.log("heading", Math.floor(this.heading));
-    console.log("bearing", this.bearing);
+    console.log("headingchange");
+    console.log("  heading : ", Math.floor(this.heading));
+    console.log("  bearing : ", this.bearing.name);
+    console.log("--------------------------------------");
   });
 
-  // "read"
-  //
-  // Fires continuously, every 66ms.
-  //
-  compass.on("data", function(err, timestamp) {
-    console.log("data", this.axis);
+  compass.on("data", function() {
+    console.log("  heading : ", Math.floor(this.heading));
+    console.log("  bearing : ", this.bearing.name);
+    console.log("--------------------------------------");
   });
 });
