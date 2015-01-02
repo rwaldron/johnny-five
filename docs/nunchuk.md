@@ -14,8 +14,10 @@ board = new five.Board();
 
 board.on("ready", function() {
 
+  // When using the WiiChuck adapter, these pins act
+  // as the Ground and Power lines.
   new five.Pin("A2").low();
-  new five.Pin("A3").low();
+  new five.Pin("A3").high();
 
   // Create a new `nunchuk` hardware instance.
   nunchuk = new five.Wii.Nunchuk({

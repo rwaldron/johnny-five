@@ -162,6 +162,7 @@
     "accelerometer.js",
     "accelerometer-adxl335.js",
     "accelerometer-mpu6050.js",
+    "accelerometer-adxl345.js",
     "accelerometer-pan-tilt.js",
     "gyro.js",
     "gyro-mpu6050.js",
