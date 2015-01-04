@@ -21,9 +21,9 @@ exports["IR.Distance"] = {
     });
 
     this.instance = [{
-      name: "inches"
+      name: "centimeters"
     }, {
-      name: "cm"
+      name: "inches"
     }];
 
     done();
@@ -85,7 +85,7 @@ exports["IR.Distance: GP2Y0A21YK"] = {
     // 154 is an actual reading at ~14.5"
     callback(154);
 
-    test.equals(Math.round(this.distance.cm), 38);
+    test.equals(Math.round(this.distance.centimeters), 38);
     test.equals(Math.round(this.distance.inches), 15);
 
     test.done();
@@ -118,7 +118,7 @@ exports["IR.Distance: GP2D120XJ00F"] = {
     // 70 is an actual reading at ~14.5"
     callback(70);
 
-    test.equals(Math.round(this.distance.cm), 38);
+    test.equals(Math.round(this.distance.centimeters), 38);
     test.equals(Math.round(this.distance.inches), 15);
 
     test.done();
@@ -152,7 +152,7 @@ exports["IR.Distance: GP2Y0A02YK0F"] = {
     // 325 is an actual reading at ~14.5"
     callback(325);
 
-    test.equals(Math.round(this.distance.cm), 38);
+    test.equals(Math.round(this.distance.centimeters), 38);
     test.equals(Math.round(this.distance.inches), 15);
 
     test.done();
@@ -186,7 +186,7 @@ exports["IR.Distance: GP2Y0A41SK0F"] = {
     // 325 is an actual reading at ~2.5"
     callback(325);
 
-    test.equals(Math.round(this.distance.cm), 7);
+    test.equals(Math.round(this.distance.centimeters), 7);
     test.equals(Math.round(this.distance.inches), 3);
 
     test.done();
