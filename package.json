@@ -107,7 +107,8 @@
     "es6-shim": "latest",
     "lodash": "latest",
     "nanotimer": "0.3.1",
-    "temporal": "latest"
+    "temporal": "latest",
+    "array-includes": "latest"
   },
   "optionalDependencies": {
     "firmata": ">=0.2.9",
