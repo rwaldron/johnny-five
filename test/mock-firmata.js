@@ -9,11 +9,17 @@ function MockFirmata(opt) {
   this.pins = opt.pins || pins.UNO;
   this.analogPins = opt.analogPins || pins.UNOANALOG;
   this.MODES = {
-    INPUT: 0x00,
-    OUTPUT: 0x01,
-    ANALOG: 0x02,
-    PWM: 0x03,
-    SERVO: 0x04
+    INPUT: 0,
+    OUTPUT: 1,
+    ANALOG: 2,
+    PWM: 3,
+    SERVO: 4,
+    SHIFT: 5,
+    I2C: 6,
+    ONEWIRE: 7,
+    STEPPER: 8,
+    IGNORE: 127,
+    UNKOWN: 16
   };
   this.HIGH = 1;
   this.LOW = 0;
@@ -32,7 +38,7 @@ util.inherits(MockFirmata, events.EventEmitter);
   "analogRead", "digitalRead", "sendI2CReadRequest", "i2cRead",
   "pinMode", "queryPinState", "sendI2CConfig", "i2cConfig",
   "stepperStep", "stepperConfig", "servoConfig",
-  "sendOneWireConfig", "sendOneWireSearch", "sendOneWireReset", 
+  "sendOneWireConfig", "sendOneWireSearch", "sendOneWireReset",
   "sendOneWireWrite", "sendOneWireDelay", "sendOneWireWriteAndRead"
 ].forEach(function(value) {
   MockFirmata.prototype[value] = function() {};

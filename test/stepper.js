@@ -3,23 +3,91 @@ var MockFirmata = require("./mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  Stepper = five.Stepper,
-  board = new Board({
-    io: new MockFirmata({
-      firmware: {
-        name: "AdvancedFirmata"
-      }
-    }),
-    debug: false,
-    repl: false
-  });
+  Stepper = five.Stepper;
+
+exports["Stepper Firmware Requirement"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    done();
+  },
+
+  valid: function(test) {
+    test.expect(1);
+
+    this.board = new Board({
+      io: new MockFirmata({
+        pins: [
+          {
+            supportedModes: [0, 1, 3, 4, 8],
+            mode: 1,
+            value: 0,
+            report: 1,
+            analogChannel: 127
+          },
+        ]
+      }),
+      debug: false,
+      repl: false
+    });
+
+    test.doesNotThrow(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: [2, 3]
+      });
+    }.bind(this));
+
+    test.done();
+  },
+
+  invalid: function(test) {
+    test.expect(1);
+
+    this.board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: [2, 3]
+      });
+    }.bind(this));
+
+    test.done();
+  },
+};
 
 exports["Stepper - rpm / speed"] = {
   setUp: function(done) {
 
-    this.pinMode = sinon.spy(board.io, "pinMode");
+    this.board = new Board({
+      io: new MockFirmata({
+        pins: [
+          {
+            supportedModes: [0, 1, 3, 4, 8],
+            mode: 1,
+            value: 0,
+            report: 1,
+            analogChannel: 127
+          },
+        ]
+      }),
+      debug: false,
+      repl: false
+    });
+
+    this.pinMode = sinon.spy(this.board.io, "pinMode");
     this.stepper = new Stepper({
-      board: board,
+      board: this.board,
       type: five.Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: [2, 3]
@@ -49,5 +117,5 @@ exports["Stepper - rpm / speed"] = {
     this.stepper.speed(1885);
     test.equal(this.stepper.rpm(), 180);
     test.done();
-  }
+  },
 };
