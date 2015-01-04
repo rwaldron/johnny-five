@@ -20,11 +20,7 @@ exports["Stepper Firmware Requirement"] = {
       io: new MockFirmata({
         pins: [
           {
-            supportedModes: [0, 1, 3, 4, 8],
-            mode: 1,
-            value: 0,
-            report: 1,
-            analogChannel: 127
+            supportedModes: [8],
           },
         ]
       }),
@@ -73,11 +69,7 @@ exports["Stepper - rpm / speed"] = {
       io: new MockFirmata({
         pins: [
           {
-            supportedModes: [0, 1, 3, 4, 8],
-            mode: 1,
-            value: 0,
-            report: 1,
-            analogChannel: 127
+            supportedModes: [8],
           },
         ]
       }),
