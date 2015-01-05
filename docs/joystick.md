@@ -27,7 +27,7 @@ board.on("ready", function() {
   });
 
   // Joystick Event API
-  joystick.on("axismove", function(err, timestamp) {
+  joystick.on("axismove", function() {
 
     // Axis data is available on:
     // this.axis

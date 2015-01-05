@@ -23,7 +23,7 @@ board.on("ready", function() {
         pwm: 9
         dir: 8
         cdir: 11
-        
+
       Motor B
         pwm: 10
         dir: 12
@@ -34,7 +34,7 @@ board.on("ready", function() {
         pwm: 6
         dir: 5
         cdir: 7
-        
+
       Motor B
         pwm: 4
         dir: 3
@@ -58,20 +58,20 @@ board.on("ready", function() {
     motor: motor
   });
 
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start", Date.now());
   });
 
-  motor.on("stop", function(err, timestamp) {
-    console.log("automated stop on timer", timestamp);
+  motor.on("stop", function() {
+    console.log("automated stop on timer", Date.now());
   });
 
-  motor.on("brake", function(err, timestamp) {
-    console.log("automated brake on timer", timestamp);
+  motor.on("brake", function() {
+    console.log("automated brake on timer", Date.now());
   });
 
-  motor.on("forward", function(err, timestamp) {
-    console.log("forward", timestamp);
+  motor.on("forward", function() {
+    console.log("forward", Date.now());
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
@@ -79,8 +79,8 @@ board.on("ready", function() {
     });
   });
 
-  motor.on("reverse", function(err, timestamp) {
-    console.log("reverse", timestamp);
+  motor.on("reverse", function() {
+    console.log("reverse", Date.now());
 
     // demonstrate braking after 5 seconds
     board.wait(5000, function() {

@@ -1,13 +1,14 @@
 var five = require("../lib/johnny-five");
 
 five.Board().on("ready", function() {
-  // This requires OneWire support using the ConfigurableFirmata
+  // This requires OneWire support using ConfigurableFirmata
+  // https://github.com/firmata/arduino/tree/configurable
   var temperature = new five.Temperature({
     controller: "DS18B20",
     pin: 2
   });
 
-  temperature.on("data", function(err, data) {
+  temperature.on("data", function(data) {
     console.log(data.celsius + "°C", data.fahrenheit + "°F");
     console.log("0x" + this.address.toString(16));
   });

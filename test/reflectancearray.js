@@ -120,7 +120,7 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, 77);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[1], [55, 66, 77]);
+    test.deepEqual(dataSpy.getCall(0).args[0], [55, 66, 77]);
 
     test.done();
   },
@@ -271,7 +271,7 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[1], __.pluck(testValues, "expected"));
+    test.deepEqual(dataSpy.getCall(0).args[0], __.pluck(testValues, "expected"));
 
     test.done();
   },
@@ -293,7 +293,7 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[1], 1000);
+    test.deepEqual(dataSpy.getCall(0).args[0], 1000);
     test.equal(this.eyes.isOnLine, true);
 
     test.done();
@@ -316,7 +316,7 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, 435);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[1], 1600);
+    test.deepEqual(dataSpy.getCall(0).args[0], 1600);
     test.equal(this.eyes.isOnLine, true);
 
     test.done();

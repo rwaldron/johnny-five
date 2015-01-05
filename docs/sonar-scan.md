@@ -124,7 +124,7 @@ board.on("ready", function() {
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", function(err) {
+  sonar.on("change", function() {
     var turnTo;
 
     // Detect collision

@@ -12,10 +12,8 @@ node eg/tinkerkit-accelerometer.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board, accel;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
@@ -26,7 +24,7 @@ board.on("ready", function() {
   // - Dual Axis http://www.tinkerkit.com/accelerometer/
   //
 
-  accel = new five.Accelerometer({
+  var accel = new five.Accelerometer({
     pins: ["I0", "I1"],
     freq: 100
   });
@@ -38,7 +36,7 @@ board.on("ready", function() {
   // Fires once every N ms, equal to value of freg
   // Defaults to 500ms
   //
-  accel.on("acceleration", function(err, timestamp) {
+  accel.on("acceleration", function() {
 
     console.log("acceleration", this.pitch, this.roll);
   });
@@ -47,7 +45,7 @@ board.on("ready", function() {
   //
   // Fires only when X, Y or Z has changed
   //
-  accel.on("axischange", function(err, timestamp) {
+  accel.on("axischange", function() {
 
     console.log("axischange", this.raw);
   });
