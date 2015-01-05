@@ -99,7 +99,7 @@ function makeTestAnalogConversion(opts) {
 
     test.equal(spy.callCount, 1);
 
-    var data = spy.firstCall.args[1];
+    var data = spy.firstCall.args[0];
     test.equal(Math.round(data.C), opts.C, "data.C");
     test.equal(Math.round(data.celsius), opts.C, "data.celsius");
     test.equal(Math.round(data.K), opts.K, "data.K");
@@ -550,9 +550,9 @@ exports["Temperature -- DS18B20"] = {
 
     this.clock.tick(100);
 
-    test.equals(Math.round(spy.args[0][1].celsius), 32);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 90);
-    test.equals(Math.round(spy.args[0][1].kelvin), 305);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 32);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 90);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 305);
 
     test.done();
   },
@@ -599,8 +599,8 @@ exports["Temperature -- DS18B20"] = {
 
     this.clock.tick(100);
 
-    test.equals(Math.round(spyA.args[0][1].celsius), 32);
-    test.equals(Math.round(spyB.args[0][1].celsius), 64);
+    test.equals(Math.round(spyA.getCall(0).args[0].celsius), 32);
+    test.equals(Math.round(spyB.getCall(0).args[0].celsius), 64);
 
     test.done();
   },
@@ -687,9 +687,9 @@ exports["Temperature -- MPU6050"] = {
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 49);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 121);
-    test.equals(Math.round(spy.args[0][1].kelvin), 323);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 49);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 121);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 323);
 
     test.done();
   }
@@ -863,9 +863,9 @@ exports["Temperature -- SI7020"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 24);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
-    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
 
     test.done();
   }
@@ -950,9 +950,9 @@ exports["Temperature -- HTU21D"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 24);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
-    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
 
     test.done();
   }
@@ -1081,9 +1081,9 @@ exports["Temperature -- MPL3115A2"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 24);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
-    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
 
     test.done();
   },
@@ -1147,12 +1147,12 @@ exports["Temperature -- MPL3115A2"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledTwice);
-    test.equals(Math.round(spy.args[0][1].celsius), 24);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
-    test.equals(Math.round(spy.args[0][1].kelvin), 297);
-    test.equals(Math.round(spy.args[1][1].celsius), 40);
-    test.equals(Math.round(spy.args[1][1].fahrenheit), 104);
-    test.equals(Math.round(spy.args[1][1].kelvin), 313);
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
+    test.equals(Math.round(spy.getCall(1).args[0].celsius), 40);
+    test.equals(Math.round(spy.getCall(1).args[0].fahrenheit), 104);
+    test.equals(Math.round(spy.getCall(1).args[0].kelvin), 313);
 
     test.done();
   }

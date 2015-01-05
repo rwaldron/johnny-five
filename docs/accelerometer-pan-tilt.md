@@ -50,7 +50,7 @@ board.on("ready", function() {
   // Center all servos
   (five.Servos()).center();
 
-  accel.on("acceleration", function(err, timestamp) {
+  accel.on("acceleration", function() {
     // console.log( "acceleration", this.axis );
 
     tilt.to(Math.abs(Math.ceil(170 * this.pitch.toFixed(2)) - 180));

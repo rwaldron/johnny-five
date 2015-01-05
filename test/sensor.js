@@ -216,7 +216,7 @@ exports["Sensor - Analog"] = {
       dataSpy = sinon.spy(),
       chgSpy = sinon.spy(),
       tickDelta, tickAccum, spyCall, raw, filtered;
-    test.expect(41);
+    test.expect(37);
 
     this.sensor.on("data", dataSpy);
     this.sensor.on("change", chgSpy);
@@ -270,12 +270,10 @@ exports["Sensor - Analog"] = {
     test.strictEqual(this.sensor.value, raw, "tick " + tickAccum + ": sensor value property expected to be the last value (" + raw + ") injected");
     // Check the arguments and context provided for the emitted events
     spyCall = dataSpy.getCall(0);
-    test.strictEqual(spyCall.args[0], null, "data event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "data event 'this' parameter expected to be source sensor object");
     spyCall = chgSpy.getCall(0);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     // Check for non-integer median value (when even number of data points and odd delta between middle two)
@@ -312,12 +310,10 @@ exports["Sensor - Analog"] = {
 
     // Check that both events provide the correct median value and context
     spyCall = dataSpy.getCall(1);
-    test.strictEqual(spyCall.args[0], null, "data event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "data event 'this' parameter expected to be source sensor object");
     spyCall = chgSpy.getCall(1);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     // Check that no events are emitted before the end of the next throttling interval
@@ -339,7 +335,7 @@ exports["Sensor - Analog"] = {
     test.strictEqual(this.sensor.value, raw, "sensor value property expected to be the last value (" + raw + ") read (injected)");
     // Check that the data event has the same filtered value as the previous event
     spyCall = dataSpy.getCall(2);
-    test.strictEqual(spyCall.args[1], filtered, "data event value expected to be still the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "data event value expected to be still the median (" + filtered + ") value");
 
     test.done();
   },// ./filtered: function(test)
@@ -369,7 +365,7 @@ exports["Sensor - Analog"] = {
     // elapsed (fake) time is at the end of the first (event throttling) interval
     tickAccum += tickDelta;
     test.ok(spy.calledOnce, "tick " + tickAccum + ": change event handler should have been called first time at tick " + this.defShape.freq);
-    test.strictEqual(spy.getCall(0).args[1], chgValue, "first change event value expected to be " + chgValue);
+    test.strictEqual(spy.getCall(0).args[0], chgValue, "first change event value expected to be " + chgValue);
 
     // Make sure that no change event is emitted before the end of the next throttling interval
     tickDelta = this.defShape.freq - 1;
@@ -403,7 +399,7 @@ exports["Sensor - Analog"] = {
     // elapsed time is now at the end of the third event throttling interval
     tickAccum += tickDelta;
     test.ok(spy.calledTwice, "tick " + tickAccum + ": change event handler should be called second time at tick " + (this.defShape.freq * 3));
-    test.strictEqual(spy.getCall(1).args[1], chgValue, "second change event value expected to be " + chgValue);
+    test.strictEqual(spy.getCall(1).args[0], chgValue, "second change event value expected to be " + chgValue);
 
     test.done();
   },// ./change: function(test)
@@ -413,7 +409,7 @@ exports["Sensor - Analog"] = {
     var callback = this.analogRead.args[0][1],
       spy = sinon.spy(),
       tickDelta, tickAccum, spyCall, raw, filtered, newShape;
-    test.expect(50);
+    test.expect(45);
 
     this.sensor.on("change", spy);
 
@@ -442,8 +438,7 @@ exports["Sensor - Analog"] = {
 
     // Verify the arguments and context for the call to the event handler
     spyCall = spy.getCall(0);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered,
+    test.strictEqual(spyCall.args[0], filtered,
       "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor),
       "change event 'this' parameter expected to be source sensor object");
@@ -496,8 +491,7 @@ exports["Sensor - Analog"] = {
 
     // Verify the arguments and context for the call to the event handler
     spyCall = spy.getCall(1);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     // Check that no new change event is emitted when the (filtered) value changes (down) by (just) less than the threshold
@@ -582,8 +576,7 @@ exports["Sensor - Analog"] = {
 
     // Verify the arguments and context for the call to the event handler
     spyCall = spy.getCall(2);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     // Only changes of 10 or more should trigger a change event
@@ -671,8 +664,7 @@ exports["Sensor - Analog"] = {
 
     // Verify the arguments and context for the call to the event handler
     spyCall = spy.getCall(3);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     // do a new read at the end of the current interval, after the event has been emitted.
@@ -708,8 +700,7 @@ exports["Sensor - Analog"] = {
 
     // Verify the arguments and context for the call to the event handler
     spyCall = spy.getCall(4);
-    test.strictEqual(spyCall.args[0], null, "change event err argument expected to be null");
-    test.strictEqual(spyCall.args[1], filtered, "change event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(spyCall.args[0], filtered, "change event value expected to be the median (" + filtered + ") value");
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     test.done();
@@ -769,7 +760,7 @@ exports["Sensor - Analog"] = {
     tickAccum += tickDelta;
     test.strictEqual(dataSpy.callCount, 1, "tick " + tickAccum +
       ": data event handler should be called first time at tick " + this.defShape.freq);
-    test.strictEqual(dataSpy.getCall(0).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(dataSpy.getCall(0).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.strictEqual(limitSpy.callCount + lowerSpy.callCount + upperSpy.callCount, 0,
       "tick " + tickAccum + ": no limit event handlers should be called while limit is null");
 
@@ -790,7 +781,7 @@ exports["Sensor - Analog"] = {
     tickAccum += tickDelta;
     test.strictEqual(dataSpy.callCount, 2, "tick " + tickAccum +
       ": data event handler should be called again time at tick " + this.defShape.freq * 2);
-    test.strictEqual(dataSpy.getCall(1).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(dataSpy.getCall(1).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.strictEqual(limitSpy.callCount + lowerSpy.callCount + upperSpy.callCount, 0,
       "tick " + tickAccum + ": no limit event handlers should be called while limit is null");
 
@@ -839,7 +830,7 @@ exports["Sensor - Analog"] = {
     tickAccum += tickDelta;
     test.strictEqual(dataSpy.callCount, 3, "tick " + tickAccum +
       ": data event handler should be called every multiple of " + this.defShape.freq + " ticks");
-    test.strictEqual(dataSpy.getCall(2).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(dataSpy.getCall(2).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.strictEqual(limitSpy.callCount + lowerSpy.callCount + upperSpy.callCount, 0,
       "tick " + tickAccum + ": no limit event handlers should be called while value is within the limits");
 
@@ -861,7 +852,7 @@ exports["Sensor - Analog"] = {
     tickAccum += tickDelta;
     test.strictEqual(dataSpy.callCount, 4, "tick " + tickAccum +
       ": data event handler should be called every multiple of " + this.defShape.freq + " ticks");
-    test.strictEqual(dataSpy.getCall(3).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(dataSpy.getCall(3).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
     test.strictEqual(limitSpy.callCount + lowerSpy.callCount + upperSpy.callCount, 0,
       "tick " + tickAccum + ": no limit event handlers should be called while value is within the limits");
 
@@ -881,10 +872,10 @@ exports["Sensor - Analog"] = {
       ": limit:lower event handler should be called at " + this.defShape.freq + " ticks; value at lower limit");
     test.strictEqual(upperSpy.callCount, 0, "tick " + tickAccum +
       ": limit:upper event handler should not be called at " + this.defShape.freq + " ticks; value at lower limit");
-    test.strictEqual(dataSpy.getCall(4).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(0).args[1], { boundary: "lower", value: filtered },
+    test.strictEqual(dataSpy.getCall(4).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.deepEqual(limitSpy.getCall(0).args[0], { boundary: "lower", value: filtered },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
-    test.strictEqual(lowerSpy.getCall(0).args[1], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(lowerSpy.getCall(0).args[0], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
 
     // check that a value matching the upper limit emits limit and limit:upper events
     raw = 550;
@@ -902,10 +893,10 @@ exports["Sensor - Analog"] = {
       ": limit:lower event handler should not be called at " + this.defShape.freq + " ticks; value at upper limit");
     test.strictEqual(upperSpy.callCount, 1, "tick " + tickAccum +
       ": limit:upper event handler should be called at " + this.defShape.freq + " ticks; value at upper limit");
-    test.strictEqual(dataSpy.getCall(5).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(1).args[1], { boundary: "upper", value: filtered },
+    test.strictEqual(dataSpy.getCall(5).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.deepEqual(limitSpy.getCall(1).args[0], { boundary: "upper", value: filtered },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
-    test.strictEqual(upperSpy.getCall(0).args[1], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(upperSpy.getCall(0).args[0], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
 
     // check that a very low value emits limit and limit:lower events
     raw = 0;
@@ -923,10 +914,10 @@ exports["Sensor - Analog"] = {
       ": limit:lower event handler should be called at " + this.defShape.freq + " ticks; value at lower limit");
     test.strictEqual(upperSpy.callCount, 1, "tick " + tickAccum +
       ": limit:upper event handler should not be called at " + this.defShape.freq + " ticks; value at lower limit");
-    test.strictEqual(dataSpy.getCall(6).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(2).args[1], { boundary: "lower", value: filtered },
+    test.strictEqual(dataSpy.getCall(6).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.deepEqual(limitSpy.getCall(2).args[0], { boundary: "lower", value: filtered },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
-    test.strictEqual(lowerSpy.getCall(1).args[1], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(lowerSpy.getCall(1).args[0], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
 
     // check that a very high value emits limit and limit:upper events
     raw = 1023;
@@ -944,10 +935,10 @@ exports["Sensor - Analog"] = {
       ": limit:lower event handler should not be called at " + this.defShape.freq + " ticks; value at upper limit");
     test.strictEqual(upperSpy.callCount, 2, "tick " + tickAccum +
       ": limit:upper event handler should be called at " + this.defShape.freq + " ticks; value at upper limit");
-    test.strictEqual(dataSpy.getCall(7).args[1], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(3).args[1], { boundary: "upper", value: filtered },
+    test.strictEqual(dataSpy.getCall(7).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
+    test.deepEqual(limitSpy.getCall(3).args[0], { boundary: "upper", value: filtered },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
-    test.strictEqual(upperSpy.getCall(1).args[1], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
+    test.strictEqual(upperSpy.getCall(1).args[0], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
 
     test.done();
   },// ./limit: function(test)
@@ -1273,11 +1264,11 @@ exports["Sensor - Digital"] = {
     callback(0);
     this.clock.tick(25);
 
-    test.equal(data.getCall(0).args[1], 1);
-    test.equal(data.getCall(1).args[1], 0);
+    test.equal(data.getCall(0).args[0], 1);
+    test.equal(data.getCall(1).args[0], 0);
 
-    test.equal(change.getCall(0).args[1], 1);
-    test.equal(change.getCall(1).args[1], 0);
+    test.equal(change.getCall(0).args[0], 1);
+    test.equal(change.getCall(1).args[0], 0);
     test.done();
   },
 
@@ -1304,8 +1295,8 @@ exports["Sensor - Digital"] = {
     callback(0);
     this.clock.tick(25);
 
-    test.equal(spy.getCall(0).args[1], 1);
-    test.equal(spy.getCall(1).args[1], 0);
+    test.equal(spy.getCall(0).args[0], 1);
+    test.equal(spy.getCall(1).args[0], 0);
     test.done();
   },
 

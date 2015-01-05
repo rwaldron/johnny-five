@@ -61,19 +61,19 @@ board.on("ready", function() {
   });
 
   motor.on("start", function() {
-    console.log("start");
+    console.log("start", Date.now());
   });
 
   motor.on("stop", function() {
-    console.log("automated stop on timer");
+    console.log("automated stop on timer", Date.now());
   });
 
   motor.on("brake", function() {
-    console.log("automated brake on timer");
+    console.log("automated brake on timer", Date.now());
   });
 
   motor.on("forward", function() {
-    console.log("forward");
+    console.log("forward", Date.now());
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
@@ -82,7 +82,7 @@ board.on("ready", function() {
   });
 
   motor.on("reverse", function() {
-    console.log("reverse");
+    console.log("reverse", Date.now());
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {

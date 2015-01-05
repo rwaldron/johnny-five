@@ -49,7 +49,6 @@ board.on("ready", function() {
   // Calculated distance to object in centimeters
   //
 
-
   ping.on("change", function() {
     console.log("Object is " + this.in + " inches away");
   });
