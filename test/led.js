@@ -488,11 +488,100 @@ exports["Led - PWM (Analog)"] = {
 };
 
 
-// TODO
-// exports["Led.Array"] = {
+exports["Led.Array"] = {
+  setUp: function(done) {
+    var board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
 
+    Led.purge();
 
-// };
+    this.a = new Led({
+      pin: 3,
+      board: board
+    });
+
+    this.b = new Led({
+      pin: 6,
+      board: board
+    });
+
+    this.c = new Led({
+      pin: 9,
+      board: board
+    });
+
+    this.spies = [
+      "brightness", "off"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(Led.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.spies.forEach(function(value) {
+      this[value].restore();
+    }.bind(this));
+    done();
+  },
+
+  initFromEmpty: function(test) {
+    test.expect(4);
+
+    var leds = new Led.Array();
+
+    test.equal(leds.length, 3);
+    test.equal(leds[0], this.a);
+    test.equal(leds[1], this.b);
+    test.equal(leds[2], this.c);
+
+    test.done();
+  },
+
+  initFromLedNumbers: function(test) {
+    test.expect(1);
+
+    var leds = new Led.Array([3, 7, 9]);
+
+    test.equal(leds.length, 3);
+    test.done();
+  },
+
+  initFromLeds: function(test) {
+    test.expect(1);
+
+    var leds = new Led.Array([
+      this.a, this.b, this.c
+    ]);
+
+    test.equal(leds.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var leds = new Led.Array();
+
+    leds.brightness(127);
+
+    test.equal(this.brightness.callCount, leds.length);
+    test.equal(this.brightness.getCall(0).args[0], 127);
+
+    leds.off();
+
+    test.equal(this.off.callCount, leds.length);
+
+    test.done();
+  },
+
+};
 
 exports["Led.RGB"] = {
 
