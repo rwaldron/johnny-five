@@ -49,6 +49,10 @@ exports["ESC"] = {
   tearDown: function(done) {
     this.clock.restore();
     this.servoWrite.restore();
+
+    if (this.spy) {
+      this.spy.restore();
+    }
     done();
   },
 
@@ -220,4 +224,100 @@ exports["ESC"] = {
 
     test.done();
   },
+};
+
+exports["ESC.Array"] = {
+  setUp: function(done) {
+    var board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    ESC.purge();
+
+    this.a = new ESC({
+      pin: 3,
+      board: board
+    });
+
+    this.b = new ESC({
+      pin: 6,
+      board: board
+    });
+
+    this.c = new ESC({
+      pin: 9,
+      board: board
+    });
+
+    this.spies = [
+      "speed",
+      "stop",
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(ESC.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.spies.forEach(function(value) {
+      this[value].restore();
+    }.bind(this));
+    done();
+  },
+
+  initFromEmpty: function(test) {
+    test.expect(4);
+
+    var escs = new ESC.Array();
+
+    test.equal(escs.length, 3);
+    test.equal(escs[0], this.a);
+    test.equal(escs[1], this.b);
+    test.equal(escs[2], this.c);
+
+    test.done();
+  },
+
+  initFromESCNumbers: function(test) {
+    test.expect(1);
+
+    var escs = new ESC.Array([3, 6, 9]);
+
+    test.equal(escs.length, 3);
+    test.done();
+  },
+
+  initFromESCs: function(test) {
+    test.expect(1);
+
+    var escs = new ESC.Array([
+      this.a, this.b, this.c
+    ]);
+
+    test.equal(escs.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var escs = new ESC.Array();
+
+    escs.speed(100);
+
+    test.equal(this.speed.callCount, escs.length);
+    test.equal(this.speed.getCall(0).args[0], 100);
+
+    escs.stop();
+
+    test.equal(this.stop.callCount, escs.length);
+
+    test.done();
+  },
+
 };

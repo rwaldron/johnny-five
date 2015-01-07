@@ -469,3 +469,98 @@ exports["Servo - PCA9685"] = {
   }
 
 };
+
+exports["Servo.Array"] = {
+  setUp: function(done) {
+    var board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    Servo.purge();
+
+    this.a = new Servo({
+      pin: 3,
+      board: board
+    });
+
+    this.b = new Servo({
+      pin: 6,
+      board: board
+    });
+
+    this.c = new Servo({
+      pin: 9,
+      board: board
+    });
+
+    this.spies = [
+      "to", "stop"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(Servo.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.spies.forEach(function(value) {
+      this[value].restore();
+    }.bind(this));
+    done();
+  },
+
+  initFromEmpty: function(test) {
+    test.expect(4);
+
+    var servos = new Servo.Array();
+
+    test.equal(servos.length, 3);
+    test.equal(servos[0], this.a);
+    test.equal(servos[1], this.b);
+    test.equal(servos[2], this.c);
+
+    test.done();
+  },
+
+  initFromServoNumbers: function(test) {
+    test.expect(1);
+
+    var servos = new Servo.Array([3, 6, 9]);
+
+    test.equal(servos.length, 3);
+    test.done();
+  },
+
+  initFromServos: function(test) {
+    test.expect(1);
+
+    var servos = new Servo.Array([
+      this.a, this.b, this.c
+    ]);
+
+    test.equal(servos.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var servos = new Servo.Array();
+
+    servos.to(90);
+
+    test.equal(this.to.callCount, servos.length);
+    test.equal(this.to.getCall(0).args[0], 90);
+
+    servos.stop();
+
+    test.equal(this.stop.callCount, servos.length);
+
+    test.done();
+  },
+
+};
