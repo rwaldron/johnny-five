@@ -188,7 +188,10 @@ module.exports = function(grunt) {
   // grunt nodeunit:just:motor for example
   grunt.registerTask("nodeunit:just", function(file) {
     if (file) {
-      grunt.config("nodeunit.tests", "test/" + file + ".js");
+      grunt.config("nodeunit.tests", [
+        "test/bootstrap.js",
+        "test/" + file + ".js",
+      ]);
     }
 
     grunt.task.run("nodeunit");
