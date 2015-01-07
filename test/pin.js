@@ -1,3 +1,5 @@
+global.IS_TEST_MODE = true;
+
 var five = require("../lib/johnny-five.js"),
   MockFirmata = require("./mock-firmata"),
   sinon = require("sinon"),
@@ -211,6 +213,99 @@ exports["Pin"] = {
   }
 };
 
+exports["Pin.Array"] = {
+  setUp: function(done) {
+    var board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    Pin.purge();
+
+    this.digital = new Pin({
+      pin: 11,
+      board: board
+    });
+
+    this.analog = new Pin({
+      pin: "A1",
+      board: board
+    });
+
+    this.dtoa = new Pin({
+      pin: 14,
+      board: board
+    });
+
+    this.spies = [
+      "write", "low"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(Pin.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.spies.forEach(function(value) {
+      this[value].restore();
+    }.bind(this));
+    done();
+  },
+
+  initFromEmpty: function(test) {
+    test.expect(4);
+
+    var pins = new Pin.Array();
+
+    test.equal(pins.length, 3);
+    test.equal(pins[0], this.digital);
+    test.equal(pins[1], this.analog);
+    test.equal(pins[2], this.dtoa);
+
+    test.done();
+  },
+
+  initFromPinNumbers: function(test) {
+    test.expect(1);
+
+    var pins = new Pin.Array([3, 7, 9]);
+
+    test.equal(pins.length, 3);
+    test.done();
+  },
+
+  initFromPins: function(test) {
+    test.expect(1);
+
+    var pins = new Pin.Array([
+      this.digital, this.analog, this.dtoa
+    ]);
+
+    test.equal(pins.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var pins = new Pin.Array();
+
+    pins.write(1);
+
+    test.equal(this.write.callCount, pins.length);
+    test.equal(this.write.getCall(0).args[0], 1);
+
+    pins.low();
+
+    test.equal(this.low.callCount, pins.length);
+
+    test.done();
+  },
+};
 
 exports["Pin.isPrefixed"] = {
   is: function(test) {
