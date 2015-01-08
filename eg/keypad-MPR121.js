@@ -1,5 +1,5 @@
 var exec = require("child_process").exec;
-var argv = require("minimist")(process.argv.slice(2));
+var argv = require("minimist")(process.argv.slice(2), { default: { show: 1 } });
 var five = require("../");
 var board = new five.Board();
 
@@ -36,11 +36,11 @@ board.on("ready", function() {
 
   ["change", "press", "hold", "release"].forEach(function(event) {
     keypad.on(event, function(data) {
-      // console.log("Event: %s, Which: %s", event, data);
+      console.log("Event: %s, Which: %s", event, data);
 
-      if (event === "press") {
-        exec("say " + data);
-      }
+      // if (event === "press") {
+      //   exec("say " + data);
+      // }
     });
   });
 });
