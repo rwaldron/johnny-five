@@ -4,19 +4,19 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
-  // MPR121 3x3 Capacitive Touch Pad
+  // MPR121QR2 3x3 Capacitive Touch Pad
   var keypad;
 
   if (argv.show === 1) {
     keypad = new five.Keypad({
-      controller: "MPR121",
+      controller: "MPR121QR2",
       address: 0x5A
     });
   }
 
   if (argv.show === 2) {
     keypad = new five.Keypad({
-      controller: "MPR121",
+      controller: "MPR121QR2",
       address: 0x5A,
       keys: [
         ["!", "@", "#"],
@@ -28,7 +28,7 @@ board.on("ready", function() {
 
   if (argv.show === 3) {
     keypad = new five.Keypad({
-      controller: "MPR121",
+      controller: "MPR121QR2",
       address: 0x5A,
       keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+"]
     });
