@@ -36,11 +36,11 @@ board.on("ready", function() {
 
   ["change", "press", "hold", "release"].forEach(function(event) {
     keypad.on(event, function(data) {
-      console.log("Event: %s, Which: %s", event, data);
+      // console.log("Event: %s, Which: %s", event, data);
 
-      // if (event === "press") {
-      //   exec("say " + data);
-      // }
+      if (event === "press") {
+        exec("say " + data);
+      }
     });
   });
 });

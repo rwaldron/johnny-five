@@ -39,9 +39,9 @@ board.on("ready", function() {
     keypad.on(event, function(data) {
       // console.log("Event: %s, Which: %s", event, data);
 
-      // if (event === "press") {
-      //   exec("say " + data);
-      // }
+      if (event === "press") {
+        exec("say " + data);
+      }
     });
   });
 });
