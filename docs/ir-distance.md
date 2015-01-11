@@ -48,7 +48,7 @@ board.on("ready", function() {
   distance.on("data", function() {
     if (controller) {
       console.log("inches: ", this.inches);
-      console.log("cm: ", this.cm, this.raw);
+      console.log("cm: ", this.centimers, this.raw);
     } else {
       console.log("value: ", this.value);
     }
