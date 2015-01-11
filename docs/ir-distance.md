@@ -7,12 +7,12 @@ node eg/ir-distance.js
 
 
 ```javascript
-// Run this program with a device model:
+// Run this program with a controller model:
 //
 //    node eg/ir-distance GP2Y0A02YK0F
 //
 //    You may also use the model number printed on the
-//    device itself. eg
+//    controller itself. eg
 //
 //    2Y0A21
 //    2D120X
@@ -36,17 +36,17 @@ node eg/ir-distance.js
 //
 var five = require("johnny-five"),
   board = new five.Board(),
-  device = process.argv[2] || "GP2Y0A02YK0F";
+  controller = process.argv[2] || "GP2Y0A02YK0F";
 
 board.on("ready", function() {
   var distance = new five.IR.Distance({
-    device: device,
+    controller: controller,
     pin: "A0",
     freq: 500
   });
 
   distance.on("data", function() {
-    if (device) {
+    if (controller) {
       console.log("inches: ", this.inches);
       console.log("cm: ", this.cm, this.raw);
     } else {

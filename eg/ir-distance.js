@@ -27,19 +27,19 @@
 //
 var five = require("../lib/johnny-five.js"),
   board = new five.Board(),
-  device = process.argv[2] || "GP2Y0A02YK0F";
+  controller = process.argv[2] || "GP2Y0A02YK0F";
 
 board.on("ready", function() {
   var distance = new five.IR.Distance({
-    device: device,
+    controller: controller,
     pin: "A0",
     freq: 500
   });
 
   distance.on("data", function() {
-    if (device) {
+    if (controller) {
       console.log("inches: ", this.inches);
-      console.log("cm: ", this.cm, this.raw);
+      console.log("cm: ", this.centimeters, this.raw);
     } else {
       console.log("value: ", this.value);
     }

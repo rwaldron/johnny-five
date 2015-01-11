@@ -63,7 +63,7 @@ exports["IR.Distance: GP2Y0A21YK"] = {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
-      device: "GP2Y0A21YK",
+      controller: "GP2Y0A21YK",
       pin: "A1",
       board: board
     });
@@ -97,7 +97,7 @@ exports["IR.Distance: GP2D120XJ00F"] = {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
-      device: "GP2D120XJ00F",
+      controller: "GP2D120XJ00F",
       pin: "A1",
       board: board
     });
@@ -130,7 +130,7 @@ exports["IR.Distance: GP2Y0A02YK0F"] = {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
-      device: "GP2Y0A02YK0F",
+      controller: "GP2Y0A02YK0F",
       pin: "A1",
       board: board
     });
@@ -164,7 +164,7 @@ exports["IR.Distance: GP2Y0A41SK0F"] = {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.distance = new Distance({
-      device: "GP2Y0A41SK0F",
+      controller: "GP2Y0A41SK0F",
       pin: "A1",
       board: board
     });
