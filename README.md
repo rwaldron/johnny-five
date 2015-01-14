@@ -290,6 +290,7 @@ board.on("ready", function() {
 - [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Demo Sequence](https://github.com/rwldrn/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
+- [Led Matrix HT16K33](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
 - [Seven Segment](https://github.com/rwldrn/johnny-five/blob/master/docs/seven-segment.md)
 - [Laser](https://github.com/rwldrn/johnny-five/blob/master/docs/laser.md)
 

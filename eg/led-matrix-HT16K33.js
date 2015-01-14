@@ -1,13 +1,4 @@
-# Led Matrix HT16K33
-
-Run with:
-```bash
-node eg/led-matrix-HT16K33.js
-```
-
-
-```javascript
-var five = require("johnny-five");
+var five = require("../lib/johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
@@ -32,19 +23,3 @@ board.on("ready", function() {
   matrix.clear();
   matrix.draw(heart);
 });
-
-```
-
-
-
-
-
-
-
-
-
-## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
-Licensed under the MIT license.
-Copyright (c) 2014, 2015 The Johnny-Five Contributors
-Licensed under the MIT license.
