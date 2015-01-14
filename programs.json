@@ -133,6 +133,7 @@
     "led-rainbow.js",
     "led-demo-sequence.js",
     "led-matrix.js",
+    "led-matrix-HT16K33.js",
     "seven-segment.js",
     "laser.js",
 
