@@ -180,6 +180,29 @@ exports["Servo"] = {
     test.done();
   },
 
+  degreeChange: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+    // We are spying on setInterval instead of servoWrite because the following set of
+    // parameters will result with setInterval will be called with an interval of infinity
+    var spy = sinon.spy(global, "setInterval");
+
+    this.servo.to(180);
+
+    this.servo.to(180, 1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(spy.callCount, 0);
+    test.ok(this.servoWrite.callCount,1);
+
+    test.done();
+  },
+
   fps: function(test) {
     test.expect(1);
 
