@@ -2,6 +2,7 @@ require("copy-paste");
 
 var inspect = require("util").inspect;
 var fs = require("fs");
+var shell = require("shelljs");
 
 module.exports = function(grunt) {
 
@@ -315,6 +316,16 @@ module.exports = function(grunt) {
     );
 
     log.writeln("Docs created.");
+  });
+
+  // run the docs task and fail if there are uncommitted changes to the docs directory
+  task.registerTask("test-docs", "Guard against out of date docs", ["docs", "fail-if-uncommitted-docs"]);
+
+  task.registerTask("fail-if-uncommitted-docs", function() {
+    task.requires("docs");
+    if (shell.exec("git diff --exit-code --name-status ./docs").code !== 0) {
+      grunt.fail.fatal("The generated docs don't match the committed docs. Please ensure you've run `grunt docs` before committing.");
+    }
   });
 
   grunt.registerTask("bump", "Bump the version", function(version) {

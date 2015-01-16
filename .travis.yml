@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "0.10"
 compiler: clang
+before_script:
+  - grunt test-docs
 notifications:
   webhooks:
     urls:

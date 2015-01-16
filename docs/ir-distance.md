@@ -7,12 +7,12 @@ node eg/ir-distance.js
 
 
 ```javascript
-// Run this program with a controller model:
+// Run this program with a device model:
 //
 //    node eg/ir-distance GP2Y0A02YK0F
 //
 //    You may also use the model number printed on the
-//    controller itself. eg
+//    device itself. eg
 //
 //    2Y0A21
 //    2D120X
@@ -48,7 +48,7 @@ board.on("ready", function() {
   distance.on("data", function() {
     if (controller) {
       console.log("inches: ", this.inches);
-      console.log("cm: ", this.centimers, this.raw);
+      console.log("cm: ", this.centimeters, this.raw);
     } else {
       console.log("value: ", this.value);
     }

@@ -119,16 +119,17 @@
   "devDependencies": {
     "async": "~0.9.0",
     "copy-paste": "~0.3.0",
-    "optimist": "~0.6.1",
-    "keypress": "latest",
-    "sinon": "~1.10.2",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2",
-    "grunt-jscs": "~0.8.0"
+    "grunt-jscs": "~0.8.0",
+    "keypress": "latest",
+    "optimist": "~0.6.1",
+    "shelljs": "^0.3.0",
+    "sinon": "~1.10.2"
   },
   "scripts": {
     "test": "grunt"
