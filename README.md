@@ -283,7 +283,6 @@ board.on("ready", function() {
 - [Led Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
 - [Led Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
-- [Led Digital](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digital.md)
 - [Led Analog](https://github.com/rwaldron/johnny-five/blob/master/docs/led-analog.md)
 - [Led Status](https://github.com/rwaldron/johnny-five/blob/master/docs/led-status.md)
 - [Led Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
