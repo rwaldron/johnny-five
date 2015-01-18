@@ -3,7 +3,7 @@ node_js:
   - "0.10"
 compiler: clang
 before_script:
-  - grunt test-docs
+  - grunt test-examples
 notifications:
   webhooks:
     urls:

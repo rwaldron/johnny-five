@@ -17,10 +17,10 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
 
   var templates = {
-    doc: _.template(file.read("tpl/.docs.md")),
+    eg: _.template(file.read("tpl/.eg.md")),
     img: _.template(file.read("tpl/.img.md")),
     fritzing: _.template(file.read("tpl/.fritzing.md")),
-    doclink: _.template(file.read("tpl/.readme.doclink.md")),
+    eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
     noedit: _.template(file.read("tpl/.noedit.md")),
     plugin: _.template(file.read("tpl/.plugin.md")),
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
-    docs: {
+    examples: {
       files: ["programs.json"]
     },
     nodeunit: {
@@ -206,11 +206,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
 
-  grunt.registerMultiTask("docs", "generate simple docs from examples", function() {
+  grunt.registerMultiTask("examples", "generate simple examples from examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
     var readme = [];
-    var tplType = "doc";
+    var tplType = "eg";
 
     entries.forEach(function(entry) {
 
@@ -223,7 +223,7 @@ module.exports = function(grunt) {
 
       if (isHeading) {
 
-        tplType = entry.length === 2 ? entry[1] : "doc";
+        tplType = entry.length === 2 ? entry[1] : "eg";
 
         // Produces:
         // "### Heading\n"
@@ -305,26 +305,26 @@ module.exports = function(grunt) {
         file.write(md, templates[tplType](values));
 
         // Push a rendered markdown link into the readme "index"
-        readme.push(templates.doclink(values));
+        readme.push(templates.eglink(values));
       }
     });
 
     // Write the readme with doc link index
     file.write("README.md",
       templates.noedit() +
-      templates.readme({ doclinks: readme.join("") })
+      templates.readme({ eglinks: readme.join("") })
     );
 
-    log.writeln("Docs created.");
+    log.writeln("Examples created.");
   });
 
-  // run the docs task and fail if there are uncommitted changes to the docs directory
-  task.registerTask("test-docs", "Guard against out of date docs", ["docs", "fail-if-uncommitted-docs"]);
+  // run the examples task and fail if there are uncommitted changes to the docs directory
+  task.registerTask("test-examples", "Guard against out of date examples", ["examples", "fail-if-uncommitted-examples"]);
 
-  task.registerTask("fail-if-uncommitted-docs", function() {
-    task.requires("docs");
+  task.registerTask("fail-if-uncommitted-examples", function() {
+    task.requires("examples");
     if (shell.exec("git diff --exit-code --name-status ./docs").code !== 0) {
-      grunt.fail.fatal("The generated docs don't match the committed docs. Please ensure you've run `grunt docs` before committing.");
+      grunt.fail.fatal("The generated examples don't match the committed examples. Please ensure you've run `grunt examples` before committing.");
     }
   });
 
