@@ -206,7 +206,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
 
-  grunt.registerMultiTask("examples", "generate simple examples from examples", function() {
+  grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
     var readme = [];
