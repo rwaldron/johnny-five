@@ -12,7 +12,7 @@ module.exports = function(five) {
         return new Component(opts);
       }
 
-      // Board.Device
+      // Board.Component
       //    - Register the component with an
       //      existing Board instance.
       //
@@ -22,7 +22,7 @@ module.exports = function(five) {
       //        to `this.pin = value`
       //      - Calls an IO Plugin's `normalize` method
       //
-      Board.Device.call(
+      Board.Component.call(
         this, opts = Board.Options(opts)
       );
 
