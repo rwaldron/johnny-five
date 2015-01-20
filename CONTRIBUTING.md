@@ -5,13 +5,13 @@ Do you want to help out but don't know where to start?
 ### Guideline Contents
 
 There are a lot of ways to get involved and help out:
-[Reporting an issue](#reporting-issues)
-[Requesting features](#requesting-features)
-[Requesting Support for new hardware](#hardware-support)
-[Submitting Pullrequests](#pullrequests)
-[Writing tests](#writing-tests)
-[Writing Documentation](#writing-docs)
-[Sample Projects](#sample-projects)
+- [Reporting an issue](#reporting-issues)
+- [Requesting features](#requesting-features)
+- [Requesting Support for new hardware](#hardware-support)
+- [Submitting Pullrequests](#pullrequests)
+- [Writing tests](#writing-tests)
+- [Writing Documentation](#writing-docs)
+- [Sample Projects](#sample-projects)
 
 <a name="reporting-issues"></a>
 ## Reporting An Issue
