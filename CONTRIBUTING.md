@@ -49,7 +49,7 @@ Often, people get a new cool toy and wonder "does Johnny-Five support this yet?"
 To submit a request to support new hardware, first create a [github issue](https://github.com/rwaldron/johnny-five/issues) and include a link to the specs of the hardware and where one can purchase it. Often, it might be suggested that you be the one to help implement the support yourself if you're already in possession of the product.
 
 <a name="pullrequests"></a>
-## Submitting Pullrequests
+## Submitting Pull Requests
 
 To contribute code to Johnny-Five, fork the project onto your github account and do your work in a branch. Before you submit the PR, make sure to rebase master into your branch so that you have the most recent changes and nothing breaks or conflicts.  Lint and test your code using [grunt](https://github.com/gruntjs/grunt). Also squash your commits to a reasonable size before submitting.
 
