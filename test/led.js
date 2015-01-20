@@ -634,14 +634,14 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   brightness: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     this.led.off();
     this.led.brightness(255);
     test.ok(this.spy.calledWith(64, [6, 0, 0, 4095, 15]));
 
-    // this.led.brightness(100);
-    // test.ok(this.spy.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 15]));
+    this.led.brightness(100);
+    test.ok(this.spy.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
 
     this.led.brightness(0);
     test.ok(this.spy.calledWith(64, [6, 0, 0, 0, 0]));
