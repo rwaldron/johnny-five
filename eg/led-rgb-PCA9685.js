@@ -5,8 +5,11 @@ five.Board().on("ready", function() {
 
   // Initialize the RGB LED
   var led = new five.Led.RGB({
-    pins: [0, 1, 2],
-    address: 0x40,
+    pins: {
+      red: 0,
+      green: 1,
+      blue: 2
+    },
     controller: "PCA9685"
   });
 
@@ -18,7 +21,10 @@ five.Board().on("ready", function() {
   //   green: g,
   //   blue: b
   // }
-  //var led = new five.Led.RGB([3,5,6]);
+  // var led = new five.Led.RGB({
+  //   pins: [0, 1, 2],
+  //   controller: "PCA9685"
+  // });
 
   // Add led to REPL (optional)
   this.repl.inject({
