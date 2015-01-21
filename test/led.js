@@ -361,16 +361,16 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.mode = 1;
     this.led.pulse();
-    this.clock.tick(1001);
+    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     this.led.mode = 1;
     this.led.fade();
-    this.clock.tick(1001);
+    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     this.led.strobe();
-    this.clock.tick(1001);
+    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     test.done();
@@ -493,7 +493,7 @@ exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.io, "sendI2CWriteRequest");
+    this.spy = sinon.spy(this.board.io, "i2cWriteReg");
 
     this.led = new Led({
       address: 0x40,
