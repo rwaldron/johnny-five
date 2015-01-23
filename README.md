@@ -240,7 +240,7 @@ board.on("ready", function() {
 - [Motor 3 Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motobot](https://github.com/rwaldron/johnny-five/blob/master/docs/motobot.md)
 
-### Stepper
+### Stepper Motor
 - [Stepper Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
 - [Stepper Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-sweep.md)
 
@@ -350,9 +350,6 @@ board.on("ready", function() {
 ### Wii
 - [Nunchuk](https://github.com/rwaldron/johnny-five/blob/master/docs/nunchuk.md)
 - [Classic Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/classic-controller.md)
-
-### Spark
-- [Spark Io Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io-blink.md)
 
 <!--extract-end:examples-->
 
