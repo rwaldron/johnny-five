@@ -134,7 +134,7 @@
     "topic": "Relay",
     "classes": ["Relay"],
     "files": [
-      "relay.js"
+      "relay-lamp-controller.js"
     ]
   },
   {

@@ -261,7 +261,7 @@ board.on("ready", function() {
 - [Button Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
 
 ### Relay
-- [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
+- [Relay Lamp Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-lamp-controller.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
 - [Ir Distance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-distance.md)
