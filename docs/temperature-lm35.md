@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Temperature Lm35
 
 Run with:
 ```bash
 node eg/temperature-lm35.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -30,9 +31,10 @@ five.Board().on("ready", function() {
 - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

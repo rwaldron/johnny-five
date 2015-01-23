@@ -1,28 +1,23 @@
+<!--remove-start-->
 # Claw
 
 Run with:
 ```bash
 node eg/claw.js
 ```
-
+<!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  var claw = new five.Servo({
-    pin: 9
-  }),
-    arm = five.Servo({
-      pin: 10
-    }),
-    degrees = 10,
-    incrementer = 10,
-    last;
+  var claw = new five.Servo(9);
+  var arm = five.Servo(10);
+  var degrees = 10;
+  var incrementer = 10;
+  var last;
 
   this.loop(25, function() {
 
@@ -58,9 +53,10 @@ board.on("ready", function() {
 
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

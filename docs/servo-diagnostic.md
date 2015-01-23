@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Servo Diagnostic
 
 Run with:
 ```bash
 node eg/servo-diagnostic.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -78,9 +79,10 @@ args.forEach(function(val) {
 
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

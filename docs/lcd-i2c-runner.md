@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Lcd I2c Runner
 
 Run with:
 ```bash
 node eg/lcd-i2c-runner.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var colors = require("../eg/color-list");
@@ -54,9 +55,10 @@ board.on("ready", function() {
 
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

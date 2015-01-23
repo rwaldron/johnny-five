@@ -1,34 +1,31 @@
+<!--remove-start-->
 # Nodeconf Compass
 
 Run with:
 ```bash
 node eg/nodeconf-compass.js
 ```
-
+<!--remove-end-->
 
 ```javascript
-var color = require("colors"),
-  five = require("johnny-five"),
-  colors, mag;
+var color = require("colors");
+var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
 
   // Create an I2C `Magnetometer` instance
-  mag = new five.Magnetometer();
+  var mag = new five.Magnetometer();
 
   // As the heading changes, log heading value
   mag.on("headingchange", function() {
-    var log;
-
-    log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
-
     console.log(
-      log[colors[this.bearing.abbr]]
+      (this.bearing.name + " " + Math.floor(this.heading) + "°")[colors[this.bearing.abbr]]
     );
   });
 });
 
-colors = {
+var colors = {
   N: "red",
   NbE: "red",
   NNE: "red",
@@ -72,9 +69,10 @@ colors = {
 
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

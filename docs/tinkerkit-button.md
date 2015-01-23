@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Tinkerkit Button
 
 Run with:
 ```bash
 node eg/tinkerkit-button.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -35,9 +36,10 @@ new five.Board().on("ready", function() {
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

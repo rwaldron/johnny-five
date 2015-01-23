@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Magnetometer North
 
 Run with:
 ```bash
 node eg/magnetometer-north.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var color = require("colors"),
@@ -128,9 +129,10 @@ colors = {
 
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

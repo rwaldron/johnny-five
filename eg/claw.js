@@ -1,19 +1,13 @@
-var five = require("../lib/johnny-five.js"),
-  board;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  var claw = new five.Servo({
-    pin: 9
-  }),
-    arm = five.Servo({
-      pin: 10
-    }),
-    degrees = 10,
-    incrementer = 10,
-    last;
+  var claw = new five.Servo(9);
+  var arm = five.Servo(10);
+  var degrees = 10;
+  var incrementer = 10;
+  var last;
 
   this.loop(25, function() {
 

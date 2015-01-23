@@ -1,10 +1,11 @@
+<!--remove-start-->
 # Lcd
 
 Run with:
 ```bash
 node eg/lcd.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -70,9 +71,10 @@ board.on("ready", function() {
 [20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)
 
 
-
+<!--remove-start-->
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->
