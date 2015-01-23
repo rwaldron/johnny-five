@@ -16,28 +16,28 @@ board.on("ready", function() {
 
   // Print defaut status
   console.log("default status");
-  printStatus();
+  status();
 
   // Turn LED on and print status
   console.log("led.on()");
   led.on();
-  printStatus();
+  status();
 
   // Start blink and print status
   console.log("led.blink()");
   led.blink();
-  printStatus();
+  status();
   led.stop();
 
   // Set brightness and print status
   console.log("led.brightness(25)");
   led.brightness(25);
-  printStatus();
+  status();
 
   // Start pulse and print status
   console.log("led.pulse(500)");
   led.pulse(500);
-  printStatus();
+  status();
 
   // Wait 3 seconds, stop, and print status
   this.wait(3000, function() {
@@ -45,15 +45,14 @@ board.on("ready", function() {
     led.stop();
     // Note that value/isOn will reflect the state of
     // the pulse when stop() was called.
-    printStatus();
+    status();
   });
 
+  function status() {
+    console.log("led.value = %d", led.value); // print analog brightness of LED
+    console.log("led.mode = %d", led.mode); // print the pin mode (1 is OUTPUT, 3 is PWM)
+    console.log("led.isOn = %s", led.isOn); // print if the LED is on
+    console.log("led.isRunning = %s", led.isRunning); // print if animation currently running
+    console.log("");
+  }
 });
-
-function printStatus() {
-  console.log("led.value = %d", led.value); // print analog brightness of LED
-  console.log("led.mode = %d", led.mode); // print the pin mode (1 is OUTPUT, 3 is PWM)
-  console.log("led.isOn = %s", led.isOn); // print if the LED is on
-  console.log("led.isRunning = %s", led.isRunning); // print if animation currently running
-  console.log("");
-}
