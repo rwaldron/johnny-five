@@ -37,6 +37,10 @@ board.on("ready", function() {
 
 The breadboard diagram shows a Keyes Relay, however any Relay component will work.
 
+Learn More:
+
+- [JavaScript: Relay Control with Johnny-Five on Node](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
+
 
 
 <!--remove-start-->
