@@ -168,21 +168,6 @@ board.on("ready", function() {
 ## Example Programs
 <!--extract-start:examples-->
 
-### Nodebots
-- [Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
-- [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
-- [Ed](https://github.com/rwaldron/johnny-five/blob/master/docs/ed.md)
-- [Gripper](https://github.com/rwaldron/johnny-five/blob/master/docs/gripper.md)
-- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
-- [Line Follower](https://github.com/rwaldron/johnny-five/blob/master/docs/line-follower.md)
-- [Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/navigator.md)
-- [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
-- [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
-- [Nodeconf Compass](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-compass.md)
-- [Nodeconf Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-navigator.md)
-- [Nodeconf Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-radar.md)
-- [Nodeconf Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-slider.md)
-
 ### Board
 - [Board](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
 - [Board With Port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)

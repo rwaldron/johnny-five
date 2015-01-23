@@ -1,23 +1,5 @@
 [
   {
-    "topic": "Nodebots",
-    "files": [
-      "claw.js",
-      "bug.js",
-      "ed.js",
-      "gripper.js",
-      "kinect-arm-controller.js",
-      "line-follower.js",
-      "navigator.js",
-      "radar.js",
-      "whisker.js",
-      "nodeconf-compass.js",
-      "nodeconf-navigator.js",
-      "nodeconf-radar.js",
-      "nodeconf-slider.js"
-    ]
-  },
-  {
     "topic": "Board",
     "classes": ["Board"],
     "files": [
