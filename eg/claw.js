@@ -31,5 +31,13 @@ board.on("ready", function() {
 });
 
 
-// Claw Assembly Instructions
-// http://blasphemousbits.wordpress.com/2011/11/05/sparkfun-robot-claw/
+// @markdown
+//
+// - [Robotic Claw](https://www.sparkfun.com/products/11524)
+// - [Robotic Claw Pan/Tilt](https://www.sparkfun.com/products/11674)
+// - [Robotic Claw Assembly](https://www.sparkfun.com/tutorials/258)
+//
+// ![Robotic Claw](https://cdn.sparkfun.com//assets/parts/7/4/4/4/11524-01a.jpg)
+// ![Robotic Claw Pan/Tilt](https://cdn.sparkfun.com//assets/parts/7/7/6/7/11674-02.jpg)
+//
+// @markdown
