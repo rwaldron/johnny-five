@@ -1,21 +1,18 @@
-var five = require("../lib/johnny-five.js"),
-  temporal = require("temporal"),
-  board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var temporal = require("temporal");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var events, strobe, analog;
-
-  events = [];
-  strobe = new five.Pin({
-    addr: 13
-  });
+  var events = [];
+  var strobe = new five.Pin(13);
 
   temporal.loop(500, function(loop) {
     strobe[loop.called % 2 === 0 ? "high" : "low"]();
   });
 
 
-  // Event tests
+  // Pin emits "high" and "low" events, whether it's
+  // input or output.
   ["high", "low"].forEach(function(state) {
     strobe.on(state, function() {
       if (events.indexOf(state) === -1) {
@@ -25,8 +22,9 @@ board.on("ready", function() {
     });
   });
 
-  analog = new five.Pin("A0");
+  var analog = new five.Pin("A0");
 
+  // Query the analog pin for its current state.
   analog.query(function(state) {
     console.log(state);
   });
