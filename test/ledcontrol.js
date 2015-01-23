@@ -218,6 +218,32 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
+
+  draw: function(test) {
+    test.expect(2);
+
+    test.doesNotThrow(function() {
+      this.lc.draw([
+        "00111100",
+        "01000010",
+        "10100101",
+        "10000001",
+        "10100101",
+        "10011001",
+        "01000010",
+        "00111100"
+      ]);
+    }.bind(this));
+
+    test.throws(function() {
+      this.lc.draw([
+        "00111100",
+      ]);
+    }.bind(this));
+
+    test.done();
+  },
+
   drawStringArray: function(test) {
     test.expect(2);
 
@@ -345,7 +371,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
       [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0,    0,    0,    0,    0 ] ],
       [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0,    0,    0 ] ],
       [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0 ] ] 
+      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0 ] ]
 
 
     ];
