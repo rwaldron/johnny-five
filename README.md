@@ -168,9 +168,20 @@ board.on("ready", function() {
 ## Example Programs
 <!--extract-start:examples-->
 
-### Animation
-- [Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/animation.md)
-- [Phoenix](https://github.com/rwaldron/johnny-five/blob/master/docs/phoenix.md)
+### Nodebots
+- [Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
+- [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
+- [Ed](https://github.com/rwaldron/johnny-five/blob/master/docs/ed.md)
+- [Gripper](https://github.com/rwaldron/johnny-five/blob/master/docs/gripper.md)
+- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
+- [Line Follower](https://github.com/rwaldron/johnny-five/blob/master/docs/line-follower.md)
+- [Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/navigator.md)
+- [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
+- [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
+- [Nodeconf Compass](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-compass.md)
+- [Nodeconf Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-navigator.md)
+- [Nodeconf Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-radar.md)
+- [Nodeconf Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-slider.md)
 
 ### Board
 - [Board](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
@@ -183,27 +194,29 @@ board.on("ready", function() {
 - [Pin Dtoa](https://github.com/rwaldron/johnny-five/blob/master/docs/pin-dtoa.md)
 - [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
 
-### Plugin Template
-- [Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
-
-### JSConf
-- [Nodebot](https://github.com/rwaldron/johnny-five/blob/master/docs/nodebot.md)
-
-### Nodebots
-- [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
-- [Ed](https://github.com/rwaldron/johnny-five/blob/master/docs/ed.md)
-- [Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/navigator.md)
-- [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
-- [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
-- [Line Follower](https://github.com/rwaldron/johnny-five/blob/master/docs/line-follower.md)
-
-### IMU
-- [Imu Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+### LED
+- [Led](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
+- [Led On Off](https://github.com/rwaldron/johnny-five/blob/master/docs/led-on-off.md)
+- [Led Strobe](https://github.com/rwaldron/johnny-five/blob/master/docs/led-strobe.md)
+- [Led Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
+- [Led Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
+- [Led Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
+- [Led Analog](https://github.com/rwaldron/johnny-five/blob/master/docs/led-analog.md)
+- [Led Status](https://github.com/rwaldron/johnny-five/blob/master/docs/led-status.md)
+- [Led Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
+- [Led Rgb](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
+- [Led Rgb Anode](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
+- [Led Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
+- [Led Demo Sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
+- [Led Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
+- [Led Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
+- [Led Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
+- [Seven Segment](https://github.com/rwaldron/johnny-five/blob/master/docs/seven-segment.md)
+- [Laser](https://github.com/rwaldron/johnny-five/blob/master/docs/laser.md)
 
 ### Servo
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
-- [Servo Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-sweep.md)
 - [Servo Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo Keypress](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-keypress.md)
@@ -211,8 +224,11 @@ board.on("ready", function() {
 - [Servo Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
 - [Servo Diagnostic](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Array](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
-- [Boe Test Servos](https://github.com/rwaldron/johnny-five/blob/master/docs/boe-test-servos.md)
 - [Servo PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+
+### Servo Animation
+- [Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/animation.md)
+- [Phoenix](https://github.com/rwaldron/johnny-five/blob/master/docs/phoenix.md)
 
 ### Motor
 - [Motor](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
@@ -247,13 +263,7 @@ board.on("ready", function() {
 ### Relay
 - [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
 
-### Claw
-- [Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
-
-### Gripper
-- [Gripper](https://github.com/rwaldron/johnny-five/blob/master/docs/gripper.md)
-
-### Infrared
+### Infrared (Proximity, Motion, Reflectance)
 - [Ir Distance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-distance.md)
 - [Ir Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
@@ -276,45 +286,16 @@ board.on("ready", function() {
 - [Lcd I2c](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
 - [Lcd I2c Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)
 
-### LED
-- [Led](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
-- [Led On Off](https://github.com/rwaldron/johnny-five/blob/master/docs/led-on-off.md)
-- [Led Strobe](https://github.com/rwaldron/johnny-five/blob/master/docs/led-strobe.md)
-- [Led Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
-- [Led Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
-- [Led Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
-- [Led Analog](https://github.com/rwaldron/johnny-five/blob/master/docs/led-analog.md)
-- [Led Status](https://github.com/rwaldron/johnny-five/blob/master/docs/led-status.md)
-- [Led Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
-- [Led Rgb](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
-- [Led Rgb Anode](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
-- [Led Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
-- [Led Demo Sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
-- [Led Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
-- [Led Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
-- [Seven Segment](https://github.com/rwaldron/johnny-five/blob/master/docs/seven-segment.md)
-- [Laser](https://github.com/rwaldron/johnny-five/blob/master/docs/laser.md)
-
 ### Magnetometer (Compass)
 - [Magnetometer Log](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
 - [Magnetometer North](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
 - [Magnetometer](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
 
-### NodeConf Demos
-- [Nodeconf Compass](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-compass.md)
-- [Nodeconf Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-navigator.md)
-- [Nodeconf Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-radar.md)
-- [Nodeconf Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/nodeconf-slider.md)
-
-### Sound
+### Piezo
 - [Piezo](https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md)
 
-### Kinect
-- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
-
-### Wii
-- [Nunchuk](https://github.com/rwaldron/johnny-five/blob/master/docs/nunchuk.md)
-- [Classic Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/classic-controller.md)
+### IMU
+- [Imu Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
 
 ### Sensors
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
@@ -340,6 +321,9 @@ board.on("ready", function() {
 - [Temperature Ds18b20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
+### Plugin Template
+- [Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+
 ### Grove IoT Kit (Seeed Studio)
 - [Grove Led](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
 - [Grove Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button.md)
@@ -362,6 +346,10 @@ board.on("ready", function() {
 - [Tinkerkit Thermistor](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-thermistor.md)
 - [Tinkerkit Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-tilt.md)
 - [Tinkerkit Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-touch.md)
+
+### Wii
+- [Nunchuk](https://github.com/rwaldron/johnny-five/blob/master/docs/nunchuk.md)
+- [Classic Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/classic-controller.md)
 
 ### Spark
 - [Spark Io Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io-blink.md)

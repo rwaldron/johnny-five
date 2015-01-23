@@ -214,40 +214,20 @@ module.exports = function(grunt) {
 
     entries.forEach(function(entry) {
 
-      var values, markdown, eg, md, png, fzz, title,
-        hasPng, hasFzz, inMarkdown, filepath, fritzfile, fritzpath;
+      var topic = entry.topic;
+      var tplType = entry.tplType || "eg";
 
-      var isHeading = Array.isArray(entry);
-      var heading = isHeading ? entry[0] : null;
+      readme.push("\n### " + topic + "\n");
 
+      entry.files.forEach(function(value) {
 
-      if (isHeading) {
-
-        tplType = entry.length === 2 ? entry[1] : "eg";
-
-        // Produces:
-        // "### Heading\n"
-        readme.push("\n### " + heading + "\n");
-
-        // TODO: figure out a way to have tiered subheadings
-        // readme.push(
-        //   entry.reduce(function( prev, val, k ) {
-        //     // Produces:
-        //     // "### Board\n"
-        //     return prev + (Array(k + 4).join("#")) + " " + val + "\n";
-        //   }, "")
-        // );
-      } else {
-
-        filepath = "eg/" + entry;
-
-        eg = file.read(filepath);
-        md = "docs/" + entry.replace(".js", ".md");
-        png = "docs/breadboard/" + entry.replace(".js", ".png");
-        fzz = "docs/breadboard/" + entry.replace(".js", ".fzz");
-        title = entry;
-
-        markdown = [];
+        var markdown = [];
+        var filepath = "eg/" + value;
+        var eg = file.read(filepath);
+        var md = "docs/" + value.replace(".js", ".md");
+        var png = "docs/breadboard/" + value.replace(".js", ".png");
+        var fzz = "docs/breadboard/" + value.replace(".js", ".fzz");
+        var title = value;
 
         // Generate a title string from the file name
         [
@@ -258,40 +238,38 @@ module.exports = function(grunt) {
           title = "".replace.apply(title, args);
         });
 
-        fritzpath = fzz.split("/");
-        fritzfile = fritzpath[fritzpath.length - 1];
-        inMarkdown = false;
+        var fritzpath = fzz.split("/");
+        var fritzfile = fritzpath[fritzpath.length - 1];
+        var inMarkdown = false;
 
         // Modify code in example to appear as it would if installed via npm
-        eg = eg.replace(/\.\.\/lib\/|\.js/g, "")
-          .split("\n").filter(function(line) {
+        eg = eg.replace(/\.\.\/lib\/|\.js/g, "").split("\n").filter(function(line) {
+          if (/@markdown/.test(line)) {
+            inMarkdown = !inMarkdown;
+            return false;
+          }
 
-            if (/@markdown/.test(line)) {
-              inMarkdown = !inMarkdown;
-              return false;
+          if (inMarkdown) {
+            line = line.trim();
+            if (line) {
+              markdown.push(
+                line.replace(/^\/\//, "").trim()
+              );
             }
+            // Filter out the markdown lines
+            // from the main content.
+            return false;
+          }
 
-            if (inMarkdown) {
-              line = line.trim();
-              if (line) {
-                markdown.push(
-                  line.replace(/^\/\//, "").trim()
-                );
-              }
-              // Filter out the markdown lines
-              // from the main content.
-              return false;
-            }
+          return true;
+        }).join("\n");
 
-            return true;
-          }).join("\n");
-
-        hasPng = fs.existsSync(png);
-        hasFzz = fs.existsSync(fzz);
+        var hasPng = fs.existsSync(png);
+        var hasFzz = fs.existsSync(fzz);
 
         // console.log( markdown );
 
-        values = {
+        var values = {
           title: _.titleize(title),
           command: "node " + filepath,
           example: eg,
@@ -306,7 +284,7 @@ module.exports = function(grunt) {
 
         // Push a rendered markdown link into the readme "index"
         readme.push(templates.eglink(values));
-      }
+      });
     });
 
     // Write the readme with doc link index

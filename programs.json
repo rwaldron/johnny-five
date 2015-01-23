@@ -1,211 +1,272 @@
 [
-
-
-  [ "Animation"],
-    "animation.js",
-    "phoenix.js",
-
-  [ "Board" ],
-    "board.js",
-    "board-with-port.js",
-    "board-multi.js",
-    "repl.js",
-    "shiftregister.js",
-    "pin.js",
-    "pin-circuit-event.js",
-    "pin-dtoa.js",
-    "whisker.js",
-
-  [ "Plugin Template", "plugin" ],
-    "plugin.js",
-
-  [ "JSConf" ],
-    "nodebot.js",
-
-
-  [ "Nodebots" ],
-    "bug.js",
-    "ed.js",
-    "navigator.js",
-    "radar.js",
-    "whisker.js",
-    "line-follower.js",
-
-  [ "IMU" ],
-    "imu-mpu6050.js",
-
-  [ "Servo" ],
-    "servo.js",
-    "servo-continuous.js",
-    "servo-sweep.js",
-    "servo-slider.js",
-    "servo-prompt.js",
-    "servo-keypress.js",
-    "servo-drive.js",
-    "servo-animation.js",
-    "servo-diagnostic.js",
-    "servo-array.js",
-    "boe-test-servos.js",
-    "servo-PCA9685.js",
-
-  [ "Motor" ],
-    "motor.js",
-    "motor-directional.js",
-    "motor-brake.js",
-    "motor-current.js",
-    "motor-hbridge.js",
-    "motor-PCA9685.js",
-    "motor-3-pin.js",
-    "motobot.js",
-
-
-  [ "Stepper" ],
-    "stepper-driver.js",
-    "stepper-sweep.js",
-
-  [ "ESC & Brushless Motor" ],
-    "esc-keypress.js",
-    "esc-dualshock.js",
-
-  [ "Sonar/Ultrasonic" ],
-    "ping.js",
-    "sonar-scan.js",
-    "sonar.js",
-    "sonar-i2c.js",
-
-
-  [ "Button" ],
-    "button.js",
-    "button-bumper.js",
-    "button-options.js",
-    "button-pullup.js",
-
-  [ "Relay" ],
-    "relay.js",
-
-  [ "Claw" ],
-    "claw.js",
-
-
-  [ "Gripper" ],
-    "gripper.js",
-
-
-  [ "Infrared" ],
-    "ir-distance.js",
-    "ir-motion.js",
-    "ir-proximity.js",
-    "proximity.js",
-    "ir-reflect.js",
-    "ir-reflect-array.js",
-
-
-  [ "Joystick" ],
-    "joystick.js",
-    "joystick-claw.js",
-    "joystick-laser.js",
-    "joystick-motor-led.js",
-
-
-  [ "LCD" ],
-    "lcd.js",
-    "lcd-enumeratechars.js",
-    "lcd-runner-20x4.js",
-    "lcd-runner.js",
-    "lcd-runner.js",
-    "lcd-i2c.js",
-    "lcd-i2c-runner.js",
-
-
-  [ "LED" ],
-    "led.js",
-    "led-on-off.js",
-    "led-strobe.js",
-    "led-pulse.js",
-    "led-fade.js",
-    "led-fade-callback.js",
-    "led-analog.js",
-    "led-status.js",
-    "led-array.js",
-    "led-rgb.js",
-    "led-rgb-anode.js",
-    "led-rainbow.js",
-    "led-demo-sequence.js",
-    "led-matrix.js",
-    "led-matrix-HT16K33.js",
-    "seven-segment.js",
-    "laser.js",
-
-  [ "Magnetometer (Compass)" ],
-    "magnetometer-log.js",
-    "magnetometer-north.js",
-    "magnetometer.js",
-
-
-  [ "NodeConf Demos" ],
-    "nodeconf-compass.js",
-    "nodeconf-navigator.js",
-    "nodeconf-radar.js",
-    "nodeconf-slider.js",
-
-  [ "Sound" ],
-    "piezo.js",
-
-  [ "Kinect"],
-    "kinect-arm-controller.js",
-
-  [ "Wii" ],
-    "nunchuk.js",
-    "classic-controller.js",
-
-  [ "Sensors" ],
-    "accelerometer.js",
-    "accelerometer-adxl335.js",
-    "accelerometer-mpu6050.js",
-    "accelerometer-adxl345.js",
-    "accelerometer-pan-tilt.js",
-    "gyro.js",
-    "gyro-mpu6050.js",
-    "photoresistor.js",
-    "photoresistor-servo.js",
-    "potentiometer.js",
-    "sensor.js",
-    "sensor-fsr-servo.js",
-    "sensor-fsr.js",
-    "sensor-ir-led-receiver.js",
-    "sensor-slider.js",
-    "slider-log.js",
-    "slider-pan.js",
-    "slider-servo-control.js",
-    "temperature-tmp36.js",
-    "temperature-lm35.js",
-    "temperature-ds18b20.js",
-    "temperature-mpu6050.js",
-
-  [ "Grove IoT Kit (Seeed Studio)" ],
-    "grove-led.js",
-    "grove-button.js",
-    "grove-touch.js",
-    "grove-sensor.js",
-    "grove-lcd-rgb.js",
-    "grove-lcd-rgb-temperature-display.js",
-    "grove-servo.js",
-
-  [ "TinkerKit" ],
-    "tinkerkit-accelerometer.js",
-    "tinkerkit-blink.js",
-    "tinkerkit-button.js",
-    "tinkerkit-continuous-servo.js",
-    "tinkerkit-combo.js",
-    "tinkerkit-gyroscope.js",
-    "tinkerkit-joystick.js",
-    "tinkerkit-linear-pot.js",
-    "tinkerkit-rotary.js",
-    "tinkerkit-thermistor.js",
-    "tinkerkit-tilt.js",
-    "tinkerkit-touch.js",
-
-  [ "Spark" ],
-    "spark-io-blink.js"
-
+  {
+    "topic": "Nodebots",
+    "files": [
+      "claw.js",
+      "bug.js",
+      "ed.js",
+      "gripper.js",
+      "kinect-arm-controller.js",
+      "line-follower.js",
+      "navigator.js",
+      "radar.js",
+      "whisker.js",
+      "nodeconf-compass.js",
+      "nodeconf-navigator.js",
+      "nodeconf-radar.js",
+      "nodeconf-slider.js"
+    ]
+  },
+  {
+    "topic": "Board",
+    "classes": ["Board"],
+    "files": [
+      "board.js",
+      "board-with-port.js",
+      "board-multi.js",
+      "repl.js",
+      "shiftregister.js",
+      "pin.js",
+      "pin-circuit-event.js",
+      "pin-dtoa.js",
+      "whisker.js"
+    ]
+  },
+  {
+    "topic": "LED",
+    "classes": ["Led"],
+    "files": [
+      "led.js",
+      "led-on-off.js",
+      "led-strobe.js",
+      "led-pulse.js",
+      "led-fade.js",
+      "led-fade-callback.js",
+      "led-analog.js",
+      "led-status.js",
+      "led-array.js",
+      "led-rgb.js",
+      "led-rgb-anode.js",
+      "led-rainbow.js",
+      "led-demo-sequence.js",
+      "led-matrix.js",
+      "led-matrix-HT16K33.js",
+      "led-matrix-HT16K33-16x8.js",
+      "seven-segment.js",
+      "laser.js"
+    ]
+  },
+  {
+    "topic": "Servo",
+    "classes": ["Servo"],
+    "files": [
+      "servo.js",
+      "servo-continuous.js",
+      "servo-slider.js",
+      "servo-prompt.js",
+      "servo-keypress.js",
+      "servo-drive.js",
+      "servo-animation.js",
+      "servo-diagnostic.js",
+      "servo-array.js",
+      "servo-PCA9685.js"
+    ]
+  },
+  {
+    "topic": "Servo Animation",
+    "classes": ["Animation"],
+    "files": [
+      "animation.js",
+      "phoenix.js"
+    ]
+  },
+  {
+    "topic": "Motor",
+    "classes": ["Motor"],
+    "files": [
+      "motor.js",
+      "motor-directional.js",
+      "motor-brake.js",
+      "motor-current.js",
+      "motor-hbridge.js",
+      "motor-PCA9685.js",
+      "motor-3-pin.js",
+      "motobot.js"
+    ]
+  },
+  {
+    "topic": "Stepper Motor",
+    "classes": ["Stepper"],
+    "files": [
+      "stepper-driver.js",
+      "stepper-sweep.js"
+    ]
+  },
+  {
+    "topic": "ESC & Brushless Motor",
+    "classes": ["ESC"],
+    "files": [
+      "esc-keypress.js",
+      "esc-dualshock.js"
+    ]
+  },
+  {
+    "topic": "Sonar/Ultrasonic",
+    "classes": ["Sonar", "Ping"],
+    "files": [
+      "ping.js",
+      "sonar-scan.js",
+      "sonar.js",
+      "sonar-i2c.js"
+    ]
+  },
+  {
+    "topic": "Button",
+    "classes": ["Button"],
+    "files": [
+      "button.js",
+      "button-bumper.js",
+      "button-options.js",
+      "button-pullup.js"
+    ]
+  },
+  {
+    "topic": "Relay",
+    "classes": ["Relay"],
+    "files": [
+      "relay.js"
+    ]
+  },
+  {
+    "topic": "Infrared (Proximity, Motion, Reflectance)",
+    "classes": ["IR.Distance", "IR.Motion", "IR.Reflect" "IR.Reflect.Array"],
+    "files": [
+      "ir-distance.js",
+      "ir-motion.js",
+      "ir-proximity.js",
+      "proximity.js",
+      "ir-reflect.js",
+      "ir-reflect-array.js"
+    ]
+  },
+  {
+    "topic": "Joystick",
+    "classes": ["Joystick"],
+    "files": [
+      "joystick.js",
+      "joystick-claw.js",
+      "joystick-laser.js",
+      "joystick-motor-led.js"
+    ]
+  },
+  {
+    "topic": "LCD",
+    "classes": ["LCD"],
+    "files": [
+      "lcd.js",
+      "lcd-enumeratechars.js",
+      "lcd-runner-20x4.js",
+      "lcd-runner.js",
+      "lcd-runner.js",
+      "lcd-i2c.js",
+      "lcd-i2c-runner.js"
+    ]
+  },
+  {
+    "topic": "Magnetometer (Compass)",
+    "classes": ["Magnetometer", "Compass"],
+    "files": [
+      "magnetometer-log.js",
+      "magnetometer-north.js",
+      "magnetometer.js"
+    ]
+  },
+  {
+    "topic": "Piezo",
+    "classes": ["Piezo"],
+    "files": [
+      "piezo.js"
+    ]
+  },
+  {
+    "topic": "IMU",
+    "classes": ["IMU"],
+    "files": [
+      "imu-mpu6050.js"
+    ]
+  },
+  {
+    "topic": "Sensors",
+    "classes": ["Accelerometer", "Gyro", "Temperature", "Sensor"],
+    "files": [
+      "accelerometer.js",
+      "accelerometer-adxl335.js",
+      "accelerometer-mpu6050.js",
+      "accelerometer-adxl345.js",
+      "accelerometer-pan-tilt.js",
+      "gyro.js",
+      "gyro-mpu6050.js",
+      "photoresistor.js",
+      "photoresistor-servo.js",
+      "potentiometer.js",
+      "sensor.js",
+      "sensor-fsr-servo.js",
+      "sensor-fsr.js",
+      "sensor-ir-led-receiver.js",
+      "sensor-slider.js",
+      "slider-log.js",
+      "slider-pan.js",
+      "slider-servo-control.js",
+      "temperature-tmp36.js",
+      "temperature-lm35.js",
+      "temperature-ds18b20.js",
+      "temperature-mpu6050.js"
+    ]
+  },
+  {
+    "topic": "Plugin Template",
+    "files": [
+      "plugin.js"
+    ],
+    "tplType": "plugin"
+  },
+  {
+    "topic": "Grove IoT Kit (Seeed Studio)",
+    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
+    "files": [
+      "grove-led.js",
+      "grove-button.js",
+      "grove-touch.js",
+      "grove-sensor.js",
+      "grove-lcd-rgb.js",
+      "grove-lcd-rgb-temperature-display.js",
+      "grove-servo.js"
+    ]
+  },
+  {
+    "topic": "TinkerKit",
+    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
+    "files": [
+      "tinkerkit-accelerometer.js",
+      "tinkerkit-blink.js",
+      "tinkerkit-button.js",
+      "tinkerkit-continuous-servo.js",
+      "tinkerkit-combo.js",
+      "tinkerkit-gyroscope.js",
+      "tinkerkit-joystick.js",
+      "tinkerkit-linear-pot.js",
+      "tinkerkit-rotary.js",
+      "tinkerkit-thermistor.js",
+      "tinkerkit-tilt.js",
+      "tinkerkit-touch.js"
+    ]
+  },
+  {
+    "topic": "Wii",
+    "classes": ["Wii.Nunchuk", "Wii.Classic"],
+    "files": [
+      "nunchuk.js",
+      "classic-controller.js"
+    ]
+  }
 ]
