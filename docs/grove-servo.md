@@ -44,7 +44,7 @@ For this program, you'll need:
 
 ![Grove - Servo Module](http://www.seeedstudio.com/depot/images/product/GroveServo_01.jpg)
 
-![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
+![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 
 
 
