@@ -37,8 +37,6 @@ board.on("ready", function() {
 
 The breadboard diagram shows a Keyes Relay, however any Relay component will work.
 
-[![Relay Component](http://bocoup.com/img/weblog/relay-detail.jpg)](https://www.sparkfun.com/products/11042)
-
 
 
 <!--remove-start-->
