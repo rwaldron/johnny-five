@@ -1,11 +1,10 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  var rgb, rainbow, index;
-
-  rgb = new five.Led.RGB([3, 5, 6]);
-  rainbow = ["FF000", "FF7F00", "00FF00", "FFFF00", "0000FF", "4B0082", "8F00FF"];
-  index = 0;
+board.on("ready", function() {
+  var rgb = new five.Led.RGB([3, 5, 6]);
+  var rainbow = ["FF000", "FF7F00", "00FF00", "FFFF00", "0000FF", "4B0082", "8F00FF"];
+  var index = 0;
 
   setInterval(function() {
     if (index + 1 === rainbow.length) {

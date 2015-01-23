@@ -1,13 +1,11 @@
-var five = require("../lib/johnny-five.js"),
-  board, led;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create a standard `led` hardware instance
-  led = new five.Led(13);
+  // Create a standard `led` component instance
+  var led = new five.Led(13);
 
-  // "strobe" the led in 100ms on-off phases
-  led.strobe(100);
+  // "blink" the led in 100ms on-off phases
+  led.blink(100);
 });

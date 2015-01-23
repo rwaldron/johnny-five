@@ -1,7 +1,8 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  var a = new five.Led.RGB({
+board.on("ready", function() {
+  var anode = new five.Led.RGB({
     pins: {
       red: 3,
       green: 5,
@@ -10,9 +11,5 @@ five.Board().on("ready", function() {
     isAnode: true
   });
 
-  this.repl.inject({
-    a: a,
-  });
-
-  a.pulse();
+  anode.pulse();
 });

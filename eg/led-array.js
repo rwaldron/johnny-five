@@ -1,11 +1,8 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  var array = new five.Led.Array([3, 5, 6]);
-
-  this.repl.inject({
-    array: array
-  });
+board.on("ready", function() {
+  var array = new five.Leds([3, 5, 6]);
 
   array.pulse();
 });

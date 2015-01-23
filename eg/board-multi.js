@@ -1,7 +1,8 @@
 var five = require("../lib/johnny-five.js");
+var boards = new five.Boards(["A", "B"]);
 
 // Create 2 board instances with IDs "A" & "B"
-new five.Boards(["A", "B"]).on("ready", function() {
+boards.on("ready", function() {
 
   // Both "A" and "B" are initialized
   // (connected and available for communication)
@@ -12,10 +13,12 @@ new five.Boards(["A", "B"]).on("ready", function() {
 
     // Initialize an Led instance on pin 13 of
     // each initialized board and strobe it.
-    new five.Led({
+    var led = new five.Led({
       pin: 13,
       board: board
-    }).strobe();
+    });
+
+    led.blink();
   });
 });
 

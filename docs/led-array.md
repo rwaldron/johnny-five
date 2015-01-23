@@ -9,13 +9,10 @@ node eg/led-array.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  var array = new five.Led.Array([3, 5, 6]);
-
-  this.repl.inject({
-    array: array
-  });
+board.on("ready", function() {
+  var array = new five.Leds([3, 5, 6]);
 
   array.pulse();
 });
@@ -28,6 +25,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/led-array.png](breadboard/led-array.png)
+[docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
 Control multiple LEDs at once by creating an Led.Array.

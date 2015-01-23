@@ -37,8 +37,11 @@ board.on("ready", function() {
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/led-matrix-HT16K33.png](breadboard/led-matrix-HT16K33.png)
+[docs/breadboard/led-matrix-HT16K33.fzz](breadboard/led-matrix-HT16K33.fzz)
 
 
 

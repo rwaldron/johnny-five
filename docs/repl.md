@@ -8,16 +8,23 @@ node eg/repl.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  console.log("Ready event. Repl instance auto-initialized");
+  console.log("Ready event. Repl instance auto-initialized!");
+
+  var led = new five.Led(13);
 
   this.repl.inject({
-    test: "foo"
+    // Allow limited on/off control access to the
+    // Led instance from the REPL.
+    on: function() {
+      led.on();
+    },
+    off: function() {
+      led.off();
+    }
   });
 });
 

@@ -8,15 +8,15 @@ node eg/led-demo-sequence.js
 <!--remove-end-->
 
 ```javascript
-//
+var five = require("johnny-five");
+var board = new five.Board();
+var led;
+
 // Demonstrates stringing some of the LED commands together
 // through the use of a "demo sequence" array that is
 // recursively called for each step.
 //
 
-var five = require("johnny-five"),
-  board = new five.Board(),
-  led;
 
 // Do we want the sequence to loop?
 var loop = true;
@@ -90,18 +90,14 @@ function execute(step) {
   board.wait(duration, function() {
     execute(step);
   });
-
 }
 
-
 board.on("ready", function() {
-
   // Defaults to pin 11 (must be PWM)
   led = new five.Led(process.argv[2] || 11);
 
   // Kick off the first step
   execute(0);
-
 });
 
 ```

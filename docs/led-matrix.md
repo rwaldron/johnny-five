@@ -24,34 +24,36 @@ board.on("ready", function() {
     "00000000"
   ];
 
-  var lc = new five.LedControl({
+  var matrix = new five.Led.Matrix({
     pins: {
       data: 2,
       clock: 3,
       cs: 4
-    },
-    isMatrix: true
+    }
   });
 
-  lc.on();
+  matrix.on();
 
   var msg = "johnny-five".split("");
 
+  // Display each letter for 1 second
   function next() {
     var c;
 
     if (c = msg.shift()) {
-      lc.draw(c);
-      setTimeout(next, 500);
+      matrix.draw(c);
+      setTimeout(next, 1000);
     }
   }
 
   next();
 
   this.repl.inject({
-    lc: lc,
+    matrix: matrix,
+    // Type "heart()" in the REPL to
+    // display a heart!
     heart: function() {
-      lc.draw(heart);
+      matrix.draw(heart);
     }
   });
 });

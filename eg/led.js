@@ -24,7 +24,7 @@ board.on("ready", function() {
 // >> led.off()
 // ```
 //
-// `Led.strobe()` is the same as `Led.blink()`
+// `led.strobe()` is the same as `led.blink()`
 //
 // To use other `Led` methods, like `fade`, `pulse`, `animate`, you'll need to
 // wire the LED to a PWM pin. (Denoted by a `~` before the pin number.) Make sure

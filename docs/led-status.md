@@ -13,13 +13,12 @@ node eg/led-status.js
 // Led.isOn, and Led.isRunning following a variety
 // of Led method calls.
 //
-var five = require("johnny-five"),
-  board = new five.Board(),
-  led;
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
   // Default to pin 11 (must be PWM)
-  led = new five.Led(process.argv[2] || 11);
+  var led = new five.Led(process.argv[2] || 11);
 
   this.repl.inject({
     led: led

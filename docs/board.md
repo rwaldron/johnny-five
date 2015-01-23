@@ -9,24 +9,20 @@ node eg/board.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
 // The board's pins will not be accessible until
 // the board has reported that it is ready
-five.Board().on("ready", function() {
-  var val = 0;
-
+board.on("ready", function() {
   // Set pin 13 to OUTPUT mode
-  this.pinMode(13, 1);
+  this.pinMode(13, this.MODES.OUTPUT);
 
   // Create a loop to "flash/blink/strobe" an led
-  this.loop(100, function() {
-    this.digitalWrite(13, (val = val ? 0 : 1));
+  this.loop(500, function() {
+    // Whatever the last value was, write the opposite
+    this.digitalWrite(13, this.pins[13].value ? 0 : 1);
   });
 });
-
-
-// Schematic
-// http://arduino.cc/en/uploads/Tutorial/ExampleCircuit_bb.png
 
 ```
 

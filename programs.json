@@ -7,11 +7,7 @@
       "board-with-port.js",
       "board-multi.js",
       "repl.js",
-      "shiftregister.js",
-      "pin.js",
-      "pin-circuit-event.js",
-      "pin-dtoa.js",
-      "whisker.js"
+      "pin.js"
     ]
   },
   {
@@ -19,22 +15,21 @@
     "classes": ["Led"],
     "files": [
       "led.js",
-      "led-on-off.js",
-      "led-strobe.js",
+      "led-blink.js",
       "led-pulse.js",
       "led-fade.js",
       "led-fade-callback.js",
-      "led-analog.js",
       "led-status.js",
       "led-array.js",
       "led-rgb.js",
       "led-rgb-anode.js",
       "led-rainbow.js",
       "led-demo-sequence.js",
+      "led-digits-clock.js",
       "led-matrix.js",
+      "led-matrix-tutorial.js",
       "led-matrix-HT16K33.js",
       "led-matrix-HT16K33-16x8.js",
-      "seven-segment.js",
       "laser.js"
     ]
   },
@@ -117,6 +112,14 @@
     "classes": ["Relay"],
     "files": [
       "relay-lamp-controller.js"
+    ]
+  },
+  {
+    "topic": "Shift Register",
+    "classes": ["ShiftRegister"],
+    "files": [
+      "shift-register.js",
+      "shift-register-seven-segment.js"
     ]
   },
   {

@@ -3,13 +3,12 @@
 // Led.isOn, and Led.isRunning following a variety
 // of Led method calls.
 //
-var five = require("../lib/johnny-five.js"),
-  board = new five.Board(),
-  led;
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
   // Default to pin 11 (must be PWM)
-  led = new five.Led(process.argv[2] || 11);
+  var led = new five.Led(process.argv[2] || 11);
 
   this.repl.inject({
     led: led

@@ -173,30 +173,25 @@ board.on("ready", function() {
 - [Board With Port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
 - [Board Multi](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [Repl](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
-- [Shiftregister](https://github.com/rwaldron/johnny-five/blob/master/docs/shiftregister.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
-- [Pin Circuit Event](https://github.com/rwaldron/johnny-five/blob/master/docs/pin-circuit-event.md)
-- [Pin Dtoa](https://github.com/rwaldron/johnny-five/blob/master/docs/pin-dtoa.md)
-- [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
 
 ### LED
 - [Led](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
-- [Led On Off](https://github.com/rwaldron/johnny-five/blob/master/docs/led-on-off.md)
-- [Led Strobe](https://github.com/rwaldron/johnny-five/blob/master/docs/led-strobe.md)
+- [Led Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [Led Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [Led Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
 - [Led Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
-- [Led Analog](https://github.com/rwaldron/johnny-five/blob/master/docs/led-analog.md)
 - [Led Status](https://github.com/rwaldron/johnny-five/blob/master/docs/led-status.md)
 - [Led Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
 - [Led Rgb](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Rgb Anode](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [Led Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Demo Sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
+- [Led Digits Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
 - [Led Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
+- [Led Matrix Tutorial](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
 - [Led Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
 - [Led Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
-- [Seven Segment](https://github.com/rwaldron/johnny-five/blob/master/docs/seven-segment.md)
 - [Laser](https://github.com/rwaldron/johnny-five/blob/master/docs/laser.md)
 
 ### Servo
@@ -247,6 +242,10 @@ board.on("ready", function() {
 
 ### Relay
 - [Relay Lamp Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-lamp-controller.md)
+
+### Shift Register
+- [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
+- [Shift Register Seven Segment](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
 - [Ir Distance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-distance.md)
