@@ -44,6 +44,8 @@ function time() {
     .replace(/([AP])M/, " $1");
 }
 
+
+
 ```
 
 
@@ -53,6 +55,10 @@ function time() {
 ![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)
 [docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
 
+
+Learn More:
+
+- [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
 
 
 
