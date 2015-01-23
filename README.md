@@ -192,17 +192,15 @@ board.on("ready", function() {
 - [Led Matrix Tutorial](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
 - [Led Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
 - [Led Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
-- [Laser](https://github.com/rwaldron/johnny-five/blob/master/docs/laser.md)
+- [Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
 
 ### Servo
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
 - [Servo Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
-- [Servo Keypress](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-keypress.md)
 - [Servo Drive](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-drive.md)
 - [Servo Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
-- [Servo Diagnostic](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-diagnostic.md)
 - [Servo Array](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 - [Servo PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 
@@ -226,7 +224,6 @@ board.on("ready", function() {
 
 ### ESC & Brushless Motor
 - [Esc Keypress](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
-- [Esc Dualshock](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
 
 ### Sonar/Ultrasonic
 - [Ping](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)

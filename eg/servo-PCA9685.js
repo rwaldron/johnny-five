@@ -1,6 +1,7 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
   console.log("Connected");
 
   // Initialize the servo

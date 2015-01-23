@@ -1,9 +1,9 @@
 <!--remove-start-->
-# Servo Slider
+# Laser Trip Wire
 
 Run with:
 ```bash
-node eg/servo-slider.js
+node eg/laser-trip-wire.js
 ```
 <!--remove-end-->
 
@@ -12,14 +12,22 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var servo = new five.Servo(10);
-  var slider = new five.Sensor("A0");
+  var laser = new five.Led(9);
+  var detection = new five.Sensor("A0");
+  var isSecure = false;
 
-  // Scale the slider's value to fit in the servo's
-  // movement range. When the slider position changes
-  // update the servo's position
-  slider.scale([0, 180]).on("slide", function() {
-    servo.to(this.value);
+  laser.on();
+
+  detection.scale(0, 1).on("change", function() {
+    var reading = !(this.value | 0);
+
+    if (isSecure !== reading) {
+      isSecure = reading;
+
+      if (!isSecure) {
+        console.log("Intruder");
+      }
+    }
   });
 });
 
@@ -29,8 +37,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)
-[docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
+![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)
 
 
 

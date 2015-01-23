@@ -8,9 +8,9 @@ node eg/motobot.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  keypress = require("keypress"),
-  board = new five.Board();
+var five = require("johnny-five");
+var keypress = require("keypress");
+var board = new five.Board();
 
 
 board.on("ready", function() {
@@ -67,6 +67,8 @@ board.on("ready", function() {
   process.stdin.resume();
 });
 
+
+
 ```
 
 
@@ -75,6 +77,10 @@ board.on("ready", function() {
 
 ![docs/breadboard/motobot.png](breadboard/motobot.png)
 
+
+![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)
+
+![ArduMoto](https://cdn.sparkfun.com//assets/parts/3/8/4/9/09815-01.jpg)
 
 
 

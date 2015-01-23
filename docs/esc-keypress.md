@@ -10,12 +10,11 @@ node eg/esc-keypress.js
 ```javascript
 var five = require("johnny-five");
 var keypress = require("keypress");
-
 var board = new five.Board();
 
 board.on("ready", function() {
 
-  var esc = new five.ESC(12);
+  var esc = new five.ESC(9);
 
   // Hold shift+arrow-up, shift+arrow-down to incrementally
   // increase or decrease speed.
@@ -36,7 +35,7 @@ board.on("ready", function() {
       }
 
       if (isThrottle) {
-        esc.to(speed);
+        esc.speed(speed);
       }
     }
   }
@@ -48,9 +47,6 @@ board.on("ready", function() {
   process.stdin.resume();
 });
 
-// Brushless motor breadboard diagram originally published here:
-// http://robotic-controls.com/learn/projects/dji-esc-and-brushless-motor
-
 ```
 
 
@@ -58,6 +54,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)
+[docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
 
 
 

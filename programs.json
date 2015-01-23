@@ -30,7 +30,7 @@
       "led-matrix-tutorial.js",
       "led-matrix-HT16K33.js",
       "led-matrix-HT16K33-16x8.js",
-      "laser.js"
+      "laser-trip-wire.js"
     ]
   },
   {
@@ -41,10 +41,8 @@
       "servo-continuous.js",
       "servo-slider.js",
       "servo-prompt.js",
-      "servo-keypress.js",
       "servo-drive.js",
       "servo-animation.js",
-      "servo-diagnostic.js",
       "servo-array.js",
       "servo-PCA9685.js"
     ]
@@ -83,8 +81,7 @@
     "topic": "ESC & Brushless Motor",
     "classes": ["ESC"],
     "files": [
-      "esc-keypress.js",
-      "esc-dualshock.js"
+      "esc-keypress.js"
     ]
   },
   {

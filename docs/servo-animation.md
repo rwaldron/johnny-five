@@ -8,10 +8,8 @@ node eg/servo-animation.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
@@ -36,14 +34,15 @@ board.on("ready", function() {
     servo: servo,
     animation: animation
   });
-
 });
 
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/servo-animation.png](breadboard/servo-animation.png)
 
 
 

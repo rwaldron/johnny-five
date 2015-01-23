@@ -9,8 +9,9 @@ node eg/servo-PCA9685.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
   console.log("Connected");
 
   // Initialize the servo
@@ -89,8 +90,11 @@ five.Board().on("ready", function() {
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)
+[docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
 
 
 

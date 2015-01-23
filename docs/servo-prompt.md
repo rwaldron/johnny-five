@@ -8,8 +8,8 @@ node eg/servo-prompt.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  readline = require("readline");
+var five = require("johnny-five");
+var readline = require("readline");
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -17,20 +17,17 @@ var rl = readline.createInterface({
 });
 
 five.Board().on("ready", function() {
-
-  var servo = new five.Servo(process.argv[2] || 10);
+  var servo = new five.Servo(10);
 
   rl.setPrompt("SERVO TEST (0-180)> ");
   rl.prompt();
 
   rl.on("line", function(line) {
-    var pos = line.trim();
-    servo.to(pos);
+    servo.to(+line.trim());
     rl.prompt();
   }).on("close", function() {
     process.exit(0);
   });
-
 });
 
 ```
