@@ -53,10 +53,18 @@ To submit a request to support new hardware, first create a [github issue](https
 
 To contribute code to Johnny-Five, fork the project onto your github account and do your work in a branch. Before you submit the PR, make sure to rebase master into your branch so that you have the most recent changes and nothing breaks or conflicts.  Lint and test your code using [grunt](https://github.com/gruntjs/grunt). Also squash your commits to a reasonable size before submitting.
 
-If you are contributing code, it must include unit tests that fail if the working code isn't present and succeed when it is. Also make sure you run `grunt jsbeautifier` to fix any syntax issues.
-
 All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
 by maintaining the existing coding style.
+
+If you are contributing code, it must include unit tests that fail if the working code isn't present and succeed when it is. Also make sure you run `grunt jsbeautifier` to fix any syntax issues.
+
+When contributing new features that support new hardware, you must include documentation.  The docs need to have:
+
+- [ ] fritzing diagram
+- [ ] anotated example script in the eg/ folder
+- [ ] api documentation in the wiki
+
+It's very important that your pull requests include all of the above in order for users to be able to use your code. Pull requests with undocumented code will not be accepted.
 
 
 <a name="writing-tests"></a>
