@@ -493,10 +493,9 @@ exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.io, "i2cWriteReg");
+    this.spy = sinon.spy(this.board.io, "i2cWrite");
 
     this.led = new Led({
-      address: 0x40,
       pin: 0,
       controller: "PCA9685",
       board: this.board
