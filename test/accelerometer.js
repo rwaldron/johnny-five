@@ -23,9 +23,15 @@ exports["Accelerometer -- Analog"] = {
       board: board
     });
 
-    this.proto = [];
+    this.proto = [{
+      name: "enable"
+    }, {
+      name: "hasAxis"
+    }];
 
     this.instance = [{
+      name: "zeroV"
+    }, {
       name: "pitch"
     }, {
       name: "roll"
@@ -159,6 +165,113 @@ exports["Accelerometer -- Analog"] = {
     test.equal(this.accel.orientation, 3);
 
     test.ok(spy.called);
+
+    test.done();
+  },
+
+  enable: function(test) {
+    var x = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(3);
+    this.accel.on("change", spy);
+
+    x(225);
+    test.ok(spy.calledOnce);
+
+    this.accel.enable(false);
+
+    x(250);
+    test.ok(spy.calledOnce);
+
+    this.accel.enable(true);
+
+    x(270);
+    test.ok(spy.calledTwice);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- distinctZeroV"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: board,
+      zeroV: [300, 400, 500],
+      sensitivity: 100
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  change: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    
+    test.expect(3);
+    
+    x(400);
+    y(400);
+    z(400);
+
+    test.equal(this.accel.x, 1);
+    test.equal(this.accel.y, 0);
+    test.equal(this.accel.z, -1);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- autoCalibrate"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      pins: ["A0", "A1", "A2"],
+      board: board,
+      sensitivity: 100,
+      autoCalibrate: true
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  calibrates: function(test) {
+    var i, value = 300;
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+
+    test.expect(1);
+
+    for (i=0; i < 10; i++) {
+      x(value + i);
+    }
+    for (i=0; i < 10; i++) {
+      y(value + 10 + i);
+    }
+    for (i=0; i < 10; i++) {
+      z(value + 20 + i);
+    }
+
+    test.deepEqual(this.accel.zeroV, [304.5, 314.5, 224.5]);
 
     test.done();
   }
