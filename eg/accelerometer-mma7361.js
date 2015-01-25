@@ -6,11 +6,11 @@ board.on("ready", function() {
     controller: "MMA7361",
     pins: ["A0", "A1", "A2"],
     sleepPin: 13, 
-    autoCalibrate: false
+    autoCalibrate: true
   });
 
   accelerometer.on("xdata", function(data) {
-    console.log(data);
+    console.log(this.zeroV);
   });
 
   accelerometer.on("change", function() {
