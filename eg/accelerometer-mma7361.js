@@ -9,10 +9,6 @@ board.on("ready", function() {
     autoCalibrate: true
   });
 
-  accelerometer.on("xdata", function(data) {
-    console.log(this.zeroV);
-  });
-
   accelerometer.on("change", function() {
     console.log("accelerometer");
     console.log("  x            : ", this.x);
