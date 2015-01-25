@@ -5,7 +5,8 @@ board.on("ready", function() {
   var accelerometer = new five.Accelerometer({
     controller: "MMA7361",
     pins: ["A0", "A1", "A2"],
-    sleepPin: 13
+    sleepPin: 13, 
+    autoCalibrate: false
   });
 
   accelerometer.on("xdata", function(data) {
