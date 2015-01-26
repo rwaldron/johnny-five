@@ -23,6 +23,7 @@
       "led-array.js",
       "led-rgb.js",
       "led-rgb-anode.js",
+      "led-rgb-PCA9685.js",
       "led-rainbow.js",
       "led-demo-sequence.js",
       "led-digits-clock.js",

@@ -361,16 +361,13 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.mode = 1;
     this.led.pulse();
-    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     this.led.mode = 1;
     this.led.fade();
-    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     this.led.strobe();
-    this.clock.tick(10);
     test.equal(this.led.mode, 3);
 
     test.done();
