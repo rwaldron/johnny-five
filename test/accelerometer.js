@@ -23,9 +23,17 @@ exports["Accelerometer -- Analog"] = {
       board: board
     });
 
-    this.proto = [];
+    this.proto = [{
+      name: "enable"
+    }, {
+      name: "disable"
+    }, {
+      name: "hasAxis"
+    }];
 
     this.instance = [{
+      name: "zeroV"
+    }, {
       name: "pitch"
     }, {
       name: "roll"
@@ -159,6 +167,113 @@ exports["Accelerometer -- Analog"] = {
     test.equal(this.accel.orientation, 3);
 
     test.ok(spy.called);
+
+    test.done();
+  },
+
+  disableAndEnable: function(test) {
+    var x = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(3);
+    this.accel.on("change", spy);
+
+    x(225);
+    test.ok(spy.calledOnce);
+
+    this.accel.disable();
+
+    x(250);
+    test.ok(spy.calledOnce);
+
+    this.accel.enable();
+
+    x(270);
+    test.ok(spy.calledTwice);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- distinctZeroV"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: board,
+      zeroV: [300, 400, 500],
+      sensitivity: 100
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  change: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    
+    test.expect(3);
+    
+    x(400);
+    y(400);
+    z(400);
+
+    test.equal(this.accel.x, 1);
+    test.equal(this.accel.y, 0);
+    test.equal(this.accel.z, -1);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- autoCalibrate"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      pins: ["A0", "A1", "A2"],
+      board: board,
+      sensitivity: 100,
+      autoCalibrate: true
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  calibrates: function(test) {
+    var i, value = 300;
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+
+    test.expect(1);
+
+    for (i=0; i < 10; i++) {
+      x(value + i);
+    }
+    for (i=0; i < 10; i++) {
+      y(value + 10 + i);
+    }
+    for (i=0; i < 10; i++) {
+      z(value + 20 + i);
+    }
+
+    test.deepEqual(this.accel.zeroV, [304.5, 314.5, 224.5]);
 
     test.done();
   }
@@ -342,6 +457,78 @@ exports["Accelerometer -- ADXL345"] = {
       x: 0.012,
       y: 0.02,
       z: 1
+    }]);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- MMA7361"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.pinMode = sinon.spy(board.io, "pinMode");
+    this.digitalWrite = sinon.spy(board.io, "digitalWrite");
+    this.accel = new Accelerometer({
+      controller: "MMA7361",
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: board,
+      sleepPin: 13
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.pinMode.restore();
+    this.digitalWrite.restore();
+    this.clock.restore();
+    done();
+  },
+
+  sleepPinOn: function(test) {
+    test.expect(2);
+
+    test.ok(this.pinMode.calledWith(13, 1));
+    test.ok(this.digitalWrite.calledWith(13, 1));
+    
+    test.done();
+  },
+
+  disableEnable: function(test) {
+    test.expect(2);
+
+    this.accel.disable();
+    test.ok(this.digitalWrite.calledWith(13, 0));
+    this.digitalWrite.reset();
+
+    this.accel.enable();
+    test.ok(this.digitalWrite.calledWith(13, 1));
+
+    test.done();
+  },
+
+  data: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    var changeSpy = sinon.spy();
+
+    test.expect(2);
+    this.accel.on("change", changeSpy);
+
+    x(336);
+    y(420);
+    z(230);
+
+    this.clock.tick(100);
+    test.ok(changeSpy.calledThrice);
+    test.deepEqual(changeSpy.args[2], [{
+      x: 0,
+      y: 0.28,
+      z: -0.34
     }]);
 
     test.done();

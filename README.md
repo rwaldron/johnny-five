@@ -282,6 +282,7 @@ board.on("ready", function() {
 ### Sensors
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer Adxl335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
+- [Accelerometer Mma7361](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
 - [Accelerometer Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
 - [Accelerometer Adxl345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
 - [Accelerometer Pan Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)

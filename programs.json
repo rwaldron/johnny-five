@@ -183,9 +183,10 @@
     "classes": ["Accelerometer", "Gyro", "Temperature", "Sensor"],
     "files": [
       "accelerometer.js",
-      "accelerometer-adxl335.js",
-      "accelerometer-mpu6050.js",
       "accelerometer-adxl345.js",
+      "accelerometer-adxl335.js",
+      "accelerometer-mma7361.js",
+      "accelerometer-mpu6050.js",
       "accelerometer-pan-tilt.js",
       "gyro.js",
       "gyro-mpu6050.js",
