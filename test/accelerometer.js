@@ -26,6 +26,8 @@ exports["Accelerometer -- Analog"] = {
     this.proto = [{
       name: "enable"
     }, {
+      name: "disable"
+    }, {
       name: "hasAxis"
     }];
 
@@ -169,7 +171,7 @@ exports["Accelerometer -- Analog"] = {
     test.done();
   },
 
-  enable: function(test) {
+  disableAndEnable: function(test) {
     var x = this.analogRead.args[0][1],
       spy = sinon.spy();
 
@@ -179,12 +181,12 @@ exports["Accelerometer -- Analog"] = {
     x(225);
     test.ok(spy.calledOnce);
 
-    this.accel.enable(false);
+    this.accel.disable();
 
     x(250);
     test.ok(spy.calledOnce);
 
-    this.accel.enable(true);
+    this.accel.enable();
 
     x(270);
     test.ok(spy.calledTwice);
