@@ -287,6 +287,7 @@ board.on("ready", function() {
 - [Led Array](https://github.com/rwldrn/johnny-five/blob/master/docs/led-array.md)
 - [Led Rgb](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb.md)
 - [Led Rgb Anode](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb-anode.md)
+- [Led Rgb PCA9685](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
 - [Led Rainbow](https://github.com/rwldrn/johnny-five/blob/master/docs/led-rainbow.md)
 - [Led Demo Sequence](https://github.com/rwldrn/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [Led Matrix](https://github.com/rwldrn/johnny-five/blob/master/docs/led-matrix.md)
