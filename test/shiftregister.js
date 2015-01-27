@@ -94,6 +94,29 @@ exports["ShiftRegister"] = {
     shiftOutSpy.restore();
     spy.restore();
     test.done();
+  },
+
+  clear: function(test) {
+    var spy = sinon.spy(this.shiftRegister, "send");
+
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 1);
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01);
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 3);
+    test.ok(spy.getCall(2).calledWith(0));
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01, 0x01);
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 5);
+    test.ok(spy.getCall(4).calledWith(0, 0));
+    test.deepEqual(this.shiftRegister.value, [0, 0]);
+
+    spy.restore();
+    test.done();
   }
 
 };
