@@ -101,7 +101,7 @@ exports["Fn"] = {
   },
 
   sum: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     var a = 0,
       b = 1,
