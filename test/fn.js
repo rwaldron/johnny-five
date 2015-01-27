@@ -47,12 +47,12 @@ exports["Fn"] = {
   range: function(test) {
     test.expect(6);
 
-    var a = Fn.range(5);
-    var b = Fn.range(5, 10);
-    var c = Fn.range(3, 27, 3);
-    var d = Fn.range(0, -9, -1);
-    var e = Fn.range(0, -9, -3);
-    var f = Fn.range(0, -10, -2);
+    var a = Fn.range(5),
+      b = Fn.range(5, 10),
+      c = Fn.range(3, 27, 3),
+      d = Fn.range(0, -9, -1),
+      e = Fn.range(0, -9, -3),
+      f = Fn.range(0, -10, -2);
 
     test.deepEqual(a, [ 0, 1, 2, 3, 4 ]);
     test.deepEqual(b, [ 5, 6, 7, 8, 9, 10 ]);
@@ -81,9 +81,9 @@ exports["Fn"] = {
   uid: function(test) {
     test.expect(2);
 
-    var unique = 0;
-    var uids = [];
-    var uid;
+    var unique = 0,
+      uids = [],
+      uid;
 
     for (var i = 0; i < 1000; i++) {
       uid = Fn.uid();
@@ -119,10 +119,10 @@ exports["Fn"] = {
   bitValue: function(test) {
     test.expect(4);
 
-    var a = Fn.bitValue(0);
-    var b = Fn.bitValue(2);
-    var c = Fn.bitValue(7);
-    var d = Fn.bitValue(8);
+    var a = Fn.bitValue(0),
+      b = Fn.bitValue(2),
+      c = Fn.bitValue(7),
+      d = Fn.bitValue(8);
 
     test.equal(a, 1);
     test.equal(b, 4);
