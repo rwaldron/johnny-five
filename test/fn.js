@@ -100,6 +100,22 @@ exports["Fn"] = {
     test.done();
   },
 
+  sum: function(test) {
+    test.expect(2);
+
+    var a = 0,
+      b = 1,
+      c = [],
+      d = [0,1];
+
+    test.equal(Fn.sum(a), 0);
+    test.equal(Fn.sum(b), 1);
+    test.equal(Fn.sum(c), 0);
+    test.equal(Fn.sum(d), 1);
+
+    test.done();
+  },
+
   bitValue: function(test) {
     test.expect(4);
 
