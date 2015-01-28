@@ -674,12 +674,20 @@
     ]
   },
   {
-    "topic": "IMU",
-    "classes": ["IMU"],
+    "topic": "IMU/Multi",
+    "classes": ["IMU", "Multi"],
     "examples": [
       {
         "file": "imu-mpu6050.js",
         "title": "IMU - MPU6050"
+      },
+      {
+        "file": "multi-mpl115a2.js",
+        "title": "Multi - MPL115A2"
+      },
+      {
+        "file": "multi-bmp180.js",
+        "title": "Multi - BMP180"
       }
     ]
   },
@@ -762,6 +770,34 @@
       {
         "file": "temperature-mpu6050.js",
         "title": "Temperature - MPU6050"
+      },
+      {
+        "file": "barometer-mpl115a2.js",
+        "title": "Barometer - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ]
+      },
+      {
+        "file": "temperature-mpl115a2.js",
+        "title": "Temperature - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ]
+      },
+      {
+        "file": "barometer-BMP180.js",
+        "title": "Barometer - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ]
+      },
+      {
+        "file": "temperature-BMP180.js",
+        "title": "Temperature - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ]
       }
     ]
   },
