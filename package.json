@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "The JavaScript Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, Raspberry Pi, Spark Core, TI Launchpad and more!",
-  "version": "0.8.39",
+  "version": "0.8.40",
   "homepage": "https://github.com/rwldrn/johnny-five",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
