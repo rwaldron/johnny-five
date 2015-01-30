@@ -370,6 +370,31 @@ exports["Piezo"] = {
     });
   },
 
+  playTuneWithStringSongAndBeat: function(test) {
+    var tempo = 10000; // Make it really fast
+    test.expect(6);
+    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var beats = 0.125;
+    var returned = this.piezo.play({
+      song: "c d d - 672 e4 -",
+      beats: beats,
+      tempo: tempo // Make it real fast
+    }, function() {
+      // frequency should get called 4x; not for the null notes
+      test.ok(freqSpy.callCount === 4);
+      test.ok(freqSpy.neverCalledWith(null));
+      // First call should have been with frequency for "c4"
+      test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
+      // Default duration === tempo if not provided
+      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 * beats / tempo));
+      // Duration should change if different beat value given
+      test.ok(freqSpy.calledWith(Piezo.Notes["d4"], (60000 * beats / tempo) * 2));
+      // OK to pass frequency directly...
+      test.ok(freqSpy.calledWith(672, 60000 * beats / tempo));
+      test.done();
+    });
+  },
+
   playSingleNoteTune: function(test) {
     var tempo = 10000;
     test.expect(2);
