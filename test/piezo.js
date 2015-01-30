@@ -395,13 +395,6 @@ exports["Piezo"] = {
     });
   },
 
-  stringToSong: function(test) {
-    test.expect(1);
-    var song = this.piezo.stringToSong("c d d - 672 e4 -", 0.125);
-    test.deepEqual(song, [["c",0.125],["d",0.25],["-",0.125],[672,0.125],["e4",0.125],["-",0.125]]);
-    test.done();
-  },
-
   playSingleNoteTune: function(test) {
     var tempo = 10000;
     test.expect(2);
