@@ -156,9 +156,11 @@
     ]
   },
   {
-    "topic": "Magnetometer (Compass)",
+    "topic": "Compass/Magnetometer",
     "classes": ["Magnetometer", "Compass"],
     "files": [
+      "compass-hmc6352.js",
+      "compass-hmc5883l.js",
       "magnetometer-log.js",
       "magnetometer-north.js",
       "magnetometer.js"

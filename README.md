@@ -268,7 +268,9 @@ board.on("ready", function() {
 - [Lcd I2c](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
 - [Lcd I2c Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)
 
-### Magnetometer (Compass)
+### Compass/Magnetometer
+- [Compass Hmc6352](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc6352.md)
+- [Compass Hmc5883l](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
 - [Magnetometer Log](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
 - [Magnetometer North](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
 - [Magnetometer](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
