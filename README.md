@@ -289,6 +289,7 @@ board.on("ready", function() {
 - [Accelerometer Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
 - [Accelerometer Pan Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro.md)
+- [Gyro Lpr5150l](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
 - [Gyro Mpu6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
 - [Photoresistor Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor-servo.md)

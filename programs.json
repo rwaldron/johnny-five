@@ -191,6 +191,7 @@
       "accelerometer-mpu6050.js",
       "accelerometer-pan-tilt.js",
       "gyro.js",
+      "gyro-lpr5150l.js",
       "gyro-mpu6050.js",
       "photoresistor.js",
       "photoresistor-servo.js",
