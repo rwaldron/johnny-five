@@ -261,6 +261,7 @@ board.on("ready", function() {
 
 ### LCD
 - [Lcd](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
+- [Lcd I2c PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-PCF8574.md)
 - [Lcd Enumeratechars](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [Lcd Runner 20x4](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [Lcd Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)

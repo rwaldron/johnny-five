@@ -147,6 +147,7 @@
     "classes": ["LCD"],
     "files": [
       "lcd.js",
+      "lcd-i2c-PCF8574.js",
       "lcd-enumeratechars.js",
       "lcd-runner-20x4.js",
       "lcd-runner.js",
