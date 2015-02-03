@@ -246,10 +246,8 @@ board.on("ready", function() {
 - [Shift Register Seven Segment](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
-- [Ir Distance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-distance.md)
 - [Ir Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
 - [Ir Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
-- [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
 - [Ir Reflect](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
 - [Ir Reflect Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
 
