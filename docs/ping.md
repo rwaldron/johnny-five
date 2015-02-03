@@ -25,7 +25,7 @@ board.on("ready", function() {
   // Roundtrip distance in microseconds
   //
 
-  // ping.inches
+  // ping.in
   //
   // Calculated distance to object in inches
   //
@@ -44,9 +44,7 @@ board.on("ready", function() {
   });
 
   ping.on("change", function(err, value) {
-
-    console.log(typeof this.inches);
-    console.log("Object is " + this.inches + "inches away");
+    console.log("Object is " + this.in + "inches away");
   });
 });
 
