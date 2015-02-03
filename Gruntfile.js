@@ -30,7 +30,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
     examples: {
-      files: ["programs.json"]
+      files: ["tpl/programs.json"]
     },
     nodeunit: {
       tests: [
