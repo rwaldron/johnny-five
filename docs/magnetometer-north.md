@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Magnetometer north
+# Compass/Magnetometer - Find North
 
 Run with:
 ```bash

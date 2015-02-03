@@ -269,11 +269,13 @@ module.exports = function(grunt) {
           fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
         };
 
-        // Write the file to /docs/*
-        file.write(md, templates[tplType](values));
+        if (titles[value]) {
+          // Write the file to /docs/*
+          file.write(md, templates[tplType](values));
 
-        // Push a rendered markdown link into the readme "index"
-        readme.push(templates.eglink(values));
+          // Push a rendered markdown link into the readme "index"
+          readme.push(templates.eglink(values));
+        }
       });
     });
 

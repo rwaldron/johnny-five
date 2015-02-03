@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit thermistor
+# 
 
 Run with:
 ```bash

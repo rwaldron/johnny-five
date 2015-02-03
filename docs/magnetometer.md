@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Magnetometer Component
+# Compass/Magnetometer Component
 
 Run with:
 ```bash

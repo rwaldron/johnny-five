@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit touch
+# TinkerKit - Touch Sensor
 
 Run with:
 ```bash

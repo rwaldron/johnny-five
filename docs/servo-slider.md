@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo - Slider
+# Servo - Slide Potentiometer Controller
 
 Run with:
 ```bash

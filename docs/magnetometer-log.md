@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Magnetometer log
+# Compass/Magnetometer - Logging
 
 Run with:
 ```bash

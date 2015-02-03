@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit Button
+# TinkerKit - Button
 
 Run with:
 ```bash

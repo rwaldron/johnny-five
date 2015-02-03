@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit Accelerometer
+# TinkerKit - Accelerometer
 
 Run with:
 ```bash

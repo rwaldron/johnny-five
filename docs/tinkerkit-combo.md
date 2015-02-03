@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit combo
+# TinkerKit - Combo
 
 Run with:
 ```bash
