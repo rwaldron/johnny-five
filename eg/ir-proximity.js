@@ -1,4 +1,4 @@
-var five = require("../lib/johnny-five.js"),
+var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 var controller = process.argv[2] || "GP2Y0A02YK0F";
 
@@ -10,7 +10,7 @@ board.on("ready", function() {
 
   proximity.on("data", function() {
     console.log("inches: ", this.inches);
-    console.log("cm: ", this.centimeters, this.raw);
+    console.log("cm: ", this.cm);
   });
 });
 
@@ -40,4 +40,4 @@ board.on("ready", function() {
 // - GP2Y0A41SK0F
 //     https://www.sparkfun.com/products/12728
 //
-/
+
