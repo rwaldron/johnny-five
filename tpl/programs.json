@@ -122,12 +122,10 @@
   },
   {
     "topic": "Infrared (Proximity, Motion, Reflectance)",
-    "classes": ["IR.Distance", "IR.Motion", "IR.Reflect", "IR.Reflect.Array"],
+    "classes": ["IR.Motion", "IR.Reflect", "IR.Reflect.Array"],
     "files": [
-      "ir-distance.js",
       "ir-motion.js",
       "ir-proximity.js",
-      "proximity.js",
       "ir-reflect.js",
       "ir-reflect-array.js"
     ]

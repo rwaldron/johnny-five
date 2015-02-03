@@ -11,33 +11,6 @@ var MockFirmata = require("./mock-firmata"),
     repl: false
   });
 
-
-// exports["IR.Distance: Deprecated"] = {
-//   setUp: function(done) {
-//     done();
-//   },
-//   tearDown: function(done) {
-//     done();
-//   },
-//   alias: function(test) {
-//     test.expect(Proximity.Controllers.length * 2);
-
-//     Proximity.Controllers.forEach(function(controller) {
-//       var proximity;
-
-//       test.doesNotThrow(function() {
-//         proximity = new five.IR.Proximity({
-//           controller: "GP2Y0A21YK"
-//         });
-//       });
-
-//       test.ok(proximity instanceof Proximity);
-//     });
-
-//     test.done();
-//   }
-// };
-
 exports["IR.Proximity"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();

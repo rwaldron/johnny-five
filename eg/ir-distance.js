@@ -30,7 +30,7 @@ var five = require("../lib/johnny-five.js"),
   controller = process.argv[2] || "GP2Y0A02YK0F";
 
 board.on("ready", function() {
-  var distance = new five.IR.Distance({
+  var distance = new five.IR.Proximity({
     controller: controller,
     pin: "A0",
     freq: 500
