@@ -1,29 +1,18 @@
-var five = require("../lib/johnny-five.js"),
-  board, joystick;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `joystick` hardware instance.
-  joystick = new five.Joystick({
+  var joystick = new five.Joystick({
     // Joystick pins are an array of pins
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: ["A0", "A1"],
-    freq: 500
-  });
-
-  // Inject the `joystick` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    joystick: joystick
+    pins: ["A0", "A1"]
   });
 
   // Joystick Event API
-
   joystick.on("axismove", function(err, timestamp) {
 
     // Axis data is available on:
