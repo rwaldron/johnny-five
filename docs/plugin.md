@@ -1,4 +1,4 @@
-# Plugin
+# Component Plugin
 
 
 ```javascript

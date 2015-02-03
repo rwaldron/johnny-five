@@ -8,7 +8,7 @@
   "shiftregister.js": "Shift Register",
   "pin.js": "Pin Component",
   "whisker.js": "Whisker",
-  "plugin.js": "Plugin",
+  "plugin.js": "Component Plugin",
   "nodebot.js": "Nodebot",
   "bug.js": "Bug",
   "ed.js": "ED",

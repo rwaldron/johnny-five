@@ -302,7 +302,7 @@ board.on("ready", function() {
 - [Temperature (MPU6050)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
 ### Plugin Template
-- [Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+- [Component Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
