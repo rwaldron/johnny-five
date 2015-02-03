@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove LCD RGB Temperature display
+# Grove - LCD RGB Temperature display
 
 Run with:
 ```bash

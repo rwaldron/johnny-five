@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove LCD RGB
+# Grove - LCD RGB
 
 Run with:
 ```bash

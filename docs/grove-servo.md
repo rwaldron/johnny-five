@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove Servo
+# Grove - Servo
 
 Run with:
 ```bash

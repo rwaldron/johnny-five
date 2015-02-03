@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove LED
+# Grove - LED
 
 Run with:
 ```bash

@@ -305,13 +305,13 @@ board.on("ready", function() {
 - [Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
 
 ### Grove IoT Kit (Seeed Studio)
-- [Grove LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
-- [Grove Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button.md)
-- [Grove touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch.md)
-- [Grove Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-sensor.md)
-- [Grove LCD RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb.md)
-- [Grove LCD RGB Temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
-- [Grove Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
+- [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
+- [Grove - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button.md)
+- [Grove - touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch.md)
+- [Grove - Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-sensor.md)
+- [Grove - LCD RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb.md)
+- [Grove - LCD RGB Temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
+- [Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
 
 ### TinkerKit
 - [TinkerKit - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove Sensor
+# Grove - Sensor
 
 Run with:
 ```bash

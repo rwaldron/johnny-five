@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove Button
+# Grove - Button
 
 Run with:
 ```bash
