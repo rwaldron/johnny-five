@@ -192,7 +192,7 @@ board.on("ready", function() {
 - [LED - Matrix Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
 - [LED - Matrix (HT16K33)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
 - [LED - Matrix 16x8 (HT16K33)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
-- [Sensor - Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
+- [LED - Sensor & Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
 
 ### Servo
 - [Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)

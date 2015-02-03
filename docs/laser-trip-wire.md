@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sensor - Laser Trip Wire
+# LED - Sensor & Laser Trip Wire
 
 Run with:
 ```bash

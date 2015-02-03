@@ -1,4 +1,20 @@
-// Run this program with a device model:
+var five = require("../lib/johnny-five.js"),
+var board = new five.Board();
+var controller = process.argv[2] || "GP2Y0A02YK0F";
+
+board.on("ready", function() {
+  var proximity = new five.IR.Proximity({
+    controller: controller,
+    pin: "A0"
+  });
+
+  proximity.on("data", function() {
+    console.log("inches: ", this.inches);
+    console.log("cm: ", this.centimeters, this.raw);
+  });
+});
+
+// Run this program with a device model for the controller:
 //
 //    node eg/ir-distance.js GP2Y0A02YK0F
 //
@@ -24,24 +40,4 @@
 // - GP2Y0A41SK0F
 //     https://www.sparkfun.com/products/12728
 //
-//
-var five = require("../lib/johnny-five.js"),
-  board = new five.Board(),
-  controller = process.argv[2] || "GP2Y0A02YK0F";
-
-board.on("ready", function() {
-  var distance = new five.IR.Proximity({
-    controller: controller,
-    pin: "A0",
-    freq: 500
-  });
-
-  distance.on("data", function() {
-    if (controller) {
-      console.log("inches: ", this.inches);
-      console.log("cm: ", this.centimeters, this.raw);
-    } else {
-      console.log("value: ", this.value);
-    }
-  });
-});
+/
