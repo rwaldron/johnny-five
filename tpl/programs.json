@@ -197,8 +197,6 @@
       "potentiometer.js",
       "sensor.js",
       "sensor-fsr-servo.js",
-      "sensor-fsr.js",
-      "sensor-ir-led-receiver.js",
       "sensor-slider.js",
       "slider-log.js",
       "slider-pan.js",

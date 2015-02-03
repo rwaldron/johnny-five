@@ -11,20 +11,13 @@ board.on("ready", function() {
   //
   // relay.off();
   //
+  // OR...
+  //
+  // relay.open();
+  //
+  // relay.close();
+  //
   this.repl.inject({
     relay: relay
   });
 });
-
-
-// @markdown
-//
-// ![Relay Lamp Controller](http://bocoup.com/img/weblog/relay-breadboard.png)
-//
-// For this program, you'll need:
-//
-// [![Relay Component](http://bocoup.com/img/weblog/relay-detail.jpg)](https://www.sparkfun.com/products/11042)
-//
-// @markdown
-
-
