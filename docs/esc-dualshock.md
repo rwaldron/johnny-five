@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Esc Dualshock
+# ESC - Dualshock Controller
 
 Run with:
 ```bash
@@ -24,7 +24,7 @@ function scale(x, fromLow, fromHigh, toLow, toHigh) {
 
 board.on("ready", function() {
 
-  var esc = new five.ESC(12);
+  var esc = new five.ESC(9);
 
   controller.on("connected", function() {
     controller.isConnected = true;

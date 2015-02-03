@@ -19,7 +19,6 @@
       "led-pulse.js",
       "led-fade.js",
       "led-fade-callback.js",
-      "led-status.js",
       "led-array.js",
       "led-rgb.js",
       "led-rgb-anode.js",
@@ -82,7 +81,8 @@
     "topic": "ESC & Brushless Motor",
     "classes": ["ESC"],
     "files": [
-      "esc-keypress.js"
+      "esc-keypress.js",
+      "esc-dualshock.js"
     ]
   },
   {
@@ -92,7 +92,7 @@
       "ping.js",
       "sonar-scan.js",
       "sonar.js",
-      "sonar-i2c.js"
+      "sonar-srf10.js"
     ]
   },
   {

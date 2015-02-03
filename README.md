@@ -180,8 +180,7 @@ board.on("ready", function() {
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [LED - Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
-- [LED - fade callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
-- [](https://github.com/rwaldron/johnny-five/blob/master/docs/led-status.md)
+- [LED - Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
 - [LED - An Array of LEDs](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
 - [RGB Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB, anode](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
@@ -202,7 +201,7 @@ board.on("ready", function() {
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo - Drive](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-drive.md)
 - [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
-- [Servo - - An Array of Servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
+- [Servo - An Array of Servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 - [Servo - (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 
 ### Servo Animation
@@ -216,7 +215,7 @@ board.on("ready", function() {
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor (H-Bridge)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
-- [Motor 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
+- [Motor (3 pin)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motobot](https://github.com/rwaldron/johnny-five/blob/master/docs/motobot.md)
 
 ### Stepper Motor
@@ -225,12 +224,13 @@ board.on("ready", function() {
 
 ### ESC & Brushless Motor
 - [ESC - Keypress Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
+- [ESC - Dualshock Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
 
 ### Sonar/Ultrasonic
 - [Ping Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
 - [Sonar - Scanner](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar Component](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar.md)
-- [Sonar, I2C](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-i2c.md)
+- [Sonar, I2C (SRF10)](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-srf10.md)
 
 ### Button
 - [Button Component](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)

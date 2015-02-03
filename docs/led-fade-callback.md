@@ -1,5 +1,5 @@
 <!--remove-start-->
-# LED - fade callback
+# LED - Fade Callback
 
 Run with:
 ```bash

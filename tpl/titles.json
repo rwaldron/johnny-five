@@ -25,7 +25,7 @@
   "servo-drive.js": "Servo - Drive",
   "servo-animation.js": "Servo - Animation",
   "servo-diagnostic.js": "Servo - Diagnostic",
-  "servo-array.js": "Servo - - An Array of Servos",
+  "servo-array.js": "Servo - An Array of Servos",
   "boe-test-servos.js": "BOE test Servos",
   "servo-PCA9685.js": "Servo - (PCA9685)",
   "motor.js": "Motor Component",
@@ -34,7 +34,7 @@
   "motor-current.js": "Motor - Current",
   "motor-hbridge.js": "Motor (H-Bridge)",
   "motor-PCA9685.js": "Motor (PCA9685)",
-  "motor-3-pin.js": "Motor 3 pin",
+  "motor-3-pin.js": "Motor (3 pin)",
   "motobot.js": "Motobot",
   "stepper-driver.js": "Stepper - Driver",
   "stepper-sweep.js": "Stepper - Sweep",
@@ -43,7 +43,7 @@
   "ping.js": "Ping Component",
   "sonar-scan.js": "Sonar - Scanner",
   "sonar.js": "Sonar Component",
-  "sonar-i2c.js": "Sonar, I2C",
+  "sonar-srf10.js": "Sonar, I2C (SRF10)",
   "button.js": "Button Component",
   "button-bumper.js": "Button - Bumper",
   "button-options.js": "Button - Options",
@@ -140,5 +140,6 @@
   "laser-trip-wire.js": "Sensor - Laser Trip Wire",
   "accelerometer-mma7361.js": "Accelerometer (MMA7361)",
   "lcd-i2c-PCF8574.js": "LCD, I2C (PCF8574)",
-  "gyro-lpr5150l.js": "Gyro - Analog (LPR5150AL)"
+  "gyro-lpr5150l.js": "Gyro - Analog (LPR5150AL)",
+  "led-fade-callback.js": "LED - Fade Callback"
 }

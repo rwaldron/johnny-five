@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo - - An Array of Servos
+# Servo - An Array of Servos
 
 Run with:
 ```bash
