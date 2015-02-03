@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Array
+# LED - An Array of LEDs
 
 Run with:
 ```bash

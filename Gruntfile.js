@@ -209,6 +209,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
+    var titles = JSON.parse(file.read("tpl/titles.json"));
     var readme = [];
     var tplType = "eg";
 
@@ -227,17 +228,6 @@ module.exports = function(grunt) {
         var md = "docs/" + value.replace(".js", ".md");
         var png = "docs/breadboard/" + value.replace(".js", ".png");
         var fzz = "docs/breadboard/" + value.replace(".js", ".fzz");
-        var title = value;
-
-        // Generate a title string from the file name
-        [
-          [/^.+\//, ""],
-          [/\.js/, ""],
-          [/\-/g, " "]
-        ].forEach(function(args) {
-          title = "".replace.apply(title, args);
-        });
-
         var fritzpath = fzz.split("/");
         var fritzfile = fritzpath[fritzpath.length - 1];
         var inMarkdown = false;
@@ -270,7 +260,7 @@ module.exports = function(grunt) {
         // console.log( markdown );
 
         var values = {
-          title: _.titleize(title),
+          title: titles[value],
           command: "node " + filepath,
           example: eg,
           file: md,

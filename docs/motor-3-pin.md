@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor 3 Pin
+# Motor 3 pin
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Gyro Lpr5150l
+# Gyro - Analog (LPR5150AL)
 
 Run with:
 ```bash

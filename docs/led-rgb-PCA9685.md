@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Rgb PCA9685
+# LED - RGB (PCA9685)
 
 Run with:
 ```bash

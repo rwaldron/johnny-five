@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Pulse
+# LED - Pulse
 
 Run with:
 ```bash

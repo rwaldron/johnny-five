@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo Continuous
+# Continuous Servo Component
 
 Run with:
 ```bash

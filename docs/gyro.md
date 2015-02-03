@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Gyro
+# Gyro Component
 
 Run with:
 ```bash

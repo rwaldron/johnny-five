@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Compass Hmc6352
+# Compass (HMC6352)
 
 Run with:
 ```bash

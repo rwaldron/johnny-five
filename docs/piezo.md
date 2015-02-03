@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Piezo
+# Piezo Component
 
 Run with:
 ```bash

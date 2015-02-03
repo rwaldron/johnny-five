@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Digits Clock
+# LED - Digital Clock
 
 Run with:
 ```bash

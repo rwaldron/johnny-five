@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Rainbow
+# LED - Rainbow
 
 Run with:
 ```bash

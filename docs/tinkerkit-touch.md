@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Touch
+# TinkerKit touch
 
 Run with:
 ```bash

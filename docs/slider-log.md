@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Slider Log
+# 
 
 Run with:
 ```bash

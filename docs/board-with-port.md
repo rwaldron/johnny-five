@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Board With Port
+# Board example with user defined serial port
 
 Run with:
 ```bash

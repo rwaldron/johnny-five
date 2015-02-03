@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sonar
+# Sonar Component
 
 Run with:
 ```bash

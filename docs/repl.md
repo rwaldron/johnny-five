@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Repl
+# REPL
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Ir Reflect Array
+# IR Reflect Array
 
 Run with:
 ```bash

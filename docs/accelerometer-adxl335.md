@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Accelerometer Adxl335
+# Accelerometer (ADXLl335)
 
 Run with:
 ```bash

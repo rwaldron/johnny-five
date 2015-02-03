@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Lcd Runner 20x4
+# LCD - Runner 20x4
 
 Run with:
 ```bash

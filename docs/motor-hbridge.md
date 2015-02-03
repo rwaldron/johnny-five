@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor Hbridge
+# Motor (H-Bridge)
 
 Run with:
 ```bash

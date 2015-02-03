@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo PCA9685
+# Servo - (PCA9685)
 
 Run with:
 ```bash

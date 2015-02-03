@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Button Bumper
+# Button - Bumper
 
 Run with:
 ```bash

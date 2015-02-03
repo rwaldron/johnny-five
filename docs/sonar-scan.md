@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sonar Scan
+# Sonar - Scanner
 
 Run with:
 ```bash

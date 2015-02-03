@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Lcd I2c
+# LCD, I2C
 
 Run with:
 ```bash

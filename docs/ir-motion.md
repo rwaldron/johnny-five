@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Ir Motion
+# IR Motion Component
 
 Run with:
 ```bash

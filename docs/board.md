@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Board
+# Basic Board initialization
 
 Run with:
 ```bash

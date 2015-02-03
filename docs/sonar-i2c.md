@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sonar I2c
+# Sonar, I2C
 
 Run with:
 ```bash

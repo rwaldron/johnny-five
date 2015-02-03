@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sensor Fsr
+# 
 
 Run with:
 ```bash

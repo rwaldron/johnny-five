@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sensor
+# Sensor Component
 
 Run with:
 ```bash

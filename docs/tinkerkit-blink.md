@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Blink
+# TinkerKit blink
 
 Run with:
 ```bash

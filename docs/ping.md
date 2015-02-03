@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Ping
+# Ping Component
 
 Run with:
 ```bash

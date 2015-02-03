@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Stepper Sweep
+# Stepper - Sweep
 
 Run with:
 ```bash

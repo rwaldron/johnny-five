@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Demo Sequence
+# LED - Demo Sequence
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Magnetometer North
+# Magnetometer north
 
 Run with:
 ```bash

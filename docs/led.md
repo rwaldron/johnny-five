@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led
+# LED Component
 
 Run with:
 ```bash

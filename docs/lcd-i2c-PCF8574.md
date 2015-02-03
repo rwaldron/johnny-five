@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Lcd I2c PCF8574
+# LCD, I2C (PCF8574)
 
 Run with:
 ```bash

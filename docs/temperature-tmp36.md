@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Temperature Tmp36
+# Temperature (TMP36)
 
 Run with:
 ```bash

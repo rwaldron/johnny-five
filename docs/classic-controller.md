@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Classic Controller
+# Wii Classic Controller Component
 
 Run with:
 ```bash

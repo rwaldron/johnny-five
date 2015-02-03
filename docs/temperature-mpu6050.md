@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Temperature Mpu6050
+# Temperature (MPU6050)
 
 Run with:
 ```bash

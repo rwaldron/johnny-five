@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Joystick Laser
+# Joystick - Laser Controller
 
 Run with:
 ```bash

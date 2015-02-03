@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Shift Register Seven Segment
+# Shift Register - Seven Segment Controller
 
 Run with:
 ```bash

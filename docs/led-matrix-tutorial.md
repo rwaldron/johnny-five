@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Matrix Tutorial
+# LED - Matrix Demo
 
 Run with:
 ```bash

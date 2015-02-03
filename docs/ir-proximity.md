@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Ir Proximity
+# IR Proximity Component
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Fade
+# LED - Fade
 
 Run with:
 ```bash

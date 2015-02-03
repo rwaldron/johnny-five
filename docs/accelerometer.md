@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Accelerometer
+# Accelerometer Component
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo Prompt
+# Servo - Prompt
 
 Run with:
 ```bash

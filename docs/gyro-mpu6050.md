@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Gyro Mpu6050
+# Gyro - I2C (MPU6050)
 
 Run with:
 ```bash

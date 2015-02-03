@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Relay Lamp Controller
+# Relay - Lamp Controller
 
 Run with:
 ```bash

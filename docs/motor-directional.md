@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor Directional
+# Motor - Directional
 
 Run with:
 ```bash

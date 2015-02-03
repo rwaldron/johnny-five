@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Lcd
+# LCD Component
 
 Run with:
 ```bash

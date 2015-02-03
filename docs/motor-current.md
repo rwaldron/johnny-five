@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor Current
+# Motor - Current
 
 Run with:
 ```bash

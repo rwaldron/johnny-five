@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Linear Pot
+# TinkerKit linear pot
 
 Run with:
 ```bash

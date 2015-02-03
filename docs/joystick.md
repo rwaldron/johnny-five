@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Joystick
+# Joystick Component
 
 Run with:
 ```bash

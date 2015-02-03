@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor
+# Motor Component
 
 Run with:
 ```bash

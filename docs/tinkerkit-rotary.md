@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Rotary
+# TinkerKit rotary
 
 Run with:
 ```bash

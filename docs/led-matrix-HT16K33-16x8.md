@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Matrix HT16K33 16x8
+# LED - Matrix 16x8 (HT16K33)
 
 Run with:
 ```bash

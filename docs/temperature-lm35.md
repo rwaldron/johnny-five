@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Temperature Lm35
+# Temperature (LM35)
 
 Run with:
 ```bash

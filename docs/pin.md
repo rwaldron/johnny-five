@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Pin
+# Pin Component
 
 Run with:
 ```bash

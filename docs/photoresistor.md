@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Photoresistor
+# Sensor - Photoresistor
 
 Run with:
 ```bash

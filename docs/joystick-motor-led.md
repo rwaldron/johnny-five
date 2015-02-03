@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Joystick Motor Led
+# Joystick + Motor + LED
 
 Run with:
 ```bash

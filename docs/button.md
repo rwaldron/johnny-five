@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Button
+# Button Component
 
 Run with:
 ```bash

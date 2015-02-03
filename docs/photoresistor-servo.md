@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Photoresistor Servo
+# 
 
 Run with:
 ```bash

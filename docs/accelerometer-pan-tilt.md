@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Accelerometer Pan Tilt
+# Accelerometer Pan + Tilt
 
 Run with:
 ```bash

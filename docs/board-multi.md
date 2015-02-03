@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Board Multi
+# Multiple Boards in one program
 
 Run with:
 ```bash

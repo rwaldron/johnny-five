@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Nunchuk
+# Wii Nunchuk Component
 
 Run with:
 ```bash

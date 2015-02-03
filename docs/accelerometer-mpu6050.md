@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Accelerometer Mpu6050
+# Accelerometer (MPU6050)
 
 Run with:
 ```bash

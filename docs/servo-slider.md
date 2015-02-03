@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo Slider
+# Servo - Slider
 
 Run with:
 ```bash

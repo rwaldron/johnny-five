@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Joystick Claw
+# Joystick - Claw Controller
 
 Run with:
 ```bash

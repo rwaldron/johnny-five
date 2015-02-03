@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Temperature Ds18b20
+# Temperature (DS18B20)
 
 Run with:
 ```bash

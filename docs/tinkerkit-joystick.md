@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Joystick
+# TinkerKit joystick
 
 Run with:
 ```bash

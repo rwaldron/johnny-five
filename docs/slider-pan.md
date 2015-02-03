@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Slider Pan
+# 
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Button Pullup
+# Button - Pullup
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sensor Fsr Servo
+# Sensor - Force Sensitive Servo Controller
 
 Run with:
 ```bash

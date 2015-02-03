@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Accelerometer Mma7361
+# Accelerometer (MMA7361)
 
 Run with:
 ```bash

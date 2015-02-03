@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Sensor Slider
+# Sensor - Slide Potentiometer
 
 Run with:
 ```bash

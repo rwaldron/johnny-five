@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Imu Mpu6050
+# IMU (MPU6050)
 
 Run with:
 ```bash

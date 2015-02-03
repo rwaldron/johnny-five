@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Stepper Driver
+# Stepper - Driver
 
 Run with:
 ```bash

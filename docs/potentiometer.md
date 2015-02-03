@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Potentiometer
+# Sensor - Potentiometer
 
 Run with:
 ```bash

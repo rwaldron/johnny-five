@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Shift Register
+# Shift Register Component
 
 Run with:
 ```bash

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Ir Reflect
+# IR Reflect Component
 
 Run with:
 ```bash

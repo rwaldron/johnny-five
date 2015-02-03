@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Lcd Enumeratechars
+# LCD - Enumerate Characters
 
 Run with:
 ```bash

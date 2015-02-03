@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Led Matrix
+# LED - Matrix
 
 Run with:
 ```bash

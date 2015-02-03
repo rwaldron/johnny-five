@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor PCA9685
+# Motor (PCA9685)
 
 Run with:
 ```bash

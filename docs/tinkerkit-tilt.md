@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Tinkerkit Tilt
+# TinkerKit tilt
 
 Run with:
 ```bash

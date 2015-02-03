@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Motor Brake
+# Motor - Brake
 
 Run with:
 ```bash

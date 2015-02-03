@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo Animation
+# Servo - Animation
 
 Run with:
 ```bash
