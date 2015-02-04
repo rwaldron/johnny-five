@@ -70,7 +70,6 @@
   "led-pulse.js": "LED - Pulse",
   "led-fade.js": "LED - Fade",
   "led-fade-callback.js": "LED - fade callback",
-  "led-digital.js": "LED - Digital",
   "led-analog.js": "LED - PWM",
   "led-array.js": "LED - An Array of LEDs",
   "led-rgb.js": "RGB Component",
