@@ -15,8 +15,7 @@ exports["Switch"] = {
   setUp: function(done) {
 
     this.digitalRead = sinon.spy(board.io, "digitalRead");
-    this.
-    switch = new Switch({
+    this.switch = new Switch({
       pin: 8,
       freq: 5,
       board: board
