@@ -8,6 +8,7 @@ node eg/stepper-sweep.js
 <!--remove-end-->
 
 ```javascript
+var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {

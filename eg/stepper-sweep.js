@@ -1,3 +1,4 @@
+var five = require("../lib/johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
