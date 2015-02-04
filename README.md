@@ -333,6 +333,13 @@ board.on("ready", function() {
 <!--extract-end:examples-->
 
 
+## Make: JavaScript Robotics
+
+[![](http://ecx.images-amazon.com/images/I/91ae8ZZDQ2L.jpg)](http://shop.oreilly.com/product/0636920031390.do)
+
+
+
+
 ## Contributing
 All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
 by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
