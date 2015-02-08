@@ -1,11 +1,9 @@
 var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
-
-  var ledPin = process.argv[2] || 0;
   var led = new five.Led({
+    pin: process.argv[2] || 0,
     address: 0x40,
-    pin: ledPin,
     controller: "PCA9685"
   });
 
@@ -21,4 +19,5 @@ five.Board().on("ready", function() {
     led: led
   });
 
+  led.pulse();
 });

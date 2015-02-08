@@ -15,6 +15,7 @@
     "classes": ["Led"],
     "files": [
       "led.js",
+      "led-PCA9685.js",
       "led-blink.js",
       "led-pulse.js",
       "led-fade.js",

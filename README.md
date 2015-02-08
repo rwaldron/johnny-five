@@ -177,6 +177,7 @@ board.on("ready", function() {
 
 ### LED
 - [LED Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
+- [LED (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [LED - Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)

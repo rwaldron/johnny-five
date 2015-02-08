@@ -135,5 +135,6 @@
   "accelerometer-mma7361.js": "Accelerometer (MMA7361)",
   "lcd-i2c-PCF8574.js": "LCD, I2C (PCF8574)",
   "gyro-lpr5150l.js": "Gyro - Analog (LPR5150AL)",
-  "led-fade-callback.js": "LED - Fade Callback"
+  "led-fade-callback.js": "LED - Fade Callback",
+  "led-PCA9685.js": "LED (PCA9685)"
 }
