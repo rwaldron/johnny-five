@@ -16,7 +16,8 @@ exports["Led - Digital"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.digitalWrite = sinon.spy(this.board.io, "digitalWrite");
+    this.pinMode = sinon.spy(this.board.io, "pinMode");
 
     this.led = new Led({
       pin: 13,
@@ -81,6 +82,12 @@ exports["Led - Digital"] = {
     test.done();
   },
 
+  pinMode: function(test) {
+    test.expect(1);
+    test.equal(this.pinMode.callCount, 1);
+    test.done();
+  },
+
   defaultMode: function(test) {
     test.expect(1);
     test.equal(this.led.mode, 1);
@@ -91,7 +98,7 @@ exports["Led - Digital"] = {
     test.expect(1);
 
     this.led.on();
-    test.ok(this.spy.calledWith(13, 1));
+    test.ok(this.digitalWrite.calledWith(13, 1));
 
     test.done();
   },
@@ -100,7 +107,7 @@ exports["Led - Digital"] = {
     test.expect(1);
 
     this.led.off();
-    test.ok(this.spy.calledWith(13, 0));
+    test.ok(this.digitalWrite.calledWith(13, 0));
 
     test.done();
   },
@@ -142,10 +149,10 @@ exports["Led - Digital"] = {
     this.led.off();
     this.led.toggle();
 
-    test.ok(this.spy.calledWith(13, 1));
+    test.ok(this.digitalWrite.calledWith(13, 1));
 
     this.led.toggle();
-    test.ok(this.spy.calledWith(13, 0));
+    test.ok(this.digitalWrite.calledWith(13, 0));
 
     test.done();
   },
@@ -157,12 +164,12 @@ exports["Led - Digital"] = {
     this.led.strobe(100);
 
     this.clock.tick(100);
-    test.ok(this.spy.calledWith(13, 1));
+    test.ok(this.digitalWrite.calledWith(13, 1));
     this.clock.tick(100);
-    test.ok(this.spy.calledWith(13, 0));
+    test.ok(this.digitalWrite.calledWith(13, 0));
     this.led.stop();
     this.clock.tick(100);
-    test.equal(this.spy.callCount, 3);
+    test.equal(this.digitalWrite.callCount, 3);
 
     test.done();
   },
@@ -179,7 +186,8 @@ exports["Led - PWM (Analog)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.io, "analogWrite");
+    this.analogWrite = sinon.spy(this.board.io, "analogWrite");
+    this.pinMode = sinon.spy(this.board.io, "pinMode");
 
     this.led = new Led({
       pin: 11,
@@ -242,6 +250,12 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  pinMode: function(test) {
+    test.expect(1);
+    test.equal(this.pinMode.callCount, 1);
+    test.done();
+  },
+
   defaultMode: function(test) {
     test.expect(1);
     test.equal(this.led.mode, 3);
@@ -252,7 +266,7 @@ exports["Led - PWM (Analog)"] = {
     test.expect(1);
 
     this.led.on();
-    test.ok(this.spy.calledWith(11, 255));
+    test.ok(this.analogWrite.calledWith(11, 255));
 
     test.done();
   },
@@ -261,7 +275,7 @@ exports["Led - PWM (Analog)"] = {
     test.expect(1);
 
     this.led.off();
-    test.ok(this.spy.calledWith(11, 0));
+    test.ok(this.analogWrite.calledWith(11, 0));
 
     test.done();
   },
@@ -309,10 +323,10 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.off();
     this.led.toggle();
-    test.ok(this.spy.calledWith(11, 255));
+    test.ok(this.analogWrite.calledWith(11, 255));
 
     this.led.toggle();
-    test.ok(this.spy.calledWith(11, 0));
+    test.ok(this.analogWrite.calledWith(11, 0));
 
     test.done();
   },
@@ -322,13 +336,13 @@ exports["Led - PWM (Analog)"] = {
 
     this.led.off();
     this.led.brightness(255);
-    test.ok(this.spy.calledWith(11, 255));
+    test.ok(this.analogWrite.calledWith(11, 255));
 
     this.led.brightness(100);
-    test.ok(this.spy.calledWith(11, 100));
+    test.ok(this.analogWrite.calledWith(11, 100));
 
     this.led.brightness(0);
-    test.ok(this.spy.calledWith(11, 0));
+    test.ok(this.analogWrite.calledWith(11, 0));
 
     test.done();
   },
@@ -490,7 +504,8 @@ exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.io, "i2cWrite");
+    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+    this.pinMode = sinon.spy(this.board.io, "pinMode");
 
     this.led = new Led({
       pin: 0,
@@ -560,11 +575,20 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
+  pinMode: function(test) {
+    test.expect(1);
+
+    // I2C device: no need to call pinMode!
+    test.equal(this.pinMode.callCount, 0);
+
+    test.done();
+  },
+
   on: function(test) {
     test.expect(1);
 
     this.led.on();
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
 
     test.done();
   },
@@ -573,7 +597,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.expect(1);
 
     this.led.off();
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
 
     test.done();
   },
@@ -621,10 +645,10 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.led.off();
     this.led.toggle();
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
 
     this.led.toggle();
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
 
     test.done();
   },
@@ -634,13 +658,13 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.led.off();
     this.led.brightness(255);
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
 
     this.led.brightness(100);
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
 
     this.led.brightness(0);
-    test.ok(this.spy.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
 
     test.done();
   },
