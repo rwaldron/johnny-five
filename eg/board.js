@@ -4,12 +4,8 @@ var board = new five.Board();
 // The board's pins will not be accessible until
 // the board has reported that it is ready
 board.on("ready", function() {
-  // Set pin 13 to OUTPUT mode
-  this.pinMode(13, this.MODES.OUTPUT);
+  console.log("Ready!");
 
-  // Create a loop to "flash/blink/strobe" an led
-  this.loop(500, function() {
-    // Whatever the last value was, write the opposite
-    this.digitalWrite(13, this.pins[13].value ? 0 : 1);
-  });
+  var led = new five.Led(13);
+  led.blink(500);
 });
