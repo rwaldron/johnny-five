@@ -1,6 +1,8 @@
 <!--remove-start-->
 # Stepper - Driver
 
+In order to use the Stepper class, your board must be flashed with AdvancedFirmata, which is available here: https://github.com/soundanalogous/AdvancedFirmata
+
 Run with:
 ```bash
 node eg/stepper-driver.js
