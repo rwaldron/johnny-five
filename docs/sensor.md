@@ -8,15 +8,13 @@ node eg/sensor.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board, sensor;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `sensor` hardware instance.
-  sensor = new five.Sensor({
+  var sensor = new five.Sensor({
     pin: "A0",
     freq: 250
   });
@@ -24,7 +22,7 @@ board.on("ready", function() {
   // Inject the `sensor` hardware into
   // the Repl instance's context;
   // allows direct command line access
-  board.repl.inject({
+  this.repl.inject({
     sensor: sensor
   });
 

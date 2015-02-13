@@ -1,12 +1,10 @@
-var five = require("../lib/johnny-five.js"),
-  board, sensor;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `sensor` hardware instance.
-  sensor = new five.Sensor({
+  var sensor = new five.Sensor({
     pin: "A0",
     freq: 250
   });
@@ -14,7 +12,7 @@ board.on("ready", function() {
   // Inject the `sensor` hardware into
   // the Repl instance's context;
   // allows direct command line access
-  board.repl.inject({
+  this.repl.inject({
     sensor: sensor
   });
 

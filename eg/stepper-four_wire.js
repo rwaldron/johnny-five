@@ -3,6 +3,15 @@ var board = new five.Board();
 var Stepper = five.Stepper;
 
 board.on("ready", function() {
+  /**
+   * In order to use the Stepper class, your board must be flashed with
+   * either of the following:
+   *
+   * - AdvancedFirmata https://github.com/soundanalogous/AdvancedFirmata
+   * - ConfigurableFirmata https://github.com/firmata/arduino/releases/tag/v2.6.2
+   *
+   */
+
   var stepper = new Stepper({
     type: Stepper.TYPE.FOUR_WIRE,
     stepsPerRev: 200,
