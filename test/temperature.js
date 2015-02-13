@@ -64,14 +64,14 @@ exports["Temperature -- LM35"] = {
     this.temperature.on("data", spy);
 
     raw(100);
-    
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.equals(Math.round(spy.args[0][1].celsius), 49);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 120);
     test.equals(Math.round(spy.args[0][1].kelvin), 322);
-    
+
     test.done();
   },
 
@@ -90,7 +90,7 @@ exports["Temperature -- LM35"] = {
 
     raw(200);
     this.clock.tick(100);
-    
+
     raw(100);
     this.clock.tick(100);
 
@@ -136,14 +136,14 @@ exports["Temperature -- TMP36"] = {
     this.temperature.on("data", spy);
 
     raw(150);
-    
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.equals(Math.round(spy.args[0][1].celsius), 23);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 74);
     test.equals(Math.round(spy.args[0][1].kelvin), 296);
-    
+
     test.done();
   }
 };
@@ -161,7 +161,7 @@ function createDS18B20(pin, address) {
 exports["Temperature -- DS18B20"] = {
 
   setUp: function(done) {
-    
+
     this.pin = 2;
     this.clock = sinon.useFakeTimers();
     this.sendOneWireConfig = sinon.spy(board.io, "sendOneWireConfig");
@@ -195,7 +195,7 @@ exports["Temperature -- DS18B20"] = {
     search = this.sendOneWireSearch.args[0][1];
     search(null, [device]);
 
-    
+
     test.ok(this.sendOneWireConfig.calledOnce);
     test.equals(this.sendOneWireConfig.args[0][0], this.pin);
 
@@ -228,7 +228,7 @@ exports["Temperature -- DS18B20"] = {
 
     test.ok(this.sendOneWireWrite.calledOnce);
     test.equals(this.sendOneWireWrite.args[0][0], this.pin);
-    test.equals(this.sendOneWireWrite.args[0][1], device); 
+    test.equals(this.sendOneWireWrite.args[0][1], device);
     test.equals(this.sendOneWireWrite.args[0][2], 0x44);
 
     test.ok(this.sendOneWireDelay.calledOnce);
@@ -326,7 +326,7 @@ exports["Temperature -- MPU6050"] = {
     test.equals(Math.round(spy.args[0][1].celsius), 49);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 121);
     test.equals(Math.round(spy.args[0][1].kelvin), 323);
-    
+
     test.done();
   }
 };
@@ -344,7 +344,7 @@ exports["Temperature -- ANALOG"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    
+
     done();
   },
 
@@ -363,14 +363,14 @@ exports["Temperature -- ANALOG"] = {
     temperature.on("data", spy);
 
     raw(50);
-    
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.equals(Math.round(spy.args[0][1].celsius), 50);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 122);
     test.equals(Math.round(spy.args[0][1].kelvin), 323);
-    
+
     test.done();
   },
 
@@ -384,14 +384,14 @@ exports["Temperature -- ANALOG"] = {
     temperature.on("data", spy);
 
     raw(50);
-    
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
     test.equals(Math.round(spy.args[0][1].celsius), 22);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 72);
     test.equals(Math.round(spy.args[0][1].kelvin), 295);
-    
+
     test.done();
   }
 };
@@ -427,14 +427,14 @@ exports["Temperature -- GROVE"] = {
     this.temperature.on("data", spy);
 
     raw(659);
-    
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 23);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 74);
-    test.equals(Math.round(spy.args[0][1].kelvin), 296);
-    
+    test.equals(Math.round(spy.args[0][1].celsius), 39);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 102);
+    test.equals(Math.round(spy.args[0][1].kelvin), 312);
+
     test.done();
   }
 };
