@@ -80,7 +80,9 @@
     { "name": "SotirisValogiannis", "email": "<omiloparmenos@gmail.com>" },
     { "name": "Sue Lockwood", "email": "<deathbearbrown@gmail.com>" },
     { "name": "Henri Cavalcante", "email": "<contato@henrimichel.com.br>" },
-    { "name": "Dany Shaanan", "email": "<danyshaanan@gmail.com>" }
+    { "name": "Dany Shaanan", "email": "<danyshaanan@gmail.com>" },
+    { "name": "Rachel Hazes", "email": "<>"},
+    { "name": "DeShawn Williams", "email": "<deshawn.b.williams@gmail.com>"}
   ],
   "keywords": [
     "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io"
