@@ -4,14 +4,11 @@ var board = new five.Board();
 board.on("ready", function() {
 
   /**
-   * var stepper = new five.Stepper({
-   *   type: five.Stepper.TYPE.DRIVER,
-   *   stepsPerRev: 200,
-   *   pins: {
-   *     step: 11,
-   *     dir: 12
-   *   }
-   * });
+   * In order to use the Stepper class, your board must be flashed with
+   * AdvancedFirmata, which is available here:
+   * 
+   * https://github.com/soundanalogous/AdvancedFirmata
+   *
    */
 
   var stepper = new five.Stepper({
