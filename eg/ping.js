@@ -1,12 +1,10 @@
-var five = require("../lib/johnny-five.js"),
-  board, ping;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
-  ping = new five.Ping(7);
+  var ping = new five.Ping(7);
 
   // Properties
 
