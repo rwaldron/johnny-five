@@ -324,6 +324,7 @@ board.on("ready", function() {
 - [TinkerKit - Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-joystick.md)
 - [TinkerKit - Linear Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-linear-pot.md)
 - [TinkerKit - Rotary Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-rotary.md)
+- [TinkerKit -- Temperature](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-thermistor.md)
 - [TinkerKit - Tilt Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-tilt.md)
 - [TinkerKit - Touch Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-touch.md)
 

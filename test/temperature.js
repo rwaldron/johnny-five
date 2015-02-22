@@ -438,3 +438,46 @@ exports["Temperature -- GROVE"] = {
     test.done();
   }
 };
+
+exports["Temperature -- TINKERKIT"] = {
+
+  setUp: function(done) {
+
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.temperature = new Temperature({
+      controller: "TINKERKIT",
+      pin: "A0",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(4);
+    this.temperature.on("data", spy);
+
+    raw(810);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), 39);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 102);
+    test.equals(Math.round(spy.args[0][1].kelvin), 312);
+
+    test.done();
+  }
+};
