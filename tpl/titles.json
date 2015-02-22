@@ -120,6 +120,7 @@
   "tinkerkit-joystick.js": "TinkerKit - Joystick",
   "tinkerkit-linear-pot.js": "TinkerKit - Linear Potentiometer",
   "tinkerkit-rotary.js": "TinkerKit - Rotary Potentiometer",
+  "tinkerkit-thermistor.js": "TinkerKit -- Temperature",
   "tinkerkit-tilt.js": "TinkerKit - Tilt Sensor",
   "tinkerkit-touch.js": "TinkerKit - Touch Sensor",
   "led-blink.js": "LED - Blink",
