@@ -45,18 +45,17 @@ var args = optimist
 
 if (args.help) {
   optimist.showHelp();
-  return process.exit(-1);
+  process.exit(-1);
 }
 
 if (!args.portname) {
   console.error("Serial port name is required. \n `-p /dev/PORTNAME` \n Use one of the following");
-  serialport.list(function(err, data){
-    data.forEach(function(v){
+  serialport.list(function (err, data) {
+    data.forEach(function (v) {
       console.log("\t" + v.comName);
     });
-    return process.exit(-1);
   });
-  return;
+  process.exit(-1);
 }
 
 var guardTime = args.guardtime * 1000;
@@ -76,8 +75,8 @@ var open = function (cb) {
   port.once("open", cb);
 };
 
-var wait = function(ms) {
-  return function(cb) {
+var wait = function (ms) {
+  return function (cb) {
     setTimeout(cb, ms);
   };
 };
@@ -110,16 +109,16 @@ var exit = function () {
   process.exit(0);
 };
 
-var print = function(str) {
-  return function(cb){
+var print = function (str) {
+  return function (cb) {
     console.log(str);
     cb();
   };
 };
 
-var printCmd = function(msg, str) {
+var printCmd = function (msg, str) {
   return function (cb) {
-    readCmd(str + "\r")(function(err, data){
+    readCmd(str + "\r")(function (err, data) {
       console.log(msg + " (" + str + "): " + data);
       cb();
     });
