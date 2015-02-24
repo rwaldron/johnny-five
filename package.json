@@ -106,7 +106,7 @@
   },
   "dependencies": {
     "color-convert": "~0.5.2",
-    "colors": ">=0.5.1",
+    "chalk": "latest",
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
