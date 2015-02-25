@@ -108,41 +108,15 @@ module.exports = function(grunt) {
       }
     },
     jscs: {
-      files: {
-        src: [
-          "Gruntfile.js",
-          "lib/**/!(johnny-five)*.js",
-          "test/**/*.js",
-          "eg/**/*.js",
-        ]
-      },
+      src: [
+        "Gruntfile.js",
+        "lib/**/!(johnny-five)*.js",
+        "test/**/*.js",
+        "eg/**/*.js",
+        "util/**/*.js"
+      ],
       options: {
-        config: ".jscsrc",
-        requireCurlyBraces: [
-          "if",
-          "else",
-          "for",
-          "while",
-          "do",
-          "try",
-          "catch",
-        ],
-        disallowNewlineBeforeBlockStatements: true,
-        requireSpaceBeforeBlockStatements: true,
-        requireParenthesesAroundIIFE: true,
-        requireSpacesInConditionalExpression: true,
-        // requireSpaceBeforeKeywords: true,
-        requireSpaceAfterKeywords: [
-          "if", "else",
-          "switch", "case",
-          "try", "catch",
-          "do", "while", "for",
-          "return", "typeof", "void",
-        ],
-        validateQuoteMarks: {
-          mark: "\"",
-          escape: true
-        }
+        config: ".jscsrc"
       }
     },
     jsbeautifier: {
