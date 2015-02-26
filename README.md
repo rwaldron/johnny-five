@@ -296,7 +296,6 @@ board.on("ready", function() {
 - [Sensor Component](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Force Sensitive Servo Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr-servo.md)
 - [Sensor - Slide Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-slider.md)
-- [Sensor - Slide Potentiometer Servo Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/slider-servo-control.md)
 - [Temperature (TMP36)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
 - [Temperature (LM35)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
 - [Temperature (DS18B20)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)

@@ -99,7 +99,6 @@
   "sensor.js": "Sensor Component",
   "sensor-fsr-servo.js": "Sensor - Force Sensitive Servo Controller",
   "sensor-slider.js": "Sensor - Slide Potentiometer",
-  "slider-servo-control.js": "Sensor - Slide Potentiometer Servo Controller",
   "temperature-tmp36.js": "Temperature (TMP36)",
   "temperature-lm35.js": "Temperature (LM35)",
   "temperature-ds18b20.js": "Temperature (DS18B20)",

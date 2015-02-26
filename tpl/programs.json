@@ -201,7 +201,6 @@
       "sensor-slider.js",
       "slider-log.js",
       "slider-pan.js",
-      "slider-servo-control.js",
       "temperature-tmp36.js",
       "temperature-lm35.js",
       "temperature-ds18b20.js",
