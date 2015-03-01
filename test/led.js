@@ -1123,7 +1123,6 @@ exports["Led.RGB - Common Anode"] = {
     };
 
     this.board.io.analogWrite = function(pin, value) {
-      value = 255 - value;
       this.io.analogWrite(pin, value);
     }.bind(this);
 
@@ -1132,27 +1131,37 @@ exports["Led.RGB - Common Anode"] = {
     done();
   },
 
+  isAnode: function (test) {
+    test.expect(1);
+
+    test.equal(this.ledRgb.isAnode, true);
+
+    test.done();
+  },
+
   color: function(test) {
     var redPin = 9,
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(9);
+    test.expect(10);
 
     this.ledRgb.color("#0000ff");
-    test.ok(this.analog.calledWith(redPin, 0xff));
-    test.ok(this.analog.calledWith(greenPin, 0xff));
-    test.ok(this.analog.calledWith(bluePin, 0x00));
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 255));
+    test.ok(this.analog.calledWith(bluePin, 0));
 
     this.ledRgb.color("#ffff00");
-    test.ok(this.analog.calledWith(redPin, 0x00));
-    test.ok(this.analog.calledWith(greenPin, 0x00));
-    test.ok(this.analog.calledWith(bluePin, 0xff));
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 0));
+    test.ok(this.analog.calledWith(bluePin, 255));
 
     this.ledRgb.color("#bbccaa");
-    test.ok(this.analog.calledWith(redPin, 0x44));
-    test.ok(this.analog.calledWith(greenPin, 0x33));
-    test.ok(this.analog.calledWith(bluePin, 0x55));
+    test.ok(this.analog.calledWith(redPin, 68));
+    test.ok(this.analog.calledWith(greenPin, 51));
+    test.ok(this.analog.calledWith(bluePin, 85));
+
+    test.equal(this.ledRgb.isAnode, true);
 
     test.done();
   },

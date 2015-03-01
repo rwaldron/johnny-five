@@ -11,5 +11,10 @@ board.on("ready", function() {
     isAnode: true
   });
 
-  anode.pulse();
+  anode.strobe();
+
+  this.repl.inject({
+    anode: anode
+  });
+
 });
