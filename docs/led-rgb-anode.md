@@ -21,7 +21,7 @@ board.on("ready", function() {
     isAnode: true
   });
 
-  anode.strobe();
+  anode.blink();
 
   this.repl.inject({
     anode: anode
