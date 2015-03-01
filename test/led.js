@@ -1144,24 +1144,22 @@ exports["Led.RGB - Common Anode"] = {
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(10);
+    test.expect(9);
 
     this.ledRgb.color("#0000ff");
-    test.ok(this.analog.calledWith(redPin, 255));
-    test.ok(this.analog.calledWith(greenPin, 255));
-    test.ok(this.analog.calledWith(bluePin, 0));
+    test.ok(this.analog.calledWith(redPin, 0xff));
+    test.ok(this.analog.calledWith(greenPin, 0xff));
+    test.ok(this.analog.calledWith(bluePin, 0x00));
 
     this.ledRgb.color("#ffff00");
-    test.ok(this.analog.calledWith(redPin, 0));
-    test.ok(this.analog.calledWith(greenPin, 0));
-    test.ok(this.analog.calledWith(bluePin, 255));
+    test.ok(this.analog.calledWith(redPin, 0x00));
+    test.ok(this.analog.calledWith(greenPin, 0x00));
+    test.ok(this.analog.calledWith(bluePin, 0xff));
 
     this.ledRgb.color("#bbccaa");
-    test.ok(this.analog.calledWith(redPin, 68));
-    test.ok(this.analog.calledWith(greenPin, 51));
-    test.ok(this.analog.calledWith(bluePin, 85));
-
-    test.equal(this.ledRgb.isAnode, true);
+    test.ok(this.analog.calledWith(redPin, 0x44));
+    test.ok(this.analog.calledWith(greenPin, 0x33));
+    test.ok(this.analog.calledWith(bluePin, 0x55));
 
     test.done();
   },
