@@ -66,6 +66,7 @@
   "lcd-i2c.js": "LCD, I2C",
   "lcd-i2c-runner.js": "LCD, I2C - Runner",
   "led.js": "LED Component",
+  "led-anode.js": "LED (Common Anode)",
   "led-on-off.js": "LED - On/Off",
   "led-pulse.js": "LED - Pulse",
   "led-fade.js": "LED - Fade",
