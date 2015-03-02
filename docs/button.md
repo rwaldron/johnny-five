@@ -54,6 +54,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/button.png](breadboard/button.png)
+[docs/breadboard/button.fzz](breadboard/button.fzz)
 
 
 
