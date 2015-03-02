@@ -1123,13 +1123,20 @@ exports["Led.RGB - Common Anode"] = {
     };
 
     this.board.io.analogWrite = function(pin, value) {
-      value = 255 - value;
       this.io.analogWrite(pin, value);
     }.bind(this);
 
     this.analog = sinon.spy(this.io, "analogWrite");
 
     done();
+  },
+
+  isAnode: function (test) {
+    test.expect(1);
+
+    test.equal(this.ledRgb.isAnode, true);
+
+    test.done();
   },
 
   color: function(test) {

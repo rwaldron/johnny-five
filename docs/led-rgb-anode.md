@@ -21,7 +21,12 @@ board.on("ready", function() {
     isAnode: true
   });
 
-  anode.pulse();
+  anode.blink();
+
+  this.repl.inject({
+    anode: anode
+  });
+
 });
 
 ```
