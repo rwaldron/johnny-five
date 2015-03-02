@@ -73,7 +73,7 @@
   "led-fade-callback.js": "LED - fade callback",
   "led-analog.js": "LED - PWM",
   "led-array.js": "LED - An Array of LEDs",
-  "led-rgb.js": "RGB Component",
+  "led-rgb.js": "LED RGB Component",
   "led-rgb-anode.js": "LED - RGB, anode",
   "led-rainbow.js": "LED - Rainbow",
   "led-demo-sequence.js": "LED - Demo Sequence",

@@ -184,7 +184,7 @@ board.on("ready", function() {
 - [LED - Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
 - [LED - Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
 - [LED - An Array of LEDs](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
-- [RGB Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
+- [LED RGB Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB, anode](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [LED - RGB (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)

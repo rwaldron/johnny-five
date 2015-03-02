@@ -1,5 +1,5 @@
 <!--remove-start-->
-# RGB Component
+# LED RGB Component
 
 Run with:
 ```bash
