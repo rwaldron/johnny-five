@@ -170,7 +170,6 @@ board.on("ready", function() {
 
 ### Board
 - [Basic Board initialization](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
-- [Board example with user defined serial port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
 - [Multiple Boards in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 - [Pin Component](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
