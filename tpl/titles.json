@@ -2,7 +2,6 @@
   "animation.js": "Animation",
   "phoenix.js": "Phoenix",
   "board.js": "Basic Board initialization",
-  "board-with-port.js": "Board example with user defined serial port",
   "board-multi.js": "Multiple Boards in one program",
   "repl.js": "REPL",
   "shiftregister.js": "Shift Register",
