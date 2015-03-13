@@ -8,9 +8,9 @@ node eg/magnetometer-north.js
 <!--remove-end-->
 
 ```javascript
-var color = require("colors"),
+var chalk = require("chalk"),
   five = require("johnny-five"),
-  board, colors, servo, mag, count, dirs, isNorth, isSeeking, last;
+  board, servo, mag, count, dirs, isNorth, isSeeking, last;
 
 board = new five.Board();
 
@@ -71,7 +71,7 @@ board.on("ready", function() {
       isNorth = false;
 
       if (!isSeeking) {
-        console.log("find north!".red, heading);
+        console.log(chalk.red("find north!"), heading);
         isSeeking = true;
       }
 
@@ -84,41 +84,6 @@ board.on("ready", function() {
     }
   });
 });
-
-colors = {
-  N: "red",
-  NbE: "red",
-  NNE: "red",
-  NEbN: "red",
-  NE: "yellow",
-  NEbE: "yellow",
-  ENE: "yellow",
-  EbN: "yellow",
-  E: "green",
-  EbS: "green",
-  ESE: "green",
-  SEbE: "green",
-  SE: "green",
-  SEbS: "cyan",
-  SSE: "cyan",
-  SbE: "cyan",
-  S: "cyan",
-  SbW: "cyan",
-  SSW: "cyan",
-  SWbS: "blue",
-  SW: "blue",
-  SWbW: "blue",
-  WSW: "blue",
-  WbS: "blue",
-  W: "magenta",
-  WbN: "magenta",
-  WNW: "magenta",
-  NWbW: "magenta",
-  NW: "magenta",
-  NWbN: "magenta",
-  NNW: "magenta",
-  NbW: "red"
-};
 
 ```
 

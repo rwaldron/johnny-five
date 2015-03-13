@@ -8,7 +8,7 @@ node eg/magnetometer-log.js
 <!--remove-end-->
 
 ```javascript
-var color = require("colors"),
+var chalk = require("chalk"),
   five = require("johnny-five"),
   board, colors, servo, mag, count, dirs, lock;
 
@@ -60,11 +60,12 @@ var color = require("colors"),
     // As the heading changes, log heading value
     mag.on("headingchange", function() {
       var log;
+      var color = colors[this.bearing.abbr];
 
       log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
 
       console.log(
-        log[colors[this.bearing.abbr]]
+        chalk[color](log)
       );
 
 
