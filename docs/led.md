@@ -40,9 +40,9 @@ Now you can try, e.g.:
 ```js
 >> led.stop() // to stop blinking
 // then
->> led.on()
-// or
->> led.off()
+>> led.off()  // to shut it off (stop doesn't mean "off")
+// then
+>> led.on()   // to turn on, but not blink
 ```
 
 
