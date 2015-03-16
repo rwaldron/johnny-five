@@ -76,8 +76,45 @@ exports["ShiftRegister"] = {
     test.ok(spy.getCall(51).calledWith(4, 1)); // latch, high
     test.equals(this.shiftRegister.value, 16);
 
+    shiftOutSpy.restore();
+    spy.restore();
+    test.done();
+  },
+
+  sendMany: function(test) {
+    var spy = sinon.spy(board.io, "digitalWrite");
+    var shiftOutSpy = sinon.spy(board, "shiftOut");
+
+    this.shiftRegister.send(0x01, 0x01);
+    test.ok(spy.getCall(0).calledWith(4, 0));
+    test.ok(shiftOutSpy.calledWith(2, 3, true, 1));
+    test.ok(spy.getCall(49).calledWith(4, 1));
+    test.deepEqual(this.shiftRegister.value, [1, 1]);
 
     shiftOutSpy.restore();
+    spy.restore();
+    test.done();
+  },
+
+  clear: function(test) {
+    var spy = sinon.spy(this.shiftRegister, "send");
+
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 1);
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01);
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 3);
+    test.ok(spy.getCall(2).calledWith(0));
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01, 0x01);
+    this.shiftRegister.clear();
+    test.equals(spy.callCount, 5);
+    test.ok(spy.getCall(4).calledWith(0, 0));
+    test.deepEqual(this.shiftRegister.value, [0, 0]);
+
     spy.restore();
     test.done();
   }

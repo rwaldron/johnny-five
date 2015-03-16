@@ -118,7 +118,8 @@
     "classes": ["ShiftRegister"],
     "files": [
       "shift-register.js",
-      "shift-register-seven-segment.js"
+      "shift-register-seven-segment.js",
+      "shift-register-daisy-chain.js"
     ]
   },
   {

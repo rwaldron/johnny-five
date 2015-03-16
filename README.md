@@ -245,6 +245,7 @@ board.on("ready", function() {
 ### Shift Register
 - [Shift Register Component](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
 - [Shift Register - Seven Segment Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
+- [Shfit Register - Seven Segments, Daisy Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
 - [IR Motion Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
