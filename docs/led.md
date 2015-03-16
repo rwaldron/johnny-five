@@ -8,13 +8,15 @@ node eg/led.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  // Default to pin 13
-  var led = new five.Led(process.argv[2] || 13);
+  var led = new five.Led(13);
 
+  // This will grant access to the led instance
+  // from within the REPL that's created when
+  // running this program.
   this.repl.inject({
     led: led
   });
@@ -43,13 +45,6 @@ Now you can try, e.g.:
 >> led.off()
 ```
 
-`led.strobe()` is the same as `led.blink()`
-
-To use other `Led` methods, like `fade`, `pulse`, `animate`, you'll need to
-wire the LED to a PWM pin. (Denoted by a `~` before the pin number.) Make sure
-to run the script with the correct pin number:
-
-`node eg/led [pinNumber]`
 
 
 <!--remove-start-->

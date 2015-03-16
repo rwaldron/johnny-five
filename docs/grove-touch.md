@@ -48,7 +48,7 @@ For this program, you'll need:
 
 ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
 
-![Grove - Touch Module](http://www.seeedstudio.com/depot/images/P3202396.jpg)
+![Grove - Touch Module](http://www.seeedstudio.com/wiki/images/0/01/Grove_-_touch_sensor_Photo.jpg)
 
 
 
