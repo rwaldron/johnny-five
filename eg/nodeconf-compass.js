@@ -1,4 +1,4 @@
-var color = require("colors");
+var chalk = require("chalk");
 var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
@@ -9,8 +9,10 @@ board.on("ready", function() {
 
   // As the heading changes, log heading value
   mag.on("headingchange", function() {
+    var color = colors[this.bearing.abbr];
+
     console.log(
-      (this.bearing.name + " " + Math.floor(this.heading) + "°")[colors[this.bearing.abbr]]
+      chalk[color](this.bearing.name + " " + Math.floor(this.heading) + "°")
     );
   });
 });
