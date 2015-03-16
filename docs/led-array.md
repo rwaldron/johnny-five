@@ -28,9 +28,9 @@ board.on("ready", function() {
 [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
-Control multiple LEDs at once by creating an Led.Array.
+Control multiple LEDs at once by creating an LED collection (`Leds`).
 All must be on PWM pins if you want to use methods such
-as pulse() or fade()
+as `pulse()` or `fade()`
 
 
 
