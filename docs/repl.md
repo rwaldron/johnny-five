@@ -28,6 +28,8 @@ board.on("ready", function() {
   });
 });
 
+
+
 ```
 
 
@@ -36,6 +38,14 @@ board.on("ready", function() {
 
 ![docs/breadboard/repl.png](breadboard/repl.png)
 
+This script will make `on()` and `off()` functions
+available in the REPL:
+
+```js
+>> on()  // will turn on the LED
+// or
+>> off() // will turn off the LED
+```
 
 
 

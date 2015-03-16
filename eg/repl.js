@@ -17,3 +17,16 @@ board.on("ready", function() {
     }
   });
 });
+
+
+// @markdown
+// This script will make `on()` and `off()` functions
+// available in the REPL:
+//
+// ```js
+// >> on()  // will turn on the LED
+// // or
+// >> off() // will turn off the LED
+// ```
+//
+// @markdown
