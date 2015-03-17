@@ -4,7 +4,7 @@
 
     Please don't edit this file!
 
-    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example, please put the fil in eg/ and then add an entry to programs.json. To generate the markdown and update the main readme, run: 
+    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example, please put the file in eg/ and then add an entry to programs.json. To generate the markdown and update the main readme, run: 
 
     `grunt examples`
 
@@ -238,7 +238,7 @@ board.on("ready", function() {
 ### Shift Register
 - [Shift Register Component](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
 - [Shift Register - Seven Segment Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
-- [Shfit Register - Seven Segments, Daisy Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
+- [Shift Register - Seven Segments, Daisy Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
 - [IR Motion Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)

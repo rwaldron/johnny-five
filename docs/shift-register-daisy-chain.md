@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Shfit Register - Seven Segments, Daisy Chained
+# Shift Register - Seven Segments, Daisy Chained
 
 Run with:
 ```bash
