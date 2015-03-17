@@ -128,7 +128,7 @@
   "led-matrix-HT16K33-16x8.js": "LED - Matrix 16x8 (HT16K33)",
   "shift-register.js": "Shift Register Component",
   "shift-register-seven-segment.js": "Shift Register - Seven Segment Controller",
-  "shift-register-daisy-chain.js": "Shfit Register - Seven Segments, Daisy Chained",
+  "shift-register-daisy-chain.js": "Shift Register - Seven Segments, Daisy Chained",
   "compass-hmc6352.js": "Compass (HMC6352)",
   "compass-hmc5883l.js": "Compass (HMC5883L)",
   "led-rgb-PCA9685.js": "LED - RGB (PCA9685)",
