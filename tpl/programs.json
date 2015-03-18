@@ -15,7 +15,6 @@
     "files": [
       "led.js",
       "led-PCA9685.js",
-      "led-anode.js",
       "led-blink.js",
       "led-pulse.js",
       "led-fade.js",

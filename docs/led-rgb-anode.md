@@ -1,5 +1,5 @@
 <!--remove-start-->
-# LED - RGB, anode
+# LED - RGB (Common Anode)
 
 Run with:
 ```bash
