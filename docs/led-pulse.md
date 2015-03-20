@@ -15,7 +15,7 @@ board.on("ready", function() {
 
   // Create a standard `led` component
   // on a valid pwm pin
-  var led = new five.Led(13);
+  var led = new five.Led(9);
 
   led.pulse();
 
