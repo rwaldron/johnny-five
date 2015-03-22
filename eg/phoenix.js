@@ -79,19 +79,19 @@ board = new five.Board().on("ready", function() {
 
   ph.l1c = new five.Servo({
     pin: 27,
-    isInverted: true,
+    invert: true,
     offset: -7,
     startAt: 45
   });
   ph.l1f = new five.Servo({
     pin: 25,
-    isInverted: true,
+    invert: true,
     offset: -2,
     startAt: 180
   });
   ph.l1t = new five.Servo({
     pin: 24,
-    isInverted: true,
+    invert: true,
     offset: -8,
     startAt: 180
   });
@@ -116,19 +116,19 @@ board = new five.Board().on("ready", function() {
 
   ph.l2c = new five.Servo({
     pin: 20,
-    isInverted: true,
+    invert: true,
     offset: 21,
     startAt: 45
   });
   ph.l2f = new five.Servo({
     pin: 19,
-    isInverted: true,
+    invert: true,
     offset: -19,
     startAt: 180
   });
   ph.l2t = new five.Servo({
     pin: 18,
-    isInverted: true,
+    invert: true,
     offset: -3,
     startAt: 180
   });
@@ -136,7 +136,7 @@ board = new five.Board().on("ready", function() {
 
   ph.r3c = new five.Servo({
     pin: 9,
-    isInverted: true,
+    invert: true,
     offset: 10,
     startAt: 45
   });
@@ -159,13 +159,13 @@ board = new five.Board().on("ready", function() {
   });
   ph.l3f = new five.Servo({
     pin: 2,
-    isInverted: true,
+    invert: true,
     offset: -5,
     startAt: 180
   });
   ph.l3t = new five.Servo({
     pin: 3,
-    isInverted: true,
+    invert: true,
     startAt: 180
   });
   ph.l3 = new five.Servo.Array([ph.l3c, ph.l3f, ph.l3t]);
