@@ -58,7 +58,7 @@ exports["Servo"] = {
     }, {
       name: "range"
     }, {
-      name: "isInverted"
+      name: "invert"
     }, {
       name: "type"
     }, {
@@ -137,13 +137,13 @@ exports["Servo"] = {
 
   },
 
-  isInverted: function(test) {
+  inverted: function(test) {
     test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
       board: board,
-      isInverted: true
+      invert: true
     });
 
     this.servo.to(180);
