@@ -8,7 +8,6 @@ var SerialPort = require("./mock-serial").SerialPort,
   Repl = require("../lib/repl"),
   sinon = require("sinon"),
   __ = require("../lib/fn.js"),
-  _ = require("lodash"),
   Board = five.Board,
   board = new Board({
     io: new MockFirmata(),
@@ -172,7 +171,7 @@ exports["instance"] = {
 
   cache: function(test) {
     test.expect(1);
-    test.ok(_.contains(five.Board.cache, board));
+    test.ok(__.contains(five.Board.cache, board));
     test.done();
   },
 
