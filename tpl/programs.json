@@ -82,7 +82,8 @@
     "classes": ["ESC"],
     "files": [
       "esc-keypress.js",
-      "esc-dualshock.js"
+      "esc-dualshock.js",
+      "esc-PCA9685.js"
     ]
   },
   {
