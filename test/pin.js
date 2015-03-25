@@ -1,4 +1,3 @@
-global.IS_TEST_MODE = true;
 
 var five = require("../lib/johnny-five.js"),
   MockFirmata = require("./mock-firmata"),

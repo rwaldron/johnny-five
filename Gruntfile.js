@@ -4,6 +4,8 @@ var inspect = require("util").inspect;
 var fs = require("fs");
 var shell = require("shelljs");
 
+process.env.IS_TEST_MODE = true;
+
 module.exports = function(grunt) {
 
   var task = grunt.task;
@@ -33,44 +35,8 @@ module.exports = function(grunt) {
       files: ["tpl/programs.json"]
     },
     nodeunit: {
-      tests: [
-        "test/bootstrap.js",
-        "test/board.js",
-        "test/board-connection.js",
-        "test/compass.js",
-        "test/options.js",
-        "test/board.pins.js",
-        "test/board.component.js",
-        "test/capabilities.js",
-        // ------------------
-        "test/accelerometer.js",
-        "test/animation.js",
-        "test/button.js",
-        "test/esc.js",
-        "test/fn.js",
-        "test/gyro.js",
-        "test/imu.js",
-        "test/lcd.js",
-        "test/led.js",
-        "test/ledcontrol.js",
-        "test/motor.js",
-        "test/pin.js",
-        "test/piezo.js",
-        "test/ping.js",
-        "test/pir.js",
-        "test/proximity.js",
-        "test/reflectancearray.js",
-        "test/relay.js",
-        "test/repl.js",
-        "test/sensor.js",
-        "test/servo.js",
-        "test/shiftregister.js",
-        "test/sonar.js",
-        "test/stepper.js",
-        "test/temperature.js",
-        "test/switch.js",
-        "test/wii.js"
-      ]
+      // remove test/distance.js (and this exception) when bumping to 0.9.0
+      tests: ["test/*.js", "!test/mock*", "!test/distance.js"]
     },
     jshint: {
       options: {
@@ -161,11 +127,11 @@ module.exports = function(grunt) {
 
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
-  grunt.registerTask("nodeunit:just", function(file) {
+  grunt.registerTask("nodeunit:just", "Run a single test specified by a target; usage: \"grunt nodeunit:just:<module-name>[.js]\"", function(file) {
+    var path = require("path");
     if (file) {
       grunt.config("nodeunit.tests", [
-        "test/bootstrap.js",
-        "test/" + file + ".js",
+        path.join("test", path.basename(file, ".js") + ".js")
       ]);
     }
 

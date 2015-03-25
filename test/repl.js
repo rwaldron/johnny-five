@@ -1,6 +1,5 @@
 require("es6-shim");
 
-global.IS_TEST_MODE = true;
 
 var SerialPort = require("./mock-serial").SerialPort,
   MockFirmata = require("./mock-firmata"),
