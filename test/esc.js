@@ -299,6 +299,119 @@ exports["ESC - PCA9685"] = {
 };
 
 
+exports["ESC - Bidirectional"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    done();
+  },
+  missingNeutralThrows: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      new ESC({
+        type: "bidirectional",
+        pin: 11,
+      });
+    });
+
+    test.done();
+  },
+  neutralStartAt: function(test) {
+    test.expect(2);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      type: "bidirectional",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    test.ok(spy.calledOnce);
+    test.equal(esc.startAt, 50);
+
+    spy.restore();
+
+    test.done();
+  },
+  forward: function(test) {
+    test.expect(4);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      type: "bidirectional",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    spy.reset();
+
+    esc.forward(100);
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 100);
+
+    esc.forward(0);
+
+    test.ok(spy.calledTwice);
+    test.equal(spy.getCall(1).args[0], 50);
+
+    spy.restore();
+    test.done();
+  },
+  reverse: function(test) {
+    test.expect(4);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      type: "bidirectional",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    spy.reset();
+
+    esc.reverse(100);
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 0);
+
+    esc.reverse(0);
+
+    test.ok(spy.calledTwice);
+    test.equal(spy.getCall(1).args[0], 50);
+
+    spy.restore();
+    test.done();
+  },
+  stop: function(test) {
+    test.expect(3);
+
+    var esc = new ESC({
+      type: "bidirectional",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    var spy = sinon.spy(esc, "write");
+
+    esc.stop();
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 11);
+    test.equal(spy.getCall(0).args[1], 90);
+
+    spy.restore();
+    test.done();
+  },
+};
+
 exports["ESC.Array"] = {
   setUp: function(done) {
     var board = new Board({
