@@ -34,7 +34,7 @@ function MockFirmata(opts) {
 util.inherits(MockFirmata, Emitter);
 
 [
-  "digitalWrite", "analogWrite", "servoWrite", "sendI2CWriteRequest", "i2cWrite",
+  "digitalWrite", "analogWrite", "servoWrite", "sendI2CWriteRequest", "i2cWrite", "i2cWriteReg",
   "analogRead", "digitalRead", "sendI2CReadRequest", "i2cRead",
   "pinMode", "queryPinState", "sendI2CConfig", "i2cConfig",
   "stepperStep", "stepperConfig", "servoConfig",

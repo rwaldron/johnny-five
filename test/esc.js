@@ -34,9 +34,9 @@ exports["ESC"] = {
     }, {
       name: "pin"
     }, {
-      name: "mode"
-    }, {
       name: "range"
+    }, {
+      name: "pwmRange"
     }, {
       name: "interval"
     }, {
@@ -82,6 +82,7 @@ exports["ESC"] = {
     test.expect(2);
 
     this.spy = sinon.spy(ESC.prototype, "speed");
+    this.servoWrite.reset();
 
     this.esc = new ESC({
       pin: 12,
@@ -99,6 +100,7 @@ exports["ESC"] = {
   speed: function(test) {
     test.expect(6);
 
+    this.esc.speed(1);
     this.esc.speed(10);
     this.clock.tick(120);
     test.equal(this.servoWrite.callCount, 10);
@@ -126,6 +128,7 @@ exports["ESC"] = {
   constrainSpeed: function(test) {
     test.expect(2);
 
+    this.esc.speed(1);
     this.esc.speed(1000);
     this.clock.tick(1000);
 
@@ -196,6 +199,7 @@ exports["ESC"] = {
   bailout: function(test) {
     test.expect(4);
 
+    this.esc.speed(1);
     this.esc.speed(10);
     this.clock.tick(10);
     test.equal(this.esc.last.speed, 10);
@@ -212,6 +216,7 @@ exports["ESC"] = {
   accelerateDecelerate: function(test) {
     test.expect(4);
 
+    this.esc.speed(1);
     this.esc.speed(10);
     this.clock.tick(100);
     test.equal(this.esc.last.speed, 10);
@@ -225,6 +230,74 @@ exports["ESC"] = {
     test.done();
   },
 };
+
+
+exports["ESC - PCA9685"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.writeSpy = sinon.spy(board.io, "i2cWrite");
+    this.readSpy = sinon.spy(board.io, "i2cRead");
+    this.esc = new ESC({
+      pin: 0,
+      board: board,
+      controller: "PCA9685",
+      address: 0x40
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.writeSpy.restore();
+    this.readSpy.restore();
+    this.clock.restore();
+    done();
+  },
+
+  withAddress: function(test) {
+    test.expect(1);
+
+    var esc = new ESC({
+      pin: 0,
+      board: board,
+      controller: "PCA9685",
+      address: 0x40
+    });
+
+    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.done();
+  },
+
+  withoutAddress: function(test) {
+    test.expect(1);
+
+    var esc = new ESC({
+      pin: 0,
+      board: board,
+      controller: "PCA9685"
+    });
+
+    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.done();
+  },
+  speed: function(test) {
+    test.expect(6);
+    this.writeSpy.reset();
+
+    this.esc.speed(10);
+    this.clock.tick(1);
+
+    test.equal(this.writeSpy.args[0][0], 0x40);
+    test.equal(this.writeSpy.args[0][1][0], 6);
+    test.equal(this.writeSpy.args[0][1][1], 0);
+    test.equal(this.writeSpy.args[0][1][2], 0);
+    test.equal(this.writeSpy.args[0][1][3], 182);
+    test.equal(this.writeSpy.args[0][1][4], 0);
+
+    test.done();
+  }
+};
+
 
 exports["ESC.Array"] = {
   setUp: function(done) {

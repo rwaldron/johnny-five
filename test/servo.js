@@ -496,8 +496,8 @@ exports["Servo - Allowed Pin Names"] = {
 
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
-    this.writeSpy = sinon.spy(board.io, "sendI2CWriteRequest");
-    this.readSpy = sinon.spy(board.io, "sendI2CReadRequest");
+    this.writeSpy = sinon.spy(board.io, "i2cWrite");
+    this.readSpy = sinon.spy(board.io, "i2cRead");
     this.servo = new Servo({
       pin: 0,
       board: board,
@@ -514,6 +514,32 @@ exports["Servo - PCA9685"] = {
     done();
   },
 
+  withAddress: function(test) {
+    test.expect(1);
+
+    var servo = new Servo({
+      pin: 0,
+      board: board,
+      controller: "PCA9685",
+      address: 0x40
+    });
+
+    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.done();
+  },
+
+  withoutAddress: function(test) {
+    test.expect(1);
+
+    var servo = new Servo({
+      pin: 0,
+      board: board,
+      controller: "PCA9685"
+    });
+
+    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.done();
+  },
   to: function(test) {
     test.expect(6);
     this.writeSpy.reset();

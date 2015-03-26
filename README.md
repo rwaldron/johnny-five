@@ -218,6 +218,7 @@ board.on("ready", function() {
 ### ESC & Brushless Motor
 - [ESC - Keypress Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
 - [ESC - Dualshock Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
+- [ESC (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
 
 ### Sonar/Ultrasonic
 - [Ping Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
