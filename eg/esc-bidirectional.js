@@ -4,13 +4,18 @@ var board = new five.Board();
 board.on("ready", function() {
   var start = Date.now();
   var esc = new five.ESC({
-    type: "bidirectional",
+    device: "FORWARD_REVERSE",
     neutral: 50,
     pin: 11
   });
-  var pot = new five.Sensor("A0");
+  var throttle = new five.Sensor("A0");
+  var brake = new five.Button(4);
 
-  pot.scale(0, 100).on("change", function() {
+  brake.on("press", function() {
+    esc.brake();
+  });
+
+  throttle.scale(0, 100).on("change", function() {
     // 2 Seconds for arming.
     if (Date.now() - start < 2e3) {
       return;

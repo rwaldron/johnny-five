@@ -22,11 +22,11 @@ exports["ESC"] = {
     this.proto = [{
       name: "speed"
     }, {
-      name: "min"
+      name: "forward"
     }, {
-      name: "max"
+      name: "reverse"
     }, {
-      name: "stop"
+      name: "brake"
     }];
 
     this.instance = [{
@@ -299,12 +299,14 @@ exports["ESC - PCA9685"] = {
 };
 
 
-exports["ESC - Bidirectional"] = {
+exports["ESC - FORWARD_REVERSE"] = {
   setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
     done();
   },
 
   tearDown: function(done) {
+    this.clock.restore();
     done();
   },
   missingNeutralThrows: function(test) {
@@ -312,7 +314,7 @@ exports["ESC - Bidirectional"] = {
 
     test.throws(function() {
       new ESC({
-        type: "bidirectional",
+        device: "FORWARD_REVERSE",
         pin: 11,
       });
     });
@@ -324,7 +326,7 @@ exports["ESC - Bidirectional"] = {
 
     var spy = sinon.spy(ESC.prototype, "speed");
     var esc = new ESC({
-      type: "bidirectional",
+      device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
       board: board,
@@ -342,7 +344,7 @@ exports["ESC - Bidirectional"] = {
 
     var spy = sinon.spy(ESC.prototype, "speed");
     var esc = new ESC({
-      type: "bidirectional",
+      device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
       board: board,
@@ -368,7 +370,7 @@ exports["ESC - Bidirectional"] = {
 
     var spy = sinon.spy(ESC.prototype, "speed");
     var esc = new ESC({
-      type: "bidirectional",
+      device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
       board: board,
@@ -389,11 +391,11 @@ exports["ESC - Bidirectional"] = {
     spy.restore();
     test.done();
   },
-  stop: function(test) {
+  brake: function(test) {
     test.expect(3);
 
     var esc = new ESC({
-      type: "bidirectional",
+      device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
       board: board,
@@ -401,7 +403,9 @@ exports["ESC - Bidirectional"] = {
 
     var spy = sinon.spy(esc, "write");
 
-    esc.stop();
+    esc.forward(1);
+    spy.reset();
+    esc.brake();
 
     test.ok(spy.calledOnce);
     test.equal(spy.getCall(0).args[0], 11);
@@ -439,7 +443,7 @@ exports["ESC.Array"] = {
 
     this.spies = [
       "speed",
-      "stop",
+      "brake",
     ];
 
     this.spies.forEach(function(method) {
@@ -499,9 +503,9 @@ exports["ESC.Array"] = {
     test.equal(this.speed.callCount, escs.length);
     test.equal(this.speed.getCall(0).args[0], 100);
 
-    escs.stop();
+    escs.brake();
 
-    test.equal(this.stop.callCount, escs.length);
+    test.equal(this.brake.callCount, escs.length);
 
     test.done();
   },
