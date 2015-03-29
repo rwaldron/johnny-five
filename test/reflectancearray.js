@@ -1,4 +1,4 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   __ = require("../lib/fn.js"),
   events = require("events"),
@@ -107,14 +107,14 @@ exports["ReflectanceArray"] = {
     test.expect(1);
 
     this.eyes.on("data", dataSpy);
-    
+
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
     this.sendAnalogValue(2, 77);
     this.clock.tick(25);
-    
+
     test.deepEqual(dataSpy.getCall(0).args[1], [55, 66, 77]);
-    
+
     test.done();
   },
 
@@ -229,14 +229,14 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("calibratedData", dataSpy);
-    
+
     this.sendAnalogValue(0, testValues[0].raw);
     this.sendAnalogValue(1, testValues[1].raw);
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
-    
+
     test.deepEqual(dataSpy.getCall(0).args[1], __.pluck(testValues, "expected"));
-    
+
     test.done();
   },
 
@@ -250,15 +250,15 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("line", dataSpy);
-    
+
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
-    
+
     test.deepEqual(dataSpy.getCall(0).args[1], 1000);
     test.equal(this.eyes.isOnLine, true);
-    
+
     test.done();
   },
 
@@ -272,21 +272,21 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("line", dataSpy);
-    
+
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 435);
     this.clock.tick(25);
-    
+
     test.deepEqual(dataSpy.getCall(0).args[1], 1600);
     test.equal(this.eyes.isOnLine, true);
-    
+
     test.done();
   },
 
   isOnLine: function(test) {
     test.expect(1);
-    
+
     this.eyes.loadCalibration({
       min: [30, 30, 30],
       max: [600, 600, 600]
@@ -296,9 +296,9 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(1, 50);
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
-    
+
     test.equal(this.eyes.isOnLine, false);
-    
+
     test.done();
   }
 };

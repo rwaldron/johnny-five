@@ -1,5 +1,5 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
+var MockFirmata = require("./util/mock-firmata"),
+  pins = require("./util/mock-pins"),
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   sinon = require("sinon"),
@@ -220,9 +220,9 @@ exports["Accelerometer -- distinctZeroV"] = {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
     var z = this.analogRead.args[2][1];
-    
+
     test.expect(3);
-    
+
     x(400);
     y(400);
     z(400);
@@ -493,7 +493,7 @@ exports["Accelerometer -- MMA7361"] = {
 
     test.ok(this.pinMode.calledWith(13, 1));
     test.ok(this.digitalWrite.calledWith(13, 1));
-    
+
     test.done();
   },
 

@@ -1,4 +1,4 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -103,7 +103,7 @@ exports["IMU -- MPU6050"] = {
     test.equals(spy.args[0][1].gyro.x, 127);
     test.equals(spy.args[0][1].gyro.y, 128);
     test.equals(spy.args[0][1].gyro.z, 129);
-    
+
     test.done();
   },
 
