@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     },
     nodeunit: {
       tests: [
-        "test/bootstrap/bootstrap.js",
+        "test/bootstrap/*.js",
         "test/*.js"
       ]
     },
@@ -127,6 +127,7 @@ module.exports = function(grunt) {
 
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
+  // grunt nodeunit:just:extended/piezo for example
   grunt.registerTask("nodeunit:just", function(file) {
     if (file) {
       grunt.config("nodeunit.tests", [
@@ -138,6 +139,16 @@ module.exports = function(grunt) {
     grunt.task.run("nodeunit");
   });
 
+  // Support running a complete set of tests with
+  // extended (possibly-slow) tests included.
+  grunt.registerTask("nodeunit:complete", function(file) {
+    var testConfig = grunt.config("nodeunit.tests");
+    testConfig.push("test/extended/*.js");
+    grunt.config("nodeunit.tests", testConfig);
+    console.log(grunt.config("nodeunit.tests"));
+    grunt.task.run("nodeunit");
+  });
+
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-nodeunit");
   grunt.loadNpmTasks("grunt-contrib-jshint");
@@ -145,6 +156,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-jscs");
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
+  // Explicit test task runs complete set of tests
+  grunt.registerTask("test", ["jshint", "jscs", "nodeunit:complete"]);
 
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
