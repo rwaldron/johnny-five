@@ -74,6 +74,8 @@ Tests are written using [nodeunit](https://github.com/caolan/nodeunit) and [sino
 
 If you're interested in just writing tests to learn more about the project, check out the [tests](https://github.com/rwaldron/johnny-five/labels/Tests) label in the issues.
 
+Tests that involve temporal elements (e.g. animations, tones/songs) can be troublesome on certain hardware and can cause failures for Travis CI builds. These tests can be put in `test/extended` to prevent them from breaking builds.
+
 <a name="writing-docs"></a>
 ## Writing Documentation
 
