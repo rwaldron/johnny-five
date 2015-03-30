@@ -131,7 +131,7 @@ module.exports = function(grunt) {
   grunt.registerTask("nodeunit:just", function(file) {
     if (file) {
       grunt.config("nodeunit.tests", [
-        "test/bootstrap.js",
+        "test/bootstrap/*.js",
         "test/" + file + ".js",
       ]);
     }
