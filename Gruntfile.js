@@ -35,8 +35,10 @@ module.exports = function(grunt) {
       files: ["tpl/programs.json"]
     },
     nodeunit: {
-      // remove test/distance.js (and this exception) when bumping to 0.9.0
-      tests: ["test/*.js", "!test/mock*", "!test/distance.js"]
+      tests: [
+        "test/bootstrap/*.js",
+        "test/*.js"
+      ]
     },
     jshint: {
       options: {
@@ -128,13 +130,22 @@ module.exports = function(grunt) {
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
   grunt.registerTask("nodeunit:just", "Run a single test specified by a target; usage: \"grunt nodeunit:just:<module-name>[.js]\"", function(file) {
-    var path = require("path");
     if (file) {
       grunt.config("nodeunit.tests", [
-        path.join("test", path.basename(file, ".js") + ".js")
+        "test/bootstrap/*.js",
+        "test/" + file + ".js",
       ]);
     }
 
+    grunt.task.run("nodeunit");
+  });
+
+  // Support running a complete set of tests with
+  // extended (possibly-slow) tests included.
+  grunt.registerTask("nodeunit:complete", function(file) {
+    var testConfig = grunt.config("nodeunit.tests");
+    testConfig.push("test/extended/*.js");
+    grunt.config("nodeunit.tests", testConfig);
     grunt.task.run("nodeunit");
   });
 
@@ -145,6 +156,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-jscs");
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
+  // Explicit test task runs complete set of tests
+  grunt.registerTask("test", ["jshint", "jscs", "nodeunit:complete"]);
 
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.

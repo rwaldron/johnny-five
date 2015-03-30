@@ -1,8 +1,8 @@
 require("es6-shim");
 
 
-var SerialPort = require("./mock-serial").SerialPort,
-  MockFirmata = require("./mock-firmata"),
+var SerialPort = require("./util/mock-serial").SerialPort,
+  MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Repl = require("../lib/repl");
 
