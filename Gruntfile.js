@@ -145,7 +145,6 @@ module.exports = function(grunt) {
     var testConfig = grunt.config("nodeunit.tests");
     testConfig.push("test/extended/*.js");
     grunt.config("nodeunit.tests", testConfig);
-    console.log(grunt.config("nodeunit.tests"));
     grunt.task.run("nodeunit");
   });
 
