@@ -958,7 +958,10 @@ exports["Led.RGB"] = {
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(24);
+    test.expect(25);
+
+    // returns this
+    test.equal(this.ledRgb.color("#000000"), this.ledRgb);
 
     // Hex values
     this.ledRgb.color("#0000ff");
@@ -1184,8 +1187,11 @@ exports["Led.RGB - Common Anode"] = {
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(24);
+    test.expect(25);
 
+    // returns this
+    test.equal(this.ledRgb.color("#000000"), this.ledRgb);
+    
     // Hex values
     this.ledRgb.color("#0000ff");
     test.ok(this.analog.calledWith(redPin, 0xff));
