@@ -958,8 +958,9 @@ exports["Led.RGB"] = {
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(9);
+    test.expect(24);
 
+    // Hex values
     this.ledRgb.color("#0000ff");
     test.ok(this.analog.calledWith(redPin, 0x00));
     test.ok(this.analog.calledWith(greenPin, 0x00));
@@ -974,6 +975,45 @@ exports["Led.RGB"] = {
     test.ok(this.analog.calledWith(redPin, 0xbb));
     test.ok(this.analog.calledWith(greenPin, 0xcc));
     test.ok(this.analog.calledWith(bluePin, 0xaa));
+
+    // without "#"
+    this.ledRgb.color("0000ff");
+    test.ok(this.analog.calledWith(redPin, 0x00));
+    test.ok(this.analog.calledWith(greenPin, 0x00));
+    test.ok(this.analog.calledWith(bluePin, 0xff));
+
+    // three arguments
+    this.ledRgb.color(255, 100, 50);
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 100));
+    test.ok(this.analog.calledWith(bluePin, 50));
+
+    // with constraints
+    this.ledRgb.color(999, -999, 0);
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 0));
+
+    // by object
+    this.ledRgb.color({
+      red: 255,
+      green: 100,
+      blue: 50
+    });
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 100));
+    test.ok(this.analog.calledWith(bluePin, 50));
+
+    // by array
+    this.ledRgb.color([255, 100, 50]);
+    test.ok(this.analog.calledWith(redPin, 255));
+    test.ok(this.analog.calledWith(greenPin, 100));
+    test.ok(this.analog.calledWith(bluePin, 50));
+
+    //returns color
+    this.ledRgb.color([10, 20, 30]);
+    test.deepEqual(this.ledRgb.color(), {
+      red: 10, green: 20, blue: 30
+    });
 
     test.done();
   },
@@ -1144,8 +1184,9 @@ exports["Led.RGB - Common Anode"] = {
       greenPin = 10,
       bluePin = 11;
 
-    test.expect(9);
+    test.expect(24);
 
+    // Hex values
     this.ledRgb.color("#0000ff");
     test.ok(this.analog.calledWith(redPin, 0xff));
     test.ok(this.analog.calledWith(greenPin, 0xff));
@@ -1160,6 +1201,45 @@ exports["Led.RGB - Common Anode"] = {
     test.ok(this.analog.calledWith(redPin, 0x44));
     test.ok(this.analog.calledWith(greenPin, 0x33));
     test.ok(this.analog.calledWith(bluePin, 0x55));
+
+    // without "#"
+    this.ledRgb.color("0000ff");
+    test.ok(this.analog.calledWith(redPin, 0xff));
+    test.ok(this.analog.calledWith(greenPin, 0xff));
+    test.ok(this.analog.calledWith(bluePin, 0x00));
+
+    // three arguments
+    this.ledRgb.color(255, 100, 50);
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 155));
+    test.ok(this.analog.calledWith(bluePin, 205));
+
+    // with constraints
+    this.ledRgb.color(999, -999, 0);
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 255));
+
+    // by object
+    this.ledRgb.color({
+      red: 255,
+      green: 100,
+      blue: 50
+    });
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 155));
+    test.ok(this.analog.calledWith(bluePin, 205));
+
+    // by array
+    this.ledRgb.color([255, 100, 50]);
+    test.ok(this.analog.calledWith(redPin, 0));
+    test.ok(this.analog.calledWith(greenPin, 155));
+    test.ok(this.analog.calledWith(bluePin, 205));
+
+    //returns color
+    this.ledRgb.color([10, 20, 30]);
+    test.deepEqual(this.ledRgb.color(), {
+      red: 10, green: 20, blue: 30
+    });
 
     test.done();
   },
