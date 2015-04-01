@@ -959,7 +959,7 @@ exports["Led.RGB"] = {
       bluePin = 11,
       rgb = this.ledRgb;
 
-    test.expect(37);
+    test.expect(39);
 
     // returns this
     test.equal(rgb.color("#000000"), rgb);
@@ -1026,6 +1026,12 @@ exports["Led.RGB"] = {
     // bad hex
     test.throws(function() {
       rgb.color("#ggffff");
+    });
+    test.throws(function() {
+      rgb.color("#ggffffff");
+    });
+    test.throws(function() {
+      rgb.color("#ffffffff");
     });
 
     // missing/null/undefined param
