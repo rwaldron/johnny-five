@@ -1,5 +1,5 @@
 <!--remove-start-->
-# 
+# Sensor - Force Sensitive Resistor
 
 Run with:
 ```bash

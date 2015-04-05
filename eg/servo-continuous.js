@@ -9,7 +9,7 @@ board.on("ready", function() {
 
   console.log("Use Up and Down arrows for CW and CCW respectively. Space to stop.");
 
-  var servo = new five.Servo.Continuous(10);
+  var servo = new five.Servo.Continuous(10).stop();
 
   process.stdin.resume();
   process.stdin.setEncoding("utf8");

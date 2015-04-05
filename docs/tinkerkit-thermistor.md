@@ -1,5 +1,5 @@
 <!--remove-start-->
-# TinkerKit -- Temperature
+# TinkerKit - Temperature
 
 Run with:
 ```bash

@@ -9,6 +9,7 @@ var ED,
  * ED
  *
  * Enforcement Droid Series
+ * (Lynxmotion Biped BRAT)
  *
  * http://www.lynxmotion.com/images/jpg/bratjr00.jpg
  * http://www.lynxmotion.com/images/html/build112.htm

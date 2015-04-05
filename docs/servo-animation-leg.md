@@ -1,9 +1,9 @@
 <!--remove-start-->
-# Animation
+# Servo - Leg
 
 Run with:
 ```bash
-node eg/animation.js
+node eg/servo-animation-leg.js
 ```
 <!--remove-end-->
 
@@ -104,8 +104,11 @@ var board = new five.Board().on("ready", function() {
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/servo-animation-leg.png](breadboard/servo-animation-leg.png)
+[docs/breadboard/servo-animation-leg.fzz](breadboard/servo-animation-leg.fzz)
 
 
 

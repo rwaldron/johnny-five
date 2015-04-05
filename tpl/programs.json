@@ -19,40 +19,40 @@
       "led-pulse.js",
       "led-fade.js",
       "led-fade-callback.js",
+      "led-demo-sequence.js",
+      "led-slider.js",
       "led-array.js",
       "led-rgb.js",
       "led-rgb-anode.js",
       "led-rgb-PCA9685.js",
       "led-rainbow.js",
-      "led-demo-sequence.js",
       "led-digits-clock.js",
       "led-matrix.js",
       "led-matrix-tutorial.js",
       "led-matrix-HT16K33.js",
-      "led-matrix-HT16K33-16x8.js",
-      "laser-trip-wire.js"
+      "led-matrix-HT16K33-16x8.js"
     ]
   },
   {
     "topic": "Servo",
-    "classes": ["Servo"],
+    "classes": ["Servo", "Gripper"],
     "files": [
       "servo.js",
+      "servo-PCA9685.js",
       "servo-continuous.js",
       "servo-slider.js",
       "servo-prompt.js",
       "servo-drive.js",
-      "servo-animation.js",
       "servo-array.js",
-      "servo-PCA9685.js"
+      "gripper.js"
     ]
   },
   {
     "topic": "Servo Animation",
     "classes": ["Animation"],
     "files": [
-      "animation.js",
-      "phoenix.js"
+      "servo-animation.js",
+      "servo-animation-leg.js"
     ]
   },
   {
@@ -65,8 +65,7 @@
       "motor-current.js",
       "motor-hbridge.js",
       "motor-PCA9685.js",
-      "motor-3-pin.js",
-      "motobot.js"
+      "motor-3-pin.js"
     ]
   },
   {
@@ -93,19 +92,20 @@
     "classes": ["Sonar", "Ping"],
     "files": [
       "ping.js",
-      "sonar-scan.js",
       "sonar.js",
+      "sonar-scan.js",
       "sonar-srf10.js"
     ]
   },
   {
-    "topic": "Button",
-    "classes": ["Button"],
+    "topic": "Button / Switch",
+    "classes": ["Button", "Switch"],
     "files": [
       "button.js",
       "button-bumper.js",
       "button-options.js",
-      "button-pullup.js"
+      "button-pullup.js",
+      "toggle-switch.js"
     ]
   },
   {
@@ -149,12 +149,11 @@
     "classes": ["LCD"],
     "files": [
       "lcd.js",
-      "lcd-i2c-PCF8574.js",
       "lcd-enumeratechars.js",
       "lcd-runner-20x4.js",
       "lcd-runner.js",
-      "lcd-runner.js",
       "lcd-i2c.js",
+      "lcd-i2c-PCF8574.js",
       "lcd-i2c-runner.js"
     ]
   },
@@ -162,11 +161,11 @@
     "topic": "Compass/Magnetometer",
     "classes": ["Magnetometer", "Compass"],
     "files": [
+      "magnetometer.js",
       "compass-hmc6352.js",
       "compass-hmc5883l.js",
       "magnetometer-log.js",
-      "magnetometer-north.js",
-      "magnetometer.js"
+      "magnetometer-north.js"
     ]
   },
   {
@@ -185,8 +184,13 @@
   },
   {
     "topic": "Sensors",
-    "classes": ["Accelerometer", "Gyro", "Temperature", "Sensor"],
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Temperature"],
     "files": [
+      "sensor.js",
+      "sensor-slider.js",
+      "sensor-fsr.js",
+      "photoresistor.js",
+      "potentiometer.js",
       "accelerometer.js",
       "accelerometer-adxl345.js",
       "accelerometer-adxl335.js",
@@ -196,14 +200,6 @@
       "gyro.js",
       "gyro-lpr5150l.js",
       "gyro-mpu6050.js",
-      "photoresistor.js",
-      "photoresistor-servo.js",
-      "potentiometer.js",
-      "sensor.js",
-      "sensor-fsr-servo.js",
-      "sensor-slider.js",
-      "slider-log.js",
-      "slider-pan.js",
       "temperature-tmp36.js",
       "temperature-lm35.js",
       "temperature-ds18b20.js",
@@ -254,6 +250,24 @@
     "files": [
       "nunchuk.js",
       "classic-controller.js"
+    ]
+  },
+  {
+    "topic": "Complete Bots / Projects",
+    "files": [
+      "line-follower.js",
+      "motobot.js",
+      "navigator.js",
+      "nodebot.js",
+      "whisker.js",
+      "phoenix.js",
+      "boe-test-servos.js",
+      "bug.js",
+      "brat.js",
+      "claw.js",
+      "kinect-arm-controller.js",
+      "laser-trip-wire.js",
+      "radar.js"
     ]
   }
 ]

@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Phoenix
+# Phoenix Hexapod
 
 Run with:
 ```bash
