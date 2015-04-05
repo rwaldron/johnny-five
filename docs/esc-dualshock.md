@@ -69,6 +69,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)
+[docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
 
 
 

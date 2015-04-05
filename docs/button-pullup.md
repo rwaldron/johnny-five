@@ -49,6 +49,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)
+[docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
 
 
 

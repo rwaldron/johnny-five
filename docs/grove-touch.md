@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Grove - touch
+# Grove - Touch
 
 Run with:
 ```bash

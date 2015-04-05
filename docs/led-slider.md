@@ -1,9 +1,9 @@
 <!--remove-start-->
-# Sonar, I2C
+# LED - Slider Control
 
 Run with:
 ```bash
-node eg/sonar-i2c.js
+node eg/led-slider.js
 ```
 <!--remove-end-->
 
@@ -13,28 +13,22 @@ var board = new five.Board();
 
 board.on("ready", function() {
 
-  var sonar = new five.Sonar({
-    device: "SRF10"
+    var slider = new five.Sensor("A0");
+    var led = new five.Led(11);
+
+    // Scale the sensor's value to the LED's brightness range
+    slider.scale([0, 255]).on("data", function() {
+      led.brightness(this.value);
+    });
   });
-
-  function display(type, value, unit) {
-    console.log("%s event: object is %d %s away", type, value, unit);
-  }
-
-  sonar.on("data", function() {
-    display("data", this.inches, "inches");
-  });
-
-  sonar.on("change", function() {
-    display("data", this.inches, "inches");
-  });
-});
-
 ```
 
 
+## Breadboard/Illustration
 
 
+![docs/breadboard/led-slider.png](breadboard/led-slider.png)
+[docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
 
 
 

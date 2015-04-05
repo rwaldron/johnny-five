@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Claw
+# Robotic Claw
 
 Run with:
 ```bash
