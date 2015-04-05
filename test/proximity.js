@@ -202,6 +202,42 @@ exports["Proximity: GP2Y0A41SK0F"] = {
   }
 };
 
+exports["Proximity: MB1003"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.distance = new Proximity({
+      controller: "MB1003",
+      pin: "A1",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  MB1003: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    // 500 is an actual reading at ~250cm
+    callback(500);
+
+    test.equals(Math.round(this.distance.centimeters), 250);
+    test.equals(Math.round(this.distance.cm), 250);
+    test.equals(Math.round(this.distance.inches), 98);
+    test.equals(Math.round(this.distance.in), 98);
+
+    test.done();
+  }
+};
+
 
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
