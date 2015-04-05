@@ -182,6 +182,7 @@ exports["Temperature -- DS18B20"] = {
     this.sendOneWireWrite.restore();
     this.sendOneWireWriteAndRead.restore();
     this.clock.restore();
+    Temperature.Drivers.clear();
     done();
   },
 
