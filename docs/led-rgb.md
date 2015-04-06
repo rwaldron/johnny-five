@@ -1,5 +1,5 @@
 <!--remove-start-->
-# LED RGB Component
+# LED - RGB Component
 
 Run with:
 ```bash
@@ -16,9 +16,9 @@ five.Board().on("ready", function() {
   // Initialize the RGB LED
   var led = new five.Led.RGB({
     pins: {
-      red: 3,
+      red: 6,
       green: 5,
-      blue: 6
+      blue: 3
     }
   });
 

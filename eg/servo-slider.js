@@ -1,14 +1,28 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+var five = require("../lib/johnny-five.js"),
+  board, slider, servo, scalingRange;
+
+board = new five.Board();
 
 board.on("ready", function() {
-  var servo = new five.Servo(10);
-  var slider = new five.Sensor("A0");
 
-  // Scale the slider's value to fit in the servo's
-  // movement range. When the slider position changes
-  // update the servo's position
-  slider.scale([0, 180]).on("slide", function() {
-    servo.to(this.value);
+  scalingRange = [0, 170];
+
+  slider = new five.Sensor({
+    pin: "A0",
+    freq: 50
+  });
+
+  servo = new five.Servo({
+    pin: 10,
+    range: scalingRange
+  });
+
+
+  // The slider's value will be scaled to match the servo's movement range
+
+  slider.scale(scalingRange).on("slide", function(err, value) {
+
+    servo.to(Math.floor(this.value));
+
   });
 });

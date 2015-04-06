@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Gripper
+# Gripper Component
 
 Run with:
 ```bash

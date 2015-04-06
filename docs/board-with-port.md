@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Board example with user defined serial port
+# Board - Specify port
 
 Run with:
 ```bash
@@ -35,6 +35,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/board-with-port.png](breadboard/board-with-port.png)
+[docs/breadboard/board-with-port.fzz](breadboard/board-with-port.fzz)
 
 
 
