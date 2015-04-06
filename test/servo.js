@@ -806,4 +806,29 @@ exports["Servo.Array"] = {
     test.done();
   },
 
+  arrayOfArrays: function(test) {
+    test.expect(9);
+
+    var servos = new Servo.Array([this.a, this.b]);
+    var arrayOfArrays = new Servo.Array([servos, this.c]);
+
+    arrayOfArrays.to(90);
+
+    test.equal(this.to.callCount, 3);
+    test.equal(this.to.getCall(0).args[0], 90);
+    test.equal(this.to.getCall(1).args[0], 90);
+    test.equal(this.to.getCall(2).args[0], 90);
+
+    test.equal(arrayOfArrays.length, 2);
+    test.equal(arrayOfArrays[0][0], this.a);
+    test.equal(arrayOfArrays[0][1], this.b);
+    test.equal(arrayOfArrays[1], this.c);
+
+    arrayOfArrays.stop();
+
+    test.equal(this.stop.callCount, 3);
+
+    test.done();
+  }
+
 };
