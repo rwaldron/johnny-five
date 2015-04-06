@@ -40,6 +40,8 @@
   "esc-keypress.js": "ESC - Keypress Controller",
   "esc-dualshock.js": "ESC - Dualshock Controller",
   "esc-PCA9685.js": "ESC (PCA9685)",
+  "esc-bidirectional.js": "ESC - Bidirectional Speed Controller",
+  "esc-bidirectional-forward-reverse.js": "ESC - Bidirectional Forward/Reverse Controller",
   "ping.js": "Ping Component",
   "sonar-scan.js": "Sonar - Scanner",
   "sonar.js": "Sonar Component",

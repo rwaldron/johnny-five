@@ -219,6 +219,8 @@ board.on("ready", function() {
 - [ESC - Keypress Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
 - [ESC - Dualshock Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
 - [ESC (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
+- [ESC - Bidirectional Speed Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
+- [ESC - Bidirectional Forward/Reverse Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
 
 ### Sonar/Ultrasonic
 - [Ping Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)

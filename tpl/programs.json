@@ -83,7 +83,9 @@
     "files": [
       "esc-keypress.js",
       "esc-dualshock.js",
-      "esc-PCA9685.js"
+      "esc-PCA9685.js",
+      "esc-bidirectional.js",
+      "esc-bidirectional-forward-reverse.js"
     ]
   },
   {
