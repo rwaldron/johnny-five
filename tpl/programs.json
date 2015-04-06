@@ -4,6 +4,7 @@
     "classes": ["Board"],
     "files": [
       "board.js",
+      "board-with-port.js",
       "board-multi.js",
       "repl.js",
       "pin.js"

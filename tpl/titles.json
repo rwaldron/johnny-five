@@ -1,6 +1,7 @@
 {
   "board.js": "Basic Board initialization",
-  "board-multi.js": "Multiple Boards in one program",
+  "board-with-port.js": "Board - Specify port",
+  "board-multi.js": "Board - Multiple in one program",
   "repl.js": "REPL",
   "pin.js": "Pin Component",  
 
