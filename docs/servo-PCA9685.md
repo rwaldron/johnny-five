@@ -94,7 +94,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)
-[docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
+[(Fritzing diagram)](breadboard/servo-PCA9685.fzz)
+
 
 
 

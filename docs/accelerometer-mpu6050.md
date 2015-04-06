@@ -37,7 +37,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/accelerometer-mpu6050.png](breadboard/accelerometer-mpu6050.png)
-[docs/breadboard/accelerometer-mpu6050.fzz](breadboard/accelerometer-mpu6050.fzz)
+[(Fritzing diagram)](breadboard/accelerometer-mpu6050.fzz)
+
 
 
 

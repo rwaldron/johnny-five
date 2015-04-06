@@ -163,8 +163,8 @@ module.exports = function(grunt) {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
     var titles = JSON.parse(file.read("tpl/titles.json"));
+    var breadboards = JSON.parse(file.read("tpl/breadboards.json"));
     var readme = [];
-    var tplType = "eg";
 
     entries.forEach(function(entry) {
 
@@ -179,10 +179,6 @@ module.exports = function(grunt) {
         var filepath = "eg/" + value;
         var eg = file.read(filepath);
         var md = "docs/" + value.replace(".js", ".md");
-        var png = "docs/breadboard/" + value.replace(".js", ".png");
-        var fzz = "docs/breadboard/" + value.replace(".js", ".fzz");
-        var fritzpath = fzz.split("/");
-        var fritzfile = fritzpath[fritzpath.length - 1];
         var inMarkdown = false;
 
         // Modify code in example to appear as it would if installed via npm
@@ -207,8 +203,34 @@ module.exports = function(grunt) {
           return true;
         }).join("\n");
 
-        var hasPng = fs.existsSync(png);
-        var hasFzz = fs.existsSync(fzz);
+
+        // Get list of breadboards diagrams to include (Default: same as file name)
+        var diagrams = breadboards[value] ?
+          breadboards[value] : [value.replace(".js", "")];
+
+        var images = "";
+
+        diagrams.forEach(function(diagram) {
+
+          var png = "docs/breadboard/" + diagram + ".png";
+          var fzz = "docs/breadboard/" + diagram + ".fzz";
+
+          var hasPng = fs.existsSync(png);
+          var hasFzz = fs.existsSync(fzz);
+
+          if (hasPng) {
+            images += templates.img({ png: png });
+          } else {
+            verbose.writeln("Missing PNG: " + png);
+          }
+
+          if (hasFzz) {
+            images += templates.fritzing({ fzz: fzz });
+          } else {
+            verbose.writeln("Missing FZZ: " + fzz);
+          }
+        });
+
 
         // console.log( markdown );
 
@@ -218,8 +240,7 @@ module.exports = function(grunt) {
           example: eg,
           file: md,
           markdown: markdown.join("\n"),
-          breadboard: hasPng ? templates.img({ png: png }) : "",
-          fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
+          breadboards: images.slice(0, -1)
         };
 
         if (titles[value]) {
@@ -228,6 +249,8 @@ module.exports = function(grunt) {
 
           // Push a rendered markdown link into the readme "index"
           readme.push(templates.eglink(values));
+        } else {
+          grunt.fail.warn("No entry for " + value + " in titles.json");
         }
       });
     });

@@ -96,7 +96,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)
-[docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
+[(Fritzing diagram)](breadboard/accelerometer.fzz)
+
 
 
 - [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)

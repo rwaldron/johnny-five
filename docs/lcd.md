@@ -65,7 +65,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/lcd.png](breadboard/lcd.png)
-[docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
+[(Fritzing diagram)](breadboard/lcd.fzz)
+
 
 [16 x 2 LCD White on Blue](http://www.hacktronics.com/LCDs/16-x-2-LCD-White-on-Blue/flypage.tpl.html)
 [20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)

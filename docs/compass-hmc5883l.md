@@ -38,7 +38,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/compass-hmc5883l.png](breadboard/compass-hmc5883l.png)
-[docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5883l.fzz)
+[(Fritzing diagram)](breadboard/compass-hmc5883l.fzz)
+
 
 
 

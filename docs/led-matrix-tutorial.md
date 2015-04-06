@@ -124,7 +124,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-matrix-tutorial.png](breadboard/led-matrix-tutorial.png)
-[docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matrix-tutorial.fzz)
+[(Fritzing diagram)](breadboard/led-matrix-tutorial.fzz)
+
 
 
 

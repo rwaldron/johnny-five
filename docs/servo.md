@@ -79,7 +79,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo.png](breadboard/servo.png)
-[docs/breadboard/servo.fzz](breadboard/servo.fzz)
+[(Fritzing diagram)](breadboard/servo.fzz)
+
 
 
 

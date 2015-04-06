@@ -37,7 +37,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/sonar-srf10.png](breadboard/sonar-srf10.png)
-[docs/breadboard/sonar-srf10.fzz](breadboard/sonar-srf10.fzz)
+[(Fritzing diagram)](breadboard/sonar-srf10.fzz)
+
 
 
 

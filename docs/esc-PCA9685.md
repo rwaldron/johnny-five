@@ -32,7 +32,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)
-[docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
+[(Fritzing diagram)](breadboard/esc-PCA9685.fzz)
+
 
 
 

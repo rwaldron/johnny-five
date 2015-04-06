@@ -34,7 +34,8 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)
-[docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
+[(Fritzing diagram)](breadboard/button-bumper.fzz)
+
 
 
 

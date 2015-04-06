@@ -47,7 +47,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)
-[docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
+[(Fritzing diagram)](breadboard/toggle-switch.fzz)
+
 
 
 

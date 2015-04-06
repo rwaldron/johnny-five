@@ -54,7 +54,8 @@ function linear(start, end, step, steps) {
 
 
 ![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)
-[docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+[(Fritzing diagram)](breadboard/grove-lcd-rgb.fzz)
+
 
 For this program, you'll need:
 

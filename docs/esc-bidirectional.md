@@ -44,7 +44,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)
-[docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
+[(Fritzing diagram)](breadboard/esc-bidirectional.fzz)
+
 
 
 

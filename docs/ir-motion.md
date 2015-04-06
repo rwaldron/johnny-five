@@ -41,7 +41,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)
-[docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
+[(Fritzing diagram)](breadboard/ir-motion.fzz)
+
 
 
 

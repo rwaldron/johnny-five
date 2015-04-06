@@ -107,7 +107,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-demo-sequence.png](breadboard/led-demo-sequence.png)
-[docs/breadboard/led-demo-sequence.fzz](breadboard/led-demo-sequence.fzz)
+[(Fritzing diagram)](breadboard/led-demo-sequence.fzz)
+
 
 
 

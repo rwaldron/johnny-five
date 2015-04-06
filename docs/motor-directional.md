@@ -107,7 +107,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)
-[docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
+[(Fritzing diagram)](breadboard/motor-directional.fzz)
+
 
 
 

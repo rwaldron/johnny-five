@@ -54,7 +54,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo-continuous.png](breadboard/servo-continuous.png)
-[docs/breadboard/servo-continuous.fzz](breadboard/servo-continuous.fzz)
+[(Fritzing diagram)](breadboard/servo-continuous.fzz)
+
 
 
 

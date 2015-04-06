@@ -95,7 +95,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-current.png](breadboard/motor-current.png)
-[docs/breadboard/motor-current.fzz](breadboard/motor-current.fzz)
+[(Fritzing diagram)](breadboard/motor-current.fzz)
+
 
 
 

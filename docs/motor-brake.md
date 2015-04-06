@@ -82,7 +82,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)
-[docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
+[(Fritzing diagram)](breadboard/motor-brake.fzz)
+
 
 
 

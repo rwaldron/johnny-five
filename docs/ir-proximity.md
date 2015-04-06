@@ -59,7 +59,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/ir-proximity.png](breadboard/ir-proximity.png)
-[docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz)
+[(Fritzing diagram)](breadboard/ir-proximity.fzz)
+
 
 
 

@@ -46,7 +46,8 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)
-[docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
+[(Fritzing diagram)](breadboard/photoresistor.fzz)
+
 
 
 
