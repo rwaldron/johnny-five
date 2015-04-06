@@ -19,6 +19,7 @@ five.Board().on("ready", function() {
 
   temperature.on("data", function(err, data) {
     console.log(data.celsius + "°C", data.fahrenheit + "°F");
+    console.log("0x" + this.address.toString(16));
   });
 });
 
