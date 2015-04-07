@@ -54,7 +54,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)
+![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)  
 [(Fritzing diagram)](breadboard/stepper-driver.fzz)
 
 

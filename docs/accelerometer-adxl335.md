@@ -37,7 +37,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/accelerometer-adxl335.png](breadboard/accelerometer-adxl335.png)
+![docs/breadboard/accelerometer-adxl335.png](breadboard/accelerometer-adxl335.png)  
 [(Fritzing diagram)](breadboard/accelerometer-adxl335.fzz)
 
 

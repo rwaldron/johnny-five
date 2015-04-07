@@ -24,7 +24,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-array.png](breadboard/led-array.png)
+![docs/breadboard/led-array.png](breadboard/led-array.png)  
 [(Fritzing diagram)](breadboard/led-array.fzz)
 
 

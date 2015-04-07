@@ -65,7 +65,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/sonar.png](breadboard/sonar.png)
+![docs/breadboard/sonar.png](breadboard/sonar.png)  
 [(Fritzing diagram)](breadboard/sonar.fzz)
 
 

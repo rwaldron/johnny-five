@@ -27,7 +27,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-slider.png](breadboard/led-slider.png)
+![docs/breadboard/led-slider.png](breadboard/led-slider.png)  
 [(Fritzing diagram)](breadboard/led-slider.fzz)
 
 

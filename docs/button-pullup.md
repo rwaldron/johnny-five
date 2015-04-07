@@ -48,7 +48,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)  
 [(Fritzing diagram)](breadboard/button-pullup.fzz)
 
 

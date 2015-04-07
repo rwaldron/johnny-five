@@ -35,7 +35,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)
+![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)  
 [(Fritzing diagram)](breadboard/led-rgb-anode.fzz)
 
 

@@ -37,7 +37,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)
+![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)  
 
 
 

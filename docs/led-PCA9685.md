@@ -38,7 +38,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-PCA9685.png](breadboard/led-PCA9685.png)
+![docs/breadboard/led-PCA9685.png](breadboard/led-PCA9685.png)  
 [(Fritzing diagram)](breadboard/led-PCA9685.fzz)
 
 

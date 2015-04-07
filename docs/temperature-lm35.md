@@ -28,7 +28,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)
+![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)  
 [(Fritzing diagram)](breadboard/temperature-lm35.fzz)
 
 

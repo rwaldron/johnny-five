@@ -60,7 +60,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/joystick.png](breadboard/joystick.png)
+![docs/breadboard/joystick.png](breadboard/joystick.png)  
 [(Fritzing diagram)](breadboard/joystick.fzz)
 
 

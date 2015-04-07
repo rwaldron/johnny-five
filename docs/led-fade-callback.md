@@ -58,7 +58,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-fade-callback.png](breadboard/led-fade-callback.png)
+![docs/breadboard/led-fade-callback.png](breadboard/led-fade-callback.png)  
 [(Fritzing diagram)](breadboard/led-fade-callback.fzz)
 
 

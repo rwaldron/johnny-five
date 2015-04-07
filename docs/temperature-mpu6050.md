@@ -32,7 +32,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)
+![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)  
 [(Fritzing diagram)](breadboard/temperature-mpu6050.fzz)
 
 

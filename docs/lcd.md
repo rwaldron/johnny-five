@@ -64,7 +64,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/lcd.png](breadboard/lcd.png)
+![docs/breadboard/lcd.png](breadboard/lcd.png)  
 [(Fritzing diagram)](breadboard/lcd.fzz)
 
 

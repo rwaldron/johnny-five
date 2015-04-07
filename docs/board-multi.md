@@ -63,7 +63,7 @@ boards.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/board-multi.png](breadboard/board-multi.png)
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)  
 [(Fritzing diagram)](breadboard/board-multi.fzz)
 
 

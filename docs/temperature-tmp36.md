@@ -28,7 +28,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)
+![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)  
 [(Fritzing diagram)](breadboard/temperature-tmp36.fzz)
 
 

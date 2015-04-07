@@ -25,7 +25,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-blink.png](breadboard/led-blink.png)
+![docs/breadboard/led-blink.png](breadboard/led-blink.png)  
 [(Fritzing diagram)](breadboard/led-blink.fzz)
 
 

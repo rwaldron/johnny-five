@@ -74,7 +74,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)
+![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)  
 
 
 

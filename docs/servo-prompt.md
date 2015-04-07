@@ -36,7 +36,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-prompt.png](breadboard/servo-prompt.png)
+![docs/breadboard/servo-prompt.png](breadboard/servo-prompt.png)  
 [(Fritzing diagram)](breadboard/servo-prompt.fzz)
 
 

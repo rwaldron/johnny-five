@@ -617,7 +617,7 @@ ED.prototype.move = function(positions) {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/brat.png](breadboard/brat.png)
+![docs/breadboard/brat.png](breadboard/brat.png)  
 
 
 

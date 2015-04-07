@@ -57,7 +57,7 @@ function linear(start, end, step, steps) {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)  
 [(Fritzing diagram)](breadboard/grove-lcd-rgb-temperature-display.fzz)
 
 

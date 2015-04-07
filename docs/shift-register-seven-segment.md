@@ -117,7 +117,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)
+![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)  
 [(Fritzing diagram)](breadboard/shift-register-seven-segment.fzz)
 
 

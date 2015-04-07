@@ -42,7 +42,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-animation.png](breadboard/servo-animation.png)
+![docs/breadboard/servo-animation.png](breadboard/servo-animation.png)  
 [(Fritzing diagram)](breadboard/servo-animation.fzz)
 
 

@@ -37,7 +37,7 @@ var five = require("johnny-five"),
 ## Breadboard/Illustration
 
 
-![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)
+![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)  
 [(Fritzing diagram)](breadboard/sensor-fsr.fzz)
 
 

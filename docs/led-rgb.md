@@ -51,7 +51,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)
+![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)  
 [(Fritzing diagram)](breadboard/led-rgb.fzz)
 
 

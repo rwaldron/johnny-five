@@ -35,7 +35,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-pulse.png](breadboard/led-pulse.png)
+![docs/breadboard/led-pulse.png](breadboard/led-pulse.png)  
 [(Fritzing diagram)](breadboard/led-pulse.fzz)
 
 

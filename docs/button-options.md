@@ -56,7 +56,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/button-options.png](breadboard/button-options.png)
+![docs/breadboard/button-options.png](breadboard/button-options.png)  
 [(Fritzing diagram)](breadboard/button-options.fzz)
 
 

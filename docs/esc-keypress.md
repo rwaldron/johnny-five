@@ -53,7 +53,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)
+![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)  
 [(Fritzing diagram)](breadboard/esc-keypress.fzz)
 
 

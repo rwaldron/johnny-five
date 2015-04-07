@@ -52,7 +52,7 @@ function time() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)
+![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)  
 [(Fritzing diagram)](breadboard/led-digits-clock.fzz)
 
 

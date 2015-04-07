@@ -27,7 +27,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)
+![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)  
 [(Fritzing diagram)](breadboard/sensor-slider.fzz)
 
 

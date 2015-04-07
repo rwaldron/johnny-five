@@ -49,7 +49,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-rgb-PCA9685.png](breadboard/led-rgb-PCA9685.png)
+![docs/breadboard/led-rgb-PCA9685.png](breadboard/led-rgb-PCA9685.png)  
 [(Fritzing diagram)](breadboard/led-rgb-PCA9685.fzz)
 
 

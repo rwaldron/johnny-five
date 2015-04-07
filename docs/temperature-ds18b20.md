@@ -30,7 +30,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)
+![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)  
 [(Fritzing diagram)](breadboard/temperature-ds18b20.fzz)
 
 

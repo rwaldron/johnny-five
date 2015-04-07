@@ -95,7 +95,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)
+![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)  
 [(Fritzing diagram)](breadboard/accelerometer.fzz)
 
 

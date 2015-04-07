@@ -25,7 +25,7 @@
   "led-matrix-HT16K33-16x8.js": "LED - Matrix 16x8 (HT16K33)",
 
   "servo.js": "Servo Component",
-  "servo-PCA9685.js": "Servo - (PCA9685)",
+  "servo-PCA9685.js": "Servo (PCA9685)",
   "servo-continuous.js": "Continuous Servo Component",
   "servo-sweep.js": "Servo - Sweep",
   "servo-slider.js": "Servo - Slide Potentiometer Controller",

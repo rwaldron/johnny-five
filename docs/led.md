@@ -31,10 +31,10 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-13.png](breadboard/led-13.png)
+![docs/breadboard/led-13.png](breadboard/led-13.png)  
 [(Fritzing diagram)](breadboard/led-13.fzz)
 
-![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)
+![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)  
 [(Fritzing diagram)](breadboard/led-resistor.fzz)
 
 

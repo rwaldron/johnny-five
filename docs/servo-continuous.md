@@ -53,7 +53,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-continuous.png](breadboard/servo-continuous.png)
+![docs/breadboard/servo-continuous.png](breadboard/servo-continuous.png)  
 [(Fritzing diagram)](breadboard/servo-continuous.fzz)
 
 

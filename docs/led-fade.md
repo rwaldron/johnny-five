@@ -29,7 +29,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-fade.png](breadboard/led-fade.png)
+![docs/breadboard/led-fade.png](breadboard/led-fade.png)  
 [(Fritzing diagram)](breadboard/led-fade.fzz)
 
 

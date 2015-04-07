@@ -53,7 +53,7 @@ function linear(start, end, step, steps) {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)
+![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)  
 [(Fritzing diagram)](breadboard/grove-lcd-rgb.fzz)
 
 

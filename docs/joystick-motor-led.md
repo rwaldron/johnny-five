@@ -83,7 +83,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)
+![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)  
 [(Fritzing diagram)](breadboard/joystick-motor-led.fzz)
 
 
