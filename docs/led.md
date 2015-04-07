@@ -35,6 +35,12 @@ board.on("ready", function() {
 [Fritzing diagram: docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 ![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)  
 [Fritzing diagram: docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
+![docs/breadboard/led-13-galileo.png](breadboard/led-13-galileo.png)  
+[Fritzing diagram: docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo.fzz)
+![docs/breadboard/led-13-edison-arduinoboard.png](breadboard/led-13-edison-arduinoboard.png)  
+[Fritzing diagram: docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/led-13-edison-arduinoboard.fzz)
+![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)  
+[Fritzing diagram: docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:

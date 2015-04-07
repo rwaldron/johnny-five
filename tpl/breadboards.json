@@ -1,3 +1,3 @@
 {
-  "led.js" : ["led-13", "led-resistor"]
+  "led.js" : ["led-13", "led-resistor", "led-13-galileo", "led-13-edison-arduinoboard", "led-13-mega"]
 }
