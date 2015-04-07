@@ -54,8 +54,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)  
-[(Fritzing diagram)](breadboard/esc-keypress.fzz)
-
+[Fritzing diagram: docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
 
 
 

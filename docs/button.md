@@ -54,8 +54,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/button.png](breadboard/button.png)  
-[(Fritzing diagram)](breadboard/button.fzz)
-
+[Fritzing diagram: docs/breadboard/button.fzz](breadboard/button.fzz)
 
 
 

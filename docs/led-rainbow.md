@@ -31,8 +31,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-rainbow.png](breadboard/led-rainbow.png)  
-[(Fritzing diagram)](breadboard/led-rainbow.fzz)
-
+[Fritzing diagram: docs/breadboard/led-rainbow.fzz](breadboard/led-rainbow.fzz)
 
 
 

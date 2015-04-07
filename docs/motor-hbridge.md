@@ -80,8 +80,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)  
-[(Fritzing diagram)](breadboard/motor-hbridge.fzz)
-
+[Fritzing diagram: docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
 
 
 

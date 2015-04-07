@@ -52,8 +52,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/accelerometer-mma7361.png](breadboard/accelerometer-mma7361.png)  
-[(Fritzing diagram)](breadboard/accelerometer-mma7361.fzz)
-
+[Fritzing diagram: docs/breadboard/accelerometer-mma7361.fzz](breadboard/accelerometer-mma7361.fzz)
 
 
 

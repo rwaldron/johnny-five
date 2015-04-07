@@ -63,8 +63,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-matrix-HT16K33-16x8.png](breadboard/led-matrix-HT16K33-16x8.png)  
-[(Fritzing diagram)](breadboard/led-matrix-HT16K33-16x8.fzz)
-
+[Fritzing diagram: docs/breadboard/led-matrix-HT16K33-16x8.fzz](breadboard/led-matrix-HT16K33-16x8.fzz)
 
 
 

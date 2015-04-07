@@ -108,8 +108,7 @@ var board = new five.Board().on("ready", function() {
 
 
 ![docs/breadboard/servo-animation-leg.png](breadboard/servo-animation-leg.png)  
-[(Fritzing diagram)](breadboard/servo-animation-leg.fzz)
-
+[Fritzing diagram: docs/breadboard/servo-animation-leg.fzz](breadboard/servo-animation-leg.fzz)
 
 
 

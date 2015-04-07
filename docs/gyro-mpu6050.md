@@ -37,8 +37,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/gyro-mpu6050.png](breadboard/gyro-mpu6050.png)  
-[(Fritzing diagram)](breadboard/gyro-mpu6050.fzz)
-
+[Fritzing diagram: docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz)
 
 
 

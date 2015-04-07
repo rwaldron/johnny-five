@@ -41,8 +41,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/ping.png](breadboard/ping.png)  
-[(Fritzing diagram)](breadboard/ping.fzz)
-
+[Fritzing diagram: docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 
 

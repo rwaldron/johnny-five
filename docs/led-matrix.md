@@ -65,8 +65,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)  
-[(Fritzing diagram)](breadboard/led-matrix.fzz)
-
+[Fritzing diagram: docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
 
 
 

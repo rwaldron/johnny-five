@@ -55,8 +55,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)  
-[(Fritzing diagram)](breadboard/imu-mpu6050.fzz)
-
+[Fritzing diagram: docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
 
 
 

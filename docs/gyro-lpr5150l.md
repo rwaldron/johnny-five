@@ -36,8 +36,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)  
-[(Fritzing diagram)](breadboard/gyro-lpr5150l.fzz)
-
+[Fritzing diagram: docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
 
 
 

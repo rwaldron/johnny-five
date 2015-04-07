@@ -35,8 +35,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/board-with-port.png](breadboard/board-with-port.png)  
-[(Fritzing diagram)](breadboard/board-with-port.fzz)
-
+[Fritzing diagram: docs/breadboard/board-with-port.fzz](breadboard/board-with-port.fzz)
 
 
 

@@ -97,8 +97,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo-array.png](breadboard/servo-array.png)  
-[(Fritzing diagram)](breadboard/servo-array.fzz)
-
+[Fritzing diagram: docs/breadboard/servo-array.fzz](breadboard/servo-array.fzz)
 
 
 

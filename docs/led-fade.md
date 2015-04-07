@@ -30,8 +30,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-fade.png](breadboard/led-fade.png)  
-[(Fritzing diagram)](breadboard/led-fade.fzz)
-
+[Fritzing diagram: docs/breadboard/led-fade.fzz](breadboard/led-fade.fzz)
 
 
 

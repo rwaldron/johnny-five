@@ -55,8 +55,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)  
-[(Fritzing diagram)](breadboard/stepper-driver.fzz)
-
+[Fritzing diagram: docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
 
 - [A4988 Stepper Motor Driver Carrier](http://www.pololu.com/catalog/product/1182)
 - [100uf 35v electrolytic cap](http://www.amazon.com/100uF-Radial-Mini-Electrolytic-Capacitor/dp/B0002ZP530)
