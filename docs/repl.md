@@ -36,7 +36,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/repl.png](breadboard/repl.png)
+![docs/breadboard/repl.png](breadboard/repl.png)  
 
 This script will make `on()` and `off()` functions
 available in the REPL:

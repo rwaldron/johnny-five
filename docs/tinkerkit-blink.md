@@ -21,7 +21,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-blink.png](breadboard/tinkerkit-blink.png)
+![docs/breadboard/tinkerkit-blink.png](breadboard/tinkerkit-blink.png)  
 
 - [TinkerKit Led](http://www.tinkerkit.com/led-red-10mm/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)

@@ -61,8 +61,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-drive.png](breadboard/servo-drive.png)
-[docs/breadboard/servo-drive.fzz](breadboard/servo-drive.fzz)
+![docs/breadboard/servo-drive.png](breadboard/servo-drive.png)  
+[Fritzing diagram: docs/breadboard/servo-drive.fzz](breadboard/servo-drive.fzz)
 
 
 

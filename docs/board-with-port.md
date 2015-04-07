@@ -34,8 +34,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/board-with-port.png](breadboard/board-with-port.png)
-[docs/breadboard/board-with-port.fzz](breadboard/board-with-port.fzz)
+![docs/breadboard/board-with-port.png](breadboard/board-with-port.png)  
+[Fritzing diagram: docs/breadboard/board-with-port.fzz](breadboard/board-with-port.fzz)
 
 
 

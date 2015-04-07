@@ -60,8 +60,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/joystick.png](breadboard/joystick.png)
-[docs/breadboard/joystick.fzz](breadboard/joystick.fzz)
+![docs/breadboard/joystick.png](breadboard/joystick.png)  
+[Fritzing diagram: docs/breadboard/joystick.fzz](breadboard/joystick.fzz)
 
 
 

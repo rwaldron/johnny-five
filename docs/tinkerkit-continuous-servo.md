@@ -28,7 +28,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-continuous-servo.png](breadboard/tinkerkit-continuous-servo.png)
+![docs/breadboard/tinkerkit-continuous-servo.png](breadboard/tinkerkit-continuous-servo.png)  
 
 - [TinkerKit Servo](http://www.tinkerkit.com/servo/)
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)

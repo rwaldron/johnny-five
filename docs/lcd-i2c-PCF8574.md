@@ -66,7 +66,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)
+![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)  
 
 
 

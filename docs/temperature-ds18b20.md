@@ -30,8 +30,8 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)
-[docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
+![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)  
+[Fritzing diagram: docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
 
 - [DS18B20 - Temperature Sensor](http://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/DS18S20.html)
 

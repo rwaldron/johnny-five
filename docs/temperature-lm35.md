@@ -28,8 +28,8 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)
-[docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
+![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)  
+[Fritzing diagram: docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
 
 - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
 

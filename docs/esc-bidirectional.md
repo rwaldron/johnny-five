@@ -43,8 +43,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)
-[docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
+![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)  
+[Fritzing diagram: docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
 
 
 

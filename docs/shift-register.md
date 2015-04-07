@@ -42,8 +42,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/shift-register.png](breadboard/shift-register.png)
-[docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
+![docs/breadboard/shift-register.png](breadboard/shift-register.png)  
+[Fritzing diagram: docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
 
 
 

@@ -75,7 +75,7 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/motobot.png](breadboard/motobot.png)
+![docs/breadboard/motobot.png](breadboard/motobot.png)  
 
 
 ![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)

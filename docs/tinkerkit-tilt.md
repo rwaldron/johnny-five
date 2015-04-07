@@ -25,7 +25,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-tilt.png](breadboard/tinkerkit-tilt.png)
+![docs/breadboard/tinkerkit-tilt.png](breadboard/tinkerkit-tilt.png)  
 
 - [TinkerKit Servo](http://www.tinkerkit.com/servo/)
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)

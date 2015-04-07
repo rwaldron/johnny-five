@@ -45,8 +45,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)
-[docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
+![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)  
+[Fritzing diagram: docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
 
 
 

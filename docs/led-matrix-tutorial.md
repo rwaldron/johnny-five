@@ -123,8 +123,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-matrix-tutorial.png](breadboard/led-matrix-tutorial.png)
-[docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matrix-tutorial.fzz)
+![docs/breadboard/led-matrix-tutorial.png](breadboard/led-matrix-tutorial.png)  
+[Fritzing diagram: docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matrix-tutorial.fzz)
 
 
 

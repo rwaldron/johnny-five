@@ -40,8 +40,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/ping.png](breadboard/ping.png)
-[docs/breadboard/ping.fzz](breadboard/ping.fzz)
+![docs/breadboard/ping.png](breadboard/ping.png)  
+[Fritzing diagram: docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 
 

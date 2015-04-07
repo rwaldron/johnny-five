@@ -92,7 +92,7 @@ five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/nodebot.png](breadboard/nodebot.png)
+![docs/breadboard/nodebot.png](breadboard/nodebot.png)  
 
 
 

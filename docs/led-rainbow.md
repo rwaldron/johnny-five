@@ -30,8 +30,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-rainbow.png](breadboard/led-rainbow.png)
-[docs/breadboard/led-rainbow.fzz](breadboard/led-rainbow.fzz)
+![docs/breadboard/led-rainbow.png](breadboard/led-rainbow.png)  
+[Fritzing diagram: docs/breadboard/led-rainbow.fzz](breadboard/led-rainbow.fzz)
 
 
 

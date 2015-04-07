@@ -68,8 +68,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)
-[docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
+![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)  
+[Fritzing diagram: docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
 
 
 

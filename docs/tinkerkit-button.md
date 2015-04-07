@@ -30,7 +30,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-button.png](breadboard/tinkerkit-button.png)
+![docs/breadboard/tinkerkit-button.png](breadboard/tinkerkit-button.png)  
 
 - [TinkerKit Button](http://www.tinkerkit.com/button/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)

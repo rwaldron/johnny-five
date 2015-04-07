@@ -23,7 +23,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-linear-pot.png](breadboard/tinkerkit-linear-pot.png)
+![docs/breadboard/tinkerkit-linear-pot.png](breadboard/tinkerkit-linear-pot.png)  
 
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
 - [TinkerKit Led](http://www.tinkerkit.com/led/)

@@ -66,8 +66,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/piezo.png](breadboard/piezo.png)
-[docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+![docs/breadboard/piezo.png](breadboard/piezo.png)  
+[Fritzing diagram: docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
 
 
 

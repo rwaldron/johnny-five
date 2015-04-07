@@ -62,8 +62,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/motor.png](breadboard/motor.png)
-[docs/breadboard/motor.fzz](breadboard/motor.fzz)
+![docs/breadboard/motor.png](breadboard/motor.png)  
+[Fritzing diagram: docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 
 

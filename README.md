@@ -190,7 +190,7 @@ board.on("ready", function() {
 
 ### Servo
 - [Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
-- [Servo - (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+- [Servo (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 - [Continuous Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
 - [Servo - Slide Potentiometer Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)

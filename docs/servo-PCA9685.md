@@ -1,5 +1,5 @@
 <!--remove-start-->
-# Servo - (PCA9685)
+# Servo (PCA9685)
 
 Run with:
 ```bash
@@ -93,8 +93,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)
-[docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
+![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)  
+[Fritzing diagram: docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
 
 
 

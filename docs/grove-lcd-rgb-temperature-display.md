@@ -57,8 +57,8 @@ function linear(start, end, step, steps) {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)
-[docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)  
+[Fritzing diagram: docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
 
 For this program, you'll need:
 

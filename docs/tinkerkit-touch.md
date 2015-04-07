@@ -33,7 +33,7 @@ new five.Board().on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/tinkerkit-touch.png](breadboard/tinkerkit-touch.png)
+![docs/breadboard/tinkerkit-touch.png](breadboard/tinkerkit-touch.png)  
 
 - [TinkerKit Touch](http://www.tinkerkit.com/touch/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)

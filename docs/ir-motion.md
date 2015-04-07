@@ -40,8 +40,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)
-[docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
+![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)  
+[Fritzing diagram: docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
 
 
 

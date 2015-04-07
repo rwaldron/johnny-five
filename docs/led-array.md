@@ -24,8 +24,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-array.png](breadboard/led-array.png)
-[docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
+![docs/breadboard/led-array.png](breadboard/led-array.png)  
+[Fritzing diagram: docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
 Control multiple LEDs at once by creating an LED collection (`Leds`).

@@ -52,8 +52,8 @@ function time() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)
-[docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
+![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)  
+[Fritzing diagram: docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
 
 
 Learn More:

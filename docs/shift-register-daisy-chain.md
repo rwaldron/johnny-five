@@ -239,8 +239,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)
-[docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
+![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)  
+[Fritzing diagram: docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
 
 
 

@@ -96,8 +96,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)
-[docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
+![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)  
+[Fritzing diagram: docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
 
 
 

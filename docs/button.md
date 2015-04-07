@@ -53,8 +53,8 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/button.png](breadboard/button.png)
-[docs/breadboard/button.fzz](breadboard/button.fzz)
+![docs/breadboard/button.png](breadboard/button.png)  
+[Fritzing diagram: docs/breadboard/button.fzz](breadboard/button.fzz)
 
 
 

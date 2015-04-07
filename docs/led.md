@@ -31,8 +31,10 @@ board.on("ready", function() {
 ## Breadboard/Illustration
 
 
-![docs/breadboard/led.png](breadboard/led.png)
-[docs/breadboard/led.fzz](breadboard/led.fzz)
+![docs/breadboard/led-13.png](breadboard/led-13.png)  
+[Fritzing diagram: docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)  
+[Fritzing diagram: docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
 
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:

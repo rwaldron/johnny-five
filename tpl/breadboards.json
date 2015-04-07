@@ -1,0 +1,3 @@
+{
+  "led.js" : ["led-13", "led-resistor"]
+}
