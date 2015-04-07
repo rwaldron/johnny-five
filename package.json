@@ -110,10 +110,16 @@
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
-    "lodash": "latest",
     "nanotimer": "0.3.1",
     "temporal": "latest",
-    "array-includes": "latest"
+    "array-includes": "latest",
+    "defaults": "latest",
+    "lodash.clonedeep": "latest",
+    "lodash.debounce": "latest",
+    "lodash.every": "latest",
+    "lodash.includes": "latest",
+    "lodash.mixin": "latest",
+    "lodash.pluck": "latest"
   },
   "optionalDependencies": {
     "firmata": ">=0.2.9",
