@@ -46,8 +46,6 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)<br>
-Fritzing diagram: [docs/breadboard/laser-trip-wire.fzz](breadboard/laser-trip-wire.fzz)
-
 &nbsp;
 
 

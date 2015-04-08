@@ -259,10 +259,10 @@ module.exports = function(grunt) {
           breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
           breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
 
-          var hasPng = fs.existsSync(breadboard.png);
-          var hasFzz = fs.existsSync(breadboard.fzz);
+          breadboard.hasPng = fs.existsSync(breadboard.png);
+          breadboard.hasFzz = fs.existsSync(breadboard.fzz);
 
-          if (!hasPng) {
+          if (!breadboard.hasPng) {
             if (breadboard.auto) {
               // i.e. we tried to guess at a name but still doesn't exist
               // We can just ignore and no breadboard shown
@@ -274,7 +274,7 @@ module.exports = function(grunt) {
           }
 
           // FZZ is optional, but we'll warn at verbose
-          if (!hasFzz) {
+          if (!breadboard.hasFzz) {
             verbose.writeln("Missing FZZ: " + breadboard.fzz);
           }
 
