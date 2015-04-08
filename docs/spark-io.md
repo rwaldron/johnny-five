@@ -53,7 +53,7 @@ board.on("ready", function() {
 
 ![docs/images/spark-core.jpg](images/spark-core.jpg)  
 
-### LED on pin D1 (Spark Core)
+### LED on pin D1
 
 
 

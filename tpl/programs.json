@@ -808,6 +808,9 @@
         "link": "https://github.com/rwaldron/imp-io",
         "images": [
           {"file": "imp.jpg", "title": "Electric Imp"}
+        ],
+        "breadboards": [
+          {"name": "imp-led", "title": "LED on pin 9"}
         ]
       },
       {
@@ -819,7 +822,7 @@
           {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
         ],
         "breadboards": [
-          {"name": "spark-led", "title": "LED on pin D1 (Spark Core)"}
+          {"name": "spark-led", "title": "LED on pin D1"}
         ]
       },
       {
