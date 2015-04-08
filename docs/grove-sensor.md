@@ -48,12 +48,6 @@ board.on("ready", function() {
 
 ![docs/images/grove-shield.jpg](images/grove-shield.jpg)  
 
-### Grove LED
-
-
-
-![docs/images/grove-led.jpg](images/grove-led.jpg)  
-
 ### Grove Rotary
 
 

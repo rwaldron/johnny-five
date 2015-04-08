@@ -36,6 +36,14 @@ board.on("ready", function() {
 ```
 
 
+## Illustrations / Photos
+
+
+### Grove LED
+
+
+
+![docs/images/grove-led.jpg](images/grove-led.jpg)  
 
 
 
