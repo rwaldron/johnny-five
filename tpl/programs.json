@@ -624,6 +624,7 @@
         "title": "Grove - Sensor",
         "images": [
           {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
           {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
         ]
       },
