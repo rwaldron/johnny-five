@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Shift Register Component
+# Shift Register
 
 
 
@@ -46,7 +46,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Shift Register Component"
+### Breadboard for "Shift Register"
 
 
 

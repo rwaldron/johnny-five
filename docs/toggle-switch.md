@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Toggle Switch Component
+# Toggle Switch
 
 
 
@@ -50,7 +50,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Toggle Switch Component"
+### Breadboard for "Toggle Switch"
 
 
 

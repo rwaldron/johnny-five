@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Ping Component
+# Ping
 
 
 
@@ -44,7 +44,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Ping Component"
+### Breadboard for "Ping"
 
 
 

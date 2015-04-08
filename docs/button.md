@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Button Component
+# Button
 
 
 
@@ -57,7 +57,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Button Component"
+### Breadboard for "Button"
 
 
 

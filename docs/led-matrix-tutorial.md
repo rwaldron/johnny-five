@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LED - Matrix Tutorial
+# LED - Matrix Demo
 
 
 
@@ -127,7 +127,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "LED - Matrix Tutorial"
+### Breadboard for "LED - Matrix Demo"
 
 
 

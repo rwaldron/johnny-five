@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Servo Component
+# Servo
 
 
 
@@ -82,7 +82,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Servo Component"
+### Breadboard for "Servo"
 
 
 

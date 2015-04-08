@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Sonar - Scan
+# Sonar - Scanner
 
 
 

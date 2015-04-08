@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LED - Digits Clock
+# LED - Digital Clock
 
 
 
@@ -56,7 +56,7 @@ function time() {
 ## Illustrations / Photos
 
 
-### Breadboard for "LED - Digits Clock"
+### Breadboard for "LED - Digital Clock"
 
 
 

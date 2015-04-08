@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Motor Component
+# Motor
 
 
 
@@ -66,7 +66,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Motor Component"
+### Breadboard for "Motor"
 
 
 

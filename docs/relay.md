@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Relay Component
+# Relay
 
 
 
@@ -39,7 +39,7 @@ board.on("ready", function() {
 ### Relay - normally open
 
 
-The breadboard diagram shows a Keyes Relay, however any Relay component will work.
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
 
 
 ![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
@@ -49,7 +49,7 @@ Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
 ### Relay - normally closed
 
 
-The breadboard diagram shows a Keyes Relay, however any Relay component will work.
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
 
 
 ![docs/breadboard/relay-closed.png](breadboard/relay-closed.png)<br>

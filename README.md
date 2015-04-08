@@ -166,10 +166,10 @@ board.on("ready", function() {
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
-- [Pin Component](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
+- [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 
 ### LED
-- [LED Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
+- [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
 - [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
@@ -181,29 +181,29 @@ board.on("ready", function() {
 - [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [LED - RGB PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
-- [LED - RGB rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
-- [LED - Digits Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
+- [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
+- [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
 - [LED - Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
-- [LED - Matrix Tutorial](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
-- [LED - Matrix (HT16K33)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
-- [LED - Matrix (HT16K33, 16x8)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
+- [LED - Matrix Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
+- [LED - Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
+- [LED - Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
 
 ### Servo
-- [Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
+- [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 - [Servo - Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
-- [Servo - Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
+- [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo - Drive](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-drive.md)
 - [Servo - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-sweep.md)
-- [Servo - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
+- [Servo - Array of servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 
 ### Servo Animation
 - [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
 - [Servo - Leg Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation-leg.md)
 
 ### Motor
-- [Motor Component](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
+- [Motor](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
 - [Motor - Directional](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-directional.md)
 - [Motor - Brake](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
@@ -223,23 +223,23 @@ board.on("ready", function() {
 - [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
 
 ### Sonar/Ultrasonic
-- [Ping Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
-- [Sonar Component](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar.md)
-- [Sonar - Scan](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-scan.md)
+- [Ping](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
+- [Sonar](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar.md)
+- [Sonar - Scanner](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-scan.md)
 - [Sonar - I2C SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-srf10.md)
 
 ### Button / Switch
-- [Button Component](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
+- [Button](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
 - [Button - Bumper](https://github.com/rwaldron/johnny-five/blob/master/docs/button-bumper.md)
 - [Button - Options](https://github.com/rwaldron/johnny-five/blob/master/docs/button-options.md)
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
-- [Toggle Switch Component](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
+- [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 
 ### Relay
-- [Relay Component](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
+- [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
 
 ### Shift Register
-- [Shift Register Component](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
+- [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
 - [Shift Register - Seven segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
 - [Shift Register - Seven segments, daisy chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
@@ -252,7 +252,7 @@ board.on("ready", function() {
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
 - [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
-- [Joystick - Pan Tilt control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-pantilt.md)
+- [Joystick - Pan + Tilt control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-pantilt.md)
 - [Joystick - Motor control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-motor-led.md)
 
 ### LCD
@@ -292,13 +292,13 @@ board.on("ready", function() {
 - [Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro.md)
 - [Gyro - Analog LPR5150AL](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
 - [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
-- [Temperature - TEMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
+- [Temperature - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
 - [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
 ### Plugin Template
-- [Example component plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+- [Example plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)

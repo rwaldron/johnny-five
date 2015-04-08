@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - TEMP36
+# Temperature - TMP36
 
 
 
@@ -32,7 +32,7 @@ five.Board().on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Temperature - TEMP36"
+### Breadboard for "Temperature - TMP36"
 
 
 

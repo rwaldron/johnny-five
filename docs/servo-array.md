@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Servo - Array
+# Servo - Array of servos
 
 
 

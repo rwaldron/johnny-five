@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Sonar Component
+# Sonar
 
 
 
@@ -69,7 +69,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Sonar Component"
+### Breadboard for "Sonar"
 
 
 

@@ -90,7 +90,7 @@ Typical complete Motobot platform
 ### Motobot chassis
 
 
-Motobot chassis before adding components
+Motobot chassis before addings
 
 
 ![docs/images/motobot-chassis.jpg](images/motobot-chassis.jpg)  

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Example component plugin
+# Example plugin
 
 
 

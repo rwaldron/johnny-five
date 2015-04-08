@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Joystick - Pan Tilt control
+# Joystick - Pan + Tilt control
 
 
 
@@ -59,7 +59,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Joystick - Pan Tilt control"
+### Breadboard for "Joystick - Pan + Tilt control"
 
 
 

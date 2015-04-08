@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LED - Matrix (HT16K33, 16x8)
+# LED - Matrix HT16K33 16x8
 
 
 
@@ -66,7 +66,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "LED - Matrix (HT16K33, 16x8)"
+### Breadboard for "LED - Matrix HT16K33 16x8"
 
 
 

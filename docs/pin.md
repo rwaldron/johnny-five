@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Pin Component
+# Pin
 
 
 
@@ -50,7 +50,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Pin Component"
+### Breadboard for "Pin"
 
 
 

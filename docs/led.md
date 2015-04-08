@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LED Component
+# LED
 
 
 Basic LED example

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Servo - Slider
+# Servo - Slider control
 
 
 
@@ -47,7 +47,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Servo - Slider"
+### Breadboard for "Servo - Slider control"
 
 
 
