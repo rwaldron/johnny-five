@@ -75,7 +75,6 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)<br>
-Fritzing diagram: [docs/breadboard/lcd-i2c-PCF8574.fzz](breadboard/lcd-i2c-PCF8574.fzz)
 
 &nbsp;
 
