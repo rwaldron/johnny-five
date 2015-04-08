@@ -4,12 +4,13 @@ var five = require("../lib/johnny-five.js"),
 five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
-      pin: "A0",
-      controller: "OA41SK"
-    });
+    pin: "A0",
+    controller: "OA41SK",
+    freq: 250
+  });
 
-  proximity.on("data", function() {
-      console.log("cm: ", this.centimeters, this.raw);
+  proximity.on("data", function(err, data) {
+    console.log(data.cm + 'cm');
   });
 
 });
