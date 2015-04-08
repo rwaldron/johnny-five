@@ -232,34 +232,139 @@ exports["Proximity: MB1003"] = {
   }
 };
 
+
 exports["Proximity: SRF10"] = {
+
   setUp: function(done) {
+
     this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cReadOnce = sinon.spy(board.io, "i2cReadOnce");
     this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
 
-
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "SRF10",
-      freq: 100,
       board: board
     });
+
+    this.proto = [{
+      name: "within"
+    }];
+
+    this.instance = [{
+      name: "centimeters"
+    }, {
+      name: "cm"
+    },{
+      name: "inches"
+    }, {
+      name: "in"
+    }];
 
     done();
   },
 
   tearDown: function(done) {
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
     this.clock.restore();
+    this.i2cReadOnce.restore();
+    this.i2cWrite.restore();
+    this.i2cConfig.restore();
+
     done();
   },
 
-  SRF10: function(test) {
-    // A test should go here
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      console.log(method.name);
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
+    }, this);
+
     test.done();
+  },
+
+  initialize: function(test) {
+    test.expect(5);
+
+    test.ok(this.i2cConfig.called);
+    test.ok(this.i2cWrite.calledThrice);
+
+    test.deepEqual(this.i2cConfig.args[0], [0]);
+    test.deepEqual(
+      this.i2cWrite.firstCall.args, [0x70, [0x01, 16]]
+    );
+    test.deepEqual(
+      this.i2cWrite.secondCall.args, [0x70, [0x02, 255]]
+    );
+
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(2);
+
+    this.clock.tick(100);
+
+    var callback = this.i2cReadOnce.args[0][2],
+      spy = sinon.spy();
+
+    test.equal(spy.callCount, 0);
+
+    this.proximity.on("data", spy);
+
+    callback([3, 225]);
+    callback([3, 255]);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  change: function(test) {
+    this.clock.tick(100);
+
+    var callback = this.i2cReadOnce.args[0][2],
+      spy = sinon.spy();
+
+    test.expect(1);
+    this.proximity.on("change", spy);
+
+    this.clock.tick(100);
+    callback([3, 225]);
+
+    this.clock.tick(100);
+    callback([3, 255]);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within_unit: function(test) {
+    this.clock.tick(65);
+
+    var callback = this.i2cReadOnce.args[0][2];
+    var called = false;
+
+    test.expect(1);
+
+    this.proximity.within([3, 6], "inches", function() {
+      if (!called) {
+        called = true;
+        test.equal(this.inches, 3.9);
+        test.done();
+      }
+    });
+
+    callback([0, 10]);
+    this.clock.tick(100);
   }
 };
 
