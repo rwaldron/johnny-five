@@ -18,12 +18,9 @@ var five = require("johnny-five"),
 board.on("ready", function() {
   var servo = new five.Servo({
     pin: 10,
-    range: [0, 180],
-    startAt: 0
+    startAt: 90
   });
   var lap = 0;
-
-  servo.center();
 
   servo.sweep().on("sweep:full", function() {
     console.log("lap", ++lap);

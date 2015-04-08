@@ -74,6 +74,8 @@ board.on("ready", function() {
   // step all servos by deg
   //
   // eg. array.step( -20 );
+
+  servo.sweep();
 });
 
 ```
