@@ -83,7 +83,6 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
-Fritzing diagram: [docs/breadboard/magnetometer.fzz](breadboard/magnetometer.fzz)
 
 &nbsp;
 
