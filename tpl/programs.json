@@ -803,7 +803,7 @@
     "examples": [
       {
         "file": "imp-io.js",
-        "title": "imp-io - Electric Imp",
+        "title": "Led Blink on Electric Imp",
         "description": "Example using Johnny-Five + imp-io to control an Electric Imp.",
         "link": "https://github.com/rwaldron/imp-io",
         "images": [
@@ -812,7 +812,7 @@
       },
       {
         "file": "spark-io.js",
-        "title": "spark-io - Spark Core",
+        "title": "Led Blink on Spark Core",
         "description": "Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.",
         "link": "https://github.com/rwaldron/spark-io/",
         "images": [

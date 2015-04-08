@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# spark-io - Spark Core
+# Led Blink on Spark Core
 
 
 Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.

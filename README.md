@@ -343,8 +343,8 @@ board.on("ready", function() {
 - [Example plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
 
 ### IO Plugins
-- [imp-io - Electric Imp](https://github.com/rwaldron/johnny-five/blob/master/docs/imp-io.md)
-- [spark-io - Spark Core](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io.md)
+- [Led Blink on Electric Imp](https://github.com/rwaldron/johnny-five/blob/master/docs/imp-io.md)
+- [Led Blink on Spark Core](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io.md)
 - [Led Blink on pcDuino3](https://github.com/rwaldron/johnny-five/blob/master/docs/pcduino-io.md)
 - [Led Blink on Intel Galileo Gen 2](https://github.com/rwaldron/johnny-five/blob/master/docs/galileo-io.md)
 - [Led Blink on Intel Edison Arduino Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-arduino.md)

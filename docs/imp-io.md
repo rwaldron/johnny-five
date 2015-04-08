@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# imp-io - Electric Imp
+# Led Blink on Electric Imp
 
 
 Example using Johnny-Five + imp-io to control an Electric Imp.
