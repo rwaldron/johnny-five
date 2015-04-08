@@ -30,7 +30,7 @@
       },
       {
         "file": "pin.js",
-        "title": "Pin Component"
+        "title": "Pin"
       }
     ]
   },
@@ -40,7 +40,7 @@
     "examples": [
       {
         "file": "led.js",
-        "title": "LED Component",
+        "title": "LED",
         "description": "Basic LED example",
         "breadboards": [
           {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"},
@@ -130,7 +130,7 @@
       },
       {
         "file": "led-rainbow.js",
-        "title": "LED - RGB rainbow",
+        "title": "LED - Rainbow",
         "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
           {"name": "led-rgb-anode", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
@@ -138,7 +138,7 @@
       },
       {
         "file": "led-digits-clock.js",
-        "title": "LED - Digits Clock"
+        "title": "LED - Digital Clock"
       },
       {
         "file": "led-matrix.js",
@@ -146,15 +146,15 @@
       },
       {
         "file": "led-matrix-tutorial.js",
-        "title": "LED - Matrix Tutorial"
+        "title": "LED - Matrix Demo"
       },
       {
         "file": "led-matrix-HT16K33.js",
-        "title": "LED - Matrix (HT16K33)"
+        "title": "LED - Matrix HT16K33"
       },
       {
         "file": "led-matrix-HT16K33-16x8.js",
-        "title": "LED - Matrix (HT16K33, 16x8)"
+        "title": "LED - Matrix HT16K33 16x8"
       }
     ]
   },
@@ -164,7 +164,7 @@
     "examples": [
       {
         "file": "servo.js",
-        "title": "Servo Component"
+        "title": "Servo"
       },
       {
         "file": "servo-PCA9685.js",
@@ -179,7 +179,7 @@
       },
       {
         "file": "servo-slider.js",
-        "title": "Servo - Slider"
+        "title": "Servo - Slider control"
       },
       {
         "file": "servo-prompt.js",
@@ -204,7 +204,7 @@
       },
       {
         "file": "servo-array.js",
-        "title": "Servo - Array",
+        "title": "Servo - Array of servos",
         "breadboards": [
           {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
         ]
@@ -237,7 +237,7 @@
     "examples": [
       {
         "file": "motor.js",
-        "title": "Motor Component"
+        "title": "Motor"
       },
       {
         "file": "motor-directional.js",
@@ -311,15 +311,15 @@
     "examples": [
       {
         "file": "ping.js",
-        "title": "Ping Component"
+        "title": "Ping"
       },
       {
         "file": "sonar.js",
-        "title": "Sonar Component"
+        "title": "Sonar"
       },
       {
         "file": "sonar-scan.js",
-        "title": "Sonar - Scan"
+        "title": "Sonar - Scanner"
       },
       {
         "file": "sonar-srf10.js",
@@ -333,7 +333,7 @@
     "examples": [
       {
         "file": "button.js",
-        "title": "Button Component"
+        "title": "Button"
       },
       {
         "file": "button-bumper.js",
@@ -349,7 +349,7 @@
       },
       {
         "file": "toggle-switch.js",
-        "title": "Toggle Switch Component"
+        "title": "Toggle Switch"
       }
     ]
   },
@@ -359,10 +359,10 @@
     "examples": [
       {
         "file": "relay.js",
-        "title": "Relay Component",
+        "title": "Relay",
         "breadboards": [
-          {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay component will work."},
-          {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay component will work."}
+          {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."},
+          {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."}
         ]
       }
     ]
@@ -373,7 +373,7 @@
     "examples": [
       {
         "file": "shift-register.js",
-        "title": "Shift Register Component"
+        "title": "Shift Register"
       },
       {
         "file": "shift-register-seven-segment.js",
@@ -425,7 +425,7 @@
       },
       {
         "file": "joystick-pantilt.js",
-        "title": "Joystick - Pan Tilt control"
+        "title": "Joystick - Pan + Tilt control"
       },
       {
         "file": "joystick-motor-led.js",
@@ -575,7 +575,7 @@
       },
       {
         "file": "temperature-tmp36.js",
-        "title": "Temperature - TEMP36"
+        "title": "Temperature - TMP36"
       },
       {
         "file": "temperature-lm35.js",
@@ -596,7 +596,7 @@
     "examples": [
       {
         "file": "plugin.js",
-        "title": "Example component plugin"
+        "title": "Example plugin"
       }
     ]
   },
@@ -738,7 +738,7 @@
         "title": "Motobot",
         "images": [
           {"file": "motobot.jpg", "title": "Complete Motobot", "description": "Typical complete Motobot platform"},
-          {"file": "motobot-chassis.jpg", "title": "Motobot chassis", "description": "Motobot chassis before adding components"}
+          {"file": "motobot-chassis.jpg", "title": "Motobot chassis", "description": "Motobot chassis before addings"}
         ]
       },
       {
