@@ -481,7 +481,7 @@
       },
       {
         "file": "compass-hmc5883l.js",
-        "title": "Compass - HMC5883L`"
+        "title": "Compass - HMC5883L"
       },
       {
         "file": "magnetometer-log.js",
