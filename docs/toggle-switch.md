@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Toggle Switch
+
+
 
 Run with:
 ```bash
 node eg/toggle-switch.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -43,19 +47,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)  
-[Fritzing diagram: docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
+### Breadboard for "Toggle Switch"
 
 
 
+![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)<br>
+Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

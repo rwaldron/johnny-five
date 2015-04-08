@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Button - Bumper
+
+
 
 Run with:
 ```bash
 node eg/button-bumper.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -30,19 +34,30 @@ five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)  
-[Fritzing diagram: docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
+### Breadboard for "Button - Bumper"
 
 
 
+![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)<br>
+Fritzing diagram: [docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

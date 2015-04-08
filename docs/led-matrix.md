@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # LED - Matrix
+
+
 
 Run with:
 ```bash
 node eg/led-matrix.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -61,19 +65,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)  
-[Fritzing diagram: docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
+### Breadboard for "LED - Matrix"
 
 
 
+![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)<br>
+Fritzing diagram: [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

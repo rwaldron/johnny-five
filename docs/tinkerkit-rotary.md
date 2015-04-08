@@ -1,10 +1,14 @@
 <!--remove-start-->
-# TinkerKit - Rotary Potentiometer
+
+# TinkerKit - Rotary potentiometer
+
+
 
 Run with:
 ```bash
 node eg/tinkerkit-rotary.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -22,20 +26,35 @@ new five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-rotary.png](breadboard/tinkerkit-rotary.png)  
+### TinkerKit Rotary Potentiometer
+
+
+
+![docs/images/tinkerkit-rotary.png](images/tinkerkit-rotary.png)  
+
+
+
+
+
+## Additional Notes
 
 - [TinkerKit Servo](http://www.tinkerkit.com/servo/)
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

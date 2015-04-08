@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # LED - Digital Clock
+
+
 
 Run with:
 ```bash
 node eg/led-digits-clock.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -49,11 +53,22 @@ function time() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)  
-[Fritzing diagram: docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
+### Breadboard for "LED - Digital Clock"
+
+
+
+![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)<br>
+Fritzing diagram: [docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
+
+&nbsp;
+
+
+
+
+## Additional Notes
 
 
 Learn More:
@@ -62,10 +77,15 @@ Learn More:
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

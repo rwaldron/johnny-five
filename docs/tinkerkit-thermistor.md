@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # TinkerKit - Temperature
+
+
 
 Run with:
 ```bash
 node eg/tinkerkit-thermistor.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -21,19 +25,34 @@ new five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-thermistor.png](breadboard/tinkerkit-thermistor.png)  
+### TinkerKit Temperature
+
+
+
+![docs/images/tinkerkit-thermistor.png](images/tinkerkit-thermistor.png)  
+
+
+
+
+
+## Additional Notes
 
 - [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

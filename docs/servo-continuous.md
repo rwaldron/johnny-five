@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Continuous Servo Component
+
+# Servo - Continuous
+
+
 
 Run with:
 ```bash
 node eg/servo-continuous.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -50,19 +54,32 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/servo-continuous.png](breadboard/servo-continuous.png)  
-[Fritzing diagram: docs/breadboard/servo-continuous.fzz](breadboard/servo-continuous.fzz)
+### Servo on pin 10
+
+
+Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

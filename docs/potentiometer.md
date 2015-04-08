@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Sensor - Potentiometer
+
+
 
 Run with:
 ```bash
 node eg/potentiometer.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -42,19 +46,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)  
-[Fritzing diagram: docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
+### Breadboard for "Sensor - Potentiometer"
 
 
 
+![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
+Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

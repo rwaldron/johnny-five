@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Gyro - Analog (LPR5150AL)
+
+# Gyro - Analog LPR5150AL
+
+
 
 Run with:
 ```bash
 node eg/gyro-lpr5150l.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -32,19 +36,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)  
-[Fritzing diagram: docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
+### Breadboard for "Gyro - Analog LPR5150AL"
 
 
 
+![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)<br>
+Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

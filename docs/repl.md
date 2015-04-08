@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # REPL
+
+
 
 Run with:
 ```bash
 node eg/repl.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -33,10 +37,24 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/repl.png](breadboard/repl.png)  
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+
+
+
+
+## Additional Notes
 
 This script will make `on()` and `off()` functions
 available in the REPL:
@@ -49,10 +67,15 @@ available in the REPL:
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

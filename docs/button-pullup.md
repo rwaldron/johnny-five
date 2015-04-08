@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Button - Pullup
+
+
 
 Run with:
 ```bash
 node eg/button-pullup.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -45,19 +49,30 @@ five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)  
-[Fritzing diagram: docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+### Breadboard for "Button - Pullup"
 
 
 
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

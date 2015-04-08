@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Grove - Button
+
+
 
 Run with:
 ```bash
 node eg/grove-button.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -40,6 +44,10 @@ board.on("ready", function() {
 
 
 
+
+
+## Additional Notes
+
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -50,10 +58,15 @@ For this program, you'll need:
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

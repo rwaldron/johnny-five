@@ -21,11 +21,10 @@ module.exports = function(grunt) {
   var templates = {
     eg: _.template(file.read("tpl/.eg.md")),
     img: _.template(file.read("tpl/.img.md")),
-    fritzing: _.template(file.read("tpl/.fritzing.md")),
+    breadboard: _.template(file.read("tpl/.breadboard.md")),
     eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
-    noedit: _.template(file.read("tpl/.noedit.md")),
-    plugin: _.template(file.read("tpl/.plugin.md")),
+    noedit: _.template(file.read("tpl/.noedit.md"))
   };
 
   // Project configuration.
@@ -162,24 +161,34 @@ module.exports = function(grunt) {
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
-    var titles = JSON.parse(file.read("tpl/titles.json"));
-    var breadboards = JSON.parse(file.read("tpl/breadboards.json"));
     var readme = [];
 
-    entries.forEach(function(entry) {
 
+    entries.forEach(function(entry) {      
       var topic = entry.topic;
-      var tplType = entry.tplType || "eg";
+
+      log.writeln("Processing examples for: " + entry.topic);
 
       readme.push("\n### " + topic + "\n");
 
-      entry.files.forEach(function(value) {
+      entry.examples.forEach(function(example) {
+        var markdown, filepath, eg, md, inMarkdown,
+          images, breadboards, imgMarkdown, values;
 
-        var markdown = [];
-        var filepath = "eg/" + value;
-        var eg = file.read(filepath);
-        var md = "docs/" + value.replace(".js", ".md");
-        var inMarkdown = false;
+        markdown = [];
+        filepath = "eg/" + example.file;
+
+        if ( !example.file || !fs.existsSync(filepath) ) {
+          grunt.fail.fatal("Specified example file doesn't exist: " + filepath);
+        }
+
+        eg = file.read(filepath);
+        md = "docs/" + example.file.replace(".js", ".md");
+        inMarkdown = false;
+
+        if (!example.title) {
+          grunt.fail.fatal("No entry for " + example.file + " in titles.json");
+        }
 
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace(/\.\.\/lib\/|\.js/g, "").split("\n").filter(function(line) {
@@ -203,55 +212,90 @@ module.exports = function(grunt) {
           return true;
         }).join("\n");
 
+        markdown = markdown.join("\n");
+
+
+        // If there are photo images to include
+        images = example.images ?
+          example.images : [];
 
         // Get list of breadboards diagrams to include (Default: same as file name)
-        var diagrams = breadboards[value] ?
-          breadboards[value] : [value.replace(".js", "")];
+        breadboards = example.breadboards ?
+          example.breadboards :
+          [{
+            "name": example.file.replace(".js", ""),
+            "title": "Breadboard for \"" + example.title + "\"",
+            "auto": true
+          }];
 
-        var images = "";
+        // We'll combine markdown for images and breadboards
+        imgMarkdown = "";
 
-        diagrams.forEach(function(diagram) {
-
-          var png = "docs/breadboard/" + diagram + ".png";
-          var fzz = "docs/breadboard/" + diagram + ".fzz";
-
-          var hasPng = fs.existsSync(png);
-          var hasFzz = fs.existsSync(fzz);
-
-          if (hasPng) {
-            images += templates.img({ png: png });
-          } else {
-            verbose.writeln("Missing PNG: " + png);
+        images.forEach(function(img) {
+          if (!img.title || !img.file) {
+            grunt.fail.fatal("Invalid image: title and file required");
           }
 
-          if (hasFzz) {
-            images += templates.fritzing({ fzz: fzz });
+          img.filepath = "docs/images/" + img.file;
+          var hasImg = fs.existsSync(img.filepath);
+          if (hasImg) {
+            imgMarkdown += templates.img({ img: img });
           } else {
-            verbose.writeln("Missing FZZ: " + fzz);
+            // If it's specified but doesn't exist, we'll consider it an error
+            grunt.fail.fatal("Invalid image: " + img.file);
           }
         });
 
+        breadboards.forEach(function(breadboard) {
 
-        // console.log( markdown );
+          if (!breadboard.name) {
+            grunt.fail.fatal("Invalid breadboard: name required");
+          }
 
-        var values = {
-          title: titles[value],
+          if (!breadboard.title) {
+            grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
+          }
+
+          breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
+          breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
+
+          var hasPng = fs.existsSync(breadboard.png);
+          var hasFzz = fs.existsSync(breadboard.fzz);
+
+          if (!hasPng) {
+            if (breadboard.auto) {
+              // i.e. we tried to guess at a name but still doesn't exist
+              // We can just ignore and no breadboard shown
+              return;
+            } else {
+              // A breadboard was specified but doesn't exist - error
+              grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
+            }
+          }
+
+          // FZZ is optional, but we'll warn at verbose
+          if (!hasFzz) {
+            verbose.writeln("Missing FZZ: " + breadboard.fzz);
+          }
+
+          imgMarkdown += templates.breadboard({ breadboard: breadboard });
+        });
+
+        values = {
+          title: example.title,
+          description: example.description,
           command: "node " + filepath,
           example: eg,
           file: md,
-          markdown: markdown.join("\n"),
-          breadboards: images.slice(0, -1)
+          markdown: markdown,
+          images: imgMarkdown
         };
 
-        if (titles[value]) {
-          // Write the file to /docs/*
-          file.write(md, templates[tplType](values));
+        // Write the file to /docs/*
+        file.write(md, templates.eg(values));
 
-          // Push a rendered markdown link into the readme "index"
-          readme.push(templates.eglink(values));
-        } else {
-          grunt.fail.warn("No entry for " + value + " in titles.json");
-        }
+        // Push a rendered markdown link into the readme "index"
+        readme.push(templates.eglink(values));
       });
     });
 

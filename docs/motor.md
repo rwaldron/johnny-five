@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Motor Component
+
+# Motor
+
+
 
 Run with:
 ```bash
 node eg/motor.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -59,19 +63,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motor.png](breadboard/motor.png)  
-[Fritzing diagram: docs/breadboard/motor.fzz](breadboard/motor.fzz)
+### Breadboard for "Motor"
 
 
 
+![docs/breadboard/motor.png](breadboard/motor.png)<br>
+Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

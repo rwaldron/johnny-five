@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Joystick Component
+
+# Joystick
+
+
 
 Run with:
 ```bash
 node eg/joystick.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -57,19 +61,42 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/joystick.png](breadboard/joystick.png)  
-[Fritzing diagram: docs/breadboard/joystick.fzz](breadboard/joystick.fzz)
+### Joystick - Sparkfun
+
+
+Sparkfun joystick breakout board.
+
+
+![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
+Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
+
+&nbsp;
+### Joystick - Adafruit
+
+
+Adafruit joystick breakout board.
+
+
+![docs/breadboard/joystick-adafruit.png](breadboard/joystick-adafruit.png)<br>
+Fritzing diagram: [docs/breadboard/joystick-adafruit.fzz](breadboard/joystick-adafruit.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->
