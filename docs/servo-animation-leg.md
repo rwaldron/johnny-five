@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Servo - Leg
+
+# Servo - Leg Animation
+
+
 
 Run with:
 ```bash
 node eg/servo-animation-leg.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -104,19 +108,32 @@ var board = new five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/servo-animation-leg.png](breadboard/servo-animation-leg.png)  
-[Fritzing diagram: docs/breadboard/servo-animation-leg.fzz](breadboard/servo-animation-leg.fzz)
+### Servos on pins 9, 10, 11
+
+
+Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-three.png](breadboard/servo-three.png)<br>
+Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

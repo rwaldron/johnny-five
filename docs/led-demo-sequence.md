@@ -1,22 +1,22 @@
 <!--remove-start-->
-# LED - Demo Sequence
+
+# LED - Demo sequence
+
+
+Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).
+
 
 Run with:
 ```bash
 node eg/led-demo-sequence.js
 ```
+
 <!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
 var board = new five.Board();
 var led;
-
-// Demonstrates stringing some of the LED commands together
-// through the use of a "demo sequence" array that is
-// recursively called for each step.
-//
-
 
 // Do we want the sequence to loop?
 var loop = true;
@@ -103,19 +103,32 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-demo-sequence.png](breadboard/led-demo-sequence.png)  
-[Fritzing diagram: docs/breadboard/led-demo-sequence.fzz](breadboard/led-demo-sequence.fzz)
+### LED on pin 11 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 11.
+
+
+![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
+Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

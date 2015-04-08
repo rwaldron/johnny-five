@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Stepper - Driver
+
+
 
 Run with:
 ```bash
 node eg/stepper-driver.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -51,11 +55,22 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)  
-[Fritzing diagram: docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
+### Breadboard for "Stepper - Driver"
+
+
+
+![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)<br>
+Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
+
+&nbsp;
+
+
+
+
+## Additional Notes
 
 - [A4988 Stepper Motor Driver Carrier](http://www.pololu.com/catalog/product/1182)
 - [100uf 35v electrolytic cap](http://www.amazon.com/100uF-Radial-Mini-Electrolytic-Capacitor/dp/B0002ZP530)
@@ -65,10 +80,15 @@ board.on("ready", function() {
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

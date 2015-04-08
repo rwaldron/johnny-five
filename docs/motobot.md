@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Motobot
+
+
 
 Run with:
 ```bash
 node eg/motobot.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -72,10 +76,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motobot.png](breadboard/motobot.png)  
+### Complete Motobot
+
+
+Typical complete Motobot platform
+
+
+![docs/images/motobot.jpg](images/motobot.jpg)  
+
+### Motobot chassis
+
+
+Motobot chassis before adding components
+
+
+![docs/images/motobot-chassis.jpg](images/motobot-chassis.jpg)  
+
+
+
+
+
+## Additional Notes
 
 
 ![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)
@@ -84,10 +108,15 @@ board.on("ready", function() {
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

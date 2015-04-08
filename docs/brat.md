@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Lynxmotion Biped BRAT
+
+
 
 Run with:
 ```bash
 node eg/brat.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -614,18 +618,30 @@ ED.prototype.move = function(positions) {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/brat.png](breadboard/brat.png)  
+### Lynxmotion Biped BRAT
+
+
+Example control of biped robot
+
+
+![docs/images/brat.png](images/brat.png)  
 
 
 
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

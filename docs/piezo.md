@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Piezo Component
+
+# Piezo
+
+
 
 Run with:
 ```bash
 node eg/piezo.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -63,19 +67,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/piezo.png](breadboard/piezo.png)  
-[Fritzing diagram: docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+### Breadboard for "Piezo"
 
 
 
+![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
+Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

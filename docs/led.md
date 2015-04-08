@@ -1,10 +1,16 @@
 <!--remove-start-->
+
 # LED Component
+
+
+Basic LED example
+
 
 Run with:
 ```bash
 node eg/led.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -28,19 +34,52 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-13.png](breadboard/led-13.png)  
-[Fritzing diagram: docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
-![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)  
-[Fritzing diagram: docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
-![docs/breadboard/led-13-galileo.png](breadboard/led-13-galileo.png)  
-[Fritzing diagram: docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo.fzz)
-![docs/breadboard/led-13-edison-arduinoboard.png](breadboard/led-13-edison-arduinoboard.png)  
-[Fritzing diagram: docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/led-13-edison-arduinoboard.fzz)
-![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)  
-[Fritzing diagram: docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/images/led.jpg](images/led.jpg)  
+
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+### LED on pin 13 with breadboard and resistor (Arduino UNO)
+
+
+Basic example with LED on a breadboard and demonstrating use of a resistor
+
+
+![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)<br>
+Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
+
+&nbsp;
+### LED on pin 13 (Arduino Mega)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)<br>
+Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
+
+&nbsp;
+
+
+
+
+## Additional Notes
 
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
@@ -55,10 +94,15 @@ Now you can try, e.g.:
 
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

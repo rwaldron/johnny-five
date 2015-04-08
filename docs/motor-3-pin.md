@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Motor (3 pin)
+
+# Motor - 3 pin
+
+
 
 Run with:
 ```bash
 node eg/motor-3-pin.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -93,19 +97,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)  
-[Fritzing diagram: docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
+### Breadboard for "Motor - 3 pin"
 
 
 
+![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
+Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

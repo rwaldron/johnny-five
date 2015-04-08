@@ -1,10 +1,14 @@
 <!--remove-start-->
-# ESC - Bidirectional Forward/Reverse Controller
+
+# ESC - Bidirectional Forward-Reverse
+
+
 
 Run with:
 ```bash
 node eg/esc-bidirectional-forward-reverse.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -47,19 +51,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/esc-bidirectional-forward-reverse.png](breadboard/esc-bidirectional-forward-reverse.png)  
-[Fritzing diagram: docs/breadboard/esc-bidirectional-forward-reverse.fzz](breadboard/esc-bidirectional-forward-reverse.fzz)
+### Breadboard for "ESC - Bidirectional Forward-Reverse"
 
 
 
+![docs/breadboard/esc-bidirectional-forward-reverse.png](breadboard/esc-bidirectional-forward-reverse.png)<br>
+Fritzing diagram: [docs/breadboard/esc-bidirectional-forward-reverse.fzz](breadboard/esc-bidirectional-forward-reverse.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

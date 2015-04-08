@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Motor (H-Bridge)
+
+# Motor - H-Bridge
+
+
 
 Run with:
 ```bash
 node eg/motor-hbridge.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -76,19 +80,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)  
-[Fritzing diagram: docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+### Breadboard for "Motor - H-Bridge"
 
 
 
+![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
+Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

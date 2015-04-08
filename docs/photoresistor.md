@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Sensor - Photoresistor
+
+
 
 Run with:
 ```bash
 node eg/photoresistor.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -42,19 +46,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)  
-[Fritzing diagram: docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
+### Breadboard for "Sensor - Photoresistor"
 
 
 
+![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)<br>
+Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

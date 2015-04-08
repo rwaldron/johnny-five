@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Button - Options
+
+
 
 Run with:
 ```bash
 node eg/button-options.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -53,19 +57,30 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/button-options.png](breadboard/button-options.png)  
-[Fritzing diagram: docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
+### Breadboard for "Button - Options"
 
 
 
+![docs/breadboard/button-options.png](breadboard/button-options.png)<br>
+Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

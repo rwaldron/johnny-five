@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Basic Board initialization
+
+
 
 Run with:
 ```bash
 node eg/board.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -23,19 +27,32 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/board.png](breadboard/board.png)  
-[Fritzing diagram: docs/breadboard/board.fzz](breadboard/board.fzz)
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

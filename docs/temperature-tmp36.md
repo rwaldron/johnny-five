@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Temperature (TMP36)
+
+# Temperature - TEMP36
+
+
 
 Run with:
 ```bash
 node eg/temperature-tmp36.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -25,19 +29,35 @@ five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)  
-[Fritzing diagram: docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
+### Breadboard for "Temperature - TEMP36"
+
+
+
+![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)<br>
+Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
+
+&nbsp;
+
+
+
+
+## Additional Notes
 
 - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
 
 
+
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->
