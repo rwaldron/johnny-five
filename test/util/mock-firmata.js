@@ -35,7 +35,7 @@ util.inherits(MockFirmata, Emitter);
 
 [
   "digitalWrite", "analogWrite", "servoWrite", "sendI2CWriteRequest", "i2cWrite", "i2cWriteReg",
-  "analogRead", "digitalRead", "sendI2CReadRequest", "i2cRead",
+  "analogRead", "digitalRead", "sendI2CReadRequest", "i2cRead", "i2cReadOnce",
   "pinMode", "queryPinState", "sendI2CConfig", "i2cConfig",
   "stepperStep", "stepperConfig", "servoConfig",
   "sendOneWireConfig", "sendOneWireSearch", "sendOneWireReset",
