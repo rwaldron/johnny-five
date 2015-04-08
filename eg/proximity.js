@@ -10,7 +10,7 @@ five.Board().on("ready", function() {
   });
 
   proximity.on("data", function(err, data) {
-    console.log(data.cm + 'cm');
+    console.log(data.cm + "cm");
   });
 
 });
