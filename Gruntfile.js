@@ -284,6 +284,7 @@ module.exports = function(grunt) {
         values = {
           title: example.title,
           description: example.description,
+          link: example.link,
           command: "node " + filepath,
           example: eg,
           file: md,

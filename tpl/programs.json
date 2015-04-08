@@ -592,15 +592,6 @@
     ]
   },
   {
-    "topic": "Plugin Template",
-    "examples": [
-      {
-        "file": "plugin.js",
-        "title": "Example plugin"
-      }
-    ]
-  },
-  {
     "topic": "Grove IoT Kit (Seeed Studio)",
     "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
     "examples": [
@@ -795,6 +786,41 @@
       {
         "file": "radar.js",
         "title": "Radar"
+      }
+    ]
+  },
+  {
+    "topic": "Component Plugin Template",
+    "examples": [
+      {
+        "file": "plugin.js",
+        "title": "Example plugin"
+      }
+    ]
+  },
+  {
+    "topic": "IO Plugins",
+    "examples": [
+      {
+        "file": "imp-io.js",
+        "title": "imp-io - Electric Imp",
+        "description": "Example using Johnny-Five + imp-io to talk to an Electric Imp.",
+        "link": "https://github.com/rwaldron/imp-io",
+        "images": [
+          {"file": "imp.jpg", "title": "Electric Imp"}
+        ]
+      },
+      {
+        "file": "spark-io.js",
+        "title": "spark-io - Spark Core",
+        "description": "Example using Johnny-Five + Spark-io to talk to a Spark Core device wirelessly.",
+        "link": "https://github.com/rwaldron/spark-io/",
+        "images": [
+          {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
+        ],
+        "breadboards": [
+          {"name": "spark-led", "title": "LED on pin D1 (Spark Core)"}
+        ]
       }
     ]
   }
