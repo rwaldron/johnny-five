@@ -3,7 +3,7 @@
 # spark-io - Spark Core
 
 
-Example using Johnny-Five + Spark-io to talk to a Spark Core device wirelessly.
+Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
 
 
 

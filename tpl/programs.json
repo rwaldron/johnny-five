@@ -804,7 +804,7 @@
       {
         "file": "imp-io.js",
         "title": "imp-io - Electric Imp",
-        "description": "Example using Johnny-Five + imp-io to talk to an Electric Imp.",
+        "description": "Example using Johnny-Five + imp-io to control an Electric Imp.",
         "link": "https://github.com/rwaldron/imp-io",
         "images": [
           {"file": "imp.jpg", "title": "Electric Imp"}
@@ -813,7 +813,7 @@
       {
         "file": "spark-io.js",
         "title": "spark-io - Spark Core",
-        "description": "Example using Johnny-Five + Spark-io to talk to a Spark Core device wirelessly.",
+        "description": "Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.",
         "link": "https://github.com/rwaldron/spark-io/",
         "images": [
           {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
@@ -821,7 +821,53 @@
         "breadboards": [
           {"name": "spark-led", "title": "LED on pin D1 (Spark Core)"}
         ]
+      },
+      {
+        "file": "pcduino-io.js",
+        "title": "Led Blink on pcDuino3",
+        "description": "Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3",
+        "link": "https://github.com/rwaldron/pcduino-io/",
+        "images": [
+          {"file": "pcduino.jpg", "title": "pcDuino3"}
+        ]
+      },
+      {
+        "file": "galileo-io.js",
+        "title": "Led Blink on Intel Galileo Gen 2",
+        "description": "Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2",
+        "link": "https://github.com/rwaldron/galileo-io/",
+        "images": [
+          {"file": "galileo-gen2.jpg", "title": "Galileo Gen 2"}
+        ],
+        "breadboards": [
+          {"name": "led-13-galileo", "title": "LED on pin 13"}
+        ]
+      },
+      {
+        "file": "edison-io-arduino.js",
+        "title": "Led Blink on Intel Edison Arduino Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "link": "https://github.com/rwaldron/edison-io/",
+        "images": [
+          {"file": "edison-arduino-board.jpg", "title": "Intel Edison Arduino Board"}
+        ],
+        "breadboards": [
+          {"name": "led-13-edison-arduinoboard", "title": "LED on pin 13"}
+        ]
+      },
+      {
+        "file": "edison-io-miniboard.js",
+        "title": "Led Blink on Intel Edison Mini Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "link": "https://github.com/rwaldron/edison-io/",
+        "images": [
+          {"file": "edison-mini-board.jpg", "title": "Intel Edison Mini Board"}
+        ],
+        "breadboards": [
+          {"name": "led-1-edison-miniboard", "title": "LED on pin 1"}
+        ]
       }
+
     ]
   }
 ]

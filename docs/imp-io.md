@@ -3,7 +3,7 @@
 # imp-io - Electric Imp
 
 
-Example using Johnny-Five + imp-io to talk to an Electric Imp.
+Example using Johnny-Five + imp-io to control an Electric Imp.
 
 
 
