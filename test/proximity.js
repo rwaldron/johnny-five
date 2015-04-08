@@ -4,14 +4,14 @@ var MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
   Board = five.Board,
   Sensor = five.Sensor,
-  Proximity = five.IR.Proximity,
+  Proximity = five.Proximity,
   board = new Board({
     io: new MockFirmata(),
     debug: false,
     repl: false
   });
 
-exports["IR.Proximity"] = {
+exports["Proximity"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
@@ -46,12 +46,6 @@ exports["IR.Proximity"] = {
     test.done();
   },
 
-  sensor: function(test) {
-    test.expect(1);
-    test.ok(this.distance instanceof Sensor);
-    test.done();
-  },
-
   emitter: function(test) {
     test.expect(1);
     test.ok(this.distance instanceof events.EventEmitter);
@@ -59,7 +53,7 @@ exports["IR.Proximity"] = {
   }
 };
 
-exports["IR.Proximity: GP2Y0A21YK"] = {
+exports["Proximity: GP2Y0A21YK"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
@@ -95,7 +89,7 @@ exports["IR.Proximity: GP2Y0A21YK"] = {
   }
 };
 
-exports["IR.Proximity: GP2D120XJ00F"] = {
+exports["Proximity: GP2D120XJ00F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
@@ -130,7 +124,7 @@ exports["IR.Proximity: GP2D120XJ00F"] = {
   }
 };
 
-exports["IR.Proximity: GP2Y0A02YK0F"] = {
+exports["Proximity: GP2Y0A02YK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
@@ -166,7 +160,7 @@ exports["IR.Proximity: GP2Y0A02YK0F"] = {
   }
 };
 
-exports["IR.Proximity: GP2Y0A41SK0F"] = {
+exports["Proximity: GP2Y0A41SK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
@@ -202,6 +196,72 @@ exports["IR.Proximity: GP2Y0A41SK0F"] = {
   }
 };
 
+exports["Proximity: MB1003"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.distance = new Proximity({
+      controller: "MB1003",
+      pin: "A1",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  MB1003: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    // 500 is an actual reading at ~250cm
+    callback(500);
+
+    test.equals(Math.round(this.distance.centimeters), 250);
+    test.equals(Math.round(this.distance.cm), 250);
+    test.equals(Math.round(this.distance.inches), 98);
+    test.equals(Math.round(this.distance.in), 98);
+
+    test.done();
+  }
+};
+
+exports["Proximity: SRF10"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
+    this.i2cRead = sinon.spy(board.io, "i2cRead");
+
+
+    this.distance = new Proximity({
+      controller: "SRF10",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  SRF10: function(test) {
+    // A test should go here
+    test.done();
+  }
+};
 
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
