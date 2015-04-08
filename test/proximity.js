@@ -46,12 +46,6 @@ exports["Proximity"] = {
     test.done();
   },
 
-  sensor: function(test) {
-    test.expect(1);
-    test.ok(this.distance instanceof Sensor);
-    test.done();
-  },
-
   emitter: function(test) {
     test.expect(1);
     test.ok(this.distance instanceof events.EventEmitter);
@@ -238,6 +232,36 @@ exports["Proximity: MB1003"] = {
   }
 };
 
+exports["Proximity: SRF10"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
+    this.i2cRead = sinon.spy(board.io, "i2cRead");
+
+
+    this.distance = new Proximity({
+      controller: "SRF10",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  SRF10: function(test) {
+    // A test should go here
+    test.done();
+  }
+};
 
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
