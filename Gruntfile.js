@@ -219,19 +219,15 @@ module.exports = function(grunt) {
 
         markdown = markdown.join("\n");
 
-
         // If there are photo images to include
-        images = example.images ?
-          example.images : [];
+        images = example.images || [];
 
         // Get list of breadboards diagrams to include (Default: same as file name)
-        breadboards = example.breadboards ?
-          example.breadboards :
-          [{
-            "name": name.replace(".js", ""),
-            "title": "Breadboard for \"" + example.title + "\"",
-            "auto": true
-          }];
+        breadboards = example.breadboards || [{
+          "name": name,
+          "title": "Breadboard for \"" + example.title + "\"",
+          "auto": true
+        }];
 
         embeds = (example.embeds || []).map(function(embed) {
           return templates.embeds[embed.type]({ src: embed.src });
