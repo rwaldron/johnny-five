@@ -408,6 +408,25 @@
     ]
   },
   {
+    "topic": "Proximity",
+    "classes": ["Proximity"],
+    "examples": [
+      {
+        "file": "proximity.js",
+        "title": "Infrared",
+        "description": "Basic infrared Proximity example"
+      },
+      {
+        "file": "proximity-sonar.js",
+        "title": "Sonar",
+        "description": "Basic sonar Proximity example",
+        "breadboards": [
+          {"name": "proximity-sonar-srf10", "title": "SRF10 Sensor", "description": "Basic example with SRF10 I2C sensor"}
+        ]
+      }
+    ]
+  },
+  {
     "topic": "Joystick",
     "classes": ["Joystick"],
     "examples": [

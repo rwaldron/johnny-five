@@ -4,8 +4,7 @@ var five = require("johnny-five.js"),
 five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
-    pin: "A0",
-    controller: "OA41SK"
+    controller: "SRF10"
   });
 
   proximity.on("data", function(data) {
