@@ -1,14 +1,14 @@
 <!--remove-start-->
 
-# Proximity
+# Proximity - SRF10
 
 
-Basic infrared Proximity example
+Basic sonar Proximity example with SRF10 sensor.
 
 
 Run with:
 ```bash
-node eg/proximity.js
+node eg/proximity-srf10.js
 ```
 
 <!--remove-end-->
@@ -20,8 +20,7 @@ var five = require("johnny-five"),
 five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
-    controller: "GP2Y0A21YK",
-    pin: "A0"
+    controller: "SRF10"
   });
 
   proximity.on("data", function(data) {
@@ -40,12 +39,12 @@ five.Board().on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Proximity"
+### Breadboard for "Proximity - SRF10"
 
 
 
-![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
-Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
+![docs/breadboard/proximity-srf10.png](breadboard/proximity-srf10.png)<br>
+Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf10.fzz)
 
 &nbsp;
 
