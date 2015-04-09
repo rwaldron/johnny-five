@@ -847,6 +847,15 @@
         ]
       },
       {
+        "file": "raspi-io.js",
+        "title": "Led Blink on Raspberry Pi",
+        "description": "Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi",
+        "link": "https://github.com/bryan-m-hughes/raspi-io/",
+        "breadboards": [
+          {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
+        ]
+      },
+      {
         "file": "edison-io-arduino.js",
         "title": "Led Blink on Intel Edison Arduino Board",
         "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
