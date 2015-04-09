@@ -47,7 +47,7 @@
 
 
 -->
-<img src="https://github.com/rwldrn/johnny-five/raw/master/assets/sgier-johnny-five.png">
+<img src="https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
 # Node-isassemble Johnny-Five
 
@@ -58,7 +58,7 @@ _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
 #### Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark Core, TI Launchpad and more!
 
-Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with: 
+Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with:
 
 - Popular application libraries such as [Express.js](http://expressjs.com/) and [Socket.io](http://socket.io/).
 - Fellow hardware projects like [ar-drone](https://github.com/felixge/node-ar-drone), [Aerogel](https://github.com/ceejbot/aerogel) and [Spheron](https://github.com/alchemycs/spheron)
@@ -79,7 +79,7 @@ For non-Arduino based projects, a number of platform-specific [IO Plugins](https
 
 ## Documentation
 
-Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs). 
+Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs).
 
 ## Guidance
 
@@ -109,7 +109,7 @@ For non-Arduino projects, each IO Plugin's repo will provide its own platform sp
 #### Source Code:
 
 ``` bash
-git clone git://github.com/rwldrn/johnny-five.git && cd johnny-five
+git clone git://github.com/rwaldron/johnny-five.git && cd johnny-five
 
 npm install
 ```
@@ -353,7 +353,7 @@ board.on("ready", function() {
 
 
 ## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwaldron/idiomatic.js),
 by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
 
 
