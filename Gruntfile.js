@@ -191,6 +191,10 @@ module.exports = function(grunt) {
         md = "docs/" + name + ".md";
         inMarkdown = false;
 
+        if (!example.title) {
+          grunt.fail.fatal("Invalid example (" + name + "): title required");
+        }
+
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace(/\.\.\/lib\/|\.js/g, "").split("\n").filter(function(line) {
           if (/@markdown/.test(line)) {
