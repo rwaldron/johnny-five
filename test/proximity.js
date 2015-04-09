@@ -277,7 +277,6 @@ exports["Proximity: SRF10"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
-      console.log(method.name);
       test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
