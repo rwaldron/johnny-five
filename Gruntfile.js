@@ -24,7 +24,10 @@ module.exports = function(grunt) {
     breadboard: _.template(file.read("tpl/.breadboard.md")),
     eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
-    noedit: _.template(file.read("tpl/.noedit.md"))
+    noedit: _.template(file.read("tpl/.noedit.md")),
+    embeds: {
+      youtube: _.template(file.read("tpl/.embed-youtube.html")),
+    }
   };
 
   // Project configuration.
@@ -164,7 +167,7 @@ module.exports = function(grunt) {
     var readme = [];
 
 
-    entries.forEach(function(entry) {      
+    entries.forEach(function(entry) {
       var topic = entry.topic;
 
       log.writeln("Processing examples for: " + entry.topic);
@@ -173,7 +176,7 @@ module.exports = function(grunt) {
 
       entry.examples.forEach(function(example) {
         var markdown, filepath, eg, md, inMarkdown,
-          images, breadboards, imgMarkdown, values;
+          images, breadboards, embeds, externals, name, imgMarkdown, values;
 
         markdown = [];
         filepath = "eg/" + example.file;
@@ -183,11 +186,13 @@ module.exports = function(grunt) {
         }
 
         eg = file.read(filepath);
-        md = "docs/" + example.file.replace(".js", ".md");
+        name = (example.name || example.file).replace(".js", "");
+
+        md = "docs/" + name + ".md";
         inMarkdown = false;
 
         if (!example.title) {
-          grunt.fail.fatal("No entry for " + example.file + " in titles.json");
+          grunt.fail.fatal("No entry for " + name + " in titles.json");
         }
 
         // Modify code in example to appear as it would if installed via npm
@@ -223,10 +228,14 @@ module.exports = function(grunt) {
         breadboards = example.breadboards ?
           example.breadboards :
           [{
-            "name": example.file.replace(".js", ""),
+            "name": name.replace(".js", ""),
             "title": "Breadboard for \"" + example.title + "\"",
             "auto": true
           }];
+
+        embeds = (example.embeds || []).map(function(embed) {
+          return templates.embeds[embed.type]({ src: embed.src });
+        });
 
         // We'll combine markdown for images and breadboards
         imgMarkdown = "";
@@ -288,7 +297,9 @@ module.exports = function(grunt) {
           example: eg,
           file: md,
           markdown: markdown,
-          images: imgMarkdown
+          images: imgMarkdown,
+          embeds: embeds,
+          externals: example.externals || []
         };
 
         // Write the file to /docs/*

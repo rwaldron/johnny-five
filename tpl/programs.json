@@ -137,8 +137,22 @@
         ]
       },
       {
-        "file": "led-digits-clock.js",
-        "title": "LED - Digital Clock"
+        "name": "led-digits-clock",
+        "title": "LED - Digital Clock",
+        "description": "Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.",
+        "file": "led-digits-clock-galileo.js",
+        "breadboards": [
+          {"name": "led-digits-clock-galileo", "title": "Galileo Diagram"},
+          {"name": "led-digits-clock-arduino", "title": "Arduino Diagram"}
+        ],
+        "embeds": [
+          { "name": "led-digits-clock-galileo",
+            "src": "https://www.youtube.com/embed/4A3SlE6Unco",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: A Digital Clock with Johnny-Five", "href": "http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/"}
+        ]
       },
       {
         "file": "led-matrix.js",
