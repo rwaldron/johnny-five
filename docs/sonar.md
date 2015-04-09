@@ -74,6 +74,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
+
 Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
 
 &nbsp;

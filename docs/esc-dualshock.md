@@ -77,6 +77,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
+
 Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
 
 &nbsp;

@@ -104,6 +104,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)<br>
+
 Fritzing diagram: [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
 
 &nbsp;

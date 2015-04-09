@@ -55,6 +55,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)<br>
+
 Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
 
 &nbsp;

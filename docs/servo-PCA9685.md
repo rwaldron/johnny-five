@@ -102,6 +102,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)<br>
+
 Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
 
 &nbsp;

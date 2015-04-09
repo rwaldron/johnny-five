@@ -105,6 +105,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
+
 Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
 
 &nbsp;

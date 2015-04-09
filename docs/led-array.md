@@ -35,6 +35,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-array.png](breadboard/led-array.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 &nbsp;

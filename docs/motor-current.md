@@ -103,6 +103,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-current.png](breadboard/motor-current.png)<br>
+
 Fritzing diagram: [docs/breadboard/motor-current.fzz](breadboard/motor-current.fzz)
 
 &nbsp;

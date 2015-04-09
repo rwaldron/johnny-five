@@ -64,6 +64,7 @@ function time() {
 
 
 ![docs/breadboard/led-digits-clock-galileo.png](breadboard/led-digits-clock-galileo.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-digits-clock-galileo.fzz](breadboard/led-digits-clock-galileo.fzz)
 
 &nbsp;
@@ -72,6 +73,7 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-galileo.fzz](breadboard/led-
 
 
 ![docs/breadboard/led-digits-clock-arduino.png](breadboard/led-digits-clock-arduino.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-digits-clock-arduino.fzz](breadboard/led-digits-clock-arduino.fzz)
 
 &nbsp;

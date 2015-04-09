@@ -46,6 +46,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
+
 Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
 
 &nbsp;

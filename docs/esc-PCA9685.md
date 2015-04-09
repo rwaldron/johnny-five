@@ -40,6 +40,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
+
 Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
 
 &nbsp;

@@ -63,6 +63,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)<br>
+
 Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
 
 &nbsp;

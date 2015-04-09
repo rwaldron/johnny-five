@@ -57,6 +57,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+
 Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
 
 &nbsp;

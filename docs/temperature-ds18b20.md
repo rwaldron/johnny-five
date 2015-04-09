@@ -39,6 +39,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)<br>
+
 Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
 
 &nbsp;

@@ -52,6 +52,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 &nbsp;
@@ -62,6 +63,7 @@ Basic example with LED on a breadboard and demonstrating use of a resistor
 
 
 ![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
 
 &nbsp;
@@ -72,6 +74,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 
 &nbsp;

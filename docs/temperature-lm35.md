@@ -37,6 +37,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)<br>
+
 Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
 
 &nbsp;

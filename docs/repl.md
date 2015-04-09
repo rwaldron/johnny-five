@@ -47,6 +47,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 &nbsp;

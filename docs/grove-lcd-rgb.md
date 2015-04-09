@@ -62,6 +62,7 @@ function linear(start, end, step, steps) {
 
 
 ![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
 Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
 
 &nbsp;

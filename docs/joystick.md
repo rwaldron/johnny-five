@@ -71,6 +71,7 @@ Sparkfun joystick breakout board.
 
 
 ![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
+
 Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
 
 &nbsp;
@@ -81,6 +82,7 @@ Adafruit joystick breakout board.
 
 
 ![docs/breadboard/joystick-adafruit.png](breadboard/joystick-adafruit.png)<br>
+
 Fritzing diagram: [docs/breadboard/joystick-adafruit.fzz](breadboard/joystick-adafruit.fzz)
 
 &nbsp;

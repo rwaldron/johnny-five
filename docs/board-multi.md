@@ -72,6 +72,7 @@ boards.on("ready", function() {
 
 
 ![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
+
 Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
 
 &nbsp;

@@ -71,6 +71,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-matrix-HT16K33-16x8.png](breadboard/led-matrix-HT16K33-16x8.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-matrix-HT16K33-16x8.fzz](breadboard/led-matrix-HT16K33-16x8.fzz)
 
 &nbsp;

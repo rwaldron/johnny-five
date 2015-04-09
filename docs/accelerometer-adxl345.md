@@ -45,6 +45,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/accelerometer-adxl345.png](breadboard/accelerometer-adxl345.png)<br>
+
 Fritzing diagram: [docs/breadboard/accelerometer-adxl345.fzz](breadboard/accelerometer-adxl345.fzz)
 
 &nbsp;
