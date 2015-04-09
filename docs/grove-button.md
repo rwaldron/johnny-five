@@ -46,8 +46,8 @@ board.on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -55,8 +55,6 @@ For this program, you'll need:
 ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
 
 ![Grove - Button Module](http://www.seeedstudio.com/depot/images/product/bgpushb1.jpg)
-
-
 
 
 &nbsp;

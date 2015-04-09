@@ -48,11 +48,9 @@ Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperatu
 
 
 
+
 ## Additional Notes
-
 - [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
-
-
 
 &nbsp;
 

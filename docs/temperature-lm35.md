@@ -44,11 +44,9 @@ Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-
 
 
 
+
 ## Additional Notes
-
 - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
-
-
 
 &nbsp;
 

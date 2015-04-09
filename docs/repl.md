@@ -54,8 +54,8 @@ Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 This script will make `on()` and `off()` functions
 available in the REPL:
 
@@ -64,8 +64,6 @@ available in the REPL:
 // or
 >> off() // will turn off the LED
 ```
-
-
 
 
 &nbsp;

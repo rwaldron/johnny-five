@@ -79,8 +79,8 @@ Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
 
@@ -91,8 +91,6 @@ Now you can try, e.g.:
 // then
 >> led.on()   // to turn on, but not blink
 ```
-
-
 
 
 &nbsp;

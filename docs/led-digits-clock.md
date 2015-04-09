@@ -3,10 +3,12 @@
 # LED - Digital Clock
 
 
+Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.
+
 
 Run with:
 ```bash
-node eg/led-digits-clock.js
+node eg/led-digits-clock-galileo.js
 ```
 
 <!--remove-end-->
@@ -14,7 +16,10 @@ node eg/led-digits-clock.js
 ```javascript
 var moment = require("moment");
 var five = require("johnny-five");
-var board = new five.Board();
+var Galileo = require("galileo-io");
+var board = new five.Board({
+  io: new Galileo()
+});
 
 board.on("ready", function() {
   var digits = new five.Led.Digits({
@@ -48,35 +53,38 @@ function time() {
     .replace(/([AP])M/, " $1");
 }
 
-
-
 ```
 
 
 ## Illustrations / Photos
 
 
-### Breadboard for "LED - Digital Clock"
+### Galileo Diagram
 
 
 
-![docs/breadboard/led-digits-clock.png](breadboard/led-digits-clock.png)<br>
-Fritzing diagram: [docs/breadboard/led-digits-clock.fzz](breadboard/led-digits-clock.fzz)
+![docs/breadboard/led-digits-clock-galileo.png](breadboard/led-digits-clock-galileo.png)<br>
+Fritzing diagram: [docs/breadboard/led-digits-clock-galileo.fzz](breadboard/led-digits-clock-galileo.fzz)
+
+&nbsp;
+### Arduino Diagram
+
+
+
+![docs/breadboard/led-digits-clock-arduino.png](breadboard/led-digits-clock-arduino.png)<br>
+Fritzing diagram: [docs/breadboard/led-digits-clock-arduino.fzz](breadboard/led-digits-clock-arduino.fzz)
 
 &nbsp;
 
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4A3SlE6Unco" frameborder="0" allowfullscreen></iframe>
 
 
-## Additional Notes
 
 
-Learn More:
+## Learn More
 
 - [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
-
-
-
 
 &nbsp;
 

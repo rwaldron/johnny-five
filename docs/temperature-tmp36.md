@@ -44,11 +44,9 @@ Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature
 
 
 
+
 ## Additional Notes
-
 - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
-
-
 
 &nbsp;
 
