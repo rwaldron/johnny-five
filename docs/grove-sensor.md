@@ -39,6 +39,26 @@ board.on("ready", function() {
 ```
 
 
+## Illustrations / Photos
+
+
+### Grove Shield
+
+
+
+![docs/images/grove-shield.jpg](images/grove-shield.jpg)  
+
+### Grove LED
+
+
+
+![docs/images/grove-led.jpg](images/grove-led.jpg)  
+
+### Grove Rotary
+
+
+
+![docs/images/grove-rotary.jpg](images/grove-rotary.jpg)  
 
 
 

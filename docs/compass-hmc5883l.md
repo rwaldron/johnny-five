@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Compass - HMC5883L`
+# Compass - HMC5883L
 
 
 
@@ -41,7 +41,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Compass - HMC5883L`"
+### Breadboard for "Compass - HMC5883L"
 
 
 

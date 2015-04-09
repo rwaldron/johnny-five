@@ -267,7 +267,7 @@ board.on("ready", function() {
 ### Compass/Magnetometer
 - [Compass / Magnetometer](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
 - [Compass - HMC6352](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc6352.md)
-- [Compass - HMC5883L`](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
+- [Compass - HMC5883L](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
 - [Compass - Logger](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
 - [Compass - Find north](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
 

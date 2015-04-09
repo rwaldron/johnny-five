@@ -481,7 +481,7 @@
       },
       {
         "file": "compass-hmc5883l.js",
-        "title": "Compass - HMC5883L`"
+        "title": "Compass - HMC5883L"
       },
       {
         "file": "magnetometer-log.js",
@@ -606,7 +606,10 @@
     "examples": [
       {
         "file": "grove-led.js",
-        "title": "Grove - LED"
+        "title": "Grove - LED",
+        "images": [
+          {"file": "grove-led.jpg", "title": "Grove LED"}
+        ]
       },
       {
         "file": "grove-button.js",
@@ -618,7 +621,12 @@
       },
       {
         "file": "grove-sensor.js",
-        "title": "Grove - Sensor"
+        "title": "Grove - Sensor",
+        "images": [
+          {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
+          {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
+        ]
       },
       {
         "file": "grove-lcd-rgb.js",
