@@ -66,6 +66,7 @@ function linear(start, end, step, steps) {
 
 
 ![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
+
 Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
 
 &nbsp;
@@ -73,8 +74,8 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadb
 
 
 
-## Additional Notes
 
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -82,8 +83,6 @@ For this program, you'll need:
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
 ![Grove - Temperature Module](http://www.seeedstudio.com/depot/images/product/bgtemp1.jpg)
-
-
 
 
 

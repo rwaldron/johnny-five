@@ -52,6 +52,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)<br>
+
 Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
 
 &nbsp;

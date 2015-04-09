@@ -92,6 +92,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)<br>
+
 Fritzing diagram: [docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
 
 &nbsp;

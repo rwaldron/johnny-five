@@ -43,6 +43,7 @@ The breadboard diagram shows a Keyes Relay, however any Relay will work.
 
 
 ![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
+
 Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
 
 &nbsp;
@@ -53,6 +54,7 @@ The breadboard diagram shows a Keyes Relay, however any Relay will work.
 
 
 ![docs/breadboard/relay-closed.png](breadboard/relay-closed.png)<br>
+
 Fritzing diagram: [docs/breadboard/relay-closed.fzz](breadboard/relay-closed.fzz)
 
 &nbsp;
@@ -60,12 +62,10 @@ Fritzing diagram: [docs/breadboard/relay-closed.fzz](breadboard/relay-closed.fzz
 
 
 
+
 ## Additional Notes
 
-
 - [JavaScript: Relay Control with Johnny-Five on Node](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
-
-
 
 
 &nbsp;

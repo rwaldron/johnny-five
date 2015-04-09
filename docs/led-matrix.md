@@ -73,6 +73,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
 
 &nbsp;

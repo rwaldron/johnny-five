@@ -64,6 +64,7 @@ Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blu
 
 
 ![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
 
 &nbsp;

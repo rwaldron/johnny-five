@@ -44,6 +44,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)<br>
+
 Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
 
 &nbsp;

@@ -35,6 +35,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-array.png](breadboard/led-array.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 &nbsp;
@@ -42,14 +43,12 @@ Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 Control multiple LEDs at once by creating an LED collection (`Leds`).
 All must be on PWM pins if you want to use methods such
 as `pulse()` or `fade()`
-
-
 
 
 &nbsp;

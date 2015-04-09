@@ -69,6 +69,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-fade-callback.png](breadboard/led-fade-callback.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-fade-callback.fzz](breadboard/led-fade-callback.fzz)
 
 &nbsp;

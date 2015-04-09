@@ -55,6 +55,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/pin.png](breadboard/pin.png)<br>
+
 Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
 
 &nbsp;

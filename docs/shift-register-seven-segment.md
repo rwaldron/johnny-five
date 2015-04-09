@@ -126,6 +126,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)<br>
+
 Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
 
 &nbsp;

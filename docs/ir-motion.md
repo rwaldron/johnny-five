@@ -49,6 +49,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)<br>
+
 Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
 
 &nbsp;

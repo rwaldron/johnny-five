@@ -83,6 +83,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
+
 &nbsp;
 
 

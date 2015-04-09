@@ -47,6 +47,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 &nbsp;
@@ -54,8 +55,8 @@ Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 This script will make `on()` and `off()` functions
 available in the REPL:
 
@@ -64,8 +65,6 @@ available in the REPL:
 // or
 >> off() // will turn off the LED
 ```
-
-
 
 
 &nbsp;

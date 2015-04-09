@@ -37,6 +37,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)<br>
+
 Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
 
 &nbsp;
@@ -44,11 +45,9 @@ Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-
 
 
 
+
 ## Additional Notes
-
 - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
-
-
 
 &nbsp;
 

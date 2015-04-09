@@ -89,6 +89,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
 Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 &nbsp;

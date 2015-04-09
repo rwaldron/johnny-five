@@ -90,6 +90,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
+
 Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
 
 &nbsp;

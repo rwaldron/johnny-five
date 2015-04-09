@@ -63,6 +63,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)<br>
+
 Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
 
 &nbsp;

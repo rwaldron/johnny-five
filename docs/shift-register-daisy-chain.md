@@ -248,6 +248,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)<br>
+
 Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
 
 &nbsp;
