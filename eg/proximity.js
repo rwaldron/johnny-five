@@ -5,11 +5,10 @@ five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
     pin: "A0",
-    controller: "OA41SK",
-    freq: 250
+    controller: "OA41SK"
   });
 
-  proximity.on("data", function(err, data) {
+  proximity.on("data", function(data) {
     console.log(data.cm + "cm");
   });
 
