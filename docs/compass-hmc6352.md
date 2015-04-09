@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/compass-hmc6352.js

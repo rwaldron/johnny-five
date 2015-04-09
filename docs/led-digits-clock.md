@@ -6,8 +6,6 @@
 Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.
 
 
-
-
 Run with:
 ```bash
 node eg/led-digits-clock-galileo.js

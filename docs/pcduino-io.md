@@ -6,10 +6,6 @@
 Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3
 
 
-
-More info: [https://github.com/rwaldron/pcduino-io/](https://github.com/rwaldron/pcduino-io/)
-
-
 Run with:
 ```bash
 node eg/pcduino-io.js
@@ -46,8 +42,8 @@ board.on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 In order to use the pcduino-io library, you will need to install node (0.10.x or better)
 and npm on your pcduino. Once the environment is created, install Johnny-Five and pcDuino-IO.
@@ -61,6 +57,9 @@ npm install johnny-five pcduino-io
 
 
 
+## Learn More
+
+- [pcduino-io on GitHub](https://github.com/rwaldron/pcduino-io/)
 
 &nbsp;
 

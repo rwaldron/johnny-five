@@ -6,8 +6,6 @@
 LED pulse example that fades an LED in and out repeatedly. Requires LED on pin that supports PWM (usually denoted by ~).
 
 
-
-
 Run with:
 ```bash
 node eg/led-pulse.js

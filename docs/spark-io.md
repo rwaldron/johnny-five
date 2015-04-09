@@ -6,10 +6,6 @@
 Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
 
 
-
-More info: [https://github.com/rwaldron/spark-io/](https://github.com/rwaldron/spark-io/)
-
-
 Run with:
 ```bash
 node eg/spark-io.js
@@ -58,6 +54,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/spark-led.png](breadboard/spark-led.png)<br>
+
 Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
 
 &nbsp;
@@ -65,8 +62,8 @@ Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 In order to use the spark-io library, you will need to load the special
 [voodoospark](https://github.com/voodootikigod/voodoospark) firmware onto your
@@ -89,6 +86,9 @@ Ensure your host computer (where you're running your Node application) and the S
 
 
 
+## Learn More
+
+- [spark-io on GitHub](https://github.com/rwaldron/spark-io)
 
 &nbsp;
 

@@ -6,8 +6,6 @@
 Basic LED example
 
 
-
-
 Run with:
 ```bash
 node eg/led.js

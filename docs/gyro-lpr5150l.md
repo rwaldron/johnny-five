@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/gyro-lpr5150l.js

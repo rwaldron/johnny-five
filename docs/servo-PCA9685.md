@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/servo-PCA9685.js

@@ -6,8 +6,6 @@
 Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).
 
 
-
-
 Run with:
 ```bash
 node eg/led-demo-sequence.js

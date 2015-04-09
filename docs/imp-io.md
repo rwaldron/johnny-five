@@ -6,10 +6,6 @@
 Example using Johnny-Five + imp-io to control an Electric Imp.
 
 
-
-More info: [https://github.com/rwaldron/imp-io](https://github.com/rwaldron/imp-io)
-
-
 Run with:
 ```bash
 node eg/imp-io.js
@@ -49,6 +45,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/imp-led.png](breadboard/imp-led.png)<br>
+
 Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
 
 &nbsp;
@@ -56,8 +53,8 @@ Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 To communicate with an Electric Imp using Johnny-Five w/ Imp-IO,
 you will need to upload the special
@@ -84,6 +81,9 @@ source ~/.imprc
 
 
 
+## Learn More
+
+- [imp-io on GitHub](https://github.com/rwaldron/imp-io)
 
 &nbsp;
 

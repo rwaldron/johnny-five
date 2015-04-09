@@ -6,10 +6,6 @@
 Example using Johnny-Five + Edison-IO to directly control an Intel Edison
 
 
-
-More info: [https://github.com/rwaldron/edison-io/](https://github.com/rwaldron/edison-io/)
-
-
 Run with:
 ```bash
 node eg/edison-io-arduino.js
@@ -47,6 +43,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-13-edison-arduinoboard.png](breadboard/led-13-edison-arduinoboard.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/led-13-edison-arduinoboard.fzz)
 
 &nbsp;
@@ -54,8 +51,8 @@ Fritzing diagram: [docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/le
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 In order to use the Edison-IO library, you will need to flash the Intel IoTDevKit Image
 on your Edison. Once the environment is created, install Johnny-Five and Edison-IO.
@@ -67,6 +64,9 @@ npm install johnny-five edison-io
 
 
 
+## Learn More
+
+- [edison-io on GitHub](https://github.com/rwaldron/edison-io/)
 
 &nbsp;
 

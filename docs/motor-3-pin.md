@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/motor-3-pin.js

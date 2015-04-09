@@ -6,10 +6,6 @@
 Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi
 
 
-
-More info: [https://github.com/bryan-m-hughes/raspi-io/](https://github.com/bryan-m-hughes/raspi-io/)
-
-
 Run with:
 ```bash
 node eg/raspi-io.js
@@ -41,6 +37,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-13-raspberry-pi.png](breadboard/led-13-raspberry-pi.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-raspberry-pi.fzz)
 
 &nbsp;
@@ -48,8 +45,8 @@ Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-ra
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 In order to use the Raspi-IO library, it is recommended that you use
 the Raspbian OS. Others may work, but are untested.
@@ -61,6 +58,9 @@ npm install johnny-five raspi-io
 
 
 
+## Learn More
+
+- [raspi-io on GitHub](https://github.com/bryan-m-hughes/raspi-io/)
 
 &nbsp;
 

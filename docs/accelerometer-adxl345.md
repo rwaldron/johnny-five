@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/accelerometer-adxl345.js

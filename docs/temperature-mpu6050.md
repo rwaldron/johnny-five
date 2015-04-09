@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/temperature-mpu6050.js

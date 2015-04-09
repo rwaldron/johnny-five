@@ -6,10 +6,6 @@
 Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2
 
 
-
-More info: [https://github.com/rwaldron/galileo-io/](https://github.com/rwaldron/galileo-io/)
-
-
 Run with:
 ```bash
 node eg/galileo-io.js
@@ -47,6 +43,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-13-galileo.png](breadboard/led-13-galileo.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo.fzz)
 
 &nbsp;
@@ -54,8 +51,8 @@ Fritzing diagram: [docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 In order to use the Galileo-IO library, you will need to flash the Intel IoTDevKit Image
 on your Galileo Gen 2. Once the environment is created, install Johnny-Five and Galileo-IO.
@@ -67,6 +64,9 @@ npm install johnny-five galileo-io
 
 
 
+## Learn More
+
+- [galileo-io on GitHub](https://github.com/rwaldron/galileo-io/)
 
 &nbsp;
 

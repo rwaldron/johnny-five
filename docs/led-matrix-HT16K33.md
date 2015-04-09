@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/led-matrix-HT16K33.js

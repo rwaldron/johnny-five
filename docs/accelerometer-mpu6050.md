@@ -4,8 +4,6 @@
 
 
 
-
-
 Run with:
 ```bash
 node eg/accelerometer-mpu6050.js
