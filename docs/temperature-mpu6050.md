@@ -43,6 +43,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
+
 Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
 
 &nbsp;
@@ -50,11 +51,9 @@ Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperatu
 
 
 
+
 ## Additional Notes
-
 - [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
-
-
 
 &nbsp;
 

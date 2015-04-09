@@ -40,12 +40,10 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 - [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-
-
 
 &nbsp;
 

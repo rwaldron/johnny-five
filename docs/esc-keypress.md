@@ -64,6 +64,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)<br>
+
 Fritzing diagram: [docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
 
 &nbsp;

@@ -39,13 +39,11 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
 - [TinkerKit Led](http://www.tinkerkit.com/led/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-
-
 
 &nbsp;
 

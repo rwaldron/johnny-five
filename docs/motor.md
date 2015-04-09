@@ -73,6 +73,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/motor.png](breadboard/motor.png)<br>
+
 Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 &nbsp;

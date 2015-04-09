@@ -55,6 +55,7 @@ Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blu
 
 
 ![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.fzz)
 
 &nbsp;

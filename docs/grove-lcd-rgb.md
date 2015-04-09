@@ -64,6 +64,7 @@ function linear(start, end, step, steps) {
 
 
 ![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
 Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
 
 &nbsp;
@@ -71,8 +72,8 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.f
 
 
 
-## Additional Notes
 
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -80,8 +81,6 @@ For this program, you'll need:
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
 ![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
-
-
 
 
 &nbsp;

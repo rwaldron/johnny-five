@@ -62,6 +62,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/led-rgb-PCA9685.png](breadboard/led-rgb-PCA9685.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-rgb-PCA9685.fzz](breadboard/led-rgb-PCA9685.fzz)
 
 &nbsp;

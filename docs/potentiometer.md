@@ -56,6 +56,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
+
 Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
 
 &nbsp;

@@ -70,12 +70,10 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 - [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-
-
 
 &nbsp;
 

@@ -61,6 +61,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/esc-bidirectional-forward-reverse.png](breadboard/esc-bidirectional-forward-reverse.png)<br>
+
 Fritzing diagram: [docs/breadboard/esc-bidirectional-forward-reverse.fzz](breadboard/esc-bidirectional-forward-reverse.fzz)
 
 &nbsp;

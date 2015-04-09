@@ -54,6 +54,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 &nbsp;
@@ -64,6 +65,7 @@ Basic example with LED on a breadboard and demonstrating use of a resistor
 
 
 ![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
 
 &nbsp;
@@ -74,6 +76,7 @@ Basic example with LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 
 &nbsp;
@@ -81,8 +84,8 @@ Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 
 
 
-## Additional Notes
 
+## Additional Notes
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
 
@@ -93,8 +96,6 @@ Now you can try, e.g.:
 // then
 >> led.on()   // to turn on, but not blink
 ```
-
-
 
 
 &nbsp;

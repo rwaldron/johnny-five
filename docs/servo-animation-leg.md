@@ -120,6 +120,7 @@ Basic example with servos connected to pins 9, 10, and 11. Requires servos on pi
 
 
 ![docs/breadboard/servo-three.png](breadboard/servo-three.png)<br>
+
 Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
 
 &nbsp;

@@ -67,6 +67,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/button-options.png](breadboard/button-options.png)<br>
+
 Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
 
 &nbsp;

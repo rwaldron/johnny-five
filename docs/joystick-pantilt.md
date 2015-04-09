@@ -66,6 +66,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/joystick-pantilt.png](breadboard/joystick-pantilt.png)<br>
+
 Fritzing diagram: [docs/breadboard/joystick-pantilt.fzz](breadboard/joystick-pantilt.fzz)
 
 &nbsp;

@@ -40,6 +40,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/led-slider.png](breadboard/led-slider.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
 
 &nbsp;

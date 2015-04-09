@@ -38,6 +38,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)<br>
+
 Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.fzz)
 
 &nbsp;

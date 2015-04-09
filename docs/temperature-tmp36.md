@@ -39,6 +39,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)<br>
+
 Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
 
 &nbsp;
@@ -46,11 +47,9 @@ Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature
 
 
 
+
 ## Additional Notes
-
 - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
-
-
 
 &nbsp;
 

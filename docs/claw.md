@@ -56,8 +56,8 @@ board.on("ready", function() {
 
 
 
-## Additional Notes
 
+## Additional Notes
 
 - [Robotic Claw](https://www.sparkfun.com/products/11524)
 - [Robotic Claw Pan/Tilt](https://www.sparkfun.com/products/11674)
@@ -65,8 +65,6 @@ board.on("ready", function() {
 
 ![Robotic Claw](https://cdn.sparkfun.com//assets/parts/7/4/4/4/11524-01a.jpg)
 ![Robotic Claw Pan/Tilt](https://cdn.sparkfun.com//assets/parts/7/7/6/7/11674-02.jpg)
-
-
 
 
 &nbsp;

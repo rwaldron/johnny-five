@@ -47,6 +47,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/gyro-mpu6050.png](breadboard/gyro-mpu6050.png)<br>
+
 Fritzing diagram: [docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz)
 
 &nbsp;

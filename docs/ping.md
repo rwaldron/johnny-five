@@ -51,6 +51,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/ping.png](breadboard/ping.png)<br>
+
 Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 &nbsp;

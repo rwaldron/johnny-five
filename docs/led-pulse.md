@@ -50,6 +50,7 @@ Basic example with LED inserted directly into pin 11.
 
 
 ![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
+
 Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
 
 &nbsp;

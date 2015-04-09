@@ -66,6 +66,7 @@ Basic example with servo connected to pin 10. Requires servo on pin that support
 
 
 ![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
 Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 &nbsp;

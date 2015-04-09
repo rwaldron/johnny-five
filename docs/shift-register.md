@@ -53,6 +53,7 @@ board.on("ready", function() {
 
 
 ![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
+
 Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
 
 &nbsp;
