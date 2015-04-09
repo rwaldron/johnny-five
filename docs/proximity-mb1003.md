@@ -1,14 +1,14 @@
 <!--remove-start-->
 
-# Proximity
+# Proximity - MB1003
 
 
-Basic infrared Proximity example
+Basic sonar Proximity example with MB1003 sensor.
 
 
 Run with:
 ```bash
-node eg/proximity.js
+node eg/proximity-mb1003.js
 ```
 
 <!--remove-end-->
@@ -20,7 +20,7 @@ var five = require("johnny-five"),
 five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
-    controller: "GP2Y0A21YK",
+    controller: "MB1003",
     pin: "A0"
   });
 
@@ -40,12 +40,12 @@ five.Board().on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Proximity"
+### Breadboard for "Proximity - MB1003"
 
 
 
-![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
-Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
+![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
+Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
 
 &nbsp;
 

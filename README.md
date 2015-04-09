@@ -250,8 +250,9 @@ board.on("ready", function() {
 - [IR Reflectance Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
 
 ### Proximity
-- [Infrared](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
-- [Sonar](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-sonar.md)
+- [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
+- [Proximity - SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-srf10.md)
+- [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
