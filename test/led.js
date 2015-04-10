@@ -926,51 +926,36 @@ exports["Led.RGB"] = {
   params: function(test) {
     var led;
 
-    test.expect(16);
+    test.expect(9);
 
     // Test object constructor
-    test.doesNotThrow(function() {
-      led = new Led.RGB({
-        pins: {
-          red: 9,
-          green: 10,
-          blue: 11,
-        }
-      });
+    led = new Led.RGB({
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      }
     });
     test.equal(led.red.pin, 9);
     test.equal(led.green.pin, 10);
     test.equal(led.blue.pin, 11);
     
     // Test object constructor with array
-    test.doesNotThrow(function() {
-      led = new Led.RGB({
-        pins: [9, 10, 11]
-      });
-
+    led = new Led.RGB({
+      pins: [9, 10, 11]
     });
     test.equal(led.red.pin, 9);
     test.equal(led.green.pin, 10);
     test.equal(led.blue.pin, 11);
 
     // Test array constructor
-    test.doesNotThrow(function() {
-      led = new Led.RGB([9, 10, 11]);
-    });
-    test.equal(led.red.pin, 9);
-    test.equal(led.green.pin, 10);
-    test.equal(led.blue.pin, 11);
+    led = new Led.RGB([9, 10, 11]);
 
-    // Test three param constructor
-    test.doesNotThrow(function() {
-      led = new Led.RGB(9, 10, 11);
-    });
     test.equal(led.red.pin, 9);
     test.equal(led.green.pin, 10);
     test.equal(led.blue.pin, 11);
 
     test.done();
-
   },
 
   color: function(test) {
