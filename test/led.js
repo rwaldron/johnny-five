@@ -844,19 +844,6 @@ exports["Led.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var leds = new Led.Array();
-
-    test.equal(leds.length, 3);
-    test.equal(leds[0], this.a);
-    test.equal(leds[1], this.b);
-    test.equal(leds[2], this.c);
-
-    test.done();
-  },
-
   initFromLedNumbers: function(test) {
     test.expect(1);
 
@@ -875,25 +862,7 @@ exports["Led.Array"] = {
 
     test.equal(leds.length, 3);
     test.done();
-  },
-
-  callForwarding: function(test) {
-    test.expect(3);
-
-    var leds = new Led.Array();
-
-    leds.brightness(127);
-
-    test.equal(this.brightness.callCount, leds.length);
-    test.equal(this.brightness.getCall(0).args[0], 127);
-
-    leds.off();
-
-    test.equal(this.off.callCount, leds.length);
-
-    test.done();
-  },
-
+  }
 };
 
 exports["Led.RGB"] = {
@@ -951,6 +920,56 @@ exports["Led.RGB"] = {
     }, this);
 
     test.done();
+  },
+
+  params: function(test) {
+    var led;
+
+    test.expect(16);
+
+    // Test object constructor
+    test.doesNotThrow(function() {
+      led = new Led.RGB({
+        pins: {
+          red: 9,
+          green: 10,
+          blue: 11,
+        }
+      });
+    });
+    test.equal(led.red.pin, 9);
+    test.equal(led.green.pin, 10);
+    test.equal(led.blue.pin, 11);
+    
+    // Test object constructor with array
+    test.doesNotThrow(function() {
+      led = new Led.RGB({
+        pins: [9, 10, 11]
+      });
+
+    });
+    test.equal(led.red.pin, 9);
+    test.equal(led.green.pin, 10);
+    test.equal(led.blue.pin, 11);
+
+    // Test array constructor
+    test.doesNotThrow(function() {
+      led = new Led.RGB([9, 10, 11]);
+    });
+    test.equal(led.red.pin, 9);
+    test.equal(led.green.pin, 10);
+    test.equal(led.blue.pin, 11);
+
+    // Test three param constructor
+    test.doesNotThrow(function() {
+      led = new Led.RGB(9, 10, 11);
+    });
+    test.equal(led.red.pin, 9);
+    test.equal(led.green.pin, 10);
+    test.equal(led.blue.pin, 11);
+
+    test.done();
+
   },
 
   color: function(test) {
