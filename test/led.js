@@ -494,8 +494,9 @@ exports["Led - PWM (Analog)"] = {
     var spy = sinon.spy();
 
     this.led.pulse(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
+    // It should call callback each iteration
+    this.clock.tick(10001);
+    test.equal(spy.callCount, 10);
     test.done();
   }
 };
