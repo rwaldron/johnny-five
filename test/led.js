@@ -844,19 +844,6 @@ exports["Led.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var leds = new Led.Array();
-
-    test.equal(leds.length, 3);
-    test.equal(leds[0], this.a);
-    test.equal(leds[1], this.b);
-    test.equal(leds[2], this.c);
-
-    test.done();
-  },
-
   initFromLedNumbers: function(test) {
     test.expect(1);
 
@@ -875,25 +862,7 @@ exports["Led.Array"] = {
 
     test.equal(leds.length, 3);
     test.done();
-  },
-
-  callForwarding: function(test) {
-    test.expect(3);
-
-    var leds = new Led.Array();
-
-    leds.brightness(127);
-
-    test.equal(this.brightness.callCount, leds.length);
-    test.equal(this.brightness.getCall(0).args[0], 127);
-
-    leds.off();
-
-    test.equal(this.off.callCount, leds.length);
-
-    test.done();
-  },
-
+  }
 };
 
 exports["Led.RGB"] = {
