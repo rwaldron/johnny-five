@@ -956,7 +956,7 @@ exports["Led.RGB"] = {
   params: function(test) {
     var led;
 
-    test.expect(3);
+    test.expect(4);
 
     // Test object constructor
     test.doesNotThrow(function() {
@@ -966,6 +966,13 @@ exports["Led.RGB"] = {
           green: 10,
           blue: 11,
         }
+      });
+    });
+    
+    // Test object constructor with array
+    test.doesNotThrow(function() {
+      led = new Led.RGB({
+        pins: [9, 10, 11]
       });
     });
     
@@ -982,7 +989,6 @@ exports["Led.RGB"] = {
     test.done();
 
   },
-
   color: function(test) {
     var redPin = 9,
       greenPin = 10,
