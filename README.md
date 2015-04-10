@@ -297,9 +297,6 @@ board.on("ready", function() {
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
-### Plugin Template
-- [Example plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
-
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
 - [Grove - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button.md)
@@ -341,6 +338,18 @@ board.on("ready", function() {
 - [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
 - [Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
 - [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
+
+### Component Plugin Template
+- [Example plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+
+### IO Plugins
+- [Led Blink on Electric Imp](https://github.com/rwaldron/johnny-five/blob/master/docs/imp-io.md)
+- [Led Blink on Spark Core](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io.md)
+- [Led Blink on pcDuino3](https://github.com/rwaldron/johnny-five/blob/master/docs/pcduino-io.md)
+- [Led Blink on Intel Galileo Gen 2](https://github.com/rwaldron/johnny-five/blob/master/docs/galileo-io.md)
+- [Led Blink on Raspberry Pi](https://github.com/rwaldron/johnny-five/blob/master/docs/raspi-io.md)
+- [Led Blink on Intel Edison Arduino Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-arduino.md)
+- [Led Blink on Intel Edison Mini Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-miniboard.md)
 
 <!--extract-end:examples-->
 

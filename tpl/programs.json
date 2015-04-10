@@ -606,15 +606,6 @@
     ]
   },
   {
-    "topic": "Plugin Template",
-    "examples": [
-      {
-        "file": "plugin.js",
-        "title": "Example plugin"
-      }
-    ]
-  },
-  {
     "topic": "Grove IoT Kit (Seeed Studio)",
     "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
     "examples": [
@@ -813,6 +804,113 @@
         "file": "radar.js",
         "title": "Radar"
       }
+    ]
+  },
+  {
+    "topic": "Component Plugin Template",
+    "examples": [
+      {
+        "file": "plugin.js",
+        "title": "Example plugin"
+      }
+    ]
+  },
+  {
+    "topic": "IO Plugins",
+    "examples": [
+      {
+        "file": "imp-io.js",
+        "title": "Led Blink on Electric Imp",
+        "description": "Example using Johnny-Five + imp-io to control an Electric Imp.",
+        "images": [
+          {"file": "imp.jpg", "title": "Electric Imp"}
+        ],
+        "breadboards": [
+          {"name": "imp-led", "title": "LED on pin 9"}
+        ],
+        "externals": [
+          { "title": "imp-io on GitHub", "href": "https://github.com/rwaldron/imp-io"}
+        ]
+      },
+      {
+        "file": "spark-io.js",
+        "title": "Led Blink on Spark Core",
+        "description": "Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.",
+        "images": [
+          {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
+        ],
+        "breadboards": [
+          {"name": "spark-led", "title": "LED on pin D1"}
+        ],
+        "externals": [
+          { "title": "spark-io on GitHub", "href": "https://github.com/rwaldron/spark-io"}
+        ]
+      },
+      {
+        "file": "pcduino-io.js",
+        "title": "Led Blink on pcDuino3",
+        "description": "Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3",
+        "images": [
+          {"file": "pcduino.jpg", "title": "pcDuino3"}
+        ],
+        "externals": [
+          { "title": "pcduino-io on GitHub", "href": "https://github.com/rwaldron/pcduino-io/"}
+        ]
+      },
+      {
+        "file": "galileo-io.js",
+        "title": "Led Blink on Intel Galileo Gen 2",
+        "description": "Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2",
+        "images": [
+          {"file": "galileo-gen2.jpg", "title": "Galileo Gen 2"}
+        ],
+        "breadboards": [
+          {"name": "led-13-galileo", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "galileo-io on GitHub", "href": "https://github.com/rwaldron/galileo-io/"}
+        ]
+      },
+      {
+        "file": "raspi-io.js",
+        "title": "Led Blink on Raspberry Pi",
+        "description": "Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi",
+        "breadboards": [
+          {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
+        ],
+        "externals": [
+          { "title": "raspi-io on GitHub", "href": "https://github.com/bryan-m-hughes/raspi-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-arduino.js",
+        "title": "Led Blink on Intel Edison Arduino Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-arduino-board.jpg", "title": "Intel Edison Arduino Board"}
+        ],
+        "breadboards": [
+          {"name": "led-13-edison-arduinoboard", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-miniboard.js",
+        "title": "Led Blink on Intel Edison Mini Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-mini-board.jpg", "title": "Intel Edison Mini Board"}
+        ],
+        "breadboards": [
+          {"name": "led-1-edison-miniboard", "title": "LED on pin 1"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      }
+
     ]
   }
 ]
