@@ -941,7 +941,7 @@ exports["Led.RGB"] = {
     test.equal(led.red.pin, 9);
     test.equal(led.green.pin, 10);
     test.equal(led.blue.pin, 11);
-    
+
     // Test object constructor with array
     test.doesNotThrow(function() {
       led = new Led.RGB({
@@ -1266,7 +1266,7 @@ exports["Led.RGB - Common Anode"] = {
 
     // returns this
     test.equal(this.ledRgb.color("#000000"), this.ledRgb);
-    
+
     // Hex values
     this.ledRgb.color("#0000ff");
     test.ok(this.analog.calledWith(redPin, 0xff));
@@ -1469,5 +1469,19 @@ exports["Led - Pulse"] = {
     test.ok(!isNaN(this.spy.firstCall.args[1]));
 
     test.done();
-  }
+  },
+
+  pulseCallback: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.led.pulse(500, spy);
+    this.clock.tick(2000);
+
+    // 2000 / 500 = 4
+    test.equal(spy.callCount, 4);
+
+    test.done();
+  },
 };
