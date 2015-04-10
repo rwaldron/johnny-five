@@ -158,7 +158,9 @@ exports["Led - Digital"] = {
   },
 
   strobe: function(test) {
-    test.expect(3);
+    test.expect(7);
+
+    var spy;
 
     this.led.off();
     this.led.strobe(100);
@@ -170,6 +172,24 @@ exports["Led - Digital"] = {
     this.led.stop();
     this.clock.tick(100);
     test.equal(this.digitalWrite.callCount, 3);
+
+    this.led.stop().off();
+    spy = sinon.spy();
+    this.led.strobe(100, spy);
+
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 2);
+
+    this.led.stop().off();
+    spy = sinon.spy();
+    this.led.strobe(spy);
+
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 2);
 
     test.done();
   },
