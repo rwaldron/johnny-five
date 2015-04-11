@@ -347,6 +347,38 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  animate: function(test) {
+    sinon.spy(global, "setInterval");
+    sinon.spy(this.led, "stop");
+    test.expect(10);
+
+    var step = sinon.spy(),
+      complete = sinon.spy();
+
+    this.led.off();
+    test.equal(this.led.interval, null);
+
+    this.led.animate({
+      step: step,
+      duration: 1000,
+      complete: complete
+    });
+    test.equal(setInterval.callCount, 1);
+    test.equal(setInterval.args[0][1], 10);
+    test.ok(this.led.interval);
+
+    this.clock.tick(1000);
+    test.equal(step.callCount, 100);
+    test.equal(step.args[0][0], 0.01);
+    test.equal(step.args[50][0], 0.51);
+    test.equal(step.args[99][0], 1);
+    test.equal(this.led.stop.calledOnce, true);
+    test.equal(complete.calledOnce, true);
+
+    setInterval.restore();
+    test.done();
+  },
+
   pulse: function(test) {
     sinon.spy(global, "clearInterval");
     sinon.spy(global, "setInterval");
