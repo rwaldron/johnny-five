@@ -120,7 +120,7 @@ exports["Servo"] = {
   },
 
   center: function(test) {
-    test.expect(1);
+    test.expect(5);
 
     this.spy = sinon.spy(Servo.prototype, "center");
 
@@ -130,10 +130,29 @@ exports["Servo"] = {
       center: true
     });
 
+    // constructor called .center()
     test.ok(this.spy.called);
+    // and servo is actually centered
+    test.equal(this.servo.position, 90);
 
     this.spy.restore();
-    test.done();
+
+    this.servo.to(180);
+    this.servo.center(1000, 100);
+
+    // not there yet
+    this.clock.tick(900);
+    test.ok(this.servo.position > 90);
+
+    // now there
+    this.clock.tick(110);
+    test.equal(this.servo.position, 90);
+
+    // it fired a move:complete event when finished
+    this.servo.on("move:complete", function() {
+      test.ok(1, "event fired");
+      test.done();
+    }.bind(this));
 
   },
 
@@ -332,6 +351,48 @@ exports["Servo"] = {
     test.ok(this.servoWrite.callCount === 101);
 
     test.done();
+  },
+
+  min: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(180);
+    this.servo.min(1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(this.servo.position, 0);
+
+    this.servo.on("move:complete", function() {
+      test.ok(this.servoWrite.callCount === 101);
+      test.done();
+    }.bind(this));
+  },
+  
+  max: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(0);
+    this.servo.max(1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(this.servo.position, 180);
+
+    this.servo.on("move:complete", function() {
+      test.ok(this.servoWrite.callCount === 101);
+      test.done();
+    }.bind(this));
   },
 
   completeMoveEmitted: function(test) {
