@@ -144,15 +144,17 @@ exports["Led - Digital"] = {
   },
 
   toggle: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     this.led.off();
     this.led.toggle();
 
     test.ok(this.digitalWrite.calledWith(13, 1));
+    test.ok(this.led.isOn);
 
     this.led.toggle();
     test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(!this.led.isOn);
 
     test.done();
   },
@@ -197,6 +199,17 @@ exports["Led - Digital"] = {
   blink: function(test) {
     test.expect(1);
     test.equal(this.led.blink, this.led.strobe);
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(2);
+
+    this.led.strobe();
+    test.ok(this.led.isRunning);
+    this.led.stop();
+    test.ok(!this.led.isRunning);
+
     test.done();
   }
 };
@@ -339,14 +352,16 @@ exports["Led - PWM (Analog)"] = {
   },
 
   toggle: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     this.led.off();
     this.led.toggle();
     test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.led.isOn);
 
     this.led.toggle();
     test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(!this.led.isOn);
 
     test.done();
   },
@@ -402,19 +417,29 @@ exports["Led - PWM (Analog)"] = {
   pulse: function(test) {
     sinon.spy(global, "clearInterval");
     sinon.spy(global, "setInterval");
-    test.expect(3);
+    test.expect(4);
 
     this.led.off();
     test.equal(this.led.interval, null);
 
-    this.led.pulse();
+    this.led.pulse(1000);
     test.equal(setInterval.callCount, 1);
 
     this.led.stop();
     test.equal(clearInterval.callCount, 1);
 
+    // move the clock forwards 1001 ms so we have a complete set of values
+    this.clock.tick(1001);
+
+    // stop pulsing
+    this.led.stop();
+
+    // make sure NaN was not passed to io
+    test.ok(!isNaN(this.analogWrite.firstCall.args[1]));
+
     clearInterval.restore();
     setInterval.restore();
+
     test.done();
   },
 
@@ -549,6 +574,17 @@ exports["Led - PWM (Analog)"] = {
     // It should call callback each iteration
     this.clock.tick(10001);
     test.equal(spy.callCount, 10);
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(2);
+
+    this.led.pulse();
+    test.ok(this.led.isRunning);
+    this.led.stop();
+    test.ok(!this.led.isRunning);
+
     test.done();
   }
 };
@@ -694,14 +730,16 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   toggle: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     this.led.off();
     this.led.toggle();
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.led.isOn);
 
     this.led.toggle();
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(!this.led.isOn);
 
     test.done();
   },
@@ -850,6 +888,17 @@ exports["Led - PCA9685 (I2C)"] = {
     this.led.pulse(spy);
     this.clock.tick(1001);
     test.equal(spy.calledOnce, true);
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(2);
+
+    this.led.pulse();
+    test.ok(this.led.isRunning);
+    this.led.stop();
+    test.ok(!this.led.isRunning);
+
     test.done();
   }
 };
@@ -1213,6 +1262,17 @@ exports["Led.RGB"] = {
     test.done();
   },
 
+  stop: function(test) {
+    test.expect(2);
+
+    this.ledRgb.strobe();
+    test.ok(this.ledRgb.isRunning);
+    this.ledRgb.stop();
+    test.ok(!this.ledRgb.isRunning);
+
+    test.done();
+  },
+
   toggle: function(test) {
     var redPin = 9,
       greenPin = 10,
@@ -1220,10 +1280,17 @@ exports["Led.RGB"] = {
       color,
       values;
 
-    test.expect(9);
+    test.expect(11);
 
+    // Sets color and turns it on
     this.ledRgb.color("#bbccaa");
+
+    // toggle it off after setting color
     this.ledRgb.toggle();
+
+    // test isOn property properly set
+    // after turning off
+    test.ok(!this.ledRgb.isOn);
 
     // Color should still be #bbccaa
     // but values should be 0
@@ -1237,7 +1304,10 @@ exports["Led.RGB"] = {
     test.equal(values.green, 0);
     test.equal(values.blue, 0);
 
+    // test isOn property properly set
+    // after turning back on
     this.ledRgb.toggle();
+    test.ok(this.ledRgb.isOn);
 
     // Should have gone back to #bbccaa
     values = this.ledRgb.values;
@@ -1248,7 +1318,6 @@ exports["Led.RGB"] = {
 
     test.done();
   },
-
 
   blink: function(test) {
     test.expect(1);
@@ -1440,6 +1509,52 @@ exports["Led.RGB - Common Anode"] = {
 
 
     test.done();
+  },
+
+  toggle: function(test) {
+    var redPin = 9,
+      greenPin = 10,
+      bluePin = 11,
+      color,
+      values;
+
+    test.expect(11);
+
+    // Sets color and turns it on
+    this.ledRgb.color("#bbccaa");
+
+    // toggle it off after setting color
+    this.ledRgb.toggle();
+
+    // test isOn property properly set
+    // after turning off
+    test.ok(!this.ledRgb.isOn);
+
+    // Color should still be #bbccaa
+    // but values should be 0
+    color = this.ledRgb.color();
+    test.equal(color.red, 0xbb);
+    test.equal(color.green, 0xcc);
+    test.equal(color.blue, 0xaa);
+
+    values = this.ledRgb.values;
+    test.equal(values.red, 0);
+    test.equal(values.green, 0);
+    test.equal(values.blue, 0);
+
+    // test isOn property properly set
+    // after turning back on
+    this.ledRgb.toggle();
+    test.ok(this.ledRgb.isOn);
+
+    // Should have gone back to #bbccaa
+    values = this.ledRgb.values;
+    test.equal(values.red, 0xbb);
+    test.equal(values.green, 0xcc);
+    test.equal(values.blue, 0xaa);
+
+
+    test.done();
   }
 
 };
@@ -1470,41 +1585,3 @@ exports["Led - Default Pin w/ Firmata"] = {
   }
 };
 
-exports["Led - Pulse"] = {
-  setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.spy = sinon.spy(this.board.io, "analogWrite");
-
-    this.led = new Led({
-      pin: 11,
-      board: this.board
-    });
-
-    done();
-  },
-
-  tearDown: function(done) {
-    this.clock.restore();
-
-    done();
-  },
-
-  pulse: function(test) {
-    test.expect(1);
-
-    // pulse length 1s
-    this.led.pulse(1000);
-
-    // move the clock forwards 1001 ms so we have a complete set of values
-    this.clock.tick(1001);
-
-    // stop pulsing
-    this.led.stop();
-
-    // make sure NaN was not passed to io
-    test.ok(!isNaN(this.spy.firstCall.args[1]));
-
-    test.done();
-  }
-};
