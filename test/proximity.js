@@ -3,7 +3,6 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Sensor = five.Sensor,
   Proximity = five.Proximity,
   board = new Board({
     io: new MockFirmata(),
@@ -365,6 +364,104 @@ exports["Proximity: SRF10"] = {
     callback([0, 10]);
     this.clock.tick(100);
   }
+};
+
+exports["Proximity: HCSR04"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+
+    sinon.stub(board.io, "pulseIn", function(settings, handler) {
+      handler(1000);
+    });
+
+    this.ping = new Proximity({
+      pin: 7,
+      freq: 100,
+      board: board
+    });
+
+    this.proto = [{
+      name: "within"
+    }];
+
+    this.instance = [{
+      name: "centimeters"
+    }, {
+      name: "cm"
+    },{
+      name: "inches"
+    }, {
+      name: "in"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    board.io.pulseIn.restore();
+    this.clock.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.ping[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.ping[property.name], 0);
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
+
+    this.ping.on("data", spy);
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+
+  // change: function(test) {
+  //   var spy = sinon.spy();
+  //   test.expect(1);
+
+  //   // tick the clock forward to trigger the pulseIn handler
+  //   this.clock.tick(250);
+
+  //   this.ping.on("change", spy);
+  //   this.clock.tick(100);
+  //   test.ok(spy.calledOnce);
+  //   test.done();
+
+  // },
+
+  // within: function(test) {
+  //   var spy = sinon.spy();
+  //   test.expect(2);
+
+  //   // tick the clock forward to trigger the pulseIn handler
+  //   this.clock.tick(250);
+
+  //   this.ping.within([0, 120], "inches", function() {
+  //     // The fake microseconds value is 1000, which
+  //     // calculates to 6.76 inches.
+  //     test.equal(this.inches, 6.76);
+  //     spy();
+  //   });
+
+  //   this.clock.tick(100);
+  //   test.ok(spy.calledOnce);
+  //   test.done();
+  // }
 };
 
 // - GP2Y0A21YK
