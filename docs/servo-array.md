@@ -17,17 +17,12 @@ var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create two example servos on pins 9 and 10
-  five.Servo({
-    pin: 9,
-    // Limit this servo to 170°
-    range: [0, 170]
-  });
+  // Initialize a Servo collection
+  var servos = new five.Servos([9, 10]);
 
-  five.Servo(10);
 
-  // Initialize a collection of all active Servo instances
-  var servos = new five.Servos();
+  servos.center();
+
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -35,18 +30,6 @@ board.on("ready", function() {
   this.repl.inject({
     servos: servos
   });
-
-
-  // Servo.Array API
-
-  // center()
-  //
-  // centers all servos to center of range
-  // defaults to 90°
-  //
-  // eg. servos.center();
-
-  servos.center();
 
 
   // min()
