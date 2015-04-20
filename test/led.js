@@ -5,11 +5,16 @@ var five = require("../lib/johnny-five.js"),
   Led = five.Led;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("ready");
+
+  return board;
 }
 
 exports["Led - Digital"] = {
@@ -1040,7 +1045,7 @@ exports["Led.RGB"] = {
     test.equal(led.red.pin, 9);
     test.equal(led.green.pin, 10);
     test.equal(led.blue.pin, 11);
-    
+
     // Test object constructor with array
     led = new Led.RGB({
       pins: [9, 10, 11]
@@ -1372,7 +1377,7 @@ exports["Led.RGB - Common Anode"] = {
 
     // returns this
     test.equal(this.ledRgb.color("#000000"), this.ledRgb);
-    
+
     // Hex values
     this.ledRgb.color("#0000ff");
     test.ok(this.analog.calledWith(redPin, 0xff));
@@ -1563,6 +1568,18 @@ exports["Led.RGB - Common Anode"] = {
 exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
     test.expect(8);
+
+    Board.purge();
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    io.emit("ready");
+
     test.equal(new Led().pin, 13);
     test.equal(new Led(0).pin, 0);
 

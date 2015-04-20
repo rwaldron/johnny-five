@@ -48,6 +48,13 @@ exports["Initialization"] = {
     test.expect(2);
 
     var io = new MockFirmata();
+
+    // Emit connection and ready BEFORE
+    // using the instance to initialize
+    // a new Board.
+    io.emit("connect");
+    io.emit("ready");
+
     var board = new Board({
       io: io,
       debug: false,
@@ -139,12 +146,12 @@ exports["static"] = {
     test.done();
   },
 
-  "Board.Array": function(test) {
+  "Boards - connect, ready after": function(test) {
     test.expect(2);
 
     var io = new MockFirmata();
 
-    var boards = new five.Board.Array([{
+    var boards = new five.Boards([{
       id: "A",
       repl: false,
       debug: false,
@@ -163,6 +170,37 @@ exports["static"] = {
       test.done();
     });
 
+    io.emit("connect");
+    io.emit("ready");
+
+  },
+
+  "Boards - connect, ready before": function(test) {
+    test.expect(2);
+
+    var io = new MockFirmata();
+
+    io.emit("connect");
+    io.emit("ready");
+
+    var boards = new five.Boards([{
+      id: "A",
+      repl: false,
+      debug: false,
+      io: io
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: io
+    }]);
+
+    test.equals(2, boards.length);
+
+    boards.on("ready", function() {
+      test.ok(true);
+      test.done();
+    });
   }
 };
 
@@ -249,29 +287,25 @@ exports["Board.mount"] = {
 };
 
 exports["bubbled events from io"] = {
-  setUp: function(done) {
-    this.io = new MockFirmata();
+  string: function(test) {
+    test.expect(1);
 
-    this.board = new Board({
-      io: this.io,
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
       debug: false,
       repl: false
     });
 
-    done();
-  },
-  string: function(test) {
-    test.expect(1);
-
-    this.board.on("ready", function() {
-
-      this.once("string", function(data) {
+    board.on("ready", function() {
+      board.on("string", function(data) {
         test.equal(data, 1);
         test.done();
       });
-
-      this.io.emit("string", 1);
+      io.emit("string", 1);
     });
+
+    board.emit("ready");
   }
 };
 

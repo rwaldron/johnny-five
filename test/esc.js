@@ -3,12 +3,17 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  ESC = five.ESC,
-  board = new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
+  ESC = five.ESC;
+
+
+var io = new MockFirmata();
+var board = new Board({
+  io: io,
+  debug: false,
+  repl: false
+});
+
+io.emit("ready");
 
 exports["ESC"] = {
   setUp: function(done) {

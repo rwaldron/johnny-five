@@ -4,12 +4,17 @@ var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   Board = five.Board,
-  Button = five.Button,
-  board = new five.Board({
-    debug: false,
-    repl: false,
-    io: new MockFirmata()
-  });
+  Button = five.Button;
+
+var io = new MockFirmata();
+var board = new five.Board({
+  debug: false,
+  repl: false,
+  io: io
+});
+
+io.emit("ready");
+
 
 exports["Button, Digital Pin"] = {
   setUp: function(done) {

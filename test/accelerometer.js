@@ -4,12 +4,15 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Accelerometer = five.Accelerometer,
-  board = new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
+  Accelerometer = five.Accelerometer;
+
+var io = new MockFirmata();
+var board = new Board({
+  io: io,
+  debug: false,
+  repl: false
+});
+
 
 exports["Accelerometer -- Analog"] = {
 
