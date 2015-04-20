@@ -15,9 +15,7 @@ node eg/shift-register.js
 var five = require("johnny-five");
 var board = new five.Board();
 
-// This works with the 74HC595 that comes with the SparkFun Inventor's kit.
-// Your mileage may vary with other chips. For more information on working
-// with shift registers, see http://arduino.cc/en/Tutorial/ShiftOut
+// For use with 74HC595 chip
 
 board.on("ready", function() {
   var register = new five.ShiftRegister({
