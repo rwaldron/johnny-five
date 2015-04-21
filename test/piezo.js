@@ -167,6 +167,23 @@ exports["Piezo"] = {
     test.done();
   },
 
+  beats: function(test) {
+    test.expect(4);
+
+    var beats = {
+      "2": 2,
+      "4": 1,
+      "8": 1 / 2,
+      "16": 1 / 4
+    };
+
+    Object.keys(beats).forEach(function(beat) {
+      test.equal(beats[beat], Piezo.Beats[beat]);
+    });
+
+    test.done();
+  },
+
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
@@ -177,6 +194,73 @@ exports["Piezo"] = {
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.piezo[property.name], "undefined");
     }, this);
+
+    test.done();
+  },
+
+  normalizeTempo: function(test) {
+    test.expect(8);
+
+    // good values
+    test.equal(40, Piezo.normalizeTempo(40));
+    test.equal(125, Piezo.normalizeTempo(125));
+    test.equal(400, Piezo.normalizeTempo(400));
+
+    // NaN's return null
+    test.equal(null, Piezo.normalizeTempo(null));
+    test.equal(null, Piezo.normalizeTempo(""));
+    test.equal(null, Piezo.normalizeTempo(NaN));
+
+    // 40 - 400 is the limit
+    test.equal(null, Piezo.normalizeTempo(39));
+    test.equal(null, Piezo.normalizeTempo(401));
+
+    test.done();
+  },
+
+  normalizeBeat: function(test) {
+    test.expect(9);
+
+    // good values
+    test.equal(2, Piezo.normalizeBeat(2));
+    test.equal(1, Piezo.normalizeBeat(4));
+    test.equal(1/2, Piezo.normalizeBeat(8));
+    test.equal(1/4, Piezo.normalizeBeat(16));
+
+    // NaN's return null
+    test.equal(null, Piezo.normalizeBeat(null));
+    test.equal(null, Piezo.normalizeBeat(""));
+    test.equal(null, Piezo.normalizeBeat(NaN));
+
+    // 2, 4, 8, 16 are all thats supported
+    test.equal(null, Piezo.normalizeBeat(39));
+    test.equal(null, Piezo.normalizeBeat(401));
+
+    test.done();
+  },
+
+  normalizeOctave: function(test) {
+    test.expect(14);
+
+    // good values
+    test.equal(0, Piezo.normalizeOctave(0));
+    test.equal(1, Piezo.normalizeOctave(1));
+    test.equal(2, Piezo.normalizeOctave(2));
+    test.equal(3, Piezo.normalizeOctave(3));
+    test.equal(4, Piezo.normalizeOctave(4));
+    test.equal(5, Piezo.normalizeOctave(5));
+    test.equal(6, Piezo.normalizeOctave(6));
+    test.equal(7, Piezo.normalizeOctave(7));
+    test.equal(8, Piezo.normalizeOctave(8));
+
+    // NaN's return null
+    test.equal(null, Piezo.normalizeOctave(null));
+    test.equal(null, Piezo.normalizeOctave(""));
+    test.equal(null, Piezo.normalizeOctave(NaN));
+
+    // 0 to 8 are all thats supported
+    test.equal(null, Piezo.normalizeOctave(-1));
+    test.equal(null, Piezo.normalizeOctave(9));
 
     test.done();
   },
