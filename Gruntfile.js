@@ -44,28 +44,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: false,
-        newcap: false,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        strict: false,
-        esnext: true,
-        globals: {
-          exports: true,
-          document: true,
-          $: true,
-          Radar: true,
-          WeakMap: true,
-          window: true,
-          copy: true
-        }
+        jshintrc: true
       },
       files: {
         src: [
@@ -356,7 +335,7 @@ module.exports = function(grunt) {
 
         copy(replacement);
 
-        return '  "version": "' + replacement + '",';
+        return "  \"version\": \"" + replacement + "\",";
       }
 
       return line;
