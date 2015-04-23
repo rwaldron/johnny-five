@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Relay
+
+
 
 Run with:
 ```bash
 node eg/relay.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -26,32 +30,52 @@ board.on("ready", function() {
   });
 });
 
-
-
-
-
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/relay.png](breadboard/relay.png)
-[docs/breadboard/relay.fzz](breadboard/relay.fzz)
+### Relay - normally open
 
 
-![Relay Lamp Controller](http://bocoup.com/img/weblog/relay-breadboard.png)
-
-For this program, you'll need:
-
-[![Relay Component](http://bocoup.com/img/weblog/relay-detail.jpg)](https://www.sparkfun.com/products/11042)
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
 
 
+![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
+
+Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
+
+&nbsp;
+### Relay - normally closed
+
+
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
+
+
+![docs/breadboard/relay-closed.png](breadboard/relay-closed.png)<br>
+
+Fritzing diagram: [docs/breadboard/relay-closed.fzz](breadboard/relay-closed.fzz)
+
+&nbsp;
+
+
+
+
+
+## Additional Notes
+
+- [JavaScript: Relay Control with Johnny-Five on Node](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Servo - Drive
+
+
 
 Run with:
 ```bash
 node eg/servo-drive.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -58,19 +62,33 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/servo-drive.png](breadboard/servo-drive.png)
-[docs/breadboard/servo-drive.fzz](breadboard/servo-drive.fzz)
+### Servos on pins 9 and 10
+
+
+Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-two.png](breadboard/servo-two.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

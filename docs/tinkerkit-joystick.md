@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # TinkerKit - Joystick
+
+
 
 Run with:
 ```bash
 node eg/tinkerkit-joystick.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -62,14 +66,21 @@ new five.Board().on("ready", function() {
 
 
 
+
+
+
+## Additional Notes
 - [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
 - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

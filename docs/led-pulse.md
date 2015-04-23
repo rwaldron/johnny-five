@@ -1,10 +1,16 @@
 <!--remove-start-->
+
 # LED - Pulse
+
+
+LED pulse example that fades an LED in and out repeatedly. Requires LED on pin that supports PWM (usually denoted by ~).
+
 
 Run with:
 ```bash
 node eg/led-pulse.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -32,19 +38,33 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-pulse.png](breadboard/led-pulse.png)
-[docs/breadboard/led-pulse.fzz](breadboard/led-pulse.fzz)
+### LED on pin 11 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 11.
+
+
+![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Grove - LCD RGB
+
+
 
 Run with:
 ```bash
 node eg/grove-lcd-rgb.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -50,12 +54,24 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)
-[docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+### Breadboard for "Grove - LCD RGB"
 
+
+
+![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+
+&nbsp;
+
+
+
+
+
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -65,11 +81,14 @@ For this program, you'll need:
 ![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
 
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

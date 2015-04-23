@@ -2,256 +2,915 @@
   {
     "topic": "Board",
     "classes": ["Board"],
-    "files": [
-      "board.js",
-      "board-multi.js",
-      "repl.js",
-      "pin.js"
+    "examples": [
+      {
+        "file": "board.js",
+        "title": "Basic Board initialization",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "board-with-port.js",
+        "title": "Board - Specify port",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "board-multi.js",
+        "title": "Board - Multiple in one program"
+      },
+      {
+        "file": "repl.js",
+        "title": "REPL",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "pin.js",
+        "title": "Pin"
+      }
     ]
   },
   {
     "topic": "LED",
     "classes": ["Led"],
-    "files": [
-      "led.js",
-      "led-PCA9685.js",
-      "led-blink.js",
-      "led-pulse.js",
-      "led-fade.js",
-      "led-fade-callback.js",
-      "led-array.js",
-      "led-rgb.js",
-      "led-rgb-anode.js",
-      "led-rgb-PCA9685.js",
-      "led-rainbow.js",
-      "led-demo-sequence.js",
-      "led-digits-clock.js",
-      "led-matrix.js",
-      "led-matrix-tutorial.js",
-      "led-matrix-HT16K33.js",
-      "led-matrix-HT16K33-16x8.js",
-      "laser-trip-wire.js"
+    "examples": [
+      {
+        "file": "led.js",
+        "title": "LED",
+        "description": "Basic LED example",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"},
+          {"name": "led-resistor", "title": "LED on pin 13 with breadboard and resistor (Arduino UNO)", "description": "Basic example with LED on a breadboard and demonstrating use of a resistor"},
+          {"name": "led-13-mega", "title": "LED on pin 13 (Arduino Mega)", "description": "Basic example with LED inserted directly into pin 13"}
+        ],
+        "images": [
+          {"file": "led.jpg", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "led-PCA9685.js",
+        "title": "LED - PCA9685",
+        "description": "Basic LED example using PCA9685"
+      },
+      {
+        "file": "led-blink.js",
+        "title": "LED - Blink",
+        "description": "Basic LED blink example.",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"},
+          {"name": "led-resistor", "title": "LED on pin 13 with breadboard and resistor (Arduino UNO)", "description": "Basic example with LED on a breadboard and demonstrating use of a resistor"}
+        ],
+        "images": [
+          {"file": "led.jpg", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "led-pulse.js",
+        "title": "LED - Pulse",
+        "description": "LED pulse example that fades an LED in and out repeatedly. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-fade.js",
+        "title": "LED - Fade",
+        "description": "LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-fade-callback.js",
+        "title": "LED - Fade callback",
+        "description": "Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-demo-sequence.js",
+        "title": "LED - Demo sequence",
+        "description": "Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-slider.js",
+        "title": "LED - Slider",
+        "description": "Controls the brightness of an LED by pairing it with a slider. Requires LED on pin that supports PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-array.js",
+        "title": "LED - Array",
+        "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-rgb.js",
+        "title": "LED - RGB",
+        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb", "title": "RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively."}
+        ]
+      },
+         {
+        "file": "led-rgb-anode.js",
+        "title": "LED - RGB (Common Anode)",
+        "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb-anode", "title": "Common Anode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v."}
+        ]
+      },
+      {
+        "file": "led-rgb-PCA9685.js",
+        "title": "LED - RGB PCA9685",
+        "description": "Demonstrates use of an RGB LED using a PCA9685."
+      },
+      {
+        "file": "led-rainbow.js",
+        "title": "LED - Rainbow",
+        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb-anode", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
+        ]
+      },
+      {
+        "name": "led-digits-clock",
+        "title": "LED - Digital Clock",
+        "description": "Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.",
+        "file": "led-digits-clock-galileo.js",
+        "breadboards": [
+          {"name": "led-digits-clock-galileo", "title": "Galileo Diagram"},
+          {"name": "led-digits-clock-arduino", "title": "Arduino Diagram"}
+        ],
+        "embeds": [
+          { "name": "led-digits-clock-galileo",
+            "src": "https://www.youtube.com/embed/4A3SlE6Unco",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: A Digital Clock with Johnny-Five", "href": "http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/"}
+        ]
+      },
+      {
+        "file": "led-matrix.js",
+        "title": "LED - Matrix"
+      },
+      {
+        "file": "led-matrix-tutorial.js",
+        "title": "LED - Matrix Demo"
+      },
+      {
+        "file": "led-matrix-HT16K33.js",
+        "title": "LED - Matrix HT16K33"
+      },
+      {
+        "file": "led-matrix-HT16K33-16x8.js",
+        "title": "LED - Matrix HT16K33 16x8"
+      }
     ]
   },
   {
     "topic": "Servo",
-    "classes": ["Servo"],
-    "files": [
-      "servo.js",
-      "servo-continuous.js",
-      "servo-slider.js",
-      "servo-prompt.js",
-      "servo-drive.js",
-      "servo-animation.js",
-      "servo-array.js",
-      "servo-PCA9685.js"
+    "classes": ["Servo", "Gripper"],
+    "examples": [
+      {
+        "file": "servo.js",
+        "title": "Servo"
+      },
+      {
+        "file": "servo-PCA9685.js",
+        "title": "Servo - PCA9685"
+      },
+      {
+        "file": "servo-continuous.js",
+        "title": "Servo - Continuous",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-slider.js",
+        "title": "Servo - Slider control"
+      },
+      {
+        "file": "servo-prompt.js",
+        "title": "Servo - Prompt",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-drive.js",
+        "title": "Servo - Drive",
+        "breadboards": [
+          {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-sweep.js",
+        "title": "Servo - Sweep",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-array.js",
+        "title": "Servo - Array of servos",
+        "breadboards": [
+          {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      }
     ]
   },
   {
     "topic": "Servo Animation",
     "classes": ["Animation"],
-    "files": [
-      "animation.js",
-      "phoenix.js"
+    "examples": [
+      {
+        "file": "servo-animation.js",
+        "title": "Servo - Animation",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-animation-leg.js",
+        "title": "Servo - Leg Animation",
+        "breadboards": [
+          {"name": "servo-three", "title": "Servos on pins 9, 10, 11", "description": "Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      }
     ]
   },
   {
     "topic": "Motor",
     "classes": ["Motor"],
-    "files": [
-      "motor.js",
-      "motor-directional.js",
-      "motor-brake.js",
-      "motor-current.js",
-      "motor-hbridge.js",
-      "motor-PCA9685.js",
-      "motor-3-pin.js",
-      "motobot.js"
+    "examples": [
+      {
+        "file": "motor.js",
+        "title": "Motor"
+      },
+      {
+        "file": "motor-directional.js",
+        "title": "Motor - Directional"
+      },
+      {
+        "file": "motor-brake.js",
+        "title": "Motor - Brake"
+      },
+      {
+        "file": "motor-current.js",
+        "title": "Motor - Current"
+      },
+      {
+        "file": "motor-hbridge.js",
+        "title": "Motor - H-Bridge"
+      },
+      {
+        "file": "motor-PCA9685.js",
+        "title": "Motor - PCA9685"
+      },
+      {
+        "file": "motor-3-pin.js",
+        "title": "Motor - 3 pin"
+      }
     ]
   },
   {
     "topic": "Stepper Motor",
     "classes": ["Stepper"],
-    "files": [
-      "stepper-driver.js",
-      "stepper-sweep.js"
+    "examples": [
+      {
+        "file": "stepper-driver.js",
+        "title": "Stepper - Driver"
+      },
+      {
+        "file": "stepper-sweep.js",
+        "title": "Stepper - Sweep"
+      }
     ]
   },
   {
     "topic": "ESC & Brushless Motor",
     "classes": ["ESC"],
-    "files": [
-      "esc-keypress.js",
-      "esc-dualshock.js",
-      "esc-PCA9685.js"
+    "examples": [
+      {
+        "file": "esc-keypress.js",
+        "title": "ESC - Keypress"
+      },
+      {
+        "file": "esc-dualshock.js",
+        "title": "ESC - Dualshock"
+      },
+      {
+        "file": "esc-PCA9685.js",
+        "title": "ESC - PCA9685"
+      },
+      {
+        "file": "esc-bidirectional.js",
+        "title": "ESC - Bidirectional"
+      },
+      {
+        "file": "esc-bidirectional-forward-reverse.js",
+        "title": "ESC - Bidirectional Forward-Reverse"
+      }
     ]
   },
   {
     "topic": "Sonar/Ultrasonic",
     "classes": ["Sonar", "Ping"],
-    "files": [
-      "ping.js",
-      "sonar-scan.js",
-      "sonar.js",
-      "sonar-srf10.js"
+    "examples": [
+      {
+        "file": "ping.js",
+        "title": "Ping"
+      },
+      {
+        "file": "sonar.js",
+        "title": "Sonar"
+      },
+      {
+        "file": "sonar-scan.js",
+        "title": "Sonar - Scanner"
+      },
+      {
+        "file": "sonar-srf10.js",
+        "title": "Sonar - I2C SRF10"
+      }
     ]
   },
   {
-    "topic": "Button",
-    "classes": ["Button"],
-    "files": [
-      "button.js",
-      "button-bumper.js",
-      "button-options.js",
-      "button-pullup.js"
+    "topic": "Button / Switch",
+    "classes": ["Button", "Switch"],
+    "examples": [
+      {
+        "file": "button.js",
+        "title": "Button"
+      },
+      {
+        "file": "button-bumper.js",
+        "title": "Button - Bumper"
+      },
+      {
+        "file": "button-options.js",
+        "title": "Button - Options"
+      },
+      {
+        "file": "button-pullup.js",
+        "title": "Button - Pullup"
+      },
+      {
+        "file": "toggle-switch.js",
+        "title": "Toggle Switch"
+      }
     ]
   },
   {
     "topic": "Relay",
     "classes": ["Relay"],
-    "files": [
-      "relay-lamp-controller.js"
+    "examples": [
+      {
+        "file": "relay.js",
+        "title": "Relay",
+        "breadboards": [
+          {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."},
+          {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."}
+        ]
+      }
     ]
   },
   {
     "topic": "Shift Register",
     "classes": ["ShiftRegister"],
-    "files": [
-      "shift-register.js",
-      "shift-register-seven-segment.js",
-      "shift-register-daisy-chain.js"
+    "examples": [
+      {
+        "file": "shift-register.js",
+        "title": "Shift Register"
+      },
+      {
+        "file": "shift-register-seven-segment.js",
+        "title": "Shift Register - Seven segment controller"
+      },
+      {
+        "file": "shift-register-daisy-chain.js",
+        "title": "Shift Register - Seven segments, daisy chained"
+      }
     ]
   },
   {
     "topic": "Infrared (Proximity, Motion, Reflectance)",
     "classes": ["IR.Motion", "IR.Reflect", "IR.Reflect.Array"],
-    "files": [
-      "ir-motion.js",
-      "ir-proximity.js",
-      "ir-reflect.js",
-      "ir-reflect-array.js"
+    "examples": [
+      {
+        "file": "ir-motion.js",
+        "title": "IR Motion"
+      },
+      {
+        "file": "ir-proximity.js",
+        "title": "IR Proximity"
+      },
+      {
+        "file": "ir-reflect.js",
+        "title": "IR Reflectance"
+      },
+      {
+        "file": "ir-reflect-array.js",
+        "title": "IR Reflectance Array"
+      }
     ]
   },
   {
     "topic": "Joystick",
     "classes": ["Joystick"],
-    "files": [
-      "joystick.js",
-      "joystick-claw.js",
-      "joystick-laser.js",
-      "joystick-motor-led.js"
+    "examples": [
+      {
+        "file": "joystick.js",
+        "title": "Joystick",
+        "breadboards": [
+          {"name": "joystick-sparkfun", "title": "Joystick - Sparkfun", "description": "Sparkfun joystick breakout board."},
+          {"name": "joystick-adafruit", "title": "Joystick - Adafruit", "description": "Adafruit joystick breakout board."}
+        ]
+      },
+      {
+        "file": "joystick-claw.js",
+        "title": "Joystick - Claw control"
+      },
+      {
+        "file": "joystick-pantilt.js",
+        "title": "Joystick - Pan + Tilt control"
+      },
+      {
+        "file": "joystick-motor-led.js",
+        "title": "Joystick - Motor control"
+      }
     ]
   },
   {
     "topic": "LCD",
     "classes": ["LCD"],
-    "files": [
-      "lcd.js",
-      "lcd-i2c-PCF8574.js",
-      "lcd-enumeratechars.js",
-      "lcd-runner-20x4.js",
-      "lcd-runner.js",
-      "lcd-runner.js",
-      "lcd-i2c.js",
-      "lcd-i2c-runner.js"
+    "examples": [
+      {
+        "file": "lcd.js",
+        "title": "LCD"
+      },
+      {
+        "file": "lcd-enumeratechars.js",
+        "title": "LCD - Enumerate characters"
+      },
+      {
+        "file": "lcd-runner-20x4.js",
+        "title": "LCD - Runner 20x4"
+      },
+      {
+        "file": "lcd-runner.js",
+        "title": "LCD - Runner 16x2"
+      },
+      {
+        "file": "lcd-i2c.js",
+        "title": "LCD - I2C"
+      },
+      {
+        "file": "lcd-i2c-PCF8574.js",
+        "title": "LCD - I2C PCF8574"
+      },
+      {
+        "file": "lcd-i2c-runner.js",
+        "title": "LCD - I2C Runner"
+      }
     ]
   },
   {
     "topic": "Compass/Magnetometer",
     "classes": ["Magnetometer", "Compass"],
-    "files": [
-      "compass-hmc6352.js",
-      "compass-hmc5883l.js",
-      "magnetometer-log.js",
-      "magnetometer-north.js",
-      "magnetometer.js"
+    "examples": [
+      {
+        "file": "magnetometer.js",
+        "title": "Compass / Magnetometer"
+      },
+      {
+        "file": "compass-hmc6352.js",
+        "title": "Compass - HMC6352"
+      },
+      {
+        "file": "compass-hmc5883l.js",
+        "title": "Compass - HMC5883L"
+      },
+      {
+        "file": "magnetometer-log.js",
+        "title": "Compass - Logger"
+      },
+      {
+        "file": "magnetometer-north.js",
+        "title": "Compass - Find north"
+      }
     ]
   },
   {
     "topic": "Piezo",
     "classes": ["Piezo"],
-    "files": [
-      "piezo.js"
+    "examples": [
+      {
+        "file": "piezo.js",
+        "title": "Piezo"
+      }
     ]
   },
   {
     "topic": "IMU",
     "classes": ["IMU"],
-    "files": [
-      "imu-mpu6050.js"
+    "examples": [
+      {
+        "file": "imu-mpu6050.js",
+        "title": "IMU - MPU6050"
+      }
     ]
   },
   {
     "topic": "Sensors",
-    "classes": ["Accelerometer", "Gyro", "Temperature", "Sensor"],
-    "files": [
-      "accelerometer.js",
-      "accelerometer-adxl345.js",
-      "accelerometer-adxl335.js",
-      "accelerometer-mma7361.js",
-      "accelerometer-mpu6050.js",
-      "accelerometer-pan-tilt.js",
-      "gyro.js",
-      "gyro-lpr5150l.js",
-      "gyro-mpu6050.js",
-      "photoresistor.js",
-      "photoresistor-servo.js",
-      "potentiometer.js",
-      "sensor.js",
-      "sensor-fsr-servo.js",
-      "sensor-slider.js",
-      "slider-log.js",
-      "slider-pan.js",
-      "temperature-tmp36.js",
-      "temperature-lm35.js",
-      "temperature-ds18b20.js",
-      "temperature-mpu6050.js"
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Temperature"],
+    "examples": [
+      {
+        "file": "sensor.js",
+        "title": "Sensor"
+      },
+      {
+        "file": "sensor-slider.js",
+        "title": "Sensor - Slide potentiometer"
+      },
+      {
+        "file": "sensor-fsr.js",
+        "title": "Sensor - Force sensitive resistor"
+      },
+      {
+        "file": "photoresistor.js",
+        "title": "Sensor - Photoresistor"
+      },
+      {
+        "file": "potentiometer.js",
+        "title": "Sensor - Potentiometer"
+      },
+      {
+        "file": "accelerometer.js",
+        "title": "Accelerometer"
+      },
+      {
+        "file": "accelerometer-adxl345.js",
+        "title": "Accelerometer - ADXL345"
+      },
+      {
+        "file": "accelerometer-adxl335.js",
+        "title": "Accelerometer - ADXL335"
+      },
+      {
+        "file": "accelerometer-mma7361.js",
+        "title": "Accelerometer - MMA7361"
+      },
+      {
+        "file": "accelerometer-mpu6050.js",
+        "title": "Accelerometer - MPU6050"
+      },
+      {
+        "file": "accelerometer-pan-tilt.js",
+        "title": "Accelerometer - Pan + Tilt"
+      },
+      {
+        "file": "gyro.js",
+        "title": "Gyro"
+      },
+      {
+        "file": "gyro-lpr5150l.js",
+        "title": "Gyro - Analog LPR5150AL"
+      },
+      {
+        "file": "gyro-mpu6050.js",
+        "title": "Gyro - I2C MPU6050"
+      },
+      {
+        "file": "temperature-tmp36.js",
+        "title": "Temperature - TMP36"
+      },
+      {
+        "file": "temperature-lm35.js",
+        "title": "Temperature - LM35"
+      },
+      {
+        "file": "temperature-ds18b20.js",
+        "title": "Temperature - DS18B20"
+      },
+      {
+        "file": "temperature-mpu6050.js",
+        "title": "Temperature - MPU6050"
+      }
     ]
-  },
-  {
-    "topic": "Plugin Template",
-    "files": [
-      "plugin.js"
-    ],
-    "tplType": "plugin"
   },
   {
     "topic": "Grove IoT Kit (Seeed Studio)",
     "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
-    "files": [
-      "grove-led.js",
-      "grove-button.js",
-      "grove-touch.js",
-      "grove-sensor.js",
-      "grove-lcd-rgb.js",
-      "grove-lcd-rgb-temperature-display.js",
-      "grove-servo.js"
+    "examples": [
+      {
+        "file": "grove-led.js",
+        "title": "Grove - LED",
+        "images": [
+          {"file": "grove-led.jpg", "title": "Grove LED"}
+        ]
+      },
+      {
+        "file": "grove-button.js",
+        "title": "Grove - Button"
+      },
+      {
+        "file": "grove-touch.js",
+        "title": "Grove - Touch"
+      },
+      {
+        "file": "grove-sensor.js",
+        "title": "Grove - Sensor",
+        "images": [
+          {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
+          {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
+        ]
+      },
+      {
+        "file": "grove-lcd-rgb.js",
+        "title": "Grove - LCD RGB"
+      },
+      {
+        "file": "grove-lcd-rgb-temperature-display.js",
+        "title": "Grove - LCD RGB temperature display"
+      },
+      {
+        "file": "grove-servo.js",
+        "title": "Grove - Servo"
+      }
     ]
   },
   {
     "topic": "TinkerKit",
     "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
-    "files": [
-      "tinkerkit-accelerometer.js",
-      "tinkerkit-blink.js",
-      "tinkerkit-button.js",
-      "tinkerkit-continuous-servo.js",
-      "tinkerkit-combo.js",
-      "tinkerkit-gyroscope.js",
-      "tinkerkit-joystick.js",
-      "tinkerkit-linear-pot.js",
-      "tinkerkit-rotary.js",
-      "tinkerkit-thermistor.js",
-      "tinkerkit-tilt.js",
-      "tinkerkit-touch.js"
+    "examples": [
+      {
+        "file": "tinkerkit-accelerometer.js",
+        "title": "TinkerKit - Accelerometer"
+      },
+      {
+        "file": "tinkerkit-blink.js",
+        "title": "TinkerKit - Blink",
+        "images": [
+          {"file": "tinkerkit-blink.png", "title": "TinkerKit Blink"}
+        ]
+      },
+      {
+        "file": "tinkerkit-button.js",
+        "title": "TinkerKit - Button",
+        "images": [
+          {"file": "tinkerkit-button.png", "title": "TinkerKit Button"}
+        ]
+      },
+      {
+        "file": "tinkerkit-continuous-servo.js",
+        "title": "TinkerKit - Continuous servo",
+        "images": [
+          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ]
+      },
+      {
+        "file": "tinkerkit-combo.js",
+        "title": "TinkerKit - Combo"
+      },
+      {
+        "file": "tinkerkit-gyroscope.js",
+        "title": "TinkerKit - Gyro"
+      },
+      {
+        "file": "tinkerkit-joystick.js",
+        "title": "TinkerKit - Joystick"
+      },
+      {
+        "file": "tinkerkit-linear-pot.js",
+        "title": "TinkerKit - Linear potentiometer",
+        "images": [
+          {"file": "tinkerkit-linear-pot.png", "title": "TinkerKit Linear Potentiometer"}
+        ]
+      },
+      {
+        "file": "tinkerkit-rotary.js",
+        "title": "TinkerKit - Rotary potentiometer",
+        "images": [
+          {"file": "tinkerkit-rotary.png", "title": "TinkerKit Rotary Potentiometer"}
+        ]
+      },
+      {
+        "file": "tinkerkit-thermistor.js",
+        "title": "TinkerKit - Temperature",
+        "images": [
+          {"file": "tinkerkit-thermistor.png", "title": "TinkerKit Temperature"}
+        ]
+      },
+      {
+        "file": "tinkerkit-tilt.js",
+        "title": "TinkerKit - Tilt",
+        "images": [
+          {"file": "tinkerkit-tilt.png", "title": "TinkerKit Tilt"}
+        ]
+      },
+      {
+        "file": "tinkerkit-touch.js",
+        "title": "TinkerKit - Touch",
+        "images": [
+          {"file": "tinkerkit-touch.png", "title": "TinkerKit Touch"}
+        ]
+      }
     ]
   },
   {
     "topic": "Wii",
     "classes": ["Wii.Nunchuk", "Wii.Classic"],
-    "files": [
-      "nunchuk.js",
-      "classic-controller.js"
+    "examples": [
+      {
+        "file": "nunchuk.js",
+        "title": "Wii Nunchuck"
+      },
+      {
+        "file": "classic-controller.js",
+        "title": "Wii Classic Controller"
+      }
+    ]
+  },
+  {
+    "topic": "Complete Bots / Projects",
+    "examples": [
+      {
+        "file": "line-follower.js",
+        "title": "Line Follower"
+      },
+      {
+        "file": "motobot.js",
+        "title": "Motobot",
+        "images": [
+          {"file": "motobot.jpg", "title": "Complete Motobot", "description": "Typical complete Motobot platform"},
+          {"file": "motobot-chassis.jpg", "title": "Motobot chassis", "description": "Motobot chassis before addings"}
+        ]
+      },
+      {
+        "file": "navigator.js",
+        "title": "Navigator"
+      },
+      {
+        "file": "nodebot.js",
+        "title": "Nodebot",
+        "images": [
+          {"file": "nodebot.png", "title": "Complete Nodebot", "description": "Nodebots come in many flavors, but this is a typical setup."}
+        ]
+      },
+      {
+        "file": "whisker.js",
+        "title": "Whisker"
+      },
+      {
+        "file": "phoenix.js",
+        "title": "Phoenix Hexapod"
+      },
+      {
+        "file": "boe-test-servos.js",
+        "title": "BOE Bot"
+      },
+      {
+        "file": "bug.js",
+        "title": "Bug"
+      },
+      {
+        "file": "brat.js",
+        "title": "Lynxmotion Biped BRAT",
+        "images": [
+          {"file": "brat.png", "title": "Lynxmotion Biped BRAT", "description": "Example control of biped robot"}
+        ]
+      },
+      {
+        "file": "claw.js",
+        "title": "Robotic Claw"
+      },
+      {
+        "file": "kinect-arm-controller.js",
+        "title": "Kinect Arm Controller"
+      },
+      {
+        "file": "laser-trip-wire.js",
+        "title": "Laser Trip Wire"
+      },
+      {
+        "file": "radar.js",
+        "title": "Radar"
+      }
+    ]
+  },
+  {
+    "topic": "Component Plugin Template",
+    "examples": [
+      {
+        "file": "plugin.js",
+        "title": "Example plugin"
+      }
+    ]
+  },
+  {
+    "topic": "IO Plugins",
+    "examples": [
+      {
+        "file": "imp-io.js",
+        "title": "Led Blink on Electric Imp",
+        "description": "Example using Johnny-Five + imp-io to control an Electric Imp.",
+        "images": [
+          {"file": "imp.jpg", "title": "Electric Imp"}
+        ],
+        "breadboards": [
+          {"name": "imp-led", "title": "LED on pin 9"}
+        ],
+        "externals": [
+          { "title": "imp-io on GitHub", "href": "https://github.com/rwaldron/imp-io"}
+        ]
+      },
+      {
+        "file": "spark-io.js",
+        "title": "Led Blink on Spark Core",
+        "description": "Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.",
+        "images": [
+          {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
+        ],
+        "breadboards": [
+          {"name": "spark-led", "title": "LED on pin D1"}
+        ],
+        "externals": [
+          { "title": "spark-io on GitHub", "href": "https://github.com/rwaldron/spark-io"}
+        ]
+      },
+      {
+        "file": "pcduino-io.js",
+        "title": "Led Blink on pcDuino3",
+        "description": "Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3",
+        "images": [
+          {"file": "pcduino.jpg", "title": "pcDuino3"}
+        ],
+        "externals": [
+          { "title": "pcduino-io on GitHub", "href": "https://github.com/rwaldron/pcduino-io/"}
+        ]
+      },
+      {
+        "file": "galileo-io.js",
+        "title": "Led Blink on Intel Galileo Gen 2",
+        "description": "Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2",
+        "images": [
+          {"file": "galileo-gen2.jpg", "title": "Galileo Gen 2"}
+        ],
+        "breadboards": [
+          {"name": "led-13-galileo", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "galileo-io on GitHub", "href": "https://github.com/rwaldron/galileo-io/"}
+        ]
+      },
+      {
+        "file": "raspi-io.js",
+        "title": "Led Blink on Raspberry Pi",
+        "description": "Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi",
+        "breadboards": [
+          {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
+        ],
+        "externals": [
+          { "title": "raspi-io on GitHub", "href": "https://github.com/bryan-m-hughes/raspi-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-arduino.js",
+        "title": "Led Blink on Intel Edison Arduino Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-arduino-board.jpg", "title": "Intel Edison Arduino Board"}
+        ],
+        "breadboards": [
+          {"name": "led-13-edison-arduinoboard", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-miniboard.js",
+        "title": "Led Blink on Intel Edison Mini Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-mini-board.jpg", "title": "Intel Edison Mini Board"}
+        ],
+        "breadboards": [
+          {"name": "led-1-edison-miniboard", "title": "LED on pin 1"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      }
+
     ]
   }
 ]

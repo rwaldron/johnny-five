@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Accelerometer (MMA7361)
+
+# Accelerometer - MMA7361
+
+
 
 Run with:
 ```bash
 node eg/accelerometer-mma7361.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -48,19 +52,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/accelerometer-mma7361.png](breadboard/accelerometer-mma7361.png)
-[docs/breadboard/accelerometer-mma7361.fzz](breadboard/accelerometer-mma7361.fzz)
+### Breadboard for "Accelerometer - MMA7361"
 
 
 
+![docs/breadboard/accelerometer-mma7361.png](breadboard/accelerometer-mma7361.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer-mma7361.fzz](breadboard/accelerometer-mma7361.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

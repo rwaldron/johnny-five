@@ -182,6 +182,7 @@ exports["Temperature -- DS18B20"] = {
     this.sendOneWireWrite.restore();
     this.sendOneWireWriteAndRead.restore();
     this.clock.restore();
+    Temperature.Drivers.clear();
     done();
   },
 
@@ -266,6 +267,54 @@ exports["Temperature -- DS18B20"] = {
     test.equals(this.sendOneWireWrite.args[0][1], device2);
     test.equals(this.sendOneWireWriteAndRead.args[0][1], device2);
     test.equals(this.temperature.address, 0x554433221100);
+
+    test.done();
+  },
+
+  twoAddressedUnits: function(test) {
+    var spyA = sinon.spy();
+    var spyB = sinon.spy();
+    var deviceA = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var deviceB = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    var search, data;
+
+    test.expect(2);
+
+    this.temperatureA = createDS18B20(this.pin, 0x554433221100);
+    this.temperatureA.on("data", spyA);
+    this.temperatureB = createDS18B20(this.pin, 0x050403020100);
+    this.temperatureB.on("data", spyB);
+
+    search = this.sendOneWireSearch.args[0][1];
+    search(null, [deviceA, deviceB]);
+
+    data = this.sendOneWireWriteAndRead.args[0][4];
+    data(null, [0x01, 0x02]);
+    data = this.sendOneWireWriteAndRead.args[1][4];
+    data(null, [0x03, 0x04]);
+
+    this.clock.tick(100);
+
+    test.equals(Math.round(spyA.args[0][1].celsius), 32);
+    test.equals(Math.round(spyB.args[0][1].celsius), 64);
+
+    test.done();
+  },
+
+  twoAddresslessUnitsThrowsError: function(test) {
+    var failedToCreate = false;
+
+    test.expect(1);
+
+    this.temperature = createDS18B20(this.pin);
+
+    try {
+      createDS18B20(this.pin);
+    } catch (err) {
+      failedToCreate = true;
+    }
+
+    test.equals(failedToCreate, true);
 
     test.done();
   }

@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Joystick - Claw Controller
+
+# Joystick - Claw control
+
+
 
 Run with:
 ```bash
 node eg/joystick-claw.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -45,10 +49,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

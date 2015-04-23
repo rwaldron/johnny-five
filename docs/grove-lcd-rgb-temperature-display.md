@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Grove - LCD RGB Temperature display
+
+# Grove - LCD RGB temperature display
+
+
 
 Run with:
 ```bash
 node eg/grove-lcd-rgb-temperature-display.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -54,12 +58,24 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)
-[docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+### Breadboard for "Grove - LCD RGB temperature display"
 
+
+
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+
+&nbsp;
+
+
+
+
+
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
@@ -70,11 +86,14 @@ For this program, you'll need:
 
 
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

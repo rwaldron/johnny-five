@@ -2,12 +2,6 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 var led;
 
-// Demonstrates stringing some of the LED commands together
-// through the use of a "demo sequence" array that is
-// recursively called for each step.
-//
-
-
 // Do we want the sequence to loop?
 var loop = true;
 

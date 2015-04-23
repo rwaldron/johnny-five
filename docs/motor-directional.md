@@ -1,10 +1,14 @@
 <!--remove-start-->
+
 # Motor - Directional
+
+
 
 Run with:
 ```bash
 node eg/motor-directional.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -103,19 +107,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)
-[docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
+### Breadboard for "Motor - Directional"
 
 
 
+![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

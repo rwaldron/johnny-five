@@ -1,10 +1,14 @@
 <!--remove-start-->
-# IR Proximity Component
+
+# IR Proximity
+
+
 
 Run with:
 ```bash
 node eg/ir-proximity.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -55,19 +59,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/ir-proximity.png](breadboard/ir-proximity.png)
-[docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz)
+### Breadboard for "IR Proximity"
 
 
 
+![docs/breadboard/ir-proximity.png](breadboard/ir-proximity.png)<br>
+
+Fritzing diagram: [docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

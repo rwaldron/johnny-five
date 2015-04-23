@@ -8,11 +8,14 @@ var five = require("../lib/johnny-five.js"),
 
 exports["Pin"] = {
   setUp: function(done) {
+    var io = new MockFirmata();
     var board = new Board({
-      io: new MockFirmata(),
+      io: io,
       debug: false,
       repl: false
     });
+
+    io.emit("ready");
 
     this.digital = new Pin({
       pin: 11,

@@ -47,7 +47,7 @@
 
 
 -->
-<img src="https://github.com/rwldrn/johnny-five/raw/master/assets/sgier-johnny-five.png">
+<img src="https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
 # Node-isassemble Johnny-Five
 
@@ -58,7 +58,7 @@ _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
 #### Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark Core, TI Launchpad and more!
 
-Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with: 
+Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with:
 
 - Popular application libraries such as [Express.js](http://expressjs.com/) and [Socket.io](http://socket.io/).
 - Fellow hardware projects like [ar-drone](https://github.com/felixge/node-ar-drone), [Aerogel](https://github.com/ceejbot/aerogel) and [Spheron](https://github.com/alchemycs/spheron)
@@ -79,7 +79,7 @@ For non-Arduino based projects, a number of platform-specific [IO Plugins](https
 
 ## Documentation
 
-Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs). 
+Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs).
 
 ## Guidance
 
@@ -109,7 +109,7 @@ For non-Arduino projects, each IO Plugin's repo will provide its own platform sp
 #### Source Code:
 
 ``` bash
-git clone git://github.com/rwldrn/johnny-five.git && cd johnny-five
+git clone git://github.com/rwaldron/johnny-five.git && cd johnny-five
 
 npm install
 ```
@@ -163,167 +163,193 @@ board.on("ready", function() {
 
 ### Board
 - [Basic Board initialization](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
-- [Multiple Boards in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
+- [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
+- [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
-- [Pin Component](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
+- [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 
 ### LED
-- [LED Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
-- [LED (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
+- [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
+- [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [LED - Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
-- [LED - Fade Callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
-- [LED - An Array of LEDs](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
-- [LED RGB Component](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
+- [LED - Fade callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
+- [LED - Demo sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
+- [LED - Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/led-slider.md)
+- [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
+- [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
-- [LED - RGB (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
+- [LED - RGB PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
-- [LED - Demo Sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
 - [LED - Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
 - [LED - Matrix Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
-- [LED - Matrix (HT16K33)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
-- [LED - Matrix 16x8 (HT16K33)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
-- [LED - Sensor & Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
+- [LED - Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
+- [LED - Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
 
 ### Servo
-- [Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
-- [Continuous Servo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
-- [Servo - Slide Potentiometer Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
+- [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
+- [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+- [Servo - Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
+- [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo - Drive](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-drive.md)
-- [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
-- [Servo - An Array of Servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
-- [Servo - (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+- [Servo - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-sweep.md)
+- [Servo - Array of servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 
 ### Servo Animation
-- [Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/animation.md)
-- [Phoenix](https://github.com/rwaldron/johnny-five/blob/master/docs/phoenix.md)
+- [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
+- [Servo - Leg Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation-leg.md)
 
 ### Motor
-- [Motor Component](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
+- [Motor](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
 - [Motor - Directional](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-directional.md)
 - [Motor - Brake](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
-- [Motor (H-Bridge)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
-- [Motor (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
-- [Motor (3 pin)](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
-- [Motobot](https://github.com/rwaldron/johnny-five/blob/master/docs/motobot.md)
+- [Motor - H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
+- [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
+- [Motor - 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
 - [Stepper - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-sweep.md)
 
 ### ESC & Brushless Motor
-- [ESC - Keypress Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
-- [ESC - Dualshock Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
-- [ESC (PCA9685)](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
+- [ESC - Keypress](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
+- [ESC - Dualshock](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
+- [ESC - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
+- [ESC - Bidirectional](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
+- [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
 
 ### Sonar/Ultrasonic
-- [Ping Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
+- [Ping](https://github.com/rwaldron/johnny-five/blob/master/docs/ping.md)
+- [Sonar](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar.md)
 - [Sonar - Scanner](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-scan.md)
-- [Sonar Component](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar.md)
-- [Sonar, I2C (SRF10)](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-srf10.md)
+- [Sonar - I2C SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/sonar-srf10.md)
 
-### Button
-- [Button Component](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
+### Button / Switch
+- [Button](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
 - [Button - Bumper](https://github.com/rwaldron/johnny-five/blob/master/docs/button-bumper.md)
 - [Button - Options](https://github.com/rwaldron/johnny-five/blob/master/docs/button-options.md)
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
+- [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 
 ### Relay
-- [Relay - Lamp Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-lamp-controller.md)
+- [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
 
 ### Shift Register
-- [Shift Register Component](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
-- [Shift Register - Seven Segment Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
-- [Shift Register - Seven Segments, Daisy Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
+- [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
+- [Shift Register - Seven segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
+- [Shift Register - Seven segments, daisy chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
 ### Infrared (Proximity, Motion, Reflectance)
-- [IR Motion Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
-- [IR Proximity Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
-- [IR Reflect Component](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
-- [IR Reflect Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
+- [IR Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
+- [IR Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
+- [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
+- [IR Reflectance Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
 
 ### Joystick
-- [Joystick Component](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
-- [Joystick - Claw Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
-- [Joystick - Laser Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-laser.md)
-- [Joystick + Motor + LED](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-motor-led.md)
+- [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
+- [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
+- [Joystick - Pan + Tilt control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-pantilt.md)
+- [Joystick - Motor control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-motor-led.md)
 
 ### LCD
-- [LCD Component](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
-- [LCD, I2C (PCF8574)](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-PCF8574.md)
-- [LCD - Enumerate Characters](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-enumeratechars.md)
+- [LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
+- [LCD - Enumerate characters](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [LCD - Runner 20x4](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [LCD - Runner 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)
-- [LCD - Runner 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)
-- [LCD, I2C](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
-- [LCD, I2C - Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)
+- [LCD - I2C](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
+- [LCD - I2C PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-PCF8574.md)
+- [LCD - I2C Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)
 
 ### Compass/Magnetometer
-- [Compass (HMC6352)](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc6352.md)
-- [Compass (HMC5883L)](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
-- [Compass/Magnetometer - Logging](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
-- [Compass/Magnetometer - Find North](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
-- [Compass/Magnetometer Component](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
+- [Compass / Magnetometer](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
+- [Compass - HMC6352](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc6352.md)
+- [Compass - HMC5883L](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
+- [Compass - Logger](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
+- [Compass - Find north](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
 
 ### Piezo
-- [Piezo Component](https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md)
+- [Piezo](https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md)
 
 ### IMU
-- [IMU (MPU6050)](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+- [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
 
 ### Sensors
-- [Accelerometer Component](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
-- [Accelerometer (ADXL345)](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
-- [Accelerometer (ADXLl335)](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
-- [Accelerometer (MMA7361)](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
-- [Accelerometer (MPU6050)](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
-- [Accelerometer Pan + Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
-- [Gyro Component](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro.md)
-- [Gyro - Analog (LPR5150AL)](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
-- [Gyro - I2C (MPU6050)](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
+- [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
+- [Sensor - Slide potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-slider.md)
+- [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
 - [Sensor - Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/potentiometer.md)
-- [Sensor Component](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
-- [Sensor - Force Sensitive Servo Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr-servo.md)
-- [Sensor - Slide Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-slider.md)
-- [Temperature (TMP36)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
-- [Temperature (LM35)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
-- [Temperature (DS18B20)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
-- [Temperature (MPU6050)](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
-
-### Plugin Template
-- [Component Plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+- [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
+- [Accelerometer - ADXL345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
+- [Accelerometer - ADXL335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
+- [Accelerometer - MMA7361](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
+- [Accelerometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
+- [Accelerometer - Pan + Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
+- [Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro.md)
+- [Gyro - Analog LPR5150AL](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
+- [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
+- [Temperature - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
+- [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
+- [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
+- [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
 - [Grove - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button.md)
-- [Grove - touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch.md)
+- [Grove - Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch.md)
 - [Grove - Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-sensor.md)
 - [Grove - LCD RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb.md)
-- [Grove - LCD RGB Temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
+- [Grove - LCD RGB temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
 - [Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
 
 ### TinkerKit
 - [TinkerKit - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)
 - [TinkerKit - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-blink.md)
 - [TinkerKit - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-button.md)
-- [TinkerKit - Continuous Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
+- [TinkerKit - Continuous servo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
 - [TinkerKit - Combo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-combo.md)
 - [TinkerKit - Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-gyroscope.md)
 - [TinkerKit - Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-joystick.md)
-- [TinkerKit - Linear Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-linear-pot.md)
-- [TinkerKit - Rotary Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-rotary.md)
-- [TinkerKit -- Temperature](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-thermistor.md)
-- [TinkerKit - Tilt Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-tilt.md)
-- [TinkerKit - Touch Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-touch.md)
+- [TinkerKit - Linear potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-linear-pot.md)
+- [TinkerKit - Rotary potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-rotary.md)
+- [TinkerKit - Temperature](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-thermistor.md)
+- [TinkerKit - Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-tilt.md)
+- [TinkerKit - Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-touch.md)
 
 ### Wii
-- [Wii Nunchuk Component](https://github.com/rwaldron/johnny-five/blob/master/docs/nunchuk.md)
-- [Wii Classic Controller Component](https://github.com/rwaldron/johnny-five/blob/master/docs/classic-controller.md)
+- [Wii Nunchuck](https://github.com/rwaldron/johnny-five/blob/master/docs/nunchuk.md)
+- [Wii Classic Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/classic-controller.md)
+
+### Complete Bots / Projects
+- [Line Follower](https://github.com/rwaldron/johnny-five/blob/master/docs/line-follower.md)
+- [Motobot](https://github.com/rwaldron/johnny-five/blob/master/docs/motobot.md)
+- [Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/navigator.md)
+- [Nodebot](https://github.com/rwaldron/johnny-five/blob/master/docs/nodebot.md)
+- [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
+- [Phoenix Hexapod](https://github.com/rwaldron/johnny-five/blob/master/docs/phoenix.md)
+- [BOE Bot](https://github.com/rwaldron/johnny-five/blob/master/docs/boe-test-servos.md)
+- [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
+- [Lynxmotion Biped BRAT](https://github.com/rwaldron/johnny-five/blob/master/docs/brat.md)
+- [Robotic Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
+- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
+- [Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
+- [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
+
+### Component Plugin Template
+- [Example plugin](https://github.com/rwaldron/johnny-five/blob/master/docs/plugin.md)
+
+### IO Plugins
+- [Led Blink on Electric Imp](https://github.com/rwaldron/johnny-five/blob/master/docs/imp-io.md)
+- [Led Blink on Spark Core](https://github.com/rwaldron/johnny-five/blob/master/docs/spark-io.md)
+- [Led Blink on pcDuino3](https://github.com/rwaldron/johnny-five/blob/master/docs/pcduino-io.md)
+- [Led Blink on Intel Galileo Gen 2](https://github.com/rwaldron/johnny-five/blob/master/docs/galileo-io.md)
+- [Led Blink on Raspberry Pi](https://github.com/rwaldron/johnny-five/blob/master/docs/raspi-io.md)
+- [Led Blink on Intel Edison Arduino Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-arduino.md)
+- [Led Blink on Intel Edison Mini Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-miniboard.md)
 
 <!--extract-end:examples-->
 
@@ -336,7 +362,7 @@ board.on("ready", function() {
 
 
 ## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwaldron/idiomatic.js),
 by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
 
 

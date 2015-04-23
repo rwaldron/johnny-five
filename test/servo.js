@@ -120,7 +120,7 @@ exports["Servo"] = {
   },
 
   center: function(test) {
-    test.expect(1);
+    test.expect(5);
 
     this.spy = sinon.spy(Servo.prototype, "center");
 
@@ -130,10 +130,29 @@ exports["Servo"] = {
       center: true
     });
 
+    // constructor called .center()
     test.ok(this.spy.called);
+    // and servo is actually centered
+    test.equal(this.servo.position, 90);
 
     this.spy.restore();
-    test.done();
+
+    this.servo.to(180);
+    this.servo.center(1000, 100);
+
+    // not there yet
+    this.clock.tick(900);
+    test.ok(this.servo.position > 90);
+
+    // now there
+    this.clock.tick(110);
+    test.equal(this.servo.position, 90);
+
+    // it fired a move:complete event when finished
+    this.servo.on("move:complete", function() {
+      test.ok(1, "event fired");
+      test.done();
+    }.bind(this));
 
   },
 
@@ -161,6 +180,160 @@ exports["Servo"] = {
     test.done();
   },
 
+  range: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      range: [20, 160]
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 160));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 135));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 20));
+
+    test.done();
+  },
+
+  rangeWithInvert: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      invert: true,
+      range: [30, 160]
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 20));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 45));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 150));
+
+    test.done();
+  },
+
+  offset: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      offset: -10
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 170));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 125));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 0));
+
+    test.done();
+  },
+
+  offsetWithInvert: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      offset: -10,
+      invert: true
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 10));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 55));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    test.done();
+  },
+
+  offsetWithRange: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      offset: -10,
+      range: [20, 150]
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 140));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 125));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 10));
+
+    test.done();
+  },
+
+  offsetWithRangeAndInvert: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board,
+      offset: -10,
+      range: [20, 150],
+      invert: true
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 40));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 55));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 170));
+
+    test.done();
+  },
+
+  /*
+  offset - range - invert
+  1 - 1 - 1
+  */
+
   rate: function(test) {
     test.expect(2);
 
@@ -180,7 +353,49 @@ exports["Servo"] = {
     test.done();
   },
 
-  completeMoveEmmitted: function(test) {
+  min: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(180);
+    this.servo.min(1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(this.servo.position, 0);
+
+    this.servo.on("move:complete", function() {
+      test.ok(this.servoWrite.callCount === 101);
+      test.done();
+    }.bind(this));
+  },
+  
+  max: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: board
+    });
+
+    this.servo.to(0);
+    this.servo.max(1000, 100);
+
+    this.clock.tick(1010);
+
+    test.equal(this.servo.position, 180);
+
+    this.servo.on("move:complete", function() {
+      test.ok(this.servoWrite.callCount === 101);
+      test.done();
+    }.bind(this));
+  },
+
+  completeMoveEmitted: function(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -651,5 +866,30 @@ exports["Servo.Array"] = {
 
     test.done();
   },
+
+  arrayOfArrays: function(test) {
+    test.expect(9);
+
+    var servos = new Servo.Array([this.a, this.b]);
+    var arrayOfArrays = new Servo.Array([servos, this.c]);
+
+    arrayOfArrays.to(90);
+
+    test.equal(this.to.callCount, 3);
+    test.equal(this.to.getCall(0).args[0], 90);
+    test.equal(this.to.getCall(1).args[0], 90);
+    test.equal(this.to.getCall(2).args[0], 90);
+
+    test.equal(arrayOfArrays.length, 2);
+    test.equal(arrayOfArrays[0][0], this.a);
+    test.equal(arrayOfArrays[0][1], this.b);
+    test.equal(arrayOfArrays[1], this.c);
+
+    arrayOfArrays.stop();
+
+    test.equal(this.stop.callCount, 3);
+
+    test.done();
+  }
 
 };

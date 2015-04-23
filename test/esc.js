@@ -3,12 +3,17 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  ESC = five.ESC,
-  board = new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
+  ESC = five.ESC;
+
+
+var io = new MockFirmata();
+var board = new Board({
+  io: io,
+  debug: false,
+  repl: false
+});
+
+io.emit("ready");
 
 exports["ESC"] = {
   setUp: function(done) {
@@ -22,11 +27,11 @@ exports["ESC"] = {
     this.proto = [{
       name: "speed"
     }, {
-      name: "min"
+      name: "forward"
     }, {
-      name: "max"
+      name: "reverse"
     }, {
-      name: "stop"
+      name: "brake"
     }];
 
     this.instance = [{
@@ -299,6 +304,123 @@ exports["ESC - PCA9685"] = {
 };
 
 
+exports["ESC - FORWARD_REVERSE"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    done();
+  },
+  missingNeutralThrows: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      new ESC({
+        device: "FORWARD_REVERSE",
+        pin: 11,
+      });
+    });
+
+    test.done();
+  },
+  neutralStartAt: function(test) {
+    test.expect(2);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      device: "FORWARD_REVERSE",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    test.ok(spy.calledOnce);
+    test.equal(esc.startAt, 50);
+
+    spy.restore();
+
+    test.done();
+  },
+  forward: function(test) {
+    test.expect(4);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      device: "FORWARD_REVERSE",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    spy.reset();
+
+    esc.forward(100);
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 100);
+
+    esc.forward(0);
+
+    test.ok(spy.calledTwice);
+    test.equal(spy.getCall(1).args[0], 50);
+
+    spy.restore();
+    test.done();
+  },
+  reverse: function(test) {
+    test.expect(4);
+
+    var spy = sinon.spy(ESC.prototype, "speed");
+    var esc = new ESC({
+      device: "FORWARD_REVERSE",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    spy.reset();
+
+    esc.reverse(100);
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 0);
+
+    esc.reverse(0);
+
+    test.ok(spy.calledTwice);
+    test.equal(spy.getCall(1).args[0], 50);
+
+    spy.restore();
+    test.done();
+  },
+  brake: function(test) {
+    test.expect(3);
+
+    var esc = new ESC({
+      device: "FORWARD_REVERSE",
+      neutral: 50,
+      pin: 11,
+      board: board,
+    });
+
+    var spy = sinon.spy(esc, "write");
+
+    esc.forward(1);
+    spy.reset();
+    esc.brake();
+
+    test.ok(spy.calledOnce);
+    test.equal(spy.getCall(0).args[0], 11);
+    test.equal(spy.getCall(0).args[1], 90);
+
+    spy.restore();
+    test.done();
+  },
+};
+
 exports["ESC.Array"] = {
   setUp: function(done) {
     var board = new Board({
@@ -326,7 +448,7 @@ exports["ESC.Array"] = {
 
     this.spies = [
       "speed",
-      "stop",
+      "brake",
     ];
 
     this.spies.forEach(function(method) {
@@ -386,9 +508,9 @@ exports["ESC.Array"] = {
     test.equal(this.speed.callCount, escs.length);
     test.equal(this.speed.getCall(0).args[0], 100);
 
-    escs.stop();
+    escs.brake();
 
-    test.equal(this.stop.callCount, escs.length);
+    test.equal(this.brake.callCount, escs.length);
 
     test.done();
   },

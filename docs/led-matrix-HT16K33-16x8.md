@@ -1,10 +1,14 @@
 <!--remove-start-->
-# LED - Matrix 16x8 (HT16K33)
+
+# LED - Matrix HT16K33 16x8
+
+
 
 Run with:
 ```bash
 node eg/led-matrix-HT16K33-16x8.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -59,19 +63,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led-matrix-HT16K33-16x8.png](breadboard/led-matrix-HT16K33-16x8.png)
-[docs/breadboard/led-matrix-HT16K33-16x8.fzz](breadboard/led-matrix-HT16K33-16x8.fzz)
+### Breadboard for "LED - Matrix HT16K33 16x8"
 
 
 
+![docs/breadboard/led-matrix-HT16K33-16x8.png](breadboard/led-matrix-HT16K33-16x8.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-matrix-HT16K33-16x8.fzz](breadboard/led-matrix-HT16K33-16x8.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

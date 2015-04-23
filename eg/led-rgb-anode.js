@@ -11,10 +11,15 @@ board.on("ready", function() {
     isAnode: true
   });
 
-  anode.blink();
-
+  // Add led to REPL (optional)
   this.repl.inject({
     anode: anode
   });
+
+  // Turn it on and set the initial color
+  anode.on();
+  anode.color("#FF0000");
+
+  anode.blink(1000);
 
 });
