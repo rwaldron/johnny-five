@@ -439,6 +439,11 @@
         "file": "proximity-mb1003.js",
         "title": "Proximity - MB1003",
         "description": "Basic sonar Proximity example with MB1003 sensor."
+      },
+      {
+        "file": "proximity-hcsr04.js",
+        "title": "Proximity - HC-SR04",
+        "description": "Basic ping Proximity example with HC-SR04 sensor."
       }
     ]
   },
