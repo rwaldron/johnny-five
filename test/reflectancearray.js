@@ -1,7 +1,6 @@
 var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   __ = require("../lib/fn.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
   ReflectanceArray = five.IR.Reflect.Array,
@@ -23,11 +22,11 @@ function getEyes(autoCalibrate) {
 }
 
 exports["ReflectanceArray"] = {
-  setUp: function(done, a, b, c) {
+  setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.analogWrite = sinon.spy(board.io, "analogWrite");
-    
+
     this.sendAnalogValue = function(index, value) {
       this.analogRead.args[index][1](value);
     }.bind(this);

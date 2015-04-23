@@ -3,14 +3,13 @@
 var util = require("util"),
   events = require("events");
 
-var MockSerialPort = function(path) {
+var MockSerialPort = function() {
   this.isClosed = false;
 };
 
 util.inherits(MockSerialPort, events.EventEmitter);
 
-MockSerialPort.prototype.write = function(buffer) {
-  // this.lastWrite = buffer;
+MockSerialPort.prototype.write = function() {
 };
 
 MockSerialPort.prototype.close = function() {
