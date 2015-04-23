@@ -88,7 +88,7 @@ exports["Stepper - constructor"] = {
     test.expect(1);
 
     try {
-      var stepper = new Stepper({
+      new Stepper({
         board: this.board,
         stepsPerRev: 200,
         pins: [2, 3]
@@ -390,7 +390,7 @@ exports["Stepper - step callback"] = {
     var spy = sinon.spy();
 
     test.expect(1);
-    
+
     this.stepper.cw().step(1, spy);
     // simulate successful callback from board.io
     this.step.args[0][6]();
@@ -422,7 +422,7 @@ exports["Stepper - set direction required before step"] = {
       stepsPerRev: 200,
       pins: [2, 3]
     });
-    
+
     this.stepperStep = sinon.spy(this.board.io, "stepperStep");
 
     done();
