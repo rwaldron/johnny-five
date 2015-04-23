@@ -1,7 +1,5 @@
 var MockFirmata = require("./util/mock-firmata"),
-  pins = require("./util/mock-pins"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
   Gyro = five.Gyro,
@@ -66,7 +64,6 @@ exports["Gyro -- ANALOG"] = {
   isCalibrated: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
 
     test.expect(2);
     test.ok(!this.gyro.isCalibrated);
@@ -83,7 +80,6 @@ exports["Gyro -- ANALOG"] = {
   recalibrate: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
 
     test.expect(4);
     test.ok(!this.gyro.isCalibrated);

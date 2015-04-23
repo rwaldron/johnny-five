@@ -424,7 +424,7 @@ exports["Temperature -- ANALOG"] = {
   },
 
   customData: function(test) {
-    var toCelsius = function(raw) { return 22; };
+    var toCelsius = function() { return 22; };
     var temperature = createAnalog(toCelsius);
     var raw = this.analogRead.args[0][1],
       spy = sinon.spy();

@@ -193,7 +193,6 @@ exports["Pin"] = {
 
   readAnalog: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
     this.analog.read(function() {});
     test.ok(this.analogRead.calledWith(this.analog.addr));
     test.done();
@@ -201,7 +200,6 @@ exports["Pin"] = {
 
   query: function(test) {
     test.expect(2);
-    var spy = sinon.spy();
 
     this.analog.query(function() {});
     this.digital.query(function() {});

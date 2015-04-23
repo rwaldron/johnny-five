@@ -59,7 +59,7 @@ exports["Piezo"] = {
     var tempo = 10000;
     test.expect(2);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
+    this.piezo.play({
       song: "c4",
       tempo: tempo // Make it real fast
     });
@@ -74,7 +74,7 @@ exports["Piezo"] = {
     var tempo = 10000;
     test.expect(2);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
+    this.piezo.play({
       song: "c#",
       tempo: tempo // Make it real fast
     });
@@ -94,7 +94,7 @@ exports["Piezo"] = {
       };
     test.expect(2);
 
-    var returned = this.piezo.play(tune, myCallback);
+    this.piezo.play(tune, myCallback);
     setTimeout(function() {
       test.ok(myCallback.calledOnce);
       test.ok(myCallback.calledWith(tune));
@@ -110,7 +110,7 @@ exports["Piezo"] = {
   playSingleNote: function(test) {
     test.expect(2);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play("c4");
+    this.piezo.play("c4");
     setTimeout(function() {
       test.ok(freqSpy.calledOnce);
       test.ok(freqSpy.calledWith(Piezo.Notes["c4"], (60000 / 250)));

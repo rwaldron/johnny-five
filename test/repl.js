@@ -1,5 +1,4 @@
-var SerialPort = require("./util/mock-serial").SerialPort,
-  MockFirmata = require("./util/mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Repl = require("../lib/repl"),
   Board = five.Board;

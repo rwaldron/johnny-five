@@ -1,8 +1,6 @@
 var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
   sinon = require("sinon"),
-  temporal = require("temporal"),
   board = new five.Board({
     io: new MockFirmata(),
     debug: false,
@@ -170,7 +168,6 @@ exports["Animation"] = {
     test.expect(6);
 
     var tempSegment = this.segment.multi;
-    var tempKeyFrames = tempSegment.keyFrames;
     tempSegment.keyFrames = [this.segment.multi.keyFrames[0]];
 
     this.animation.enqueue(tempSegment);
@@ -193,9 +190,7 @@ exports["Animation"] = {
     this.animation = new five.Animation(this.a);
     test.expect(2);
 
-    var tempSegment = this.segment.single,
-      testContext = this,
-      startTime = Date.now();
+    var tempSegment = this.segment.single;
 
     tempSegment.progress = 0.4;
 
@@ -212,8 +207,7 @@ exports["Animation"] = {
     test.expect(2);
 
     var tempSegment = this.segment.single,
-      testContext = this,
-      startTime = Date.now();
+      testContext = this;
 
     tempSegment.reverse = true;
 
@@ -234,8 +228,7 @@ exports["Animation"] = {
     this.animation = new five.Animation(this.a);
     test.expect(1);
 
-    var tempSegment = this.segment.single,
-      testContext = this;
+    var tempSegment = this.segment.single;
 
     tempSegment.easing = "inOutCirc";
     tempSegment.progress = 0.8;
@@ -253,8 +246,7 @@ exports["Animation"] = {
     this.animation = new five.Animation(this.a);
     test.expect(1);
 
-    var tempSegment = this.segment.single,
-      testContext = this;
+    var tempSegment = this.segment.single;
 
     tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
     tempSegment.progress = 0.9;
@@ -273,8 +265,7 @@ exports["Animation"] = {
     this.animation = new five.Animation(this.a);
     test.expect(1);
 
-    var tempSegment = this.segment.single,
-      testContext = this;
+    var tempSegment = this.segment.single;
 
     tempSegment.easing = "inOutCirc";
     tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
@@ -296,8 +287,7 @@ exports["Animation"] = {
 
     test.expect(3);
 
-    var tempSegment = this.segment.multi,
-      testContext = this;
+    var tempSegment = this.segment.multi;
 
     tempSegment.keyFrames = [null, { position: [60, 10, 10] }, null, { position: [10, 40, 20] }, { position: [10, 80, 20] }, { position: [50, 60, -20] } ];
     tempSegment.cuePoints = [0, 0.3, 0.4, 0.5, 0.8, 1.0];

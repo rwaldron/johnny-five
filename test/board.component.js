@@ -153,7 +153,7 @@ exports["Board.Component"] = {
 
     test.equal(this.board.register.length, 0);
 
-    var component = new Board.Component({
+    new Board.Component({
       pin: 2
     });
 
