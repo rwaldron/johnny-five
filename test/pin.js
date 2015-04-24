@@ -122,7 +122,7 @@ exports["Pin"] = {
     test.expect(2);
 
     test.equal(this.analog.type, "analog");
-    test.equal(this.analog.mode, 0);
+    test.equal(this.analog.mode, 2);
 
     test.done();
   },
