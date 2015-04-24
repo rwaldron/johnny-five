@@ -265,6 +265,117 @@ exports["Piezo"] = {
     test.done();
   },
 
+  nomalizeNote: function(test) {
+    test.expect(6);
+
+    var matchNote = {
+      notation: "a",
+      octave: "4",
+      beat: 1/2
+    };
+
+    // full to single note matching, reasonable defaults
+    test.deepEqual(matchNote, Piezo.normalizeNote("8a4"));
+    test.deepEqual(matchNote, Piezo.normalizeNote("a4"));
+    test.deepEqual(matchNote, Piezo.normalizeNote("a"));
+
+    // NaN, null and empty string all fail.
+    test.equal(null, Piezo.normalizeNote(NaN));
+    test.equal(null, Piezo.normalizeNote(""));
+    test.equal(null, Piezo.normalizeNote(null));
+
+    test.done();
+  },
+
+  normalizeMelody: function(test) {
+    test.expect(14);
+
+    var melody;
+    var matchNote;
+
+    // Handles RTTF+, with reasonable defaults
+    melody = Piezo.normalizeMelody("b=8 o=4 t=125: 8a4 a4 a");
+    test.equal(1/2, melody.beat);
+    test.equal(4, melody.octave);
+    test.equal(125, melody.tempo);
+    test.equal(3, melody.notes.length);
+
+    matchNote = {
+      notation: "a",
+      octave: "4",
+      beat: 1/2
+    };
+
+    test.deepEqual(matchNote, melody.notes[0]);
+    test.deepEqual(matchNote, melody.notes[1]);
+    test.deepEqual(matchNote, melody.notes[2]);
+
+    // Handles RTTF, with reasonable defaults
+    melody = Piezo.normalizeMelody("d=8 o=4 b=125: 8a4, a4,a");
+    test.equal(1/2, melody.beat);
+    test.equal(4, melody.octave);
+    test.equal(125, melody.tempo);
+    test.equal(3, melody.notes.length);
+
+    matchNote = {
+      notation: "a",
+      octave: "4",
+      beat: 1/2
+    };
+
+    test.deepEqual(matchNote, melody.notes[0]);
+    test.deepEqual(matchNote, melody.notes[1]);
+    test.deepEqual(matchNote, melody.notes[2]);
+
+    test.done();
+
+  },
+
+  frequencyToPulse: function(test) {
+    test.expect(5);
+
+    // numbers and strings work fine.
+    test.equal(1136, Piezo.frequencyToPulse(440));
+    test.equal(1136, Piezo.frequencyToPulse("440"));
+
+    // All these return null
+    test.equal(null, Piezo.frequencyToPulse(NaN));
+    test.equal(null, Piezo.frequencyToPulse(""));
+    test.equal(null, Piezo.frequencyToPulse(null));
+
+    test.done();
+  },
+
+  noteToPulse: function(test) {
+    test.expect(5);
+
+    // numbers and strings work fine.
+    test.equal(1136, Piezo.noteToPulse("2a4"));
+    test.equal(1136, Piezo.noteToPulse("a4"));
+
+    // All these return null
+    test.equal(null, Piezo.noteToPulse(NaN));
+    test.equal(null, Piezo.noteToPulse(""));
+    test.equal(null, Piezo.noteToPulse(null));
+
+    test.done();
+  },
+
+  noteToFrequency: function(test) {
+    test.expect(5);
+
+    // numbers and strings work fine.
+    test.equal(440, Piezo.noteToFrequency("2a4"));
+    test.equal(440, Piezo.noteToFrequency("a4"));
+
+    // All these return null
+    test.equal(null, Piezo.noteToFrequency(NaN));
+    test.equal(null, Piezo.noteToFrequency(""));
+    test.equal(null, Piezo.noteToFrequency(null));
+
+    test.done();
+  },
+
   defaultOctave: function(test) {
     test.expect(6);
 
