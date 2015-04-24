@@ -303,6 +303,7 @@ exports["Sensor - Digital"] = {
     test.expect(1);
     this.sensor.on("data", spy);
     data(1);
+    this.clock.tick(25);
     test.ok(spy.calledOnce);
     test.done();
   },
