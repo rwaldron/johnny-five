@@ -11,12 +11,7 @@ board.on("ready", function() {
     pin: 0,
   });
 
-  // The address of the shield.
-  //    Defaults to 0x40
-  // controller: The type of Servo/PWM controller being used.
-  //   Defaults to "standard".
-
-  // Add servo to REPL (optional)
+  // Add servo to REPL for live control (optional)
   this.repl.inject({
     servo: servo
   });
