@@ -1,4 +1,3 @@
-
 var five = require("../lib/johnny-five.js"),
   MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
@@ -6,16 +5,34 @@ var five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Pin = five.Pin;
 
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("ready");
+
+  return board;
+}
 exports["Pin"] = {
   setUp: function(done) {
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
-      debug: false,
-      repl: false
-    });
 
-    io.emit("ready");
+    this.spies = [
+      "analogWrite", "digitalWrite",
+      "analogRead", "digitalRead",
+      "queryPinState"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(MockFirmata.prototype, method);
+    }.bind(this));
+
+    var board = newBoard();
+
+    this.clock = sinon.useFakeTimers();
 
     this.digital = new Pin({
       pin: 11,
@@ -32,15 +49,6 @@ exports["Pin"] = {
       board: board
     });
 
-    this.spies = [
-      "analogWrite", "digitalWrite",
-      "analogRead", "digitalRead",
-      "queryPinState"
-    ];
-
-    this.spies.forEach(function(method) {
-      this[method] = sinon.spy(board.io, method);
-    }.bind(this));
 
     this.proto = [{
       name: "query"
@@ -72,6 +80,7 @@ exports["Pin"] = {
   },
 
   tearDown: function(done) {
+    this.clock.restore();
     this.spies.forEach(function(value) {
       this[value].restore();
     }.bind(this));
@@ -182,19 +191,126 @@ exports["Pin"] = {
     test.done();
   },
 
-  // Read Digital/Analog are adapted from Firmata tests.
-  //
   readDigital: function(test) {
-    test.expect(1);
-    this.digital.read(function() {});
-    test.ok(this.digitalRead.calledWith(this.digital.addr));
+    test.expect(22);
+
+    this.digitalRead.reset();
+
+    var pin = new Pin({
+      pin: 8,
+      mode: Pin.INPUT,
+      board: newBoard()
+    });
+
+    var readHandler = this.digitalRead.args[0][1];
+    var spy = sinon.spy();
+
+
+    pin.read(spy);
+
+    this.clock.tick(25);
+    test.ok(spy.called);
+
+    spy.reset();
+
+    for (var i = 0; i < 10; i++) {
+      readHandler(1);
+    }
+
+    this.clock.tick(200);
+    test.equal(spy.callCount, 10);
+
+    spy.args.forEach(function(args) {
+      test.equal(args[0], null);
+      test.equal(args[1], 1);
+    });
+
+    test.done();
+  },
+
+  readDigitalUpdateMode: function(test) {
+    test.expect(3);
+
+    var pin = new Pin({
+      pin: 11,
+      mode: Pin.OUTPUT,
+      board: newBoard()
+    });
+
+    var spy = sinon.spy();
+
+    test.equal(pin.mode, 1);
+
+    pin.read(spy);
+
+    test.equal(pin.mode, 0);
+
+    this.clock.tick(200);
+    test.equal(spy.callCount, 10);
+
     test.done();
   },
 
   readAnalog: function(test) {
-    test.expect(1);
-    this.analog.read(function() {});
-    test.ok(this.analogRead.calledWith(this.analog.addr));
+    test.expect(22);
+
+    this.analogRead.reset();
+
+    var pin = new Pin({
+      pin: "A0",
+      mode: Pin.ANALOG,
+      board: newBoard()
+    });
+
+    var readHandler = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+
+    pin.read(spy);
+
+    this.clock.tick(25);
+    test.ok(spy.called);
+
+    spy.reset();
+
+    for (var i = 0; i < 10; i++) {
+      readHandler(1023);
+    }
+
+    this.clock.tick(200);
+    test.equal(spy.callCount, 10);
+
+    spy.args.forEach(function(args) {
+      test.equal(args[0], null);
+      test.equal(args[1], 1023);
+    });
+
+    test.done();
+  },
+
+  readAnalogUpdateMode: function(test) {
+    /*
+    An analog pin will only be type="analog"
+     */
+
+    test.expect(3);
+
+    var pin = new Pin({
+      pin: "A0",
+      board: newBoard()
+    });
+
+    var spy = sinon.spy();
+
+    test.equal(pin.mode, 2);
+
+    pin.read(spy);
+
+    test.equal(pin.mode, 2);
+
+    this.clock.tick(200);
+    test.equal(spy.callCount, 10);
+
+
     test.done();
   },
 
