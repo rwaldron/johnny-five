@@ -476,6 +476,116 @@ exports["Pin.isAnalog"] = {
   }
 };
 
+exports["PinShape"] = {
+  setUp: function(done) {
+    // Initilize test board
+    var io = new MockFirmata();
+
+    io.emit("ready");
+
+    // Pins to test
+
+    this.rawDefNull = new Pin();
+    this.rawDefOpt = new Pin({});
+    // default Pin instances passing only the pin number
+    this.dig2Def = new Pin(2);
+    this.dig19Def = new Pin(19);
+    this.ana0Def = new Pin("A0");
+    this.ana1Def = new Pin("A1");
+    //CODE
+    done();
+  },
+
+  defaultPinShape: function(test) {
+    test.expect(30);
+
+    // complete default Pin : new Pin()
+    test.equal(this.rawDefNull.mode, 1, "raw default pin() mode --> 1 (output)");
+    test.equal(this.rawDefNull.id, null, "raw default pin() id --> null");
+    test.equal(this.rawDefNull.type, "digital", "raw default pin() type");
+    test.equal(this.rawDefNull.pin, 0, "raw default pin() pin");
+    test.equal(this.rawDefNull.addr, 0, "raw default pin() address");
+
+    // complete default Pin : new Pin({})
+    test.equal(this.rawDefOpt.mode, 1, "raw default pin({}) mode --> 1 (output)");
+    test.equal(this.rawDefOpt.id, null, "raw default pin({}) id --> null");
+    test.equal(this.rawDefOpt.type, "digital", "raw default pin({}) type");
+    test.equal(this.rawDefOpt.pin, 0, "raw default pin({}) pin");
+    test.equal(this.rawDefOpt.addr, 0, "raw default pin({}) address");
+
+    // default digital pin : new Pin(2)
+    test.equal(this.dig2Def.mode, 1, "pin(2) mode --> 1 (output)");
+    test.equal(this.dig2Def.id, null, "pin(2) id --> null");
+    test.equal(this.dig2Def.type, "digital", "pin(2) type");
+    test.equal(this.dig2Def.pin, 2, "pin(2) pin number");
+    test.equal(this.dig2Def.addr, 2, "pin(2) address");
+
+    // default DToA pin : new Pin(19)
+    test.equal(this.dig19Def.mode, 1, "pin(19) mode --> 1 (output)");
+    test.equal(this.dig19Def.id, null, "pin(19) id --> null");
+    test.equal(this.dig19Def.type, "digital", "pin(19) type");
+    test.equal(this.dig19Def.pin, 5, "pin(19) pin number");
+    test.equal(this.dig19Def.addr, 19, "pin(19) address");
+
+    // default analog pin : new Pin("A0")
+    test.equal(this.ana0Def.mode, 2, "pin('A0') mode --> 0 (analog)");
+    test.equal(this.ana0Def.id, null, "pin('A0') id --> null");
+    test.equal(this.ana0Def.type, "analog", "pin('A0') type");
+    test.equal(this.ana0Def.pin, 0, "pin('A0') pin");
+    test.equal(this.ana0Def.addr, 0, "pin('A0') address");
+
+    // default analog pin : new Pin("A1")
+    test.equal(this.ana1Def.mode, 2, "pin('A1') mode --> 0 (analog)");
+    test.equal(this.ana1Def.id, null, "pin('A1') id --> null");
+    test.equal(this.ana1Def.type, "analog", "pin('A1') type");
+    test.equal(this.ana1Def.pin, 1, "pin('A1') pin");
+    test.equal(this.ana1Def.addr, 1, "pin('A1') address");
+
+    test.done();
+  }
+};
+
+exports["PinMode"] = {
+  setUp: function(done) {
+    // Initilize test board
+    var io = new MockFirmata();
+
+    io.emit("ready");
+
+    // Pins to test
+    this.modeD0 = new Pin({ pin: 4, mode: 0});
+    this.modeD1 = new Pin({ pin: 7, mode: 1});
+    this.modeD2 = new Pin({ pin: 14, mode: 2});
+    this.modeD3 = new Pin({ pin: 3, mode: 3});
+    this.modeD4 = new Pin({ pin: 5, mode: 4});
+    this.modeA0 = new Pin({ pin: 15, mode: 0});
+    this.modeA1 = new Pin({ pin: 16, mode: 1});
+    this.modeA2 = new Pin({ pin: 17, mode: 2});
+    this.modeA3 = new Pin({ pin: 18, mode: 3});
+    this.modeA4 = new Pin({ pin: 19, mode: 4});
+
+    done();
+  },
+
+  specifiedMode: function(test) {
+    test.expect(10);
+
+    test.equal(this.modeD0.mode, 0, "mode 0 (input) specified");
+    test.equal(this.modeD1.mode, 1, "mode 1 (input) specified");
+    test.equal(this.modeD2.mode, 2, "mode 2 (input) specified");
+    test.equal(this.modeD3.mode, 3, "mode 3 (input) specified");
+    test.equal(this.modeD4.mode, 4, "mode 4 (input) specified");
+
+    test.equal(this.modeA0.mode, 0, "mode 0 (input) specified");
+    test.equal(this.modeA1.mode, 1, "mode 1 (input) specified");
+    test.equal(this.modeA2.mode, 2, "mode 2 (input) specified");
+    test.equal(this.modeA3.mode, 3, "mode 3 (input) specified");
+    test.equal(this.modeA4.mode, 4, "mode 4 (input) specified");
+
+    test.done();
+  }
+};
+
 
 // * Pin.INPUT   = 0x00
 // * Pin.OUTPUT  = 0x01
