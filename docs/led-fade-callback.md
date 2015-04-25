@@ -27,7 +27,7 @@ board.on("ready", function() {
   var timing = 250;
   var randomFade = true;
   var fadeIndex = 0;
-  var ledCount = pins.length;
+  var ledCount = leds.length;
   var i;
 
   function fadeNext() {
