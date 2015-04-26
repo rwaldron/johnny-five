@@ -485,8 +485,6 @@ exports["PinShape"] = {
 
     // Pins to test
 
-    this.rawDefNull = new Pin();
-    this.rawDefOpt = new Pin({});
     // default Pin instances passing only the pin number
     this.dig2Def = new Pin(2);
     this.dig19Def = new Pin(19);
@@ -497,21 +495,19 @@ exports["PinShape"] = {
   },
 
   defaultPinShape: function(test) {
-    test.expect(30);
+    test.expect(23);
 
-    // complete default Pin : new Pin()
-    test.equal(this.rawDefNull.mode, 1, "raw default pin() mode --> 1 (output)");
-    test.equal(this.rawDefNull.id, null, "raw default pin() id --> null");
-    test.equal(this.rawDefNull.type, "digital", "raw default pin() type");
-    test.equal(this.rawDefNull.pin, 0, "raw default pin() pin");
-    test.equal(this.rawDefNull.addr, 0, "raw default pin() address");
+    // Check for cases that should throw an exception
+    test.throws(function () {
+      test.rawDef = new Pin();
+    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
 
-    // complete default Pin : new Pin({})
-    test.equal(this.rawDefOpt.mode, 1, "raw default pin({}) mode --> 1 (output)");
-    test.equal(this.rawDefOpt.id, null, "raw default pin({}) id --> null");
-    test.equal(this.rawDefOpt.type, "digital", "raw default pin({}) type");
-    test.equal(this.rawDefOpt.pin, 0, "raw default pin({}) pin");
-    test.equal(this.rawDefOpt.addr, 0, "raw default pin({}) address");
+    test.throws(function () {
+      test.rawDef = new Pin({});
+    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
+    test.throws(function () {
+      test.rawDef = new Pin({ id: "No Pin number"});
+    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
 
     // default digital pin : new Pin(2)
     test.equal(this.dig2Def.mode, 1, "pin(2) mode --> 1 (output)");
