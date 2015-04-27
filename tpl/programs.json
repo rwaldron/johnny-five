@@ -77,6 +77,14 @@
         ]
       },
       {
+        "file": "led-pulse-animation.js",
+        "title": "LED - Pulse with animation",
+        "description": "LED pulse example that incrementally fades an LED brighter and brighter. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
         "file": "led-fade.js",
         "title": "LED - Fade",
         "description": "LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).",
@@ -88,6 +96,14 @@
         "file": "led-fade-callback.js",
         "title": "LED - Fade callback",
         "description": "Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-fade-animation.js",
+        "title": "LED - Fade with animation",
+        "description": "LED fade example that fades an LED up and down to varying values. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
       },
       {
         "file": "led-demo-sequence.js",

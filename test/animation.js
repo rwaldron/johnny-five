@@ -126,10 +126,10 @@ exports["Animation"] = {
     normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
     normalizedKeyFrames = this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(normalizedKeyFrames[0][0].value, 90);
+    test.equal(normalizedKeyFrames[0][1].value, 90);
+    test.equal(normalizedKeyFrames[0][2].value, 45);
+    test.equal(normalizedKeyFrames[0][3].value, 78);
 
     test.done();
   },
@@ -146,18 +146,18 @@ exports["Animation"] = {
     normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
     normalizedKeyFrames = this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(normalizedKeyFrames[0][3].degrees, 78);
-    test.equal(normalizedKeyFrames[1][0].degrees, 20);
-    test.equal(normalizedKeyFrames[1][1].degrees, 66);
-    test.equal(normalizedKeyFrames[1][2].degrees, 180);
-    test.equal(normalizedKeyFrames[1][3].degrees, 60);
-    test.equal(normalizedKeyFrames[2][0].degrees, 90);
-    test.equal(normalizedKeyFrames[2][1].degrees, 120);
-    test.equal(normalizedKeyFrames[2][2].degrees, 180);
-    test.equal(normalizedKeyFrames[2][3].degrees, 180);
+    test.equal(normalizedKeyFrames[0][0].value, 90);
+    test.equal(normalizedKeyFrames[0][1].value, 90);
+    test.equal(normalizedKeyFrames[0][2].value, 45);
+    test.equal(normalizedKeyFrames[0][3].value, 78);
+    test.equal(normalizedKeyFrames[1][0].value, 20);
+    test.equal(normalizedKeyFrames[1][1].value, 66);
+    test.equal(normalizedKeyFrames[1][2].value, 180);
+    test.equal(normalizedKeyFrames[1][3].value, 60);
+    test.equal(normalizedKeyFrames[2][0].value, 90);
+    test.equal(normalizedKeyFrames[2][1].value, 120);
+    test.equal(normalizedKeyFrames[2][2].value, 180);
+    test.equal(normalizedKeyFrames[2][3].value, 180);
 
     test.done();
 
@@ -176,10 +176,10 @@ exports["Animation"] = {
     normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
     normalizedKeyFrames = this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].degrees, 90);
-    test.equal(normalizedKeyFrames[0][1].degrees, 90);
-    test.equal(normalizedKeyFrames[0][2].degrees, 45);
-    test.equal(normalizedKeyFrames[0][3].degrees, 78);
+    test.equal(normalizedKeyFrames[0][0].value, 90);
+    test.equal(normalizedKeyFrames[0][1].value, 90);
+    test.equal(normalizedKeyFrames[0][2].value, 45);
+    test.equal(normalizedKeyFrames[0][3].value, 78);
     test.equal(normalizedKeyFrames[1], null);
     test.equal(normalizedKeyFrames[2], null);
 
