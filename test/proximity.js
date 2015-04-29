@@ -375,6 +375,7 @@ exports["Proximity: HCSR04"] = {
     });
 
     this.ping = new Proximity({
+      controller: "HCSR04",
       pin: 7,
       freq: 100,
       board: board
@@ -428,7 +429,7 @@ exports["Proximity: HCSR04"] = {
     this.clock.tick(100);
     test.ok(spy.calledOnce);
     test.done();
-  }
+  },
 
   // change: function(test) {
   //   var spy = sinon.spy();
@@ -444,24 +445,24 @@ exports["Proximity: HCSR04"] = {
 
   // },
 
-  // within: function(test) {
-  //   var spy = sinon.spy();
-  //   test.expect(2);
+  within: function(test) {
+    var spy = sinon.spy();
+    test.expect(2);
 
-  //   // tick the clock forward to trigger the pulseIn handler
-  //   this.clock.tick(250);
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
 
-  //   this.ping.within([0, 120], "inches", function() {
-  //     // The fake microseconds value is 1000, which
-  //     // calculates to 6.76 inches.
-  //     test.equal(this.inches, 6.76);
-  //     spy();
-  //   });
+    this.ping.within([0, 120], "inches", function() {
+      // The fake microseconds value is 1000, which
+      // calculates to 6.76 inches.
+      test.equal(this.inches, 6.7);
+      spy();
+    });
 
-  //   this.clock.tick(100);
-  //   test.ok(spy.calledOnce);
-  //   test.done();
-  // }
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
 };
 
 // - GP2Y0A21YK

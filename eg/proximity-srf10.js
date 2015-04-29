@@ -1,5 +1,4 @@
-var five = require("johnny-five.js"),
-  prox, led;
+var five = require("../lib/johnny-five.js");
 
 five.Board().on("ready", function() {
 

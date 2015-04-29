@@ -14,8 +14,7 @@ node eg/proximity-srf10.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  prox, led;
+var five = require("johnny-five");
 
 five.Board().on("ready", function() {
 
