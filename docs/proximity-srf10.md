@@ -44,6 +44,7 @@ five.Board().on("ready", function() {
 
 
 ![docs/breadboard/proximity-srf10.png](breadboard/proximity-srf10.png)<br>
+
 Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf10.fzz)
 
 &nbsp;
