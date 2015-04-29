@@ -253,6 +253,12 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
 - [IR Reflectance Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
 
+### Proximity
+- [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
+- [Proximity - SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-srf10.md)
+- [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
+- [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
+
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
 - [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)

@@ -3,7 +3,7 @@ var five = require("../lib/johnny-five.js");
 five.Board().on("ready", function() {
 
   var proximity = new five.Proximity({
-    controller: "GP2Y0A21YK",
+    controller: "MB1003",
     pin: "A0"
   });
 
