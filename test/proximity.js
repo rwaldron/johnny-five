@@ -369,10 +369,11 @@ exports["Proximity: SRF10"] = {
 exports["Proximity: HCSR04"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
+    this.pulseVal = 1000;
 
     sinon.stub(board.io, "pulseIn", function(settings, handler) {
-      handler(1000);
-    });
+      handler(this.pulseVal);
+    }.bind(this));
 
     this.ping = new Proximity({
       controller: "HCSR04",
@@ -431,19 +432,23 @@ exports["Proximity: HCSR04"] = {
     test.done();
   },
 
-  // change: function(test) {
-  //   var spy = sinon.spy();
-  //   test.expect(1);
+  change: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
 
-  //   // tick the clock forward to trigger the pulseIn handler
-  //   this.clock.tick(250);
+    this.pulseVal = 0;
 
-  //   this.ping.on("change", spy);
-  //   this.clock.tick(100);
-  //   test.ok(spy.calledOnce);
-  //   test.done();
+    // tick the clock forward to trigger the pulseIn handler
+    this.clock.tick(250);
 
-  // },
+    this.pulseVal = 1000;
+
+    this.ping.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+
+  },
 
   within: function(test) {
     var spy = sinon.spy();
