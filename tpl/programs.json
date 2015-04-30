@@ -444,7 +444,7 @@
         "file": "proximity-mb1230.js",
         "title": "Proximity - MB1230",
         "breadboards": [
-          {"name": "proximity-mb1003", "title": "roximity - MB1230", "description": "Basic sonar Proximity example with MB1230 sensor."}
+          {"name": "proximity-mb1003", "title": "Proximity - MB1230", "description": "Basic sonar Proximity example with MB1230 sensor."}
         ]
       },
       {
