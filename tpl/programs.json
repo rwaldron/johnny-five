@@ -444,6 +444,11 @@
         "file": "proximity-hcsr04.js",
         "title": "Proximity - HC-SR04",
         "description": "Basic ping Proximity example with HC-SR04 sensor."
+      },
+      {
+        "file": "proximity-lidarlite.js",
+        "title": "Proximity - LIDAR-Lite",
+        "description": "Basic LIDAR-Lite example."
       }
     ]
   },
