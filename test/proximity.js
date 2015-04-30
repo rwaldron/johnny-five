@@ -231,6 +231,42 @@ exports["Proximity: MB1003"] = {
   }
 };
 
+exports["Proximity: MB1230"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.distance = new Proximity({
+      controller: "MB1230",
+      pin: "A1",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  MB1003: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    // 250 is an actual reading at ~250cm
+    callback(250);
+
+    test.equals(Math.round(this.distance.centimeters), 250);
+    test.equals(Math.round(this.distance.cm), 250);
+    test.equals(Math.round(this.distance.inches), 98);
+    test.equals(Math.round(this.distance.in), 98);
+
+    test.done();
+  }
+};
+
 
 exports["Proximity: SRF10"] = {
 
