@@ -37,7 +37,7 @@ five.Board().on("ready", function() {
 ## Illustrations / Photos
 
 
-### roximity - MB1230
+### Proximity - MB1230
 
 
 Basic sonar Proximity example with MB1230 sensor.
