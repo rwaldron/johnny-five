@@ -24,7 +24,7 @@ exports["Nunchuk"] = {
       freq: 50
     });
 
-    this.sendI2CReadRequest = sinon.spy(this.nunchuk.io, "sendI2CReadRequest");
+    this.i2cReadOnce = sinon.spy(this.nunchuk.io, "i2cReadOnce");
 
     this.instance = [{
       name: "threshold"
@@ -49,7 +49,7 @@ exports["Nunchuk"] = {
 
   tearDown: function(done) {
     this.clock.restore();
-    this.sendI2CReadRequest.restore();
+    this.i2cReadOnce.restore();
     done();
   },
 
@@ -67,7 +67,7 @@ exports["Nunchuk"] = {
     test.expect(1);
 
     this.clock.tick(100);
-    var callback = this.sendI2CReadRequest.args[0][2];
+    var callback = this.i2cReadOnce.args[0][2];
 
     var spy = sinon.spy();
 
@@ -87,7 +87,7 @@ exports["Nunchuk"] = {
     test.expect(1);
 
     this.clock.tick(100);
-    var callback = this.sendI2CReadRequest.args[0][2];
+    var callback = this.i2cReadOnce.args[0][2];
 
     var spy = sinon.spy();
 
@@ -122,7 +122,7 @@ exports["Classic"] = {
       freq: 50
     });
 
-    this.sendI2CReadRequest = sinon.spy(this.classic.io, "sendI2CReadRequest");
+    this.i2cReadOnce = sinon.spy(this.classic.io, "i2cReadOnce");
 
     this.instance = [{
       name: "threshold"
@@ -136,7 +136,7 @@ exports["Classic"] = {
 
   tearDown: function(done) {
     this.clock.restore();
-    this.sendI2CReadRequest.restore();
+    this.i2cReadOnce.restore();
     done();
   },
 
