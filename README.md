@@ -331,7 +331,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Complete Bots / Projects
 - [Line Follower](https://github.com/rwaldron/johnny-five/blob/master/docs/line-follower.md)
 - [Motobot](https://github.com/rwaldron/johnny-five/blob/master/docs/motobot.md)
-- [Navigator](https://github.com/rwaldron/johnny-five/blob/master/docs/navigator.md)
 - [Nodebot](https://github.com/rwaldron/johnny-five/blob/master/docs/nodebot.md)
 - [Whisker](https://github.com/rwaldron/johnny-five/blob/master/docs/whisker.md)
 - [Phoenix Hexapod](https://github.com/rwaldron/johnny-five/blob/master/docs/phoenix.md)
