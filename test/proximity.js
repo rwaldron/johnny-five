@@ -195,6 +195,40 @@ exports["Proximity: GP2Y0A41SK0F"] = {
   }
 };
 
+exports["Proximity: GP2Y0A710K0F"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.distance = new Proximity({
+      controller: "GP2Y0A710K0F",
+      pin: "A1",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  GP2Y0A41SK0F: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    callback(500);
+
+    test.equals(Math.round(this.distance.centimeters), 87);
+    test.equals(Math.round(this.distance.cm), 87);
+    test.equals(Math.round(this.distance.inches), 34);
+    test.equals(Math.round(this.distance.in), 34);
+
+    test.done();
+  }
+};
 exports["Proximity: MB1000"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();

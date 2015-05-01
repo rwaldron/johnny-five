@@ -255,6 +255,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Proximity
 - [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
+- [Proximity - GP2Y0A710K0F](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-GP2Y0A710K0F.md)
 - [Proximity - SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-srf10.md)
 - [Proximity - MB1000](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1000.md)
 - [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)

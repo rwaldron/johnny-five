@@ -431,6 +431,11 @@
         "description": "Basic infrared Proximity example"
       },
       {
+        "file": "proximity-GP2Y0A710K0F.js",
+        "title": "Proximity - GP2Y0A710K0F",
+        "description": "Basic infrared Proximity example with GP2Y0A710K0F sensor."
+      },
+      {
         "file": "proximity-srf10.js",
         "title": "Proximity - SRF10",
         "description": "Basic sonar Proximity example with SRF10 sensor."
