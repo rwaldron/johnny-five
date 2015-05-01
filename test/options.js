@@ -65,18 +65,7 @@ exports["static"] = {
       result: {
         pins: [5, 6]
       }
-    }],
-      board = {
-        pins: {
-          length: 20,
-          type: "UNO"
-        },
-        io: {
-          analogPins: {
-            length: 6
-          }
-        }
-      };
+    }];
 
     test.expect(tests.length);
 

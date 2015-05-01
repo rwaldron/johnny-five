@@ -330,7 +330,7 @@ exports["Piezo"] = {
     var tempo = 10000; // Make it really fast
     test.expect(6);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
+    this.piezo.play({
       song: [
         ["c", 1],
         ["d", 2],
@@ -361,7 +361,7 @@ exports["Piezo"] = {
     test.expect(6);
     var freqSpy = sinon.spy(this.piezo, "frequency");
     var beats = 0.125;
-    var returned = this.piezo.play({
+    this.piezo.play({
       song: "c d d - 672 e4 -",
       beats: beats,
       tempo: tempo // Make it real fast

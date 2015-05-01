@@ -40,6 +40,8 @@ exports["Relay"] = {
       name: "isOn"
     }, {
       name: "type"
+    }, {
+      name: "value"
     }];
 
     done();

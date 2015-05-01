@@ -19,8 +19,8 @@ board.on("ready", function() {
   // Motor Event API
 
   // "start" events fire when the motor is started.
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start");
 
     // Demonstrate motor stop in 2 seconds
     board.wait(2000, function() {
@@ -29,8 +29,8 @@ board.on("ready", function() {
   });
 
   // "stop" events fire when the motor is started.
-  motor.on("stop", function(err, timestamp) {
-    console.log("stop", timestamp);
+  motor.on("stop", function() {
+    console.log("stop");
   });
 
   // Motor API

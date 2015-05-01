@@ -13,6 +13,7 @@
   "strict": false,
   "esnext": true,
   "quotmark": "double",
+  "unused": true,
   "globals": {
     "exports": true,
     "document": true,

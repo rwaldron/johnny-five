@@ -1,6 +1,5 @@
 require("copy-paste");
 
-var inspect = require("util").inspect;
 var fs = require("fs");
 var shell = require("shelljs");
 
@@ -12,10 +11,6 @@ module.exports = function(grunt) {
   var file = grunt.file;
   var log = grunt.log;
   var verbose = grunt.verbose;
-  var fail = grunt.fail;
-  var option = grunt.option;
-  var config = grunt.config;
-  var template = grunt.template;
   var _ = grunt.util._;
 
   var templates = {
@@ -44,28 +39,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: false,
-        newcap: false,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        strict: false,
-        esnext: true,
-        globals: {
-          exports: true,
-          document: true,
-          $: true,
-          Radar: true,
-          WeakMap: true,
-          window: true,
-          copy: true
-        }
+        jshintrc: true
       },
       files: {
         src: [
@@ -144,7 +118,7 @@ module.exports = function(grunt) {
 
   // Support running a complete set of tests with
   // extended (possibly-slow) tests included.
-  grunt.registerTask("nodeunit:complete", function(file) {
+  grunt.registerTask("nodeunit:complete", function() {
     var testConfig = grunt.config("nodeunit.tests");
     testConfig.push("test/extended/*.js");
     grunt.config("nodeunit.tests", testConfig);
@@ -176,7 +150,7 @@ module.exports = function(grunt) {
 
       entry.examples.forEach(function(example) {
         var markdown, filepath, eg, md, inMarkdown,
-          images, breadboards, embeds, externals, name, imgMarkdown, values;
+          images, breadboards, embeds, name, imgMarkdown, values;
 
         markdown = [];
         filepath = "eg/" + example.file;
@@ -356,7 +330,7 @@ module.exports = function(grunt) {
 
         copy(replacement);
 
-        return '  "version": "' + replacement + '",';
+        return "  \"version\": \"" + replacement + "\",";
       }
 
       return line;

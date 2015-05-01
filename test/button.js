@@ -1,9 +1,6 @@
 var MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
-  pins = require("./util/mock-pins"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  Board = five.Board,
   Button = five.Button;
 
 var io = new MockFirmata();
@@ -38,6 +35,8 @@ exports["Button, Digital Pin"] = {
       name: "holdtime"
     }, {
       name: "isDown"
+    }, {
+      name: "value"
     }];
 
     done();

@@ -1,5 +1,4 @@
 var MockFirmata = require("./util/mock-firmata"),
-  pins = require("./util/mock-pins"),
   five = require("../lib/johnny-five.js"),
   Board = five.Board,
   board = new Board({

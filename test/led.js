@@ -1279,10 +1279,7 @@ exports["Led.RGB"] = {
   },
 
   toggle: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11,
-      color,
+    var color,
       values;
 
     test.expect(11);
@@ -1348,7 +1345,7 @@ exports["Led.RGB - Common Anode"] = {
     });
 
     this.io = {
-      analogWrite: function(pin, value) {}
+      analogWrite: function() {}
     };
 
     this.board.io.analogWrite = function(pin, value) {
@@ -1517,10 +1514,7 @@ exports["Led.RGB - Common Anode"] = {
   },
 
   toggle: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11,
-      color,
+    var color,
       values;
 
     test.expect(11);
@@ -1572,12 +1566,11 @@ exports["Led - Default Pin w/ Firmata"] = {
     Board.purge();
 
     var io = new MockFirmata();
-    var board = new Board({
+    new Board({
       io: io,
       debug: false,
       repl: false
     });
-
     io.emit("ready");
 
     test.equal(new Led().pin, 13);

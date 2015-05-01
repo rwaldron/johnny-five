@@ -359,7 +359,7 @@ exports["static"] = {
         type: "Other"
       },
       io: {
-        normalize: function(pin) {
+        normalize: function() {
           // normalize to a single testable value that's
           // unlikely to produce false positives.
           return MAX_SAFE_INTEGER;

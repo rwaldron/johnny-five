@@ -1,6 +1,4 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon");
+var five = require("../lib/johnny-five.js");
 
 
 var Fn = five.Fn;

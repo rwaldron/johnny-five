@@ -49,14 +49,27 @@
 -->
 <img src="https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
-# Node-isassemble Johnny-Five
+# Johnny-Five
+### The JavaScript Robotics Programming Framework
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
 [![Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
-#### Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark Core, TI Launchpad and more!
+
+**Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark Core, TI Launchpad and more!**
+
+Johnny-Five has grown from a passion project into a tool for inspiring learning and creativity for people of all ages, backgrounds, and from all across the world. 
+
+Just interested in learning and building awesome things? You might want to start with the official [Johnny-Five website](http://johnny-five.io). The website combines content from this repo, the wiki, tutorials from the Bocoup blog and several third-party websites into a single, easily-discoverable source:
+
+* If you want to find the API documentation, [that’s right here](http://johnny-five.io/api/).
+* Need to figure out what platform to use for a project? We put that stuff [here](http://johnny-five.io/platform-support/).
+* Need inspiration for your next NodeBot? Check out the [examples](http://johnny-five.io/examples/).
+* Want to stay up-to-date with projects in the community? [Check this out](http://johnny-five.io/articles/).
+* Need NodeBots community or Johnny-Five project updates and announcements? [This](http://johnny-five.io/news/) is what you’re looking for.
+
 
 Johnny-Five does not attempt to provide "all the things", but instead focuses on delivering robust, reality tested, highly composable APIs that behave consistently across all supported hardware platforms. Johnny-Five wants to be a baseline control kit for hardware projects, allowing you the freedom to build, grow and experiment with diverse JavaScript libraries of your own choice. Johnny-Five couples comfortably with:
 
@@ -68,7 +81,28 @@ Johnny-Five does not attempt to provide "all the things", but instead focuses on
 ...And that's only a few of the many explorable possibilities. Check out these exciting projects: [node-pulsesensor](https://www.npmjs.org/package/node-pulsesensor), [footballbot-workshop-ui](https://www.npmjs.org/package/footballbot-workshop-ui), [nodebotui](https://www.npmjs.org/package/nodebotui), [dublin-disco](https://www.npmjs.org/package/dublin-disco), [node-slot-car-bot](https://www.npmjs.org/package/node-slot-car-bot), [servo-calibrator](https://www.npmjs.org/package/servo-calibrator), [node-ardx](https://www.npmjs.org/package/node-ardx), [nodebot-workshop](https://www.npmjs.org/package/nodebot-workshop), [phone-home](https://www.npmjs.org/package/phone-home), [purple-unicorn](https://www.npmjs.org/package/purple-unicorn), [webduino](https://www.npmjs.org/package/webduino), [leapduino](https://www.npmjs.org/package/leapduino), [lasercat-workshop](https://www.npmjs.org/package/lasercat-workshop), [simplesense](https://www.npmjs.org/package/simplesense), [five-redbot](https://www.npmjs.org/package/five-redbot), [robotnik](https://www.npmjs.org/package/robotnik), [the-blender](https://www.npmjs.org/package/the-blender)
 
 
-#### Why JavaScript? [NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
+**Why JavaScript?**
+[NodeBots: The Rise of JavaScript Robotics](http://www.voodootikigod.com/nodebots-the-rise-of-js-robotics)
+
+## Hello Johnny
+
+The ubiquitous "Hello World" program of the microcontroller and SoC world is "blink an LED". The following code demonstrates how this is done using the Johnny-Five framework.
+
+```javascript
+var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  // Create an Led on pin 13
+  var led = new five.Led(13);
+  // Blink every half second
+  led.blink(500); 
+});
+```
+
+<img src="https://github.com/rwaldron/johnny-five/raw/master/assets/led-blink.gif">
+
+> Note: Node will crash if you try to run johnny-five in the node REPL, but board instances will create their own contextual REPL. Put your script in a file.
 
 
 ## Supported Hardware
@@ -79,7 +113,7 @@ For non-Arduino based projects, a number of platform-specific [IO Plugins](https
 
 ## Documentation
 
-Documentation for the Johnny-Five API can be found [here](https://github.com/rwaldron/johnny-five/wiki) and [example programs here](https://github.com/rwaldron/johnny-five#example-programs).
+Documentation for the Johnny-Five API can be found [here](http://johnny-five.io/api/) and [example programs here](http://johnny-five.io/examples/).
 
 ## Guidance
 
@@ -123,42 +157,12 @@ npm install johnny-five
 ```
 
 
-## Johnny-Five is...
-
-```javascript
-var five = require("johnny-five"),
-    // or "./lib/johnny-five" when running from the source
-    board = new five.Board();
-
-board.on("ready", function() {
-
-  // Create an Led on pin 13 and strobe it on/off
-  // Optionally set the speed; defaults to 100ms
-  (new five.Led(13)).strobe();
-
-});
-```
-[Watch it here!](http://jsfiddle.net/rwaldron/dtudh/show/light)
-
-> Note: Node will crash if you try to run johnny-five in the node REPL, but board instances will create their own contextual REPL. Put your script in a file.
-
-
-
-## Many fragments. Some large, some small.
-
-#### [Wireless Nodebot](http://jsfiddle.net/rwaldron/88M6b/show/light) NEW!
-#### [Kinect Controlled Robot Arm](http://jsfiddle.net/rwaldron/XMsGQ/show/light/) NEW!
-#### [Biped Nodebot](http://jsfiddle.net/rwaldron/WZkn5/show/light/)
-#### [LCD Running Man](http://jsfiddle.net/rwaldron/xKwaU/show/light/)
-#### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
-#### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
-#### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
-#### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
-#### [Robot Claw](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
-#### [Joystick, Motor & Led](http://jsfiddle.net/rwaldron/gADSz/show/light/)
-
-
 ## Example Programs
+
+To get you up and running quickly, we provide a variety of examples for using each Johnny-Five component. One thing we’re especially excited about is the extensive collection of [Fritzing](http://fritzing.org/home/) diagrams you’ll find throughout the site. A huge part of doing any Johnny-Five project is handling the actual hardware, and we’ve included these as part of the documentation because we realised that instructions on how to write code to control a servo are insufficient without instructions on how to connect a servo!
+
+To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
+
 <!--extract-start:examples-->
 
 ### Board
@@ -248,6 +252,14 @@ board.on("ready", function() {
 - [IR Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
 - [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
 - [IR Reflectance Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
+
+### Proximity
+- [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
+- [Proximity - SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-srf10.md)
+- [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
+- [Proximity - MB1230](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1230.md)
+- [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
+- [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
@@ -352,6 +364,20 @@ board.on("ready", function() {
 - [Led Blink on Intel Edison Mini Board](https://github.com/rwaldron/johnny-five/blob/master/docs/edison-io-miniboard.md)
 
 <!--extract-end:examples-->
+
+## Many fragments. Some large, some small.
+
+#### [Wireless Nodebot](http://jsfiddle.net/rwaldron/88M6b/show/light)
+#### [Kinect Controlled Robot Arm](http://jsfiddle.net/rwaldron/XMsGQ/show/light/)
+#### [Biped Nodebot](http://jsfiddle.net/rwaldron/WZkn5/show/light/)
+#### [LCD Running Man](http://jsfiddle.net/rwaldron/xKwaU/show/light/)
+#### [Slider Controlled Panning Servo](http://jsfiddle.net/rwaldron/kZakv/show/light/)
+#### [Joystick Controlled Laser (pan/tilt) 1](http://jsfiddle.net/rwaldron/HPqms/show/light/)
+#### [Joystick Controlled Laser (pan/tilt) 2](http://jsfiddle.net/rwaldron/YHb7A/show/light/)
+#### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
+#### [Robot Claw](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
+#### [Joystick, Motor & Led](http://jsfiddle.net/rwaldron/gADSz/show/light/)
+
 
 
 ## Make: JavaScript Robotics

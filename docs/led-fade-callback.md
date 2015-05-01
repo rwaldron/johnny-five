@@ -14,10 +14,8 @@ node eg/led-fade-callback.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
   // Set up the following PWM pins as LEDs.
@@ -25,17 +23,16 @@ board.on("ready", function() {
   // fading the next LED in sequence out, and so on.
   // If randomFade is true, then fading will happen in random
   // order instead of sequentially.
-  var pins = [11, 10, 9, 6, 5, 3],
-    timing = 250,
-    randomFade = true,
-    myLEDS = [],
-    fadeIndex = 0,
-    ledCount = pins.length,
-    i;
+  var leds = new five.Leds([11, 10, 9, 6, 5, 3]);
+  var timing = 250;
+  var randomFade = true;
+  var fadeIndex = 0;
+  var ledCount = leds.length;
+  var i;
 
   function fadeNext() {
     var candidateIndex = fadeIndex;
-    myLEDS[fadeIndex].fadeIn(timing);
+    leds[fadeIndex].fadeIn(timing);
 
     // Determine the next LED to fade
     if (randomFade) {
@@ -47,15 +44,11 @@ board.on("ready", function() {
     }
     fadeIndex = candidateIndex;
 
-    myLEDS[fadeIndex].fadeOut(timing, fadeNext);
+    leds[fadeIndex].fadeOut(timing, fadeNext);
   }
 
-  for (i = 0; i < ledCount; i++) {
-    myLEDS[i] = new five.Led(pins[i]);
-    myLEDS[i].on();
-  }
-  myLEDS[fadeIndex].fadeOut(timing, fadeNext);
-
+  leds.on();
+  leds[fadeIndex].fadeOut(timing, fadeNext);
 });
 
 ```
