@@ -436,6 +436,13 @@
         "description": "Basic sonar Proximity example with SRF10 sensor."
       },
       {
+        "file": "proximity-mb1000.js",
+        "title": "Proximity - MB1000",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1000", "description": "Basic sonar Proximity example with MB1000 sensor."}
+        ]
+      },
+      {
         "file": "proximity-mb1003.js",
         "title": "Proximity - MB1003",
         "description": "Basic sonar Proximity example with MB1003 sensor."
