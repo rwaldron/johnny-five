@@ -1095,7 +1095,6 @@ exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.writeSpy = sinon.spy(this.board.io, "i2cWrite");
-    this.readSpy = sinon.spy(this.board.io, "i2cRead");
     this.motor = new Motor({
       board: this.board,
       pins: [8, 9, 10],
