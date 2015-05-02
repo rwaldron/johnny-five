@@ -190,7 +190,7 @@
   },
   {
     "topic": "Servo",
-    "classes": ["Servo", "Gripper"],
+    "classes": ["Servo"],
     "examples": [
       {
         "file": "servo.js",
@@ -819,10 +819,6 @@
           {"file": "motobot.jpg", "title": "Complete Motobot", "description": "Typical complete Motobot platform"},
           {"file": "motobot-chassis.jpg", "title": "Motobot chassis", "description": "Motobot chassis before addings"}
         ]
-      },
-      {
-        "file": "navigator.js",
-        "title": "Navigator"
       },
       {
         "file": "nodebot.js",
