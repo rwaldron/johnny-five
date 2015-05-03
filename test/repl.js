@@ -11,12 +11,12 @@ exports["Repl"] = {
       debug: false
     });
 
-    test.expect(2);
+    test.expect(3);
 
     board.on("ready", function() {
-      console.log("message");
-      test.ok(board.repl instanceof Repl);
-      test.ok(board.repl.context);
+      test.ok(this.repl === board.repl);
+      test.ok(this.repl instanceof Repl);
+      test.ok(this.repl.context);
       Repl.isBlocked = true;
       test.done();
     });
