@@ -4,6 +4,40 @@ var five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Led = five.Led;
 
+var protoProperties = [{
+  name: "on"
+}, {
+  name: "off"
+}, {
+  name: "toggle"
+}, {
+  name: "brightness"
+}, {
+  name: "pulse"
+}, {
+  name: "fade"
+}, {
+  name: "fadeIn"
+}, {
+  name: "fadeOut"
+}, {
+  name: "strobe"
+}, {
+  name: "blink"
+}, {
+  name: "stop"
+}];
+
+var instanceProperties = [{
+  name: "id"
+}, {
+  name: "pin"
+}, {
+  name: "value"
+}, {
+  name: "interval"
+}];
+
 function newBoard() {
   var io = new MockFirmata();
   var board = new Board({
@@ -29,42 +63,6 @@ exports["Led - Digital"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }, {
-      name: "mode"
-    }];
-
     done();
   },
 
@@ -74,13 +72,13 @@ exports["Led - Digital"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -88,31 +86,34 @@ exports["Led - Digital"] = {
   },
 
   pinMode: function(test) {
-    test.expect(1);
+    test.expect(2);
+    test.ok(this.pinMode.firstCall.calledWith(13, this.board.io.MODES.OUTPUT));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
   defaultMode: function(test) {
     test.expect(1);
-    test.equal(this.led.mode, 1);
+    test.equal(this.led.mode, this.board.io.MODES.OUTPUT);
     test.done();
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.on();
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.ok(this.digitalWrite.firstCall.calledWith(13, 1));
+    test.equal(this.digitalWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.off();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.firstCall.calledWith(13, 0));
+    test.equal(this.digitalWrite.callCount, 1);
 
     test.done();
   },
@@ -149,17 +150,20 @@ exports["Led - Digital"] = {
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
-    this.led.toggle();
+    this.digitalWrite.reset();
 
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    this.led.toggle();
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 1));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 0));
     test.ok(!this.led.isOn);
+
+    test.equal(this.digitalWrite.callCount, 2);
 
     test.done();
   },
@@ -170,15 +174,16 @@ exports["Led - Digital"] = {
     var spy;
 
     this.led.off();
+    this.digitalWrite.reset();
     this.led.strobe(100);
 
     this.clock.tick(100);
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 1));
     this.clock.tick(100);
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 0));
     this.led.stop();
     this.clock.tick(100);
-    test.equal(this.digitalWrite.callCount, 3);
+    test.equal(this.digitalWrite.callCount, 2);
 
     this.led.stop().off();
     spy = sinon.spy();
@@ -232,40 +237,6 @@ exports["Led - PWM (Analog)"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }];
-
     done();
   },
 
@@ -275,13 +246,13 @@ exports["Led - PWM (Analog)"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -289,67 +260,76 @@ exports["Led - PWM (Analog)"] = {
   },
 
   pinMode: function(test) {
-    test.expect(1);
+    test.expect(2);
+    test.ok(this.pinMode.firstCall.calledWith(11, this.board.io.MODES.PWM));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
   defaultMode: function(test) {
     test.expect(1);
-    test.equal(this.led.mode, 3);
+    test.equal(this.led.mode, this.board.io.MODES.PWM);
     test.done();
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.on();
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.firstCall.calledWith(11, 255));
+    test.equal(this.analogWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.off();
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.firstCall.calledWith(11, 0));
+    test.equal(this.analogWrite.callCount, 1);
 
     test.done();
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
+    this.analogWrite.reset();
+
     this.led.toggle();
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 255));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
     test.ok(!this.led.isOn);
+
+    test.equal(this.analogWrite.callCount, 2);
 
     test.done();
   },
 
   brightness: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     this.led.off();
+    this.analogWrite.reset();
+
     this.led.brightness(255);
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 255));
 
     this.led.brightness(100);
-    test.ok(this.analogWrite.calledWith(11, 100));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 100));
 
     this.led.brightness(0);
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
+
+    test.equal(this.analogWrite.callCount, 3);
 
     test.done();
-
   }
-
 };
 
 exports["Led - PCA9685 (I2C)"] = {
@@ -365,40 +345,6 @@ exports["Led - PCA9685 (I2C)"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }];
-
     done();
   },
 
@@ -408,13 +354,13 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -423,7 +369,7 @@ exports["Led - PCA9685 (I2C)"] = {
 
   defaultMode: function(test) {
     test.expect(1);
-    test.equal(this.led.mode, 3);
+    test.equal(this.led.mode, this.board.io.MODES.PWM);
     test.done();
   },
 
@@ -437,55 +383,65 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
+    this.i2cWrite.reset();
     this.led.on();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
+    this.i2cWrite.reset();
     this.led.off();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+    test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
+    this.i2cWrite.reset();
+
     this.led.toggle();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
     test.ok(!this.led.isOn);
+
+    test.equal(this.i2cWrite.callCount, 2);
 
     test.done();
   },
 
   brightness: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     this.led.off();
+    this.i2cWrite.reset();
+
     this.led.brightness(255);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
 
     this.led.brightness(100);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
 
     this.led.brightness(0);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+
+    test.equal(this.i2cWrite.callCount, 3);
 
     test.done();
-
   }
-
 };
 
 exports["Led.Array"] = {
