@@ -393,7 +393,7 @@ exports["Stepper - step callback"] = {
 
     this.stepper.cw().step(1, spy);
     // simulate successful callback from board.io
-    this.step.args[0][6]();
+    this.step.getCall(0).args[6]();
 
     // test that callback called up the chain to .step()
     test.equal(spy.getCall(0).args[0], null);
@@ -445,8 +445,8 @@ exports["Stepper - set direction required before step"] = {
 
     // simulate callback on success for second call
     // Note, stepper should error out before this.stepperStep()
-    // is called before direction is set, thus args[0] here.
-    this.stepperStep.args[0][6]();
+    // is called before direction is set, thus getCall(0) here.
+    this.stepperStep.getCall(0).args[6]();
 
     test.ok(!!spy.getCall(0).args[0]);
     test.ok(!spy.getCall(1).args[0]);
