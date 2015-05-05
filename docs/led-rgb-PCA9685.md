@@ -22,9 +22,9 @@ five.Board().on("ready", function() {
   // Initialize the RGB LED
   var led = new five.Led.RGB({
     pins: {
-      red: 0,
+      red: 2,
       green: 1,
-      blue: 2
+      blue: 0
     },
     controller: "PCA9685"
   });
@@ -38,7 +38,7 @@ five.Board().on("ready", function() {
   //   blue: b
   // }
   // var led = new five.Led.RGB({
-  //   pins: [0, 1, 2],
+  //   pins: [2, 1, 0],
   //   controller: "PCA9685"
   // });
 
