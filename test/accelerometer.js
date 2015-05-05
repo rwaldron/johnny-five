@@ -492,8 +492,8 @@ exports["Accelerometer -- MMA7361"] = {
   sleepPinOn: function(test) {
     test.expect(2);
 
-    test.ok(this.pinMode.calledWith(13, 1));
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.deepEqual(this.pinMode.args[0], [13, 1]);
+    test.deepEqual(this.digitalWrite.args[0], [13, 1]);
 
     test.done();
   },
@@ -502,11 +502,11 @@ exports["Accelerometer -- MMA7361"] = {
     test.expect(2);
 
     this.accel.disable();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.deepEqual(this.digitalWrite.args[1], [13, 0]);
     this.digitalWrite.reset();
 
     this.accel.enable();
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.deepEqual(this.digitalWrite.args[0], [13, 1]);
 
     test.done();
   },
