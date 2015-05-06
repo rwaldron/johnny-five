@@ -35,6 +35,8 @@ exports["Button, Digital Pin"] = {
       name: "holdtime"
     }, {
       name: "isDown"
+    }, {
+      name: "value"
     }];
 
     done();

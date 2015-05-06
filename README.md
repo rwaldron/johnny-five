@@ -177,8 +177,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
+- [LED - Pulse with animation](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse-animation.md)
 - [LED - Fade](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade.md)
 - [LED - Fade callback](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-callback.md)
+- [LED - Fade with animation](https://github.com/rwaldron/johnny-five/blob/master/docs/led-fade-animation.md)
 - [LED - Demo sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [LED - Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/led-slider.md)
 - [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
@@ -252,6 +254,17 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [IR Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
 - [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
 - [IR Reflectance Array](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect-array.md)
+
+### Proximity
+- [Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity.md)
+- [Proximity - GP2Y0A710K0F](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-GP2Y0A710K0F.md)
+- [Proximity - SRF10](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-srf10.md)
+- [Proximity - MB1000](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1000.md)
+- [Proximity - MB1010](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1010.md)
+- [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
+- [Proximity - MB1230](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1230.md)
+- [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
+- [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)

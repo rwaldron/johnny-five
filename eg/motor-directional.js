@@ -60,16 +60,16 @@ board.on("ready", function() {
     motor: motor
   });
 
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start");
   });
 
-  motor.on("stop", function(err, timestamp) {
-    console.log("automated stop on timer", timestamp);
+  motor.on("stop", function() {
+    console.log("automated stop on timer");
   });
 
-  motor.on("forward", function(err, timestamp) {
-    console.log("forward", timestamp);
+  motor.on("forward", function() {
+    console.log("forward");
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
@@ -77,8 +77,8 @@ board.on("ready", function() {
     });
   });
 
-  motor.on("reverse", function(err, timestamp) {
-    console.log("reverse", timestamp);
+  motor.on("reverse", function() {
+    console.log("reverse");
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {

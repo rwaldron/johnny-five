@@ -77,6 +77,14 @@
         ]
       },
       {
+        "file": "led-pulse-animation.js",
+        "title": "LED - Pulse with animation",
+        "description": "LED pulse example that incrementally fades an LED brighter and brighter. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
         "file": "led-fade.js",
         "title": "LED - Fade",
         "description": "LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).",
@@ -88,6 +96,14 @@
         "file": "led-fade-callback.js",
         "title": "LED - Fade callback",
         "description": "Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-fade-animation.js",
+        "title": "LED - Fade with animation",
+        "description": "LED fade example that fades an LED up and down to varying values. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
       },
       {
         "file": "led-demo-sequence.js",
@@ -418,6 +434,63 @@
       {
         "file": "ir-reflect-array.js",
         "title": "IR Reflectance Array"
+      }
+    ]
+  },
+  {
+    "topic": "Proximity",
+    "classes": ["Proximity"],
+    "examples": [
+      {
+        "file": "proximity.js",
+        "title": "Proximity",
+        "description": "Basic infrared Proximity example"
+      },
+      {
+        "file": "proximity-GP2Y0A710K0F.js",
+        "title": "Proximity - GP2Y0A710K0F",
+        "description": "Basic infrared Proximity example with GP2Y0A710K0F sensor."
+      },
+      {
+        "file": "proximity-srf10.js",
+        "title": "Proximity - SRF10",
+        "description": "Basic sonar Proximity example with SRF10 sensor."
+      },
+      {
+        "file": "proximity-mb1000.js",
+        "title": "Proximity - MB1000",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1000", "description": "Basic sonar Proximity example with MB1000 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-mb1010.js",
+        "title": "Proximity - MB1010",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1010", "description": "Basic sonar Proximity example with MB1010 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-mb1003.js",
+        "title": "Proximity - MB1003",
+        "description": "Basic sonar Proximity example with MB1003 sensor."
+      },
+      {
+        "file": "proximity-mb1230.js",
+        "title": "Proximity - MB1230",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1230", "description": "Basic sonar Proximity example with MB1230 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-hcsr04.js",
+        "title": "Proximity - HC-SR04",
+        "description": "Basic ping Proximity example with HC-SR04 sensor."
+      },
+      {
+        "file": "proximity-lidarlite.js",
+        "title": "Proximity - LIDAR-Lite",
+        "description": "Basic LIDAR-Lite example."
       }
     ]
   },

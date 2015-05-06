@@ -75,15 +75,15 @@ exports["Motor: Non-Directional"] = {
     test.expect(3);
 
     this.motor.start();
-    test.ok(this.spy.calledWith(11, 128));
+    test.deepEqual(this.spy.args[0], [11, 128]);
     this.spy.reset();
 
     this.motor.stop();
-    test.ok(this.spy.calledWith(11, 0));
+    test.deepEqual(this.spy.args[0], [11, 0]);
     this.spy.reset();
 
     this.motor.start();
-    test.ok(this.spy.calledWith(11, 128));
+    test.deepEqual(this.spy.args[0], [11, 128]);
     test.done();
   },
 
@@ -91,15 +91,15 @@ exports["Motor: Non-Directional"] = {
     test.expect(3);
 
     this.motor.start();
-    test.ok(this.spy.calledWith(11, 128));
+    test.deepEqual(this.spy.args[0], [11, 128]);
     this.spy.reset();
 
     this.motor.brake();
-    test.ok(this.spy.calledWith(11, 0));
+    test.deepEqual(this.spy.args[0], [11, 0]);
     this.spy.reset();
 
     this.motor.release();
-    test.ok(this.spy.calledWith(11, 128));
+    test.deepEqual(this.spy.args[0], [11, 128]);
     test.done();
   },
 
@@ -107,12 +107,13 @@ exports["Motor: Non-Directional"] = {
     test.expect(2);
 
     this.motor.threshold = 30;
-    this.motor.start(20);
-    test.ok(this.spy.calledWith(11, 0));
     this.spy.reset();
+    this.motor.start(20);
+    test.deepEqual(this.spy.args[0], [11, 0]);
 
+    this.spy.reset();
     this.motor.start(40);
-    test.ok(this.spy.calledWith(11, 40));
+    test.deepEqual(this.spy.args[0], [11, 40]);
 
     test.done();
   }
@@ -180,16 +181,17 @@ exports["Motor: Directional"] = {
   startStop: function(test) {
     test.expect(3);
 
+    this.analogSpy.reset();
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.deepEqual(this.analogSpy.args[0], [11, 128]);
 
     this.analogSpy.reset();
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.deepEqual(this.analogSpy.args[0], [11, 0]);
 
     this.analogSpy.reset();
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.deepEqual(this.analogSpy.args[0], [11, 128]);
 
     test.done();
   },
@@ -198,8 +200,8 @@ exports["Motor: Directional"] = {
     test.expect(2);
 
     this.motor.forward(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
 
     test.done();
   },
@@ -208,8 +210,8 @@ exports["Motor: Directional"] = {
     test.expect(2);
 
     this.motor.reverse(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
 
     test.done();
   },
@@ -218,18 +220,18 @@ exports["Motor: Directional"] = {
     test.expect(6);
 
     this.motor.rev(128);
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.firstCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
@@ -238,12 +240,12 @@ exports["Motor: Directional"] = {
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 180));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 180));
 
     test.done();
   },
@@ -253,17 +255,17 @@ exports["Motor: Directional"] = {
 
     this.motor.threshold = 30;
     this.motor.start(20);
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
@@ -325,32 +327,32 @@ exports["Motor: Directional with no speed passed"] = {
     test.expect(6);
 
     this.motor.forward();
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.forward(200);
-    test.ok(this.analogSpy.calledWith(11, 200));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 200));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 200));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 200));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
 
     test.done();
   },
@@ -360,17 +362,17 @@ exports["Motor: Directional with no speed passed"] = {
 
     this.motor.threshold = 30;
     this.motor.start(20);
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
 
     test.done();
   }
@@ -455,12 +457,12 @@ exports["Motor: Directional with Brake"] = {
     test.expect(2);
 
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(3, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(3, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 0));
 
     test.done();
   },
@@ -469,8 +471,8 @@ exports["Motor: Directional with Brake"] = {
     test.expect(2);
 
     this.motor.forward(128);
-    test.ok(this.analogSpy.calledWith(3, 128));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
 
     test.done();
   },
@@ -479,8 +481,8 @@ exports["Motor: Directional with Brake"] = {
     test.expect(2);
 
     this.motor.reverse(128);
-    test.ok(this.analogSpy.calledWith(3, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
 
     test.done();
   },
@@ -489,22 +491,22 @@ exports["Motor: Directional with Brake"] = {
     test.expect(14);
 
     this.motor.rev(128);
-    test.ok(this.analogSpy.calledWith(3, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(3, 255));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(9, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 255));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(3, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
-    test.ok(this.digitalSpy.calledWith(9, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
@@ -513,16 +515,16 @@ exports["Motor: Directional with Brake"] = {
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(3, 255));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(9, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 255));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(3, 180));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(9, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 180));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
@@ -531,21 +533,24 @@ exports["Motor: Directional with Brake"] = {
 
   timedBrake: function(test) {
     var clock = sinon.useFakeTimers();
-    test.expect(4);
+    test.expect(5);
 
     this.motor.rev(128);
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake(1000);
-    test.ok(this.analogSpy.calledWith(3, 255));
-    test.ok(this.digitalSpy.calledWith(9, 1));
+
+    test.ok(this.analogSpy.lastCall.calledWith(3, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     clock.tick(1000);
-    test.ok(this.analogSpy.calledWith(3, 0));
-    test.ok(this.digitalSpy.calledWith(9, 0));
+
+    test.ok(this.analogSpy.firstCall.calledWith(3, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 128));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
 
     clock.restore();
     test.done();
@@ -561,16 +566,16 @@ exports["Motor: Directional with Brake"] = {
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(3, 255));
-    test.ok(this.digitalSpy.calledWith(9, 1));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(3, 0));
-    test.ok(this.digitalSpy.calledWith(9, 0));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(3, 0));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
@@ -740,9 +745,9 @@ exports["Motor: Directional - Three Pin"] = {
     test.expect(3);
 
     this.motor.start();
-    test.ok(this.digitalSpy.calledWith(13, 0));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.digitalSpy.firstCall.calledWith(13, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
 
     test.done();
   },
@@ -759,10 +764,12 @@ exports["Motor: Directional - Three Pin"] = {
   forward: function(test) {
     test.expect(3);
 
+    this.analogSpy.reset();
+    this.digitalSpy.reset();
     this.motor.forward(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(13, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
+    test.ok(this.digitalSpy.firstCall.calledWith(13, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
 
     test.done();
   },
@@ -770,10 +777,12 @@ exports["Motor: Directional - Three Pin"] = {
   reverse: function(test) {
     test.expect(3);
 
+    this.analogSpy.reset();
+    this.digitalSpy.reset();
     this.motor.reverse(128);
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
-    test.ok(this.digitalSpy.calledWith(13, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
+    test.ok(this.digitalSpy.firstCall.calledWith(13, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
 
     test.done();
   },
@@ -786,16 +795,17 @@ exports["Motor: Directional - Three Pin"] = {
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(12, 1));
-    test.ok(this.digitalSpy.calledWith(13, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(13, 1));
+
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 128));
-    test.ok(this.digitalSpy.calledWith(12, 0));
-    test.ok(this.digitalSpy.calledWith(13, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
+    test.ok(this.digitalSpy.firstCall.calledWith(13, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
 
     test.done();
   },
@@ -877,24 +887,24 @@ exports["Motor: Inverse Speed When Forward"] = {
     test.expect(6);
 
     this.motor.forward(255);
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.forward(180);
-    test.ok(this.analogSpy.calledWith(11, 75));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 75));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 255));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 75));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 75));
 
     test.done();
   },
@@ -903,24 +913,24 @@ exports["Motor: Inverse Speed When Forward"] = {
     test.expect(6);
 
     this.motor.reverse(255);
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.reverse(180);
-    test.ok(this.analogSpy.calledWith(11, 180));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 180));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.stop();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.start();
-    test.ok(this.analogSpy.calledWith(11, 180));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 180));
 
     test.done();
   },
@@ -930,34 +940,34 @@ exports["Motor: Inverse Speed When Forward"] = {
 
     this.motor.forward(255);
     // pwm values are inversed when the enable pin is high
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 255));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.reverse(255);
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 255));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
 
     test.done();
   },
@@ -967,18 +977,18 @@ exports["Motor: Inverse Speed When Forward"] = {
 
     this.motor.threshold = 30;
     this.motor.start(20);
-    test.ok(this.analogSpy.calledWith(11, 255));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 255));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
 
     test.done();
   }
@@ -1050,41 +1060,46 @@ exports["Motor: Inverse Speed With Brake"] = {
   },
 
   brake: function(test) {
-    test.expect(12);
+    test.expect(17);
 
     this.motor.forward(255);
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(12, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(9, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(9, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.reverse(255);
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(12, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.brake();
-    test.ok(this.analogSpy.calledWith(11, 255));
-    test.ok(this.digitalSpy.calledWith(9, 1));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(9, 1));
+    test.ok(this.digitalSpy.lastCall.calledWith(12, 1));
     this.analogSpy.reset();
     this.digitalSpy.reset();
 
     this.motor.release();
-    test.ok(this.analogSpy.calledWith(11, 0));
-    test.ok(this.digitalSpy.calledWith(9, 0));
+    test.ok(this.analogSpy.firstCall.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 255));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 0));
+    test.ok(this.digitalSpy.lastCall.calledWith(9, 0));
 
     test.done();
   }
@@ -1094,8 +1109,7 @@ exports["Motor: Inverse Speed With Brake"] = {
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.writeSpy = sinon.spy(this.board.io, "sendI2CWriteRequest");
-    this.readSpy = sinon.spy(this.board.io, "sendI2CReadRequest");
+    this.writeSpy = sinon.spy(this.board.io, "i2cWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [8, 9, 10],
@@ -1404,7 +1418,7 @@ exports["Motor: ShiftRegister"] = {
 
     this.motor.start();
 
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
 
     test.done();
   },
@@ -1414,7 +1428,7 @@ exports["Motor: ShiftRegister"] = {
 
     this.motor.stop();
 
-    test.ok(this.analogSpy.calledWith(11, 0));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 0));
 
     test.done();
   },
@@ -1424,10 +1438,10 @@ exports["Motor: ShiftRegister"] = {
 
     this.motor.forward(128);
 
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
 
-    test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
-    test.ok(this.shiftOutSpy.calledWith(8, 4, true, 0x04));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 0)); // Latch 0
+    test.ok(this.shiftOutSpy.lastCall.calledWith(8, 4, true, 0x04));
     test.ok(this.digitalSpy.getCall(25).calledWith(12, 1)); // Latch 1
 
     test.done();
@@ -1438,10 +1452,10 @@ exports["Motor: ShiftRegister"] = {
 
     this.motor.reverse(128);
 
-    test.ok(this.analogSpy.calledWith(11, 128));
+    test.ok(this.analogSpy.lastCall.calledWith(11, 128));
 
-    test.ok(this.digitalSpy.getCall(0).calledWith(12, 0)); // Latch 0
-    test.ok(this.shiftOutSpy.calledWith(8, 4, true, 0x08));
+    test.ok(this.digitalSpy.firstCall.calledWith(12, 0)); // Latch 0
+    test.ok(this.shiftOutSpy.lastCall.calledWith(8, 4, true, 0x08));
     test.ok(this.digitalSpy.getCall(25).calledWith(12, 1)); // Latch 1
 
     test.done();
