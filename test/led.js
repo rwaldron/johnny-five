@@ -368,8 +368,17 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   defaultMode: function(test) {
-    test.expect(1);
+    test.expect(2);
+
+    var led2 = new Led({
+      pin: 5,
+      controller: "PCA9685",
+      board: this.board
+    });
+
     test.equal(this.led.mode, this.board.io.MODES.PWM);
+    test.equal(led2.mode, this.board.io.MODES.PWM);
+
     test.done();
   },
 
