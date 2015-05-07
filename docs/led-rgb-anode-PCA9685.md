@@ -3,7 +3,7 @@
 # LED - RGB (Common Anode) PCA9685
 
 
-Demonstrates use of an RGB LED (common anode) using a PCA9685.
+Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by setting its color to red (`#ff0000`) and making it blink.
 
 
 Run with:

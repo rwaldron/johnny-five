@@ -3,7 +3,7 @@
 # LED - RGB PCA9685
 
 
-Demonstrates use of an RGB LED using a PCA9685.
+Demonstrates use of an RGB LED (common anode) using a PCA9685.
 
 
 Run with:
