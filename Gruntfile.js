@@ -1,3 +1,4 @@
+require("es6-shim");
 require("copy-paste");
 
 var fs = require("fs");
@@ -10,6 +11,7 @@ module.exports = function(grunt) {
   var task = grunt.task;
   var file = grunt.file;
   var log = grunt.log;
+  var fail = grunt.fail;
   var verbose = grunt.verbose;
   var _ = grunt.util._;
 
@@ -22,7 +24,8 @@ module.exports = function(grunt) {
     noedit: _.template(file.read("tpl/.noedit.md")),
     embeds: {
       youtube: _.template(file.read("tpl/.embed-youtube.html")),
-    }
+    },
+    program: _.template(file.read("tpl/.eg-program-template.js")),
   };
 
   // Project configuration.
@@ -100,6 +103,22 @@ module.exports = function(grunt) {
           interrupt: true,
         },
       }
+    }
+  });
+
+  grunt.registerTask("example", "Create an example program, usage: \"grunt expample:<file-name>[.js]\"", function(fileName) {
+
+    if (!fileName.endsWith(".js")) {
+      fileName += ".js";
+    }
+
+    var pathAndFile = "eg/" + fileName;
+
+    if (file.exists(pathAndFile)) {
+      fail.warn(pathAndFile + " exists!");
+    } else {
+      file.write(pathAndFile, templates.program());
+      log.writeln("Example created: %s", pathAndFile);
     }
   });
 

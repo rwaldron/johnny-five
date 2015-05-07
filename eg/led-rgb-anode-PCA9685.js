@@ -10,6 +10,7 @@ five.Board().on("ready", function() {
       green: 1,
       blue: 0
     },
+    isAnode: true,
     controller: "PCA9685"
   });
 
@@ -23,6 +24,7 @@ five.Board().on("ready", function() {
   // }
   // var led = new five.Led.RGB({
   //   pins: [2, 1, 0],
+  //   isAnode: true,
   //   controller: "PCA9685"
   // });
 
@@ -30,5 +32,11 @@ five.Board().on("ready", function() {
   this.repl.inject({
     led: led
   });
+
+  // Turn it on and set the initial color
+  led.on();
+  led.color("#FF0000");
+
+  led.blink(1000);
 
 });
