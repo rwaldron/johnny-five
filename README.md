@@ -278,9 +278,9 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
-- [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
+- [Joystick - Esplora](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-esplora.md)
+- [Joystick - Sparkfun Shield](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-shield.md)
 - [Joystick - Pan + Tilt control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-pantilt.md)
-- [Joystick - Motor control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-motor-led.md)
 
 ### LCD
 - [LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)

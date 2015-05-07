@@ -1,12 +1,12 @@
 <!--remove-start-->
 
-# Joystick
+# Joystick - Sparkfun Shield
 
 
 
 Run with:
 ```bash
-node eg/joystick.js
+node eg/joystick-shield.js
 ```
 
 <!--remove-end-->
@@ -16,11 +16,9 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-
-  // Create a new `joystick` hardware instance.
   var joystick = new five.Joystick({
-    //   [ x, y ]
-    pins: ["A0", "A1"]
+    pins: ["A0", "A1"],
+    invertY: true
   });
 
   joystick.on("change", function() {
@@ -37,26 +35,13 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Joystick - Sparkfun
+### Joystick - Sparkfun Shield
 
 
-Sparkfun joystick breakout board.
+Sparkfun Joystick Shield example.
 
 
-![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
-
-Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
-
-&nbsp;
-### Joystick - Adafruit
-
-
-Adafruit joystick breakout board.
-
-
-![docs/breadboard/joystick-adafruit.png](breadboard/joystick-adafruit.png)<br>
-
-Fritzing diagram: [docs/breadboard/joystick-adafruit.fzz](breadboard/joystick-adafruit.fzz)
+![docs/breadboard/joystick-shield.png](breadboard/joystick-shield.png)<br>
 
 &nbsp;
 
