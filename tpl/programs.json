@@ -140,16 +140,10 @@
         ]
       },
       {
-        "file": "led-rgb-PCA9685.js",
-        "title": "LED - RGB PCA9685",
-        "description": "Demonstrates use of an RGB LED (common anode) using a PCA9685."
-      },
-      {
         "file": "led-rgb-anode-PCA9685.js",
         "title": "LED - RGB (Common Anode) PCA9685",
         "description": "Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by setting its color to red (`#ff0000`) and making it blink."
       },
-
       {
         "file": "led-rainbow.js",
         "title": "LED - Rainbow",
