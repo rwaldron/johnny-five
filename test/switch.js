@@ -50,14 +50,14 @@ exports["Switch"] = {
     test.done();
   },
 
-  closed: function(test) {
+  close: function(test) {
 
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
     this.
-    switch.on("closed", function() {
+    switch.on("close", function() {
 
       test.ok(true);
       test.done();
