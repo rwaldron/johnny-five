@@ -1,12 +1,20 @@
+![](https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png)
+
+# Johnny-Five
+### The JavaScript Robotics Programming Framework
+
 <!-- 
 
     Hello!
 
     Please don't edit this file!
 
-    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example, please put the file in eg/ and then add an entry to programs.json. To generate the markdown and update the main readme, run: 
+    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example: 
 
-    `grunt examples`
+    1. Add the file in `eg/`
+    2. Add a breadboard image in `docs/breadboards`
+    3. Add an entry to `tpl/programs.json`. 
+    4. Generated the markdown with: `grunt examples`
 
 
 
@@ -47,14 +55,12 @@
 
 
 -->
-<img src="https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
-# Johnny-Five
-### The JavaScript Robotics Programming Framework
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
-[![Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 
@@ -186,7 +192,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
 - [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
-- [LED - RGB PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)

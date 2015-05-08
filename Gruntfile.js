@@ -21,12 +21,13 @@ module.exports = function(grunt) {
     breadboard: _.template(file.read("tpl/.breadboard.md")),
     eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
-    noedit: _.template(file.read("tpl/.noedit.md")),
     embeds: {
       youtube: _.template(file.read("tpl/.embed-youtube.html")),
     },
     program: _.template(file.read("tpl/.eg-program-template.js")),
   };
+
+  var noedit = file.read("tpl/.noedit.md");
 
   // Project configuration.
   grunt.initConfig({
@@ -301,8 +302,10 @@ module.exports = function(grunt) {
 
     // Write the readme with doc link index
     file.write("README.md",
-      templates.noedit() +
-      templates.readme({ eglinks: readme.join("") })
+      templates.readme({
+        noedit: noedit,
+        eglinks: readme.join("")
+      })
     );
 
     log.writeln("Examples created.");
