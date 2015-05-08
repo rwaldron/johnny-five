@@ -2,6 +2,7 @@ require("es6-shim");
 require("copy-paste");
 
 var fs = require("fs");
+var exec = require("child_process").exec;
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -16,6 +17,7 @@ module.exports = function(grunt) {
   var _ = grunt.util._;
 
   var templates = {
+    changelog: _.template(file.read("tpl/.changelog.md")),
     eg: _.template(file.read("tpl/.eg.md")),
     img: _.template(file.read("tpl/.img.md")),
     breadboard: _.template(file.read("tpl/.breadboard.md")),
@@ -366,5 +368,65 @@ module.exports = function(grunt) {
     //  - npm publish
     //
     //
+  });
+
+  grunt.registerTask("changelog", "Generate a changelog. Range: changelog:v0.0.0--v0.0.2; Current: changelog:v0.0.2", function(version) {
+    var done = this.async();
+    var temp = "";
+    var previous = "";
+    var thisPatch;
+    var lastPatch;
+
+    if (!version) {
+      version = grunt.config("pkg.version");
+    }
+
+    if (version.includes("--")) {
+      /*
+        Example:
+
+          grunt changelog:v0.8.71--v0.8.73
+
+       */
+      temp = version.split("--");
+      previous = temp[0];
+      version = temp[1];
+    } else {
+      /*
+        Example:
+
+          grunt changelog
+          grunt changelog:v0.8.73
+
+       */
+      thisPatch = version.replace(/^v/, "").split(".").pop();
+      lastPatch = Number(thisPatch) - 1;
+      previous = version.replace(thisPatch, lastPatch);
+      version = "HEAD";
+    }
+
+    exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      var commits = result.split("\n")
+        .filter(function(cmt) { return cmt.trim() !== ""; })
+        .map(function(cmt) { return cmt.split("|"); });
+
+      var rows = commits.reduce(function(accum, commit) {
+        if (commit[3].indexOf("Merge") === 0) {
+          return accum;
+        }
+        accum += "| https://github.com/rwaldron/johnny-five/commit/" + commit[0] + " | " + commit[3] + " |\n";
+
+        return accum;
+      }, "");
+
+      log.writeln(templates.changelog({ rows: rows }));
+
+      done();
+    });
   });
 };
