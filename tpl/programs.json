@@ -495,6 +495,17 @@
     ]
   },
   {
+    "topic": "Motion",
+    "classes": ["Motion"],
+    "examples": [
+      {
+        "file": "motion.js",
+        "title": "Motion",
+        "description": "Basic infrared Motion example"
+      }
+    ]
+  },
+  {
     "topic": "Joystick",
     "classes": ["Joystick"],
     "examples": [

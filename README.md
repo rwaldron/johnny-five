@@ -272,6 +272,9 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
 - [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 
+### Motion
+- [Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/motion.md)
+
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
 - [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
