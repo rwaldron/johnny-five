@@ -4,6 +4,40 @@ var five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Led = five.Led;
 
+var protoProperties = [{
+  name: "on"
+}, {
+  name: "off"
+}, {
+  name: "toggle"
+}, {
+  name: "brightness"
+}, {
+  name: "pulse"
+}, {
+  name: "fade"
+}, {
+  name: "fadeIn"
+}, {
+  name: "fadeOut"
+}, {
+  name: "strobe"
+}, {
+  name: "blink"
+}, {
+  name: "stop"
+}];
+
+var instanceProperties = [{
+  name: "id"
+}, {
+  name: "pin"
+}, {
+  name: "value"
+}, {
+  name: "interval"
+}];
+
 function newBoard() {
   var io = new MockFirmata();
   var board = new Board({
@@ -29,42 +63,6 @@ exports["Led - Digital"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }, {
-      name: "mode"
-    }];
-
     done();
   },
 
@@ -74,13 +72,13 @@ exports["Led - Digital"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -88,31 +86,34 @@ exports["Led - Digital"] = {
   },
 
   pinMode: function(test) {
-    test.expect(1);
+    test.expect(2);
+    test.ok(this.pinMode.firstCall.calledWith(13, this.board.io.MODES.OUTPUT));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
   defaultMode: function(test) {
     test.expect(1);
-    test.equal(this.led.mode, 1);
+    test.equal(this.led.mode, this.board.io.MODES.OUTPUT);
     test.done();
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.on();
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.ok(this.digitalWrite.firstCall.calledWith(13, 1));
+    test.equal(this.digitalWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.off();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.firstCall.calledWith(13, 0));
+    test.equal(this.digitalWrite.callCount, 1);
 
     test.done();
   },
@@ -149,17 +150,20 @@ exports["Led - Digital"] = {
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
-    this.led.toggle();
+    this.digitalWrite.reset();
 
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    this.led.toggle();
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 1));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 0));
     test.ok(!this.led.isOn);
+
+    test.equal(this.digitalWrite.callCount, 2);
 
     test.done();
   },
@@ -170,15 +174,16 @@ exports["Led - Digital"] = {
     var spy;
 
     this.led.off();
+    this.digitalWrite.reset();
     this.led.strobe(100);
 
     this.clock.tick(100);
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 1));
     this.clock.tick(100);
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.ok(this.digitalWrite.lastCall.calledWith(13, 0));
     this.led.stop();
     this.clock.tick(100);
-    test.equal(this.digitalWrite.callCount, 3);
+    test.equal(this.digitalWrite.callCount, 2);
 
     this.led.stop().off();
     spy = sinon.spy();
@@ -232,40 +237,6 @@ exports["Led - PWM (Analog)"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }];
-
     done();
   },
 
@@ -275,13 +246,13 @@ exports["Led - PWM (Analog)"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -289,306 +260,73 @@ exports["Led - PWM (Analog)"] = {
   },
 
   pinMode: function(test) {
-    test.expect(1);
+    test.expect(2);
+    test.ok(this.pinMode.firstCall.calledWith(11, this.board.io.MODES.PWM));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
   defaultMode: function(test) {
     test.expect(1);
-    test.equal(this.led.mode, 3);
+    test.equal(this.led.mode, this.board.io.MODES.PWM);
     test.done();
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.on();
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.firstCall.calledWith(11, 255));
+    test.equal(this.analogWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.off();
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.firstCall.calledWith(11, 0));
+    test.equal(this.analogWrite.callCount, 1);
 
-    test.done();
-  },
-
-  isOnTrue: function(test) {
-    // https://github.com/rwaldron/johnny-five/issues/351
-    // test.expect(3);
-
-    // Start in "off" state
-    this.led.off();
-    this.led.fade(255, 500);
-    this.clock.tick(500);
-    this.led.stop();
-
-    // After one cycle, the led is on,
-    // but stopped so not running
-    // and the value left behind is 255
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-    test.equal(this.led.value, 255);
-
-    test.done();
-  },
-
-  isOnFalse: function(test) {
-    // https://github.com/rwaldron/johnny-five/issues/351
-    test.expect(3);
-
-    this.led.on();
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    this.led.stop();
-
-    // After one cycle, the led is on,
-    // but stopped so not running
-    // and the value left behind is 255
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-    test.equal(this.led.value, 0);
     test.done();
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
+    this.analogWrite.reset();
+
     this.led.toggle();
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 255));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
     test.ok(!this.led.isOn);
+
+    test.equal(this.analogWrite.callCount, 2);
 
     test.done();
   },
 
   brightness: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     this.led.off();
+    this.analogWrite.reset();
+
     this.led.brightness(255);
-    test.ok(this.analogWrite.calledWith(11, 255));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 255));
 
     this.led.brightness(100);
-    test.ok(this.analogWrite.calledWith(11, 100));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 100));
 
     this.led.brightness(0);
-    test.ok(this.analogWrite.calledWith(11, 0));
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
 
-    test.done();
-  },
-
-  animate: function(test) {
-    sinon.spy(global, "setInterval");
-    sinon.spy(this.led, "stop");
-    test.expect(10);
-
-    var step = sinon.spy(),
-      complete = sinon.spy();
-
-    this.led.off();
-    test.equal(this.led.interval, null);
-
-    this.led.animate({
-      step: step,
-      duration: 1000,
-      complete: complete
-    });
-    test.equal(setInterval.callCount, 1);
-    test.equal(setInterval.args[0][1], 10);
-    test.ok(this.led.interval);
-
-    this.clock.tick(1000);
-    test.equal(step.callCount, 100);
-    test.equal(step.args[0][0], 0.01);
-    test.equal(step.args[50][0], 0.51);
-    test.equal(step.args[99][0], 1);
-    test.equal(this.led.stop.calledOnce, true);
-    test.equal(complete.calledOnce, true);
-
-    setInterval.restore();
-    test.done();
-  },
-
-  pulse: function(test) {
-    sinon.spy(global, "clearInterval");
-    sinon.spy(global, "setInterval");
-    test.expect(4);
-
-    this.led.off();
-    test.equal(this.led.interval, null);
-
-    this.led.pulse(1000);
-    test.equal(setInterval.callCount, 1);
-
-    this.led.stop();
-    test.equal(clearInterval.callCount, 1);
-
-    // move the clock forwards 1001 ms so we have a complete set of values
-    this.clock.tick(1001);
-
-    // stop pulsing
-    this.led.stop();
-
-    // make sure NaN was not passed to io
-    test.ok(!isNaN(this.analogWrite.firstCall.args[1]));
-
-    clearInterval.restore();
-    setInterval.restore();
-
-    test.done();
-  },
-
-  autoMode: function(test) {
-    test.expect(4);
-
-    this.led.mode = 1;
-    this.led.brightness(255);
-    test.equal(this.led.mode, 3);
-
-    this.led.mode = 1;
-    this.led.pulse();
-    test.equal(this.led.mode, 3);
-
-    this.led.mode = 1;
-    this.led.fade();
-    test.equal(this.led.mode, 3);
-
-    this.led.strobe();
-    test.equal(this.led.mode, 3);
-
-    test.done();
-  },
-
-  fade: function(test) {
-    test.expect(4);
-
-    this.led.fade(50, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 50);
-
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 0);
-
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 0);
-
-    this.led.fade(255, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 255);
-
-    test.done();
-  },
-
-  fadeIn: function(test) {
-    test.expect(7);
-
-    test.equal(this.led.value, null);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeIn(10);
-    this.clock.tick(5);
-    test.equal(this.led.isRunning, true);
-    this.clock.tick(6);
-
-    test.equal(this.led.value, 255);
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-
-    test.done();
-  },
-
-  fadeOut: function(test) {
-    test.expect(10);
-
-    test.equal(this.led.value, null);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeIn(10);
-    this.clock.tick(11);
-
-    test.equal(this.led.value, 255);
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeOut(10);
-    this.clock.tick(5);
-    test.equal(this.led.isRunning, true);
-    this.clock.tick(6);
-
-
-    test.equal(this.led.value, 0);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    test.done();
-  },
-
-  fadeCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.on().fade(0, 100, spy);
-    this.clock.tick(101);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  fadeInCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.off().fadeIn(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  fadeOutCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.on().fadeOut(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  pulseCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.pulse(spy);
-    // It should call callback each iteration
-    this.clock.tick(10001);
-    test.equal(spy.callCount, 10);
-    test.done();
-  },
-
-  stop: function(test) {
-    test.expect(2);
-
-    this.led.pulse();
-    test.ok(this.led.isRunning);
-    this.led.stop();
-    test.ok(!this.led.isRunning);
+    test.equal(this.analogWrite.callCount, 3);
 
     test.done();
   }
@@ -607,40 +345,6 @@ exports["Led - PCA9685 (I2C)"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }, {
-      name: "interval"
-    }];
-
     done();
   },
 
@@ -650,13 +354,13 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(protoProperties.length + instanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    protoProperties.forEach(function(method) {
       test.equal(typeof this.led[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instanceProperties.forEach(function(property) {
       test.notEqual(typeof this.led[property.name], "undefined");
     }, this);
 
@@ -664,8 +368,17 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   defaultMode: function(test) {
-    test.expect(1);
-    test.equal(this.led.mode, 3);
+    test.expect(2);
+
+    var led2 = new Led({
+      pin: 5,
+      controller: "PCA9685",
+      board: this.board
+    });
+
+    test.equal(this.led.mode, this.board.io.MODES.PWM);
+    test.equal(led2.mode, this.board.io.MODES.PWM);
+
     test.done();
   },
 
@@ -679,230 +392,62 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   on: function(test) {
-    test.expect(1);
+    test.expect(2);
 
+    this.i2cWrite.reset();
     this.led.on();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
   },
 
   off: function(test) {
-    test.expect(1);
+    test.expect(2);
 
+    this.i2cWrite.reset();
     this.led.off();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+    test.equal(this.i2cWrite.callCount, 1);
 
-    test.done();
-  },
-
-  isOnTrue: function(test) {
-    // https://github.com/rwaldron/johnny-five/issues/351
-    // test.expect(3);
-
-    // Start in "off" state
-    this.led.off();
-    this.led.fade(255, 500);
-    this.clock.tick(500);
-    this.led.stop();
-
-    // After one cycle, the led is on,
-    // but stopped so not running
-    // and the value left behind is 255
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-    test.equal(this.led.value, 255);
-
-    test.done();
-  },
-
-  isOnFalse: function(test) {
-    // https://github.com/rwaldron/johnny-five/issues/351
-    test.expect(3);
-
-    this.led.on();
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    this.led.stop();
-
-    // After one cycle, the led is on,
-    // but stopped so not running
-    // and the value left behind is 255
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-    test.equal(this.led.value, 0);
     test.done();
   },
 
   toggle: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     this.led.off();
+    this.i2cWrite.reset();
+
     this.led.toggle();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
     test.ok(!this.led.isOn);
+
+    test.equal(this.i2cWrite.callCount, 2);
 
     test.done();
   },
 
   brightness: function(test) {
-    test.expect(3);
-
-    this.led.off();
-    this.led.brightness(255);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
-
-    this.led.brightness(100);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
-
-    this.led.brightness(0);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
-
-    test.done();
-  },
-
-  pulse: function(test) {
-    sinon.spy(global, "clearInterval");
-    sinon.spy(global, "setInterval");
-    test.expect(3);
-
-    this.led.off();
-    test.equal(this.led.interval, null);
-
-    this.led.pulse();
-    test.equal(setInterval.callCount, 1);
-
-    this.led.stop();
-    test.equal(clearInterval.callCount, 1);
-
-    clearInterval.restore();
-    setInterval.restore();
-    test.done();
-  },
-
-  fade: function(test) {
     test.expect(4);
 
-    this.led.fade(50, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 50);
+    this.led.off();
+    this.i2cWrite.reset();
 
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 0);
+    this.led.brightness(255);
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
 
-    this.led.fade(0, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 0);
+    this.led.brightness(100);
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
 
-    this.led.fade(255, 500);
-    this.clock.tick(500);
-    test.equal(this.led.value, 255);
+    this.led.brightness(0);
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
 
-    test.done();
-  },
-
-  fadeIn: function(test) {
-    test.expect(7);
-
-    test.equal(this.led.value, null);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeIn(10);
-    this.clock.tick(5);
-    test.equal(this.led.isRunning, true);
-    this.clock.tick(6);
-
-    test.equal(this.led.value, 255);
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-
-    test.done();
-  },
-
-  fadeOut: function(test) {
-    test.expect(10);
-
-    test.equal(this.led.value, null);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeIn(10);
-    this.clock.tick(11);
-
-    test.equal(this.led.value, 255);
-    test.equal(this.led.isOn, true);
-    test.equal(this.led.isRunning, false);
-
-    this.led.fadeOut(10);
-    this.clock.tick(5);
-    test.equal(this.led.isRunning, true);
-    this.clock.tick(6);
-
-
-    test.equal(this.led.value, 0);
-    test.equal(this.led.isOn, false);
-    test.equal(this.led.isRunning, false);
-
-    test.done();
-  },
-
-  fadeCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.on().fade(0, 100, spy);
-    this.clock.tick(101);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  fadeInCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.off().fadeIn(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  fadeOutCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.on().fadeOut(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  pulseCallback: function(test) {
-    test.expect(1);
-
-    var spy = sinon.spy();
-
-    this.led.pulse(spy);
-    this.clock.tick(1001);
-    test.equal(spy.calledOnce, true);
-    test.done();
-  },
-
-  stop: function(test) {
-    test.expect(2);
-
-    this.led.pulse();
-    test.ok(this.led.isRunning);
-    this.led.stop();
-    test.ok(!this.led.isRunning);
+    test.equal(this.i2cWrite.callCount, 3);
 
     test.done();
   }
@@ -1594,4 +1139,3 @@ exports["Led - Default Pin w/ Firmata"] = {
     test.done();
   }
 };
-

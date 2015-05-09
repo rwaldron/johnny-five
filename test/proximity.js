@@ -14,9 +14,10 @@ exports["Proximity"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -39,7 +40,7 @@ exports["Proximity"] = {
     test.expect(this.instance.length);
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.distance[property.name], "undefined");
+      test.notEqual(typeof this.proximity[property.name], "undefined");
     }, this);
 
     test.done();
@@ -47,7 +48,7 @@ exports["Proximity"] = {
 
   emitter: function(test) {
     test.expect(1);
-    test.ok(this.distance instanceof events.EventEmitter);
+    test.ok(this.proximity instanceof events.EventEmitter);
     test.done();
   }
 };
@@ -56,9 +57,10 @@ exports["Proximity: GP2Y0A21YK"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -79,11 +81,54 @@ exports["Proximity: GP2Y0A21YK"] = {
     // 154 is an actual reading at ~14.5"
     callback(154);
 
-    test.equals(Math.round(this.distance.centimeters), 38);
-    test.equals(Math.round(this.distance.cm), 38);
-    test.equals(Math.round(this.distance.inches), 15);
-    test.equals(Math.round(this.distance.in), 15);
+    test.equals(Math.round(this.proximity.centimeters), 38);
+    test.equals(Math.round(this.proximity.cm), 38);
+    test.equals(Math.round(this.proximity.inches), 15);
+    test.equals(Math.round(this.proximity.in), 15);
 
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(500);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 3.79);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -92,9 +137,10 @@ exports["Proximity: GP2D120XJ00F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "GP2D120XJ00F",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -114,11 +160,54 @@ exports["Proximity: GP2D120XJ00F"] = {
     // 70 is an actual reading at ~14.5"
     callback(70);
 
-    test.equals(Math.round(this.distance.centimeters), 38);
-    test.equals(Math.round(this.distance.cm), 38);
-    test.equals(Math.round(this.distance.inches), 15);
-    test.equals(Math.round(this.distance.in), 15);
+    test.equals(Math.round(this.proximity.centimeters), 38);
+    test.equals(Math.round(this.proximity.cm), 38);
+    test.equals(Math.round(this.proximity.inches), 15);
+    test.equals(Math.round(this.proximity.in), 15);
 
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(100);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 10.43);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -127,9 +216,10 @@ exports["Proximity: GP2Y0A02YK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "GP2Y0A02YK0F",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -150,11 +240,53 @@ exports["Proximity: GP2Y0A02YK0F"] = {
     // 325 is an actual reading at ~14.5"
     callback(325);
 
-    test.equals(Math.round(this.distance.centimeters), 38);
-    test.equals(Math.round(this.distance.cm), 38);
-    test.equals(Math.round(this.distance.inches), 15);
-    test.equals(Math.round(this.distance.in), 15);
+    test.equals(Math.round(this.proximity.centimeters), 38);
+    test.equals(Math.round(this.proximity.cm), 38);
+    test.equals(Math.round(this.proximity.inches), 15);
+    test.equals(Math.round(this.proximity.in), 15);
 
+    test.done();
+  },
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(500);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 8.54);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -163,9 +295,10 @@ exports["Proximity: GP2Y0A41SK0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "GP2Y0A41SK0F",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -186,11 +319,293 @@ exports["Proximity: GP2Y0A41SK0F"] = {
     // 325 is an actual reading at ~2.5"
     callback(325);
 
-    test.equals(Math.round(this.distance.centimeters), 7);
-    test.equals(Math.round(this.distance.cm), 7);
-    test.equals(Math.round(this.distance.inches), 3);
-    test.equals(Math.round(this.distance.in), 3);
+    test.equals(Math.round(this.proximity.centimeters), 7);
+    test.equals(Math.round(this.proximity.cm), 7);
+    test.equals(Math.round(this.proximity.inches), 3);
+    test.equals(Math.round(this.proximity.in), 3);
 
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(128);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 6.92);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
+exports["Proximity: GP2Y0A710K0F"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.proximity = new Proximity({
+      controller: "GP2Y0A710K0F",
+      pin: "A1",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  GP2Y0A41SK0F: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    callback(500);
+
+    test.equals(Math.round(this.proximity.centimeters), 87);
+    test.equals(Math.round(this.proximity.cm), 87);
+    test.equals(Math.round(this.proximity.inches), 34);
+    test.equals(Math.round(this.proximity.in), 34);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(500);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 33.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
+exports["Proximity: MB1000"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.proximity = new Proximity({
+      controller: "MB1000",
+      pin: "A1",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  MB1000: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    // (500 / 2) * 2.54 = 635cm
+    callback(500);
+
+    test.equals(Math.round(this.proximity.centimeters), 635);
+    test.equals(Math.round(this.proximity.cm), 635);
+    test.equals(Math.round(this.proximity.inches), 248);
+    test.equals(Math.round(this.proximity.in), 248);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(11);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.45);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
+exports["Proximity: MB1010"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.proximity = new Proximity({
+      controller: "MB1010",
+      pin: "A1",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.clock.restore();
+    this.analogRead.restore();
+    done();
+  },
+
+  MB1010: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(4);
+
+    // (500 / 2) * 2.54 = 635cm
+    callback(500);
+
+    test.equals(Math.round(this.proximity.centimeters), 635);
+    test.equals(Math.round(this.proximity.cm), 635);
+    test.equals(Math.round(this.proximity.inches), 248);
+    test.equals(Math.round(this.proximity.in), 248);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(11);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.45);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -199,9 +614,10 @@ exports["Proximity: MB1003"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "MB1003",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -222,11 +638,54 @@ exports["Proximity: MB1003"] = {
     // 500 is an actual reading at ~250cm
     callback(500);
 
-    test.equals(Math.round(this.distance.centimeters), 250);
-    test.equals(Math.round(this.distance.cm), 250);
-    test.equals(Math.round(this.distance.inches), 98);
-    test.equals(Math.round(this.distance.in), 98);
+    test.equals(Math.round(this.proximity.centimeters), 250);
+    test.equals(Math.round(this.proximity.cm), 250);
+    test.equals(Math.round(this.proximity.inches), 98);
+    test.equals(Math.round(this.proximity.in), 98);
 
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
+    callback(250);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(30);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -235,9 +694,10 @@ exports["Proximity: MB1230"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
-    this.distance = new Proximity({
+    this.proximity = new Proximity({
       controller: "MB1230",
       pin: "A1",
+      freq: 100,
       board: board
     });
 
@@ -250,19 +710,62 @@ exports["Proximity: MB1230"] = {
     done();
   },
 
-  MB1003: function(test) {
+  MB1230: function(test) {
     var callback = this.analogRead.args[0][1];
 
     test.expect(4);
 
+    callback(250);
+
+    test.equals(Math.round(this.proximity.centimeters), 250);
+    test.equals(Math.round(this.proximity.cm), 250);
+    test.equals(Math.round(this.proximity.inches), 98);
+    test.equals(Math.round(this.proximity.in), 98);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(1);
+
     // 250 is an actual reading at ~250cm
     callback(250);
 
-    test.equals(Math.round(this.distance.centimeters), 250);
-    test.equals(Math.round(this.distance.cm), 250);
-    test.equals(Math.round(this.distance.inches), 98);
-    test.equals(Math.round(this.distance.in), 98);
+    var spy = sinon.spy();
 
+    this.proximity.on("change", spy);
+    this.clock.tick(100);
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+    test.expect(2);
+
+    callback(15);
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
     test.done();
   }
 };
@@ -407,11 +910,11 @@ exports["Proximity: HCSR04"] = {
     this.clock = sinon.useFakeTimers();
     this.pulseVal = 1000;
 
-    sinon.stub(board.io, "pulseIn", function(settings, handler) {
+    sinon.stub(board.io, "pingRead", function(settings, handler) {
       handler(this.pulseVal);
     }.bind(this));
 
-    this.ping = new Proximity({
+    this.proximity = new Proximity({
       controller: "HCSR04",
       pin: 7,
       freq: 100,
@@ -436,7 +939,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   tearDown: function(done) {
-    board.io.pulseIn.restore();
+    board.io.pingRead.restore();
     this.clock.restore();
     done();
   },
@@ -445,11 +948,11 @@ exports["Proximity: HCSR04"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
-      test.equal(typeof this.ping[method.name], "function");
+      test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.ping[property.name], 0);
+      test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
     test.done();
@@ -459,10 +962,10 @@ exports["Proximity: HCSR04"] = {
     var spy = sinon.spy();
     test.expect(1);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
-    this.ping.on("data", spy);
+    this.proximity.on("data", spy);
     this.clock.tick(100);
     test.ok(spy.calledOnce);
     test.done();
@@ -474,12 +977,12 @@ exports["Proximity: HCSR04"] = {
 
     this.pulseVal = 0;
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.pulseVal = 1000;
 
-    this.ping.on("change", spy);
+    this.proximity.on("change", spy);
     this.clock.tick(100);
     test.ok(spy.calledOnce);
     test.done();
@@ -490,10 +993,10 @@ exports["Proximity: HCSR04"] = {
     var spy = sinon.spy();
     test.expect(2);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
-    this.ping.within([0, 120], "inches", function() {
+    this.proximity.within([0, 120], "inches", function() {
       // The fake microseconds value is 1000, which
       // calculates to 6.76 inches.
       test.equal(this.inches, 6.7);
@@ -519,7 +1022,7 @@ exports["Proximity: LIDARLITE"] = {
       callback([ cm >> 8, cm & 0xff ]);
     });
 
-    this.lidar = new Proximity({
+    this.proximity = new Proximity({
       controller: "LIDARLITE",
       freq: 100,
       board: board
@@ -554,11 +1057,11 @@ exports["Proximity: LIDARLITE"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
-      test.equal(typeof this.lidar[method.name], "function");
+      test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.lidar[property.name], 0);
+      test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
     test.done();
@@ -568,7 +1071,7 @@ exports["Proximity: LIDARLITE"] = {
     var spy = sinon.spy();
     test.expect(1);
 
-    this.lidar.on("data", spy);
+    this.proximity.on("data", spy);
     this.clock.tick(100);
     test.equal(spy.callCount, 1);
     test.done();
@@ -579,7 +1082,7 @@ exports["Proximity: LIDARLITE"] = {
 
     var spy = sinon.spy();
 
-    this.lidar.on("change", spy);
+    this.proximity.on("change", spy);
 
     this.clock.tick(100);
 
@@ -593,7 +1096,7 @@ exports["Proximity: LIDARLITE"] = {
 
     this.clock.tick(250);
 
-    this.lidar.within([0, 120], "inches", function() {
+    this.proximity.within([0, 120], "inches", function() {
       test.equal(this.inches, 5.85);
       spy();
     });

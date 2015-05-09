@@ -3,7 +3,7 @@
 # LED - Rainbow
 
 
-Demonstrates use of an RGB LED (common cathode) by setting its color to red ("#ff0000") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).
+Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).
 
 
 Run with:
