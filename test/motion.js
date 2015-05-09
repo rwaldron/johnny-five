@@ -54,6 +54,15 @@ exports["Motion"] = {
     test.done();
   },
 
+  calibrated: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+    this.motion.on("calibrated", spy);
+    this.clock.tick(10);
+    test.ok(spy.calledOnce);
+    test.done();
+  },
+
   data: function(test) {
     var spy = sinon.spy();
     test.expect(1);
