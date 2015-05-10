@@ -196,7 +196,6 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.expect(1);
     this.motion.on("motionstart", spy);
 
-    // 0 then changes to 1
     callback([3]);
     callback([1]);
     this.clock.tick(25);
@@ -215,7 +214,6 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.expect(1);
     this.motion.on("motionend", spy);
 
-    // 1 then changes to 0
     callback([1]);
     this.clock.tick(25);
     callback([3]);
