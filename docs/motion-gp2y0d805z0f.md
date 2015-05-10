@@ -44,7 +44,7 @@ board.on("ready", function() {
   // "data" events are fired at the interval set in opts.freq
   // or every 25ms
   motion.on("data", function(data) {
-    //console.log(data);
+    console.log(data);
   });
 });
 
