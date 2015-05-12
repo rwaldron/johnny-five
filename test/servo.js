@@ -373,7 +373,7 @@ exports["Servo"] = {
       test.done();
     }.bind(this));
   },
-  
+
   max: function(test) {
     test.expect(2);
 
@@ -640,34 +640,58 @@ exports["Servo - Continuous"] = {
 };
 
 exports["Servo - Allowed Pin Names"] = {
+  setUp: function(done) {
+    Board.purge();
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   firmata: function(test) {
     test.expect(10);
 
-    test.equal(new Servo(2).pin, 2);
-    test.equal(new Servo(12).pin, 12);
+    var firmata = new MockFirmata();
+    var board = new Board({
+      io: firmata,
+      debug: false,
+      repl: false
+    });
 
-    test.equal(new Servo({
-      pin: 2
-    }).pin, 2);
-    test.equal(new Servo({
-      pin: 12
-    }).pin, 12);
+    board.on("ready", function() {
 
-    test.equal(new Servo("A0").pin, 14);
-    test.equal(new Servo(14).pin, 14);
+      Object.defineProperty(board.io, "analogPins", {
+        value: [14, 15, 16, 17, 18, 19]
+      });
 
-    test.equal(new Servo({
-      pin: "A0"
-    }).pin, 14);
-    test.equal(new Servo({
-      pin: 14
-    }).pin, 14);
+      test.equal(new Servo(2).pin, 2);
+      test.equal(new Servo(12).pin, 12);
 
-    // Modes is SERVO
-    test.equal(new Servo(12).mode, 4);
-    test.equal(new Servo(14).mode, 4);
+      test.equal(new Servo({
+        pin: 2
+      }).pin, 2);
+      test.equal(new Servo({
+        pin: 12
+      }).pin, 12);
 
-    test.done();
+      test.equal(new Servo("A0").pin, 14);
+      test.equal(new Servo(14).pin, 14);
+
+      test.equal(new Servo({
+        pin: "A0"
+      }).pin, 14);
+      test.equal(new Servo({
+        pin: 14
+      }).pin, 14);
+
+      // Modes is SERVO
+      test.equal(new Servo(12).mode, 4);
+      test.equal(new Servo(14).mode, 4);
+
+      test.done();
+    });
+
+    board.emit("ready");
   },
 
   nonFirmata: function(test) {
@@ -682,30 +706,42 @@ exports["Servo - Allowed Pin Names"] = {
 
     nonFirmata.name = "FooBoard";
 
-    test.equal(new Servo({
-      pin: 2,
-      board: board
-    }).pin, 2);
-    test.equal(new Servo({
-      pin: 12,
-      board: board
-    }).pin, 12);
-    test.equal(new Servo({
-      pin: "A0",
-      board: board
-    }).pin, 0);
+    var firmata = new MockFirmata();
+    var board = new Board({
+      io: firmata,
+      debug: false,
+      repl: false
+    });
 
-    // Modes is SERVO
-    test.equal(new Servo({
-      pin: 12,
-      board: board
-    }).mode, 4);
-    test.equal(new Servo({
-      pin: "A0",
-      board: board
-    }).mode, 4);
+    board.on("ready", function() {
 
-    test.done();
+      test.equal(new Servo({
+        pin: 2,
+        board: board
+      }).pin, 2);
+      test.equal(new Servo({
+        pin: 12,
+        board: board
+      }).pin, 12);
+      test.equal(new Servo({
+        pin: "A0",
+        board: board
+      }).pin, 0);
+
+      // Modes is SERVO
+      test.equal(new Servo({
+        pin: 12,
+        board: board
+      }).mode, 4);
+      test.equal(new Servo({
+        pin: "A0",
+        board: board
+      }).mode, 4);
+
+      test.done();
+    });
+
+    board.emit("ready");
   }
 };
 
