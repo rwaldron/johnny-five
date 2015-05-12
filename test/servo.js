@@ -694,7 +694,7 @@ exports["Servo - Allowed Pin Names"] = {
     board.emit("ready");
   },
 
-  nonFirmata: function(test) {
+  nonFirmataNonNormalized: function(test) {
     test.expect(5);
 
     var nonFirmata = new MockFirmata();
@@ -705,13 +705,6 @@ exports["Servo - Allowed Pin Names"] = {
     });
 
     nonFirmata.name = "FooBoard";
-
-    var firmata = new MockFirmata();
-    var board = new Board({
-      io: firmata,
-      debug: false,
-      repl: false
-    });
 
     board.on("ready", function() {
 
@@ -726,7 +719,7 @@ exports["Servo - Allowed Pin Names"] = {
       test.equal(new Servo({
         pin: "A0",
         board: board
-      }).pin, 0);
+      }).pin, "A0");
 
       // Modes is SERVO
       test.equal(new Servo({
