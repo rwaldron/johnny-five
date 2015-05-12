@@ -35,6 +35,37 @@
     ]
   },
   {
+    "topic": "Expander",
+    "classes": ["Expander"],
+    "examples": [
+      {
+        "file": "expander-MCP23017.js",
+        "title": "Expander - MCP23017",
+        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)"
+      },
+      {
+        "file": "expander-MCP23008.js",
+        "title": "Expander - MCP23008",
+        "description": "Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8574.js",
+        "title": "Expander - PCF8574",
+        "description": "Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8575.js",
+        "title": "Expander - PCF8575",
+        "description": "Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - PCF8575)"
+      },
+      {
+        "file": "expander-PCA9685.js",
+        "title": "Expander - PCA9685",
+        "description": "Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)"
+      }
+    ]
+  },
+  {
     "topic": "LED",
     "classes": ["Led"],
     "examples": [
