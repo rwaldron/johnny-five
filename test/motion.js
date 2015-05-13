@@ -130,9 +130,10 @@ exports["Motion - PIR"] = {
 exports["Motion - GP2Y0D805Z0F"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.i2cReadOnce = sinon.spy(board.io, "i2cReadOnce");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.motion = new Motion({
       controller: "GP2Y0D805Z0F",
       calibrationDelay: 10,
@@ -143,28 +144,24 @@ exports["Motion - GP2Y0D805Z0F"] = {
   },
 
   tearDown: function(done) {
-    this.motion.removeAllListeners();
-    this.clock.restore();
-    this.i2cReadOnce.restore();
-    this.i2cWrite.restore();
-    this.i2cConfig.restore();
+    restore(this);
     done();
   },
 
   initialize: function(test) {
-    test.expect(5);
+    test.expect(9);
 
     test.ok(this.i2cConfig.called);
-    test.ok(this.i2cWrite.calledTwice);
+    test.ok(this.i2cWriteReg.calledOnce);
+    test.ok(this.i2cWrite.calledOnce);
+    test.ok(this.i2cRead.calledOnce);
 
-    test.deepEqual(this.i2cConfig.args[0], []);
-    test.deepEqual(
-      this.i2cWrite.firstCall.args, [0x26, 0x3]
-    );
-    test.deepEqual(
-      this.i2cWrite.secondCall.args, [0x26, 0xFE]
-    );
+    test.deepEqual(this.i2cConfig.firstCall.args, []);
+    test.deepEqual(this.i2cWriteReg.firstCall.args, [ 0x26, 0x03, 0xFE ]);
+    test.deepEqual(this.i2cWrite.firstCall.args, [0x26, [0x00]]);
 
+    test.equal(this.i2cRead.firstCall.args[0], 0x26);
+    test.equal(this.i2cRead.firstCall.args[1], 1);
     test.done();
   },
 
@@ -186,12 +183,43 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
+  change: function(test) {
+    var spy = sinon.spy();
+    var callback = this.i2cRead.firstCall.args[2];
+    test.expect(1);
+    this.motion.on("change", spy);
+    callback([0x00]);
+    this.clock.tick(25);
+    callback([0x03]);
+    this.clock.tick(25);
+
+    test.ok(spy.calledTwice);
+    test.done();
+  },
+
+  noChange: function(test) {
+    test.expect(1);
+    var spy = sinon.spy();
+    var callback = this.i2cRead.firstCall.args[2];
+    this.motion.on("change", spy);
+
+    this.clock.tick(25);
+    callback([0x03]);
+    this.clock.tick(25);
+    callback([0x03]);
+    this.clock.tick(25);
+    callback([0x03]);
+    this.clock.tick(25);
+
+    test.ok(spy.notCalled);
+    test.done();
+  },
+
   motionstart: function(test) {
 
-    this.clock.tick(250);
-
-    var callback = this.i2cReadOnce.args[0][2];
+    // this.clock.tick(250);
     var spy = sinon.spy();
+    var callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
     this.motion.on("motionstart", spy);
@@ -206,10 +234,9 @@ exports["Motion - GP2Y0D805Z0F"] = {
 
   motionend: function(test) {
 
-    this.clock.tick(250);
-
-    var callback = this.i2cReadOnce.args[0][2];
+    // this.clock.tick(250);
     var spy = sinon.spy();
+    var callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
     this.motion.on("motionend", spy);
