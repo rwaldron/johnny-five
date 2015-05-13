@@ -495,6 +495,22 @@
     ]
   },
   {
+    "topic": "Motion",
+    "classes": ["Motion"],
+    "examples": [
+      {
+        "file": "motion.js",
+        "title": "Motion",
+        "description": "Basic infrared Motion example"
+      },
+      {
+        "file": "motion-gp2y0d805z0f.js",
+        "title": "Motion - GP2Y0D805Z0F",
+        "description": "Basic GP2Y0D805Z0F example"
+      }
+    ]
+  },
+  {
     "topic": "Joystick",
     "classes": ["Joystick"],
     "examples": [
