@@ -10,10 +10,28 @@ var MockFirmata = require("./util/mock-firmata"),
     repl: false
   });
 
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Motion"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
@@ -30,9 +48,7 @@ exports["Motion"] = {
   },
 
   tearDown: function(done) {
-    this.motion.removeAllListeners();
-    this.clock.restore();
-    this.digitalRead.restore();
+    restore(this);
     done();
   },
 
@@ -58,7 +74,7 @@ exports["Motion"] = {
 exports["Motion - PIR"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
@@ -69,15 +85,14 @@ exports["Motion - PIR"] = {
   },
 
   tearDown: function(done) {
-    this.motion.removeAllListeners();
-    this.clock.restore();
-    this.digitalRead.restore();
+    restore(this);
     done();
   },
 
   calibrated: function(test) {
-    var spy = sinon.spy();
     test.expect(1);
+    var spy = sinon.spy();
+
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
     test.ok(spy.calledOnce);
@@ -85,17 +100,55 @@ exports["Motion - PIR"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
     test.expect(1);
+    var spy = sinon.spy();
+
     this.motion.on("data", spy);
     this.clock.tick(25);
     test.ok(spy.calledOnce);
     test.done();
   },
 
+  change: function(test) {
+    test.expect(1);
+    var spy = sinon.spy();
+    var callback = this.digitalRead.firstCall.args[1];
+
+    this.motion.on("change", spy);
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
+    callback(1);
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
+    test.ok(spy.calledTwice);
+    test.done();
+  },
+
+  noChange: function(test) {
+    test.expect(1);
+    var spy = sinon.spy();
+    var callback = this.digitalRead.firstCall.args[1];
+
+    this.motion.on("change", spy);
+
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
+    callback(0);
+    this.clock.tick(25);
+
+    test.ok(spy.notCalled);
+    test.done();
+  },
+
   motionstart: function(test) {
-    var callback = this.digitalRead.args[0][1],
-      spy = sinon.spy();
+    var spy = sinon.spy();
+    var callback = this.digitalRead.firstCall.args[1];
+
 
     test.expect(1);
     this.motion.on("motionstart", spy);
@@ -110,8 +163,8 @@ exports["Motion - PIR"] = {
   },
 
   motionend: function(test) {
-    var callback = this.digitalRead.args[0][1],
-      spy = sinon.spy();
+    var spy = sinon.spy();
+    var callback = this.digitalRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionend", spy);
