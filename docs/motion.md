@@ -3,7 +3,7 @@
 # Motion
 
 
-Basic infrared Motion example
+Basic Passive Infrared Motion detection.
 
 
 Run with:
@@ -40,10 +40,11 @@ board.on("ready", function() {
   });
 
   // "data" events are fired at the interval set in opts.freq
-  // or every 25ms
-  motion.on("data", function(data) {
-    console.log(data);
-  });
+  // or every 25ms. Uncomment the following to see all
+  // motion detection readings.
+  // motion.on("data", function(data) {
+  //   console.log(data);
+  // });
 });
 
 ```

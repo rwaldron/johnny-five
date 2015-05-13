@@ -501,12 +501,12 @@
       {
         "file": "motion.js",
         "title": "Motion",
-        "description": "Basic infrared Motion example"
+        "description": "Basic Passive Infrared Motion detection."
       },
       {
         "file": "motion-gp2y0d805z0f.js",
         "title": "Motion - GP2Y0D805Z0F",
-        "description": "Basic GP2Y0D805Z0F example"
+        "description": "Basic GP2Y0D805Z0F detection."
       }
     ]
   },
