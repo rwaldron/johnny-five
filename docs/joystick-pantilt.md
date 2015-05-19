@@ -12,44 +12,38 @@ node eg/joystick-pantilt.js
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board({
-    debug: true
-  });
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var range, pan, tilt, joystick;
-
-  range = [0, 170];
+  var range = [0, 170];
 
   // Servo to control panning
-  pan = new five.Servo({
+  var pan = new five.Servo({
     pin: 9,
-    range: range
+    range: range,
+    center: true
   });
 
   // Servo to control tilt
-  tilt = new five.Servo({
+  var tilt = new five.Servo({
     pin: 10,
-    range: range
+    range: range,
+    center: true
   });
 
   // Joystick to control pan/tilt
   // Read Analog 0, 1
   // Limit events to every 50ms
-  joystick = new five.Joystick({
+  var joystick = new five.Joystick({
     pins: ["A0", "A1"],
     freq: 100
   });
 
-  // Center all servos
-  (five.Servos()).center();
 
-  joystick.on("axismove", function() {
-
-    tilt.to(Math.ceil(170 * this.fixed.y));
-    pan.to(Math.ceil(170 * this.fixed.x));
-
+  joystick.on("change", function() {
+    tilt.to(five.Fn.scale(this.y, -1, 1, 0, 170));
+    pan.to(five.Fn.scale(this.x, -1, 1, 0, 170));
   });
 });
 

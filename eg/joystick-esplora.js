@@ -2,11 +2,15 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
 board.on("ready", function() {
+  /*
+    Be sure to reflash your Esplora with StandardFirmata!
 
-  // Create a new `joystick` hardware instance.
+    In the Arduino IDE:
+
+    Tools > Boards > Arduino Leonard or Arduino Esplora
+   */
   var joystick = new five.Joystick({
-    //   [ x, y ]
-    pins: ["A0", "A1"]
+    controller: "ESPLORA"
   });
 
   joystick.on("change", function() {

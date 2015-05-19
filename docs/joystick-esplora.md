@@ -1,12 +1,12 @@
 <!--remove-start-->
 
-# Joystick
+# Joystick - Esplora
 
 
 
 Run with:
 ```bash
-node eg/joystick.js
+node eg/joystick-esplora.js
 ```
 
 <!--remove-end-->
@@ -16,11 +16,15 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
+  /*
+    Be sure to reflash your Esplora with StandardFirmata!
 
-  // Create a new `joystick` hardware instance.
+    In the Arduino IDE:
+
+    Tools > Boards > Arduino Leonard or Arduino Esplora
+   */
   var joystick = new five.Joystick({
-    //   [ x, y ]
-    pins: ["A0", "A1"]
+    controller: "ESPLORA"
   });
 
   joystick.on("change", function() {
@@ -37,26 +41,15 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Joystick - Sparkfun
+### Joystick - Esplora
 
 
-Sparkfun joystick breakout board.
+Esplora joystick example.
 
 
-![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
+![docs/breadboard/esplora.png](breadboard/esplora.png)<br>
 
-Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
-
-&nbsp;
-### Joystick - Adafruit
-
-
-Adafruit joystick breakout board.
-
-
-![docs/breadboard/joystick-adafruit.png](breadboard/joystick-adafruit.png)<br>
-
-Fritzing diagram: [docs/breadboard/joystick-adafruit.fzz](breadboard/joystick-adafruit.fzz)
+Fritzing diagram: [docs/breadboard/esplora.fzz](breadboard/esplora.fzz)
 
 &nbsp;
 
