@@ -1,8 +1,8 @@
-var five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  MockFirmata = require("./util/mock-firmata"),
-  Board = five.Board,
-  Led = five.Led;
+var five = require("../lib/johnny-five.js");
+var sinon = require("sinon");
+var MockFirmata = require("./util/mock-firmata");
+var Board = five.Board;
+var Led = five.Led;
 
 var protoProperties = [{
   name: "on"
@@ -35,6 +35,26 @@ var instanceProperties = [{
 }, {
   name: "value"
 }, {
+  name: "interval"
+}];
+
+var rgbProtoProperties = [{
+  name: "on"
+}, {
+  name: "off"
+}, {
+  name: "color"
+}, {
+  name: "toggle"
+}, {
+  name: "strobe"
+}, {
+  name: "blink"
+}, {
+  name: "stop"
+}];
+
+var rgbInstanceProperties = [{
   name: "interval"
 }];
 
@@ -223,7 +243,6 @@ exports["Led - Digital"] = {
     test.done();
   }
 };
-
 
 exports["Led - PWM (Analog)"] = {
   setUp: function(done) {
@@ -518,7 +537,6 @@ exports["Led.Array"] = {
 };
 
 exports["Led.RGB"] = {
-
   setUp: function(done) {
     this.board = newBoard();
 
@@ -533,41 +551,17 @@ exports["Led.RGB"] = {
 
     this.analog = sinon.spy(this.board.io, "analogWrite");
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "color"
-    }, {
-      name: "toggle"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "red"
-    }, {
-      name: "green"
-    }, {
-      name: "blue"
-    }, ];
-
     done();
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
 
-    this.proto.forEach(function(method) {
+    rgbProtoProperties.forEach(function(method) {
       test.equal(typeof this.ledRgb[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    rgbInstanceProperties.forEach(function(property) {
       test.notEqual(typeof this.ledRgb[property.name], "undefined");
     }, this);
 
@@ -577,7 +571,7 @@ exports["Led.RGB"] = {
   params: function(test) {
     var led;
 
-    test.expect(9);
+    test.expect(3);
 
     // Test object constructor
     led = new Led.RGB({
@@ -587,87 +581,91 @@ exports["Led.RGB"] = {
         blue: 11,
       }
     });
-    test.equal(led.red.pin, 9);
-    test.equal(led.green.pin, 10);
-    test.equal(led.blue.pin, 11);
+    test.deepEqual(led.pins, [9, 10, 11]);
 
     // Test object constructor with array
     led = new Led.RGB({
       pins: [9, 10, 11]
     });
-    test.equal(led.red.pin, 9);
-    test.equal(led.green.pin, 10);
-    test.equal(led.blue.pin, 11);
+    test.deepEqual(led.pins, [9, 10, 11]);
 
     // Test array constructor
     led = new Led.RGB([9, 10, 11]);
-
-    test.equal(led.red.pin, 9);
-    test.equal(led.green.pin, 10);
-    test.equal(led.blue.pin, 11);
+    test.deepEqual(led.pins, [9, 10, 11]);
 
     test.done();
   },
 
   color: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11,
-      rgb = this.ledRgb;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
+    var rgb = this.ledRgb;
 
-    test.expect(39);
+    test.expect(44);
 
     // returns this
-    test.equal(rgb.color("#000000"), rgb);
+    test.equal(this.ledRgb.color("#000000"), this.ledRgb);
+    this.analog.reset();
 
     // Hex values
-    rgb.color("#0000ff");
+    this.ledRgb.color("#0000ff");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0x00));
     test.ok(this.analog.calledWith(greenPin, 0x00));
     test.ok(this.analog.calledWith(bluePin, 0xff));
+    this.analog.reset();
 
-    rgb.color("#ffff00");
-    test.ok(this.analog.calledWith(redPin, 0xff));
-    test.ok(this.analog.calledWith(greenPin, 0xff));
-    test.ok(this.analog.calledWith(bluePin, 0x00));
-
-    rgb.color("#bbccaa");
+    this.ledRgb.color("#bbccaa");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0xbb));
     test.ok(this.analog.calledWith(greenPin, 0xcc));
     test.ok(this.analog.calledWith(bluePin, 0xaa));
+    this.analog.reset();
 
     // without "#"
-    rgb.color("0000ff");
+    this.ledRgb.color("0000ff");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0x00));
     test.ok(this.analog.calledWith(greenPin, 0x00));
     test.ok(this.analog.calledWith(bluePin, 0xff));
+    this.analog.reset();
 
     // three arguments
-    rgb.color(255, 100, 50);
+    this.ledRgb.color(255, 100, 50);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 100));
     test.ok(this.analog.calledWith(bluePin, 50));
+    this.analog.reset();
 
     // with constraints
-    rgb.color(999, -999, 0);
+    this.ledRgb.color(999, -999, 0);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 0));
+    test.ok(this.analog.calledWith(bluePin, 0));
+    this.analog.reset();
 
     // by object
-    rgb.color({
+    this.ledRgb.color({
       red: 255,
       green: 100,
       blue: 50
     });
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 100));
     test.ok(this.analog.calledWith(bluePin, 50));
+    this.analog.reset();
 
     // by array
-    rgb.color([255, 100, 50]);
+    this.ledRgb.color([255, 100, 50]);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 100));
     test.ok(this.analog.calledWith(bluePin, 50));
+    this.analog.reset();
 
     // bad values
     test.throws(function() {
@@ -723,9 +721,9 @@ exports["Led.RGB"] = {
       rgb.color({red: 255, green: 100, blue: undefined});
     });
 
-    //returns color if no params
-    rgb.color([10, 20, 30]);
-    test.deepEqual(rgb.color(), {
+    // returns color if no params
+    this.ledRgb.color([10, 20, 30]);
+    test.deepEqual(this.ledRgb.color(), {
       red: 10, green: 20, blue: 30
     });
 
@@ -733,18 +731,26 @@ exports["Led.RGB"] = {
   },
 
   on: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
 
-    test.expect(18);
+    test.expect(22);
+
+    test.ok(!this.ledRgb.isOn);
+    test.deepEqual(this.ledRgb.values, {
+      red: 0, green: 0, blue: 0
+    });
 
     // Should default to #ffffff
+    this.analog.reset();
     this.ledRgb.on();
 
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 255));
     test.ok(this.analog.calledWith(bluePin, 255));
+    this.analog.reset();
 
     var color = this.ledRgb.color();
     test.equal(color.red, 255);
@@ -753,7 +759,9 @@ exports["Led.RGB"] = {
 
     // Set a color and make sure .on() doesn't override
     this.ledRgb.color("#bbccaa");
+    this.analog.reset();
     this.ledRgb.on();
+    test.equal(this.analog.callCount, 0);
 
     color = this.ledRgb.color();
     test.equal(color.red, 0xbb);
@@ -779,22 +787,25 @@ exports["Led.RGB"] = {
     test.equal(values.green, 0xcc);
     test.equal(values.blue, 0xaa);
 
-
     test.done();
   },
 
   off: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
 
-    test.expect(9);
+    test.expect(10);
 
     this.ledRgb.color("#bbccaa");
+    this.analog.reset();
+
     this.ledRgb.off();
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 0));
     test.ok(this.analog.calledWith(bluePin, 0));
+    this.analog.reset();
 
     // Test saved state
     var color = this.ledRgb.color();
@@ -807,7 +818,6 @@ exports["Led.RGB"] = {
     test.equal(values.red, 0);
     test.equal(values.green, 0);
     test.equal(values.blue, 0);
-
 
     test.done();
   },
@@ -824,8 +834,8 @@ exports["Led.RGB"] = {
   },
 
   toggle: function(test) {
-    var color,
-      values;
+    var color;
+    var values;
 
     test.expect(11);
 
@@ -862,7 +872,6 @@ exports["Led.RGB"] = {
     test.equal(values.green, 0xcc);
     test.equal(values.blue, 0xaa);
 
-
     test.done();
   },
 
@@ -871,11 +880,9 @@ exports["Led.RGB"] = {
     test.equal(this.ledRgb.blink, this.ledRgb.strobe);
     test.done();
   }
-
 };
 
 exports["Led.RGB - Common Anode"] = {
-
   setUp: function(done) {
     this.board = newBoard();
 
@@ -889,15 +896,7 @@ exports["Led.RGB - Common Anode"] = {
       board: this.board
     });
 
-    this.io = {
-      analogWrite: function() {}
-    };
-
-    this.board.io.analogWrite = function(pin, value) {
-      this.io.analogWrite(pin, value);
-    }.bind(this);
-
-    this.analog = sinon.spy(this.io, "analogWrite");
+    this.analog = sinon.spy(this.board.io, "analogWrite");
 
     done();
   },
@@ -911,47 +910,55 @@ exports["Led.RGB - Common Anode"] = {
   },
 
   color: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
+    var rgb = this.ledRgb;
 
-    test.expect(25);
+    test.expect(44);
 
     // returns this
     test.equal(this.ledRgb.color("#000000"), this.ledRgb);
+    this.analog.reset();
 
     // Hex values
     this.ledRgb.color("#0000ff");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0xff));
     test.ok(this.analog.calledWith(greenPin, 0xff));
     test.ok(this.analog.calledWith(bluePin, 0x00));
-
-    this.ledRgb.color("#ffff00");
-    test.ok(this.analog.calledWith(redPin, 0x00));
-    test.ok(this.analog.calledWith(greenPin, 0x00));
-    test.ok(this.analog.calledWith(bluePin, 0xff));
+    this.analog.reset();
 
     this.ledRgb.color("#bbccaa");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0x44));
     test.ok(this.analog.calledWith(greenPin, 0x33));
     test.ok(this.analog.calledWith(bluePin, 0x55));
+    this.analog.reset();
 
     // without "#"
     this.ledRgb.color("0000ff");
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0xff));
     test.ok(this.analog.calledWith(greenPin, 0xff));
     test.ok(this.analog.calledWith(bluePin, 0x00));
+    this.analog.reset();
 
     // three arguments
     this.ledRgb.color(255, 100, 50);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 155));
     test.ok(this.analog.calledWith(bluePin, 205));
+    this.analog.reset();
 
     // with constraints
     this.ledRgb.color(999, -999, 0);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 255));
+    test.ok(this.analog.calledWith(bluePin, 255));
+    this.analog.reset();
 
     // by object
     this.ledRgb.color({
@@ -959,17 +966,75 @@ exports["Led.RGB - Common Anode"] = {
       green: 100,
       blue: 50
     });
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 155));
     test.ok(this.analog.calledWith(bluePin, 205));
+    this.analog.reset();
 
     // by array
     this.ledRgb.color([255, 100, 50]);
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 155));
     test.ok(this.analog.calledWith(bluePin, 205));
+    this.analog.reset();
 
-    //returns color
+    // bad values
+    test.throws(function() {
+      rgb.color(null);
+    });
+
+    // shorthand not supported
+    test.throws(function() {
+      rgb.color("#fff");
+    });
+
+    // bad hex
+    test.throws(function() {
+      rgb.color("#ggffff");
+    });
+    test.throws(function() {
+      rgb.color("#ggffffff");
+    });
+    test.throws(function() {
+      rgb.color("#ffffffff");
+    });
+
+    // missing/null/undefined param
+    test.throws(function() {
+      rgb.color(10, 20);
+    });
+    test.throws(function() {
+      rgb.color(10, 20, null);
+    });
+    test.throws(function() {
+      rgb.color(10, undefined, 30);
+    });
+
+    // missing/null/undefined value in array
+    test.throws(function() {
+      rgb.color([10, 20]);
+    });
+    test.throws(function() {
+      rgb.color([10, null, 30]);
+    });
+    test.throws(function() {
+      rgb.color([10, undefined, 30]);
+    });
+
+    // missing/null/undefined value in object
+    test.throws(function() {
+      rgb.color({red: 255, green: 100});
+    });
+    test.throws(function() {
+      rgb.color({red: 255, green: 100, blue: null});
+    });
+    test.throws(function() {
+      rgb.color({red: 255, green: 100, blue: undefined});
+    });
+
+    // returns color if no params
     this.ledRgb.color([10, 20, 30]);
     test.deepEqual(this.ledRgb.color(), {
       red: 10, green: 20, blue: 30
@@ -979,18 +1044,26 @@ exports["Led.RGB - Common Anode"] = {
   },
 
   on: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
 
-    test.expect(18);
+    test.expect(22);
+
+    test.ok(!this.ledRgb.isOn);
+    test.deepEqual(this.ledRgb.values, {
+      red: 0, green: 0, blue: 0
+    });
 
     // Should default to #ffffff
+    this.analog.reset();
     this.ledRgb.on();
 
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 0));
     test.ok(this.analog.calledWith(greenPin, 0));
     test.ok(this.analog.calledWith(bluePin, 0));
+    this.analog.reset();
 
     var color = this.ledRgb.color();
     test.equal(color.red, 255);
@@ -999,7 +1072,9 @@ exports["Led.RGB - Common Anode"] = {
 
     // Set a color and make sure .on() doesn't override
     this.ledRgb.color("#bbccaa");
+    this.analog.reset();
     this.ledRgb.on();
+    test.equal(this.analog.callCount, 0);
 
     color = this.ledRgb.color();
     test.equal(color.red, 0xbb);
@@ -1025,22 +1100,25 @@ exports["Led.RGB - Common Anode"] = {
     test.equal(values.green, 0xcc);
     test.equal(values.blue, 0xaa);
 
-
     test.done();
   },
 
   off: function(test) {
-    var redPin = 9,
-      greenPin = 10,
-      bluePin = 11;
+    var redPin = 9;
+    var greenPin = 10;
+    var bluePin = 11;
 
-    test.expect(9);
+    test.expect(10);
 
     this.ledRgb.color("#bbccaa");
+    this.analog.reset();
+
     this.ledRgb.off();
+    test.equal(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(redPin, 255));
     test.ok(this.analog.calledWith(greenPin, 255));
     test.ok(this.analog.calledWith(bluePin, 255));
+    this.analog.reset();
 
     // Test saved state
     var color = this.ledRgb.color();
@@ -1054,13 +1132,12 @@ exports["Led.RGB - Common Anode"] = {
     test.equal(values.green, 0);
     test.equal(values.blue, 0);
 
-
     test.done();
   },
 
   toggle: function(test) {
-    var color,
-      values;
+    var color;
+    var values;
 
     test.expect(11);
 
@@ -1097,12 +1174,9 @@ exports["Led.RGB - Common Anode"] = {
     test.equal(values.green, 0xcc);
     test.equal(values.blue, 0xaa);
 
-
     test.done();
   }
-
 };
-
 
 exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
