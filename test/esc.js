@@ -465,19 +465,6 @@ exports["ESC.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var escs = new ESC.Array();
-
-    test.equal(escs.length, 3);
-    test.equal(escs[0], this.a);
-    test.equal(escs[1], this.b);
-    test.equal(escs[2], this.c);
-
-    test.done();
-  },
-
   initFromESCNumbers: function(test) {
     test.expect(1);
 
@@ -501,7 +488,7 @@ exports["ESC.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var escs = new ESC.Array();
+    var escs = new ESC.Array([3, 6, 9]);
 
     escs.speed(100);
 
