@@ -372,19 +372,6 @@ exports["Pin.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var pins = new Pin.Array();
-
-    test.equal(pins.length, 3);
-    test.equal(pins[0], this.digital);
-    test.equal(pins[1], this.analog);
-    test.equal(pins[2], this.dtoa);
-
-    test.done();
-  },
-
   initFromPinNumbers: function(test) {
     test.expect(1);
 
@@ -408,7 +395,7 @@ exports["Pin.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var pins = new Pin.Array();
+    var pins = new Pin.Array([3, 7, 9]);
 
     pins.write(1);
 

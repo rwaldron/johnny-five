@@ -846,19 +846,6 @@ exports["Servo.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var servos = new Servo.Array();
-
-    test.equal(servos.length, 3);
-    test.equal(servos[0], this.a);
-    test.equal(servos[1], this.b);
-    test.equal(servos[2], this.c);
-
-    test.done();
-  },
-
   initFromServoNumbers: function(test) {
     test.expect(1);
 
@@ -882,7 +869,7 @@ exports["Servo.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var servos = new Servo.Array();
+    var servos = new Servo.Array([3, 6, 9]);
 
     servos.to(90);
 
