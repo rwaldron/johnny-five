@@ -275,6 +275,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Motion
 - [Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/motion.md)
 - [Motion - GP2Y0D805Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d805z0f.md)
+- [Motion - GP2Y0D810Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d810z0f.md)
+- [Motion - GP2Y0D810Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d815z0f.md)
 
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)

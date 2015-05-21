@@ -1,14 +1,12 @@
 <!--remove-start-->
 
-# Motion - GP2Y0D805Z0F
+# Motion - GP2Y0D810Z0F
 
-
-Basic GP2Y0D805Z0F motion detection.
 
 
 Run with:
 ```bash
-node eg/motion-gp2y0d805z0f.js
+node eg/motion-gp2y0d815z0f.js
 ```
 
 <!--remove-end-->
@@ -21,7 +19,8 @@ board.on("ready", function() {
 
   // Create a new `motion` hardware instance.
   var motion = new five.Motion({
-    controller: "GP2Y0D805Z0F"
+    controller: "GP2Y0D810Z0F",
+    pin: "A0"
   });
 
   // "calibrated" occurs once, at the beginning of a session,
@@ -40,13 +39,6 @@ board.on("ready", function() {
   motion.on("motionend", function() {
     console.log("motionend");
   });
-
-  // "data" events are fired at the interval set in opts.freq
-  // or every 25ms. Uncomment the following to see all
-  // motion detection readings.
-  // motion.on("data", function(data) {
-  //   console.log(data);
-  // });
 });
 
 ```
@@ -55,13 +47,15 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Breadboard for "Motion - GP2Y0D805Z0F"
+### Motion - GP2Y0D815Z0F
 
 
+Basic GP2Y0D815Z0F motion detection.
 
-![docs/breadboard/motion-gp2y0d805z0f.png](breadboard/motion-gp2y0d805z0f.png)<br>
 
-Fritzing diagram: [docs/breadboard/motion-gp2y0d805z0f.fzz](breadboard/motion-gp2y0d805z0f.fzz)
+![docs/breadboard/GP2Y0D810Z0F.png](breadboard/GP2Y0D810Z0F.png)<br>
+
+Fritzing diagram: [docs/breadboard/GP2Y0D810Z0F.fzz](breadboard/GP2Y0D810Z0F.fzz)
 
 &nbsp;
 

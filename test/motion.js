@@ -303,3 +303,118 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   }
 };
+
+exports["Motion - GP2Y0D810Z0F"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.motion = new Motion({
+      controller: "GP2Y0D810Z0F",
+      pin: "A0",
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    restore(this);
+    done();
+  },
+
+  initialize: function(test) {
+    test.expect(2);
+
+    test.ok(this.pinMode.calledOnce);
+    test.ok(this.analogRead.calledOnce);
+    test.done();
+  },
+
+  calibrated: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+    this.motion.on("calibrated", spy);
+    this.clock.tick(10);
+    test.ok(spy.calledOnce);
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+    this.motion.on("data", spy);
+    this.clock.tick(25);
+    test.ok(spy.calledOnce);
+    test.done();
+  },
+
+  change: function(test) {
+    var spy = sinon.spy();
+    var callback = this.analogRead.firstCall.args[1];
+    test.expect(1);
+    this.motion.on("change", spy);
+    callback(1023);
+    this.clock.tick(25);
+    callback(100);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+
+    test.ok(spy.calledTwice);
+    test.done();
+  },
+
+  noChange: function(test) {
+    test.expect(1);
+    var spy = sinon.spy();
+    var callback = this.analogRead.firstCall.args[1];
+    this.motion.on("change", spy);
+
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+
+    test.ok(spy.notCalled);
+    test.done();
+  },
+
+  motionstart: function(test) {
+    var spy = sinon.spy();
+    var callback = this.analogRead.firstCall.args[1];
+
+    test.expect(1);
+    this.motion.on("motionstart", spy);
+
+    callback(100);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+
+    test.ok(spy.calledOnce);
+    test.done();
+  },
+
+  motionend: function(test) {
+
+    // this.clock.tick(250);
+    var spy = sinon.spy();
+    var callback = this.analogRead.firstCall.args[1];
+
+    test.expect(1);
+    this.motion.on("motionend", spy);
+
+    callback(100);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
