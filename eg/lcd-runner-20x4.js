@@ -13,29 +13,26 @@ board.on("ready", function() {
     cols: 20
   });
 
-  lcd.on("ready", function() {
+  var frame = 1;
+  var col = 0;
+  var row = 0;
 
-    var frame = 1,
-      col = 0,
-      row = 0;
+  lcd.useChar("runninga");
+  lcd.useChar("runningb");
 
-    lcd.useChar("runninga");
-    lcd.useChar("runningb");
+  board.loop(300, function() {
 
-    board.loop(300, function() {
+    lcd.clear().cursor(row, col).print(
+      ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
+    );
 
-      lcd.clear().cursor(row, col).print(
-        ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
-      );
+    if (++col === lcd.cols) {
+      col = 0;
 
-      if (++col === lcd.cols) {
-        col = 0;
-
-        if (++row === lcd.rows) {
-          row = 0;
-        }
+      if (++row === lcd.rows) {
+        row = 0;
       }
-    });
+    }
   });
 });
 

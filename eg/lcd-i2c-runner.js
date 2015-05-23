@@ -16,7 +16,7 @@ board.on("ready", function() {
   lcd.useChar("runninga");
   lcd.useChar("runningb");
 
-  board.loop(300, function() {
+  this.loop(300, function() {
 
     lcd.clear().cursor(row, col).print(
       ":running" + ((frame ^= 1) === 0 ? "a" : "b") + ":"
@@ -31,7 +31,7 @@ board.on("ready", function() {
     }
   });
 
-  board.loop(1000, function() {
+  this.loop(1000, function() {
     lcd.bgColor(clist[Math.floor(Math.random() * clength)]);
   });
 });
