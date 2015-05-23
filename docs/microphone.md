@@ -1,0 +1,57 @@
+<!--remove-start-->
+
+# Sensor - Microphone
+
+
+
+Run with:
+```bash
+node eg/microphone.js
+```
+
+<!--remove-end-->
+
+```javascript
+var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  var mic = new five.Sensor("A0");
+  var led = new five.Led(11);
+
+  mic.on("data", function() {
+    led.brightness(this.value >> 2);
+  });
+});
+
+```
+
+
+## Illustrations / Photos
+
+
+### Breadboard for "Sensor - Microphone"
+
+
+
+![docs/breadboard/microphone.png](breadboard/microphone.png)<br>
+
+Fritzing diagram: [docs/breadboard/microphone.fzz](breadboard/microphone.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
+
+<!--remove-start-->
+
+## License
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

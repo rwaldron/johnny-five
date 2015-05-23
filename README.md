@@ -312,6 +312,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
 - [Sensor - Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/potentiometer.md)
+- [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer - ADXL345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
 - [Accelerometer - ADXL335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)

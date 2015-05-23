@@ -663,6 +663,10 @@
         "title": "Sensor - Potentiometer"
       },
       {
+        "file": "microphone.js",
+        "title": "Sensor - Microphone"
+      },
+      {
         "file": "accelerometer.js",
         "title": "Accelerometer"
       },
