@@ -523,6 +523,14 @@
           {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0D815Z0F", "description": "Basic GP2Y0D815Z0F motion detection."}
 
         ]
+      },
+      {
+        "file": "motion-GP2Y0A60SZLF.js",
+        "title": "Motion - GP2Y0A60SZLF",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0A60SZLF", "description": "Basic GP2Y0D815Z0F motion detection."}
+
+        ]
       }
     ]
   },
