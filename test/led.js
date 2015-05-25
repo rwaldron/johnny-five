@@ -34,8 +34,6 @@ var instanceProperties = [{
   name: "pin"
 }, {
   name: "value"
-}, {
-  name: "interval"
 }];
 
 var rgbProtoProperties = [{
@@ -54,9 +52,7 @@ var rgbProtoProperties = [{
   name: "stop"
 }];
 
-var rgbInstanceProperties = [{
-  name: "interval"
-}];
+var rgbInstanceProperties = [];
 
 function newBoard() {
   var io = new MockFirmata();
