@@ -955,6 +955,59 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
   }
 };
 
+exports["Led.RGB - BlinkM (I2C)"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    this.ledRgb = new Led.RGB({
+      controller: "BlinkM",
+      board: this.board
+    });
+
+    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
+
+    rgbProtoProperties.forEach(function(method) {
+      test.equal(typeof this.ledRgb[method.name], "function");
+    }, this);
+
+    rgbInstanceProperties.forEach(function(property) {
+      test.notEqual(typeof this.ledRgb[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  write: function(test) {
+    test.expect(6);
+
+    // Fully off
+    this.ledRgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    test.equal(this.i2cWrite.callCount, 1);
+    test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0x00, 0x00, 0x00]));
+    this.i2cWrite.reset();
+
+    // Fully on
+    this.ledRgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    test.equal(this.i2cWrite.callCount, 1);
+    test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0xff, 0xff, 0xff]));
+    this.i2cWrite.reset();
+
+    // Custom color
+    this.ledRgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    test.equal(this.i2cWrite.callCount, 1);
+    test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0xbb, 0xcc, 0xaa]));
+    this.i2cWrite.reset();
+
+    test.done();
+  }
+};
+
 exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
     test.expect(8);
