@@ -67,6 +67,34 @@ function newBoard() {
   return board;
 }
 
+function testLedShape(test) {
+  test.expect(protoProperties.length + instanceProperties.length);
+
+  protoProperties.forEach(function(method) {
+    test.equal(typeof this.led[method.name], "function");
+  }, this);
+
+  instanceProperties.forEach(function(property) {
+    test.notEqual(typeof this.led[property.name], "undefined");
+  }, this);
+
+  test.done();
+}
+
+function testLedRgbShape(test) {
+  test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
+
+  rgbProtoProperties.forEach(function(method) {
+    test.equal(typeof this.ledRgb[method.name], "function");
+  }, this);
+
+  rgbInstanceProperties.forEach(function(property) {
+    test.notEqual(typeof this.ledRgb[property.name], "undefined");
+  }, this);
+
+  test.done();
+}
+
 exports["Led - Digital"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -87,19 +115,7 @@ exports["Led - Digital"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(protoProperties.length + instanceProperties.length);
-
-    protoProperties.forEach(function(method) {
-      test.equal(typeof this.led[method.name], "function");
-    }, this);
-
-    instanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.led[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedShape,
 
   pinMode: function(test) {
     test.expect(2);
@@ -260,19 +276,7 @@ exports["Led - PWM (Analog)"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(protoProperties.length + instanceProperties.length);
-
-    protoProperties.forEach(function(method) {
-      test.equal(typeof this.led[method.name], "function");
-    }, this);
-
-    instanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.led[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedShape,
 
   pinMode: function(test) {
     test.expect(2);
@@ -368,19 +372,7 @@ exports["Led - PCA9685 (I2C)"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(protoProperties.length + instanceProperties.length);
-
-    protoProperties.forEach(function(method) {
-      test.equal(typeof this.led[method.name], "function");
-    }, this);
-
-    instanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.led[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedShape,
 
   defaultMode: function(test) {
     test.expect(2);
@@ -551,19 +543,7 @@ exports["Led.RGB"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
-
-    rgbProtoProperties.forEach(function(method) {
-      test.equal(typeof this.ledRgb[method.name], "function");
-    }, this);
-
-    rgbInstanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.ledRgb[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedRgbShape,
 
   params: function(test) {
     var led;
@@ -910,19 +890,7 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
-
-    rgbProtoProperties.forEach(function(method) {
-      test.equal(typeof this.ledRgb[method.name], "function");
-    }, this);
-
-    rgbInstanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.ledRgb[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedRgbShape,
 
   write: function(test) {
     test.expect(12);
@@ -969,19 +937,7 @@ exports["Led.RGB - BlinkM (I2C)"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
-
-    rgbProtoProperties.forEach(function(method) {
-      test.equal(typeof this.ledRgb[method.name], "function");
-    }, this);
-
-    rgbInstanceProperties.forEach(function(property) {
-      test.notEqual(typeof this.ledRgb[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: testLedRgbShape,
 
   write: function(test) {
     test.expect(6);
