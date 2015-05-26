@@ -548,7 +548,7 @@ exports["Led.RGB"] = {
   params: function(test) {
     var led;
 
-    test.expect(3);
+    test.expect(5);
 
     // Test object constructor
     led = new Led.RGB({
@@ -569,6 +569,20 @@ exports["Led.RGB"] = {
     // Test array constructor
     led = new Led.RGB([9, 10, 11]);
     test.deepEqual(led.pins, [9, 10, 11]);
+
+    // Non-PWM digital pin
+    test.throws(function() {
+      new Led.RGB({
+        pins: [2, 3, 4]
+      });
+    }, /Pin Error: 2 is not a valid PWM pin \(Led\.RGB\)/);
+
+    // Analog pin
+    test.throws(function() {
+      new Led.RGB({
+        pins: ["A0", "A1", "A2"]
+      });
+    }, /Pin Error: \d+ is not a valid PWM pin \(Led\.RGB\)/);
 
     test.done();
   },
