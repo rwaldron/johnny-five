@@ -978,6 +978,61 @@ exports["Led.RGB - BlinkM (I2C)"] = {
   }
 };
 
+exports["Led.RGB - Esplora"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    this.ledRgb = new Led.RGB({
+      controller: "Esplora",
+      board: this.board
+    });
+
+    this.analog = sinon.spy(this.board.io, "analogWrite");
+
+    done();
+  },
+
+  shape: testLedRgbShape,
+
+  initialization: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.ledRgb.pins, [5, 10, 9]);
+
+    test.done();
+  },
+
+  write: function(test) {
+    test.expect(12);
+
+    // Fully off
+    this.ledRgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    test.ok(this.analog.callCount, 3);
+    test.ok(this.analog.calledWith(5, 0x00));
+    test.ok(this.analog.calledWith(10, 0x00));
+    test.ok(this.analog.calledWith(9, 0x00));
+    this.analog.reset();
+
+    // Fully on
+    this.ledRgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    test.ok(this.analog.callCount, 3);
+    test.ok(this.analog.calledWith(5, 0xff));
+    test.ok(this.analog.calledWith(10, 0xff));
+    test.ok(this.analog.calledWith(9, 0xff));
+    this.analog.reset();
+
+    // Custom color
+    this.ledRgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    test.ok(this.analog.callCount, 3);
+    test.ok(this.analog.calledWith(5, 0xbb));
+    test.ok(this.analog.calledWith(10, 0xcc));
+    test.ok(this.analog.calledWith(9, 0xaa));
+    this.analog.reset();
+
+    test.done();
+  }
+};
+
 exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
     test.expect(8);
