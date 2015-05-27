@@ -1106,7 +1106,7 @@ exports["Led.RGB - Common Anode"] = {
 
 exports["Led - Default Pin w/ Firmata"] = {
   shape: function(test) {
-    test.expect(8);
+    test.expect(7);
 
     Board.purge();
 
@@ -1132,9 +1132,6 @@ exports["Led - Default Pin w/ Firmata"] = {
     sinon.stub(five.Board.Pins.prototype, "isPwm").returns(true);
 
     test.equal(new Led(12).mode, 3);
-    test.equal(new Led({
-      type: "PWM"
-    }).mode, 3);
 
     test.done();
   }
