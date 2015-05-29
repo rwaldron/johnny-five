@@ -22,15 +22,11 @@ exports["Piezo"] = {
     });
 
     this.proto = [{
-      name: "frequency",
+      name: "playFrequency",
     }, {
-      name: "tone"
+      name: "playNote"
     }, {
-      name: "noTone"
-    }, {
-      name: "off"
-    }, {
-      name: "play"
+      name: "stop"
     }];
 
     this.instance = [{
@@ -41,8 +37,6 @@ exports["Piezo"] = {
   },
 
   tearDown: function(done) {
-    this.piezo.defaultOctave(4);
-
     done();
   },
 
@@ -198,400 +192,55 @@ exports["Piezo"] = {
     test.done();
   },
 
-  normalizeTempo: function(test) {
-    test.expect(8);
-
-    // good values
-    test.equal(40, Piezo.normalizeTempo(40));
-    test.equal(125, Piezo.normalizeTempo(125));
-    test.equal(400, Piezo.normalizeTempo(400));
-
-    // NaN's return null
-    test.equal(null, Piezo.normalizeTempo(null));
-    test.equal(null, Piezo.normalizeTempo(""));
-    test.equal(null, Piezo.normalizeTempo(NaN));
-
-    // 40 - 400 is the limit
-    test.equal(null, Piezo.normalizeTempo(39));
-    test.equal(null, Piezo.normalizeTempo(401));
-
-    test.done();
-  },
-
-  normalizeBeat: function(test) {
-    test.expect(9);
-
-    // good values
-    test.equal(2, Piezo.normalizeBeat(2));
-    test.equal(1, Piezo.normalizeBeat(4));
-    test.equal(1/2, Piezo.normalizeBeat(8));
-    test.equal(1/4, Piezo.normalizeBeat(16));
-
-    // NaN's return null
-    test.equal(null, Piezo.normalizeBeat(null));
-    test.equal(null, Piezo.normalizeBeat(""));
-    test.equal(null, Piezo.normalizeBeat(NaN));
-
-    // 2, 4, 8, 16 are all thats supported
-    test.equal(null, Piezo.normalizeBeat(39));
-    test.equal(null, Piezo.normalizeBeat(401));
-
-    test.done();
-  },
-
-  normalizeOctave: function(test) {
-    test.expect(14);
-
-    // good values
-    test.equal(0, Piezo.normalizeOctave(0));
-    test.equal(1, Piezo.normalizeOctave(1));
-    test.equal(2, Piezo.normalizeOctave(2));
-    test.equal(3, Piezo.normalizeOctave(3));
-    test.equal(4, Piezo.normalizeOctave(4));
-    test.equal(5, Piezo.normalizeOctave(5));
-    test.equal(6, Piezo.normalizeOctave(6));
-    test.equal(7, Piezo.normalizeOctave(7));
-    test.equal(8, Piezo.normalizeOctave(8));
-
-    // NaN's return null
-    test.equal(null, Piezo.normalizeOctave(null));
-    test.equal(null, Piezo.normalizeOctave(""));
-    test.equal(null, Piezo.normalizeOctave(NaN));
-
-    // 0 to 8 are all thats supported
-    test.equal(null, Piezo.normalizeOctave(-1));
-    test.equal(null, Piezo.normalizeOctave(9));
-
-    test.done();
-  },
-
-  nomalizeNote: function(test) {
-    test.expect(6);
-
-    var matchNote = {
-      notation: "a",
-      octave: "4",
-      beat: 1/2
-    };
-
-    // full to single note matching, reasonable defaults
-    test.deepEqual(matchNote, Piezo.normalizeNote("8a4"));
-    test.deepEqual(matchNote, Piezo.normalizeNote("a4"));
-    test.deepEqual(matchNote, Piezo.normalizeNote("a"));
-
-    // NaN, null and empty string all fail.
-    test.equal(null, Piezo.normalizeNote(NaN));
-    test.equal(null, Piezo.normalizeNote(""));
-    test.equal(null, Piezo.normalizeNote(null));
-
-    test.done();
-  },
-
-  normalizeMelody: function(test) {
-    test.expect(14);
-
-    var melody;
-    var matchNote;
-
-    // Handles RTTF+, with reasonable defaults
-    melody = Piezo.normalizeMelody("b=8 o=4 t=125: 8a4 a4 a");
-    test.equal(1/2, melody.beat);
-    test.equal(4, melody.octave);
-    test.equal(125, melody.tempo);
-    test.equal(3, melody.notes.length);
-
-    matchNote = {
-      notation: "a",
-      octave: "4",
-      beat: 1/2
-    };
-
-    test.deepEqual(matchNote, melody.notes[0]);
-    test.deepEqual(matchNote, melody.notes[1]);
-    test.deepEqual(matchNote, melody.notes[2]);
-
-    // Handles RTTF, with reasonable defaults
-    melody = Piezo.normalizeMelody("d=8 o=4 b=125: 8a4, a4,a");
-    test.equal(1/2, melody.beat);
-    test.equal(4, melody.octave);
-    test.equal(125, melody.tempo);
-    test.equal(3, melody.notes.length);
-
-    matchNote = {
-      notation: "a",
-      octave: "4",
-      beat: 1/2
-    };
-
-    test.deepEqual(matchNote, melody.notes[0]);
-    test.deepEqual(matchNote, melody.notes[1]);
-    test.deepEqual(matchNote, melody.notes[2]);
-
-    test.done();
-
-  },
-
-  frequencyToPulse: function(test) {
-    test.expect(5);
-
-    // numbers and strings work fine.
-    test.equal(1136, Piezo.frequencyToPulse(440));
-    test.equal(1136, Piezo.frequencyToPulse("440"));
-
-    // All these return null
-    test.equal(null, Piezo.frequencyToPulse(NaN));
-    test.equal(null, Piezo.frequencyToPulse(""));
-    test.equal(null, Piezo.frequencyToPulse(null));
-
-    test.done();
-  },
-
-  noteToPulse: function(test) {
-    test.expect(5);
-
-    // numbers and strings work fine.
-    test.equal(1136, Piezo.noteToPulse("2a4"));
-    test.equal(1136, Piezo.noteToPulse("a4"));
-
-    // All these return null
-    test.equal(null, Piezo.noteToPulse(NaN));
-    test.equal(null, Piezo.noteToPulse(""));
-    test.equal(null, Piezo.noteToPulse(null));
-
-    test.done();
-  },
-
-  noteToFrequency: function(test) {
-    test.expect(5);
-
-    // numbers and strings work fine.
-    test.equal(440, Piezo.noteToFrequency("2a4"));
-    test.equal(440, Piezo.noteToFrequency("a4"));
-
-    // All these return null
-    test.equal(null, Piezo.noteToFrequency(NaN));
-    test.equal(null, Piezo.noteToFrequency(""));
-    test.equal(null, Piezo.noteToFrequency(null));
-
-    test.done();
-  },
-
-  defaultOctave: function(test) {
-    test.expect(6);
-
-    // 4 is the default.
-    test.equal(4, this.piezo.defaultOctave());
-
-    // Changes are returned as well as stored.
-    test.equal(5, this.piezo.defaultOctave(5));
-
-    // 0 - 9 only, remembers last good value.
-    test.equal(5, this.piezo.defaultOctave(-1));
-    test.equal(5, this.piezo.defaultOctave(9));
-    test.equal(5, this.piezo.defaultOctave("foo"));
-    test.equal(5, this.piezo.defaultOctave(null));
-
-    test.done();
-  },
-
-  note: function(test) {
-    test.expect(4);
-
-    // note delegates to tone;
-    var toneSpy = sinon.spy(this.piezo, "tone");
-
-    // accepts octave.
-    test.equal(this.piezo.note("c4", 100), this.piezo);
-    test.ok(toneSpy.calledWith(262, 100));
-
-    // or not.
-    test.equal(this.piezo.note("c#", 100), this.piezo);
-    test.ok(toneSpy.calledWith(277, 100));
-
-    test.done();
-  },
-
-  tone: function(test) {
+  pulsePin: function(test) {
     test.expect(2);
 
-    var returned = this.piezo.tone(1915, 1000);
+    var returned = this.piezo.pulsePin(440, 100);
     test.ok(this.spy.called);
     test.equal(returned, this.piezo);
-
     test.done();
   },
 
-  toneWhileNewToneIsPlayingCancelsExisting: function(test) {
-    test.expect(1);
-
-    this.piezo.tone(1915, 100);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
-    this.piezo.tone(1915, 100);
-
-    test.ok(timerSpy.called);
-
-    test.done();
-  },
-
-  toneRejectsWonkyToneValues: function(test) {
-    var lameValues = [
-      ["florp", 5],
-      ["ding", "dong"],
-      ["c4", "zimple"],
-      ["?", "foof"]
-      //  ["C4", 1][null, 1/2] // Original bad value; jshint won't allow
-    ];
-    test.expect(lameValues.length);
-    lameValues.forEach(function(element) {
-      try {
-        if (element && element.length) {
-          this.piezo.tone(element[0], element[1]);
-        } else {
-          this.piezo.tone(element);
-        }
-      } catch (e) {
-        test.equal(e.message, "Piezo.tone: invalid tone or duration");
-      }
-    }, this);
-    test.done();
-  },
-
-  toneLovesHappyValues: function(test) {
-    test.expect(1);
-    var happy = this.piezo.tone(350, 500);
-    test.equal(happy, this.piezo); // tone returns piezo obj when happy
-    test.done();
-  },
-
-  frequency: function(test) {
+  playFrequency: function(test) {
     test.expect(2);
-    var toneSpy = sinon.spy(this.piezo, "tone");
+    var pulsePin = sinon.spy(this.piezo, "pulsePin");
 
-    var returned = this.piezo.frequency(440, 100);
-    test.ok(toneSpy.calledWith(1136, 100));
+    var returned = this.piezo.playFrequency(440, 100);
+    test.ok(pulsePin.calledWith(1136, 100));
     test.equal(returned, this.piezo);
     test.done();
   },
 
-  noTone: function(test) {
+  playNote: function(test) {
+    test.expect(2);
+    var pulsePin = sinon.spy(this.piezo, "pulsePin");
+
+    var returned = this.piezo.playNote("a4", 100);
+    test.ok(pulsePin.calledWith(1136, 100));
+    test.equal(returned, this.piezo);
+    test.done();
+  },
+
+  playMelody: function(test) {
+    test.expect(2);
+    var playNoteSpy = sinon.spy(this.piezo, "playNote");
+
+    this.piezo.playMelody("d=8 o=4 b=1000: a a4 8a 8a4", function(err) {
+      test.ifError(err);
+      test.ok(playNoteSpy.callCount === 4);
+
+      test.done();
+    });
+  },
+
+  stop: function(test) {
     test.expect(2);
 
-    var returned = this.piezo.noTone();
+    var returned = this.piezo.stop();
+
     test.ok(this.spy.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
     test.done();
-  },
-
-  noToneStopsExistingTone: function(test) {
-    test.expect(2);
-
-    this.piezo.tone(500, 1000);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
-
-    this.piezo.noTone();
-    test.ok(timerSpy.called);
-    test.equal(this.piezo.timer, undefined);
-
-    test.done();
-  },
-
-  play: function(test) {
-    test.expect(3);
-
-    var returned = this.piezo.play({
-      song: [
-        [] // No tone
-
-      ],
-      tempo: 150
-    });
-    test.ok(this.spy.calledWith(3, 0));
-    test.equal(returned, this.piezo);
-
-
-    this.piezo.play({
-      song: [
-        [] // No tone
-      ],
-      tempo: 150
-    });
-    test.ok(this.spy.calledWith(3, 0));
-
-    test.done();
-  },
-
-  playTune: function(test) {
-    var tempo = 10000; // Make it really fast
-    test.expect(6);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
-    this.piezo.play({
-      song: [
-        ["c", 1],
-        ["d", 2],
-        [null, 1],
-        672,
-        "e4",
-        null
-      ],
-      tempo: tempo // Make it real fast
-    }, function() {
-      // frequency should get called 4x; not for the null notes
-      test.ok(freqSpy.callCount === 4);
-      test.ok(freqSpy.neverCalledWith(null));
-      // First call should have been with frequency for "c4"
-      test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
-      // Default duration === tempo if not provided
-      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 / tempo));
-      // Duration should change if different beat value given
-      test.ok(freqSpy.calledWith(Piezo.Notes["d4"], (60000 / tempo) * 2));
-      // OK to pass frequency directly...
-      test.ok(freqSpy.calledWith(672, 60000 / tempo));
-      test.done();
-    });
-  },
-
-  playTuneWithStringSongAndBeat: function(test) {
-    var tempo = 10000; // Make it really fast
-    test.expect(6);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
-    var beats = 0.125;
-    this.piezo.play({
-      song: "c d d - 672 e4 -",
-      beats: beats,
-      tempo: tempo // Make it real fast
-    }, function() {
-      // frequency should get called 4x; not for the null notes
-      test.ok(freqSpy.callCount === 4);
-      test.ok(freqSpy.neverCalledWith(null));
-      // First call should have been with frequency for "c4"
-      test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
-      // Default duration === tempo if not provided
-      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 * beats / tempo));
-      // Duration should change if different beat value given
-      test.ok(freqSpy.calledWith(Piezo.Notes["d4"], (60000 * beats / tempo) * 2));
-      // OK to pass frequency directly...
-      test.ok(freqSpy.calledWith(672, 60000 * beats / tempo));
-      test.done();
-    });
-  },
-
-  playCanDealWithWonkyValues: function(test) {
-    var tempo = 10000,
-      tune = {
-        song: [
-          ["c4"],
-          ["drunk"],
-          ["d4", 0]
-        ],
-        tempo: tempo
-      };
-    test.expect(1);
-
-    this.piezo.play(tune, function() {
-      test.ok(1); // We made it this far, no choking on bad values
-      test.done();
-    }.bind(this));
-
-  },
+  }
 };
