@@ -13,31 +13,31 @@ var board = new five.Board({
 io.emit("ready");
 
 
+var proto = [];
+var instance = [{
+  name: "pullup"
+}, {
+  name: "invert"
+}, {
+  name: "downValue"
+}, {
+  name: "upValue"
+}, {
+  name: "holdtime"
+}, {
+  name: "isDown"
+}, {
+  name: "value"
+}];
+
+
 exports["Button, Digital Pin"] = {
   setUp: function(done) {
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
       board: board
     });
-
-    this.proto = [];
-
-    this.instance = [{
-      name: "isPullup"
-    }, {
-      name: "invert"
-    }, {
-      name: "downValue"
-    }, {
-      name: "upValue"
-    }, {
-      name: "holdtime"
-    }, {
-      name: "isDown"
-    }, {
-      name: "value"
-    }];
 
     done();
   },
@@ -48,13 +48,13 @@ exports["Button, Digital Pin"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.proto.forEach(function(method) {
+    proto.forEach(function(method) {
       test.equal(typeof this.button[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instance.forEach(function(property) {
       test.notEqual(typeof this.button[property.name], "undefined");
     }, this);
 
@@ -102,35 +102,20 @@ exports["Button, Digital Pin"] = {
       clock.restore();
       test.done();
     });
+    this.button.holdtime = 10;
     callback(this.button.downValue);
-    clock.tick(500);
+    clock.tick(11);
     callback(this.button.upValue);
   },
 };
 
 exports["Button, Analog Pin"] = {
   setUp: function(done) {
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
       board: board
     });
-
-    this.proto = [];
-
-    this.instance = [{
-      name: "isPullup"
-    }, {
-      name: "invert"
-    }, {
-      name: "downValue"
-    }, {
-      name: "upValue"
-    }, {
-      name: "holdtime"
-    }, {
-      name: "isDown"
-    }];
 
     done();
   },
@@ -184,8 +169,174 @@ exports["Button, Analog Pin"] = {
       clock.restore();
       test.done();
     });
+
+    this.button.holdtime = 10;
     callback(this.button.downValue);
-    clock.tick(500);
+    clock.tick(11);
+    callback(this.button.upValue);
+  },
+};
+
+exports["Button, Value Inversion"] = {
+  setUp: function(done) {
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.button = new Button({
+      pin: 8,
+      board: board
+    });
+
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.digitalRead.restore();
+    done();
+  },
+
+  initialInversion: function(test) {
+    test.expect(6);
+
+    this.button = new Button({
+      pin: 8,
+      invert: true,
+      board: board
+    });
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  pullupInversion: function(test) {
+    test.expect(6);
+
+    this.button = new Button({
+      pin: 8,
+      pullup: true,
+      board: board
+    });
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  inlineInversion: function(test) {
+    test.expect(14);
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.upValue = 0;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.downValue = 0;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.invert = true;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.invert = false;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    test.done();
+  },
+
+  downInversion: function(test) {
+
+    var callback = this.digitalRead.args[0][1];
+    test.expect(3);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("down", function() {
+
+      test.ok(true);
+      test.done();
+    });
+
+    this.button.downValue = 0;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    callback(this.button.downValue);
+  },
+
+  upInversion: function(test) {
+
+    var callback = this.digitalRead.args[0][1];
+    test.expect(3);
+
+    this.button.on("up", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    callback(this.button.upValue);
+  },
+
+  holdInversion: function(test) {
+    var clock = sinon.useFakeTimers();
+    var callback = this.digitalRead.args[0][1];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("hold", function() {
+      test.ok(true);
+      clock.restore();
+      test.done();
+    });
+
+    this.button.holdtime = 10;
+    this.button.downValue = 0;
+    callback(this.button.downValue);
+    clock.tick(11);
     callback(this.button.upValue);
   },
 };
