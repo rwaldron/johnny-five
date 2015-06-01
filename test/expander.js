@@ -52,6 +52,36 @@ exports["Expander"] = {
     test.done();
   },
 
+  invalidControllerString: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      new Expander("INVALID_CONTROLLER_STRING");
+    });
+
+    test.done();
+  },
+
+  validControllerString: function(test) {
+    test.expect(6);
+
+    [
+      "MCP23017",
+      "MCP23008",
+      "PCF8574",
+      "PCF8574A",
+      "PCF8575",
+      "PCA9685",
+    ].forEach(function(controller) {
+      test.doesNotThrow(function() {
+        new Expander(controller);
+      });
+    });
+
+
+    test.done();
+  },
+
   noController: function(test) {
     test.expect(1);
 
@@ -70,7 +100,7 @@ exports["Expander"] = {
     test.doesNotThrow(function() {
       new Expander({
         board: this.board,
-        controller: controller
+        controller: {}
       });
     }.bind(this));
 
@@ -82,7 +112,7 @@ exports["Expander"] = {
 
     var expander = new Expander({
       board: this.board,
-      controller: controller
+      controller: "PCA9685"
     });
 
     test.ok(expander instanceof Emitter);

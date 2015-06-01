@@ -7,9 +7,10 @@ var SerialPort = require("./util/mock-serial").SerialPort,
   sinon = require("sinon"),
   __ = require("../lib/fn.js"),
   _ = require("lodash"),
-  Repl = five.Repl,
   Board = five.Board,
   Boards = five.Boards,
+  Virtual = Board.Virtual,
+  Repl = five.Repl,
   board = new Board({
     io: new MockFirmata(),
     debug: false,
@@ -137,6 +138,56 @@ exports["Board"] = {
 
     io.emit("connect");
     io.emit("ready");
+  }
+};
+
+exports["Virtual"] = {
+  setUp: function(done) {
+    this.Board = sinon.stub(five, "Board", function() {});
+    this.Expander = sinon.stub(five, "Expander", function() {
+      this.name = "MCP23017";
+    });
+    done();
+  },
+
+  tearDown: function(done) {
+    this.Board.restore();
+    this.Expander.restore();
+    done();
+  },
+
+  ioExpanderAsArg: function(test) {
+    test.expect(5);
+
+    var expander = new this.Expander();
+
+    new Virtual(expander);
+
+    test.equal(this.Board.called, true);
+    test.equal(this.Board.lastCall.args[0].repl, false);
+    test.equal(this.Board.lastCall.args[0].debug, false);
+    test.equal(this.Board.lastCall.args[0].sigint, false);
+    test.equal(this.Board.lastCall.args[0].io, expander);
+
+    test.done();
+  },
+
+  ioExpanderAsPropertyOfArg: function(test) {
+    test.expect(5);
+
+    var expander = new this.Expander();
+
+    new Virtual({
+      io: expander
+    });
+
+    test.equal(this.Board.called, true);
+    test.equal(this.Board.lastCall.args[0].repl, false);
+    test.equal(this.Board.lastCall.args[0].debug, false);
+    test.equal(this.Board.lastCall.args[0].sigint, false);
+    test.equal(this.Board.lastCall.args[0].io, expander);
+
+    test.done();
   }
 };
 
