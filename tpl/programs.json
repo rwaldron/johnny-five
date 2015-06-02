@@ -62,7 +62,13 @@
         "file": "expander-PCA9685.js",
         "title": "Expander - PCA9685",
         "description": "Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)"
+      },
+      {
+        "file": "expander-PCF8591.js",
+        "title": "Expander - PCF8591",
+        "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
       }
+
     ]
   },
   {

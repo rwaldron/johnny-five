@@ -1637,3 +1637,156 @@ exports["Expander - PCA9685"] = {
     test.done();
   },
 };
+
+
+exports["Expander - PCF8591"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    this.board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    this.expander = new Expander({
+      controller: "PCF8591",
+      board: this.board
+    });
+
+    this.virtual = new Board.Virtual({
+      io: this.expander
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Expander.purge();
+    restore(this);
+    done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(this.i2cWrite.callCount, 1);
+
+    test.done();
+  },
+
+  normalize: function(test) {
+    test.expect(8);
+
+    for (var i = 0; i < 8; i++) {
+      test.equal(this.expander.normalize(i), i);
+    }
+
+    test.done();
+  },
+
+  pinMode: function(test) {
+    test.expect(5);
+
+    this.i2cWrite.reset();
+
+    for (var i = 0; i < 4; i++) {
+      this.expander.pinMode(i, 2);
+    }
+
+    test.equal(this.expander.pins[0].mode, 2);
+    test.equal(this.expander.pins[1].mode, 2);
+    test.equal(this.expander.pins[2].mode, 2);
+    test.equal(this.expander.pins[3].mode, 2);
+
+    test.deepEqual(this.i2cWrite.callCount, 0);
+
+    test.done();
+  },
+
+  analogRead: function(test) {
+    test.expect(4);
+
+    var spy = sinon.spy();
+
+    for (var i = 0; i < 4; i++) {
+      this.expander.pinMode(i, 2);
+    }
+
+    this.i2cRead.reset();
+
+    for (var j = 0; j < 4; j++) {
+      this.expander.analogRead(j, spy);
+    }
+
+    var expects = [
+      [ 72, 4 ],
+    ];
+
+    test.deepEqual(
+      this.i2cRead.args.map(function(args) { return args.slice(0, -1); }),
+      expects
+    );
+
+    test.equal(this.i2cRead.callCount, 1);
+
+    var callback = this.i2cRead.lastCall.args[2];
+    var spy = sinon.spy();
+
+    this.expander.analogRead(0, spy);
+    this.expander.analogRead(1, spy);
+    this.expander.analogRead(2, spy);
+    this.expander.analogRead(3, spy);
+
+
+    callback([0x00, 0x0f, 0xf0, 0xff]);
+
+    test.equal(spy.callCount, 4);
+
+    test.deepEqual(
+      spy.args.map(function(args) { return args[0]; }),
+      [0x00 << 2, 0x0f << 2, 0xf0 << 2, 0xff << 2]
+    );
+
+    test.done();
+  },
+
+  unsupported: function(test) {
+    test.expect(8);
+
+    sinon.spy(this.expander, "digitalRead");
+    test.throws(this.expander.digitalRead);
+    test.equal(
+      this.expander.digitalRead.lastCall.exception.message,
+      "Expander:PCF8591 does not support digitalRead"
+    );
+
+    sinon.spy(this.expander, "digitalWrite");
+    test.throws(this.expander.digitalWrite);
+    test.equal(
+      this.expander.digitalWrite.lastCall.exception.message,
+      "Expander:PCF8591 does not support digitalWrite"
+    );
+
+    sinon.spy(this.expander, "i2cWrite");
+    test.throws(this.expander.i2cWrite);
+    test.equal(
+      this.expander.i2cWrite.lastCall.exception.message,
+      "Expander:PCF8591 does not support i2cWrite"
+    );
+
+    sinon.spy(this.expander, "i2cRead");
+    test.throws(this.expander.i2cRead);
+    test.equal(
+      this.expander.i2cRead.lastCall.exception.message,
+      "Expander:PCF8591 does not support i2cRead"
+    );
+
+    test.done();
+  },
+};

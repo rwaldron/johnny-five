@@ -184,6 +184,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8574.md)
 - [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
 - [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
+- [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
 
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
