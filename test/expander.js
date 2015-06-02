@@ -1736,13 +1736,6 @@ exports["Expander - PCF8591"] = {
     test.equal(this.i2cRead.callCount, 1);
 
     var callback = this.i2cRead.lastCall.args[2];
-    var spy = sinon.spy();
-
-    this.expander.analogRead(0, spy);
-    this.expander.analogRead(1, spy);
-    this.expander.analogRead(2, spy);
-    this.expander.analogRead(3, spy);
-
 
     callback([0x00, 0x0f, 0xf0, 0xff]);
 
