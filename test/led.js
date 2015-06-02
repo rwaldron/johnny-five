@@ -937,6 +937,59 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
   }
 };
 
+exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    this.ledRgb = new Led.RGB({
+      pins: {
+        red: 0,
+        green: 1,
+        blue: 2,
+      },
+      controller: "PCA9685",
+      isAnode: true,
+      board: this.board
+    });
+
+    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+
+    done();
+  },
+
+  shape: testLedRgbShape,
+
+  write: function(test) {
+    test.expect(12);
+
+    // Fully off
+    this.ledRgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    test.equal(this.i2cWrite.callCount, 3);
+    test.ok(this.i2cWrite.calledWith(64, [6, 4096, 16, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 4096, 16, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 4096, 16, 0, 0]));
+    this.i2cWrite.reset();
+
+    // Fully on
+    this.ledRgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    test.equal(this.i2cWrite.callCount, 3);
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 0, 0]));
+    this.i2cWrite.reset();
+
+    // Custom color
+    this.ledRgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    test.equal(this.i2cWrite.callCount, 3);
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 1092, 4]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 819, 3]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 1365, 5]));
+    this.i2cWrite.reset();
+
+    test.done();
+  }
+};
+
 exports["Led.RGB - BlinkM (I2C)"] = {
   setUp: function(done) {
     this.board = newBoard();
