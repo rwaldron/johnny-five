@@ -18,13 +18,9 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var expander = new five.Expander({
-    controller: "PCF8575"
-  });
-
-  var virtual = new five.Board.Virtual({
-    io: expander
-  });
+  var virtual = new five.Board.Virtual(
+    new five.Expander("PCF8575")
+  );
 
   var leds = new five.Leds(
     Array.from({ length: 8 }, function(_, i) {
@@ -35,7 +31,6 @@ board.on("ready", function() {
   leds.on();
 
   this.repl.inject({
-    expander: expander,
     leds: leds
   });
 });
