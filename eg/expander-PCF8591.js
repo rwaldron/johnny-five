@@ -3,14 +3,11 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var virtual = new five.Board.Virtual(
-    new five.Expander({
-      controller: "PCF8591",
-      // vref:
-    })
+    new five.Expander("PCF8591")
   );
 
   var a = new five.Sensor({
-    pin: "A3",
+    pin: "A0",
     board: virtual
   });
 
