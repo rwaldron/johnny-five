@@ -28,7 +28,7 @@ board.on("ready", function() {
     });
   });
 
-  // "stop" events fire when the motor is started.
+  // "stop" events fire when the motor is stopped.
   motor.on("stop", function() {
     console.log("stop");
   });
