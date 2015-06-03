@@ -842,6 +842,37 @@ exports["Led.RGB"] = {
     test.expect(1);
     test.equal(this.ledRgb.blink, this.ledRgb.strobe);
     test.done();
+  },
+
+  intensity: function(test) {
+    test.expect(13);
+
+    this.ledRgb.color("#33aa00");
+    test.equal(this.ledRgb.intensity(), 67);
+    this.write.reset();
+
+    // full intensity
+    test.equal(this.ledRgb.intensity(100), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 76.5, green: 255, blue: 0 }));
+    test.ok(this.ledRgb.intensity(), 100);
+    this.write.reset();
+
+    // fully off
+    test.equal(this.ledRgb.intensity(0), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 0, green: 0, blue: 0 }));
+    test.ok(this.ledRgb.intensity(), 0);
+    this.write.reset();
+
+    // restore from off
+    test.equal(this.ledRgb.intensity(50), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 38.25, green: 127.5, blue: 0 }));
+    test.ok(this.ledRgb.intensity(), 50);
+    this.write.reset();
+
+    test.done();
   }
 };
 
