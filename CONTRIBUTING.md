@@ -85,7 +85,7 @@ Docs should have tested and working sample code, [fritzing diagrams](http://frit
 
 The [wiki](https://github.com/rwaldron/johnny-five/wiki) contains documentation about the api, and contains code examples and fritzing diagrams.
 
-The [eg folder](https://github.com/rwaldron/johnny-five/tree/master/eg) contains working code examples that users can run out of the box. Each of these example files has an associated .md file in the [docs folder](https://github.com/rwaldron/johnny-five/tree/master/docs) that is generated from the eg files.
+The [eg folder](https://github.com/rwaldron/johnny-five/tree/master/eg) contains working code examples that users can run out of the box. Each of these example files has an associated .md file in the [docs folder](https://github.com/rwaldron/johnny-five/tree/master/docs) that is generated from the eg files. When contributing documentation updates for those code examples, modify the one in the [eg folder](https://github.com/rwaldron/johnny-five/tree/master/eg) and run `grunt examples` to regenerate its [docs folder](https://github.com/rwaldron/johnny-five/tree/master/docs) counterpart, then submit both of them as part of your contribution/PR. If you add a new documentation file, remember you will need to add it to `tpl/program.json` as well.
 
 
 <a name="sample-projects"></a>
