@@ -1,8 +1,9 @@
-var MockFirmata = require("./util/mock-firmata"),
-  sinon = require("sinon"),
-  five = require("../lib/johnny-five.js"),
-  Button = five.Button,
-  Board = five.Board;
+var MockFirmata = require("./util/mock-firmata");
+var sinon = require("sinon");
+var EV3 = require("../lib/ev3");
+var five = require("../lib/johnny-five");
+var Button = five.Button;
+var Board = five.Board;
 
 
 function newBoard() {
@@ -55,7 +56,7 @@ var instance = [{
 }];
 
 
-exports["Button, Digital Pin"] = {
+exports["Button -- Digital Pin"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
@@ -168,7 +169,7 @@ exports["Button, Digital Pin"] = {
   },
 };
 
-exports["Button, Analog Pin"] = {
+exports["Button -- Analog Pin"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
@@ -245,7 +246,7 @@ exports["Button, Analog Pin"] = {
   },
 };
 
-exports["Button, Value Inversion"] = {
+exports["Button -- Value Inversion"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
@@ -351,5 +352,99 @@ exports["Button, Value Inversion"] = {
     test.equal(this.button.upValue, 0);
 
     test.done();
+  },
+};
+
+
+exports["Button -- EV3"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.ev3setup = sinon.spy(EV3.prototype, "setup");
+    this.ev3read = sinon.spy(EV3.prototype, "read");
+
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    this.button = new Button({
+      controller: "EV3",
+      pin: "BAS1",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.ev3setup.restore();
+    this.ev3read.restore();
+
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    done();
+  },
+
+  pinTranslation: function(test) {
+    test.expect(1);
+    test.equal(this.button.pin, "BAS1");
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(4);
+
+    test.equal(this.ev3setup.callCount, 1);
+    test.equal(this.ev3read.callCount, 1);
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cRead.callCount, 1);
+
+    test.done();
+  },
+
+  down: function(test) {
+
+    var callback = this.i2cRead.args[0][3];
+    test.expect(1);
+
+    this.button.on("down", function() {
+
+      test.ok(true);
+      test.done();
+    });
+
+    callback([this.button.downValue]);
+  },
+
+  up: function(test) {
+
+    var callback = this.i2cRead.args[0][3];
+    test.expect(1);
+
+    this.button.on("up", function() {
+      test.ok(true);
+      test.done();
+    });
+    callback([this.button.downValue]);
+    callback([this.button.upValue]);
+  },
+
+  hold: function(test) {
+    var clock = sinon.useFakeTimers();
+    var callback = this.i2cRead.args[0][3];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("hold", function() {
+      test.ok(true);
+      clock.restore();
+      test.done();
+    });
+
+    this.button.holdtime = 10;
+    callback([this.button.downValue]);
+    clock.tick(11);
+    callback([this.button.upValue]);
   },
 };
