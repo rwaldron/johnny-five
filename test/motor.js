@@ -1653,6 +1653,7 @@ exports["Motor: EV3"] = {
 
     var expect = [
       {
+        analog: undefined,
         address: 27,
         bank: "b",
         mode: undefined,
@@ -1677,6 +1678,7 @@ exports["Motor: EV3"] = {
 
     var expect = [
       {
+        analog: undefined,
         address: 27,
         bank: "b",
         mode: undefined,
@@ -1701,6 +1703,7 @@ exports["Motor: EV3"] = {
 
     var expect = [
       {
+        analog: undefined,
         address: 27,
         bank: "b",
         mode: undefined,
@@ -1725,6 +1728,187 @@ exports["Motor: EV3"] = {
 
     var expect = [
       {
+        analog: undefined,
+        address: 27,
+        bank: "b",
+        mode: undefined,
+        motor: 2,
+        offset: undefined,
+        port: 8,
+        sensor: undefined
+      },
+      78,
+      [ -50, 0, 0, 129 ]
+    ];
+
+    test.deepEqual(this.ev3write.lastCall.args, expect);
+
+    test.done();
+  },
+};
+
+
+exports["Motor: NXT"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    this.ev3write = sinon.spy(EV3.prototype, "write");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    this.motor = new Motor({
+      controller: "NXT",
+      pin: "BBM2",
+      board: this.board
+    });
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+    }, {
+      name: "resume"
+    }, {
+      name: "setPin"
+    }, {
+      name: "setPWM"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.ev3write.restore();
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.motor[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.motor[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  pinList: function(test) {
+    test.expect(1);
+
+    test.equal(this.motor.pins.pwm, "BBM2");
+
+    test.done();
+  },
+
+  start: function(test) {
+    test.expect(1);
+
+    this.motor.start();
+
+    var expect = [
+      {
+        analog: undefined,
+        address: 27,
+        bank: "b",
+        mode: undefined,
+        motor: 2,
+        offset: undefined,
+        port: 8,
+        sensor: undefined
+      },
+      78,
+      [ 50, 0, 0, 129 ]
+    ];
+
+    test.deepEqual(this.ev3write.lastCall.args, expect);
+
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(1);
+
+    this.motor.stop();
+
+    var expect = [
+      {
+        analog: undefined,
+        address: 27,
+        bank: "b",
+        mode: undefined,
+        motor: 2,
+        offset: undefined,
+        port: 8,
+        sensor: undefined
+      },
+      65,
+      82
+    ];
+
+    test.deepEqual(this.ev3write.lastCall.args, expect);
+
+    test.done();
+  },
+
+  forward: function(test) {
+    test.expect(1);
+
+    this.motor.forward(128);
+
+    var expect = [
+      {
+        analog: undefined,
+        address: 27,
+        bank: "b",
+        mode: undefined,
+        motor: 2,
+        offset: undefined,
+        port: 8,
+        sensor: undefined
+      },
+      78,
+      [ 50, 0, 0, 129 ]
+    ];
+
+    test.deepEqual(this.ev3write.lastCall.args, expect);
+
+    test.done();
+  },
+
+  reverse: function(test) {
+    test.expect(1);
+
+    this.motor.reverse(128);
+
+    var expect = [
+      {
+        analog: undefined,
         address: 27,
         bank: "b",
         mode: undefined,

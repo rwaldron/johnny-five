@@ -1222,6 +1222,96 @@ exports["Proximity: EV3_IR"] = {
     test.done();
   }
 };
+
+exports["Proximity: EV3_US"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+
+    this.ev3setup = sinon.spy(EV3.prototype, "setup");
+    this.ev3read = sinon.spy(EV3.prototype, "read");
+
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+      callback([150, 0]);
+    });
+
+    this.proximity = new Proximity({
+      controller: "EV3_US",
+      pin: "BAS1",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.ev3setup.restore();
+    this.ev3read.restore();
+
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cRead.restore();
+
+    this.clock.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(proto.length + instance.length);
+
+    proto.forEach(function(method) {
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var spy = sinon.spy();
+    test.expect(2);
+
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
 // - GP2D120XJ00F
