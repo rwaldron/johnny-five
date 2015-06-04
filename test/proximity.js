@@ -1118,7 +1118,7 @@ exports["Proximity: LIDARLITE"] = {
   }
 };
 
-exports["Proximity: EV3"] = {
+exports["Proximity: EV3_IR"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
@@ -1133,7 +1133,7 @@ exports["Proximity: EV3"] = {
     });
 
     this.proximity = new Proximity({
-      controller: "EV3",
+      controller: "EV3_IR",
       pin: "BAS1",
       freq: 100,
       board: this.board
