@@ -3,7 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var proximity = new five.Proximity({
-    controller: "EV3_IR",
+    controller: "EVS_EV3_US",
     pin: "BBS1"
   });
 

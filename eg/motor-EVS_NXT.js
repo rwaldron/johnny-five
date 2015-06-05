@@ -3,7 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var motor = new five.Motor({
-    controller: "NXT",
+    controller: "EVS_NXT",
     pin: "BBM2",
   });
 

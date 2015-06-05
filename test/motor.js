@@ -1,6 +1,6 @@
 var MockFirmata = require("./util/mock-firmata");
 var five = require("../lib/johnny-five");
-var EV3 = require("../lib/ev3");
+var EVS = require("../lib/evshield");
 var sinon = require("sinon");
 var Board = five.Board;
 var Motor = five.Motor;
@@ -1568,17 +1568,17 @@ exports["Motor: ShiftRegister"] = {
   },
 };
 
-exports["Motor: EV3"] = {
+exports["Motor: EVS_EV3"] = {
   setUp: function(done) {
     this.board = newBoard();
 
-    this.ev3write = sinon.spy(EV3.prototype, "write");
+    this.ev3write = sinon.spy(EVS.prototype, "write");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.motor = new Motor({
-      controller: "EV3",
+      controller: "EVS_EV3",
       pin: "BBM2",
       board: this.board
     });
@@ -1748,17 +1748,17 @@ exports["Motor: EV3"] = {
 };
 
 
-exports["Motor: NXT"] = {
+exports["Motor: EVS_NXT"] = {
   setUp: function(done) {
     this.board = newBoard();
 
-    this.ev3write = sinon.spy(EV3.prototype, "write");
+    this.ev3write = sinon.spy(EVS.prototype, "write");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.motor = new Motor({
-      controller: "NXT",
+      controller: "EVS_NXT",
       pin: "BBM2",
       board: this.board
     });

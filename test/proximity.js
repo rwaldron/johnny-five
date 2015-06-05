@@ -1,7 +1,7 @@
 var sinon = require("sinon");
 var Emitter = require("events").EventEmitter;
 var MockFirmata = require("./util/mock-firmata");
-var EV3 = require("../lib/ev3");
+var EVS = require("../lib/evshield");
 var five = require("../lib/johnny-five");
 var Board = five.Board;
 var Proximity = five.Proximity;
@@ -36,6 +36,20 @@ function restore(target) {
     }
   }
 }
+
+var proto = [{
+  name: "within"
+}];
+
+var instance = [{
+  name: "centimeters"
+}, {
+  name: "cm"
+},{
+  name: "inches"
+}, {
+  name: "in"
+}];
 
 exports["Proximity"] = {
   setUp: function(done) {
@@ -1118,13 +1132,13 @@ exports["Proximity: LIDARLITE"] = {
   }
 };
 
-exports["Proximity: EV3_IR"] = {
+exports["Proximity: EVS_EV3_IR"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.ev3setup = sinon.spy(EV3.prototype, "setup");
-    this.ev3read = sinon.spy(EV3.prototype, "read");
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
 
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -1133,7 +1147,7 @@ exports["Proximity: EV3_IR"] = {
     });
 
     this.proximity = new Proximity({
-      controller: "EV3_IR",
+      controller: "EVS_EV3_IR",
       pin: "BAS1",
       freq: 100,
       board: this.board
@@ -1223,12 +1237,13 @@ exports["Proximity: EV3_IR"] = {
   }
 };
 
-exports["Proximity: EV3_US"] = {
+exports["Proximity: EVS_EV3_US"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.ev3setup = sinon.spy(EV3.prototype, "setup");
-    this.ev3read = sinon.spy(EV3.prototype, "read");
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
 
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -1237,24 +1252,18 @@ exports["Proximity: EV3_US"] = {
     });
 
     this.proximity = new Proximity({
-      controller: "EV3_US",
+      controller: "EVS_EV3_US",
       pin: "BAS1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.ev3setup.restore();
-    this.ev3read.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 

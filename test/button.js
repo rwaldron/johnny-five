@@ -1,6 +1,6 @@
 var sinon = require("sinon");
 var MockFirmata = require("./util/mock-firmata");
-var EV3 = require("../lib/ev3");
+var EVS = require("../lib/evshield");
 var five = require("../lib/johnny-five");
 var Button = five.Button;
 var Board = five.Board;
@@ -355,18 +355,18 @@ exports["Button -- Value Inversion"] = {
 };
 
 
-exports["Button -- EV3"] = {
+exports["Button -- EVS_EV3"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.ev3setup = sinon.spy(EV3.prototype, "setup");
-    this.ev3read = sinon.spy(EV3.prototype, "read");
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
 
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.button = new Button({
-      controller: "EV3",
+      controller: "EVS_EV3",
       pin: "BAS1",
       board: this.board
     });
@@ -375,12 +375,8 @@ exports["Button -- EV3"] = {
   },
 
   tearDown: function(done) {
-    this.ev3setup.restore();
-    this.ev3read.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -393,8 +389,8 @@ exports["Button -- EV3"] = {
   initialization: function(test) {
     test.expect(4);
 
-    test.equal(this.ev3setup.callCount, 1);
-    test.equal(this.ev3read.callCount, 1);
+    test.equal(this.evssetup.callCount, 1);
+    test.equal(this.evsread.callCount, 1);
 
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cRead.callCount, 1);
@@ -448,31 +444,28 @@ exports["Button -- EV3"] = {
   },
 };
 
-exports["Button -- NXT"] = {
+exports["Button -- EVS_NXT"] = {
   setUp: function(done) {
-    this.ev3setup = sinon.spy(EV3.prototype, "setup");
-    this.ev3read = sinon.spy(EV3.prototype, "read");
+    this.board = newBoard();
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
 
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.button = new Button({
-      controller: "NXT",
+      controller: "EVS_NXT",
       pin: "BAS1",
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.ev3setup.restore();
-    this.ev3read.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -485,8 +478,8 @@ exports["Button -- NXT"] = {
   initialization: function(test) {
     test.expect(4);
 
-    test.equal(this.ev3setup.callCount, 1);
-    test.equal(this.ev3read.callCount, 1);
+    test.equal(this.evssetup.callCount, 1);
+    test.equal(this.evsread.callCount, 1);
 
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cRead.callCount, 1);
