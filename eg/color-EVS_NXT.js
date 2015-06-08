@@ -4,10 +4,10 @@ var board = new five.Board();
 board.on("ready", function() {
   var color = new five.Color({
     controller: "EVS_NXT",
-    pin: "BAS1"
+    pin: "BBS2"
   });
 
   color.on("change", function() {
-    console.log("Color: ", this.rgb);
+    console.log("Color: ", five.Color.hexCode(this.rgb));
   });
 });
