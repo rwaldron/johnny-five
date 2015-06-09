@@ -266,8 +266,6 @@ module.exports = function(grunt) {
           title: example.title,
         };
 
-        breadboardMarkdown
-
         // Write the file to /docs/*
         file.write(md, templates.eg(values));
 
