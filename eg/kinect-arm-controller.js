@@ -25,42 +25,28 @@ var status = {
   false: "OUT OF FRAME"
 };
 
-var defs = [
-  // "Pivot/Rotator"
-  {
-    id: "rotator",
-    pin: 6,
-    range: [0, 180],
-    startAt: 90
-  },
-  // "Shoulder"
-  {
-    id: "upper",
-    pin: 9,
-    range: [0, 180],
-    startAt: 180
-  },
-  // "Elbow"
-  {
-    id: "fore",
-    pin: 10,
-    range: [90, 180],
-    startAt: 90
-  },
-];
-
 var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Reduce the defs array into a plain object
-  // of stored servo instances, where the servo
-  // id is the property name.
-  var servos = defs.reduce(function(initialized, def) {
-    return (initialized[def.id] = five.Servo(def), initialized);
-  }, {});
+  var servos = {
+    rotator: new five.Servo({
+      pin: 6,
+      range: [0, 180],
+      startAt: 90
+    }),
+    upper: new five.Servo({
+      pin: 9,
+      range: [0, 180],
+      startAt: 180
+    }),
+    fore: new five.Servo({
+      pin: 10,
+      range: [90, 180],
+      startAt: 90
+    }),
+  };
 
-  // Initialize the OpenNI/Kinect
   var kinect = new OpenNI();
 
   // For each declared Skeleton.Joints, bind
@@ -75,7 +61,6 @@ board.on("ready", function() {
       skeleton = Skeletons[id];
 
       if (skeleton) {
-
         vector = skeleton.joints[joint];
 
         if (vector) {
@@ -122,9 +107,9 @@ board.on("ready", function() {
   var rlow = 0;
   var rhigh = 0;
   var change = {
+    rotator: new Change(2),
     upper: new Change(2),
     fore: new Change(2),
-    rotator: new Change(2)
   };
 
   void (function main() {
