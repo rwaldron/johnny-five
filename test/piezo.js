@@ -26,11 +26,21 @@ exports["Piezo"] = {
     }, {
       name: "playNote"
     }, {
+      name: "pulsePin"
+    }, {
+      name: "playMelody"
+    }, {
       name: "stop"
+    }, {
+      name: "off"
     }];
 
     this.instance = [{
       name: "isPlaying"
+    }, {
+      name: "pin"
+    }, {
+      name: "mode"
     }];
 
     done();
