@@ -223,6 +223,7 @@ exports["Piezo"] = {
 
   playMelody: function(test) {
     test.expect(2);
+
     var playNoteSpy = sinon.spy(this.piezo, "playNote");
 
     this.piezo.playMelody("d=8 o=4 b=1000: a a4 8a 8a4", function(err) {
@@ -234,9 +235,18 @@ exports["Piezo"] = {
   },
 
   stop: function(test) {
-    test.expect(2);
+    test.expect(1);
 
     var returned = this.piezo.stop();
+    test.equal(returned, this.piezo);
+
+    test.done();
+  },
+
+  off: function(test) {
+    test.expect(2);
+
+    var returned = this.piezo.off();
 
     test.ok(this.spy.calledWith(3, 0));
     test.equal(returned, this.piezo);
