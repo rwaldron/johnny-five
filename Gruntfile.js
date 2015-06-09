@@ -172,7 +172,7 @@ module.exports = function(grunt) {
 
       entry.examples.forEach(function(example) {
         var markdown, filepath, eg, md, inMarkdown,
-          images, breadboards, embeds, name, imgMarkdown, values;
+          images, breadboards, embeds, name, imgMarkdown, values, primary;
 
         markdown = [];
         filepath = "eg/" + example.file;
@@ -232,6 +232,8 @@ module.exports = function(grunt) {
         // We'll combine markdown for images and breadboards
         imgMarkdown = "";
 
+        primary = breadboards.shift();
+
         images.forEach(function(img) {
           if (!img.title || !img.file) {
             grunt.fail.fatal("Invalid image: title and file required");
@@ -248,51 +250,23 @@ module.exports = function(grunt) {
         });
 
         breadboards.forEach(function(breadboard) {
-
-          if (!breadboard.name) {
-            grunt.fail.fatal("Invalid breadboard: name required");
-          }
-
-          if (!breadboard.title) {
-            grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
-          }
-
-          breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
-          breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
-
-          breadboard.hasPng = fs.existsSync(breadboard.png);
-          breadboard.hasFzz = fs.existsSync(breadboard.fzz);
-
-          if (!breadboard.hasPng) {
-            if (breadboard.auto) {
-              // i.e. we tried to guess at a name but still doesn't exist
-              // We can just ignore and no breadboard shown
-              return;
-            } else {
-              // A breadboard was specified but doesn't exist - error
-              grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
-            }
-          }
-
-          // FZZ is optional, but we'll warn at verbose
-          if (!breadboard.hasFzz) {
-            verbose.writeln("Missing FZZ: " + breadboard.fzz);
-          }
-
-          imgMarkdown += templates.breadboard({ breadboard: breadboard });
+          imgMarkdown += breadboardMarkdown(breadboard);
         });
 
         values = {
-          title: example.title,
-          description: example.description,
           command: "node " + filepath,
-          example: eg,
-          file: md,
-          markdown: markdown,
-          images: imgMarkdown,
+          description: example.description,
           embeds: embeds,
-          externals: example.externals || []
+          example: eg,
+          externals: example.externals || [],
+          file: md,
+          images: imgMarkdown,
+          markdown: markdown,
+          primary: primary ? breadboardMarkdown(primary) : "",
+          title: example.title,
         };
+
+        breadboardMarkdown
 
         // Write the file to /docs/*
         file.write(md, templates.eg(values));
@@ -312,6 +286,41 @@ module.exports = function(grunt) {
 
     log.writeln("Examples created.");
   });
+
+
+  function breadboardMarkdown(breadboard) {
+    if (!breadboard.name) {
+      grunt.fail.fatal("Invalid breadboard: name required");
+    }
+
+    if (!breadboard.title) {
+      grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
+    }
+
+    breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
+    breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
+
+    breadboard.hasPng = fs.existsSync(breadboard.png);
+    breadboard.hasFzz = fs.existsSync(breadboard.fzz);
+
+    if (!breadboard.hasPng) {
+      if (breadboard.auto) {
+        // i.e. we tried to guess at a name but still doesn't exist
+        // We can just ignore and no breadboard shown
+        return;
+      } else {
+        // A breadboard was specified but doesn't exist - error
+        grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
+      }
+    }
+
+    // FZZ is optional, but we'll warn at verbose
+    if (!breadboard.hasFzz) {
+      verbose.writeln("Missing FZZ: " + breadboard.fzz);
+    }
+
+    return templates.breadboard({ breadboard: breadboard });
+  }
 
   // run the examples task and fail if there are uncommitted changes to the docs directory
   task.registerTask("test-examples", "Guard against out of date examples", ["examples", "fail-if-uncommitted-examples"]);

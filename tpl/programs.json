@@ -954,7 +954,20 @@
       },
       {
         "file": "kinect-arm-controller.js",
-        "title": "Kinect Arm Controller"
+        "title": "Kinect Robotic Arm Controller",
+        "images": [
+          {"file": "robotic-arm.jpg", "title": "Robotic Arm", "description": "Assembled Robotic Arm from LynxMotion"},
+          {"file": "arm-diagram.jpg", "title": "Arm Diagram", "description": "Illustrates arm joint connections."}
+        ],
+        "embeds": [
+          { "name": "kinect-arm-controller",
+            "src": "https://www.youtube.com/embed/VCjbUJzYYvI",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: Kinect Controlled Robot Arm", "href": "http://bocoup.com/weblog/javascript-arduino-kinect-robot-arm/"},
+          { "title": "LynxMotion: AL5D Robotic Arm", "href": "http://www.lynxmotion.com/c-130-al5d.aspx"}
+        ]
       },
       {
         "file": "laser-trip-wire.js",
