@@ -6,6 +6,19 @@
 Basic LIDAR-Lite example.
 
 
+
+### Breadboard for "Proximity - LIDAR-Lite"
+
+
+
+![docs/breadboard/proximity-lidarlite.png](breadboard/proximity-lidarlite.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-lidarlite.fzz](breadboard/proximity-lidarlite.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/proximity-lidarlite.js
@@ -34,18 +47,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - LIDAR-Lite"
-
-
-
-![docs/breadboard/proximity-lidarlite.png](breadboard/proximity-lidarlite.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-lidarlite.fzz](breadboard/proximity-lidarlite.fzz)
-
-&nbsp;
 
 
 

@@ -6,6 +6,19 @@
 Basic sonar Proximity example with SRF10 sensor.
 
 
+
+### Breadboard for "Proximity - SRF10"
+
+
+
+![docs/breadboard/proximity-srf10.png](breadboard/proximity-srf10.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf10.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/proximity-srf10.js
@@ -34,18 +47,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - SRF10"
-
-
-
-![docs/breadboard/proximity-srf10.png](breadboard/proximity-srf10.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf10.fzz)
-
-&nbsp;
 
 
 

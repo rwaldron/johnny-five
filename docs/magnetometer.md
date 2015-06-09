@@ -4,6 +4,17 @@
 
 
 
+
+### Breadboard for "Compass / Magnetometer"
+
+
+
+![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/magnetometer.js
@@ -75,16 +86,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Compass / Magnetometer"
-
-
-
-![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
-
-&nbsp;
 
 
 

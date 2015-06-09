@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Servo - Slider control"
+
+
+
+![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/servo-slider.js
@@ -44,18 +57,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Servo - Slider control"
-
-
-
-![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
-
-&nbsp;
 
 
 

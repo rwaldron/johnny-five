@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "ESC - Bidirectional"
+
+
+
+![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/esc-bidirectional.js
@@ -44,18 +57,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Bidirectional"
-
-
-
-![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
-
-&nbsp;
 
 
 

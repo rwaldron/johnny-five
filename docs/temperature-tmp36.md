@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Temperature - TMP36"
+
+
+
+![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/temperature-tmp36.js
@@ -29,18 +42,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Temperature - TMP36"
-
-
-
-![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
-
-&nbsp;
 
 
 

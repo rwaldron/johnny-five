@@ -4,6 +4,17 @@
 
 
 
+
+### Breadboard for "LCD - I2C PCF8574"
+
+
+
+![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)<br>
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/lcd-i2c-PCF8574.js
@@ -67,16 +78,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LCD - I2C PCF8574"
-
-
-
-![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)<br>
-
-&nbsp;
 
 
 

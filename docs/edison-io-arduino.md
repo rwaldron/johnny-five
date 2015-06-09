@@ -6,6 +6,19 @@
 Example using Johnny-Five + Edison-IO to directly control an Intel Edison
 
 
+
+### LED on pin 13
+
+
+
+![docs/breadboard/led-13-edison-arduinoboard.png](breadboard/led-13-edison-arduinoboard.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/led-13-edison-arduinoboard.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/edison-io-arduino.js
@@ -38,15 +51,6 @@ board.on("ready", function() {
 
 ![docs/images/edison-arduino-board.jpg](images/edison-arduino-board.jpg)  
 
-### LED on pin 13
-
-
-
-![docs/breadboard/led-13-edison-arduinoboard.png](breadboard/led-13-edison-arduinoboard.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/led-13-edison-arduinoboard.fzz)
-
-&nbsp;
 
 
 

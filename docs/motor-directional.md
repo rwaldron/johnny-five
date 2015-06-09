@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Motor - Directional"
+
+
+
+![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motor-directional.js
@@ -107,18 +120,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - Directional"
-
-
-
-![docs/breadboard/motor-directional.png](breadboard/motor-directional.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-directional.fzz](breadboard/motor-directional.fzz)
-
-&nbsp;
 
 
 

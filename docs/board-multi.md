@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Board - Multiple in one program"
+
+
+
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
+
+Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/board-multi.js
@@ -64,18 +77,7 @@ boards.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Board - Multiple in one program"
-
-
-
-![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
-
-Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
-
-&nbsp;
 
 
 

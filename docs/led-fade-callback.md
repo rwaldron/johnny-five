@@ -6,6 +6,19 @@
 Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~).
 
 
+
+### Breadboard for "LED - Fade callback"
+
+
+
+![docs/breadboard/led-fade-callback.png](breadboard/led-fade-callback.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-fade-callback.fzz](breadboard/led-fade-callback.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-fade-callback.js
@@ -54,18 +67,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Fade callback"
-
-
-
-![docs/breadboard/led-fade-callback.png](breadboard/led-fade-callback.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-fade-callback.fzz](breadboard/led-fade-callback.fzz)
-
-&nbsp;
 
 
 

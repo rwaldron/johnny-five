@@ -6,6 +6,19 @@
 Basic sonar Proximity example with MB1003 sensor.
 
 
+
+### Breadboard for "Proximity - MB1003"
+
+
+
+![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/proximity-mb1003.js
@@ -35,18 +48,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - MB1003"
-
-
-
-![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
-
-&nbsp;
 
 
 

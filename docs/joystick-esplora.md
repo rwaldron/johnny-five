@@ -4,6 +4,21 @@
 
 
 
+
+### Joystick - Esplora
+
+
+Esplora joystick example.
+
+
+![docs/breadboard/esplora.png](breadboard/esplora.png)<br>
+
+Fritzing diagram: [docs/breadboard/esplora.fzz](breadboard/esplora.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/joystick-esplora.js
@@ -38,20 +53,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Joystick - Esplora
-
-
-Esplora joystick example.
-
-
-![docs/breadboard/esplora.png](breadboard/esplora.png)<br>
-
-Fritzing diagram: [docs/breadboard/esplora.fzz](breadboard/esplora.fzz)
-
-&nbsp;
 
 
 

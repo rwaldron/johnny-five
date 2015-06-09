@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Grove - LCD RGB"
+
+
+
+![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/grove-lcd-rgb.js
@@ -54,18 +67,7 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Grove - LCD RGB"
-
-
-
-![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
-
-Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
-
-&nbsp;
 
 
 

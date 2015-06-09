@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Servo - PCA9685"
+
+
+
+![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/servo-PCA9685.js
@@ -89,18 +102,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Servo - PCA9685"
-
-
-
-![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
-
-&nbsp;
 
 
 

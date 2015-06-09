@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sensor - Slide potentiometer"
+
+
+
+![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)<br>
+
+Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/sensor-slider.js
@@ -28,18 +41,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Slide potentiometer"
-
-
-
-![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)<br>
-
-Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.fzz)
-
-&nbsp;
 
 
 

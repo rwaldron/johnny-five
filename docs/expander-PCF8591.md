@@ -6,6 +6,19 @@
 Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)
 
 
+
+### Breadboard for "Expander - PCF8591"
+
+
+
+![docs/breadboard/expander-PCF8591.png](breadboard/expander-PCF8591.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-PCF8591.fzz](breadboard/expander-PCF8591.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-PCF8591.js
@@ -35,18 +48,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - PCF8591"
-
-
-
-![docs/breadboard/expander-PCF8591.png](breadboard/expander-PCF8591.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-PCF8591.fzz](breadboard/expander-PCF8591.fzz)
-
-&nbsp;
 
 
 

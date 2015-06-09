@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Shift Register"
+
+
+
+![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/shift-register.js
@@ -41,18 +54,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Shift Register"
-
-
-
-![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
-
-Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
-
-&nbsp;
 
 
 

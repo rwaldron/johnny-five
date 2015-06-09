@@ -6,6 +6,19 @@
 Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
 
 
+
+### LED on pin D1
+
+
+
+![docs/breadboard/spark-led.png](breadboard/spark-led.png)<br>
+
+Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/spark-io.js
@@ -49,15 +62,6 @@ board.on("ready", function() {
 
 ![docs/images/spark-core.jpg](images/spark-core.jpg)  
 
-### LED on pin D1
-
-
-
-![docs/breadboard/spark-led.png](breadboard/spark-led.png)<br>
-
-Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
-
-&nbsp;
 
 
 

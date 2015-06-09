@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "LCD"
+
+
+
+![docs/breadboard/lcd.png](breadboard/lcd.png)<br>
+
+Fritzing diagram: [docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/lcd.js
@@ -62,18 +75,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LCD"
-
-
-
-![docs/breadboard/lcd.png](breadboard/lcd.png)<br>
-
-Fritzing diagram: [docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
-
-&nbsp;
 
 
 

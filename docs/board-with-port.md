@@ -4,6 +4,21 @@
 
 
 
+
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/board-with-port.js
@@ -35,20 +50,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### LED on pin 13 (Arduino UNO)
-
-
-Basic example with LED inserted directly into pin 13
-
-
-![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
-
-&nbsp;
 
 
 

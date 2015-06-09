@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "ESC - Dualshock"
+
+
+
+![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/esc-dualshock.js
@@ -69,18 +82,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Dualshock"
-
-
-
-![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
-
-&nbsp;
 
 
 

@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Motor"
+
+
+
+![docs/breadboard/motor.png](breadboard/motor.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motor.js
@@ -63,18 +76,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor"
-
-
-
-![docs/breadboard/motor.png](breadboard/motor.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
-
-&nbsp;
 
 
 

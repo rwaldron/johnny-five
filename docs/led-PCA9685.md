@@ -6,6 +6,19 @@
 Basic LED example using PCA9685
 
 
+
+### Breadboard for "LED - PCA9685"
+
+
+
+![docs/breadboard/led-PCA9685.png](breadboard/led-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-PCA9685.fzz](breadboard/led-PCA9685.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-PCA9685.js
@@ -41,18 +54,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - PCA9685"
-
-
-
-![docs/breadboard/led-PCA9685.png](breadboard/led-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-PCA9685.fzz](breadboard/led-PCA9685.fzz)
-
-&nbsp;
 
 
 

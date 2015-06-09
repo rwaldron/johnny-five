@@ -6,6 +6,19 @@
 Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)
 
 
+
+### Breadboard for "Expander - MCP23017"
+
+
+
+![docs/breadboard/expander-MCP23017.png](breadboard/expander-MCP23017.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-MCP23017.fzz](breadboard/expander-MCP23017.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-MCP23017.js
@@ -38,18 +51,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - MCP23017"
-
-
-
-![docs/breadboard/expander-MCP23017.png](breadboard/expander-MCP23017.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-MCP23017.fzz](breadboard/expander-MCP23017.fzz)
-
-&nbsp;
 
 
 

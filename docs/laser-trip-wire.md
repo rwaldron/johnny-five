@@ -4,6 +4,17 @@
 
 
 
+
+### Breadboard for "Laser Trip Wire"
+
+
+
+![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)<br>
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/laser-trip-wire.js
@@ -38,16 +49,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Laser Trip Wire"
-
-
-
-![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)<br>
-
-&nbsp;
 
 
 

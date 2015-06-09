@@ -4,6 +4,21 @@
 
 
 
+
+### Relay - normally open
+
+
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
+
+
+![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
+
+Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/relay.js
@@ -36,17 +51,6 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Relay - normally open
-
-
-The breadboard diagram shows a Keyes Relay, however any Relay will work.
-
-
-![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
-
-Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
-
-&nbsp;
 ### Relay - normally closed
 
 

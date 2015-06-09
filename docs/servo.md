@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Servo"
+
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/servo.js
@@ -81,18 +94,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Servo"
-
-
-
-![docs/breadboard/servo.png](breadboard/servo.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
-
-&nbsp;
 
 
 

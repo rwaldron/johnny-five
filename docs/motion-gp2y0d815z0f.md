@@ -4,6 +4,21 @@
 
 
 
+
+### Motion - GP2Y0D815Z0F
+
+
+Basic GP2Y0D815Z0F motion detection.
+
+
+![docs/breadboard/GP2Y0D810Z0F.png](breadboard/GP2Y0D810Z0F.png)<br>
+
+Fritzing diagram: [docs/breadboard/GP2Y0D810Z0F.fzz](breadboard/GP2Y0D810Z0F.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motion-gp2y0d815z0f.js
@@ -44,20 +59,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Motion - GP2Y0D815Z0F
-
-
-Basic GP2Y0D815Z0F motion detection.
-
-
-![docs/breadboard/GP2Y0D810Z0F.png](breadboard/GP2Y0D810Z0F.png)<br>
-
-Fritzing diagram: [docs/breadboard/GP2Y0D810Z0F.fzz](breadboard/GP2Y0D810Z0F.fzz)
-
-&nbsp;
 
 
 

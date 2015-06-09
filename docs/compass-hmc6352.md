@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Compass - HMC6352"
+
+
+
+![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
+
+Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/compass-hmc6352.js
@@ -38,18 +51,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Compass - HMC6352"
-
-
-
-![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
-
-Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
-
-&nbsp;
 
 
 

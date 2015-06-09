@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "ESC - PCA9685"
+
+
+
+![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/esc-PCA9685.js
@@ -32,18 +45,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - PCA9685"
-
-
-
-![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
-
-&nbsp;
 
 
 

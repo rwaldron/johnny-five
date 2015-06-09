@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Grove - LCD RGB temperature display"
+
+
+
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/grove-lcd-rgb-temperature-display.js
@@ -58,18 +71,7 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Grove - LCD RGB temperature display"
-
-
-
-![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
-
-Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
-
-&nbsp;
 
 
 

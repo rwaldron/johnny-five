@@ -6,6 +6,19 @@
 Basic ping Proximity example with HC-SR04 sensor.
 
 
+
+### Breadboard for "Proximity - HC-SR04"
+
+
+
+![docs/breadboard/proximity-hcsr04.png](breadboard/proximity-hcsr04.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-hcsr04.fzz](breadboard/proximity-hcsr04.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/proximity-hcsr04.js
@@ -35,18 +48,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - HC-SR04"
-
-
-
-![docs/breadboard/proximity-hcsr04.png](breadboard/proximity-hcsr04.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-hcsr04.fzz](breadboard/proximity-hcsr04.fzz)
-
-&nbsp;
 
 
 

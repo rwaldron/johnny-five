@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sensor - Microphone"
+
+
+
+![docs/breadboard/microphone.png](breadboard/microphone.png)<br>
+
+Fritzing diagram: [docs/breadboard/microphone.fzz](breadboard/microphone.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/microphone.js
@@ -27,18 +40,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Microphone"
-
-
-
-![docs/breadboard/microphone.png](breadboard/microphone.png)<br>
-
-Fritzing diagram: [docs/breadboard/microphone.fzz](breadboard/microphone.fzz)
-
-&nbsp;
 
 
 

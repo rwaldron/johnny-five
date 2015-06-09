@@ -6,6 +6,19 @@
 Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~).
 
 
+
+### Breadboard for "LED - Array"
+
+
+
+![docs/breadboard/led-array.png](breadboard/led-array.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-array.js
@@ -27,18 +40,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Array"
-
-
-
-![docs/breadboard/led-array.png](breadboard/led-array.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
-
-&nbsp;
 
 
 

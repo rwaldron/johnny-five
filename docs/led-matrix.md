@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "LED - Matrix"
+
+
+
+![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-matrix.js
@@ -65,18 +78,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Matrix"
-
-
-
-![docs/breadboard/led-matrix.png](breadboard/led-matrix.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
-
-&nbsp;
 
 
 

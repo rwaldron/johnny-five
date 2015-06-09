@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Button"
+
+
+
+![docs/breadboard/button.png](breadboard/button.png)<br>
+
+Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/button.js
@@ -54,18 +67,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button"
-
-
-
-![docs/breadboard/button.png](breadboard/button.png)<br>
-
-Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
-
-&nbsp;
 
 
 

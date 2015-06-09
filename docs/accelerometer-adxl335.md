@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Accelerometer - ADXL335"
+
+
+
+![docs/breadboard/accelerometer-adxl335.png](breadboard/accelerometer-adxl335.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer-adxl335.fzz](breadboard/accelerometer-adxl335.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/accelerometer-adxl335.js
@@ -38,18 +51,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Accelerometer - ADXL335"
-
-
-
-![docs/breadboard/accelerometer-adxl335.png](breadboard/accelerometer-adxl335.png)<br>
-
-Fritzing diagram: [docs/breadboard/accelerometer-adxl335.fzz](breadboard/accelerometer-adxl335.fzz)
-
-&nbsp;
 
 
 

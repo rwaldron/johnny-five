@@ -6,6 +6,19 @@
 Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)
 
 
+
+### Breadboard for "Expander - MCP23008"
+
+
+
+![docs/breadboard/expander-MCP23008.png](breadboard/expander-MCP23008.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-MCP23008.fzz](breadboard/expander-MCP23008.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-MCP23008.js
@@ -38,18 +51,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - MCP23008"
-
-
-
-![docs/breadboard/expander-MCP23008.png](breadboard/expander-MCP23008.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-MCP23008.fzz](breadboard/expander-MCP23008.fzz)
-
-&nbsp;
 
 
 

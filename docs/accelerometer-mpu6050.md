@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Accelerometer - MPU6050"
+
+
+
+![docs/breadboard/accelerometer-mpu6050.png](breadboard/accelerometer-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer-mpu6050.fzz](breadboard/accelerometer-mpu6050.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/accelerometer-mpu6050.js
@@ -37,18 +50,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Accelerometer - MPU6050"
-
-
-
-![docs/breadboard/accelerometer-mpu6050.png](breadboard/accelerometer-mpu6050.png)<br>
-
-Fritzing diagram: [docs/breadboard/accelerometer-mpu6050.fzz](breadboard/accelerometer-mpu6050.fzz)
-
-&nbsp;
 
 
 

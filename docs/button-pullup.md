@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Button - Pullup"
+
+
+
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/button-pullup.js
@@ -49,18 +62,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button - Pullup"
-
-
-
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
-
-Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
-
-&nbsp;
 
 
 

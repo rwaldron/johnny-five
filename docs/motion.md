@@ -6,6 +6,19 @@
 Basic Passive Infrared Motion detection.
 
 
+
+### Breadboard for "Motion"
+
+
+
+![docs/breadboard/motion.png](breadboard/motion.png)<br>
+
+Fritzing diagram: [docs/breadboard/motion.fzz](breadboard/motion.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motion.js
@@ -50,18 +63,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motion"
-
-
-
-![docs/breadboard/motion.png](breadboard/motion.png)<br>
-
-Fritzing diagram: [docs/breadboard/motion.fzz](breadboard/motion.fzz)
-
-&nbsp;
 
 
 

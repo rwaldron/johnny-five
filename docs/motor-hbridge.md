@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Motor - H-Bridge"
+
+
+
+![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motor-hbridge.js
@@ -80,18 +93,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - H-Bridge"
-
-
-
-![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
-
-&nbsp;
 
 
 

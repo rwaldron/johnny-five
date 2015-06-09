@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Pin"
+
+
+
+![docs/breadboard/pin.png](breadboard/pin.png)<br>
+
+Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/pin.js
@@ -47,18 +60,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Pin"
-
-
-
-![docs/breadboard/pin.png](breadboard/pin.png)<br>
-
-Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
-
-&nbsp;
 
 
 

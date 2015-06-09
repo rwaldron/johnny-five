@@ -6,6 +6,19 @@
 Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)
 
 
+
+### Breadboard for "Expander - PCA9685"
+
+
+
+![docs/breadboard/expander-PCA9685.png](breadboard/expander-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-PCA9685.fzz](breadboard/expander-PCA9685.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-PCA9685.js
@@ -39,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - PCA9685"
-
-
-
-![docs/breadboard/expander-PCA9685.png](breadboard/expander-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-PCA9685.fzz](breadboard/expander-PCA9685.fzz)
-
-&nbsp;
 
 
 

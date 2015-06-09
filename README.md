@@ -374,7 +374,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
 - [Lynxmotion Biped BRAT](https://github.com/rwaldron/johnny-five/blob/master/docs/brat.md)
 - [Robotic Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
-- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
+- [Kinect Robotic Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
 - [Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
 - [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
 

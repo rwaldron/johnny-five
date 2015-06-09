@@ -6,6 +6,21 @@
 Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).
 
 
+
+### LED on pin 11 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 11.
+
+
+![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-demo-sequence.js
@@ -103,20 +118,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### LED on pin 11 (Arduino UNO)
-
-
-Basic example with LED inserted directly into pin 11.
-
-
-![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
-
-&nbsp;
 
 
 

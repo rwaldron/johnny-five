@@ -6,6 +6,19 @@
 Basic infrared Proximity example
 
 
+
+### Breadboard for "Proximity"
+
+
+
+![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/proximity.js
@@ -35,18 +48,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity"
-
-
-
-![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
-
-&nbsp;
 
 
 

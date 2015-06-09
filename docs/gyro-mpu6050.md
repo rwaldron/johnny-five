@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Gyro - I2C MPU6050"
+
+
+
+![docs/breadboard/gyro-mpu6050.png](breadboard/gyro-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/gyro-mpu6050.js
@@ -37,18 +50,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Gyro - I2C MPU6050"
-
-
-
-![docs/breadboard/gyro-mpu6050.png](breadboard/gyro-mpu6050.png)<br>
-
-Fritzing diagram: [docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz)
-
-&nbsp;
 
 
 

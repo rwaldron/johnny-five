@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sonar - I2C SRF10"
+
+
+
+![docs/breadboard/sonar-srf10.png](breadboard/sonar-srf10.png)<br>
+
+Fritzing diagram: [docs/breadboard/sonar-srf10.fzz](breadboard/sonar-srf10.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/sonar-srf10.js
@@ -37,18 +50,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sonar - I2C SRF10"
-
-
-
-![docs/breadboard/sonar-srf10.png](breadboard/sonar-srf10.png)<br>
-
-Fritzing diagram: [docs/breadboard/sonar-srf10.fzz](breadboard/sonar-srf10.fzz)
-
-&nbsp;
 
 
 

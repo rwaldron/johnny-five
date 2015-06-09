@@ -6,6 +6,19 @@
 Basic GP2Y0D805Z0F motion detection.
 
 
+
+### Breadboard for "Motion - GP2Y0D805Z0F"
+
+
+
+![docs/breadboard/motion-gp2y0d805z0f.png](breadboard/motion-gp2y0d805z0f.png)<br>
+
+Fritzing diagram: [docs/breadboard/motion-gp2y0d805z0f.fzz](breadboard/motion-gp2y0d805z0f.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motion-gp2y0d805z0f.js
@@ -52,18 +65,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motion - GP2Y0D805Z0F"
-
-
-
-![docs/breadboard/motion-gp2y0d805z0f.png](breadboard/motion-gp2y0d805z0f.png)<br>
-
-Fritzing diagram: [docs/breadboard/motion-gp2y0d805z0f.fzz](breadboard/motion-gp2y0d805z0f.fzz)
-
-&nbsp;
 
 
 

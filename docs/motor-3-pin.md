@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Motor - 3 pin"
+
+
+
+![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motor-3-pin.js
@@ -97,18 +110,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - 3 pin"
-
-
-
-![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
-
-&nbsp;
 
 
 

@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sensor - Photoresistor"
+
+
+
+![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)<br>
+
+Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/photoresistor.js
@@ -46,18 +59,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Photoresistor"
-
-
-
-![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)<br>
-
-Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
-
-&nbsp;
 
 
 

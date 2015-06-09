@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "IR Proximity"
+
+
+
+![docs/breadboard/ir-proximity.png](breadboard/ir-proximity.png)<br>
+
+Fritzing diagram: [docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/ir-proximity.js
@@ -59,18 +72,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "IR Proximity"
-
-
-
-![docs/breadboard/ir-proximity.png](breadboard/ir-proximity.png)<br>
-
-Fritzing diagram: [docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz)
-
-&nbsp;
 
 
 

@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Piezo"
+
+
+
+![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
+
+Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/piezo.js
@@ -67,18 +80,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Piezo"
-
-
-
-![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
-
-Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
-
-&nbsp;
 
 
 

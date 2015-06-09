@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Shift Register - Seven segment controller"
+
+
+
+![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/shift-register-seven-segment.js
@@ -118,18 +131,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Shift Register - Seven segment controller"
-
-
-
-![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)<br>
-
-Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
-
-&nbsp;
 
 
 

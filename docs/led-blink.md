@@ -6,6 +6,21 @@
 Basic LED blink example.
 
 
+
+### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-blink.js
@@ -39,17 +54,6 @@ Basic example with LED inserted directly into pin 13
 
 ![docs/images/led.jpg](images/led.jpg)  
 
-### LED on pin 13 (Arduino UNO)
-
-
-Basic example with LED inserted directly into pin 13
-
-
-![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
-
-&nbsp;
 ### LED on pin 13 with breadboard and resistor (Arduino UNO)
 
 

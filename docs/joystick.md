@@ -4,6 +4,21 @@
 
 
 
+
+### Joystick - Sparkfun
+
+
+Sparkfun joystick breakout board.
+
+
+![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
+
+Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/joystick.js
@@ -37,17 +52,6 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Joystick - Sparkfun
-
-
-Sparkfun joystick breakout board.
-
-
-![docs/breadboard/joystick-sparkfun.png](breadboard/joystick-sparkfun.png)<br>
-
-Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sparkfun.fzz)
-
-&nbsp;
 ### Joystick - Adafruit
 
 

@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "ESC - Bidirectional Forward-Reverse"
+
+
+
+![docs/breadboard/esc-bidirectional-forward-reverse.png](breadboard/esc-bidirectional-forward-reverse.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-bidirectional-forward-reverse.fzz](breadboard/esc-bidirectional-forward-reverse.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/esc-bidirectional-forward-reverse.js
@@ -51,18 +64,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Bidirectional Forward-Reverse"
-
-
-
-![docs/breadboard/esc-bidirectional-forward-reverse.png](breadboard/esc-bidirectional-forward-reverse.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-bidirectional-forward-reverse.fzz](breadboard/esc-bidirectional-forward-reverse.fzz)
-
-&nbsp;
 
 
 

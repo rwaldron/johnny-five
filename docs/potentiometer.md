@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sensor - Potentiometer"
+
+
+
+![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
+
+Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/potentiometer.js
@@ -46,18 +59,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Potentiometer"
-
-
-
-![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
-
-Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
-
-&nbsp;
 
 
 

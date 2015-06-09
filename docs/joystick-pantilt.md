@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Joystick - Pan + Tilt control"
+
+
+
+![docs/breadboard/joystick-pantilt.png](breadboard/joystick-pantilt.png)<br>
+
+Fritzing diagram: [docs/breadboard/joystick-pantilt.fzz](breadboard/joystick-pantilt.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/joystick-pantilt.js
@@ -50,18 +63,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Joystick - Pan + Tilt control"
-
-
-
-![docs/breadboard/joystick-pantilt.png](breadboard/joystick-pantilt.png)<br>
-
-Fritzing diagram: [docs/breadboard/joystick-pantilt.fzz](breadboard/joystick-pantilt.fzz)
-
-&nbsp;
 
 
 

@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Motor - Brake"
+
+
+
+![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/motor-brake.js
@@ -82,18 +95,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - Brake"
-
-
-
-![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
-
-&nbsp;
 
 
 

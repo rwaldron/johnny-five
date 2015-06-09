@@ -4,6 +4,19 @@
 
 
 
+
+### Joystick - Sparkfun Shield
+
+
+Sparkfun Joystick Shield example.
+
+
+![docs/breadboard/joystick-shield.png](breadboard/joystick-shield.png)<br>
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/joystick-shield.js
@@ -32,18 +45,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Joystick - Sparkfun Shield
-
-
-Sparkfun Joystick Shield example.
-
-
-![docs/breadboard/joystick-shield.png](breadboard/joystick-shield.png)<br>
-
-&nbsp;
 
 
 

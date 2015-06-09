@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Button - Bumper"
+
+
+
+![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/button-bumper.js
@@ -34,18 +47,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button - Bumper"
-
-
-
-![docs/breadboard/button-bumper.png](breadboard/button-bumper.png)<br>
-
-Fritzing diagram: [docs/breadboard/button-bumper.fzz](breadboard/button-bumper.fzz)
-
-&nbsp;
 
 
 

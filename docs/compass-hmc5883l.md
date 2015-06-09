@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Compass - HMC5883L"
+
+
+
+![docs/breadboard/compass-hmc5883l.png](breadboard/compass-hmc5883l.png)<br>
+
+Fritzing diagram: [docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5883l.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/compass-hmc5883l.js
@@ -38,18 +51,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Compass - HMC5883L"
-
-
-
-![docs/breadboard/compass-hmc5883l.png](breadboard/compass-hmc5883l.png)<br>
-
-Fritzing diagram: [docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5883l.fzz)
-
-&nbsp;
 
 
 

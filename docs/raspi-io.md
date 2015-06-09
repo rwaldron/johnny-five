@@ -6,6 +6,19 @@
 Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi
 
 
+
+### LED on pin P1-13
+
+
+
+![docs/breadboard/led-13-raspberry-pi.png](breadboard/led-13-raspberry-pi.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-raspberry-pi.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/raspi-io.js
@@ -29,18 +42,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### LED on pin P1-13
-
-
-
-![docs/breadboard/led-13-raspberry-pi.png](breadboard/led-13-raspberry-pi.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-raspberry-pi.fzz)
-
-&nbsp;
 
 
 

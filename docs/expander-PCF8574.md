@@ -6,6 +6,19 @@
 Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)
 
 
+
+### Breadboard for "Expander - PCF8574"
+
+
+
+![docs/breadboard/expander-PCF8574.png](breadboard/expander-PCF8574.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-PCF8574.fzz](breadboard/expander-PCF8574.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-PCF8574.js
@@ -39,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - PCF8574"
-
-
-
-![docs/breadboard/expander-PCF8574.png](breadboard/expander-PCF8574.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-PCF8574.fzz](breadboard/expander-PCF8574.fzz)
-
-&nbsp;
 
 
 

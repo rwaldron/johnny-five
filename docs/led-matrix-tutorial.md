@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "LED - Matrix Demo"
+
+
+
+![docs/breadboard/led-matrix-tutorial.png](breadboard/led-matrix-tutorial.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matrix-tutorial.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/led-matrix-tutorial.js
@@ -124,18 +137,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Matrix Demo"
-
-
-
-![docs/breadboard/led-matrix-tutorial.png](breadboard/led-matrix-tutorial.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matrix-tutorial.fzz)
-
-&nbsp;
 
 
 

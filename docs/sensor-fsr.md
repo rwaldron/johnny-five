@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sensor - Force sensitive resistor"
+
+
+
+![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)<br>
+
+Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/sensor-fsr.js
@@ -38,18 +51,7 @@ var five = require("johnny-five"),
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Force sensitive resistor"
-
-
-
-![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)<br>
-
-Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
-
-&nbsp;
 
 
 

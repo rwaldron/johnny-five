@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Sonar"
+
+
+
+![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
+
+Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/sonar.js
@@ -66,18 +79,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sonar"
-
-
-
-![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
-
-Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
-
-&nbsp;
 
 
 

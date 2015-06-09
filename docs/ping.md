@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Ping"
+
+
+
+![docs/breadboard/ping.png](breadboard/ping.png)<br>
+
+Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/ping.js
@@ -41,18 +54,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Ping"
-
-
-
-![docs/breadboard/ping.png](breadboard/ping.png)<br>
-
-Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
-
-&nbsp;
 
 
 

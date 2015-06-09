@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Gyro - Analog LPR5150AL"
+
+
+
+![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)<br>
+
+Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/gyro-lpr5150l.js
@@ -36,18 +49,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Gyro - Analog LPR5150AL"
-
-
-
-![docs/breadboard/gyro-lpr5150l.png](breadboard/gyro-lpr5150l.png)<br>
-
-Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.fzz)
-
-&nbsp;
 
 
 

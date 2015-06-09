@@ -4,6 +4,21 @@
 
 
 
+
+### Servos on pins 9 and 10
+
+
+Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-two.png](breadboard/servo-two.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/servo-drive.js
@@ -62,20 +77,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Servos on pins 9 and 10
-
-
-Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~).
-
-
-![docs/breadboard/servo-two.png](breadboard/servo-two.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
-
-&nbsp;
 
 
 

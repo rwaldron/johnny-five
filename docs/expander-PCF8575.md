@@ -6,6 +6,19 @@
 Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - PCF8575)
 
 
+
+### Breadboard for "Expander - PCF8575"
+
+
+
+![docs/breadboard/expander-PCF8575.png](breadboard/expander-PCF8575.png)<br>
+
+Fritzing diagram: [docs/breadboard/expander-PCF8575.fzz](breadboard/expander-PCF8575.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/expander-PCF8575.js
@@ -39,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Expander - PCF8575"
-
-
-
-![docs/breadboard/expander-PCF8575.png](breadboard/expander-PCF8575.png)<br>
-
-Fritzing diagram: [docs/breadboard/expander-PCF8575.fzz](breadboard/expander-PCF8575.fzz)
-
-&nbsp;
 
 
 

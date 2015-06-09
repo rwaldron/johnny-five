@@ -4,6 +4,19 @@
 
 
 
+
+### Breadboard for "Temperature - MPU6050"
+
+
+
+![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
+
+&nbsp;
+
+
+
 Run with:
 ```bash
 node eg/temperature-mpu6050.js
@@ -33,18 +46,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Temperature - MPU6050"
-
-
-
-![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
-
-&nbsp;
 
 
 
