@@ -2,8 +2,12 @@
 
 # Proximity
 
+<!--remove-end-->
+
 
 Basic infrared Proximity example
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/proximity.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

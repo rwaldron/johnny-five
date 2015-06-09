@@ -2,6 +2,11 @@
 
 # LCD - Runner 20x4
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/lcd-runner-20x4.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

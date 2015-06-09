@@ -2,6 +2,10 @@
 
 # LED - Matrix
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/led-matrix.fzz](breadboard/led-matrix.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-matrix.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

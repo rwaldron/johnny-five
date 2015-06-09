@@ -2,6 +2,10 @@
 
 # IR Proximity
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz
 
 
 
+
 Run with:
 ```bash
 node eg/ir-proximity.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,11 @@
 
 # BOE Bot
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/boe-test-servos.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

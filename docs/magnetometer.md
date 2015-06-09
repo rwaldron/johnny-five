@@ -2,6 +2,10 @@
 
 # Compass / Magnetometer
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -15,12 +19,12 @@
 
 
 
+
 Run with:
 ```bash
 node eg/magnetometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

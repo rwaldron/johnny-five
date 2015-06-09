@@ -2,6 +2,10 @@
 
 # Accelerometer - MPU6050
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/accelerometer-mpu6050.fzz](breadboard/acceler
 
 
 
+
 Run with:
 ```bash
 node eg/accelerometer-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

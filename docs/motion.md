@@ -2,8 +2,12 @@
 
 # Motion
 
+<!--remove-end-->
+
 
 Basic Passive Infrared Motion detection.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/motion.fzz](breadboard/motion.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/motion.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,10 @@
 
 # Sonar
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/sonar.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

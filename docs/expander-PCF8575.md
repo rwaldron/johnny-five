@@ -2,8 +2,12 @@
 
 # Expander - PCF8575
 
+<!--remove-end-->
+
 
 Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - PCF8575)
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/expander-PCF8575.fzz](breadboard/expander-PCF
 
 
 
+
 Run with:
 ```bash
 node eg/expander-PCF8575.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

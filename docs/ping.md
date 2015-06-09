@@ -2,6 +2,10 @@
 
 # Ping
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/ping.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

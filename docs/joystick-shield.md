@@ -2,6 +2,10 @@
 
 # Joystick - Sparkfun Shield
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Sparkfun Joystick Shield example.
 
 
 
+
 Run with:
 ```bash
 node eg/joystick-shield.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

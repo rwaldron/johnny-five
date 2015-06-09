@@ -2,8 +2,12 @@
 
 # LED - Pulse with animation
 
+<!--remove-end-->
+
 
 LED pulse example that incrementally fades an LED brighter and brighter. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
 
 
 
@@ -21,12 +25,12 @@ Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-pulse-animation.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

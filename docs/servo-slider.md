@@ -2,6 +2,10 @@
 
 # Servo - Slider control
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz
 
 
 
+
 Run with:
 ```bash
 node eg/servo-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

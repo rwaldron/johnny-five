@@ -2,8 +2,12 @@
 
 # LED - Array
 
+<!--remove-end-->
+
 
 Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~).
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-array.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

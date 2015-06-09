@@ -2,6 +2,10 @@
 
 # Temperature - DS18B20
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperatu
 
 
 
+
 Run with:
 ```bash
 node eg/temperature-ds18b20.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,10 @@
 
 # Sensor - Potentiometer
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.f
 
 
 
+
 Run with:
 ```bash
 node eg/potentiometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

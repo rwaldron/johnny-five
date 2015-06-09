@@ -2,6 +2,10 @@
 
 # Grove - LCD RGB temperature display
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadb
 
 
 
+
 Run with:
 ```bash
 node eg/grove-lcd-rgb-temperature-display.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,10 @@
 
 # Sensor - Microphone
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/microphone.fzz](breadboard/microphone.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/microphone.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

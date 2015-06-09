@@ -2,6 +2,10 @@
 
 # Motor
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/motor.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

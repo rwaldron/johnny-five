@@ -2,6 +2,11 @@
 
 # Sonar - Scanner
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/sonar-scan.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

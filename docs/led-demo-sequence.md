@@ -2,8 +2,12 @@
 
 # LED - Demo sequence
 
+<!--remove-end-->
+
 
 Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
 
 
 
@@ -21,12 +25,12 @@ Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-demo-sequence.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

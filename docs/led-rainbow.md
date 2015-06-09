@@ -2,8 +2,12 @@
 
 # LED - Rainbow
 
+<!--remove-end-->
+
 
 Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).
+
+
 
 
 
@@ -21,12 +25,12 @@ Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.f
 
 
 
+
 Run with:
 ```bash
 node eg/led-rainbow.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

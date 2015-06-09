@@ -2,6 +2,11 @@
 
 # Lynxmotion Biped BRAT
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/brat.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

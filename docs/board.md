@@ -2,6 +2,10 @@
 
 # Basic Board initialization
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/board.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

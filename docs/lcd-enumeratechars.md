@@ -2,6 +2,11 @@
 
 # LCD - Enumerate characters
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/lcd-enumeratechars.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,8 +2,12 @@
 
 # Expander - PCA9685
 
+<!--remove-end-->
+
 
 Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/expander-PCA9685.fzz](breadboard/expander-PCA
 
 
 
+
 Run with:
 ```bash
 node eg/expander-PCA9685.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

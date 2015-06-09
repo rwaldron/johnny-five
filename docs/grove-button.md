@@ -2,6 +2,11 @@
 
 # Grove - Button
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/grove-button.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

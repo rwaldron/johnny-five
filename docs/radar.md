@@ -2,6 +2,11 @@
 
 # Radar
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/radar.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

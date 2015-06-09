@@ -2,6 +2,10 @@
 
 # Motor - Directional
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor-directional.fzz](breadboard/motor-direc
 
 
 
+
 Run with:
 ```bash
 node eg/motor-directional.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

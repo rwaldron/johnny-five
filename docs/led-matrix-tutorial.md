@@ -2,6 +2,10 @@
 
 # LED - Matrix Demo
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/led-matrix-tutorial.fzz](breadboard/led-matri
 
 
 
+
 Run with:
 ```bash
 node eg/led-matrix-tutorial.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var temporal = require("temporal");

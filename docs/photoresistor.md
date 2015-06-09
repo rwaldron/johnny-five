@@ -2,6 +2,10 @@
 
 # Sensor - Photoresistor
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.f
 
 
 
+
 Run with:
 ```bash
 node eg/photoresistor.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

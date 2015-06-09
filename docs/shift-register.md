@@ -2,6 +2,10 @@
 
 # Shift Register
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register
 
 
 
+
 Run with:
 ```bash
 node eg/shift-register.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

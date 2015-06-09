@@ -2,6 +2,10 @@
 
 # Accelerometer - ADXL345
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/accelerometer-adxl345.fzz](breadboard/acceler
 
 
 
+
 Run with:
 ```bash
 node eg/accelerometer-adxl345.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

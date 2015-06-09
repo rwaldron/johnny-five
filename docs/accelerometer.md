@@ -2,6 +2,10 @@
 
 # Accelerometer
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.f
 
 
 
+
 Run with:
 ```bash
 node eg/accelerometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

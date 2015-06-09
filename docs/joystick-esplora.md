@@ -2,6 +2,10 @@
 
 # Joystick - Esplora
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/esplora.fzz](breadboard/esplora.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/joystick-esplora.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

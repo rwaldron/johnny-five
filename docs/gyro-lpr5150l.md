@@ -2,6 +2,10 @@
 
 # Gyro - Analog LPR5150AL
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.f
 
 
 
+
 Run with:
 ```bash
 node eg/gyro-lpr5150l.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

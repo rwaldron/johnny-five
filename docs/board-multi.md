@@ -2,6 +2,10 @@
 
 # Board - Multiple in one program
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/board-multi.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

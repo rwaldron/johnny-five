@@ -2,8 +2,12 @@
 
 # LED - PCA9685
 
+<!--remove-end-->
+
 
 Basic LED example using PCA9685
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-PCA9685.fzz](breadboard/led-PCA9685.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-PCA9685.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,10 @@
 
 # Accelerometer - MMA7361
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/accelerometer-mma7361.fzz](breadboard/acceler
 
 
 
+
 Run with:
 ```bash
 node eg/accelerometer-mma7361.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

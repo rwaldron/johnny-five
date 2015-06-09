@@ -2,6 +2,10 @@
 
 # LCD
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/lcd.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

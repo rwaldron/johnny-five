@@ -2,6 +2,10 @@
 
 # Sensor - Slide potentiometer
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.f
 
 
 
+
 Run with:
 ```bash
 node eg/sensor-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

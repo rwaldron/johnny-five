@@ -2,6 +2,10 @@
 
 # ESC - Bidirectional
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirec
 
 
 
+
 Run with:
 ```bash
 node eg/esc-bidirectional.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");

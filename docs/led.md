@@ -2,8 +2,12 @@
 
 # LED
 
+<!--remove-end-->
+
 
 Basic LED example
+
+
 
 
 
@@ -21,12 +25,12 @@ Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

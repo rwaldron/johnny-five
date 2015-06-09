@@ -2,6 +2,10 @@
 
 # Piezo
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/piezo.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

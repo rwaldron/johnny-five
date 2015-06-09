@@ -2,6 +2,10 @@
 
 # Servo - PCA9685
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.f
 
 
 
+
 Run with:
 ```bash
 node eg/servo-PCA9685.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

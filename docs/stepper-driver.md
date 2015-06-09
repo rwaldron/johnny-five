@@ -2,6 +2,10 @@
 
 # Stepper - Driver
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver
 
 
 
+
 Run with:
 ```bash
 node eg/stepper-driver.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

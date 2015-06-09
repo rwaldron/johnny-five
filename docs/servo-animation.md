@@ -2,6 +2,10 @@
 
 # Servo - Animation
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/servo-animation.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

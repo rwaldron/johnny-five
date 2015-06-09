@@ -2,8 +2,12 @@
 
 # Proximity - MB1003
 
+<!--remove-end-->
+
 
 Basic sonar Proximity example with MB1003 sensor.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb
 
 
 
+
 Run with:
 ```bash
 node eg/proximity-mb1003.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

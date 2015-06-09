@@ -2,6 +2,11 @@
 
 # Nodebot
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/nodebot.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five, temporal, Nodebot;

@@ -2,8 +2,12 @@
 
 # Led Blink on Electric Imp
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + imp-io to control an Electric Imp.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/imp-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

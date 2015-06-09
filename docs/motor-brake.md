@@ -2,6 +2,10 @@
 
 # Motor - Brake
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/motor-brake.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

@@ -2,6 +2,11 @@
 
 # LCD - I2C Runner
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/lcd-i2c-runner.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var colors = require("../eg/color-list");

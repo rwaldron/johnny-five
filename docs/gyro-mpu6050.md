@@ -2,6 +2,10 @@
 
 # Gyro - I2C MPU6050
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz
 
 
 
+
 Run with:
 ```bash
 node eg/gyro-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

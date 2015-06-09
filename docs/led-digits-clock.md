@@ -2,8 +2,12 @@
 
 # LED - Digital Clock
 
+<!--remove-end-->
+
 
 Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-galileo.fzz](breadboard/led-
 
 
 
+
 Run with:
 ```bash
 node eg/led-digits-clock-galileo.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var moment = require("moment");

@@ -2,6 +2,11 @@
 
 # Wii Classic Controller
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/classic-controller.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

@@ -2,6 +2,10 @@
 
 # Temperature - TMP36
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature
 
 
 
+
 Run with:
 ```bash
 node eg/temperature-tmp36.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,8 +2,12 @@
 
 # Motion - GP2Y0D805Z0F
 
+<!--remove-end-->
+
 
 Basic GP2Y0D805Z0F motion detection.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/motion-gp2y0d805z0f.fzz](breadboard/motion-gp
 
 
 
+
 Run with:
 ```bash
 node eg/motion-gp2y0d805z0f.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

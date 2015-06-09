@@ -2,8 +2,12 @@
 
 # Led Blink on Intel Galileo Gen 2
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo
 
 
 
+
 Run with:
 ```bash
 node eg/galileo-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

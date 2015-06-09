@@ -2,6 +2,11 @@
 
 # IR Reflectance
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/ir-reflect.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

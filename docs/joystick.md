@@ -2,6 +2,10 @@
 
 # Joystick
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sp
 
 
 
+
 Run with:
 ```bash
 node eg/joystick.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

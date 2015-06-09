@@ -2,6 +2,10 @@
 
 # Relay
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/relay.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

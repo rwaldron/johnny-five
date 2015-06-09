@@ -2,6 +2,10 @@
 
 # IMU - MPU6050
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/imu-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");

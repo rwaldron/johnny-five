@@ -2,6 +2,10 @@
 
 # Compass - HMC5883L
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5
 
 
 
+
 Run with:
 ```bash
 node eg/compass-hmc5883l.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");

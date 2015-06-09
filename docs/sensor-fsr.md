@@ -2,6 +2,10 @@
 
 # Sensor - Force sensitive resistor
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/sensor-fsr.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

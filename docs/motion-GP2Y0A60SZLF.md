@@ -2,6 +2,10 @@
 
 # Motion - GP2Y0A60SZLF
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/GP2Y0D810Z0F.fzz](breadboard/GP2Y0D810Z0F.fzz
 
 
 
+
 Run with:
 ```bash
 node eg/motion-GP2Y0A60SZLF.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

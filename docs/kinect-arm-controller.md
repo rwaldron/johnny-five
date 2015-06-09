@@ -2,6 +2,10 @@
 
 # Kinect Robotic Arm Controller
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/kinect-arm-controller.fzz](breadboard/kinect-
 
 
 
+
 Run with:
 ```bash
 node eg/kinect-arm-controller.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

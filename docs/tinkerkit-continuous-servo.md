@@ -2,6 +2,11 @@
 
 # TinkerKit - Continuous servo
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/tinkerkit-continuous-servo.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

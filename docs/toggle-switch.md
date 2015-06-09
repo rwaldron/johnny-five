@@ -2,6 +2,10 @@
 
 # Toggle Switch
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.f
 
 
 
+
 Run with:
 ```bash
 node eg/toggle-switch.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

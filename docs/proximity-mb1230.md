@@ -2,6 +2,10 @@
 
 # Proximity - MB1230
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb
 
 
 
+
 Run with:
 ```bash
 node eg/proximity-mb1230.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

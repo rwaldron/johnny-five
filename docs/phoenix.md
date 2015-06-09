@@ -2,6 +2,11 @@
 
 # Phoenix Hexapod
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/phoenix.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /**

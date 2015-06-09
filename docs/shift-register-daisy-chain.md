@@ -2,6 +2,10 @@
 
 # Shift Register - Seven segments, daisy chained
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/sh
 
 
 
+
 Run with:
 ```bash
 node eg/shift-register-daisy-chain.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /**

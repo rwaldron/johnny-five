@@ -2,6 +2,10 @@
 
 # Motor - 3 pin
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/motor-3-pin.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

@@ -2,6 +2,10 @@
 
 # Button
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/button.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

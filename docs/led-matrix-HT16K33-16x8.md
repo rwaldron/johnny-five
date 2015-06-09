@@ -2,6 +2,10 @@
 
 # LED - Matrix HT16K33 16x8
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/led-matrix-HT16K33-16x8.fzz](breadboard/led-m
 
 
 
+
 Run with:
 ```bash
 node eg/led-matrix-HT16K33-16x8.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

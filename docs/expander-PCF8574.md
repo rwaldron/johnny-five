@@ -2,8 +2,12 @@
 
 # Expander - PCF8574
 
+<!--remove-end-->
+
 
 Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/expander-PCF8574.fzz](breadboard/expander-PCF
 
 
 
+
 Run with:
 ```bash
 node eg/expander-PCF8574.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

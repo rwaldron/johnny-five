@@ -2,8 +2,12 @@
 
 # Proximity - LIDAR-Lite
 
+<!--remove-end-->
+
 
 Basic LIDAR-Lite example.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity-lidarlite.fzz](breadboard/proximity
 
 
 
+
 Run with:
 ```bash
 node eg/proximity-lidarlite.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

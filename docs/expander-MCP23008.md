@@ -2,8 +2,12 @@
 
 # Expander - MCP23008
 
+<!--remove-end-->
+
 
 Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/expander-MCP23008.fzz](breadboard/expander-MC
 
 
 
+
 Run with:
 ```bash
 node eg/expander-MCP23008.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

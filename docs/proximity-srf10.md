@@ -2,8 +2,12 @@
 
 # Proximity - SRF10
 
+<!--remove-end-->
+
 
 Basic sonar Proximity example with SRF10 sensor.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf
 
 
 
+
 Run with:
 ```bash
 node eg/proximity-srf10.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

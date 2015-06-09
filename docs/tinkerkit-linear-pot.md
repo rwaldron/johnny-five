@@ -2,6 +2,11 @@
 
 # TinkerKit - Linear potentiometer
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/tinkerkit-linear-pot.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

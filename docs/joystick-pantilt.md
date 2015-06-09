@@ -2,6 +2,10 @@
 
 # Joystick - Pan + Tilt control
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/joystick-pantilt.fzz](breadboard/joystick-pan
 
 
 
+
 Run with:
 ```bash
 node eg/joystick-pantilt.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

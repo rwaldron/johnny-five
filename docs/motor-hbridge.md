@@ -2,6 +2,10 @@
 
 # Motor - H-Bridge
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.f
 
 
 
+
 Run with:
 ```bash
 node eg/motor-hbridge.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /*

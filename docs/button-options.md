@@ -2,6 +2,10 @@
 
 # Button - Options
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options
 
 
 
+
 Run with:
 ```bash
 node eg/button-options.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

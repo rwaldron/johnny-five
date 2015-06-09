@@ -2,8 +2,12 @@
 
 # LED - Slider
 
+<!--remove-end-->
+
 
 Controls the brightness of an LED by pairing it with a slider. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

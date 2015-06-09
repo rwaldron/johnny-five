@@ -2,6 +2,10 @@
 
 # Temperature - MPU6050
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperatu
 
 
 
+
 Run with:
 ```bash
 node eg/temperature-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

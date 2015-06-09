@@ -2,8 +2,13 @@
 
 # Led Blink on pcDuino3
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3
+
+
+
 
 
 
@@ -13,7 +18,6 @@ Run with:
 node eg/pcduino-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

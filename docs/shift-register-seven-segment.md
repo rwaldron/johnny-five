@@ -2,6 +2,10 @@
 
 # Shift Register - Seven segment controller
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/
 
 
 
+
 Run with:
 ```bash
 node eg/shift-register-seven-segment.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /**

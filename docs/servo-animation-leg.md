@@ -2,6 +2,10 @@
 
 # Servo - Leg Animation
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/servo-animation-leg.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

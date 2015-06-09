@@ -2,8 +2,12 @@
 
 # LED - Fade
 
+<!--remove-end-->
+
 
 LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
 
 
 
@@ -21,12 +25,12 @@ Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/led-fade.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

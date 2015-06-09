@@ -2,8 +2,12 @@
 
 # Expander - PCF8591
 
+<!--remove-end-->
+
 
 Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/expander-PCF8591.fzz](breadboard/expander-PCF
 
 
 
+
 Run with:
 ```bash
 node eg/expander-PCF8591.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

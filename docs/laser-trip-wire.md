@@ -2,6 +2,10 @@
 
 # Laser Trip Wire
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -15,12 +19,12 @@
 
 
 
+
 Run with:
 ```bash
 node eg/laser-trip-wire.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

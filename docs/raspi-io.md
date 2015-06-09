@@ -2,8 +2,12 @@
 
 # Led Blink on Raspberry Pi
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-ra
 
 
 
+
 Run with:
 ```bash
 node eg/raspi-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

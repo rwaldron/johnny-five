@@ -2,6 +2,10 @@
 
 # Motor - Current
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/motor-current.fzz](breadboard/motor-current.f
 
 
 
+
 Run with:
 ```bash
 node eg/motor-current.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

@@ -2,6 +2,11 @@
 
 # TinkerKit - Blink
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/tinkerkit-blink.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

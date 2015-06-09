@@ -2,8 +2,12 @@
 
 # LED - Fade callback
 
+<!--remove-end-->
+
 
 Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~).
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/led-fade-callback.fzz](breadboard/led-fade-ca
 
 
 
+
 Run with:
 ```bash
 node eg/led-fade-callback.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

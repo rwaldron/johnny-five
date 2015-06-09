@@ -2,6 +2,10 @@
 
 # IR Motion
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/ir-motion.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

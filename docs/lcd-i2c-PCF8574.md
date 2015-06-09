@@ -2,6 +2,10 @@
 
 # LCD - I2C PCF8574
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -15,12 +19,12 @@
 
 
 
+
 Run with:
 ```bash
 node eg/lcd-i2c-PCF8574.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

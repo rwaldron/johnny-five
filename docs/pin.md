@@ -2,6 +2,10 @@
 
 # Pin
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/pin.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

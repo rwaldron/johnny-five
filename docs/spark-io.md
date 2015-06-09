@@ -2,8 +2,12 @@
 
 # Led Blink on Spark Core
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
 
 
 
+
 Run with:
 ```bash
 node eg/spark-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,6 +2,10 @@
 
 # ESC - Dualshock
 
+<!--remove-end-->
+
+
+
 
 
 
@@ -17,12 +21,12 @@ Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.f
 
 
 
+
 Run with:
 ```bash
 node eg/esc-dualshock.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

@@ -2,8 +2,12 @@
 
 # Proximity - HC-SR04
 
+<!--remove-end-->
+
 
 Basic ping Proximity example with HC-SR04 sensor.
+
+
 
 
 
@@ -19,12 +23,12 @@ Fritzing diagram: [docs/breadboard/proximity-hcsr04.fzz](breadboard/proximity-hc
 
 
 
+
 Run with:
 ```bash
 node eg/proximity-hcsr04.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

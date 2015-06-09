@@ -2,6 +2,11 @@
 
 # Wii Nunchuck
 
+<!--remove-end-->
+
+
+
+
 
 
 
@@ -11,7 +16,6 @@ Run with:
 node eg/nunchuk.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
