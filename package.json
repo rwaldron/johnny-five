@@ -86,7 +86,7 @@
     { "name": "bartmichu", "email": "<>" }
   ],
   "keywords": [
-    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io"
+    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "spark", "particle", "i2c", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io", "intel edison", "edison", "pcduino"
   ],
   "repository": {
     "type": "git",
