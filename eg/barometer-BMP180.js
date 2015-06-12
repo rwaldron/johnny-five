@@ -3,8 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var barometer = new five.Barometer({
-    controller: "BMP180",
-    freq: 250
+    controller: "BMP180"
   });
 
   barometer.on("change", function() {

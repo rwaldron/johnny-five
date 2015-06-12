@@ -3,8 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "BMP180",
-    freq: 250
+    controller: "BMP180"
   });
 
   multi.on("change", function() {

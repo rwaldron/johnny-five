@@ -59,6 +59,11 @@ board.on("ready", function() {
 ## Additional Notes
 - [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)
 
+
+## Learn More
+
+- [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)
+
 &nbsp;
 
 <!--remove-start-->

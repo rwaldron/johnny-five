@@ -56,6 +56,15 @@ board.on("ready", function() {
 
 
 
+
+## Learn More
+
+- [BMP180 Barometric Pressure/Temperature/Altitude Sensor](https://www.adafruit.com/products/1603)
+
+- [SparkFun Barometric Pressure Sensor Breakout - BMP180](https://www.sparkfun.com/products/11824)
+
+- [Grove - Barometer Sensor（BMP180)](http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html)
+
 &nbsp;
 
 <!--remove-start-->
