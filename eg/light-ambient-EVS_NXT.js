@@ -8,6 +8,6 @@ board.on("ready", function() {
   });
 
   light.on("change", function() {
-    console.log("Ambient Light Intensity: ", this.intensity);
+    console.log("Ambient Light Level: ", this.level);
   });
 });

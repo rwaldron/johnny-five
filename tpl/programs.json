@@ -323,6 +323,28 @@
     ]
   },
   {
+    "topic": "Color",
+    "classes": ["Color"],
+    "examples": [
+      {
+        "file": "color-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Code)"
+      },
+      {
+        "file": "color-raw-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Raw)"
+      },
+      {
+        "file": "color-EVS_NXT.js",
+        "title": "Color - EVShield NXT (Code)"
+      },
+      {
+        "file": "color-ISL29125.js",
+        "title": "Color - ISL29125"
+      },
+    ]
+  },
+  {
     "topic": "Motor",
     "classes": ["Motor"],
     "examples": [
@@ -357,6 +379,14 @@
       {
         "file": "motor-3-pin.js",
         "title": "Motor - 3 pin"
+      },
+      {
+        "file": "motor-EVS_EV3.js",
+        "title": "Motor - EVShield EV3"
+      },
+      {
+        "file": "motor-EVS_NXT.js",
+        "title": "Motor - EVShield NXT"
       }
     ]
   },
@@ -401,28 +431,6 @@
     ]
   },
   {
-    "topic": "Sonar/Ultrasonic",
-    "classes": ["Sonar", "Ping"],
-    "examples": [
-      {
-        "file": "ping.js",
-        "title": "Ping"
-      },
-      {
-        "file": "sonar.js",
-        "title": "Sonar"
-      },
-      {
-        "file": "sonar-scan.js",
-        "title": "Sonar - Scanner"
-      },
-      {
-        "file": "sonar-srf10.js",
-        "title": "Sonar - I2C SRF10"
-      }
-    ]
-  },
-  {
     "topic": "Button / Switch",
     "classes": ["Button", "Switch"],
     "examples": [
@@ -445,6 +453,14 @@
       {
         "file": "toggle-switch.js",
         "title": "Toggle Switch"
+      },
+      {
+        "file": "button-EVS_EV3.js",
+        "title": "Button - EVShield EV3"
+      },
+      {
+        "file": "button-EVS_NXT.js",
+        "title": "Button - EVShield NXT"
       }
     ]
   },
@@ -503,8 +519,8 @@
     ]
   },
   {
-    "topic": "Infrared (Proximity, Motion, Reflectance)",
-    "classes": ["IR.Motion", "IR.Reflect", "IR.Reflect.Array"],
+    "topic": "Infrared Reflectance)",
+    "classes": ["IR.Reflect.Array"],
     "examples": [
       {
         "file": "ir-motion.js",
@@ -578,6 +594,22 @@
         "file": "proximity-lidarlite.js",
         "title": "Proximity - LIDAR-Lite",
         "description": "Basic LIDAR-Lite example."
+      },
+      {
+        "file": "proximity-EVS_EV3_IR.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
+      },
+      {
+        "file": "proximity-EVS_EV3_IR-alert.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US-alert.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
       }
     ]
   },
