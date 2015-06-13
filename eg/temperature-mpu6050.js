@@ -16,5 +16,5 @@ board.on("ready", function() {
 });
 
 // @markdown
-// - [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
+// - [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
 // @markdown
