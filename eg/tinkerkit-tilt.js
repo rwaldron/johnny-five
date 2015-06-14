@@ -9,7 +9,7 @@ new five.Board().on("ready", function() {
 });
 
 // @markdown
-// - [TinkerKit Servo](http://www.tinkerkit.com/servo/)
-// - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// - [TinkerKit Servo](http://tinkerkit.tihhs.nl/servo/)
+// - [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
+// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 // @markdown

@@ -5,6 +5,6 @@ new five.Board().on("ready", function() {
 });
 
 // @markdown
-// - [TinkerKit Led](http://www.tinkerkit.com/led-red-10mm/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// - [TinkerKit Led](http://tinkerkit.tihhs.nl/led-red-10mm/)
+// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 // @markdown

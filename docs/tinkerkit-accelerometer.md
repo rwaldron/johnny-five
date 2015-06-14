@@ -29,7 +29,7 @@ board.on("ready", function() {
   //
   // Devices:
   //
-  // - Dual Axis http://www.tinkerkit.com/accelerometer/
+  // - Dual Axis http://tinkerkit.tihhs.nl/accelerometer/
   //
 
   accel = new five.Accelerometer({

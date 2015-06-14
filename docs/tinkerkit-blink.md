@@ -43,8 +43,8 @@ new five.Board().on("ready", function() {
 
 
 ## Additional Notes
-- [TinkerKit Led](http://www.tinkerkit.com/led-red-10mm/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+- [TinkerKit Led](http://tinkerkit.tihhs.nl/led-red-10mm/)
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 
