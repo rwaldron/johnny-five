@@ -53,8 +53,6 @@ exports["Led - PWM (Analog)"] = {
       name: "pin"
     }, {
       name: "value"
-    }, {
-      name: "interval"
     }];
 
     done();
