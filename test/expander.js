@@ -839,27 +839,26 @@ exports["Expander - PCF8574"] = {
     // 1 initialization call + (8 * (pinMode + digitalWrite))
     test.equal(this.i2cWrite.callCount, 16);
 
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 32, 238 ]);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 32, 0 ]);
 
     test.deepEqual(this.i2cWrite.args, [
-      [ 32, 238 ],
-      [ 32, 238 ],
-      [ 32, 236 ],
-      [ 32, 236 ],
-      [ 32, 232 ],
-      [ 32, 232 ],
-      [ 32, 224 ],
-      [ 32, 224 ],
-      [ 32, 224 ],
-      [ 32, 224 ],
-      [ 32, 192 ],
-      [ 32, 192 ],
-      [ 32, 128 ],
-      [ 32, 128 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
       [ 32, 0 ],
       [ 32, 0 ]
     ]);
-
 
     test.done();
   },
@@ -884,14 +883,14 @@ exports["Expander - PCF8574"] = {
     }
 
     var expects = [
-      [ 32, 1 ],
-      [ 32, 3 ],
-      [ 32, 7 ],
-      [ 32, 15 ],
-      [ 32, 15 ],
-      [ 32, 47 ],
-      [ 32, 111 ],
-      [ 32, 239 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
+      [ 32, 0 ],
     ];
 
     test.deepEqual(this.i2cWrite.args, expects);
@@ -918,6 +917,7 @@ exports["Expander - PCF8574"] = {
       [ 32, 0 ],
       [ 32, 0 ],
     ];
+
 
     test.deepEqual(this.i2cWrite.args, expects);
 
@@ -1068,23 +1068,23 @@ exports["Expander - PCF8574A"] = {
     // 1 initialization call + (8 * (pinMode + digitalWrite))
     test.equal(this.i2cWrite.callCount, 16);
 
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 56, 238 ]);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 56, 0 ]);
 
     test.deepEqual(this.i2cWrite.args, [
-      [ 56, 238 ],
-      [ 56, 238 ],
-      [ 56, 236 ],
-      [ 56, 236 ],
-      [ 56, 232 ],
-      [ 56, 232 ],
-      [ 56, 224 ],
-      [ 56, 224 ],
-      [ 56, 224 ],
-      [ 56, 224 ],
-      [ 56, 192 ],
-      [ 56, 192 ],
-      [ 56, 128 ],
-      [ 56, 128 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
       [ 56, 0 ],
       [ 56, 0 ]
     ]);
@@ -1113,14 +1113,14 @@ exports["Expander - PCF8574A"] = {
     }
 
     var expects = [
-      [ 56, 1 ],
-      [ 56, 3 ],
-      [ 56, 7 ],
-      [ 56, 15 ],
-      [ 56, 15 ],
-      [ 56, 47 ],
-      [ 56, 111 ],
-      [ 56, 239 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
+      [ 56, 0 ],
     ];
 
     test.deepEqual(this.i2cWrite.args, expects);
