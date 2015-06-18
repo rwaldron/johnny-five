@@ -465,11 +465,8 @@ exports["Pin.isAnalog"] = {
 
 exports["PinShape"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
 
-    io.emit("ready");
-
+    newBoard();
     // Pins to test
 
     // default Pin instances passing only the pin number
@@ -478,6 +475,11 @@ exports["PinShape"] = {
     this.ana0Def = new Pin("A0");
     this.ana1Def = new Pin("A1");
     //CODE
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
     done();
   },
 
@@ -530,10 +532,7 @@ exports["PinShape"] = {
 
 exports["PinMode"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
-
-    io.emit("ready");
+    newBoard();
 
     // Pins to test
     this.modeD0 = new Pin({ pin: 4, mode: 0});
@@ -547,6 +546,11 @@ exports["PinMode"] = {
     this.modeA3 = new Pin({ pin: 18, mode: 3});
     this.modeA4 = new Pin({ pin: 19, mode: 4});
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
     done();
   },
 
