@@ -82,6 +82,27 @@ exports["Expander"] = {
     test.done();
   },
 
+  skipsPinNormalizationCall: function(test) {
+    test.expect(6);
+
+    this.normalize = sinon.spy(Board.Pins, "normalize");
+
+    [
+      "MCP23017",
+      "MCP23008",
+      "PCF8574",
+      "PCF8574A",
+      "PCF8575",
+      "PCA9685",
+    ].forEach(function(controller) {
+      new Expander(controller);
+
+      test.equal(this.normalize.called, false);
+    }, this);
+
+    test.done();
+  },
+
   noController: function(test) {
     test.expect(1);
 
