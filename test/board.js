@@ -11,15 +11,26 @@ var SerialPort = require("./util/mock-serial").SerialPort,
   Boards = five.Boards,
   Virtual = Board.Virtual,
   Repl = five.Repl,
-  board = new Board({
-    io: new MockFirmata(),
+  board;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("ready");
+
+  return board;
+}
 
 exports["Board"] = {
   setUp: function(done) {
+
+    board = newBoard();
+
     this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
       callback();
     });
@@ -28,6 +39,7 @@ exports["Board"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.replInit.restore();
     done();
   },
@@ -143,6 +155,7 @@ exports["Board"] = {
 
 exports["Virtual"] = {
   setUp: function(done) {
+    board = newBoard();
     this.Board = sinon.stub(five, "Board", function() {});
     this.Expander = sinon.stub(five, "Expander", function() {
       this.name = "MCP23017";
@@ -151,6 +164,7 @@ exports["Virtual"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.Board.restore();
     this.Expander.restore();
     done();
@@ -245,6 +259,7 @@ exports["Boards"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     if (this.replInit) {
       this.replInit.restore();
     }
@@ -578,6 +593,16 @@ exports["Boards"] = {
 
 exports["instance"] = {
 
+  setUp: function(done) {
+    board = newBoard();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
+
   cache: function(test) {
     test.expect(1);
     test.ok(_.contains(five.Board.cache, board));
@@ -613,11 +638,7 @@ exports["instance"] = {
 exports["Board.mount"] = {
   setUp: function(done) {
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     done();
   },
@@ -658,6 +679,13 @@ exports["Board.mount"] = {
 };
 
 exports["bubbled events from io"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   string: function(test) {
     test.expect(1);
 
