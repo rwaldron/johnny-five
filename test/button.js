@@ -72,7 +72,9 @@ exports["Button, Digital Pin"] = {
       test.ok(true);
       test.done();
     });
-
+    // Set initial state
+    callback(this.button.upValue);
+    // Trigger a change of state
     callback(this.button.downValue);
   },
 
@@ -102,8 +104,12 @@ exports["Button, Digital Pin"] = {
       clock.restore();
       test.done();
     });
+    // Set initial state
+    callback(this.button.upValue);
     this.button.holdtime = 10;
+    // Trigger a change of state
     callback(this.button.downValue);
+    // Simulate the state being held
     clock.tick(11);
     callback(this.button.upValue);
   },
@@ -141,6 +147,9 @@ exports["Button, Analog Pin"] = {
       test.done();
     });
 
+    // Set initial state
+    callback(this.button.upValue);
+    // Trigger a change of state
     callback(this.button.downValue);
   },
 
@@ -169,9 +178,12 @@ exports["Button, Analog Pin"] = {
       clock.restore();
       test.done();
     });
-
+    // Set initial state
+    callback(this.button.upValue);
     this.button.holdtime = 10;
+    // Trigger a change of state
     callback(this.button.downValue);
+    // Simulate the state being held
     clock.tick(11);
     callback(this.button.upValue);
   },
@@ -281,62 +293,5 @@ exports["Button, Value Inversion"] = {
     test.equal(this.button.upValue, 0);
 
     test.done();
-  },
-
-  downInversion: function(test) {
-
-    var callback = this.digitalRead.args[0][1];
-    test.expect(3);
-
-    //fake timers dont play nice with __.debounce
-    this.button.on("down", function() {
-
-      test.ok(true);
-      test.done();
-    });
-
-    this.button.downValue = 0;
-
-    test.equal(this.button.downValue, 0);
-    test.equal(this.button.upValue, 1);
-
-    callback(this.button.downValue);
-  },
-
-  upInversion: function(test) {
-
-    var callback = this.digitalRead.args[0][1];
-    test.expect(3);
-
-    this.button.on("up", function() {
-      test.ok(true);
-      test.done();
-    });
-
-    this.button.upValue = 1;
-
-    test.equal(this.button.downValue, 0);
-    test.equal(this.button.upValue, 1);
-
-    callback(this.button.upValue);
-  },
-
-  holdInversion: function(test) {
-    var clock = sinon.useFakeTimers();
-    var callback = this.digitalRead.args[0][1];
-    test.expect(1);
-
-    //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
-      test.ok(true);
-      clock.restore();
-      test.done();
-    });
-
-    this.button.holdtime = 10;
-    this.button.downValue = 0;
-    callback(this.button.downValue);
-    clock.tick(11);
-    callback(this.button.upValue);
   },
 };
