@@ -8,6 +8,6 @@ new five.Board().on("ready", function() {
 });
 
 // @markdown
-// - [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+// - [TinkerKit Thermistor](http://tinkerkit.tihhs.nl/thermistor/)
+// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 // @markdown

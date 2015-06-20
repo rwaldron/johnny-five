@@ -45,9 +45,8 @@ new five.Board().on("ready", function() {
 
 
 ## Additional Notes
-- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-- [TinkerKit Led](http://www.tinkerkit.com/led/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+- [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

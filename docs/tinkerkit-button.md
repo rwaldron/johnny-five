@@ -52,8 +52,8 @@ new five.Board().on("ready", function() {
 
 
 ## Additional Notes
-- [TinkerKit Button](http://www.tinkerkit.com/button/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+- [TinkerKit Button](http://tinkerkit.tihhs.nl/button/)
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 
