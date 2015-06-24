@@ -66,7 +66,7 @@ npm install johnny-five raspi-io
 
 ## Learn More
 
-- [raspi-io on GitHub](https://github.com/bryan-m-hughes/raspi-io/)
+- [raspi-io on GitHub](https://github.com/nebrius/raspi-io/)
 
 &nbsp;
 

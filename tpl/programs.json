@@ -1112,7 +1112,7 @@
           {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
         ],
         "externals": [
-          { "title": "raspi-io on GitHub", "href": "https://github.com/bryan-m-hughes/raspi-io/"}
+          { "title": "raspi-io on GitHub", "href": "https://github.com/nebrius/raspi-io/"}
         ]
       },
       {
