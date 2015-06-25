@@ -65,7 +65,6 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
@@ -75,8 +74,11 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
+
+## Learn More
+
 - [TinkerKit JoyStick](http://tinkerkit.tihhs.nl/joystick/)
+
 - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;

@@ -24,7 +24,6 @@ new five.Board().on("ready", function() {
   new five.Led("O0").strobe(250);
 });
 
-
 ```
 
 
@@ -42,8 +41,11 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
+
+## Learn More
+
 - [TinkerKit Led](http://tinkerkit.tihhs.nl/led-red-10mm/)
+
 - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;

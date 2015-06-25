@@ -68,6 +68,11 @@ board.on("ready", function() {
 
 
 
+
+## Learn More
+
+- [TinkerKit Dual Axis Accelerometer](http://tinkerkit.tihhs.nl/accelerometer/)
+
 &nbsp;
 
 <!--remove-start-->

@@ -27,7 +27,6 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
@@ -45,8 +44,11 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
+
+## Learn More
+
 - [TinkerKit Thermistor](http://tinkerkit.tihhs.nl/thermistor/)
+
 - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;

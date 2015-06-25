@@ -15,8 +15,3 @@ new five.Board().on("ready", function() {
     });
   });
 });
-
-// @markdown
-// - [TinkerKit Touch](http://tinkerkit.tihhs.nl/touch/)
-// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
-// @markdown
