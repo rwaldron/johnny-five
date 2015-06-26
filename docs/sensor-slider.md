@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Sensor - Slide potentiometer"
+##### Breadboard for "Sensor - Slide potentiometer"
 
 
 

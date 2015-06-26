@@ -11,7 +11,7 @@ Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
 
 
 
-### LED on pin D1
+##### LED on pin D1
 
 
 

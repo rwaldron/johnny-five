@@ -9,7 +9,7 @@
 
 
 
-### Motion - GP2Y0A60SZLF
+##### Motion - GP2Y0A60SZLF
 
 
 Basic GP2Y0D815Z0F motion detection.

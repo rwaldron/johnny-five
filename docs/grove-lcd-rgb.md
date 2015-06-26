@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Grove - LCD RGB"
+##### Breadboard for "Grove - LCD RGB"
 
 
 

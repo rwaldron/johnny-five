@@ -11,7 +11,7 @@ Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 
 
 
 
-### LED on pin 13
+##### LED on pin 13
 
 
 

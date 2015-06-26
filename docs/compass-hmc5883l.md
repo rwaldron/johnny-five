@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Compass - HMC5883L"
+##### Breadboard for "Compass - HMC5883L"
 
 
 

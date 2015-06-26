@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "ESC - Bidirectional"
+##### Breadboard for "ESC - Bidirectional"
 
 
 

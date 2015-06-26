@@ -11,7 +11,7 @@ Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! T
 
 
 
-### Galileo Diagram
+##### Galileo Diagram
 
 
 
@@ -76,7 +76,7 @@ function time() {
 ## Illustrations / Photos
 
 
-### Arduino Diagram
+##### Arduino Diagram
 
 
 

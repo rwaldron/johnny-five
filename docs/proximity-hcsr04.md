@@ -5,13 +5,13 @@
 <!--remove-end-->
 
 
-Basic ping Proximity example with HC-SR04 sensor.
+Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component.
 
 
 
 
 
-### Breadboard for "Proximity - HC-SR04"
+##### Breadboard for "Proximity - HC-SR04"
 
 
 

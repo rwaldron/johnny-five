@@ -11,7 +11,7 @@ Controls the brightness of an LED by pairing it with a slider. Requires LED on p
 
 
 
-### Breadboard for "LED - Slider"
+##### Breadboard for "LED - Slider"
 
 
 

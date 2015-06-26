@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "IMU - MPU6050"
+##### Breadboard for "IMU - MPU6050"
 
 
 

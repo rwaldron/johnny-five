@@ -11,7 +11,7 @@ Basic GP2Y0D805Z0F motion detection.
 
 
 
-### Breadboard for "Motion - GP2Y0D805Z0F"
+##### Breadboard for "Motion - GP2Y0D805Z0F"
 
 
 

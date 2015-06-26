@@ -11,7 +11,7 @@ Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by set
 
 
 
-### Breadboard for "LED - RGB (Common Anode) PCA9685"
+##### Breadboard for "LED - RGB (Common Anode) PCA9685"
 
 
 

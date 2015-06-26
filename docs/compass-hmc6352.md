@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Compass - HMC6352"
+##### Breadboard for "Compass - HMC6352"
 
 
 

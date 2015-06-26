@@ -11,7 +11,7 @@ Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0
 
 
 
-### Common Anode RGB LED. (Arduino UNO)
+##### Common Anode RGB LED. (Arduino UNO)
 
 
 Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v.

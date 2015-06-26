@@ -9,7 +9,7 @@
 
 
 
-### Proximity - MB1010
+##### Proximity - MB1010
 
 
 Basic sonar Proximity example with MB1010 sensor.

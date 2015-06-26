@@ -11,7 +11,7 @@ Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)
 
 
 
-### Breadboard for "Expander - PCA9685"
+##### Breadboard for "Expander - PCA9685"
 
 
 

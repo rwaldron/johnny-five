@@ -9,7 +9,7 @@
 
 
 
-### Joystick - Esplora
+##### Joystick - Esplora
 
 
 Esplora joystick example.

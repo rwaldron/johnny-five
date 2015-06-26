@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "ESC - Bidirectional Forward-Reverse"
+##### Breadboard for "ESC - Bidirectional Forward-Reverse"
 
 
 

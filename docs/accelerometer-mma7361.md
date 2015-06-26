@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Accelerometer - MMA7361"
+##### Breadboard for "Accelerometer - MMA7361"
 
 
 

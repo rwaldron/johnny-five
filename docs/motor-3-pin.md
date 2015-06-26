@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Motor - 3 pin"
+##### Breadboard for "Motor - 3 pin"
 
 
 

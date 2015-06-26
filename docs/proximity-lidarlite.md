@@ -11,7 +11,7 @@ Basic LIDAR-Lite example.
 
 
 
-### Breadboard for "Proximity - LIDAR-Lite"
+##### Breadboard for "Proximity - LIDAR-Lite"
 
 
 

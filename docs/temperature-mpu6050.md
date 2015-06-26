@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Temperature - MPU6050"
+##### Breadboard for "Temperature - MPU6050"
 
 
 

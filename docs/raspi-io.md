@@ -11,7 +11,7 @@ Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi
 
 
 
-### LED on pin P1-13
+##### LED on pin P1-13
 
 
 

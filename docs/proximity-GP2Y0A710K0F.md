@@ -11,7 +11,7 @@ Basic infrared Proximity example with GP2Y0A710K0F sensor.
 
 
 
-### Breadboard for "Proximity - GP2Y0A710K0F"
+##### Breadboard for "Proximity - GP2Y0A710K0F"
 
 
 
