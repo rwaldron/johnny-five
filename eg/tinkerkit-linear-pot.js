@@ -5,8 +5,3 @@ new five.Board().on("ready", function() {
     console.log(Math.round(this.value));
   });
 });
-
-// @markdown
-// - [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
-// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
-// @markdown

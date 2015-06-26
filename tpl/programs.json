@@ -873,13 +873,20 @@
     "examples": [
       {
         "file": "tinkerkit-accelerometer.js",
-        "title": "TinkerKit - Accelerometer"
+        "title": "TinkerKit - Accelerometer",
+        "externals":[
+          {"title": "TinkerKit Dual Axis Accelerometer", "href": "http://tinkerkit.tihhs.nl/accelerometer/"}
+        ]
       },
       {
         "file": "tinkerkit-blink.js",
         "title": "TinkerKit - Blink",
         "images": [
           {"file": "tinkerkit-blink.png", "title": "TinkerKit Blink"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Led", "href": "http://tinkerkit.tihhs.nl/led-red-10mm/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -887,13 +894,10 @@
         "title": "TinkerKit - Button",
         "images": [
           {"file": "tinkerkit-button.png", "title": "TinkerKit Button"}
-        ]
-      },
-      {
-        "file": "tinkerkit-continuous-servo.js",
-        "title": "TinkerKit - Continuous servo",
-        "images": [
-          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Button", "href": "http://tinkerkit.tihhs.nl/button/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -901,18 +905,38 @@
         "title": "TinkerKit - Combo"
       },
       {
+        "file": "tinkerkit-continuous-servo.js",
+        "title": "TinkerKit - Continuous servo",
+        "images": [
+          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
         "file": "tinkerkit-gyroscope.js",
         "title": "TinkerKit - Gyro"
       },
       {
         "file": "tinkerkit-joystick.js",
-        "title": "TinkerKit - Joystick"
+        "title": "TinkerKit - Joystick",
+        "externals": [
+          { "title": "TinkerKit JoyStick", "href": "http://tinkerkit.tihhs.nl/joystick/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
       },
       {
         "file": "tinkerkit-linear-pot.js",
         "title": "TinkerKit - Linear potentiometer",
         "images": [
           {"file": "tinkerkit-linear-pot.png", "title": "TinkerKit Linear Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -920,6 +944,11 @@
         "title": "TinkerKit - Rotary potentiometer",
         "images": [
           {"file": "tinkerkit-rotary.png", "title": "TinkerKit Rotary Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Rotary Potentiometer", "href": "http://tinkerkit.tihhs.nl/rotary-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -927,6 +956,10 @@
         "title": "TinkerKit - Temperature",
         "images": [
           {"file": "tinkerkit-thermistor.png", "title": "TinkerKit Temperature"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Thermistor", "href": "http://tinkerkit.tihhs.nl/thermistor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -934,6 +967,11 @@
         "title": "TinkerKit - Tilt",
         "images": [
           {"file": "tinkerkit-tilt.png", "title": "TinkerKit Tilt"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Tilt", "href": "http://tinkerkit.tihhs.nl/tilt-sensor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -941,6 +979,10 @@
         "title": "TinkerKit - Touch",
         "images": [
           {"file": "tinkerkit-touch.png", "title": "TinkerKit Touch"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Touch", "href": "http://tinkerkit.tihhs.nl/touch/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       }
     ]

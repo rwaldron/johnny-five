@@ -6,8 +6,3 @@ new five.Board().on("ready", function() {
     console.log("C: ", this.celsius);
   });
 });
-
-// @markdown
-// - [TinkerKit Thermistor](http://tinkerkit.tihhs.nl/thermistor/)
-// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
-// @markdown

@@ -10,9 +10,3 @@ new five.Board().on("ready", function() {
     servo.cw(this.value);
   });
 });
-
-// @markdown
-// - [TinkerKit Servo](http://tinkerkit.tihhs.nl/servo/)
-// - [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
-// - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
-// @markdown

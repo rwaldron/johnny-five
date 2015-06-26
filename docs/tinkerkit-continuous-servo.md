@@ -31,7 +31,6 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
@@ -49,9 +48,13 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
+
+## Learn More
+
 - [TinkerKit Servo](http://tinkerkit.tihhs.nl/servo/)
+
 - [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
+
 - [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
