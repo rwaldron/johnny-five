@@ -230,6 +230,22 @@
       {
         "file": "led-matrix-HT16K33-16x8.js",
         "title": "LED - Matrix HT16K33 16x8"
+      },
+      {
+        "file": "led-chars-demo.js",
+        "title": "LED - Draw Matrix Characters Demo",
+        "description": "Demonstrates draw() on Matrix display.",
+        "breadboards": [
+          {"name": "led-matrix", "title": "LED Matrix breadboard - Arduino Uno"}
+        ]
+      },
+      {
+        "file": "led-enumeratechars.js",
+        "title": "LED - Enumerate Matrix Characters & Symbols",
+        "description": "Loop through available characters & symbols to see what they look like on a Matrix display.",
+        "breadboards": [
+          {"name": "led-matrix", "title": "LED Matrix breadboard - Arduino Uno"}
+        ]
       }
     ]
   },
