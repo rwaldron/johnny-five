@@ -44,8 +44,3 @@ new five.Board().on("ready", function() {
     });
   });
 });
-
-// @markdown
-// - [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-// @markdown

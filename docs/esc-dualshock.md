@@ -2,6 +2,24 @@
 
 # ESC - Dualshock
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "ESC - Dualshock"
+
+
+
+![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/esc-dualshock.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -69,18 +86,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Dualshock"
-
-
-
-![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
-
-&nbsp;
 
 
 

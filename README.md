@@ -1,12 +1,20 @@
+![](https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png)
+
+# Johnny-Five
+### The JavaScript Robotics Programming Framework
+
 <!-- 
 
     Hello!
 
     Please don't edit this file!
 
-    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example, please put the file in eg/ and then add an entry to programs.json. To generate the markdown and update the main readme, run: 
+    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example: 
 
-    `grunt examples`
+    1. Add the file in `eg/`
+    2. Add a breadboard image in `docs/breadboards`
+    3. Add an entry to `tpl/programs.json`. 
+    4. Generated the markdown with: `grunt examples`
 
 
 
@@ -47,18 +55,16 @@
 
 
 -->
-<img src="https://github.com/rwaldron/johnny-five/raw/master/assets/sgier-johnny-five.png">
 
-# Johnny-Five
-### The JavaScript Robotics Programming Framework
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
-[![Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 
-**Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark Core, TI Launchpad and more!**
+**Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Spark/Particle Core, TI Launchpad and more!**
 
 Johnny-Five has grown from a passion project into a tool for inspiring learning and creativity for people of all ages, backgrounds, and from all across the world. 
 
@@ -172,6 +178,14 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 
+### Expander
+- [Expander - MCP23017](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MCP23017.md)
+- [Expander - MCP23008](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MCP23008.md)
+- [Expander - PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8574.md)
+- [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
+- [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
+- [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
+
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
 - [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
@@ -186,7 +200,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
 - [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
-- [LED - RGB PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-PCA9685.md)
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
@@ -267,11 +280,18 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
 - [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 
+### Motion
+- [Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/motion.md)
+- [Motion - GP2Y0D805Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d805z0f.md)
+- [Motion - GP2Y0D810Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d810z0f.md)
+- [Motion - GP2Y0D810Z0F](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-gp2y0d815z0f.md)
+- [Motion - GP2Y0A60SZLF](https://github.com/rwaldron/johnny-five/blob/master/docs/motion-GP2Y0A60SZLF.md)
+
 ### Joystick
 - [Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick.md)
-- [Joystick - Claw control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-claw.md)
+- [Joystick - Esplora](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-esplora.md)
+- [Joystick - Sparkfun Shield](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-shield.md)
 - [Joystick - Pan + Tilt control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-pantilt.md)
-- [Joystick - Motor control](https://github.com/rwaldron/johnny-five/blob/master/docs/joystick-motor-led.md)
 
 ### LCD
 - [LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
@@ -292,8 +312,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Piezo
 - [Piezo](https://github.com/rwaldron/johnny-five/blob/master/docs/piezo.md)
 
-### IMU
+### IMU/Multi
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+- [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
+- [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
 
 ### Sensors
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
@@ -301,6 +323,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
 - [Sensor - Potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/potentiometer.md)
+- [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer - ADXL345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
 - [Accelerometer - ADXL335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
@@ -314,6 +337,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
+- [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
+- [Temperature - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl115a2.md)
+- [Barometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-BMP180.md)
+- [Temperature - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
@@ -328,8 +355,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [TinkerKit - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)
 - [TinkerKit - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-blink.md)
 - [TinkerKit - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-button.md)
-- [TinkerKit - Continuous servo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
 - [TinkerKit - Combo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-combo.md)
+- [TinkerKit - Continuous servo](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-continuous-servo.md)
 - [TinkerKit - Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-gyroscope.md)
 - [TinkerKit - Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-joystick.md)
 - [TinkerKit - Linear potentiometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-linear-pot.md)
@@ -353,7 +380,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Bug](https://github.com/rwaldron/johnny-five/blob/master/docs/bug.md)
 - [Lynxmotion Biped BRAT](https://github.com/rwaldron/johnny-five/blob/master/docs/brat.md)
 - [Robotic Claw](https://github.com/rwaldron/johnny-five/blob/master/docs/claw.md)
-- [Kinect Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
+- [Kinect Robotic Arm Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
 - [Laser Trip Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/laser-trip-wire.md)
 - [Radar](https://github.com/rwaldron/johnny-five/blob/master/docs/radar.md)
 

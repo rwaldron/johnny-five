@@ -2,6 +2,13 @@
 
 # Whisker
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/whisker.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var Change, five;

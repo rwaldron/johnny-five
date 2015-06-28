@@ -2,8 +2,28 @@
 
 # LED
 
+<!--remove-end-->
+
 
 Basic LED example
+
+
+
+
+
+##### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +31,6 @@ Run with:
 node eg/led.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -45,18 +64,7 @@ Basic example with LED inserted directly into pin 13
 
 ![docs/images/led.jpg](images/led.jpg)  
 
-### LED on pin 13 (Arduino UNO)
-
-
-Basic example with LED inserted directly into pin 13
-
-
-![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
-
-&nbsp;
-### LED on pin 13 with breadboard and resistor (Arduino UNO)
+##### LED on pin 13 with breadboard and resistor (Arduino UNO)
 
 
 Basic example with LED on a breadboard and demonstrating use of a resistor
@@ -67,7 +75,7 @@ Basic example with LED on a breadboard and demonstrating use of a resistor
 Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
 
 &nbsp;
-### LED on pin 13 (Arduino Mega)
+##### LED on pin 13 (Arduino Mega)
 
 
 Basic example with LED inserted directly into pin 13

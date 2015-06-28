@@ -2,6 +2,24 @@
 
 # Button - Pullup
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button - Pullup"
+
+
+
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/button-pullup.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 // The `isPullup` button option enables the pullup
@@ -49,18 +66,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button - Pullup"
-
-
-
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
-
-Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
-
-&nbsp;
 
 
 

@@ -2,6 +2,24 @@
 
 # Sensor - Photoresistor
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sensor - Photoresistor"
+
+
+
+![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)<br>
+
+Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/photoresistor.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -46,18 +63,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Photoresistor"
-
-
-
-![docs/breadboard/photoresistor.png](breadboard/photoresistor.png)<br>
-
-Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.fzz)
-
-&nbsp;
 
 
 

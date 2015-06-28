@@ -2,8 +2,26 @@
 
 # Led Blink on Spark Core
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.
+
+
+
+
+
+##### LED on pin D1
+
+
+
+![docs/breadboard/spark-led.png](breadboard/spark-led.png)<br>
+
+Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/spark-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -49,15 +66,6 @@ board.on("ready", function() {
 
 ![docs/images/spark-core.jpg](images/spark-core.jpg)  
 
-### LED on pin D1
-
-
-
-![docs/breadboard/spark-led.png](breadboard/spark-led.png)<br>
-
-Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
-
-&nbsp;
 
 
 

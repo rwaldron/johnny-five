@@ -910,7 +910,7 @@ exports["Proximity: HCSR04"] = {
     this.clock = sinon.useFakeTimers();
     this.pulseVal = 1000;
 
-    sinon.stub(board.io, "pulseIn", function(settings, handler) {
+    sinon.stub(board.io, "pingRead", function(settings, handler) {
       handler(this.pulseVal);
     }.bind(this));
 
@@ -939,7 +939,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   tearDown: function(done) {
-    board.io.pulseIn.restore();
+    board.io.pingRead.restore();
     this.clock.restore();
     done();
   },
@@ -962,7 +962,7 @@ exports["Proximity: HCSR04"] = {
     var spy = sinon.spy();
     test.expect(1);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.proximity.on("data", spy);
@@ -977,7 +977,7 @@ exports["Proximity: HCSR04"] = {
 
     this.pulseVal = 0;
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.pulseVal = 1000;
@@ -993,7 +993,7 @@ exports["Proximity: HCSR04"] = {
     var spy = sinon.spy();
     test.expect(2);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {

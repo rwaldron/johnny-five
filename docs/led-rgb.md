@@ -2,8 +2,28 @@
 
 # LED - RGB
 
+<!--remove-end-->
+
 
 Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).
+
+
+
+
+
+##### RGB LED. (Arduino UNO)
+
+
+Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively.
+
+
+![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +31,6 @@ Run with:
 node eg/led-rgb.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -54,20 +73,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### RGB LED. (Arduino UNO)
-
-
-Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively.
-
-
-![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
-
-&nbsp;
 
 
 

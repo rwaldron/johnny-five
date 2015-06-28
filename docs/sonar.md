@@ -2,6 +2,24 @@
 
 # Sonar
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sonar"
+
+
+
+![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
+
+Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/sonar.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -66,18 +83,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sonar"
-
-
-
-![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
-
-Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
-
-&nbsp;
 
 
 

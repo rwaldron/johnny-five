@@ -2,6 +2,22 @@
 
 # Compass / Magnetometer
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Compass / Magnetometer"
+
+
+
+![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +25,6 @@ Run with:
 node eg/magnetometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -75,16 +90,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Compass / Magnetometer"
-
-
-
-![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
-
-&nbsp;
 
 
 

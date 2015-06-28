@@ -13,31 +13,31 @@ var board = new five.Board({
 io.emit("ready");
 
 
+var proto = [];
+var instance = [{
+  name: "pullup"
+}, {
+  name: "invert"
+}, {
+  name: "downValue"
+}, {
+  name: "upValue"
+}, {
+  name: "holdtime"
+}, {
+  name: "isDown"
+}, {
+  name: "value"
+}];
+
+
 exports["Button, Digital Pin"] = {
   setUp: function(done) {
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
       board: board
     });
-
-    this.proto = [];
-
-    this.instance = [{
-      name: "isPullup"
-    }, {
-      name: "invert"
-    }, {
-      name: "downValue"
-    }, {
-      name: "upValue"
-    }, {
-      name: "holdtime"
-    }, {
-      name: "isDown"
-    }, {
-      name: "value"
-    }];
 
     done();
   },
@@ -48,13 +48,13 @@ exports["Button, Digital Pin"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.proto.forEach(function(method) {
+    proto.forEach(function(method) {
       test.equal(typeof this.button[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instance.forEach(function(property) {
       test.notEqual(typeof this.button[property.name], "undefined");
     }, this);
 
@@ -72,7 +72,9 @@ exports["Button, Digital Pin"] = {
       test.ok(true);
       test.done();
     });
-
+    // Set initial state
+    callback(this.button.upValue);
+    // Trigger a change of state
     callback(this.button.downValue);
   },
 
@@ -102,35 +104,24 @@ exports["Button, Digital Pin"] = {
       clock.restore();
       test.done();
     });
+    // Set initial state
+    callback(this.button.upValue);
+    this.button.holdtime = 10;
+    // Trigger a change of state
     callback(this.button.downValue);
-    clock.tick(500);
+    // Simulate the state being held
+    clock.tick(11);
     callback(this.button.upValue);
   },
 };
 
 exports["Button, Analog Pin"] = {
   setUp: function(done) {
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
       board: board
     });
-
-    this.proto = [];
-
-    this.instance = [{
-      name: "isPullup"
-    }, {
-      name: "invert"
-    }, {
-      name: "downValue"
-    }, {
-      name: "upValue"
-    }, {
-      name: "holdtime"
-    }, {
-      name: "isDown"
-    }];
 
     done();
   },
@@ -156,6 +147,9 @@ exports["Button, Analog Pin"] = {
       test.done();
     });
 
+    // Set initial state
+    callback(this.button.upValue);
+    // Trigger a change of state
     callback(this.button.downValue);
   },
 
@@ -184,8 +178,120 @@ exports["Button, Analog Pin"] = {
       clock.restore();
       test.done();
     });
-    callback(this.button.downValue);
-    clock.tick(500);
+    // Set initial state
     callback(this.button.upValue);
+    this.button.holdtime = 10;
+    // Trigger a change of state
+    callback(this.button.downValue);
+    // Simulate the state being held
+    clock.tick(11);
+    callback(this.button.upValue);
+  },
+};
+
+exports["Button, Value Inversion"] = {
+  setUp: function(done) {
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.button = new Button({
+      pin: 8,
+      board: board
+    });
+
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.digitalRead.restore();
+    done();
+  },
+
+  initialInversion: function(test) {
+    test.expect(6);
+
+    this.button = new Button({
+      pin: 8,
+      invert: true,
+      board: board
+    });
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  pullupInversion: function(test) {
+    test.expect(6);
+
+    this.button = new Button({
+      pin: 8,
+      pullup: true,
+      board: board
+    });
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  inlineInversion: function(test) {
+    test.expect(14);
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.upValue = 1;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.upValue = 0;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.downValue = 0;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.downValue = 1;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.invert = true;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.invert = false;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    test.done();
   },
 };

@@ -2,8 +2,26 @@
 
 # Led Blink on Intel Edison Mini Board
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Edison-IO to directly control an Intel Edison
+
+
+
+
+
+##### LED on pin 1
+
+
+
+![docs/breadboard/led-1-edison-miniboard.png](breadboard/led-1-edison-miniboard.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-1-edison-miniboard.fzz](breadboard/led-1-edison-miniboard.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/edison-io-miniboard.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -38,15 +55,6 @@ board.on("ready", function() {
 
 ![docs/images/edison-mini-board.jpg](images/edison-mini-board.jpg)  
 
-### LED on pin 1
-
-
-
-![docs/breadboard/led-1-edison-miniboard.png](breadboard/led-1-edison-miniboard.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-1-edison-miniboard.fzz](breadboard/led-1-edison-miniboard.fzz)
-
-&nbsp;
 
 
 

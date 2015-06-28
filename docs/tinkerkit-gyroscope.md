@@ -2,6 +2,13 @@
 
 # TinkerKit - Gyro
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-gyroscope.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

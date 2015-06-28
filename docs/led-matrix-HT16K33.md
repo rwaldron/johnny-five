@@ -2,6 +2,24 @@
 
 # LED - Matrix HT16K33
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "LED - Matrix HT16K33"
+
+
+
+![docs/breadboard/led-matrix-HT16K33.png](breadboard/led-matrix-HT16K33.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-matrix-HT16K33.fzz](breadboard/led-matrix-HT16K33.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/led-matrix-HT16K33.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -41,18 +58,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Matrix HT16K33"
-
-
-
-![docs/breadboard/led-matrix-HT16K33.png](breadboard/led-matrix-HT16K33.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-matrix-HT16K33.fzz](breadboard/led-matrix-HT16K33.fzz)
-
-&nbsp;
 
 
 

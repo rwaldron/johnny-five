@@ -43,7 +43,6 @@ exports["Animation"] = {
         }
 
         return keyFrames;
-
       }
     };
 

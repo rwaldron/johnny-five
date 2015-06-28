@@ -23,6 +23,8 @@ exports["Switch"] = {
 
     this.instance = [{
       name: "isClosed"
+    }, {
+      name: "isOpen"
     }];
 
     done();
@@ -38,27 +40,25 @@ exports["Switch"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
-      test.equal(typeof this.
-        switch [method.name], "function");
+      test.equal(typeof this.switch[method.name], "function");
     }, this);
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.
-        switch [property.name], "undefined");
+      test.notEqual(typeof this.switch[property.name], "undefined");
     }, this);
 
     test.done();
   },
 
-  closed: function(test) {
+  close: function(test) {
+    test.expect(3);
 
     var callback = this.digitalRead.args[0][1];
-    test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.
-    switch.on("closed", function() {
-
+    this.switch.on("close", function() {
+      test.equal(this.isClosed, true);
+      test.equal(this.isOpen, false);
       test.ok(true);
       test.done();
     });
@@ -67,14 +67,14 @@ exports["Switch"] = {
   },
 
   open: function(test) {
+    test.expect(3);
 
     var callback = this.digitalRead.args[0][1];
-    test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.
-    switch.on("open", function() {
-
+    this.switch.on("open", function() {
+      test.equal(this.isClosed, false);
+      test.equal(this.isOpen, true);
       test.ok(true);
       test.done();
     });

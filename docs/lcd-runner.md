@@ -2,6 +2,13 @@
 
 # LCD - Runner 16x2
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/lcd-runner.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -26,15 +32,15 @@ board.on("ready", function() {
     cols: 16
   });
 
-  var frame = 1,
-    col = 0,
-    row = 0;
+  var frame = 1;
+  var col = 0;
+  var row = 0;
 
   lcd.display();
   lcd.useChar("runninga");
   lcd.useChar("runningb");
 
-  board.loop(300, function() {
+  this.loop(300, function() {
 
     lcd.clear().cursor(row, col).print(
       ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"

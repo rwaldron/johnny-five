@@ -2,6 +2,24 @@
 
 # Toggle Switch
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Toggle Switch"
+
+
+
+![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)<br>
+
+Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/toggle-switch.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -47,18 +64,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Toggle Switch"
-
-
-
-![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)<br>
-
-Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
-
-&nbsp;
 
 
 

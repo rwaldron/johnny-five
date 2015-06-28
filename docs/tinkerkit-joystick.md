@@ -2,6 +2,13 @@
 
 # TinkerKit - Joystick
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-joystick.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -59,7 +65,6 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
@@ -69,9 +74,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit JoyStick](http://tinkerkit.tihhs.nl/joystick/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

@@ -2,6 +2,13 @@
 
 # Compass - Find north
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/magnetometer-north.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var chalk = require("chalk"),

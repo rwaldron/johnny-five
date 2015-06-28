@@ -2,6 +2,13 @@
 
 # Navigator
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/navigator.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

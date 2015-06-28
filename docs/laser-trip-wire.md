@@ -2,6 +2,22 @@
 
 # Laser Trip Wire
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Laser Trip Wire"
+
+
+
+![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)<br>
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +25,6 @@ Run with:
 node eg/laser-trip-wire.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -38,16 +53,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Laser Trip Wire"
-
-
-
-![docs/breadboard/laser-trip-wire.png](breadboard/laser-trip-wire.png)<br>
-
-&nbsp;
 
 
 

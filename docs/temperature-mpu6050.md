@@ -2,6 +2,24 @@
 
 # Temperature - MPU6050
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - MPU6050"
+
+
+
+![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/temperature-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -33,25 +50,14 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Temperature - MPU6050"
-
-
-
-![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
-
-&nbsp;
 
 
 
 
 
 ## Additional Notes
-- [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
+- [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
 
 &nbsp;
 

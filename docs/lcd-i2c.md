@@ -2,6 +2,13 @@
 
 # LCD - I2C
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/lcd-i2c.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

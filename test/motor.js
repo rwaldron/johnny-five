@@ -1461,3 +1461,128 @@ exports["Motor: ShiftRegister"] = {
     test.done();
   },
 };
+
+exports["Motor.Array"] = {
+  setUp: function(done) {
+    var board = new Board({
+      io: new MockFirmata(),
+      debug: false,
+      repl: false
+    });
+
+    this.a = new Motor({
+      pins: {
+        pwm: 3,
+        dir: 2,
+        brake: 4
+      },
+      board: board
+    });
+
+    this.b = new Motor({
+      pins: {
+        pwm: 6,
+        dir: 5,
+        brake: 7
+      },
+      board: board
+    });
+
+    this.c = new Motor({
+      pins: {
+        pwm: 11,
+        dir: 10,
+        brake: 12
+      },
+      board: board
+    });
+
+    this.spies = [
+      "start", "stop"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(Motor.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.spies.forEach(function(value) {
+      this[value].restore();
+    }.bind(this));
+    done();
+  },
+
+  initFromMotorNumbers: function(test) {
+    test.expect(1);
+
+    var motors = new Motor.Array([
+      { pwm: 3, dir: 4 },
+      { pwm: 5, dir: 6 },
+      { pwm: 9, dir: 10 }
+    ]);
+
+    test.equal(motors.length, 3);
+    test.done();
+  },
+
+  initFromMotors: function(test) {
+    test.expect(1);
+
+    var motors = new Motor.Array([
+      this.a, this.b, this.c
+    ]);
+
+    test.equal(motors.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var motors = new Motor.Array([
+      { pwm: 3, dir: 4 },
+      { pwm: 5, dir: 6 },
+      { pwm: 9, dir: 10 }
+    ]);
+
+    motors.start(90);
+
+    test.equal(this.start.callCount, motors.length);
+    test.equal(this.start.getCall(0).args[0], 90);
+
+    motors.stop();
+
+    test.equal(this.stop.callCount, motors.length);
+
+    test.done();
+  },
+
+  arrayOfArrays: function(test) {
+    test.expect(9);
+
+    var motors = new Motor.Array([this.a, this.b]);
+    var arrayOfArrays = new Motor.Array([motors, this.c]);
+
+    arrayOfArrays.start(90);
+
+    test.equal(this.start.callCount, 3);
+    test.equal(this.start.getCall(0).args[0], 90);
+    test.equal(this.start.getCall(1).args[0], 90);
+    test.equal(this.start.getCall(2).args[0], 90);
+
+    test.equal(arrayOfArrays.length, 2);
+    test.equal(arrayOfArrays[0][0], this.a);
+    test.equal(arrayOfArrays[0][1], this.b);
+    test.equal(arrayOfArrays[1], this.c);
+
+    arrayOfArrays.stop();
+
+    test.equal(this.stop.callCount, 3);
+
+    test.done();
+  }
+
+};

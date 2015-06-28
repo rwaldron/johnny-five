@@ -2,6 +2,24 @@
 
 # IR Motion
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "IR Motion"
+
+
+
+![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)<br>
+
+Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/ir-motion.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -41,18 +58,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "IR Motion"
-
-
-
-![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)<br>
-
-Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
-
-&nbsp;
 
 
 

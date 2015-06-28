@@ -2,6 +2,26 @@
 
 # Proximity - MB1010
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Proximity - MB1010
+
+
+Basic sonar Proximity example with MB1010 sensor.
+
+
+![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +29,6 @@ Run with:
 node eg/proximity-mb1010.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -33,20 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Proximity - MB1010
-
-
-Basic sonar Proximity example with MB1010 sensor.
-
-
-![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
-
-&nbsp;
 
 
 

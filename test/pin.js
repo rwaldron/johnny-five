@@ -372,19 +372,6 @@ exports["Pin.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var pins = new Pin.Array();
-
-    test.equal(pins.length, 3);
-    test.equal(pins[0], this.digital);
-    test.equal(pins[1], this.analog);
-    test.equal(pins[2], this.dtoa);
-
-    test.done();
-  },
-
   initFromPinNumbers: function(test) {
     test.expect(1);
 
@@ -408,7 +395,7 @@ exports["Pin.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var pins = new Pin.Array();
+    var pins = new Pin.Array([3, 7, 9]);
 
     pins.write(1);
 
@@ -478,11 +465,8 @@ exports["Pin.isAnalog"] = {
 
 exports["PinShape"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
 
-    io.emit("ready");
-
+    newBoard();
     // Pins to test
 
     // default Pin instances passing only the pin number
@@ -491,6 +475,11 @@ exports["PinShape"] = {
     this.ana0Def = new Pin("A0");
     this.ana1Def = new Pin("A1");
     //CODE
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
     done();
   },
 
@@ -543,10 +532,7 @@ exports["PinShape"] = {
 
 exports["PinMode"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
-
-    io.emit("ready");
+    newBoard();
 
     // Pins to test
     this.modeD0 = new Pin({ pin: 4, mode: 0});
@@ -560,6 +546,11 @@ exports["PinMode"] = {
     this.modeA3 = new Pin({ pin: 18, mode: 3});
     this.modeA4 = new Pin({ pin: 19, mode: 4});
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
     done();
   },
 

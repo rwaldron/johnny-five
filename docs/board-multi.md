@@ -2,6 +2,24 @@
 
 # Board - Multiple in one program
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Board - Multiple in one program"
+
+
+
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
+
+Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/board-multi.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -64,18 +81,7 @@ boards.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Board - Multiple in one program"
-
-
-
-![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
-
-Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
-
-&nbsp;
 
 
 

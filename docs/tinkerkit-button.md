@@ -2,6 +2,13 @@
 
 # TinkerKit - Button
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-button.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -26,7 +32,6 @@ new five.Board().on("ready", function() {
     });
   });
 });
-
 
 ```
 
@@ -45,9 +50,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit Button](http://www.tinkerkit.com/button/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit Button](http://tinkerkit.tihhs.nl/button/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

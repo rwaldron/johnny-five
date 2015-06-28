@@ -2,6 +2,22 @@
 
 # LCD - I2C PCF8574
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "LCD - I2C PCF8574"
+
+
+
+![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)<br>
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +25,6 @@ Run with:
 node eg/lcd-i2c-PCF8574.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -67,16 +82,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LCD - I2C PCF8574"
-
-
-
-![docs/breadboard/lcd-i2c-PCF8574.png](breadboard/lcd-i2c-PCF8574.png)<br>
-
-&nbsp;
 
 
 

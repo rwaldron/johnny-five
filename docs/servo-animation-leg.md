@@ -2,6 +2,26 @@
 
 # Servo - Leg Animation
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Servos on pins 9, 10, 11
+
+
+Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-three.png](breadboard/servo-three.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +29,6 @@ Run with:
 node eg/servo-animation-leg.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -108,20 +127,7 @@ var board = new five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Servos on pins 9, 10, 11
-
-
-Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~).
-
-
-![docs/breadboard/servo-three.png](breadboard/servo-three.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
-
-&nbsp;
 
 
 

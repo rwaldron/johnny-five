@@ -2,8 +2,26 @@
 
 # LED - RGB (Common Anode) PCA9685
 
+<!--remove-end-->
+
 
 Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by setting its color to red (`#ff0000`) and making it blink.
+
+
+
+
+
+##### Breadboard for "LED - RGB (Common Anode) PCA9685"
+
+
+
+![docs/breadboard/led-rgb-anode-PCA9685.png](breadboard/led-rgb-anode-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-rgb-anode-PCA9685.fzz](breadboard/led-rgb-anode-PCA9685.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/led-rgb-anode-PCA9685.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -60,18 +77,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - RGB (Common Anode) PCA9685"
-
-
-
-![docs/breadboard/led-rgb-anode-PCA9685.png](breadboard/led-rgb-anode-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-rgb-anode-PCA9685.fzz](breadboard/led-rgb-anode-PCA9685.fzz)
-
-&nbsp;
 
 
 

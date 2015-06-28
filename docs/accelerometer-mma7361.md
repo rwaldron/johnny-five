@@ -2,6 +2,24 @@
 
 # Accelerometer - MMA7361
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Accelerometer - MMA7361"
+
+
+
+![docs/breadboard/accelerometer-mma7361.png](breadboard/accelerometer-mma7361.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer-mma7361.fzz](breadboard/accelerometer-mma7361.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/accelerometer-mma7361.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -52,18 +69,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Accelerometer - MMA7361"
-
-
-
-![docs/breadboard/accelerometer-mma7361.png](breadboard/accelerometer-mma7361.png)<br>
-
-Fritzing diagram: [docs/breadboard/accelerometer-mma7361.fzz](breadboard/accelerometer-mma7361.fzz)
-
-&nbsp;
 
 
 

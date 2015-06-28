@@ -2,6 +2,26 @@
 
 # Servo - Continuous
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Servo on pin 10
+
+
+Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +29,6 @@ Run with:
 node eg/servo-continuous.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -54,20 +73,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Servo on pin 10
-
-
-Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
-
-
-![docs/breadboard/servo.png](breadboard/servo.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
-
-&nbsp;
 
 
 

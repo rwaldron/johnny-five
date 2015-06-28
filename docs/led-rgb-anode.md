@@ -2,8 +2,28 @@
 
 # LED - RGB (Common Anode)
 
+<!--remove-end-->
+
 
 Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).
+
+
+
+
+
+##### Common Anode RGB LED. (Arduino UNO)
+
+
+Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v.
+
+
+![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +31,6 @@ Run with:
 node eg/led-rgb-anode.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -43,20 +62,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Common Anode RGB LED. (Arduino UNO)
-
-
-Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v.
-
-
-![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.fzz)
-
-&nbsp;
 
 
 

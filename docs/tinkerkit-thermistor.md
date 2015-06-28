@@ -2,6 +2,13 @@
 
 # TinkerKit - Temperature
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-thermistor.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -20,7 +26,6 @@ new five.Board().on("ready", function() {
     console.log("C: ", this.celsius);
   });
 });
-
 
 ```
 
@@ -39,9 +44,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit Thermistor](http://www.tinkerkit.com/thermistor/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit Thermistor](http://tinkerkit.tihhs.nl/thermistor/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 
