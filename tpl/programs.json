@@ -421,6 +421,28 @@
     ]
   },
   {
+    "topic": "Keypad",
+    "classes": ["Keypad"],
+    "examples": [
+      {
+        "file": "keypad-analog-vkey.js",
+        "title": "Keypad - VKEY"
+      },
+      {
+        "file": "keypad-analog-ad.js",
+        "title": "Keypad - Waveshare AD"
+      },
+      {
+        "file": "keypad-MPR121.js",
+        "title": "Keypad - MPR121"
+      },
+      {
+        "file": "keypad-MPR121QR2.js",
+        "title": "Keypad - MPR121QR2"
+      }
+    ]
+  },
+  {
     "topic": "Relay",
     "classes": ["Relay"],
     "examples": [
