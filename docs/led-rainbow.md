@@ -17,9 +17,9 @@ Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#f
 Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground.
 
 
-![docs/breadboard/led-rgb-anode.png](breadboard/led-rgb-anode.png)<br>
+![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>
 
-Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.fzz)
+Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
 
 &nbsp;
 
