@@ -2,6 +2,13 @@
 
 # Accelerometer - Pan + Tilt
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/accelerometer-pan-tilt.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),

@@ -2,6 +2,24 @@
 
 # Piezo
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Piezo"
+
+
+
+![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
+
+Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/piezo.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -67,18 +84,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Piezo"
-
-
-
-![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
-
-Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
-
-&nbsp;
 
 
 

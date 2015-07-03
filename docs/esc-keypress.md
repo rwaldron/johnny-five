@@ -2,6 +2,24 @@
 
 # ESC - Keypress
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "ESC - Keypress"
+
+
+
+![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/esc-keypress.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -54,18 +71,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Keypress"
-
-
-
-![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
-
-&nbsp;
 
 
 

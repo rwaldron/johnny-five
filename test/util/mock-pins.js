@@ -88,37 +88,37 @@ module.exports.UNO = [{
   report: 1,
   analogChannel: 127
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 134,
   report: 1,
   analogChannel: 0
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 132,
   report: 1,
   analogChannel: 1
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 131,
   report: 1,
   analogChannel: 2
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 128,
   report: 1,
   analogChannel: 3
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 127,
   report: 1,
   analogChannel: 4
 }, {
-  supportedModes: [0, 1, 2],
+  supportedModes: [0, 1, 2, 4],
   mode: 1,
   value: 121,
   report: 1,

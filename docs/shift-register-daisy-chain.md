@@ -2,6 +2,24 @@
 
 # Shift Register - Seven segments, daisy chained
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Shift Register - Seven segments, daisy chained"
+
+
+
+![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/shift-register-daisy-chain.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /**
@@ -240,18 +257,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Shift Register - Seven segments, daisy chained"
-
-
-
-![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)<br>
-
-Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
-
-&nbsp;
 
 
 

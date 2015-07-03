@@ -2,6 +2,24 @@
 
 # Motor - Brake
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor - Brake"
+
+
+
+![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/motor-brake.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -82,18 +99,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - Brake"
-
-
-
-![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
-
-&nbsp;
 
 
 

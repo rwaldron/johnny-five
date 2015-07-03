@@ -2,6 +2,24 @@
 
 # Compass - HMC6352
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Compass - HMC6352"
+
+
+
+![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
+
+Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/compass-hmc6352.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");
@@ -38,18 +55,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Compass - HMC6352"
-
-
-
-![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
-
-Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
-
-&nbsp;
 
 
 

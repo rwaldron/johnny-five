@@ -2,6 +2,24 @@
 
 # Accelerometer - ADXL345
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Accelerometer - ADXL345"
+
+
+
+![docs/breadboard/accelerometer-adxl345.png](breadboard/accelerometer-adxl345.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer-adxl345.fzz](breadboard/accelerometer-adxl345.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/accelerometer-adxl345.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -37,18 +54,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Accelerometer - ADXL345"
-
-
-
-![docs/breadboard/accelerometer-adxl345.png](breadboard/accelerometer-adxl345.png)<br>
-
-Fritzing diagram: [docs/breadboard/accelerometer-adxl345.fzz](breadboard/accelerometer-adxl345.fzz)
-
-&nbsp;
 
 
 

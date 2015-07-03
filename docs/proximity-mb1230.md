@@ -2,6 +2,26 @@
 
 # Proximity - MB1230
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Proximity - MB1230
+
+
+Basic sonar Proximity example with MB1230 sensor.
+
+
+![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +29,6 @@ Run with:
 node eg/proximity-mb1230.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -33,20 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Proximity - MB1230
-
-
-Basic sonar Proximity example with MB1230 sensor.
-
-
-![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb1003.fzz)
-
-&nbsp;
 
 
 

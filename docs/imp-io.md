@@ -2,8 +2,26 @@
 
 # Led Blink on Electric Imp
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + imp-io to control an Electric Imp.
+
+
+
+
+
+##### LED on pin 9
+
+
+
+![docs/breadboard/imp-led.png](breadboard/imp-led.png)<br>
+
+Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/imp-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -40,15 +57,6 @@ board.on("ready", function() {
 
 ![docs/images/imp.jpg](images/imp.jpg)  
 
-### LED on pin 9
-
-
-
-![docs/breadboard/imp-led.png](breadboard/imp-led.png)<br>
-
-Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
-
-&nbsp;
 
 
 

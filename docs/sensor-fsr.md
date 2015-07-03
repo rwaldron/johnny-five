@@ -2,6 +2,24 @@
 
 # Sensor - Force sensitive resistor
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sensor - Force sensitive resistor"
+
+
+
+![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)<br>
+
+Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/sensor-fsr.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -38,18 +55,7 @@ var five = require("johnny-five"),
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Force sensitive resistor"
-
-
-
-![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)<br>
-
-Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
-
-&nbsp;
 
 
 

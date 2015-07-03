@@ -2,6 +2,24 @@
 
 # Temperature - LM35
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - LM35"
+
+
+
+![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/temperature-lm35.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -29,18 +46,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Temperature - LM35"
-
-
-
-![docs/breadboard/temperature-lm35.png](breadboard/temperature-lm35.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-lm35.fzz)
-
-&nbsp;
 
 
 

@@ -12,8 +12,3 @@ new five.Board().on("ready", function() {
     });
   });
 });
-
-// @markdown
-// - [TinkerKit Button](http://www.tinkerkit.com/button/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-// @markdown

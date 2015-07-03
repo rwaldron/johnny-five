@@ -168,7 +168,8 @@ exports["Board.Component"] = {
     var component = Board.Component.initialization({});
 
     test.deepEqual(component, {
-      requestPin: true
+      requestPin: true,
+      normalizePin: true,
     });
 
     test.done();

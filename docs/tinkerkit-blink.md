@@ -2,6 +2,13 @@
 
 # TinkerKit - Blink
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-blink.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -17,7 +23,6 @@ var five = require("johnny-five");
 new five.Board().on("ready", function() {
   new five.Led("O0").strobe(250);
 });
-
 
 ```
 
@@ -36,9 +41,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit Led](http://www.tinkerkit.com/led-red-10mm/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit Led](http://tinkerkit.tihhs.nl/led-red-10mm/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

@@ -2,6 +2,13 @@
 
 # TinkerKit - Accelerometer
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-accelerometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -23,7 +29,7 @@ board.on("ready", function() {
   //
   // Devices:
   //
-  // - Dual Axis http://www.tinkerkit.com/accelerometer/
+  // - Dual Axis http://tinkerkit.tihhs.nl/accelerometer/
   //
 
   accel = new five.Accelerometer({
@@ -61,6 +67,11 @@ board.on("ready", function() {
 
 
 
+
+
+## Learn More
+
+- [TinkerKit Dual Axis Accelerometer](http://tinkerkit.tihhs.nl/accelerometer/)
 
 &nbsp;
 

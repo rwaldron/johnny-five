@@ -2,6 +2,24 @@
 
 # Grove - LCD RGB temperature display
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Grove - LCD RGB temperature display"
+
+
+
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/grove-lcd-rgb-temperature-display.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -58,18 +75,7 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Grove - LCD RGB temperature display"
-
-
-
-![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
-
-Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
-
-&nbsp;
 
 
 
@@ -82,7 +88,7 @@ For this program, you'll need:
 
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
-![Grove - Temperature Module](http://www.seeedstudio.com/depot/images/product/bgtemp1.jpg)
+![Grove - Temperature Sensor](http://www.seeedstudio.com/wiki/images/thumb/b/b0/Temperature1.jpg/400px-Temperature1.jpg)
 
 
 

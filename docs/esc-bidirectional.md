@@ -2,6 +2,24 @@
 
 # ESC - Bidirectional
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "ESC - Bidirectional"
+
+
+
+![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/esc-bidirectional.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");
@@ -44,18 +61,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - Bidirectional"
-
-
-
-![docs/breadboard/esc-bidirectional.png](breadboard/esc-bidirectional.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirectional.fzz)
-
-&nbsp;
 
 
 

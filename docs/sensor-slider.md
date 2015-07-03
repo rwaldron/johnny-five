@@ -2,6 +2,24 @@
 
 # Sensor - Slide potentiometer
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sensor - Slide potentiometer"
+
+
+
+![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)<br>
+
+Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/sensor-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -28,18 +45,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Slide potentiometer"
-
-
-
-![docs/breadboard/sensor-slider.png](breadboard/sensor-slider.png)<br>
-
-Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.fzz)
-
-&nbsp;
 
 
 

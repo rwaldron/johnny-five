@@ -2,6 +2,24 @@
 
 # Motor - 3 pin
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor - 3 pin"
+
+
+
+![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/motor-3-pin.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -97,18 +114,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - 3 pin"
-
-
-
-![docs/breadboard/motor-3-pin.png](breadboard/motor-3-pin.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-3-pin.fzz](breadboard/motor-3-pin.fzz)
-
-&nbsp;
 
 
 

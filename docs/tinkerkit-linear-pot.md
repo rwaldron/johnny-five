@@ -2,6 +2,13 @@
 
 # TinkerKit - Linear potentiometer
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/tinkerkit-linear-pot.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -19,7 +25,6 @@ new five.Board().on("ready", function() {
     console.log(Math.round(this.value));
   });
 });
-
 
 ```
 
@@ -38,10 +43,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-- [TinkerKit Led](http://www.tinkerkit.com/led/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

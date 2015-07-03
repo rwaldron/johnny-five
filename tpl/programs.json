@@ -35,6 +35,43 @@
     ]
   },
   {
+    "topic": "Expander",
+    "classes": ["Expander"],
+    "examples": [
+      {
+        "file": "expander-MCP23017.js",
+        "title": "Expander - MCP23017",
+        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)"
+      },
+      {
+        "file": "expander-MCP23008.js",
+        "title": "Expander - MCP23008",
+        "description": "Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8574.js",
+        "title": "Expander - PCF8574",
+        "description": "Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8575.js",
+        "title": "Expander - PCF8575",
+        "description": "Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - PCF8575)"
+      },
+      {
+        "file": "expander-PCA9685.js",
+        "title": "Expander - PCA9685",
+        "description": "Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)"
+      },
+      {
+        "file": "expander-PCF8591.js",
+        "title": "Expander - PCF8591",
+        "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
+      }
+
+    ]
+  },
+  {
     "topic": "LED",
     "classes": ["Led"],
     "examples": [
@@ -126,7 +163,7 @@
       {
         "file": "led-rgb.js",
         "title": "LED - RGB",
-        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
           {"name": "led-rgb", "title": "RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively."}
         ]
@@ -134,20 +171,20 @@
          {
         "file": "led-rgb-anode.js",
         "title": "LED - RGB (Common Anode)",
-        "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
           {"name": "led-rgb-anode", "title": "Common Anode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v."}
         ]
       },
       {
-        "file": "led-rgb-PCA9685.js",
-        "title": "LED - RGB PCA9685",
-        "description": "Demonstrates use of an RGB LED using a PCA9685."
+        "file": "led-rgb-anode-PCA9685.js",
+        "title": "LED - RGB (Common Anode) PCA9685",
+        "description": "Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by setting its color to red (`#ff0000`) and making it blink."
       },
       {
         "file": "led-rainbow.js",
         "title": "LED - Rainbow",
-        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (\"#ff0000\") and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
           {"name": "led-rgb-anode", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
         ]
@@ -485,12 +522,52 @@
       {
         "file": "proximity-hcsr04.js",
         "title": "Proximity - HC-SR04",
-        "description": "Basic ping Proximity example with HC-SR04 sensor."
+        "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
       },
       {
         "file": "proximity-lidarlite.js",
         "title": "Proximity - LIDAR-Lite",
         "description": "Basic LIDAR-Lite example."
+      }
+    ]
+  },
+  {
+    "topic": "Motion",
+    "classes": ["Motion"],
+    "examples": [
+      {
+        "file": "motion.js",
+        "title": "Motion",
+        "description": "Basic Passive Infrared Motion detection."
+      },
+      {
+        "file": "motion-gp2y0d805z0f.js",
+        "title": "Motion - GP2Y0D805Z0F",
+        "description": "Basic GP2Y0D805Z0F motion detection."
+      },
+      {
+        "file": "motion-gp2y0d810z0f.js",
+        "title": "Motion - GP2Y0D810Z0F",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0D810Z0F", "description": "Basic GP2Y0D810Z0F motion detection."}
+
+        ]
+      },
+      {
+        "file": "motion-gp2y0d815z0f.js",
+        "title": "Motion - GP2Y0D810Z0F",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0D815Z0F", "description": "Basic GP2Y0D815Z0F motion detection."}
+
+        ]
+      },
+      {
+        "file": "motion-GP2Y0A60SZLF.js",
+        "title": "Motion - GP2Y0A60SZLF",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0A60SZLF", "description": "Basic GP2Y0D815Z0F motion detection."}
+
+        ]
       }
     ]
   },
@@ -507,16 +584,22 @@
         ]
       },
       {
-        "file": "joystick-claw.js",
-        "title": "Joystick - Claw control"
+        "file": "joystick-esplora.js",
+        "title": "Joystick - Esplora",
+        "breadboards": [
+          {"name": "esplora", "title": "Joystick - Esplora", "description": "Esplora joystick example."}
+        ]
+      },
+      {
+        "file": "joystick-shield.js",
+        "title": "Joystick - Sparkfun Shield",
+        "breadboards": [
+          {"name": "joystick-shield", "title": "Joystick - Sparkfun Shield", "description": "Sparkfun Joystick Shield example."}
+        ]
       },
       {
         "file": "joystick-pantilt.js",
         "title": "Joystick - Pan + Tilt control"
-      },
-      {
-        "file": "joystick-motor-led.js",
-        "title": "Joystick - Motor control"
       }
     ]
   },
@@ -591,12 +674,28 @@
     ]
   },
   {
-    "topic": "IMU",
-    "classes": ["IMU"],
+    "topic": "IMU/Multi",
+    "classes": ["IMU", "Multi"],
     "examples": [
       {
         "file": "imu-mpu6050.js",
         "title": "IMU - MPU6050"
+      },
+      {
+        "file": "multi-mpl115a2.js",
+        "title": "Multi - MPL115A2",
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "multi-bmp180.js",
+        "title": "Multi - BMP180",
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
       }
     ]
   },
@@ -623,6 +722,10 @@
       {
         "file": "potentiometer.js",
         "title": "Sensor - Potentiometer"
+      },
+      {
+        "file": "microphone.js",
+        "title": "Sensor - Microphone"
       },
       {
         "file": "accelerometer.js",
@@ -675,6 +778,50 @@
       {
         "file": "temperature-mpu6050.js",
         "title": "Temperature - MPU6050"
+      },
+      {
+        "file": "barometer-mpl115a2.js",
+        "title": "Barometer - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ],
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "temperature-mpl115a2.js",
+        "title": "Temperature - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ],
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "barometer-BMP180.js",
+        "title": "Barometer - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ],
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "temperature-BMP180.js",
+        "title": "Temperature - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ],
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
       }
     ]
   },
@@ -726,13 +873,20 @@
     "examples": [
       {
         "file": "tinkerkit-accelerometer.js",
-        "title": "TinkerKit - Accelerometer"
+        "title": "TinkerKit - Accelerometer",
+        "externals":[
+          {"title": "TinkerKit Dual Axis Accelerometer", "href": "http://tinkerkit.tihhs.nl/accelerometer/"}
+        ]
       },
       {
         "file": "tinkerkit-blink.js",
         "title": "TinkerKit - Blink",
         "images": [
           {"file": "tinkerkit-blink.png", "title": "TinkerKit Blink"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Led", "href": "http://tinkerkit.tihhs.nl/led-red-10mm/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -740,13 +894,10 @@
         "title": "TinkerKit - Button",
         "images": [
           {"file": "tinkerkit-button.png", "title": "TinkerKit Button"}
-        ]
-      },
-      {
-        "file": "tinkerkit-continuous-servo.js",
-        "title": "TinkerKit - Continuous servo",
-        "images": [
-          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Button", "href": "http://tinkerkit.tihhs.nl/button/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -754,18 +905,38 @@
         "title": "TinkerKit - Combo"
       },
       {
+        "file": "tinkerkit-continuous-servo.js",
+        "title": "TinkerKit - Continuous servo",
+        "images": [
+          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
         "file": "tinkerkit-gyroscope.js",
         "title": "TinkerKit - Gyro"
       },
       {
         "file": "tinkerkit-joystick.js",
-        "title": "TinkerKit - Joystick"
+        "title": "TinkerKit - Joystick",
+        "externals": [
+          { "title": "TinkerKit JoyStick", "href": "http://tinkerkit.tihhs.nl/joystick/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
       },
       {
         "file": "tinkerkit-linear-pot.js",
         "title": "TinkerKit - Linear potentiometer",
         "images": [
           {"file": "tinkerkit-linear-pot.png", "title": "TinkerKit Linear Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -773,6 +944,11 @@
         "title": "TinkerKit - Rotary potentiometer",
         "images": [
           {"file": "tinkerkit-rotary.png", "title": "TinkerKit Rotary Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Rotary Potentiometer", "href": "http://tinkerkit.tihhs.nl/rotary-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -780,6 +956,10 @@
         "title": "TinkerKit - Temperature",
         "images": [
           {"file": "tinkerkit-thermistor.png", "title": "TinkerKit Temperature"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Thermistor", "href": "http://tinkerkit.tihhs.nl/thermistor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -787,6 +967,11 @@
         "title": "TinkerKit - Tilt",
         "images": [
           {"file": "tinkerkit-tilt.png", "title": "TinkerKit Tilt"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Tilt", "href": "http://tinkerkit.tihhs.nl/tilt-sensor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -794,6 +979,10 @@
         "title": "TinkerKit - Touch",
         "images": [
           {"file": "tinkerkit-touch.png", "title": "TinkerKit Touch"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Touch", "href": "http://tinkerkit.tihhs.nl/touch/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       }
     ]
@@ -867,7 +1056,20 @@
       },
       {
         "file": "kinect-arm-controller.js",
-        "title": "Kinect Arm Controller"
+        "title": "Kinect Robotic Arm Controller",
+        "images": [
+          {"file": "robotic-arm.jpg", "title": "Robotic Arm", "description": "Assembled Robotic Arm from LynxMotion"},
+          {"file": "arm-diagram.jpg", "title": "Arm Diagram", "description": "Illustrates arm joint connections."}
+        ],
+        "embeds": [
+          { "name": "kinect-arm-controller",
+            "src": "https://www.youtube.com/embed/VCjbUJzYYvI",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: Kinect Controlled Robot Arm", "href": "http://bocoup.com/weblog/javascript-arduino-kinect-robot-arm/"},
+          { "title": "LynxMotion: AL5D Robotic Arm", "href": "http://www.lynxmotion.com/c-130-al5d.aspx"}
+        ]
       },
       {
         "file": "laser-trip-wire.js",
@@ -952,7 +1154,7 @@
           {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
         ],
         "externals": [
-          { "title": "raspi-io on GitHub", "href": "https://github.com/bryan-m-hughes/raspi-io/"}
+          { "title": "raspi-io on GitHub", "href": "https://github.com/nebrius/raspi-io/"}
         ]
       },
       {

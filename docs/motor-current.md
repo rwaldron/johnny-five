@@ -2,6 +2,24 @@
 
 # Motor - Current
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor - Current"
+
+
+
+![docs/breadboard/motor-current.png](breadboard/motor-current.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-current.fzz](breadboard/motor-current.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/motor-current.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -95,18 +112,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - Current"
-
-
-
-![docs/breadboard/motor-current.png](breadboard/motor-current.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-current.fzz](breadboard/motor-current.fzz)
-
-&nbsp;
 
 
 

@@ -2,6 +2,13 @@
 
 # IR Reflectance Array
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/ir-reflect-array.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");

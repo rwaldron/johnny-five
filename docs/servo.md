@@ -2,6 +2,24 @@
 
 # Servo
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Servo"
+
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/servo.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -81,18 +98,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Servo"
-
-
-
-![docs/breadboard/servo.png](breadboard/servo.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
-
-&nbsp;
 
 
 

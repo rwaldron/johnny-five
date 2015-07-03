@@ -1,6 +1,8 @@
+require("es6-shim");
 require("copy-paste");
 
 var fs = require("fs");
+var exec = require("child_process").exec;
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -10,20 +12,24 @@ module.exports = function(grunt) {
   var task = grunt.task;
   var file = grunt.file;
   var log = grunt.log;
+  var fail = grunt.fail;
   var verbose = grunt.verbose;
   var _ = grunt.util._;
 
   var templates = {
+    changelog: _.template(file.read("tpl/.changelog.md")),
     eg: _.template(file.read("tpl/.eg.md")),
     img: _.template(file.read("tpl/.img.md")),
     breadboard: _.template(file.read("tpl/.breadboard.md")),
     eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
-    noedit: _.template(file.read("tpl/.noedit.md")),
     embeds: {
       youtube: _.template(file.read("tpl/.embed-youtube.html")),
-    }
+    },
+    program: _.template(file.read("tpl/.eg-program-template.js")),
   };
+
+  var noedit = file.read("tpl/.noedit.md");
 
   // Project configuration.
   grunt.initConfig({
@@ -103,6 +109,22 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask("example", "Create an example program, usage: \"grunt expample:<file-name>[.js]\"", function(fileName) {
+
+    if (!fileName.endsWith(".js")) {
+      fileName += ".js";
+    }
+
+    var pathAndFile = "eg/" + fileName;
+
+    if (file.exists(pathAndFile)) {
+      fail.warn(pathAndFile + " exists!");
+    } else {
+      file.write(pathAndFile, templates.program());
+      log.writeln("Example created: %s", pathAndFile);
+    }
+  });
+
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
   grunt.registerTask("nodeunit:just", "Run a single test specified by a target; usage: \"grunt nodeunit:just:<module-name>[.js]\"", function(file) {
@@ -150,7 +172,7 @@ module.exports = function(grunt) {
 
       entry.examples.forEach(function(example) {
         var markdown, filepath, eg, md, inMarkdown,
-          images, breadboards, embeds, name, imgMarkdown, values;
+          images, breadboards, embeds, name, imgMarkdown, values, primary;
 
         markdown = [];
         filepath = "eg/" + example.file;
@@ -210,6 +232,8 @@ module.exports = function(grunt) {
         // We'll combine markdown for images and breadboards
         imgMarkdown = "";
 
+        primary = breadboards.shift();
+
         images.forEach(function(img) {
           if (!img.title || !img.file) {
             grunt.fail.fatal("Invalid image: title and file required");
@@ -226,50 +250,20 @@ module.exports = function(grunt) {
         });
 
         breadboards.forEach(function(breadboard) {
-
-          if (!breadboard.name) {
-            grunt.fail.fatal("Invalid breadboard: name required");
-          }
-
-          if (!breadboard.title) {
-            grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
-          }
-
-          breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
-          breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
-
-          breadboard.hasPng = fs.existsSync(breadboard.png);
-          breadboard.hasFzz = fs.existsSync(breadboard.fzz);
-
-          if (!breadboard.hasPng) {
-            if (breadboard.auto) {
-              // i.e. we tried to guess at a name but still doesn't exist
-              // We can just ignore and no breadboard shown
-              return;
-            } else {
-              // A breadboard was specified but doesn't exist - error
-              grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
-            }
-          }
-
-          // FZZ is optional, but we'll warn at verbose
-          if (!breadboard.hasFzz) {
-            verbose.writeln("Missing FZZ: " + breadboard.fzz);
-          }
-
-          imgMarkdown += templates.breadboard({ breadboard: breadboard });
+          imgMarkdown += breadboardMarkdown(breadboard);
         });
 
         values = {
-          title: example.title,
-          description: example.description,
           command: "node " + filepath,
-          example: eg,
-          file: md,
-          markdown: markdown,
-          images: imgMarkdown,
+          description: example.description,
           embeds: embeds,
-          externals: example.externals || []
+          example: eg,
+          externals: example.externals || [],
+          file: md,
+          images: imgMarkdown,
+          markdown: markdown,
+          primary: primary ? breadboardMarkdown(primary) : "",
+          title: example.title,
         };
 
         // Write the file to /docs/*
@@ -282,12 +276,49 @@ module.exports = function(grunt) {
 
     // Write the readme with doc link index
     file.write("README.md",
-      templates.noedit() +
-      templates.readme({ eglinks: readme.join("") })
+      templates.readme({
+        noedit: noedit,
+        eglinks: readme.join("")
+      })
     );
 
     log.writeln("Examples created.");
   });
+
+
+  function breadboardMarkdown(breadboard) {
+    if (!breadboard.name) {
+      grunt.fail.fatal("Invalid breadboard: name required");
+    }
+
+    if (!breadboard.title) {
+      grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
+    }
+
+    breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
+    breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
+
+    breadboard.hasPng = fs.existsSync(breadboard.png);
+    breadboard.hasFzz = fs.existsSync(breadboard.fzz);
+
+    if (!breadboard.hasPng) {
+      if (breadboard.auto) {
+        // i.e. we tried to guess at a name but still doesn't exist
+        // We can just ignore and no breadboard shown
+        return;
+      } else {
+        // A breadboard was specified but doesn't exist - error
+        grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
+      }
+    }
+
+    // FZZ is optional, but we'll warn at verbose
+    if (!breadboard.hasFzz) {
+      verbose.writeln("Missing FZZ: " + breadboard.fzz);
+    }
+
+    return templates.breadboard({ breadboard: breadboard });
+  }
 
   // run the examples task and fail if there are uncommitted changes to the docs directory
   task.registerTask("test-examples", "Guard against out of date examples", ["examples", "fail-if-uncommitted-examples"]);
@@ -344,5 +375,65 @@ module.exports = function(grunt) {
     //  - npm publish
     //
     //
+  });
+
+  grunt.registerTask("changelog", "Generate a changelog. Range: changelog:v0.0.0--v0.0.2; Current: changelog:v0.0.2", function(version) {
+    var done = this.async();
+    var temp = "";
+    var previous = "";
+    var thisPatch;
+    var lastPatch;
+
+    if (!version) {
+      version = grunt.config("pkg.version");
+    }
+
+    if (version.includes("--")) {
+      /*
+        Example:
+
+          grunt changelog:v0.8.71--v0.8.73
+
+       */
+      temp = version.split("--");
+      previous = temp[0];
+      version = temp[1];
+    } else {
+      /*
+        Example:
+
+          grunt changelog
+          grunt changelog:v0.8.73
+
+       */
+      thisPatch = version.replace(/^v/, "").split(".").pop();
+      lastPatch = Number(thisPatch) - 1;
+      previous = version.replace(thisPatch, lastPatch);
+      version = "HEAD";
+    }
+
+    exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
+      if (error) {
+        console.log(error.message);
+        return;
+      }
+
+      var commits = result.split("\n")
+        .filter(function(cmt) { return cmt.trim() !== ""; })
+        .map(function(cmt) { return cmt.split("|"); });
+
+      var rows = commits.reduce(function(accum, commit) {
+        if (commit[3].indexOf("Merge") === 0) {
+          return accum;
+        }
+        accum += "| https://github.com/rwaldron/johnny-five/commit/" + commit[0] + " | " + commit[3] + " |\n";
+
+        return accum;
+      }, "");
+
+      log.writeln(templates.changelog({ rows: rows }));
+
+      done();
+    });
   });
 };

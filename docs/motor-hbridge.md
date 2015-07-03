@@ -2,6 +2,24 @@
 
 # Motor - H-Bridge
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor - H-Bridge"
+
+
+
+![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/motor-hbridge.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 /*
@@ -60,7 +77,7 @@ board.on("ready", function() {
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
-      motor.reverse(50);
+      motor.reverse(255);
     });
   });
 
@@ -80,18 +97,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor - H-Bridge"
-
-
-
-![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
-
-&nbsp;
 
 
 

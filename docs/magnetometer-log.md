@@ -2,6 +2,13 @@
 
 # Compass - Logger
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/magnetometer-log.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var chalk = require("chalk"),

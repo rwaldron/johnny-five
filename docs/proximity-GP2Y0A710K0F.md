@@ -2,8 +2,26 @@
 
 # Proximity - GP2Y0A710K0F
 
+<!--remove-end-->
+
 
 Basic infrared Proximity example with GP2Y0A710K0F sensor.
+
+
+
+
+
+##### Breadboard for "Proximity - GP2Y0A710K0F"
+
+
+
+![docs/breadboard/proximity-GP2Y0A710K0F.png](breadboard/proximity-GP2Y0A710K0F.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-GP2Y0A710K0F.fzz](breadboard/proximity-GP2Y0A710K0F.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/proximity-GP2Y0A710K0F.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -35,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - GP2Y0A710K0F"
-
-
-
-![docs/breadboard/proximity-GP2Y0A710K0F.png](breadboard/proximity-GP2Y0A710K0F.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-GP2Y0A710K0F.fzz](breadboard/proximity-GP2Y0A710K0F.fzz)
-
-&nbsp;
 
 
 

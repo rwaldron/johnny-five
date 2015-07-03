@@ -2,6 +2,24 @@
 
 # Temperature - DS18B20
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - DS18B20"
+
+
+
+![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/temperature-ds18b20.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -31,18 +48,7 @@ five.Board().on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Temperature - DS18B20"
-
-
-
-![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
-
-&nbsp;
 
 
 

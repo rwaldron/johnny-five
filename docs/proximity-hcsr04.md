@@ -2,8 +2,26 @@
 
 # Proximity - HC-SR04
 
+<!--remove-end-->
 
-Basic ping Proximity example with HC-SR04 sensor.
+
+Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component.
+
+
+
+
+
+##### Breadboard for "Proximity - HC-SR04"
+
+
+
+![docs/breadboard/proximity-hcsr04.png](breadboard/proximity-hcsr04.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity-hcsr04.fzz](breadboard/proximity-hcsr04.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/proximity-hcsr04.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -35,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity - HC-SR04"
-
-
-
-![docs/breadboard/proximity-hcsr04.png](breadboard/proximity-hcsr04.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity-hcsr04.fzz](breadboard/proximity-hcsr04.fzz)
-
-&nbsp;
 
 
 

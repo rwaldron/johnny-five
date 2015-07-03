@@ -2,6 +2,24 @@
 
 # IMU - MPU6050
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "IMU - MPU6050"
+
+
+
+![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/imu-mpu6050.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("../");
@@ -55,18 +72,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "IMU - MPU6050"
-
-
-
-![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)<br>
-
-Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
-
-&nbsp;
 
 
 

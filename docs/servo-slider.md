@@ -2,6 +2,24 @@
 
 # Servo - Slider control
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Servo - Slider control"
+
+
+
+![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/servo-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -44,18 +61,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Servo - Slider control"
-
-
-
-![docs/breadboard/servo-slider.png](breadboard/servo-slider.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-slider.fzz](breadboard/servo-slider.fzz)
-
-&nbsp;
 
 
 

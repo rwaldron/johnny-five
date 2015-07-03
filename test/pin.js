@@ -372,19 +372,6 @@ exports["Pin.Array"] = {
     done();
   },
 
-  initFromEmpty: function(test) {
-    test.expect(4);
-
-    var pins = new Pin.Array();
-
-    test.equal(pins.length, 3);
-    test.equal(pins[0], this.digital);
-    test.equal(pins[1], this.analog);
-    test.equal(pins[2], this.dtoa);
-
-    test.done();
-  },
-
   initFromPinNumbers: function(test) {
     test.expect(1);
 
@@ -408,7 +395,7 @@ exports["Pin.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var pins = new Pin.Array();
+    var pins = new Pin.Array([3, 7, 9]);
 
     pins.write(1);
 
@@ -478,11 +465,8 @@ exports["Pin.isAnalog"] = {
 
 exports["PinShape"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
 
-    io.emit("ready");
-
+    newBoard();
     // Pins to test
 
     // default Pin instances passing only the pin number
@@ -491,6 +475,11 @@ exports["PinShape"] = {
     this.ana0Def = new Pin("A0");
     this.ana1Def = new Pin("A1");
     //CODE
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
     done();
   },
 
@@ -524,14 +513,14 @@ exports["PinShape"] = {
     test.equal(this.dig19Def.addr, 19, "pin(19) address");
 
     // default analog pin : new Pin("A0")
-    test.equal(this.ana0Def.mode, 2, "pin('A0') mode --> 0 (analog)");
+    test.equal(this.ana0Def.mode, 2, "pin('A0') mode --> 2 (analog)");
     test.equal(this.ana0Def.id, null, "pin('A0') id --> null");
     test.equal(this.ana0Def.type, "analog", "pin('A0') type");
     test.equal(this.ana0Def.pin, 0, "pin('A0') pin");
     test.equal(this.ana0Def.addr, 0, "pin('A0') address");
 
     // default analog pin : new Pin("A1")
-    test.equal(this.ana1Def.mode, 2, "pin('A1') mode --> 0 (analog)");
+    test.equal(this.ana1Def.mode, 2, "pin('A1') mode --> 2 (analog)");
     test.equal(this.ana1Def.id, null, "pin('A1') id --> null");
     test.equal(this.ana1Def.type, "analog", "pin('A1') type");
     test.equal(this.ana1Def.pin, 1, "pin('A1') pin");
@@ -543,10 +532,7 @@ exports["PinShape"] = {
 
 exports["PinMode"] = {
   setUp: function(done) {
-    // Initilize test board
-    var io = new MockFirmata();
-
-    io.emit("ready");
+    newBoard();
 
     // Pins to test
     this.modeD0 = new Pin({ pin: 4, mode: 0});
@@ -563,20 +549,32 @@ exports["PinMode"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
+
   specifiedMode: function(test) {
-    test.expect(10);
+    test.expect(15);
 
     test.equal(this.modeD0.mode, 0, "mode 0 (input) specified");
-    test.equal(this.modeD1.mode, 1, "mode 1 (input) specified");
-    test.equal(this.modeD2.mode, 2, "mode 2 (input) specified");
-    test.equal(this.modeD3.mode, 3, "mode 3 (input) specified");
-    test.equal(this.modeD4.mode, 4, "mode 4 (input) specified");
+    test.equal(this.modeD1.mode, 1, "mode 1 (output) specified");
+    test.equal(this.modeD2.mode, 2, "mode 2 (analog) specified");
+    test.equal(this.modeD3.mode, 3, "mode 3 (pwm) specified");
+    test.equal(this.modeD4.mode, 4, "mode 4 (servo) specified");
 
     test.equal(this.modeA0.mode, 0, "mode 0 (input) specified");
     test.equal(this.modeA1.mode, 1, "mode 1 (input) specified");
-    test.equal(this.modeA2.mode, 2, "mode 2 (input) specified");
-    test.equal(this.modeA3.mode, 3, "mode 3 (input) specified");
-    test.equal(this.modeA4.mode, 4, "mode 4 (input) specified");
+    test.equal(this.modeA2.mode, 2, "mode 2 (analog) specified");
+    test.equal(this.modeA3.mode, 3, "mode 3 (pwm) specified");
+    test.equal(this.modeA4.mode, 4, "mode 4 (servo) specified");
+
+    // Double check that the provided class constants exist and match
+    test.equal(this.modeD0.mode, Pin.INPUT, "mode 0 (input) specified");
+    test.equal(this.modeD1.mode, Pin.OUTPUT, "mode 1 (output) specified");
+    test.equal(this.modeD2.mode, Pin.ANALOG, "mode 2 (analog) specified");
+    test.equal(this.modeD3.mode, Pin.PWM, "mode 3 (pwm) specified");
+    test.equal(this.modeD4.mode, Pin.SERVO, "mode 4 (servo) specified");
 
     test.done();
   }

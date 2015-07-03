@@ -2,6 +2,13 @@
 
 # Example plugin
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/plugin.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var Board = require("board");

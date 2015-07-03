@@ -2,6 +2,24 @@
 
 # Motor
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor"
+
+
+
+![docs/breadboard/motor.png](breadboard/motor.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/motor.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -42,7 +59,7 @@ board.on("ready", function() {
     });
   });
 
-  // "stop" events fire when the motor is started.
+  // "stop" events fire when the motor is stopped.
   motor.on("stop", function() {
     console.log("stop");
   });
@@ -63,18 +80,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Motor"
-
-
-
-![docs/breadboard/motor.png](breadboard/motor.png)<br>
-
-Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
-
-&nbsp;
 
 
 

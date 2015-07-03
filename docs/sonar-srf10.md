@@ -2,6 +2,24 @@
 
 # Sonar - I2C SRF10
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sonar - I2C SRF10"
+
+
+
+![docs/breadboard/sonar-srf10.png](breadboard/sonar-srf10.png)<br>
+
+Fritzing diagram: [docs/breadboard/sonar-srf10.fzz](breadboard/sonar-srf10.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/sonar-srf10.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -37,18 +54,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sonar - I2C SRF10"
-
-
-
-![docs/breadboard/sonar-srf10.png](breadboard/sonar-srf10.png)<br>
-
-Fritzing diagram: [docs/breadboard/sonar-srf10.fzz](breadboard/sonar-srf10.fzz)
-
-&nbsp;
 
 
 

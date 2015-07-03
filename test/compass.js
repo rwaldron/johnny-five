@@ -12,9 +12,19 @@ function newBoard() {
   });
 }
 
-["HMC6352", "HMC5883L"].forEach(function(controller) {
+var expecteds = {
+  data: [25, 79],
+  changes: [
+    [ 25, 0 ],
+    [ 45, 0 ]
+  ],
+  bearings: [
+    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
+    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
+  ]
+};
 
-
+["HMC6352", "HMC5883L"].forEach(function(controller, index) {
 
   exports[controller] = {
     setUp: function(done) {
@@ -49,37 +59,43 @@ function newBoard() {
     },
 
     data: function(test) {
-      test.expect(1);
+      test.expect(2);
 
       var handler = this.i2cRead.getCall(0).args[3];
+      var spy = sinon.spy();
 
-      this.compass.on("data", function() {
-        test.ok(true);
-      });
+      this.compass.on("data", spy);
 
       handler([1, 2, 3, 4, 5, 6]);
       this.clock.tick(11);
+
+      test.equal(spy.callCount, 1);
+      test.equal(Math.round(spy.args[0][0].heading), expecteds.data[index]);
 
       test.done();
     },
 
     change: function(test) {
-      test.expect(1);
+      test.expect(4);
 
-      var compass = new Compass({
-        board: this.board,
-        controller: controller,
-      });
+      var handler = this.board.io.i2cRead.getCall(0).args[3];
+      var spy = sinon.spy();
 
-      var handler = this.board.io.i2cRead.getCall(1).args[3];
-
-      compass.once("change", function() {
-        test.ok(true);
-        test.done();
-      });
+      this.compass.on("change", spy);
 
       handler([0, 255, 0, 255, 0, 255]);
-      this.clock.tick(20);
+      this.clock.tick(100);
+
+      handler([0, 0, 0, 0, 0, 0]);
+      this.clock.tick(100);
+
+      test.equal(spy.callCount, 2);
+
+      test.equal(spy.args[0][0].heading, expecteds.changes[index][0]);
+      test.equal(spy.args[1][0].heading, expecteds.changes[index][1]);
+      test.deepEqual(this.compass.bearing, expecteds.bearings[index]);
+
+      test.done();
     },
 
     tearDown: function(done) {

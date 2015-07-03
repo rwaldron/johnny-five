@@ -2,8 +2,26 @@
 
 # LED - Slider
 
+<!--remove-end-->
+
 
 Controls the brightness of an LED by pairing it with a slider. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
+
+
+
+##### Breadboard for "LED - Slider"
+
+
+
+![docs/breadboard/led-slider.png](breadboard/led-slider.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/led-slider.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -31,18 +48,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "LED - Slider"
-
-
-
-![docs/breadboard/led-slider.png](breadboard/led-slider.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
-
-&nbsp;
 
 
 

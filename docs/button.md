@@ -2,6 +2,24 @@
 
 # Button
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button"
+
+
+
+![docs/breadboard/button.png](breadboard/button.png)<br>
+
+Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/button.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -54,18 +71,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button"
-
-
-
-![docs/breadboard/button.png](breadboard/button.png)<br>
-
-Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
-
-&nbsp;
 
 
 

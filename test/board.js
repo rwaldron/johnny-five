@@ -8,21 +8,41 @@ var SerialPort = require("./util/mock-serial").SerialPort,
   __ = require("../lib/fn.js"),
   _ = require("lodash"),
   Board = five.Board,
-  board = new Board({
-    io: new MockFirmata(),
+  Boards = five.Boards,
+  Virtual = Board.Virtual,
+  Repl = five.Repl,
+  board;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("ready");
 
-exports["Initialization"] = {
-  // setUp: function(done) {
-  //   done();
-  // },
+  return board;
+}
 
-  // tearDown: function(done) {
-  //   done();
-  // },
+exports["Board"] = {
+  setUp: function(done) {
+
+    board = newBoard();
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.replInit.restore();
+    done();
+  },
 
   explicit: function(test) {
     test.expect(1);
@@ -90,6 +110,98 @@ exports["Initialization"] = {
     });
 
     sp.emit("error", "ioHasError");
+  },
+
+  readyWithNoRepl: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      test.equal(this.replInit.called, false);
+      test.done();
+    }.bind(this));
+
+    io.emit("connect");
+    io.emit("ready");
+  },
+
+  readyWithRepl: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: true
+    });
+
+    board.on("ready", function() {
+      test.equal(this.replInit.called, true);
+      test.done();
+    }.bind(this));
+
+    io.emit("connect");
+    io.emit("ready");
+  }
+};
+
+exports["Virtual"] = {
+  setUp: function(done) {
+    board = newBoard();
+    this.Board = sinon.stub(five, "Board", function() {});
+    this.Expander = sinon.stub(five, "Expander", function() {
+      this.name = "MCP23017";
+    });
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.Board.restore();
+    this.Expander.restore();
+    done();
+  },
+
+  ioExpanderAsArg: function(test) {
+    test.expect(5);
+
+    var expander = new this.Expander();
+
+    new Virtual(expander);
+
+    test.equal(this.Board.called, true);
+    test.equal(this.Board.lastCall.args[0].repl, false);
+    test.equal(this.Board.lastCall.args[0].debug, false);
+    test.equal(this.Board.lastCall.args[0].sigint, false);
+    test.equal(this.Board.lastCall.args[0].io, expander);
+
+    test.done();
+  },
+
+  ioExpanderAsPropertyOfArg: function(test) {
+    test.expect(5);
+
+    var expander = new this.Expander();
+
+    new Virtual({
+      io: expander
+    });
+
+    test.equal(this.Board.called, true);
+    test.equal(this.Board.lastCall.args[0].repl, false);
+    test.equal(this.Board.lastCall.args[0].debug, false);
+    test.equal(this.Board.lastCall.args[0].sigint, false);
+    test.equal(this.Board.lastCall.args[0].io, expander);
+
+    test.done();
   }
 };
 
@@ -138,28 +250,44 @@ exports["static"] = {
 
     test.done();
   },
+};
 
-  "Boards": function(test) {
+exports["Boards"] = {
+
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    if (this.replInit) {
+      this.replInit.restore();
+    }
+    done();
+  },
+
+  exists: function(test) {
     test.expect(1);
     test.equal(five.Boards, five.Board.Array);
     test.done();
   },
 
-  "Boards - connect, ready after": function(test) {
+  connectReadyAfter: function(test) {
     test.expect(2);
 
-    var io = new MockFirmata();
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
 
-    var boards = new five.Boards([{
+    var boards = new Boards([{
       id: "A",
       repl: false,
       debug: false,
-      io: io
+      io: ioA
     }, {
       id: "B",
       repl: false,
       debug: false,
-      io: io
+      io: ioB
     }]);
 
     test.equals(2, boards.length);
@@ -169,29 +297,35 @@ exports["static"] = {
       test.done();
     });
 
-    io.emit("connect");
-    io.emit("ready");
+    ioA.emit("connect");
+    ioB.emit("connect");
 
+    ioA.emit("ready");
+    ioB.emit("ready");
   },
 
-  "Boards - connect, ready before": function(test) {
+  connectReadyBefore: function(test) {
     test.expect(2);
 
-    var io = new MockFirmata();
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
 
-    io.emit("connect");
-    io.emit("ready");
+    ioA.emit("connect");
+    ioB.emit("connect");
 
-    var boards = new five.Boards([{
+    ioA.emit("ready");
+    ioB.emit("ready");
+
+    var boards = new Boards([{
       id: "A",
       repl: false,
       debug: false,
-      io: io
+      io: ioA
     }, {
       id: "B",
       repl: false,
       debug: false,
-      io: io
+      io: ioB
     }]);
 
     test.equals(2, boards.length);
@@ -200,11 +334,274 @@ exports["static"] = {
       test.ok(true);
       test.done();
     });
-  }
+  },
+
+  readyInitReplArray: function(test) {
+    test.expect(1);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      debug: false,
+      io: ioB
+    }]);
+
+    boards.on("ready", function() {
+      test.equal(this.replInit.called, true);
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  readyInitReplObject: function(test) {
+    test.expect(1);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards({
+      repl: true,
+      debug: false,
+      ports: [{
+        id: "A",
+        debug: false,
+        io: ioA
+      }, {
+        id: "B",
+        debug: false,
+        io: ioB
+      }]
+    });
+
+    boards.on("ready", function() {
+      test.equal(this.replInit.called, true);
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  readyNoReplArray1: function(test) {
+    test.expect(1);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      repl: false,
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      debug: false,
+      io: ioB
+    }]);
+
+    boards.on("ready", function() {
+      // Repl.prototype.initialize IS NOT CALLED
+      test.equal(this.replInit.called, false);
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  readyNoReplArray2: function(test) {
+    test.expect(1);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: ioB
+    }]);
+
+    boards.on("ready", function() {
+      // Repl.prototype.initialize IS NOT CALLED
+      test.equal(this.replInit.called, false);
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  readyNoReplObject: function(test) {
+    test.expect(1);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards({
+      repl: false,
+      ports: [{
+        id: "A",
+        debug: false,
+        io: ioA
+      }, {
+        id: "B",
+        debug: false,
+        io: ioB
+      }]
+    });
+
+    boards.on("ready", function() {
+      // Repl.prototype.initialize IS NOT CALLED
+      test.equal(this.replInit.called, false);
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  readyNoReplNoDebugObject: function(test) {
+    test.expect(2);
+
+    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards({
+      repl: false,
+      debug: false,
+      ports: [{
+        id: "A",
+        debug: false,
+        io: ioA
+      }, {
+        id: "B",
+        debug: false,
+        io: ioB
+      }]
+    });
+
+    var clog = sinon.spy(console, "log");
+
+    boards.on("ready", function() {
+      // Repl.prototype.initialize IS NOT CALLED
+      test.equal(this.replInit.called, false);
+      test.equal(clog.called, false);
+      clog.restore();
+      test.done();
+    }.bind(this));
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  errorBubbling: function(test) {
+    test.expect(1);
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards({
+      repl: false,
+      debug: false,
+      ports: [{
+        id: "A",
+        debug: false,
+        io: ioA
+      }, {
+        id: "B",
+        debug: false,
+        io: ioB
+      }]
+    });
+
+    var spy = sinon.spy();
+
+    boards.on("error", spy);
+
+    boards.on("ready", function() {
+      this[0].emit("error");
+      this[1].emit("error");
+
+      test.equal(spy.callCount, 2);
+
+      test.done();
+    });
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
 };
 
 
 exports["instance"] = {
+
+  setUp: function(done) {
+    board = newBoard();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
 
   cache: function(test) {
     test.expect(1);
@@ -241,11 +638,7 @@ exports["instance"] = {
 exports["Board.mount"] = {
   setUp: function(done) {
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     done();
   },
@@ -286,6 +679,13 @@ exports["Board.mount"] = {
 };
 
 exports["bubbled events from io"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   string: function(test) {
     test.expect(1);
 

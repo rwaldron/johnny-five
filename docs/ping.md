@@ -2,6 +2,24 @@
 
 # Ping
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Ping"
+
+
+
+![docs/breadboard/ping.png](breadboard/ping.png)<br>
+
+Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/ping.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -41,18 +58,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Ping"
-
-
-
-![docs/breadboard/ping.png](breadboard/ping.png)<br>
-
-Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
-
-&nbsp;
 
 
 

@@ -2,6 +2,24 @@
 
 # ESC - PCA9685
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "ESC - PCA9685"
+
+
+
+![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/esc-PCA9685.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -32,18 +49,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "ESC - PCA9685"
-
-
-
-![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
-
-&nbsp;
 
 
 

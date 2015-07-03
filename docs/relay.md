@@ -2,6 +2,26 @@
 
 # Relay
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Relay - normally open
+
+
+The breadboard diagram shows a Keyes Relay, however any Relay will work.
+
+
+![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
+
+Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +29,6 @@ Run with:
 node eg/relay.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -36,18 +55,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Relay - normally open
-
-
-The breadboard diagram shows a Keyes Relay, however any Relay will work.
-
-
-![docs/breadboard/relay-open.png](breadboard/relay-open.png)<br>
-
-Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
-
-&nbsp;
-### Relay - normally closed
+##### Relay - normally closed
 
 
 The breadboard diagram shows a Keyes Relay, however any Relay will work.

@@ -2,8 +2,26 @@
 
 # Proximity
 
+<!--remove-end-->
+
 
 Basic infrared Proximity example
+
+
+
+
+
+##### Breadboard for "Proximity"
+
+
+
+![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/proximity.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -35,18 +52,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Proximity"
-
-
-
-![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
-
-Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
-
-&nbsp;
 
 
 

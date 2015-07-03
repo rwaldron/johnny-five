@@ -2,6 +2,24 @@
 
 # Grove - LCD RGB
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Grove - LCD RGB"
+
+
+
+![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/grove-lcd-rgb.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -54,18 +71,7 @@ function linear(start, end, step, steps) {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Grove - LCD RGB"
-
-
-
-![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
-
-Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
-
-&nbsp;
 
 
 
@@ -78,7 +84,7 @@ For this program, you'll need:
 
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
-![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
+![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 
 
 &nbsp;

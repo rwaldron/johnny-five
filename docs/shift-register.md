@@ -2,6 +2,24 @@
 
 # Shift Register
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Shift Register"
+
+
+
+![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/shift-register.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -41,18 +58,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Shift Register"
-
-
-
-![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
-
-Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
-
-&nbsp;
 
 
 

@@ -97,11 +97,13 @@ exports["LCD"] = {
   send: function(test) {
     test.expect(4);
 
+    this.spy.reset();
     this.lcd.send(10);
-    test.ok(this.spy.calledWith(12, 1));
-    test.ok(this.spy.calledWith(11, 0));
-    test.ok(this.spy.calledWith(10, 1));
-    test.ok(this.spy.calledWith(9, 0));
+
+    test.deepEqual(this.spy.args[0], [12, 1]);
+    test.deepEqual(this.spy.args[1], [11, 0]);
+    test.deepEqual(this.spy.args[2], [10, 1]);
+    test.deepEqual(this.spy.args[3], [9, 0]);
 
     test.done();
   },
@@ -113,26 +115,27 @@ exports["LCD"] = {
 
     this.lcd.command(15);
     test.ok(wbStub.calledTwice);
-    test.ok(wbStub.calledWith(0));
-    test.ok(wbStub.calledWith(15));
+
+    test.deepEqual(wbStub.args[0], [0]);
+    test.deepEqual(wbStub.args[1], [15]);
 
     wbStub.reset();
     this.lcd.command(32);
     test.ok(wbStub.calledTwice);
-    test.ok(wbStub.firstCall.calledWith(2));
-    test.ok(wbStub.secondCall.calledWith(32));
+    test.deepEqual(wbStub.args[0], [2]);
+    test.deepEqual(wbStub.args[1], [32]);
 
     this.lcd.bitMode = 8;
 
     wbStub.reset();
     this.lcd.command(15);
     test.ok(wbStub.calledOnce);
-    test.ok(wbStub.calledWith(15));
+    test.deepEqual(wbStub.args[0], [15]);
 
     wbStub.reset();
     this.lcd.command(32);
     test.ok(wbStub.calledOnce);
-    test.ok(wbStub.calledWith(32));
+    test.deepEqual(wbStub.args[0], [32]);
 
     test.done();
   },
@@ -146,7 +149,7 @@ exports["LCD"] = {
     this.lcd.write(42);
     test.ok(hiloSpy.calledOn(this.lcd));
     test.ok(cSpy.calledOnce);
-    test.ok(cSpy.calledWith(0x40, 42));
+    test.deepEqual(cSpy.args[0], [0x40, 42]);
 
     hiloSpy.restore();
 
@@ -167,7 +170,7 @@ exports["LCD"] = {
     cSpy.reset();
     this.lcd.cursor(1, 1);
     test.ok(scSpy.calledOnce);
-    test.ok(scSpy.calledWith(1, 1));
+    test.deepEqual(scSpy.args[0], [1, 1]);
     test.ok(!cSpy.called);
 
     test.done();
@@ -227,7 +230,7 @@ exports["LCD"] = {
     var ccSpy = sinon.spy(this.lcd, "createChar");
 
     this.lcd.useChar("heart");
-    test.ok(ccSpy.calledWith("heart"));
+    test.ok(ccSpy.firstCall.calledWith("heart"));
 
     ccSpy.reset();
     this.lcd.useChar("heart");

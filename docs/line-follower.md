@@ -2,6 +2,13 @@
 
 # Line Follower
 
+<!--remove-end-->
+
+
+
+
+
+
 
 
 Run with:
@@ -9,7 +16,6 @@ Run with:
 node eg/line-follower.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 // This is an example of a line following robot.  It uses a

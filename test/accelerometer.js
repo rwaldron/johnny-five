@@ -492,8 +492,8 @@ exports["Accelerometer -- MMA7361"] = {
   sleepPinOn: function(test) {
     test.expect(2);
 
-    test.ok(this.pinMode.calledWith(13, 1));
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.deepEqual(this.pinMode.args[0], [13, 1]);
+    test.deepEqual(this.digitalWrite.args[0], [13, 1]);
 
     test.done();
   },
@@ -502,11 +502,11 @@ exports["Accelerometer -- MMA7361"] = {
     test.expect(2);
 
     this.accel.disable();
-    test.ok(this.digitalWrite.calledWith(13, 0));
+    test.deepEqual(this.digitalWrite.args[1], [13, 0]);
     this.digitalWrite.reset();
 
     this.accel.enable();
-    test.ok(this.digitalWrite.calledWith(13, 1));
+    test.deepEqual(this.digitalWrite.args[0], [13, 1]);
 
     test.done();
   },
@@ -530,6 +530,50 @@ exports["Accelerometer -- MMA7361"] = {
       x: 0,
       y: 0.28,
       z: -0.34
+    }]);
+
+    test.done();
+  }
+};
+
+exports["Accelerometer -- ESPLORA"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.accel = new Accelerometer({
+      controller: "ESPLORA",
+      freq: 100,
+      board: board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.analogRead.restore();
+    this.clock.restore();
+    done();
+  },
+
+  data: function(test) {
+    var x = this.analogRead.args[0][1];
+    var y = this.analogRead.args[1][1];
+    var z = this.analogRead.args[2][1];
+    var changeSpy = sinon.spy();
+
+    test.expect(2);
+    this.accel.on("change", changeSpy);
+
+    x(320);
+    y(420);
+    z(230);
+
+    this.clock.tick(100);
+    test.ok(changeSpy.calledThrice);
+    test.deepEqual(changeSpy.args[2], [{
+      x: 0,
+      y: 0.53,
+      z: -0.47
     }]);
 
     test.done();

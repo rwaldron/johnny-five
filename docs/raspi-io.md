@@ -2,8 +2,26 @@
 
 # Led Blink on Raspberry Pi
 
+<!--remove-end-->
+
 
 Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi
+
+
+
+
+
+##### LED on pin P1-13
+
+
+
+![docs/breadboard/led-13-raspberry-pi.png](breadboard/led-13-raspberry-pi.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-raspberry-pi.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -11,7 +29,6 @@ Run with:
 node eg/raspi-io.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
@@ -29,18 +46,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### LED on pin P1-13
-
-
-
-![docs/breadboard/led-13-raspberry-pi.png](breadboard/led-13-raspberry-pi.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-raspberry-pi.fzz)
-
-&nbsp;
 
 
 
@@ -60,7 +66,7 @@ npm install johnny-five raspi-io
 
 ## Learn More
 
-- [raspi-io on GitHub](https://github.com/bryan-m-hughes/raspi-io/)
+- [raspi-io on GitHub](https://github.com/nebrius/raspi-io/)
 
 &nbsp;
 

@@ -2,6 +2,24 @@
 
 # Sensor - Potentiometer
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sensor - Potentiometer"
+
+
+
+![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
+
+Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/potentiometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -46,18 +63,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Sensor - Potentiometer"
-
-
-
-![docs/breadboard/potentiometer.png](breadboard/potentiometer.png)<br>
-
-Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.fzz)
-
-&nbsp;
 
 
 

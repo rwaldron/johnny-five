@@ -2,6 +2,24 @@
 
 # Accelerometer
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Accelerometer"
+
+
+
+![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/accelerometer.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -96,18 +113,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Accelerometer"
-
-
-
-![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)<br>
-
-Fritzing diagram: [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
-
-&nbsp;
 
 
 

@@ -2,6 +2,24 @@
 
 # Button - Options
 
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button - Options"
+
+
+
+![docs/breadboard/button-options.png](breadboard/button-options.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -9,7 +27,6 @@ Run with:
 node eg/button-options.js
 ```
 
-<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -57,18 +74,7 @@ board.on("ready", function() {
 ```
 
 
-## Illustrations / Photos
 
-
-### Breadboard for "Button - Options"
-
-
-
-![docs/breadboard/button-options.png](breadboard/button-options.png)<br>
-
-Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
-
-&nbsp;
 
 
 
