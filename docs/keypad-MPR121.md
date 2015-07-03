@@ -27,7 +27,6 @@ node eg/keypad-MPR121.js
 
 
 ```javascript
-var exec = require("child_process").exec;
 var argv = require("minimist")(process.argv.slice(2), { default: { show: 1 } });
 var five = require("johnny-five");
 var board = new five.Board();
