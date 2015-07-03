@@ -9,15 +9,13 @@ board.on("ready", function() {
 
   if (argv.show === 1) {
     keypad = new five.Keypad({
-      controller: "MPR121",
-      address: 0x5A
+      controller: "MPR121"
     });
   }
 
   if (argv.show === 2) {
     keypad = new five.Keypad({
       controller: "MPR121",
-      address: 0x5A,
       keys: [
         ["!", "@", "#"],
         ["$", "%", "^"],
@@ -30,18 +28,13 @@ board.on("ready", function() {
   if (argv.show === 3) {
     keypad = new five.Keypad({
       controller: "MPR121",
-      address: 0x5A,
       keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"]
     });
   }
 
-  ["change", "press", "hold", "release"].forEach(function(event) {
-    keypad.on(event, function(data) {
-      // console.log("Event: %s, Which: %s", event, data);
-
-      if (event === "press") {
-        exec("say " + data);
-      }
+  ["change", "press", "hold", "release"].forEach(function(eventType) {
+    keypad.on(eventType, function(data) {
+      console.log("Event: %s, Target: %s", eventType, data.which);
     });
   });
 });

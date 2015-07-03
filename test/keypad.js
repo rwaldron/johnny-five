@@ -75,7 +75,7 @@ exports["Keypad: Analog"] = {
     callback(960);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -118,7 +118,7 @@ exports["Keypad: Analog"] = {
     callback(960);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -156,7 +156,7 @@ exports["Keypad: Analog"] = {
     callback(960);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -285,7 +285,7 @@ exports["Keypad: VKey"] = {
     callback(38);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -325,7 +325,7 @@ exports["Keypad: VKey"] = {
     callback(38);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -360,7 +360,7 @@ exports["Keypad: VKey"] = {
     callback(38);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -492,7 +492,7 @@ exports["Keypad: MPR121QR2"] = {
     callback([ 1, 0 ]);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -528,7 +528,7 @@ exports["Keypad: MPR121QR2"] = {
     callback([ 1, 0 ]);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -561,7 +561,7 @@ exports["Keypad: MPR121QR2"] = {
 
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -683,7 +683,7 @@ exports["Keypad: MPR121"] = {
     callback([ 0, 1 ]);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -723,7 +723,7 @@ exports["Keypad: MPR121"] = {
     callback([ 0, 1 ]);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();
@@ -758,7 +758,7 @@ exports["Keypad: MPR121"] = {
     callback([ 0, 1 ]);
 
     keys.forEach(function(key, index) {
-      test.equal(spy.args[index][0], key);
+      test.equal(spy.args[index][0].which, key);
     });
 
     test.done();

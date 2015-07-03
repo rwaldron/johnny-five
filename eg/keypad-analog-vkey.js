@@ -35,13 +35,9 @@ board.on("ready", function() {
     });
   }
 
-  ["change", "press", "hold", "release"].forEach(function(event) {
-    keypad.on(event, function(data) {
-      console.log("Event: %s, Which: %s", event, data);
-
-      if (event === "press") {
-        exec("say " + data);
-      }
+  ["change", "press", "hold", "release"].forEach(function(eventType) {
+    keypad.on(eventType, function(data) {
+      console.log("Event: %s, Target: %s", eventType, data.which);
     });
   });
 });
