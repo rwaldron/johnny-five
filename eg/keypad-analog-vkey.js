@@ -1,6 +1,6 @@
 var exec = require("child_process").exec;
 var argv = require("minimist")(process.argv.slice(2), { default: { show: 1 } });
-var five = require("../");
+var five = require("../lib/johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
