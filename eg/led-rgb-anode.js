@@ -4,9 +4,9 @@ var board = new five.Board();
 board.on("ready", function() {
   var anode = new five.Led.RGB({
     pins: {
-      red: 3,
+      red: 6,
       green: 5,
-      blue: 6
+      blue: 3
     },
     isAnode: true
   });
