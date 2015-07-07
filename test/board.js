@@ -154,7 +154,7 @@ exports["Board"] = {
   },
 
   emitsLogsAsEvents: function(test) {
-    test.expect(11);
+    test.expect(19);
 
     var spy = sinon.spy(Board.prototype, "log");
     var io = new MockFirmata();
@@ -170,17 +170,20 @@ exports["Board"] = {
 
       this.on("info", function(event) {
         test.equal(event.class, "Board");
-        test.equal(event.message, "message");
+        test.equal(event.message, "message 1");
+        test.deepEqual(event.data, { foo: 2 });
       });
 
       this.on("fail", function(event) {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
+        test.deepEqual(event.data, null);
       });
 
       this.on("warn", function(event) {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
+        test.deepEqual(event.data, [1, 2, 3]);
       });
 
       this.on("log", function(event) {
@@ -193,9 +196,13 @@ exports["Board"] = {
         test.equal(event.message, "message");
       });
 
-      this.info("Board", "message");
+      this.on("message", function(event) {
+        test.ok(true);
+      });
+
+      this.info("Board", "message", 1, { foo: 2 });
       this.fail("Board", "message");
-      this.warn("Board", "message");
+      this.warn("Board", "message", [1, 2, 3]);
       this.log("Board", "message");
       this.error("Board", "message");
 
