@@ -23,6 +23,10 @@ function MockFirmata(opts) {
   for (var i in opts) {
     this[i] = opts[i];
   }
+
+  if (typeof opts.path === "string" && opts.write && opts.close) {
+    this.sp = this.transport = opts;
+  }
 }
 
 util.inherits(MockFirmata, Board);

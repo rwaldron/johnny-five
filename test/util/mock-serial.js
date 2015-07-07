@@ -3,7 +3,8 @@
 var util = require("util"),
   events = require("events");
 
-var MockSerialPort = function() {
+var MockSerialPort = function(path) {
+  this.path = path;
   this.isClosed = false;
 };
 
