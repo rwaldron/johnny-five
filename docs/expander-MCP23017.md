@@ -11,7 +11,7 @@ Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)
 
 
 
-### Breadboard for "Expander - MCP23017"
+##### Breadboard for "Expander - MCP23017"
 
 
 

@@ -11,7 +11,7 @@ Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - P
 
 
 
-### Breadboard for "Expander - PCF8575"
+##### Breadboard for "Expander - PCF8575"
 
 
 

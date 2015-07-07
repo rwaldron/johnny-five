@@ -11,7 +11,7 @@ Basic sonar Proximity example with MB1003 sensor.
 
 
 
-### Breadboard for "Proximity - MB1003"
+##### Breadboard for "Proximity - MB1003"
 
 
 

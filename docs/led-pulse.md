@@ -11,7 +11,7 @@ LED pulse example that fades an LED in and out repeatedly. Requires LED on pin t
 
 
 
-### LED on pin 11 (Arduino UNO)
+##### LED on pin 11 (Arduino UNO)
 
 
 Basic example with LED inserted directly into pin 11.

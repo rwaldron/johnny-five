@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Motor - H-Bridge"
+##### Breadboard for "Motor - H-Bridge"
 
 
 
@@ -77,7 +77,7 @@ board.on("ready", function() {
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
-      motor.reverse(50);
+      motor.reverse(255);
     });
   });
 

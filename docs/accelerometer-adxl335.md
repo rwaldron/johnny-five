@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Accelerometer - ADXL335"
+##### Breadboard for "Accelerometer - ADXL335"
 
 
 

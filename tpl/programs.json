@@ -165,7 +165,7 @@
         "title": "LED - RGB",
         "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
-          {"name": "led-rgb", "title": "RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively."}
+          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
         ]
       },
          {
@@ -184,9 +184,9 @@
       {
         "file": "led-rainbow.js",
         "title": "LED - Rainbow",
-        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "description": "Demonstrates use of an RGB LED (common cathode) by cycling through rainbow colors. Requires RGB LED on pins that support PWM (usually denoted by ~).",
         "breadboards": [
-          {"name": "led-rgb-anode", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
+          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
         ]
       },
       {
@@ -421,6 +421,28 @@
     ]
   },
   {
+    "topic": "Keypad",
+    "classes": ["Keypad"],
+    "examples": [
+      {
+        "file": "keypad-analog-vkey.js",
+        "title": "Keypad - VKEY"
+      },
+      {
+        "file": "keypad-analog-ad.js",
+        "title": "Keypad - Waveshare AD"
+      },
+      {
+        "file": "keypad-MPR121.js",
+        "title": "Keypad - MPR121"
+      },
+      {
+        "file": "keypad-MPR121QR2.js",
+        "title": "Keypad - MPR121QR2"
+      }
+    ]
+  },
+  {
     "topic": "Relay",
     "classes": ["Relay"],
     "examples": [
@@ -522,7 +544,7 @@
       {
         "file": "proximity-hcsr04.js",
         "title": "Proximity - HC-SR04",
-        "description": "Basic ping Proximity example with HC-SR04 sensor."
+        "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
       },
       {
         "file": "proximity-lidarlite.js",
@@ -873,13 +895,20 @@
     "examples": [
       {
         "file": "tinkerkit-accelerometer.js",
-        "title": "TinkerKit - Accelerometer"
+        "title": "TinkerKit - Accelerometer",
+        "externals":[
+          {"title": "TinkerKit Dual Axis Accelerometer", "href": "http://tinkerkit.tihhs.nl/accelerometer/"}
+        ]
       },
       {
         "file": "tinkerkit-blink.js",
         "title": "TinkerKit - Blink",
         "images": [
           {"file": "tinkerkit-blink.png", "title": "TinkerKit Blink"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Led", "href": "http://tinkerkit.tihhs.nl/led-red-10mm/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -887,13 +916,10 @@
         "title": "TinkerKit - Button",
         "images": [
           {"file": "tinkerkit-button.png", "title": "TinkerKit Button"}
-        ]
-      },
-      {
-        "file": "tinkerkit-continuous-servo.js",
-        "title": "TinkerKit - Continuous servo",
-        "images": [
-          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Button", "href": "http://tinkerkit.tihhs.nl/button/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -901,18 +927,38 @@
         "title": "TinkerKit - Combo"
       },
       {
+        "file": "tinkerkit-continuous-servo.js",
+        "title": "TinkerKit - Continuous servo",
+        "images": [
+          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
         "file": "tinkerkit-gyroscope.js",
         "title": "TinkerKit - Gyro"
       },
       {
         "file": "tinkerkit-joystick.js",
-        "title": "TinkerKit - Joystick"
+        "title": "TinkerKit - Joystick",
+        "externals": [
+          { "title": "TinkerKit JoyStick", "href": "http://tinkerkit.tihhs.nl/joystick/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
       },
       {
         "file": "tinkerkit-linear-pot.js",
         "title": "TinkerKit - Linear potentiometer",
         "images": [
           {"file": "tinkerkit-linear-pot.png", "title": "TinkerKit Linear Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -920,6 +966,11 @@
         "title": "TinkerKit - Rotary potentiometer",
         "images": [
           {"file": "tinkerkit-rotary.png", "title": "TinkerKit Rotary Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Rotary Potentiometer", "href": "http://tinkerkit.tihhs.nl/rotary-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -927,6 +978,10 @@
         "title": "TinkerKit - Temperature",
         "images": [
           {"file": "tinkerkit-thermistor.png", "title": "TinkerKit Temperature"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Thermistor", "href": "http://tinkerkit.tihhs.nl/thermistor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -934,6 +989,11 @@
         "title": "TinkerKit - Tilt",
         "images": [
           {"file": "tinkerkit-tilt.png", "title": "TinkerKit Tilt"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Tilt", "href": "http://tinkerkit.tihhs.nl/tilt-sensor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       },
       {
@@ -941,6 +1001,10 @@
         "title": "TinkerKit - Touch",
         "images": [
           {"file": "tinkerkit-touch.png", "title": "TinkerKit Touch"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Touch", "href": "http://tinkerkit.tihhs.nl/touch/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
         ]
       }
     ]
@@ -1112,7 +1176,7 @@
           {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
         ],
         "externals": [
-          { "title": "raspi-io on GitHub", "href": "https://github.com/bryan-m-hughes/raspi-io/"}
+          { "title": "raspi-io on GitHub", "href": "https://github.com/nebrius/raspi-io/"}
         ]
       },
       {

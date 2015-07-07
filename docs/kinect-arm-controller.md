@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Kinect Robotic Arm Controller"
+##### Breadboard for "Kinect Robotic Arm Controller"
 
 
 

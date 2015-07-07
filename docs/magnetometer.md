@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Compass / Magnetometer"
+##### Breadboard for "Compass / Magnetometer"
 
 
 

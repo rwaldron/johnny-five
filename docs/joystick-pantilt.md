@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Joystick - Pan + Tilt control"
+##### Breadboard for "Joystick - Pan + Tilt control"
 
 
 

@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Grove - LCD RGB temperature display"
+##### Breadboard for "Grove - LCD RGB temperature display"
 
 
 

@@ -842,6 +842,52 @@ exports["Led.RGB"] = {
     test.expect(1);
     test.equal(this.ledRgb.blink, this.ledRgb.strobe);
     test.done();
+  },
+
+  intensity: function(test) {
+    test.expect(24);
+
+    this.ledRgb.color("#33aa00");
+    test.equal(this.ledRgb.intensity(), 100);
+    this.write.reset();
+
+    // partial intensity
+    test.equal(this.ledRgb.intensity(20), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 10, green: 34, blue: 0 }));
+    test.deepEqual(this.ledRgb.values, { red: 10, green: 34, blue: 0 });
+    test.deepEqual(this.ledRgb.color(), { red: 0x33, green: 0xaa, blue: 0x00 });
+    test.equal(this.ledRgb.intensity(), 20);
+    this.write.reset();
+
+    // change color
+    this.ledRgb.color("#ff0000");
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 51, green: 0, blue: 0 }));
+    test.deepEqual(this.ledRgb.values, { red: 51, green: 0, blue: 0 });
+    test.deepEqual(this.ledRgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.equal(this.ledRgb.intensity(), 20);
+    this.write.reset();
+
+    // fully off
+    test.equal(this.ledRgb.intensity(0), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 0, green: 0, blue: 0 }));
+    test.deepEqual(this.ledRgb.values, { red: 0, green: 0, blue: 0 });
+    test.deepEqual(this.ledRgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.equal(this.ledRgb.intensity(), 0);
+    this.write.reset();
+
+    // restore from off
+    test.equal(this.ledRgb.intensity(50), this.ledRgb);
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 128, green: 0, blue: 0 }));
+    test.deepEqual(this.ledRgb.values, { red: 128, green: 0, blue: 0 });
+    test.deepEqual(this.ledRgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.equal(this.ledRgb.intensity(), 50);
+    this.write.reset();
+
+    test.done();
   }
 };
 

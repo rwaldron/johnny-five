@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Gyro - I2C MPU6050"
+##### Breadboard for "Gyro - I2C MPU6050"
 
 
 

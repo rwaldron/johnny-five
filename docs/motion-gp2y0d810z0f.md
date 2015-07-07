@@ -9,7 +9,7 @@
 
 
 
-### Motion - GP2Y0D810Z0F
+##### Motion - GP2Y0D810Z0F
 
 
 Basic GP2Y0D810Z0F motion detection.

@@ -9,7 +9,7 @@
 
 
 
-### Relay - normally open
+##### Relay - normally open
 
 
 The breadboard diagram shows a Keyes Relay, however any Relay will work.
@@ -55,7 +55,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Relay - normally closed
+##### Relay - normally closed
 
 
 The breadboard diagram shows a Keyes Relay, however any Relay will work.

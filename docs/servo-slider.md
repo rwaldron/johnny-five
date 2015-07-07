@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Servo - Slider control"
+##### Breadboard for "Servo - Slider control"
 
 
 

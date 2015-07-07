@@ -9,7 +9,7 @@
 
 
 
-### Joystick - Sparkfun
+##### Joystick - Sparkfun
 
 
 Sparkfun joystick breakout board.
@@ -56,7 +56,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-### Joystick - Adafruit
+##### Joystick - Adafruit
 
 
 Adafruit joystick breakout board.

@@ -11,7 +11,7 @@ Basic LED blink example.
 
 
 
-### LED on pin 13 (Arduino UNO)
+##### LED on pin 13 (Arduino UNO)
 
 
 Basic example with LED inserted directly into pin 13
@@ -58,7 +58,7 @@ Basic example with LED inserted directly into pin 13
 
 ![docs/images/led.jpg](images/led.jpg)  
 
-### LED on pin 13 with breadboard and resistor (Arduino UNO)
+##### LED on pin 13 with breadboard and resistor (Arduino UNO)
 
 
 Basic example with LED on a breadboard and demonstrating use of a resistor

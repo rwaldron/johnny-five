@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Sensor - Potentiometer"
+##### Breadboard for "Sensor - Potentiometer"
 
 
 

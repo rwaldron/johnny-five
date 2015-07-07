@@ -11,7 +11,7 @@ LED pulse example that incrementally fades an LED brighter and brighter. Require
 
 
 
-### LED on pin 11 (Arduino UNO)
+##### LED on pin 11 (Arduino UNO)
 
 
 Basic example with LED inserted directly into pin 11.

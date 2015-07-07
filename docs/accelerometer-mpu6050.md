@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Accelerometer - MPU6050"
+##### Breadboard for "Accelerometer - MPU6050"
 
 
 

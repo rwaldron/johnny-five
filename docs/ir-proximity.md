@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "IR Proximity"
+##### Breadboard for "IR Proximity"
 
 
 

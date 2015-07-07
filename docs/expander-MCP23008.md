@@ -11,7 +11,7 @@ Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)
 
 
 
-### Breadboard for "Expander - MCP23008"
+##### Breadboard for "Expander - MCP23008"
 
 
 

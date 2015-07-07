@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Sensor - Force sensitive resistor"
+##### Breadboard for "Sensor - Force sensitive resistor"
 
 
 

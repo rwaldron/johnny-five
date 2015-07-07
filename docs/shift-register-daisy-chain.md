@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Shift Register - Seven segments, daisy chained"
+##### Breadboard for "Shift Register - Seven segments, daisy chained"
 
 
 

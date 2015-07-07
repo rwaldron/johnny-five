@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Shift Register - Seven segment controller"
+##### Breadboard for "Shift Register - Seven segment controller"
 
 
 

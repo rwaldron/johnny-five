@@ -11,7 +11,7 @@ Basic infrared Proximity example
 
 
 
-### Breadboard for "Proximity"
+##### Breadboard for "Proximity"
 
 
 

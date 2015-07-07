@@ -11,7 +11,7 @@ Basic sonar Proximity example with SRF10 sensor.
 
 
 
-### Breadboard for "Proximity - SRF10"
+##### Breadboard for "Proximity - SRF10"
 
 
 

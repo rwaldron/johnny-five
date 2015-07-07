@@ -11,7 +11,7 @@ Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)
 
 
 
-### Breadboard for "Expander - PCF8574"
+##### Breadboard for "Expander - PCF8574"
 
 
 

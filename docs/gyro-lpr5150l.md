@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Gyro - Analog LPR5150AL"
+##### Breadboard for "Gyro - Analog LPR5150AL"
 
 
 

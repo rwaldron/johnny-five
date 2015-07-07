@@ -11,7 +11,7 @@ Example using Johnny-Five + Edison-IO to directly control an Intel Edison
 
 
 
-### LED on pin 1
+##### LED on pin 1
 
 
 

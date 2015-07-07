@@ -11,7 +11,7 @@ Example using Johnny-Five + imp-io to control an Electric Imp.
 
 
 
-### LED on pin 9
+##### LED on pin 9
 
 
 

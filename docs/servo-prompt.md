@@ -9,7 +9,7 @@
 
 
 
-### Servo on pin 10
+##### Servo on pin 10
 
 
 Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).

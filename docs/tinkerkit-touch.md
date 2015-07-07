@@ -36,7 +36,6 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
@@ -54,9 +53,12 @@ new five.Board().on("ready", function() {
 
 
 
-## Additional Notes
-- [TinkerKit Touch](http://www.tinkerkit.com/touch/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+
+## Learn More
+
+- [TinkerKit Touch](http://tinkerkit.tihhs.nl/touch/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
 &nbsp;
 

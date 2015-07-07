@@ -9,7 +9,7 @@
 
 
 
-### Breadboard for "Sensor - Photoresistor"
+##### Breadboard for "Sensor - Photoresistor"
 
 
 
