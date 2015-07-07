@@ -6,43 +6,6 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Sensor = five.Sensor;
 
-function deepCopy(obj) {
-  var rslt, p;
-  if (typeof obj !== "object" || obj === null) {
-    return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    rslt = [];
-    obj.forEach(function(mem) {
-      rslt.push(deepCopy(mem));
-    });
-    return rslt;
-  }
-
-  rslt = {};
-  for (p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      rslt[p] = deepCopy(obj[p]);
-    }
-  }
-  return rslt;
-}
-
-function getShape(sensor) {
-  return {
-    id: sensor.id,
-    mode: sensor.mode,
-    freq: sensor.freq,
-    range: sensor.range,
-    limit: sensor.limit,
-    threshold: sensor.threshold,
-    isScaled: sensor.isScaled,
-    pin: sensor.pin
-  };
-}
-
-
 function newBoard() {
   var io = new MockFirmata();
   var board = new Board({
@@ -74,6 +37,21 @@ function restore(target) {
   }
 }
 
+function getShape(sensor) {
+  return {
+    id: sensor.id,
+    mode: sensor.mode,
+    freq: sensor.freq,
+    range: sensor.range,
+    limit: sensor.limit,
+    threshold: sensor.threshold,
+    isScaled: sensor.isScaled,
+    pin: sensor.pin,
+    state: sensor.state
+  };
+}
+
+
 exports["Sensor - Analog"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -87,7 +65,7 @@ exports["Sensor - Analog"] = {
     // Complete visible property information expected for the above sensor instance,
     // excluding the 'external' references for the board and io properties.
     this.defShape = {
-      id: null,
+      id: this.sensor.id,
       mode: this.sensor.io.MODES.ANALOG,
       freq: 25,
       range: [0, 1023],
@@ -171,8 +149,8 @@ exports["Sensor - Analog"] = {
     }, this);
 
     // Check that the 'standard' component properties reference the expected objects
-    test.strictEqual(this.sensor.board, board, "Expected to be the mock board");
-    test.strictEqual(this.sensor.io, board.io, "Expected to be the same io as the mock board");
+    test.strictEqual(this.sensor.board, this.board, "Expected to be the mock board");
+    test.strictEqual(this.sensor.io, this.board.io, "Expected to be the same io as the mock board");
     // See if the visible instance properties match the expected default values
     test.deepEqual(getShape(this.sensor), this.defShape, "sensor instance properties should match default shape values");
 
@@ -1214,8 +1192,8 @@ exports["Sensor - Digital"] = {
   },
 
   tearDown: function(done) {
-    Board.purge();
-    restore(this);
+    this.clock.restore();
+    this.digitalRead.restore();
     done();
   },
 
