@@ -151,6 +151,60 @@ exports["Board"] = {
 
     io.emit("connect");
     io.emit("ready");
+  },
+
+  emitsLogsAsEvents: function(test) {
+    test.expect(11);
+
+    var spy = sinon.spy(Board.prototype, "log");
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+
+      spy.reset();
+
+      this.on("info", function(event) {
+        test.equal(event.class, "Board");
+        test.equal(event.message, "message");
+      });
+
+      this.on("fail", function(event) {
+        test.equal(event.class, "Board");
+        test.equal(event.message, "message");
+      });
+
+      this.on("warn", function(event) {
+        test.equal(event.class, "Board");
+        test.equal(event.message, "message");
+      });
+
+      this.on("log", function(event) {
+        test.equal(event.class, "Board");
+        test.equal(event.message, "message");
+      });
+
+      this.on("error", function(event) {
+        test.equal(event.class, "Board");
+        test.equal(event.message, "message");
+      });
+
+      this.info("Board", "message");
+      this.fail("Board", "message");
+      this.warn("Board", "message");
+      this.log("Board", "message");
+      this.error("Board", "message");
+
+      test.equal(spy.callCount, 5);
+      test.done();
+    });
+
+    io.emit("connect");
+    io.emit("ready");
   }
 };
 
