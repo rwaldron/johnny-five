@@ -196,7 +196,7 @@ exports["Board"] = {
         test.equal(event.message, "message");
       });
 
-      this.on("message", function(event) {
+      this.on("message", function() {
         test.ok(true);
       });
 
