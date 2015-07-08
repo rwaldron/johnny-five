@@ -24,7 +24,7 @@ var five = require("johnny-five"),
 board = new five.Board();
 
 /*
- * The PCA9685 controller has been test on
+ * The PCA9685 controller has been tested on
  * the Adafruit Motor/Stepper/Servo Shield v2
  */
 

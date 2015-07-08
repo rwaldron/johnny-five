@@ -1,17 +1,17 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-
-five.Board().on("ready", function() {
+board.on("ready", function() {
 
   // Initialize the RGB LED
   var led = new five.Led.RGB({
+    controller: "PCA9685",
+    isAnode: true,
     pins: {
       red: 2,
       green: 1,
       blue: 0
     },
-    isAnode: true,
-    controller: "PCA9685"
   });
 
   // RGB LED alternate constructor
