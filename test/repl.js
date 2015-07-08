@@ -18,6 +18,7 @@ exports["Repl"] = {
       test.ok(this.repl instanceof Repl);
       test.ok(this.repl.context);
       Repl.isBlocked = true;
+      Board.purge();
       test.done();
     });
 
