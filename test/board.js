@@ -2,7 +2,7 @@ require("es6-shim");
 
 
 var MockFirmata = require("./util/mock-firmata"),
-  // SerialPort = require("./util/mock-serial").SerialPort,
+  SerialPort = require("./util/mock-serial").SerialPort,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   __ = require("../lib/fn.js"),
@@ -44,24 +44,28 @@ exports["Board"] = {
     done();
   },
 
-  // explicit: function(test) {
-  //   test.expect(1);
+  explicit: function(test) {
+    test.expect(1);
 
-  //   var sp = new SerialPort("/dev/foo", {
-  //     baudrate: 57600,
-  //     buffersize: 128
-  //   });
+    var sp = new SerialPort("/dev/foo", {
+      baudrate: 57600,
+      buffersize: 128
+    });
 
-  //   var board = new Board({
-  //     port: sp,
-  //     debug: false,
-  //     repl: false
-  //   });
+    var board = new Board({
+      port: sp,
+      debug: false,
+      repl: false
+    });
 
-  //   test.equal(board.io.sp, sp);
+    test.equal(board.io.sp, sp);
 
-  //   test.done();
-  // },
+    board.abort = true;
+
+    setImmediate(function() {
+      test.done();
+    });
+  },
 
   ioIsReady: function(test) {
     test.expect(2);
@@ -322,6 +326,7 @@ exports["Boards"] = {
 
   tearDown: function(done) {
     Board.purge();
+
     if (this.replInit) {
       this.replInit.restore();
     }
@@ -419,7 +424,7 @@ exports["Boards"] = {
     }]);
 
     boards.on("ready", function() {
-      test.equal(this.replInit.called, true);
+      test.equal(this.replInit.callCount, 1);
       test.done();
     }.bind(this));
 

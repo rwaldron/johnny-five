@@ -5,24 +5,25 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   ESC = five.ESC;
 
-
-var io = new MockFirmata();
-var board = new Board({
-  io: io,
-  debug: false,
-  repl: false
-});
-
-io.emit("ready");
-
 exports["ESC"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+
+    var io = new MockFirmata();
+    this.board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    io.emit("ready");
+
     this.esc = new ESC({
       pin: 12,
-      board: board
+      board: this.board
     });
+
 
     this.proto = [{
       name: "speed"
@@ -52,6 +53,7 @@ exports["ESC"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.servoWrite.restore();
 
@@ -91,7 +93,7 @@ exports["ESC"] = {
 
     this.esc = new ESC({
       pin: 12,
-      board: board,
+      board: this.board,
       startAt: 1
     });
 
@@ -240,11 +242,21 @@ exports["ESC"] = {
 exports["ESC - PCA9685"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.writeSpy = sinon.spy(board.io, "i2cWrite");
-    this.readSpy = sinon.spy(board.io, "i2cRead");
+    this.writeSpy = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.readSpy = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    var io = new MockFirmata();
+    this.board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    io.emit("ready");
+
     this.esc = new ESC({
       pin: 0,
-      board: board,
+      board: this.board,
       controller: "PCA9685",
       address: 0x40
     });
@@ -253,6 +265,7 @@ exports["ESC - PCA9685"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.writeSpy.restore();
     this.readSpy.restore();
     this.clock.restore();
@@ -264,7 +277,7 @@ exports["ESC - PCA9685"] = {
 
     var esc = new ESC({
       pin: 0,
-      board: board,
+      board: this.board,
       controller: "PCA9685",
       address: 0x40
     });
@@ -278,7 +291,7 @@ exports["ESC - PCA9685"] = {
 
     var esc = new ESC({
       pin: 0,
-      board: board,
+      board: this.board,
       controller: "PCA9685"
     });
 
@@ -307,10 +320,20 @@ exports["ESC - PCA9685"] = {
 exports["ESC - FORWARD_REVERSE"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
+    var io = new MockFirmata();
+    this.board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    io.emit("ready");
+
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     done();
   },
@@ -321,8 +344,9 @@ exports["ESC - FORWARD_REVERSE"] = {
       new ESC({
         device: "FORWARD_REVERSE",
         pin: 11,
-      });
-    });
+        board: this.board
+      }.bind(this));
+    }.bind(this));
 
     test.done();
   },
@@ -334,7 +358,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
-      board: board,
+      board: this.board,
     });
 
     test.ok(spy.calledOnce);
@@ -352,7 +376,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
-      board: board,
+      board: this.board,
     });
 
     spy.reset();
@@ -378,7 +402,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
-      board: board,
+      board: this.board,
     });
 
     spy.reset();
@@ -403,7 +427,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       device: "FORWARD_REVERSE",
       neutral: 50,
       pin: 11,
-      board: board,
+      board: this.board,
     });
 
     var spy = sinon.spy(esc, "write");
@@ -423,27 +447,31 @@ exports["ESC - FORWARD_REVERSE"] = {
 
 exports["ESC.Array"] = {
   setUp: function(done) {
-    var board = new Board({
-      io: new MockFirmata(),
+
+    var io = new MockFirmata();
+    this.board = new Board({
+      io: io,
       debug: false,
       repl: false
     });
+
+    io.emit("ready");
 
     ESC.purge();
 
     this.a = new ESC({
       pin: 3,
-      board: board
+      board: this.board
     });
 
     this.b = new ESC({
       pin: 6,
-      board: board
+      board: this.board
     });
 
     this.c = new ESC({
       pin: 9,
-      board: board
+      board: this.board
     });
 
     this.spies = [
@@ -459,6 +487,7 @@ exports["ESC.Array"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.spies.forEach(function(value) {
       this[value].restore();
     }.bind(this));

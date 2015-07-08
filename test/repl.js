@@ -4,6 +4,13 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board;
 
 exports["Repl"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   repl: function(test) {
     var io = new MockFirmata();
     var board = new Board({
@@ -17,8 +24,6 @@ exports["Repl"] = {
       test.ok(this.repl === board.repl);
       test.ok(this.repl instanceof Repl);
       test.ok(this.repl.context);
-      Repl.isBlocked = true;
-      Board.purge();
       test.done();
     });
 
