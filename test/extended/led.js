@@ -59,6 +59,9 @@ exports["Led - PWM (Analog)"] = {
   },
 
   tearDown: function(done) {
+    if (this.led.animation) {
+      this.led.animation.stop();
+    }
     done();
   },
 
