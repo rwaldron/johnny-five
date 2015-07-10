@@ -24,8 +24,8 @@ board.on("ready", function() {
       // 3 secs then turn blue, still 30% intensity
       wait: 3000,
       task: function() {
-        console.log("30% red");
-        led.intensity(30);
+        console.log("30% blue");
+        led.color("#0000FF");
       }
     },
     {
