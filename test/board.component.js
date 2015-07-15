@@ -60,7 +60,7 @@ exports["Board.Component"] = {
 
     var component = new Board.Component();
 
-    test.equal(component.id, null);
+    test.equal(typeof component.id, "string");
     test.equal(component.board, this.board);
     test.equal(component.io, this.io);
 
@@ -74,7 +74,7 @@ exports["Board.Component"] = {
 
     Board.Component.call(component);
 
-    test.equal(component.id, null);
+    test.equal(typeof component.id, "string");
     test.equal(component.board, this.board);
     test.equal(component.io, this.io);
 

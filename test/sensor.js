@@ -30,7 +30,7 @@ exports["Sensor - Analog"] = {
     ];
 
     this.members = {
-      id: { type: "object" },
+      id: { type: "string" },
       pin: { type: "number" },
       mode: { type: "number" },
       freq: { type: "number" },
@@ -77,7 +77,7 @@ exports["Sensor - Analog"] = {
     // Make sure that all of the existing instance properties and prototype methods are actually expected, and the correct datatype
     propsActual.forEach(function(property) {
       test.ok(propsActual.includes(property), "found unexpected " + property + " sensor instance member");
-      test.strictEqual(typeof this.sensor[property], this.members[property].type, "Unexected datatype found for '" + property + "' property");
+      test.strictEqual(typeof this.sensor[property], this.members[property].type, "Unexpected datatype found for '" + property + "' property");
     }, this);
     methodsActual.forEach(function(proto) {
       test.ok(this.methods.includes(proto), "found unexpected '" + proto + "' sensor prototype method");

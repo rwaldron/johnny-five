@@ -500,28 +500,28 @@ exports["PinShape"] = {
 
     // default digital pin : new Pin(2)
     test.equal(this.dig2Def.mode, 1, "pin(2) mode --> 1 (output)");
-    test.equal(this.dig2Def.id, null, "pin(2) id --> null");
+    test.equal(typeof this.dig2Def.id, "string", "pin(2) id --> a string");
     test.equal(this.dig2Def.type, "digital", "pin(2) type");
     test.equal(this.dig2Def.pin, 2, "pin(2) pin number");
     test.equal(this.dig2Def.addr, 2, "pin(2) address");
 
     // default DToA pin : new Pin(19)
     test.equal(this.dig19Def.mode, 1, "pin(19) mode --> 1 (output)");
-    test.equal(this.dig19Def.id, null, "pin(19) id --> null");
+    test.equal(typeof this.dig19Def.id, "string", "pin(19) id --> a string");
     test.equal(this.dig19Def.type, "digital", "pin(19) type");
     test.equal(this.dig19Def.pin, 5, "pin(19) pin number");
     test.equal(this.dig19Def.addr, 19, "pin(19) address");
 
     // default analog pin : new Pin("A0")
     test.equal(this.ana0Def.mode, 2, "pin('A0') mode --> 2 (analog)");
-    test.equal(this.ana0Def.id, null, "pin('A0') id --> null");
+    test.equal(typeof this.ana0Def.id, "string", "pin('A0') id --> a string");
     test.equal(this.ana0Def.type, "analog", "pin('A0') type");
     test.equal(this.ana0Def.pin, 0, "pin('A0') pin");
     test.equal(this.ana0Def.addr, 0, "pin('A0') address");
 
     // default analog pin : new Pin("A1")
     test.equal(this.ana1Def.mode, 2, "pin('A1') mode --> 2 (analog)");
-    test.equal(this.ana1Def.id, null, "pin('A1') id --> null");
+    test.equal(typeof this.ana1Def.id, "string", "pin('A1') id --> a string");
     test.equal(this.ana1Def.type, "analog", "pin('A1') type");
     test.equal(this.ana1Def.pin, 1, "pin('A1') pin");
     test.equal(this.ana1Def.addr, 1, "pin('A1') address");
