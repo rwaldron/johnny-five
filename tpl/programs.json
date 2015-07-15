@@ -898,6 +898,33 @@
     ]
   },
   {
+    "topic": "Micro Magician V2",
+    "classes": ["Accelerometer", "Motor", "Servo"],
+    "examples": [
+      {
+        "file": "micromagician-accelerometer.js",
+        "title": "Micro Magician V2 - Accelerometer",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      },
+      {
+        "file": "micromagician-motor.js",
+        "title": "Micro Magician V2 - Motor",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      },
+      {
+        "file": "micromagician-servo.js",
+        "title": "Micro Magician V2 - Servo",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      }
+    ]
+  },
+  {
     "topic": "TinkerKit",
     "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
     "examples": [
