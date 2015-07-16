@@ -60,6 +60,7 @@ exports["Accelerometer -- Analog"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.clock.restore();
     done();
@@ -219,6 +220,7 @@ exports["Accelerometer -- distinctZeroV"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.clock.restore();
     done();
@@ -259,6 +261,7 @@ exports["Accelerometer -- autoCalibrate"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.clock.restore();
     done();
@@ -305,6 +308,7 @@ exports["Accelerometer -- ADXL335"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.clock.restore();
     done();
@@ -353,6 +357,7 @@ exports["Accelerometer -- MPU-6050"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.i2cConfig.restore();
     this.i2cWrite.restore();
     this.i2cRead.restore();
@@ -438,6 +443,7 @@ exports["Accelerometer -- ADXL345"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.i2cConfig.restore();
     this.i2cWrite.restore();
     this.i2cRead.restore();
@@ -507,6 +513,7 @@ exports["Accelerometer -- MMA7361"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.pinMode.restore();
     this.digitalWrite.restore();
@@ -576,6 +583,7 @@ exports["Accelerometer -- ESPLORA"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.analogRead.restore();
     this.clock.restore();
     done();

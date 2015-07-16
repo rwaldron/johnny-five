@@ -41,6 +41,7 @@ exports["Proximity"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -79,6 +80,7 @@ exports["Proximity: GP2Y0A21YK"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -160,6 +162,7 @@ exports["Proximity: GP2D120XJ00F"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -240,6 +243,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -320,6 +324,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -401,6 +406,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -481,6 +487,7 @@ exports["Proximity: MB1000"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -562,6 +569,7 @@ exports["Proximity: MB1010"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -643,6 +651,7 @@ exports["Proximity: MB1003"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -724,6 +733,7 @@ exports["Proximity: MB1230"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.analogRead.restore();
     done();
@@ -822,6 +832,7 @@ exports["Proximity: SRF10"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.clock.restore();
     this.i2cReadOnce.restore();
     this.i2cWrite.restore();
@@ -958,6 +969,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     MockFirmata.prototype.pingRead.restore();
     this.clock.restore();
     done();
@@ -1065,6 +1077,7 @@ exports["Proximity: LIDARLITE"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.i2cConfig.restore();
     this.i2cWrite.restore();
     this.i2cReadOnce.restore();
