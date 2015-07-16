@@ -21,14 +21,14 @@ function newBoard() {
 
 exports["Proximity"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.instance = [{
@@ -66,14 +66,14 @@ exports["Proximity"] = {
 
 exports["Proximity: GP2Y0A21YK"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -148,14 +148,14 @@ exports["Proximity: GP2Y0A21YK"] = {
 
 exports["Proximity: GP2D120XJ00F"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2D120XJ00F",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -229,14 +229,14 @@ exports["Proximity: GP2D120XJ00F"] = {
 
 exports["Proximity: GP2Y0A02YK0F"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A02YK0F",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -310,14 +310,14 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
 exports["Proximity: GP2Y0A41SK0F"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A41SK0F",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -392,14 +392,14 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
 exports["Proximity: GP2Y0A710K0F"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A710K0F",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -473,14 +473,14 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
 exports["Proximity: MB1000"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1000",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -555,14 +555,14 @@ exports["Proximity: MB1000"] = {
 
 exports["Proximity: MB1010"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1010",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -637,14 +637,14 @@ exports["Proximity: MB1010"] = {
 
 exports["Proximity: MB1003"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1003",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -719,14 +719,14 @@ exports["Proximity: MB1003"] = {
 
 exports["Proximity: MB1230"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1230",
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -803,7 +803,7 @@ exports["Proximity: MB1230"] = {
 exports["Proximity: SRF10"] = {
 
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -811,7 +811,7 @@ exports["Proximity: SRF10"] = {
 
     this.proximity = new Proximity({
       controller: "SRF10",
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -936,7 +936,7 @@ exports["Proximity: SRF10"] = {
 
 exports["Proximity: HCSR04"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.pulseVal = 1000;
 
@@ -948,7 +948,7 @@ exports["Proximity: HCSR04"] = {
       controller: "HCSR04",
       pin: 7,
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -1042,7 +1042,7 @@ exports["Proximity: HCSR04"] = {
 
 exports["Proximity: LIDARLITE"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -1056,7 +1056,7 @@ exports["Proximity: LIDARLITE"] = {
     this.proximity = new Proximity({
       controller: "LIDARLITE",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.proto = [{

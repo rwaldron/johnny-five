@@ -21,13 +21,13 @@ function newBoard() {
 exports["Accelerometer -- Analog"] = {
 
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1"],
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -205,13 +205,13 @@ exports["Accelerometer -- Analog"] = {
 
 exports["Accelerometer -- distinctZeroV"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1", "A2"],
       freq: 100,
-      board: board,
+      board: this.board,
       zeroV: [300, 400, 500],
       sensitivity: 100
     });
@@ -247,12 +247,12 @@ exports["Accelerometer -- distinctZeroV"] = {
 
 exports["Accelerometer -- autoCalibrate"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1", "A2"],
-      board: board,
+      board: this.board,
       sensitivity: 100,
       autoCalibrate: true
     });
@@ -294,14 +294,14 @@ exports["Accelerometer -- autoCalibrate"] = {
 exports["Accelerometer -- ADXL335"] = {
 
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       controller: "ADXL335",
       pins: ["A0", "A1", "A2"],
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -342,7 +342,7 @@ exports["Accelerometer -- ADXL335"] = {
 exports["Accelerometer -- MPU-6050"] = {
 
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -350,7 +350,7 @@ exports["Accelerometer -- MPU-6050"] = {
     this.accel = new Accelerometer({
       controller: "MPU6050",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
@@ -429,14 +429,14 @@ exports["Accelerometer -- MPU-6050"] = {
 exports["Accelerometer -- ADXL345"] = {
 
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.accel = new Accelerometer({
       controller: "ADXL345",
-      board: board
+      board: this.board
     });
 
     done();
@@ -496,7 +496,7 @@ exports["Accelerometer -- ADXL345"] = {
 
 exports["Accelerometer -- MMA7361"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
@@ -505,7 +505,7 @@ exports["Accelerometer -- MMA7361"] = {
       controller: "MMA7361",
       pins: ["A0", "A1", "A2"],
       freq: 100,
-      board: board,
+      board: this.board,
       sleepPin: 13
     });
 
@@ -570,13 +570,13 @@ exports["Accelerometer -- MMA7361"] = {
 
 exports["Accelerometer -- ESPLORA"] = {
   setUp: function(done) {
-    var board = newBoard();
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       controller: "ESPLORA",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
