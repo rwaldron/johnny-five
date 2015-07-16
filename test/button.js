@@ -1,16 +1,40 @@
 var MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
   five = require("../lib/johnny-five.js"),
-  Button = five.Button;
+  Button = five.Button,
+  Board = five.Board;
 
-var io = new MockFirmata();
-var board = new five.Board({
-  debug: false,
-  repl: false,
-  io: io
-});
 
-io.emit("ready");
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
 
 
 var proto = [];
@@ -33,17 +57,19 @@ var instance = [{
 
 exports["Button, Digital Pin"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.digitalRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -117,19 +143,22 @@ exports["Button, Digital Pin"] = {
 
 exports["Button, Analog Pin"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.digitalRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
+
   pinTranslation: function(test) {
     test.expect(1);
     test.equal(this.button.pin, 14);
@@ -191,10 +220,11 @@ exports["Button, Analog Pin"] = {
 
 exports["Button, Value Inversion"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
-      board: board
+      board: this.board
     });
 
 
@@ -202,7 +232,8 @@ exports["Button, Value Inversion"] = {
   },
 
   tearDown: function(done) {
-    this.digitalRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -212,7 +243,7 @@ exports["Button, Value Inversion"] = {
     this.button = new Button({
       pin: 8,
       invert: true,
-      board: board
+      board: this.board
     });
 
     test.equal(this.button.downValue, 0);
@@ -237,7 +268,7 @@ exports["Button, Value Inversion"] = {
     this.button = new Button({
       pin: 8,
       pullup: true,
-      board: board
+      board: this.board
     });
 
     test.equal(this.button.downValue, 0);

@@ -5,19 +5,43 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   ESC = five.ESC;
 
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["ESC"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+    this.board = newBoard();
 
-    var io = new MockFirmata();
-    this.board = new Board({
-      io: io,
-      debug: false,
-      repl: false
-    });
-
-    io.emit("ready");
 
     this.esc = new ESC({
       pin: 12,
@@ -54,12 +78,7 @@ exports["ESC"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.servoWrite.restore();
-
-    if (this.spy) {
-      this.spy.restore();
-    }
+    restore(this);
     done();
   },
 
@@ -242,17 +261,8 @@ exports["ESC"] = {
 exports["ESC - PCA9685"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.writeSpy = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.readSpy = sinon.spy(MockFirmata.prototype, "i2cRead");
-
-    var io = new MockFirmata();
-    this.board = new Board({
-      io: io,
-      debug: false,
-      repl: false
-    });
-
-    io.emit("ready");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.board = newBoard();
 
     this.esc = new ESC({
       pin: 0,
@@ -266,9 +276,7 @@ exports["ESC - PCA9685"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.writeSpy.restore();
-    this.readSpy.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -300,17 +308,17 @@ exports["ESC - PCA9685"] = {
   },
   speed: function(test) {
     test.expect(6);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.esc.speed(10);
     this.clock.tick(1);
 
-    test.equal(this.writeSpy.args[0][0], 0x40);
-    test.equal(this.writeSpy.args[0][1][0], 6);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 182);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][0], 0x40);
+    test.equal(this.i2cWrite.args[0][1][0], 6);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 182);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
   }
@@ -320,23 +328,16 @@ exports["ESC - PCA9685"] = {
 exports["ESC - FORWARD_REVERSE"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    var io = new MockFirmata();
-    this.board = new Board({
-      io: io,
-      debug: false,
-      repl: false
-    });
-
-    io.emit("ready");
-
+    this.board = newBoard();
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
+    restore(this);
     done();
   },
+
   missingNeutralThrows: function(test) {
     test.expect(1);
 
@@ -447,15 +448,8 @@ exports["ESC - FORWARD_REVERSE"] = {
 
 exports["ESC.Array"] = {
   setUp: function(done) {
+    this.board = newBoard();
 
-    var io = new MockFirmata();
-    this.board = new Board({
-      io: io,
-      debug: false,
-      repl: false
-    });
-
-    io.emit("ready");
 
     ESC.purge();
 
@@ -488,9 +482,7 @@ exports["ESC.Array"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.spies.forEach(function(value) {
-      this[value].restore();
-    }.bind(this));
+    restore(this);
     done();
   },
 

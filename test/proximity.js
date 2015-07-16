@@ -19,6 +19,23 @@ function newBoard() {
   return board;
 }
 
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Proximity"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -42,8 +59,7 @@ exports["Proximity"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -81,8 +97,7 @@ exports["Proximity: GP2Y0A21YK"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -163,8 +178,7 @@ exports["Proximity: GP2D120XJ00F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -244,8 +258,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -325,8 +338,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -407,8 +419,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -488,8 +499,7 @@ exports["Proximity: MB1000"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -570,8 +580,7 @@ exports["Proximity: MB1010"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -652,8 +661,7 @@ exports["Proximity: MB1003"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -734,8 +742,7 @@ exports["Proximity: MB1230"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.analogRead.restore();
+    restore(this);
     done();
   },
 
@@ -833,11 +840,7 @@ exports["Proximity: SRF10"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.i2cReadOnce.restore();
-    this.i2cWrite.restore();
-    this.i2cConfig.restore();
-
+    restore(this);
     done();
   },
 
@@ -970,8 +973,7 @@ exports["Proximity: HCSR04"] = {
 
   tearDown: function(done) {
     Board.purge();
-    MockFirmata.prototype.pingRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -1078,10 +1080,7 @@ exports["Proximity: LIDARLITE"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cReadOnce.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 

@@ -3,13 +3,21 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Motion = five.Motion,
-  board = new Board({
-    io: new MockFirmata(),
+  Motion = five.Motion;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
 
 function restore(target) {
   for (var prop in target) {
@@ -30,12 +38,13 @@ function restore(target) {
 
 exports["Motion"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
-      board: board
+      board: this.board
     });
 
     this.instance = [{
@@ -48,6 +57,7 @@ exports["Motion"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     restore(this);
     done();
   },
@@ -73,18 +83,20 @@ exports["Motion"] = {
 
 exports["Motion - PIR"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     restore(this);
     done();
   },
@@ -182,6 +194,7 @@ exports["Motion - PIR"] = {
 
 exports["Motion - GP2Y0D805Z0F"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
@@ -190,26 +203,26 @@ exports["Motion - GP2Y0D805Z0F"] = {
     this.motion = new Motion({
       controller: "GP2Y0D805Z0F",
       calibrationDelay: 10,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     restore(this);
     done();
   },
 
   initialize: function(test) {
-    test.expect(9);
+    test.expect(8);
 
     test.ok(this.i2cConfig.called);
     test.ok(this.i2cWriteReg.calledOnce);
     test.ok(this.i2cWrite.calledOnce);
     test.ok(this.i2cRead.calledOnce);
 
-    test.deepEqual(this.i2cConfig.firstCall.args, []);
     test.deepEqual(this.i2cWriteReg.firstCall.args, [ 0x26, 0x03, 0xFE ]);
     test.deepEqual(this.i2cWrite.firstCall.args, [0x26, [0x00]]);
 
@@ -306,19 +319,21 @@ exports["Motion - GP2Y0D805Z0F"] = {
 
 exports["Motion - GP2Y0D810Z0F"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.motion = new Motion({
       controller: "GP2Y0D810Z0F",
       pin: "A0",
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     restore(this);
     done();
   },
@@ -421,19 +436,21 @@ exports["Motion - GP2Y0D810Z0F"] = {
 
 exports["Motion - GP2Y0A60SZLF"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.motion = new Motion({
       controller: "GP2Y0A60SZLF",
       pin: "A0",
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     restore(this);
     done();
   },

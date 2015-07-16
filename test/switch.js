@@ -1,22 +1,48 @@
 var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  Board = five.Board,
   sinon = require("sinon"),
-  Switch = five.Switch,
-  board = new Board({
-    io: new MockFirmata(),
+  Board = five.Board,
+  Switch = five.Switch;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Switch"] = {
   setUp: function(done) {
-
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.board = newBoard();
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.switch = new Switch({
       pin: 8,
       freq: 5,
-      board: board
+      board: this.board
     });
 
     this.proto = [];
@@ -31,8 +57,8 @@ exports["Switch"] = {
   },
 
   tearDown: function(done) {
-    this.digitalRead.restore();
-
+    Board.purge();
+    restore(this);
     done();
   },
 

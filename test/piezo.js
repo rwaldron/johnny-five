@@ -4,16 +4,43 @@ var five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Piezo = five.Piezo;
 
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Piezo"] = {
 
   setUp: function(done) {
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,
@@ -41,8 +68,9 @@ exports["Piezo"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.piezo.defaultOctave(4);
-
+    restore(this);
     done();
   },
 
@@ -220,7 +248,7 @@ exports["Piezo"] = {
     test.expect(2);
 
     var returned = this.piezo.tone(1915, 1000);
-    test.ok(this.spy.called);
+    test.ok(this.digitalWrite.called);
     test.equal(returned, this.piezo);
 
     test.done();
@@ -282,7 +310,7 @@ exports["Piezo"] = {
     test.expect(2);
 
     var returned = this.piezo.noTone();
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
     test.done();
@@ -311,7 +339,7 @@ exports["Piezo"] = {
       ],
       tempo: 150
     });
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
 
@@ -321,7 +349,7 @@ exports["Piezo"] = {
       ],
       tempo: 150
     });
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
 
     test.done();
   },

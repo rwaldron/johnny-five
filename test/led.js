@@ -62,9 +62,27 @@ function newBoard() {
     repl: false
   });
 
+  io.emit("connect");
   io.emit("ready");
 
   return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
 }
 
 function testLedShape(test) {
@@ -111,7 +129,8 @@ exports["Led - Digital"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -272,7 +291,8 @@ exports["Led - PWM (Analog)"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -368,7 +388,8 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -497,9 +518,8 @@ exports["Led.Array"] = {
   },
 
   tearDown: function(done) {
-    this.spies.forEach(function(value) {
-      this[value].restore();
-    }.bind(this));
+    Board.purge();
+    restore(this);
     done();
   },
 

@@ -14,9 +14,26 @@ function newBoard() {
 
   io.emit("connect");
   io.emit("ready");
+
   return board;
 }
 
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
 
 exports["Accelerometer -- Analog"] = {
 
@@ -61,8 +78,7 @@ exports["Accelerometer -- Analog"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -221,8 +237,7 @@ exports["Accelerometer -- distinctZeroV"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -262,8 +277,7 @@ exports["Accelerometer -- autoCalibrate"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -309,8 +323,7 @@ exports["Accelerometer -- ADXL335"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -358,10 +371,7 @@ exports["Accelerometer -- MPU-6050"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -444,10 +454,7 @@ exports["Accelerometer -- ADXL345"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -514,10 +521,7 @@ exports["Accelerometer -- MMA7361"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.pinMode.restore();
-    this.digitalWrite.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 
@@ -584,8 +588,7 @@ exports["Accelerometer -- ESPLORA"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.analogRead.restore();
-    this.clock.restore();
+    restore(this);
     done();
   },
 

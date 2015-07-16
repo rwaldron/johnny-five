@@ -2,24 +2,51 @@ var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  Gyro = five.Gyro,
-  board = new Board({
-    io: new MockFirmata(),
+  Gyro = five.Gyro;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Gyro -- ANALOG"] = {
 
   setUp: function(done) {
+    this.board = newBoard();
 
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.gyro = new Gyro({
       pins: ["A0", "A1"],
       sensitivity: 0.167,
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.proto = [];
@@ -42,8 +69,8 @@ exports["Gyro -- ANALOG"] = {
   },
 
   tearDown: function(done) {
-    this.analogRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -160,25 +187,24 @@ exports["Gyro -- ANALOG"] = {
 exports["Gyro -- MPU6050"] = {
 
   setUp: function(done) {
+    this.board = newBoard();
 
     this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.gyro = new Gyro({
       controller: "MPU6050",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 

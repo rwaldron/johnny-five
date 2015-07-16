@@ -6,21 +6,46 @@ var MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
   Board = five.Board;
 
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
 
 exports["Board.Component"] = {
   setUp: function(done) {
-
-    this.io = new MockFirmata();
-    this.board = new Board({
-      io: this.io,
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
+    restore(this);
     done();
   },
 
@@ -33,11 +58,7 @@ exports["Board.Component"] = {
 
     Board.purge();
 
-    var board = new Board({
-      io: this.io,
-      debug: false,
-      repl: false
-    });
+    var board = newBoard();
 
     Board.Component.call({}, opts);
 
@@ -62,7 +83,7 @@ exports["Board.Component"] = {
 
     test.equal(typeof component.id, "string");
     test.equal(component.board, this.board);
-    test.equal(component.io, this.io);
+    test.equal(component.io, this.board.io);
 
     test.done();
   },
@@ -76,7 +97,7 @@ exports["Board.Component"] = {
 
     test.equal(typeof component.id, "string");
     test.equal(component.board, this.board);
-    test.equal(component.io, this.io);
+    test.equal(component.io, this.board.io);
 
     test.done();
   },

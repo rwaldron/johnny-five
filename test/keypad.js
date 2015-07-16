@@ -2,29 +2,57 @@ var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  Keypad = five.Keypad,
-  board = new Board({
-    io: new MockFirmata(),
+  Keypad = five.Keypad;
+
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Keypad: Analog"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
       pin: "A1",
       length: 16,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.analogRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -35,7 +63,7 @@ exports["Keypad: Analog"] = {
     test.throws(function() {
       new Keypad({
         pin: "A1",
-        board: board
+        board: this.board
       });
     });
     test.done();
@@ -48,7 +76,7 @@ exports["Keypad: Analog"] = {
       return index;
     });
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       pin: "A0",
       length: 12
     });
@@ -86,7 +114,7 @@ exports["Keypad: Analog"] = {
 
     var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       pin: "A0",
       keys: [
         ["1", "!", "@", "#"],
@@ -129,7 +157,7 @@ exports["Keypad: Analog"] = {
 
     var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       pin: "A0",
       keys: keys
     });
@@ -238,20 +266,21 @@ exports["Keypad: Analog"] = {
 
 exports["Keypad: VKey"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
       controller: "VKEY",
       pin: "A1",
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.analogRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -262,7 +291,7 @@ exports["Keypad: VKey"] = {
       return index + 1;
     });
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "VKEY",
       pin: "A0",
     });
@@ -296,7 +325,7 @@ exports["Keypad: VKey"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "VKEY",
       pin: "A0",
       keys: [
@@ -336,7 +365,7 @@ exports["Keypad: VKey"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "VKEY",
       pin: "A0",
       keys: keys
@@ -433,27 +462,27 @@ exports["Keypad: VKey"] = {
 
 exports["Keypad: MPR121QR2"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.keypad = new Keypad({
       controller: "MPR121QR2",
       address: 0x5A,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
+
   initialize: function(test) {
     test.expect(2);
 
@@ -472,7 +501,7 @@ exports["Keypad: MPR121QR2"] = {
       return index + 1;
     });
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121QR2",
       address: 0x5A
     });
@@ -503,7 +532,7 @@ exports["Keypad: MPR121QR2"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121QR2",
       address: 0x5A,
       keys: [
@@ -539,7 +568,7 @@ exports["Keypad: MPR121QR2"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121QR2",
       address: 0x5A,
       keys: keys
@@ -621,27 +650,27 @@ exports["Keypad: MPR121QR2"] = {
 
 exports["Keypad: MPR121"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.keypad = new Keypad({
       controller: "MPR121",
       address: 0x5A,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
+
   initialize: function(test) {
     test.expect(2);
 
@@ -660,7 +689,7 @@ exports["Keypad: MPR121"] = {
       return index + 1;
     });
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121",
       address: 0x5A
     });
@@ -694,7 +723,7 @@ exports["Keypad: MPR121"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121",
       address: 0x5A,
       keys: [
@@ -734,7 +763,7 @@ exports["Keypad: MPR121"] = {
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
     var keypad = new five.Keypad({
-      board: board,
+      board: this.board,
       controller: "MPR121",
       address: 0x5A,
       keys: keys

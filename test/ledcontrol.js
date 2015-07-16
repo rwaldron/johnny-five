@@ -6,11 +6,34 @@ var five = require("../lib/johnny-five.js"),
   LedMatrix = five.Led.Matrix;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
 }
 
 exports["Led.Matrix => LedControl"] = {
@@ -18,9 +41,14 @@ exports["Led.Matrix => LedControl"] = {
     this.board = newBoard();
     done();
   },
+
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
+
   wrapper: function(test) {
     test.expect(2);
 
@@ -37,6 +65,7 @@ exports["Led.Matrix => LedControl"] = {
     test.ok(matrix.isMatrix);
     test.done();
   },
+
   statics: function(test) {
     var keys = Object.keys(LedControl);
 
@@ -55,7 +84,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
     this.board = newBoard();
     done();
   },
+
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     LedControl.reset();
     done();
   },
@@ -283,9 +315,9 @@ exports["LedControl - I2C Matrix"] = {
     done();
   },
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     LedControl.reset();
-    this.clock.restore();
-    this.i2cWrite.restore();
     done();
   },
   initialize: function(test) {
@@ -519,9 +551,9 @@ exports["LedControl - I2C Matrix 16x8"] = {
     done();
   },
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     LedControl.reset();
-    this.clock.restore();
-    this.i2cWrite.restore();
     done();
   },
   clearAll: function(test) {
@@ -686,7 +718,9 @@ exports["LedControl - Matrix"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
 
@@ -1157,7 +1191,9 @@ exports["LedControl - Digits"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
 

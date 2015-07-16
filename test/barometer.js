@@ -2,25 +2,33 @@ var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  Barometer = five.Barometer,
-  board = new Board({
-    io: new MockFirmata(),
+  Barometer = five.Barometer;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+  return board;
+}
+
 exports["Barometer -- MPL115A2"] = {
 
   setUp: function(done) {
-
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
-    this.i2cReadOnce = sinon.spy(board.io, "i2cReadOnce");
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.barometer = new Barometer({
       controller: "MPL115A2",
-      board: board,
+      board: this.board,
       freq: 10
     });
 
@@ -32,11 +40,33 @@ exports["Barometer -- MPL115A2"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.i2cConfig.restore();
     this.i2cWrite.restore();
     this.i2cRead.restore();
     this.i2cReadOnce.restore();
     done();
+  },
+
+  fwdOptions: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Barometer({
+      controller: "MPL115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   data: function(test) {
@@ -90,14 +120,14 @@ exports["Barometer -- MPL115A2"] = {
 exports["Barometer -- BMP180"] = {
 
   setUp: function(done) {
-
+    this.board = newBoard();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.barometer = new Barometer({
       controller: "BMP180",
-      board: board,
+      board: this.board,
       freq: 10
     });
 
@@ -109,6 +139,7 @@ exports["Barometer -- BMP180"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.i2cConfig.restore();
     this.i2cWriteReg.restore();
     this.i2cReadOnce.restore();

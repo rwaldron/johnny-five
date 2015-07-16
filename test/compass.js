@@ -5,11 +5,34 @@ var five = require("../lib/johnny-five.js"),
   Compass = five.Compass;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
 }
 
 var expecteds = {
@@ -31,7 +54,7 @@ var expecteds = {
 
       this.clock = sinon.useFakeTimers();
       this.board = newBoard();
-      this.i2cRead = sinon.spy(this.board.io, "i2cRead");
+      this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
       this.compass = new Compass({
         board: this.board,
@@ -46,6 +69,12 @@ var expecteds = {
         name: "heading"
       }];
 
+      done();
+    },
+
+    tearDown: function(done) {
+      Board.purge();
+      restore(this);
       done();
     },
 
@@ -78,7 +107,7 @@ var expecteds = {
     change: function(test) {
       test.expect(4);
 
-      var handler = this.board.io.i2cRead.getCall(0).args[3];
+      var handler = this.i2cRead.getCall(0).args[3];
       var spy = sinon.spy();
 
       this.compass.on("change", spy);
@@ -97,12 +126,6 @@ var expecteds = {
 
       test.done();
     },
-
-    tearDown: function(done) {
-      this.clock.restore();
-      this.i2cRead.restore();
-      done();
-    }
   };
 });
 

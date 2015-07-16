@@ -13,10 +13,29 @@ function newBoard() {
     repl: false
   });
 
+  io.emit("connect");
   io.emit("ready");
 
   return board;
 }
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Pin"] = {
   setUp: function(done) {
 
@@ -30,23 +49,23 @@ exports["Pin"] = {
       this[method] = sinon.spy(MockFirmata.prototype, method);
     }.bind(this));
 
-    var board = newBoard();
+    this.board = newBoard();
 
     this.clock = sinon.useFakeTimers();
 
     this.digital = new Pin({
       pin: 11,
-      board: board
+      board: this.board
     });
 
     this.analog = new Pin({
       pin: "A1",
-      board: board
+      board: this.board
     });
 
     this.dtoa = new Pin({
       pin: 14,
-      board: board
+      board: this.board
     });
 
 
@@ -80,10 +99,8 @@ exports["Pin"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.spies.forEach(function(value) {
-      this[value].restore();
-    }.bind(this));
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -331,27 +348,23 @@ exports["Pin"] = {
 
 exports["Pin.Array"] = {
   setUp: function(done) {
-    var board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     Pin.purge();
 
     this.digital = new Pin({
       pin: 11,
-      board: board
+      board: this.board
     });
 
     this.analog = new Pin({
       pin: "A1",
-      board: board
+      board: this.board
     });
 
     this.dtoa = new Pin({
       pin: 14,
-      board: board
+      board: this.board
     });
 
     this.spies = [
@@ -366,9 +379,8 @@ exports["Pin.Array"] = {
   },
 
   tearDown: function(done) {
-    this.spies.forEach(function(value) {
-      this[value].restore();
-    }.bind(this));
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -466,6 +478,7 @@ exports["Pin.isAnalog"] = {
 exports["PinShape"] = {
   setUp: function(done) {
 
+    // This will put a board in the cache
     newBoard();
     // Pins to test
 

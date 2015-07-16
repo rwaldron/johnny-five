@@ -10,8 +10,7 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Boards = five.Boards,
   Virtual = Board.Virtual,
-  Repl = five.Repl,
-  board;
+  Repl = five.Repl;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -21,15 +20,33 @@ function newBoard() {
     repl: false
   });
 
+  io.emit("connect");
   io.emit("ready");
 
   return board;
 }
 
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Board"] = {
   setUp: function(done) {
 
-    board = newBoard();
+    this.board = newBoard();
 
     this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
       callback();
@@ -40,7 +57,7 @@ exports["Board"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.replInit.restore();
+    restore(this);
     done();
   },
 
@@ -221,7 +238,7 @@ exports["Board"] = {
 
 exports["Virtual"] = {
   setUp: function(done) {
-    board = newBoard();
+    // board = newBoard();
     this.Board = sinon.stub(five, "Board", function() {});
     this.Expander = sinon.stub(five, "Expander", function() {
       this.name = "MCP23017";
@@ -231,8 +248,7 @@ exports["Virtual"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.Board.restore();
-    this.Expander.restore();
+    restore(this);
     done();
   },
 
@@ -272,12 +288,23 @@ exports["Virtual"] = {
 };
 
 exports["samplingInterval"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.setSamplingInterval = sinon.spy(MockFirmata.prototype, "setSamplingInterval");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
   samplingInterval: function(test) {
     test.expect(1);
 
-    board.io.setSamplingInterval = sinon.spy();
-    board.samplingInterval(100);
-    test.ok(board.io.setSamplingInterval.calledOnce);
+    this.board.samplingInterval(100);
+    test.ok(this.setSamplingInterval.calledOnce);
 
     test.done();
   }
@@ -326,10 +353,7 @@ exports["Boards"] = {
 
   tearDown: function(done) {
     Board.purge();
-
-    if (this.replInit) {
-      this.replInit.restore();
-    }
+    restore(this);
     done();
   },
 
@@ -661,7 +685,7 @@ exports["Boards"] = {
 exports["instance"] = {
 
   setUp: function(done) {
-    board = newBoard();
+    this.board = newBoard();
     done();
   },
 
@@ -672,31 +696,31 @@ exports["instance"] = {
 
   cache: function(test) {
     test.expect(1);
-    test.ok(_.contains(five.Board.cache, board));
+    test.ok(_.contains(five.Board.cache, this.board));
     test.done();
   },
 
   instance: function(test) {
     test.expect(1);
-    test.ok(board);
+    test.ok(this.board);
     test.done();
   },
 
   io: function(test) {
     test.expect(1);
-    test.ok(board.io instanceof MockFirmata);
+    test.ok(this.board.io instanceof MockFirmata);
     test.done();
   },
 
   id: function(test) {
     test.expect(1);
-    test.ok(board.id);
+    test.ok(this.board.id);
     test.done();
   },
 
   pins: function(test) {
     test.expect(1);
-    test.ok(board.pins);
+    test.ok(this.board.pins);
     test.done();
   },
 };

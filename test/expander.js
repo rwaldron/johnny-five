@@ -8,6 +8,21 @@ var Expander = five.Expander;
 var Led = five.Led;
 var Button = five.Button;
 
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
 function restore(target) {
   for (var prop in target) {
 
@@ -28,15 +43,12 @@ function restore(target) {
 exports["Expander"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -256,11 +268,7 @@ exports["Expander"] = {
 exports["Expander.Active"] = {
   setUp: function(done) {
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -270,6 +278,7 @@ exports["Expander.Active"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -314,11 +323,7 @@ exports["Expander - MCP23017"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "MCP23017",
@@ -333,6 +338,7 @@ exports["Expander - MCP23017"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -581,11 +587,7 @@ exports["Expander - MCP23008"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "MCP23008",
@@ -600,6 +602,7 @@ exports["Expander - MCP23008"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -808,11 +811,7 @@ exports["Expander - PCF8574"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -827,6 +826,7 @@ exports["Expander - PCF8574"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -1037,11 +1037,7 @@ exports["Expander - PCF8574A"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCF8574A",
@@ -1056,6 +1052,7 @@ exports["Expander - PCF8574A"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -1267,11 +1264,7 @@ exports["Expander - PCF8575"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCF8575",
@@ -1286,6 +1279,7 @@ exports["Expander - PCF8575"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -1455,11 +1449,7 @@ exports["Expander - PCA9685"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCA9685",
@@ -1474,6 +1464,7 @@ exports["Expander - PCA9685"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();
@@ -1716,11 +1707,7 @@ exports["Expander - PCF8591"] = {
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
 
     this.expander = new Expander({
       controller: "PCF8591",
@@ -1735,6 +1722,7 @@ exports["Expander - PCF8591"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     Expander.purge();
     restore(this);
     done();

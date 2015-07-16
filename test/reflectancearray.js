@@ -3,29 +3,56 @@ var MockFirmata = require("./util/mock-firmata"),
   __ = require("../lib/fn.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  ReflectanceArray = five.IR.Reflect.Array,
-  board = new Board({
-    io: new MockFirmata(),
+  ReflectanceArray = five.IR.Reflect.Array;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
-function getEyes(autoCalibrate) {
-  autoCalibrate = autoCalibrate || false;
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
+function getEyes(options) {
+  var autoCalibrate = options.autoCalibrate || false;
   return new ReflectanceArray({
     pins: ["A0", "A1", "A2"],
     emitter: 11,
     freq: 25,
     autoCalibrate: autoCalibrate,
-    board: board
+    board: options.board
   });
 }
 
 exports["ReflectanceArray"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
-    this.analogWrite = sinon.spy(board.io, "analogWrite");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
 
     this.sendAnalogValue = function(index, value) {
       this.analogRead.args[index][1](value);
@@ -71,14 +98,13 @@ exports["ReflectanceArray"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.analogRead.restore();
-    this.analogWrite.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
   shape: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
@@ -93,7 +119,7 @@ exports["ReflectanceArray"] = {
   },
 
   enable: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     test.expect(4);
 
     this.eyes.enable();
@@ -108,7 +134,7 @@ exports["ReflectanceArray"] = {
   },
 
   data: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var dataSpy = sinon.spy();
 
     test.expect(1);
@@ -126,7 +152,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateOnce: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var calibratedSpy = sinon.spy();
 
     test.expect(7);
@@ -153,7 +179,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateTwice: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     test.expect(2);
 
     this.eyes.calibrate();
@@ -175,7 +201,7 @@ exports["ReflectanceArray"] = {
   },
 
   loadCalibration: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     test.expect(4);
 
     test.deepEqual(this.eyes.calibration.min, []);
@@ -193,7 +219,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateUntil: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var count = 0;
 
     test.expect(2);
@@ -225,7 +251,7 @@ exports["ReflectanceArray"] = {
   },
 
   autoCalibrate: function(test) {
-    this.eyes = getEyes(true);
+    this.eyes = getEyes({ board: this.board, autoCalibrate: true });
 
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
@@ -249,7 +275,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibratedData: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var dataSpy = sinon.spy();
 
     var testValues = [
@@ -277,7 +303,7 @@ exports["ReflectanceArray"] = {
   },
 
   solidLine: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -300,7 +326,7 @@ exports["ReflectanceArray"] = {
   },
 
   partialLine: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -323,7 +349,7 @@ exports["ReflectanceArray"] = {
   },
 
   isOnLine: function(test) {
-    this.eyes = getEyes();
+    this.eyes = getEyes({ board: this.board });
     test.expect(1);
 
     this.eyes.loadCalibration({

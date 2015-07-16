@@ -3,20 +3,48 @@ var MockFirmata = require("./util/mock-firmata"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Sensor = five.Sensor,
-  board = new Board({
-    io: new MockFirmata(),
+  Sensor = five.Sensor;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
+
 exports["Sensor - Analog"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.sensor = new Sensor({
       pin: "A1",
-      board: board
+      board: this.board
     });
 
     this.defFreq = 25;
@@ -53,8 +81,8 @@ exports["Sensor - Analog"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.analogRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -84,8 +112,8 @@ exports["Sensor - Analog"] = {
       test.strictEqual(typeof this.sensor[proto], "function", "Unexected datatype found for '" + proto + "' method");
     }, this);
 
-    test.strictEqual(this.sensor.board, board, "Expected to be the mock board");
-    test.strictEqual(this.sensor.io, board.io, "Expected to be the same io as the mock board");
+    test.strictEqual(this.sensor.board, this.board, "Expected to be the mock board");
+    test.strictEqual(this.sensor.io, this.board.io, "Expected to be the same io as the mock board");
     test.strictEqual(this.sensor.mode, this.sensor.io.MODES.ANALOG, "Expected to be analog mode");
     test.strictEqual(this.sensor.freq, this.defFreq, "defaulted freq value expected to be " + this.defFreq + ", found '" + this.sensor.freq + "'");
     test.ok(Array.isArray(this.sensor.range) && this.sensor.range.length === 2, "range property should be a 2 element array");
@@ -335,12 +363,13 @@ exports["Sensor - Analog"] = {
 
 exports["Sensor - Digital"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(board.io, "digitalRead");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
     this.sensor = new Sensor({
       type: "digital",
       pin: 3,
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -385,8 +414,8 @@ exports["Sensor - Digital"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.digitalRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 

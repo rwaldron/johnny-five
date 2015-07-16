@@ -4,28 +4,51 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Stepper = five.Stepper;
 
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Stepper Firmware Requirement"] = {
   setUp: function(done) {
+    this.board = newBoard();
+    this.board.pins[0].supportedModes = [8];
     done();
   },
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
-
   valid: function(test) {
     test.expect(1);
-
-    this.board = new Board({
-      io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8],
-          },
-        ]
-      }),
-      debug: false,
-      repl: false
-    });
 
     test.doesNotThrow(function() {
       new Stepper({
@@ -42,11 +65,7 @@ exports["Stepper Firmware Requirement"] = {
   invalid: function(test) {
     test.expect(1);
 
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board.pins[0].supportedModes = [];
 
     try {
       new Stepper({
@@ -66,24 +85,16 @@ exports["Stepper Firmware Requirement"] = {
 exports["Stepper - constructor"] = {
   setUp: function(done) {
 
-    this.board = new Board({
-      io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
-      }),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
+    this.board.pins[0].supportedModes = [8];
 
     done();
   },
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
-
   inferTypeAmbiguous: function(test) {
     test.expect(1);
 
@@ -288,6 +299,8 @@ exports["Stepper - max steppers"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -376,7 +389,7 @@ exports["Stepper - step callback"] = {
       pins: [2, 3]
     });
 
-    this.step = sinon.spy(this.board.io, "stepperStep");
+    this.step = sinon.spy(MockFirmata.prototype, "stepperStep");
 
     done();
   },
@@ -423,7 +436,7 @@ exports["Stepper - set direction required before step"] = {
       pins: [2, 3]
     });
 
-    this.stepperStep = sinon.spy(this.board.io, "stepperStep");
+    this.stepperStep = sinon.spy(MockFirmata.prototype, "stepperStep");
 
     done();
   },
@@ -510,7 +523,7 @@ exports["Stepper - rpm / speed"] = {
       repl: false
     });
 
-    this.pinMode = sinon.spy(this.board.io, "pinMode");
+    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
     this.stepper = new Stepper({
       board: this.board,
       type: five.Stepper.TYPE.DRIVER,
