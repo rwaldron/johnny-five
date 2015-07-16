@@ -375,20 +375,26 @@ exports["Accelerometer -- MPU-6050"] = {
     done();
   },
 
-  // config: function(test) {
-  //   test.expect(1);
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
 
-  //   this.i2cConfig.reset();
+    this.i2cConfig.reset();
 
-  //   new Accelerometer({
-  //     controller: "MPU6050",
-  //     freq: 100,
-  //     board: board
-  //   });
+    new Accelerometer({
+      controller: "MPU6050",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
 
+    var forwarded = this.i2cConfig.lastCall.args[0];
 
-  //   test.done();
-  // },
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
 
   data: function(test) {
     var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
@@ -456,6 +462,27 @@ exports["Accelerometer -- ADXL345"] = {
     Board.purge();
     restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "ADXL345",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   data: function(test) {

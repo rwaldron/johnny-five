@@ -755,8 +755,9 @@ exports["Servo - Allowed Pin Names"] = {
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.writeSpy = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.readSpy = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.servo = new Servo({
       pin: 0,
       board: this.board,
@@ -771,6 +772,27 @@ exports["Servo - PCA9685"] = {
     Board.purge();
     restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Servo({
+      controller: "PCA9685",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   withAddress: function(test) {
@@ -801,16 +823,16 @@ exports["Servo - PCA9685"] = {
   },
   to: function(test) {
     test.expect(6);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.servo.to(20);
 
-    test.equal(this.writeSpy.args[0][0], 0x40);
-    test.equal(this.writeSpy.args[0][1][0], 6);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 187);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][0], 0x40);
+    test.equal(this.i2cWrite.args[0][1][0], 6);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 187);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
 

@@ -262,6 +262,7 @@ exports["ESC - PCA9685"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.board = newBoard();
 
     this.esc = new ESC({
@@ -278,6 +279,27 @@ exports["ESC - PCA9685"] = {
     Board.purge();
     restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new ESC({
+      controller: "PCA9685",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   withAddress: function(test) {

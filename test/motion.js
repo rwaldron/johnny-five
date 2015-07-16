@@ -215,6 +215,27 @@ exports["Motion - GP2Y0D805Z0F"] = {
     done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Motion({
+      controller: "GP2Y0D805Z0F",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
   initialize: function(test) {
     test.expect(8);
 

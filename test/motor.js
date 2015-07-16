@@ -1180,7 +1180,8 @@ exports["Motor: Inverse Speed With Brake"] = {
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.writeSpy = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [8, 9, 10],
@@ -1227,6 +1228,27 @@ exports["Motor: I2C - PCA9685"] = {
     done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Motor({
+      controller: "PCA9685",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
@@ -1253,169 +1275,169 @@ exports["Motor: I2C - PCA9685"] = {
 
   start: function(test) {
     test.expect(6);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.start();
-    test.equal(this.writeSpy.args[0][0], 0x60);
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 2048);
-    test.equal(this.writeSpy.args[0][1][4], 8);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 2048);
+    test.equal(this.i2cWrite.args[0][1][4], 8);
 
     test.done();
   },
 
   stop: function(test) {
     test.expect(6);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
     this.motor.stop();
 
 
-    test.equal(this.writeSpy.args[0][0], 0x60);
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 0);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 0);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
   },
 
   forward: function(test) {
     test.expect(21);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.forward(128);
 
-    test.equal(this.writeSpy.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
 
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 0);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 0);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
-    test.equal(this.writeSpy.args[1][1][0], 46);
-    test.equal(this.writeSpy.args[1][1][1], 0);
-    test.equal(this.writeSpy.args[1][1][2], 0);
-    test.equal(this.writeSpy.args[1][1][3], 0);
-    test.equal(this.writeSpy.args[1][1][4], 0);
+    test.equal(this.i2cWrite.args[1][1][0], 46);
+    test.equal(this.i2cWrite.args[1][1][1], 0);
+    test.equal(this.i2cWrite.args[1][1][2], 0);
+    test.equal(this.i2cWrite.args[1][1][3], 0);
+    test.equal(this.i2cWrite.args[1][1][4], 0);
 
-    test.equal(this.writeSpy.args[2][1][0], 42);
-    test.equal(this.writeSpy.args[2][1][1], 0);
-    test.equal(this.writeSpy.args[2][1][2], 0);
-    test.equal(this.writeSpy.args[2][1][3], 4080);
-    test.equal(this.writeSpy.args[2][1][4], 15);
+    test.equal(this.i2cWrite.args[2][1][0], 42);
+    test.equal(this.i2cWrite.args[2][1][1], 0);
+    test.equal(this.i2cWrite.args[2][1][2], 0);
+    test.equal(this.i2cWrite.args[2][1][3], 4080);
+    test.equal(this.i2cWrite.args[2][1][4], 15);
 
-    test.equal(this.writeSpy.args[3][1][0], 38);
-    test.equal(this.writeSpy.args[3][1][1], 0);
-    test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 2048);
-    test.equal(this.writeSpy.args[3][1][4], 8);
+    test.equal(this.i2cWrite.args[3][1][0], 38);
+    test.equal(this.i2cWrite.args[3][1][1], 0);
+    test.equal(this.i2cWrite.args[3][1][2], 0);
+    test.equal(this.i2cWrite.args[3][1][3], 2048);
+    test.equal(this.i2cWrite.args[3][1][4], 8);
     test.done();
   },
 
   reverse: function(test) {
     test.expect(21);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.reverse(128);
 
-    test.equal(this.writeSpy.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
 
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 0);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 0);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
-    test.equal(this.writeSpy.args[1][1][0], 46);
-    test.equal(this.writeSpy.args[1][1][1], 0);
-    test.equal(this.writeSpy.args[1][1][2], 0);
-    test.equal(this.writeSpy.args[1][1][3], 4080);
-    test.equal(this.writeSpy.args[1][1][4], 15);
+    test.equal(this.i2cWrite.args[1][1][0], 46);
+    test.equal(this.i2cWrite.args[1][1][1], 0);
+    test.equal(this.i2cWrite.args[1][1][2], 0);
+    test.equal(this.i2cWrite.args[1][1][3], 4080);
+    test.equal(this.i2cWrite.args[1][1][4], 15);
 
-    test.equal(this.writeSpy.args[2][1][0], 42);
-    test.equal(this.writeSpy.args[2][1][1], 0);
-    test.equal(this.writeSpy.args[2][1][2], 0);
-    test.equal(this.writeSpy.args[2][1][3], 0);
-    test.equal(this.writeSpy.args[2][1][4], 0);
+    test.equal(this.i2cWrite.args[2][1][0], 42);
+    test.equal(this.i2cWrite.args[2][1][1], 0);
+    test.equal(this.i2cWrite.args[2][1][2], 0);
+    test.equal(this.i2cWrite.args[2][1][3], 0);
+    test.equal(this.i2cWrite.args[2][1][4], 0);
 
-    test.equal(this.writeSpy.args[3][1][0], 38);
-    test.equal(this.writeSpy.args[3][1][1], 0);
-    test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 2048);
-    test.equal(this.writeSpy.args[3][1][4], 8);
+    test.equal(this.i2cWrite.args[3][1][0], 38);
+    test.equal(this.i2cWrite.args[3][1][1], 0);
+    test.equal(this.i2cWrite.args[3][1][2], 0);
+    test.equal(this.i2cWrite.args[3][1][3], 2048);
+    test.equal(this.i2cWrite.args[3][1][4], 8);
 
     test.done();
   },
 
   brakeRelease: function(test) {
     test.expect(42);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.rev(128);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.brake();
-    test.equal(this.writeSpy.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
 
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 0);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 0);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
-    test.equal(this.writeSpy.args[1][1][0], 42);
-    test.equal(this.writeSpy.args[1][1][1], 0);
-    test.equal(this.writeSpy.args[1][1][2], 0);
-    test.equal(this.writeSpy.args[1][1][3], 2032);
-    test.equal(this.writeSpy.args[1][1][4], 7);
+    test.equal(this.i2cWrite.args[1][1][0], 42);
+    test.equal(this.i2cWrite.args[1][1][1], 0);
+    test.equal(this.i2cWrite.args[1][1][2], 0);
+    test.equal(this.i2cWrite.args[1][1][3], 2032);
+    test.equal(this.i2cWrite.args[1][1][4], 7);
 
-    test.equal(this.writeSpy.args[2][1][0], 46);
-    test.equal(this.writeSpy.args[2][1][1], 2032);
-    test.equal(this.writeSpy.args[2][1][2], 7);
-    test.equal(this.writeSpy.args[2][1][3], 4080);
-    test.equal(this.writeSpy.args[2][1][4], 15);
+    test.equal(this.i2cWrite.args[2][1][0], 46);
+    test.equal(this.i2cWrite.args[2][1][1], 2032);
+    test.equal(this.i2cWrite.args[2][1][2], 7);
+    test.equal(this.i2cWrite.args[2][1][3], 4080);
+    test.equal(this.i2cWrite.args[2][1][4], 15);
 
-    test.equal(this.writeSpy.args[3][1][0], 38);
-    test.equal(this.writeSpy.args[3][1][1], 0);
-    test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 4080);
-    test.equal(this.writeSpy.args[3][1][4], 15);
+    test.equal(this.i2cWrite.args[3][1][0], 38);
+    test.equal(this.i2cWrite.args[3][1][1], 0);
+    test.equal(this.i2cWrite.args[3][1][2], 0);
+    test.equal(this.i2cWrite.args[3][1][3], 4080);
+    test.equal(this.i2cWrite.args[3][1][4], 15);
 
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.motor.release();
 
-    test.equal(this.writeSpy.args[0][0], 0x60);
+    test.equal(this.i2cWrite.args[0][0], 0x60);
 
-    test.equal(this.writeSpy.args[0][1][0], 38);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 0);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][0], 38);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 0);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
-    test.equal(this.writeSpy.args[1][1][0], 46);
-    test.equal(this.writeSpy.args[1][1][1], 0);
-    test.equal(this.writeSpy.args[1][1][2], 0);
-    test.equal(this.writeSpy.args[1][1][3], 4080);
-    test.equal(this.writeSpy.args[1][1][4], 15);
+    test.equal(this.i2cWrite.args[1][1][0], 46);
+    test.equal(this.i2cWrite.args[1][1][1], 0);
+    test.equal(this.i2cWrite.args[1][1][2], 0);
+    test.equal(this.i2cWrite.args[1][1][3], 4080);
+    test.equal(this.i2cWrite.args[1][1][4], 15);
 
-    test.equal(this.writeSpy.args[2][1][0], 42);
-    test.equal(this.writeSpy.args[2][1][1], 0);
-    test.equal(this.writeSpy.args[2][1][2], 0);
-    test.equal(this.writeSpy.args[2][1][3], 0);
-    test.equal(this.writeSpy.args[2][1][4], 0);
+    test.equal(this.i2cWrite.args[2][1][0], 42);
+    test.equal(this.i2cWrite.args[2][1][1], 0);
+    test.equal(this.i2cWrite.args[2][1][2], 0);
+    test.equal(this.i2cWrite.args[2][1][3], 0);
+    test.equal(this.i2cWrite.args[2][1][4], 0);
 
-    test.equal(this.writeSpy.args[3][1][0], 38);
-    test.equal(this.writeSpy.args[3][1][1], 0);
-    test.equal(this.writeSpy.args[3][1][2], 0);
-    test.equal(this.writeSpy.args[3][1][3], 2048);
-    test.equal(this.writeSpy.args[3][1][4], 8);
+    test.equal(this.i2cWrite.args[3][1][0], 38);
+    test.equal(this.i2cWrite.args[3][1][1], 0);
+    test.equal(this.i2cWrite.args[3][1][2], 0);
+    test.equal(this.i2cWrite.args[3][1][3], 2048);
+    test.equal(this.i2cWrite.args[3][1][4], 8);
 
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     test.done();
   },

@@ -82,6 +82,7 @@ exports["Led.Matrix => LedControl"] = {
 exports["LedControl - I2C Matrix Initialization"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     done();
   },
 
@@ -91,6 +92,28 @@ exports["LedControl - I2C Matrix Initialization"] = {
     LedControl.reset();
     done();
   },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LedControl({
+      controller: "HT16K33",
+      address: 0x70,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0x70);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
 
   addressSingle: function(test) {
     test.expect(1);

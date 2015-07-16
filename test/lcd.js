@@ -349,6 +349,7 @@ exports["LCD - I2C (JHD1313M1)"] = {
   // TODO: Move all stubs and spies into setup
   setUp: function(done) {
     this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
@@ -359,6 +360,28 @@ exports["LCD - I2C (JHD1313M1)"] = {
     restore(this);
     done();
   },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "JHD1313M1",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
 
   initialization: function(test) {
     test.expect(1);
@@ -411,6 +434,7 @@ exports["LCD - I2C (JHD1313M1)"] = {
 exports["LCD - I2C (LCD2004)"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
@@ -419,6 +443,27 @@ exports["LCD - I2C (LCD2004)"] = {
     Board.purge();
     restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "LCD2004",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   initialization: function(test) {
@@ -503,6 +548,7 @@ exports["LCD - I2C (LCD2004)"] = {
 exports["LCD - I2C (LCM1602)"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
@@ -511,6 +557,27 @@ exports["LCD - I2C (LCM1602)"] = {
     Board.purge();
     restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "LCM1602",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   initialization: function(test) {

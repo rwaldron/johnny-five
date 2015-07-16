@@ -54,6 +54,7 @@ var expecteds = {
 
       this.clock = sinon.useFakeTimers();
       this.board = newBoard();
+      this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
       this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
       this.compass = new Compass({
@@ -84,6 +85,27 @@ var expecteds = {
       this.properties.forEach(function(property) {
         test.notEqual(typeof this.compass[property.name], "undefined");
       }, this);
+      test.done();
+    },
+
+    fwdOptionsToi2cConfig: function(test) {
+      test.expect(3);
+
+      this.i2cConfig.reset();
+
+      new Compass({
+        controller: controller,
+        address: 0xff,
+        bus: "i2c-1",
+        board: this.board
+      });
+
+      var forwarded = this.i2cConfig.lastCall.args[0];
+
+      test.equal(this.i2cConfig.callCount, 1);
+      test.equal(forwarded.address, 0xff);
+      test.equal(forwarded.bus, "i2c-1");
+
       test.done();
     },
 

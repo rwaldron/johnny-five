@@ -48,7 +48,7 @@ exports["Barometer -- MPL115A2"] = {
     done();
   },
 
-  fwdOptions: function(test) {
+  fwdOptionsToi2cConfig: function(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -144,6 +144,27 @@ exports["Barometer -- BMP180"] = {
     this.i2cWriteReg.restore();
     this.i2cReadOnce.restore();
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Barometer({
+      controller: "BMP180",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   data: function(test) {
