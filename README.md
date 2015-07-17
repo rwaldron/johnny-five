@@ -358,6 +358,11 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Grove - LCD RGB temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
 - [Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
 
+### Micro Magician V2
+- [Micro Magician V2 - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/micromagician-accelerometer.md)
+- [Micro Magician V2 - Motor](https://github.com/rwaldron/johnny-five/blob/master/docs/micromagician-motor.md)
+- [Micro Magician V2 - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/micromagician-servo.md)
+
 ### TinkerKit
 - [TinkerKit - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-accelerometer.md)
 - [TinkerKit - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/tinkerkit-blink.md)
