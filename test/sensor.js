@@ -1192,8 +1192,8 @@ exports["Sensor - Digital"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.digitalRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
