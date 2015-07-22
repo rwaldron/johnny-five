@@ -51,7 +51,7 @@ exports["Light"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.light = new Light({
       pin: "A1",
       freq: 100,
