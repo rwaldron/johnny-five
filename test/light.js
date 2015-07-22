@@ -6,12 +6,36 @@ var five = require("../lib/johnny-five");
 var Board = five.Board;
 var Light = five.Light;
 
-var io = new MockFirmata();
-var board = new Board({
-  debug: false,
-  repl: false,
-  io: io,
-});
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
 
 var proto = [{
   name: "within"
@@ -25,20 +49,21 @@ var instance = [{
 
 exports["Light"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.light = new Light({
       pin: "A1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.analogRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -65,6 +90,7 @@ exports["Light"] = {
 
 exports["Light: EVS_EV3, Ambient (Default)"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
     this.evssetup = sinon.spy(EVS.prototype, "setup");
@@ -81,22 +107,15 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
       controller: "EVS_EV3",
       pin: "BAS1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evswrite.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -120,7 +139,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
     var shield = {
       address: 26,
       analog: 112,
-      bank: 'a',
+      bank: "a",
       mode: 111,
       motor: undefined,
       offset: 0,
@@ -176,6 +195,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 
 exports["Light: EVS_EV3, Reflected"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
     this.evssetup = sinon.spy(EVS.prototype, "setup");
@@ -193,22 +213,15 @@ exports["Light: EVS_EV3, Reflected"] = {
       pin: "BAS1",
       mode: "reflected",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evswrite.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -232,7 +245,7 @@ exports["Light: EVS_EV3, Reflected"] = {
     var shield = {
       address: 26,
       analog: 112,
-      bank: 'a',
+      bank: "a",
       mode: 111,
       motor: undefined,
       offset: 0,
@@ -288,6 +301,7 @@ exports["Light: EVS_EV3, Reflected"] = {
 
 exports["Light: EVS_NXT, Ambient (Default)"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
     this.evssetup = sinon.spy(EVS.prototype, "setup");
@@ -304,22 +318,15 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
       controller: "EVS_NXT",
       pin: "BAS1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evswrite.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -343,7 +350,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
     var shield = {
       address: 26,
       analog: 112,
-      bank: 'a',
+      bank: "a",
       mode: 111,
       motor: undefined,
       offset: 0,
@@ -398,6 +405,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 
 exports["Light: EVS_NXT, Reflected"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
     this.evssetup = sinon.spy(EVS.prototype, "setup");
@@ -415,22 +423,15 @@ exports["Light: EVS_NXT, Reflected"] = {
       pin: "BAS1",
       mode: "reflected",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evswrite.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -454,7 +455,7 @@ exports["Light: EVS_NXT, Reflected"] = {
     var shield = {
       address: 26,
       analog: 112,
-      bank: 'a',
+      bank: "a",
       mode: 111,
       motor: undefined,
       offset: 0,

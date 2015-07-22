@@ -1617,10 +1617,8 @@ exports["Motor: EVS_EV3"] = {
   },
 
   tearDown: function(done) {
-    this.ev3write.restore();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -1797,10 +1795,8 @@ exports["Motor: EVS_NXT"] = {
   },
 
   tearDown: function(done) {
-    this.ev3write.restore();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
