@@ -363,6 +363,20 @@ exports["Boards"] = {
     test.done();
   },
 
+  methods: function(test) {
+    test.expect(7);
+
+    test.ok(Boards.prototype.log);
+    test.ok(Boards.prototype.info);
+    test.ok(Boards.prototype.warn);
+    test.ok(Boards.prototype.error);
+    test.ok(Boards.prototype.fail);
+    test.ok(Boards.prototype.each);
+    test.ok(Boards.prototype.add);
+
+    test.done();
+  },
+
   connectReadyAfter: function(test) {
     test.expect(2);
 
