@@ -139,6 +139,33 @@ exports["Button, Digital Pin"] = {
     clock.tick(11);
     callback(this.button.upValue);
   },
+
+  holdRepeatsUntilRelease: function(test) {
+    var clock = sinon.useFakeTimers();
+    var spy = sinon.spy();
+    var callback = this.digitalRead.args[0][1];
+    test.expect(1);
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("hold", spy);
+
+    // Set initial state
+    callback(this.button.upValue);
+
+    this.button.holdtime = 10;
+
+    // Trigger a change of state
+    callback(this.button.downValue);
+
+    // Simulate the state being held for 3 "holdtime" periods
+    clock.tick(30);
+
+    test.equal(spy.callCount, 3);
+
+    clock.restore();
+
+    test.done();
+  },
 };
 
 exports["Button, Analog Pin"] = {
