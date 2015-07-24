@@ -1,9 +1,10 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  ESC = five.ESC;
+var MockFirmata = require("./util/mock-firmata");
+var five = require("../lib/johnny-five.js");
+var events = require("events");
+var sinon = require("sinon");
+var Board = five.Board;
+var ESC = five.ESC;
+var Expander = five.Expander;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -278,6 +279,7 @@ exports["ESC - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -305,27 +307,33 @@ exports["ESC - PCA9685"] = {
   withAddress: function(test) {
     test.expect(1);
 
-    var esc = new ESC({
-      pin: 0,
+    new ESC({
+      pin: 1,
       board: this.board,
       controller: "PCA9685",
-      address: 0x40
+      address: 0x41
     });
 
-    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x41).name, "PCA9685");
     test.done();
   },
 
   withoutAddress: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var esc = new ESC({
-      pin: 0,
+    Expander.purge();
+
+    // Assert there is not another by the default address
+    test.equal(Expander.byAddress(0x40), undefined);
+
+    new ESC({
+      pin: 1,
       board: this.board,
       controller: "PCA9685"
     });
 
-    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x40).name, "PCA9685");
+
     test.done();
   },
   speed: function(test) {

@@ -263,9 +263,29 @@ exports["Expander"] = {
 
     callback(button.downValue);
   },
+
+  throwsOnReuseOfAddress: function(test) {
+    test.expect(1);
+
+    new Expander({
+      address: 0x20,
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    test.throws(function() {
+      new Expander({
+        address: 0x20,
+        controller: "PCA9685",
+        board: this.board
+      });
+    }.bind(this));
+
+    test.done();
+  },
 };
 
-exports["Expander.Active"] = {
+exports["Expander.get(opts)"] = {
   setUp: function(done) {
 
     this.board = newBoard();
@@ -284,32 +304,111 @@ exports["Expander.Active"] = {
     done();
   },
 
-  has: function(test) {
-    test.expect(4);
+  getsAnExistingExpander: function(test) {
+    test.expect(1);
+    test.equal(Expander.get({ address: 0x20, controller: "PCF8574" }), this.expander);
+    test.done();
+  },
 
-    test.equal(Expander.Active.has({ address: 0x20 }), true);
-    test.equal(Expander.Active.has({ controller: "PCF8574" }), true);
+  getsANewExpander: function(test) {
+    test.expect(1);
+    test.notEqual(Expander.get({ address: 0x21, controller: "PCF8574" }), this.expander);
+    test.done();
+  },
 
+  throwsOnReuseOfAddress: function(test) {
+    test.expect(1);
 
-    test.equal(Expander.Active.has({ address: 0x20, controller: "PCF8574" }), true);
-    test.equal(Expander.Active.has({ address: 0x20, controller: "ANOTHER" }), true);
+    test.throws(function() {
+      Expander.get({ address: 0x20, controller: "PCA9685" });
+    });
 
     test.done();
+  },
+
+  coercesAddress: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      Expander.get({ address: "0x20", controller: "PCA9685" });
+    });
+
+    test.done();
+  },
+
+  throwsOnInvalidAddress: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      Expander.get({ address: "invalid", controller: "PCA9685" });
+    });
+
+    test.done();
+  },
+
+  throwsOnInvalidController: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      Expander.get({ address: 0x20, controller: {} });
+    });
+
+    test.done();
+  },
+};
+
+exports["Expander.byAddress(...)"] = {
+  setUp: function(done) {
+
+    this.board = newBoard();
+
+    this.expander = new Expander({
+      controller: "PCF8574",
+      board: this.board
+    });
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    restore(this);
+    done();
   },
 
   byAddress: function(test) {
     test.expect(2);
 
-    test.equal(Expander.Active.byAddress(0x20), this.expander);
-    test.equal(Expander.Active.byAddress(0x38), undefined);
+    test.equal(Expander.byAddress(0x20), this.expander);
+    test.equal(Expander.byAddress(0x38), undefined);
     test.done();
+  },
+};
+
+exports["Expander.byController(...)"] = {
+  setUp: function(done) {
+
+    this.board = newBoard();
+
+    this.expander = new Expander({
+      controller: "PCF8574",
+      board: this.board
+    });
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    restore(this);
+    done();
   },
 
   byController: function(test) {
     test.expect(2);
 
-    test.equal(Expander.Active.byController("PCF8574"), this.expander);
-    test.equal(Expander.Active.byController("ANOTHER"), undefined);
+    test.equal(Expander.byController("PCF8574"), this.expander);
+    test.equal(Expander.byController("ANOTHER"), undefined);
     test.done();
   },
 };
@@ -1734,22 +1833,22 @@ exports["Expander - PCA9685"] = {
     }
 
     var expects = [
-      [ 64, [ 6, 0, 0, 4095, 15 ] ],
-      [ 64, [ 10, 0, 0, 4095, 15 ] ],
-      [ 64, [ 14, 0, 0, 4095, 15 ] ],
-      [ 64, [ 18, 0, 0, 4095, 15 ] ],
-      [ 64, [ 22, 0, 0, 4095, 15 ] ],
-      [ 64, [ 26, 0, 0, 4095, 15 ] ],
-      [ 64, [ 30, 0, 0, 4095, 15 ] ],
-      [ 64, [ 34, 0, 0, 4095, 15 ] ],
-      [ 64, [ 38, 0, 0, 4095, 15 ] ],
-      [ 64, [ 42, 0, 0, 4095, 15 ] ],
-      [ 64, [ 46, 0, 0, 4095, 15 ] ],
-      [ 64, [ 50, 0, 0, 4095, 15 ] ],
-      [ 64, [ 54, 0, 0, 4095, 15 ] ],
-      [ 64, [ 58, 0, 0, 4095, 15 ] ],
-      [ 64, [ 62, 0, 0, 4095, 15 ] ],
-      [ 64, [ 66, 0, 0, 4095, 15 ] ],
+      [ 64, [ 6, 0, 0, 1023, 3 ] ],
+      [ 64, [ 10, 0, 0, 1023, 3 ] ],
+      [ 64, [ 14, 0, 0, 1023, 3 ] ],
+      [ 64, [ 18, 0, 0, 1023, 3 ] ],
+      [ 64, [ 22, 0, 0, 1023, 3 ] ],
+      [ 64, [ 26, 0, 0, 1023, 3 ] ],
+      [ 64, [ 30, 0, 0, 1023, 3 ] ],
+      [ 64, [ 34, 0, 0, 1023, 3 ] ],
+      [ 64, [ 38, 0, 0, 1023, 3 ] ],
+      [ 64, [ 42, 0, 0, 1023, 3 ] ],
+      [ 64, [ 46, 0, 0, 1023, 3 ] ],
+      [ 64, [ 50, 0, 0, 1023, 3 ] ],
+      [ 64, [ 54, 0, 0, 1023, 3 ] ],
+      [ 64, [ 58, 0, 0, 1023, 3 ] ],
+      [ 64, [ 62, 0, 0, 1023, 3 ] ],
+      [ 64, [ 66, 0, 0, 1023, 3 ] ],
     ];
 
     test.deepEqual(this.i2cWrite.args, expects);

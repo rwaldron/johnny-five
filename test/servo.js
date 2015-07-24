@@ -1,9 +1,11 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Servo = five.Servo;
+var MockFirmata = require("./util/mock-firmata");
+var five = require("../lib/johnny-five.js");
+var events = require("events");
+var sinon = require("sinon");
+var Board = five.Board;
+var Servo = five.Servo;
+var Expander = five.Expander;
+
 
 function newBoard() {
   var io = new MockFirmata();
@@ -595,6 +597,7 @@ exports["Servo - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -622,29 +625,36 @@ exports["Servo - PCA9685"] = {
   withAddress: function(test) {
     test.expect(1);
 
-    var servo = new Servo({
-      pin: 0,
+    new Servo({
+      pin: 1,
       board: this.board,
       controller: "PCA9685",
-      address: 0x40
+      address: 0x41
     });
 
-    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x41).name, "PCA9685");
     test.done();
   },
 
   withoutAddress: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var servo = new Servo({
-      pin: 0,
+    Expander.purge();
+
+    // Assert there is not another by the default address
+    test.equal(Expander.byAddress(0x40), undefined);
+
+    this.servo = new Servo({
+      pin: 1,
       board: this.board,
       controller: "PCA9685"
     });
 
-    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x40).name, "PCA9685");
+
     test.done();
   },
+
   to: function(test) {
     test.expect(6);
     this.i2cWrite.reset();
@@ -655,7 +665,7 @@ exports["Servo - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 6);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 187);
+    test.equal(this.i2cWrite.args[0][1][3], 172);
     test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
