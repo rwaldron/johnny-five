@@ -7,12 +7,6 @@ new five.Board().on("ready", function() {
   });
 
   new five.Sensor("I0").scale(0, 1).on("change", function() {
-    servo.cw( this.scaled );
+    servo.cw(this.value);
   });
 });
-
-// @markdown
-// - [TinkerKit Servo](http://www.tinkerkit.com/servo/)
-// - [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-// @markdown

@@ -1,4 +1,26 @@
-# Button Options
+<!--remove-start-->
+
+# Button - Options
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button - Options"
+
+
+
+![docs/breadboard/button-options.png](breadboard/button-options.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -8,7 +30,7 @@ node eg/button-options.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, button;
+  board, button;
 
 board = new five.Board();
 
@@ -52,27 +74,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/button-options.png](breadboard/button-options.png)
-[docs/breadboard/button-options.fzz](breadboard/button-options.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

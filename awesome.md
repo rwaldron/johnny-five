@@ -3,6 +3,13 @@
 (Entries listed newest to oldest)
 
 
+## Ricardo de Pena [@ricardodepena](https://twitter.com/ricardodepena)
+
+- Clawbot: bluetooth bot with a claw, controlled via a ps3 controller
+    [video](http://vimeo.com/86788094)
+    [code](https://github.com/rdepena/clawbot)
+
+
 ## Richard Key [@busyrich](http://twitter.com/busyrich)
 
 - Arduino Attack!
@@ -122,3 +129,14 @@
 
 - 6WD Rover
   [image](http://twitpic.com/a9t3rg)
+
+## Sara Chipps [@sarajchipps](https://twitter.com/sarajchipps)
+
+- LEDs that change color based on Twitter sentiment
+   [video](http://www.youtube.com/watch?v=ws7svZuq29c)
+   [code](https://github.com/SaraJo/twitter-ring)
+
+## Yusuf Çakmak [@yukocan](https://twitter.com/yukocan)
+   Control Led's Color with Leap Motion + Arduino
+   [Code](https://github.com/yusufcakmak/leapmotion-arduino/blob/master/examples/ledcontrolhands.js) 
+   [Vine](https://vine.co/v/MmhnAKO7aLx)

@@ -1,4 +1,26 @@
-# Board Multi
+<!--remove-start-->
+
+# Board - Multiple in one program
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Board - Multiple in one program"
+
+
+
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
+
+Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -8,9 +30,10 @@ node eg/board-multi.js
 
 ```javascript
 var five = require("johnny-five");
+var boards = new five.Boards(["A", "B"]);
 
 // Create 2 board instances with IDs "A" & "B"
-new five.Boards([ "A", "B" ]).on("ready", function() {
+boards.on("ready", function() {
 
   // Both "A" and "B" are initialized
   // (connected and available for communication)
@@ -21,7 +44,12 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
 
     // Initialize an Led instance on pin 13 of
     // each initialized board and strobe it.
-    new five.Led({ pin: 13, board: board }).strobe();
+    var led = new five.Led({
+      pin: 13,
+      board: board
+    });
+
+    led.blink();
   });
 });
 
@@ -53,27 +81,20 @@ new five.Boards([ "A", "B" ]).on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/board-multi.png](breadboard/board-multi.png)
-[docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

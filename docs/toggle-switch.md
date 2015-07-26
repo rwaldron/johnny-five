@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Toggle Switch
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Toggle Switch"
+
+
+
+![docs/breadboard/toggle-switch.png](breadboard/toggle-switch.png)<br>
+
+Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,8 +29,8 @@ node eg/toggle-switch.js
 
 
 ```javascript
-var five = require("../lib/johnny-five.js"),
-    board, toggleSwitch;
+var five = require("johnny-five"),
+  board, toggleSwitch;
 
 board = new five.Board();
 
@@ -41,21 +63,6 @@ board.on("ready", function() {
 
 ```
 
-## Breadboard
-
-<img src="https://raw.github.com/rwldrn/johnny-five/master/docs/breadboard/toggle-switch.png">
-
-
-
-
-## Devices
-
-
-
-
-## Documentation
-
-_(Nothing yet)_
 
 
 
@@ -63,15 +70,14 @@ _(Nothing yet)_
 
 
 
+&nbsp;
 
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

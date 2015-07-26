@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, photoresistor;
+  board, photoresistor;
 
 board = new five.Board();
 
@@ -18,9 +18,9 @@ board.on("ready", function() {
     pot: photoresistor
   });
 
-  // "read" get the current reading from the photoresistor
-  photoresistor.on("read", function( err, value ) {
-    console.log( value, this.normalized );
+  // "data" get the current reading from the photoresistor
+  photoresistor.on("data", function() {
+    console.log(this.value);
   });
 });
 

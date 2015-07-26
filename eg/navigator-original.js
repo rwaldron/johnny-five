@@ -1,28 +1,25 @@
 var five = require("../lib/johnny-five.js"),
-    board, Navigator, navigator, servos,
-    expandWhich, directionMap, scale;
+  board, Navigator, navigator, servos,
+  expandWhich, directionMap, scale;
 
 directionMap = {
   reverse: {
     right: "left",
     left: "right"
   },
-  translations: [
-    {
-      f: "forward",
-      r: "reverse",
-      fwd: "forward",
-      rev: "reverse"
-    },
-    {
-      r: "right",
-      l: "left"
-    }
-  ]
+  translations: [{
+    f: "forward",
+    r: "reverse",
+    fwd: "forward",
+    rev: "reverse"
+  }, {
+    r: "right",
+    l: "left"
+  }]
 };
 
-scale = function( speed, low, high ) {
-  return Math.floor( five.Fn.map( speed, 0, 5, low, high ) );
+scale = function(speed, low, high) {
+  return Math.floor(five.Fn.map(speed, 0, 5, low, high));
 };
 
 
@@ -30,15 +27,22 @@ scale = function( speed, low, high ) {
  * Navigator
  * @param {Object} opts Optional properties object
  */
-function Navigator( opts ) {
+
+function Navigator(opts) {
 
   // Boe Navigator continuous are calibrated to stop at 90°
   this.center = opts.center || 90;
 
   // Initialize the right and left cooperative servos
   this.servos = {
-    right: new five.Servo({ pin: opts.right, type: "continuous" }),
-    left: new five.Servo({ pin: opts.left, type: "continuous" })
+    right: new five.Servo({
+      pin: opts.right,
+      type: "continuous"
+    }),
+    left: new five.Servo({
+      pin: opts.left,
+      type: "continuous"
+    })
   };
 
   // Set the initial servo cooperative direction
@@ -76,11 +80,11 @@ Navigator.DIR_MAP = directionMap;
  * @param  {Number} left  Speed/Direction of left servo
  * @return {Object} this
  */
-Navigator.prototype.move = function( right, left ) {
+Navigator.prototype.move = function(right, left) {
 
   // Quietly ignore duplicate instructions
-  if ( this.direction.right === right &&
-        this.direction.left === left ) {
+  if (this.direction.right === right &&
+    this.direction.left === left) {
     return this;
   }
 
@@ -88,8 +92,8 @@ Navigator.prototype.move = function( right, left ) {
   // Servos are mounted opposite of each other,
   // the values for left and right will be in
   // opposing directions.
-  this.servos.right.move( right );
-  this.servos.left.move( left );
+  this.servos.right.to(right);
+  this.servos.left.to(left);
 
   // Push a record object into the history
   this.history.push({
@@ -120,8 +124,8 @@ Navigator.prototype.move = function( right, left ) {
   {
     name: "forward",
     abbr: "fwd",
-    args: function( center, val ) {
-      return [ center - (val - center), val ];
+    args: function(center, val) {
+      return [center - (val - center), val];
     }
   },
 
@@ -135,26 +139,26 @@ Navigator.prototype.move = function( right, left ) {
   {
     name: "reverse",
     abbr: "rev",
-    args: function( center, val ) {
-      return [ val, center - (val - center) ];
+    args: function(center, val) {
+      return [val, center - (val - center)];
     }
   }
 
-].forEach(function( dir ) {
+].forEach(function(dir) {
 
-  var method = function( speed ) {
+  var method = function(speed) {
     // Set default direction method
     speed = speed === undefined ? 1 : speed;
 
     this.speed = speed;
     this.which = dir.name;
 
-    return this.move.apply( this,
-      dir.args( this.center, scale( speed, this.center, 110 ) )
+    return this.move.apply(this,
+      dir.args(this.center, scale(speed, this.center, 110))
     );
   };
 
-  Navigator.prototype[ dir.name ] = Navigator.prototype[ dir.abbr ] = method;
+  Navigator.prototype[dir.name] = Navigator.prototype[dir.abbr] = method;
 });
 
 /**
@@ -165,7 +169,7 @@ Navigator.prototype.stop = function() {
   this.speed = this.center;
   this.which = "stop";
 
-  return this.move( this.center, this.center );
+  return this.to(this.center, this.center);
 };
 
 
@@ -182,26 +186,26 @@ Navigator.prototype.stop = function() {
    */
   "left"
 
-].forEach(function( dir ) {
-  Navigator.prototype[ dir ] = function() {
+].forEach(function(dir) {
+  Navigator.prototype[dir] = function() {
 
     // Use direction value and reverse direction map to
     // derive the direction values for moving the
     // cooperative servos
-    var actual = this.direction[ directionMap.reverse[ dir ] ];
+    var actual = this.direction[directionMap.reverse[dir]];
 
-    if ( !this.isTurning ) {
+    if (!this.isTurning) {
       // Set turning lock
       this.isTurning = true;
 
       // Send turning command
-      this.move( actual, actual );
+      this.to(actual, actual);
 
       // Cap turning time to 750ms
       setTimeout(function() {
 
         // Restore direction after turn
-        this[ this.which ]( this.speed );
+        this[this.which](this.speed);
 
         // Release turning lock
         this.isTurning = false;
@@ -213,19 +217,19 @@ Navigator.prototype.stop = function() {
   };
 });
 
-expandWhich = function( which ) {
+expandWhich = function(which) {
   var parts;
 
-  if ( which.length === 2 ) {
-    parts = [ which[0], which[1] ];
+  if (which.length === 2) {
+    parts = [which[0], which[1]];
   }
 
-  if ( !parts.length && /\-/.test(which) ) {
+  if (!parts.length && /\-/.test(which)) {
     parts = which.split("-");
   }
 
-  return parts.map(function( val, i ) {
-    return directionMap.translations[ i ][ val ];
+  return parts.map(function(val, i) {
+    return directionMap.translations[i][val];
   }).join("-");
 };
 
@@ -241,34 +245,34 @@ expandWhich = function( which ) {
  *
  * @return {Object} this
  */
-Navigator.prototype.pivot = function( which, time ) {
+Navigator.prototype.pivot = function(which, time) {
   var actual, directions, scaled;
 
-  scaled = scale( this.speed, this.center, 110 );
-  which = expandWhich( which );
+  scaled = scale(this.speed, this.center, 110);
+  which = expandWhich(which);
 
   directions = {
     "forward-right": function() {
-      this.move( this.center, scaled );
+      this.to(this.center, scaled);
     },
     "forward-left": function() {
-      this.move( this.center - (scaled - this.center), this.center );
+      this.to(this.center - (scaled - this.center), this.center);
     },
     "reverse-right": function() {
-      this.move( scaled, this.center );
+      this.to(scaled, this.center);
     },
     "reverse-left": function() {
-      this.move( this.center, this.center - (scaled - this.center) );
+      this.to(this.center, this.center - (scaled - this.center));
     }
   };
 
-  directions[ which ].call( this, this.speed );
+  directions[which].call(this, this.speed);
 
   setTimeout(function() {
 
-    this[ this.which ]( this.speed );
+    this[this.which](this.speed);
 
-  }.bind(this), time || 1000 );
+  }.bind(this), time || 1000);
 
   return this;
 };
@@ -285,7 +289,7 @@ board.on("ready", function() {
   // TODO: Refactor into modular program code
 
   var center, collideAt, degrees, step, facing, lastTurn,
-  range, laser, look, isScanning, scanner, sonar;
+    range, laser, look, isScanning, scanner, sonar;
 
   // Collision distance (inches)
   collideAt = 6;
@@ -297,10 +301,10 @@ board.on("ready", function() {
   facing = "";
 
   // Scanning range (degrees)
-  range = [ 20, 140 ];
+  range = [20, 140];
 
   // Servo center point (degrees)
-  center = ((range[1] - range[0]) / 2 ) + range[0];
+  center = ((range[1] - range[0]) / 2) + range[0];
 
   // Starting scanner scanning position (degrees)
   degrees = center;
@@ -345,7 +349,7 @@ board.on("ready", function() {
   scanner.center();
 
   // Wait 1000ms, then initialize forward movement
-  this.wait( 1000, function() {
+  this.wait(1000, function() {
 
     laser.on();
     navigator.fwd(3);
@@ -353,7 +357,7 @@ board.on("ready", function() {
 
 
   // Scanner/Panning loop
-  this.loop( 75, function() {
+  this.loop(75, function() {
     var bounds;
 
     bounds = {
@@ -363,9 +367,9 @@ board.on("ready", function() {
 
     // During course change, scanning is paused to avoid
     // overeager redirect instructions[1]
-    if ( isScanning ) {
+    if (isScanning) {
       // Calculate the next step position
-      if ( degrees >= scanner.range[1] || degrees === scanner.range[0] ) {
+      if (degrees >= scanner.range[1] || degrees === scanner.range[0]) {
         step *= -1;
       }
 
@@ -375,30 +379,30 @@ board.on("ready", function() {
       // The following three conditions will help determine
       // which way the navigator should turn if a potential collideAt
       // may occur in the sonar "change" event handler[2]
-      if ( degrees > bounds.left ) {
+      if (degrees > bounds.left) {
         facing = "left";
       }
 
-      if ( degrees < bounds.right ) {
+      if (degrees < bounds.right) {
         facing = "right";
       }
 
-      if ( degrees > bounds.right && degrees < bounds.left ) {
+      if (degrees > bounds.right && degrees < bounds.left) {
         facing = "forward";
       }
 
-      scanner.move( degrees );
+      scanner.to(degrees);
     }
   });
 
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", function( err ) {
+  sonar.on("change", function(err) {
     var turnTo;
 
     // Detect collideAt
-    if ( Math.abs(this.inches) <= collideAt && isScanning ) {
+    if (Math.abs(this.inches) <= collideAt && isScanning) {
 
       laser.strobe();
 
@@ -407,26 +411,26 @@ board.on("ready", function() {
       isScanning = false;
 
       // Determine direction to turn
-      turnTo = Navigator.DIR_MAP.reverse[ facing ] || lastTurn;
+      turnTo = Navigator.DIR_MAP.reverse[facing] || lastTurn;
 
       // Log collideAt detection to REPL
       console.log(
-        [ Date.now(),
+        [Date.now(),
           "\tCollision detected " + this.inches + " inches away.",
           "\tTurning " + turnTo.toUpperCase() + " to avoid"
         ].join("\n")
       );
 
       // Turn the navigator
-      navigator[ turnTo ]();
+      navigator[turnTo]();
 
       // Store the last turning direction
       lastTurn = turnTo;
 
       // [1] Allow Nms to pass and release the scanning lock
       // by setting isScanning state to true.
-      board.wait( 1500, function() {
-        console.log( "Release Scanner Lock" );
+      board.wait(1500, function() {
+        console.log("Release Scanner Lock");
         laser.on();
         isScanning = true;
       });

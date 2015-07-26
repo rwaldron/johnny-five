@@ -1,12 +1,12 @@
 var five = require("../lib/johnny-five.js");
 
-function Bug( servos ) {
+function Bug(servos) {
   var part, k;
 
   this.isMoving = false;
 
   // Initialize list of body parts
-  this.parts = [ "front", "left", "right", "rear" ];
+  this.parts = ["front", "left", "right", "rear"];
 
   // Servo positions
   this.history = [];
@@ -19,10 +19,10 @@ function Bug( servos ) {
 
   k = -1;
   // Initialize Servo properties from "servos" argument
-  while ( ++k < this.parts.length ) {
-    part = this.parts[ k ];
+  while (++k < this.parts.length) {
+    part = this.parts[k];
 
-    this[ part ] = servos[ part ] || null;
+    this[part] = servos[part] || null;
   }
 
   // Unwind and wait ~10ms, center servos
@@ -34,12 +34,12 @@ function Bug( servos ) {
 Bug.STEP_MAP = {
   // steps
   fwd: [
-    [ 10, -30 ],
-    [ -15, 30 ]
+    [10, -30],
+    [-15, 30]
   ],
   rev: [
-    [ -15, 30 ],
-    [ 15, -30 ]
+    [-15, 30],
+    [15, -30]
   ]
 };
 
@@ -51,13 +51,13 @@ Bug.prototype.idle = function() {
 
   // If the bug is actually in motion,
   // stop the servo intervals
-  if ( this.isMoving ) {
+  if (this.isMoving) {
     this.stop();
   }
 
   // set to center position°
-  this.front.move( 90 );
-  this.rear.move( 90 );
+  this.front.to(90);
+  this.rear.to(90);
 
   //return this;
 };
@@ -70,7 +70,7 @@ Bug.prototype.idle = function() {
  *                     dir {String}
  * @return {Bug}
  */
-Bug.prototype.step = function( opts ) {
+Bug.prototype.step = function(opts) {
   var dir, move, last, front, rear, step;
 
   opts = opts || {};
@@ -78,14 +78,15 @@ Bug.prototype.step = function( opts ) {
   // Get last move from history if any history exists
   // Provide a "fake" history if needed (first call)
   last = this.history.length ?
-          this.history[ this.history.length - 1 ] :
-          { step: 1 };
+    this.history[this.history.length - 1] : {
+      step: 1
+  };
 
   // increment the last step
   step = last.step + 1;
 
   // If step is too high, step back to 0
-  if ( step > 1 ) {
+  if (step > 1) {
     step = 0;
   }
 
@@ -94,20 +95,20 @@ Bug.prototype.step = function( opts ) {
   dir = opts.dir || "fwd";
 
   // Derive position° for next move
-  move = Bug.STEP_MAP[ dir ][ step ];
+  move = Bug.STEP_MAP[dir][step];
 
   // Assign position° from center
   front = 90 + move[0];
   rear = 90 + move[1];
 
   // Write position° to servos
-  this.front.move( front );
-  this.rear.move( rear );
+  this.front.to(front);
+  this.rear.to(rear);
 
   // Allow half step or full if provided,
   // defaults to full
   // enum(false|null|undefined)
-  if ( !opts.half ) {
+  if (!opts.half) {
     // Wait one second and move servos back to
     // center idling position, 90°
     setTimeout(function() {
@@ -120,7 +121,12 @@ Bug.prototype.step = function( opts ) {
   this.history.push(
     // NOTE: this is a great use case example for
     //        ES.next concise object initializers
-    { dir: dir, step: step, front: front, rear: rear }
+    {
+      dir: dir,
+      step: step,
+      front: front,
+      rear: rear
+    }
   );
 };
 
@@ -129,9 +135,9 @@ Bug.prototype.step = function( opts ) {
  * @return {Bug}
  */
 Bug.prototype.stop = function() {
-  Object.keys( this.intervals ).forEach(function( key ) {
-    if ( this.intervals[ key ] ) {
-      clearInterval( this.intervals[ key ] );
+  Object.keys(this.intervals).forEach(function(key) {
+    if (this.intervals[key]) {
+      clearInterval(this.intervals[key]);
     }
   }, this);
   //return this;
@@ -150,15 +156,18 @@ Bug.prototype.stop = function() {
    */
   "rev"
 
-].forEach(function( dir, k ) {
+].forEach(function(dir, k) {
 
-  Bug.prototype[ dir ] = function() {
+  Bug.prototype[dir] = function() {
 
     this.isMoving = true;
 
-    this.intervals[ dir ] = setInterval(function() {
-      this.step({ dir: dir, half: true });
-    }.bind(this), 750 );
+    this.intervals[dir] = setInterval(function() {
+      this.step({
+        dir: dir,
+        half: true
+      });
+    }.bind(this), 750);
 
     // //return this;
   };

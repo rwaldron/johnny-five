@@ -1,4 +1,15 @@
-# Tinkerkit Blink
+<!--remove-start-->
+
+# TinkerKit - Blink
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -13,31 +24,38 @@ new five.Board().on("ready", function() {
   new five.Led("O0").strobe(250);
 });
 
-
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-blink.png](breadboard/tinkerkit-blink.png)
-
-
-
-- [TinkerKit Led](http://www.tinkerkit.com/led-red-10mm/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+### TinkerKit Blink
 
 
 
+![docs/images/tinkerkit-blink.png](images/tinkerkit-blink.png)  
 
 
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-## Release History
-_(Nothing yet)_
+
+
+
+
+## Learn More
+
+- [TinkerKit Led](http://tinkerkit.tihhs.nl/led-red-10mm/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

@@ -1,4 +1,15 @@
-# Nunchuk
+<!--remove-start-->
+
+# Wii Nunchuck
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -8,14 +19,18 @@ node eg/nunchuk.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, nunchuk;
+  board, nunchuk;
 
 board = new five.Board();
 
 board.on("ready", function() {
 
+  // When using the WiiChuck adapter with an UNO,
+  // these pins act as the Ground and Power lines.
+  // This will not work on a Leonardo, so these
+  // lines can be removed.
   new five.Pin("A2").low();
-  new five.Pin("A3").low();
+  new five.Pin("A3").high();
 
   // Create a new `nunchuk` hardware instance.
   nunchuk = new five.Wii.Nunchuk({
@@ -40,10 +55,10 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on( "change", function( err, event ) {
+  nunchuk.joystick.on("change", function(err, event) {
     console.log(
       "joystick " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
@@ -53,10 +68,10 @@ board.on("ready", function() {
   // Fired when the accelerometer detects a change in
   // axis position.
   //
-  nunchuk.accelerometer.on( "change", function( err, event ) {
+  nunchuk.accelerometer.on("change", function(err, event) {
     console.log(
       "accelerometer " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
@@ -83,13 +98,14 @@ board.on("ready", function() {
   //
 
 
-  [ "down", "up", "hold" ].forEach(function( type ) {
+  ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on( type, function( err, event ) {
+    nunchuk.on(type, function(err, event) {
       console.log(
         event.target.which + " is " + type,
 
-        { isUp: event.target.isUp,
+        {
+          isUp: event.target.isUp,
           isDown: event.target.isDown
         }
       );
@@ -98,9 +114,9 @@ board.on("ready", function() {
   });
 
 
-// Further reading
-// http://media.pragprog.com/titles/msard/tinker.pdf
-// http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
+  // Further reading
+  // http://media.pragprog.com/titles/msard/tinker.pdf
+  // http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
 });
 
 ```
@@ -112,18 +128,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

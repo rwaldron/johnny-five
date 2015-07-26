@@ -6,9 +6,10 @@
  * to determine if a given value has changed
  * drastically enough
  */
-function Change( margin ) {
+
+function Change(margin) {
   if (!(this instanceof Change)) {
-    return new Change( margin );
+    return new Change(margin);
   }
   this.last = 0;
   this.margin = margin || 0;
@@ -31,11 +32,11 @@ function Change( margin ) {
 Change.prototype.isNoticeable = function(value, margin) {
   margin = margin || this.margin;
 
-  if ( !Number.isFinite(value) ) {
+  if (!Number.isFinite(value)) {
     return false;
   }
 
-  if ( (value > this.last + margin) || (value < this.last - margin) ) {
+  if ((value > this.last + margin) || (value < this.last - margin)) {
     this.last = value;
     return true;
   }

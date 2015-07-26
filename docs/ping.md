@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Ping
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Ping"
+
+
+
+![docs/breadboard/ping.png](breadboard/ping.png)<br>
+
+Fritzing diagram: [docs/breadboard/ping.fzz](breadboard/ping.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,24 +29,17 @@ node eg/ping.js
 
 
 ```javascript
-var five = require("johnny-five"),
-    board, ping;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `ping` hardware instance.
-  ping = new five.Ping(7);
+  var ping = new five.Ping(7);
 
   // Properties
 
-  // ping.microseconds
-  //
-  // Roundtrip distance in microseconds
-  //
-
-  // ping.inches
+  // ping.in/ping.inches
   //
   // Calculated distance to object in inches
   //
@@ -35,44 +50,28 @@ board.on("ready", function() {
   //
 
 
-  // Ping Event API
-
-  // "read" get the current reading from the ping
-  ping.on("read", function( err, value ) {
-    console.log( "read", value );
-  });
-
-  ping.on("change", function( err, value ) {
-
-    console.log( typeof this.inches );
-    console.log( "Object is " + this.inches + "inches away" );
+  ping.on("change", function() {
+    console.log("Object is " + this.in + " inches away");
   });
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/ping.png](breadboard/ping.png)
-[docs/breadboard/ping.fzz](breadboard/ping.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

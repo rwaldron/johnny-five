@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    board, potentiometer;
+  board, potentiometer;
 
 board = new five.Board();
 
@@ -18,9 +18,9 @@ board.on("ready", function() {
     pot: potentiometer
   });
 
-  // "read" get the current reading from the potentiometer
-  potentiometer.on("read", function( err, value ) {
-    console.log( value, this.normalized );
+  // "data" get the current reading from the potentiometer
+  potentiometer.on("data", function() {
+    console.log(this.value, this.raw);
   });
 });
 

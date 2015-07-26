@@ -1,78 +1,20 @@
-var SerialPort = require("./mock-serial").SerialPort,
-    five = require("../lib/johnny-five.js"),
-    serial = new SerialPort("/path/to/fake/usb"),
-    board = new five.Board({
-      mock: serial
-    });
+var MockFirmata = require("./util/mock-firmata"),
+  five = require("../lib/johnny-five.js"),
+  Board = five.Board;
 
-var modes, capabilities;
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
 
-modes = {
-  INPUT: 0x00,
-  OUTPUT: 0x01,
-  ANALOG: 0x02,
-  PWM: 0x03,
-  SERVO: 0x04
-};
+  io.emit("connect");
+  io.emit("ready");
 
-// Make mode value->type mappings
-Object.keys( modes ).forEach(function( key ) {
-  modes[ modes[key] ] = key;
-});
-
-capabilities = {
-  uno: [
-    // RX/TX
-    { supportedModes: [], mode: 1, value: 0 },
-    { supportedModes: [], mode: 1, value: 0 },
-    // DIGITAL
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    // ANALOG
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 }
-  ],
-  mega: [
-    // RX/TX
-    { supportedModes: [], mode: 1, value: 0 },
-    { supportedModes: [], mode: 1, value: 0 },
-    // DIGITAL
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 3, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 4 ], mode: 1, value: 0 },
-    // ANALOG
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 },
-    { supportedModes: [ 0, 1, 2 ], mode: 1, value: 0 }
-  ]
-};
-
+  return board;
+}
 /*
 UNO
 ---------------------------------------------------------
@@ -109,126 +51,136 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 
 
 exports["UNO Pin Capabilities"] = {
-  setUp: function( done ) {
-    board.pins = new five.Board.Pins({
-      pins: capabilities.uno,
-      analogPins: [ 14, 15, 16, 17, 18, 19 ]
-    });
+  setUp: function(done) {
+    this.board = newBoard();
     done();
   },
-  isDigital: function( test ) {
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
+  isDigital: function(test) {
     test.expect(7);
 
     // RX/TX: false
-    test.ok( !board.pins.isDigital(0) );
-    test.ok( !board.pins.isDigital(1) );
+    test.ok(!this.board.pins.isDigital(0));
+    test.ok(!this.board.pins.isDigital(1));
 
     //  In Range: true
-    test.ok( board.pins.isDigital(2) );
-    test.ok( board.pins.isDigital(13) );
-    test.ok( board.pins.isDigital(19) );
+    test.ok(this.board.pins.isDigital(2));
+    test.ok(this.board.pins.isDigital(13));
+    test.ok(this.board.pins.isDigital(19));
 
     // Out of Range: false
-    test.ok( !board.pins.isDigital(30) );
-    test.ok( !board.pins.isDigital(-1) );
+    test.ok(!this.board.pins.isDigital(30));
+    test.ok(!this.board.pins.isDigital(-1));
 
     test.done();
   },
-  isAnalog: function( test ) {
+
+  isAnalog: function(test) {
     test.expect(7);
 
     // RX/TX: false
-    test.ok( !board.pins.isAnalog(0) );
-    test.ok( !board.pins.isAnalog(1) );
+    test.ok(!this.board.pins.isAnalog(0));
+    test.ok(!this.board.pins.isAnalog(1));
 
     //  In Range: true
-    test.ok( board.pins.isAnalog(14) );
-    test.ok( board.pins.isAnalog(15) );
-    test.ok( board.pins.isAnalog(19) );
+    test.ok(this.board.pins.isAnalog(14));
+    test.ok(this.board.pins.isAnalog(15));
+    test.ok(this.board.pins.isAnalog(19));
 
     // Out of Range: false
-    test.ok( !board.pins.isAnalog(30) );
-    test.ok( !board.pins.isAnalog(-1) );
+    test.ok(!this.board.pins.isAnalog(30));
+    test.ok(!this.board.pins.isAnalog(-1));
 
     test.done();
   },
-  isPWM: function( test ) {
+
+  isPWM: function(test) {
     test.expect(7);
 
     // RX/TX: false
-    test.ok( !board.pins.isPwm(0) );
-    test.ok( !board.pins.isPwm(1) );
+    test.ok(!this.board.pins.isPwm(0));
+    test.ok(!this.board.pins.isPwm(1));
 
     //  In Range: true
-    test.ok( board.pins.isPwm(9) );
-    test.ok( board.pins.isPwm(10) );
-    test.ok( board.pins.isPwm(11) );
+    test.ok(this.board.pins.isPwm(9));
+    test.ok(this.board.pins.isPwm(10));
+    test.ok(this.board.pins.isPwm(11));
 
     // Out of Range: false
-    test.ok( !board.pins.isPwm(30) );
-    test.ok( !board.pins.isPwm(-1) );
+    test.ok(!this.board.pins.isPwm(30));
+    test.ok(!this.board.pins.isPwm(-1));
 
     test.done();
   },
-  isServo: function( test ) {
+
+  isServo: function(test) {
     test.expect(7);
 
     // RX/TX: false
-    test.ok( !board.pins.isServo(0) );
-    test.ok( !board.pins.isServo(1) );
+    test.ok(!this.board.pins.isServo(0));
+    test.ok(!this.board.pins.isServo(1));
 
     //  In Range: true
-    test.ok( board.pins.isServo(9) );
-    test.ok( board.pins.isServo(10) );
-    test.ok( board.pins.isServo(11) );
+    test.ok(this.board.pins.isServo(9));
+    test.ok(this.board.pins.isServo(10));
+    test.ok(this.board.pins.isServo(11));
 
     // Out of Range: false
-    test.ok( !board.pins.isServo(30) );
-    test.ok( !board.pins.isServo(-1) );
+    test.ok(!this.board.pins.isServo(30));
+    test.ok(!this.board.pins.isServo(-1));
 
     test.done();
   },
-  isInput: function( test ) {
+
+  isInput: function(test) {
     test.expect(6);
 
     // RX/TX: false
-    test.ok( !board.pins.isInput(0) );
-    test.ok( !board.pins.isInput(1) );
+    test.ok(!this.board.pins.isInput(0));
+    test.ok(!this.board.pins.isInput(1));
 
     //  In Range: true
-    test.ok( board.pins.isInput(14) );
-    test.ok( board.pins.isInput(9) );
+    test.ok(this.board.pins.isInput(14));
+    test.ok(this.board.pins.isInput(9));
 
     // Out of Range: false
-    test.ok( !board.pins.isInput(30) );
-    test.ok( !board.pins.isInput(-1) );
+    test.ok(!this.board.pins.isInput(30));
+    test.ok(!this.board.pins.isInput(-1));
 
     test.done();
   },
-  isOutput: function( test ) {
+
+  isOutput: function(test) {
     test.expect(6);
 
     // RX/TX: false
-    test.ok( !board.pins.isOutput(0) );
-    test.ok( !board.pins.isOutput(1) );
+    test.ok(!this.board.pins.isOutput(0));
+    test.ok(!this.board.pins.isOutput(1));
 
     //  In Range: true
-    test.ok( board.pins.isOutput(14) );
-    test.ok( board.pins.isOutput(9) );
+    test.ok(this.board.pins.isOutput(14));
+    test.ok(this.board.pins.isOutput(9));
 
     // Out of Range: false
-    test.ok( !board.pins.isOutput(30) );
-    test.ok( !board.pins.isOutput(-1) );
+    test.ok(!this.board.pins.isOutput(30));
+    test.ok(!this.board.pins.isOutput(-1));
 
     test.done();
   },
-  translate: function( test ) {
-    test.expect(3);
 
-    test.equal( five.Board.Pins.translate("I0", "UNO"), "A0" );
-    test.equal( five.Board.Pins.translate("I0", "uno"), "A0" );
+  translate: function(test) {
+    test.expect(6);
 
-    test.equal( five.Board.Pins.translate("I0", "?"), "I0" );
+    test.equal(five.Board.Pins.translate("I0", "UNO"), "A0");
+    test.equal(five.Board.Pins.translate("I0", "uno"), "A0");
+    test.equal(five.Board.Pins.translate("I0", "?"), "I0");
+
+    test.equal(five.Board.Pins.translate(14, "UNO"), "A0");
+    test.equal(five.Board.Pins.translate(54, "MEGA"), "A0");
+    test.equal(five.Board.Pins.translate(14, "LEONARDO"), "A0");
 
     test.done();
   }

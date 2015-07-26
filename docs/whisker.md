@@ -1,4 +1,15 @@
+<!--remove-start-->
+
 # Whisker
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -9,10 +20,10 @@ node eg/whisker.js
 ```javascript
 var Change, five;
 
-Change = require("../eg/change.js");
+Change = require("../eg/change");
 five = require("johnny-five");
 
-new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
+new five.Boards(["control", "nodebot"]).on("ready", function(boards) {
   var controllers, changes, nodebot, whiskers, opposing, directions, speed;
 
   controllers = {
@@ -69,9 +80,9 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
     }
   };
 
-  [ "left", "right" ].forEach(function( impact ) {
-    whiskers[ impact ].on("high", function() {
-      var turn = opposing[ impact ];
+  ["left", "right"].forEach(function(impact) {
+    whiskers[impact].on("high", function() {
+      var turn = opposing[impact];
 
       console.log(
         "%s impact, turning %s",
@@ -79,39 +90,39 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
         turn.toUpperCase()
       );
 
-      nodebot.stop()[ turn ]( 500 );
+      nodebot.stop()[turn](500);
     });
   });
 
 
 
-  [ "x", "y" ].forEach(function( axis ) {
-    controllers[ axis ].scale(1, 3).on("change", function() {
-      var round = Math.round( this.value );
+  ["x", "y"].forEach(function(axis) {
+    controllers[axis].scale(1, 3).on("change", function() {
+      var round = Math.round(this.value);
 
-      if ( changes[ axis ].isNoticeable( round ) ) {
-        if ( round === 2 ) {
+      if (changes[axis].isNoticeable(round)) {
+        if (round === 2) {
           nodebot.stop();
         } else {
           // console.log( axis, round, directions[ axis ][ round ] );
-          nodebot[ directions[ axis ][ round ] ]();
+          nodebot[directions[axis][round]]();
         }
       } else {
-        changes[ axis ].last = round;
+        changes[axis].last = round;
       }
     });
   });
 
   controllers.speed.scale(0, 6).on("change", function() {
-    var value = Math.round( this.scaled );
+    var value = Math.round(this.value);
 
-    if ( changes.speed.isNoticeable( value ) ) {
+    if (changes.speed.isNoticeable(value)) {
       // console.log( "update nodebot.speed: %d", value );
       // console.log( nodebot.motion );
       nodebot.speed = value;
 
-      if ( nodebot.motion !== "stop" ) {
-        nodebot[ nodebot.motion ]();
+      if (nodebot.motion !== "stop") {
+        nodebot[nodebot.motion]();
       }
     }
   });
@@ -131,18 +142,14 @@ new five.Boards([ "control", "nodebot" ]).on("ready", function(boards) {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

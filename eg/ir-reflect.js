@@ -15,11 +15,11 @@ five.Board().on("ready", function() {
 
   var ir = new five.IR.Reflect();
 
-  // "read"
+  // "data"
   //
   // Fires continuously, every 66ms.
   //
-  ir.on("read", function( err, timestamp ) {
-    console.log( "read" );
+  ir.on("data", function(err, timestamp) {
+    console.log("data");
   });
 });

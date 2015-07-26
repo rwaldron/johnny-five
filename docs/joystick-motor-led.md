@@ -1,14 +1,19 @@
-# Joystick Motor Led
+<!--remove-start-->
+
+# Joystick - Motor control
+
+
 
 Run with:
 ```bash
 node eg/joystick-motor-led.js
 ```
 
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
-    board, joystick, motor, led;
+  board, joystick, motor, led;
 
 board = new five.Board();
 
@@ -20,7 +25,7 @@ board.on("ready", function() {
     // Pin orders:
     //   [ up, down, left, right ]
     //   [ ud, lr ]
-    pins: [ "A0", "A1" ],
+    pins: ["A0", "A1"],
     freq: 25
   });
 
@@ -46,13 +51,13 @@ board.on("ready", function() {
 
   // Pushing the joystick to up position should start the motor,
   // releasing it will turn the motor off.
-  joystick.on("axismove", function( err, timestamp ) {
+  joystick.on("axismove", function(err, timestamp) {
 
-    if ( !motor.isOn && this.axis.y > 0.51 ) {
+    if (!motor.isOn && this.axis.y > 0.51) {
       motor.start();
     }
 
-    if ( motor.isOn && this.axis.y < 0.51 ) {
+    if (motor.isOn && this.axis.y < 0.51) {
       motor.stop();
     }
   });
@@ -60,7 +65,7 @@ board.on("ready", function() {
   // While the motor is on, blink the led
   motor.on("start", function() {
     // 250ms
-    led.strobe( 250 );
+    led.strobe(250);
   });
 
   motor.on("stop", function() {
@@ -79,27 +84,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)
-[docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
-
-
+### Breadboard for "Joystick - Motor control"
 
 
 
+![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)<br>
+
+Fritzing diagram: [docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
+
+&nbsp;
 
 
 
 
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-## Release History
-_(Nothing yet)_
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

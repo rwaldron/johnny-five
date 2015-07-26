@@ -1,4 +1,15 @@
-# Magnetometer North
+<!--remove-start-->
+
+# Compass - Find north
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,26 +18,26 @@ node eg/magnetometer-north.js
 
 
 ```javascript
-var color = require("colors"),
-    five = require("johnny-five"),
-    board, colors, servo, mag, count, dirs, isNorth, isSeeking, last;
+var chalk = require("chalk"),
+  five = require("johnny-five"),
+  board, servo, mag, count, dirs, isNorth, isSeeking, last;
 
 board = new five.Board();
 
 board.on("ready", function() {
 
   count = -1;
-  dirs = [ "cw", "ccw" ];
+  dirs = ["cw", "ccw"];
   isNorth = false;
   isSeeking = false;
 
   [
-    [ 95, "ccw" ],
-    [ 85, "cw" ]
+    [95, "ccw"],
+    [85, "cw"]
 
-  ].forEach(function( def ) {
-    five.Servo.prototype[ def[1] ] = function() {
-      this.move( def[0] );
+  ].forEach(function(def) {
+    five.Servo.prototype[def[1]] = function() {
+      this.to(def[0]);
     };
   });
 
@@ -50,16 +61,16 @@ board.on("ready", function() {
   });
 
   // set the continuous servo to stopped
-  servo.move( 90 );
+  servo.to(90);
 
   // As the heading changes, log heading value
-  mag.on("read", function() {
-    var heading = Math.floor( this.heading );
+  mag.on("data", function() {
+    var heading = Math.floor(this.heading);
 
-    if ( heading > 345 || heading < 15 ) {
+    if (heading > 345 || heading < 15) {
 
-      if ( !isNorth ) {
-        console.log( "FOUND north!".yellow );
+      if (!isNorth) {
+        console.log("FOUND north!".yellow);
         isSeeking = false;
       }
 
@@ -69,13 +80,13 @@ board.on("ready", function() {
     } else {
       isNorth = false;
 
-      if ( !isSeeking ) {
-        console.log( "find north!".red, heading );
+      if (!isSeeking) {
+        console.log(chalk.red("find north!"), heading);
         isSeeking = true;
       }
 
 
-      if ( heading < 270 ) {
+      if (heading < 270) {
         servo.ccw();
       } else {
         servo.cw();
@@ -83,41 +94,6 @@ board.on("ready", function() {
     }
   });
 });
-
-colors = {
-  N: "red",
-  NbE: "red",
-  NNE: "red",
-  NEbN: "red",
-  NE: "yellow",
-  NEbE: "yellow",
-  ENE: "yellow",
-  EbN: "yellow",
-  E: "green",
-  EbS: "green",
-  ESE: "green",
-  SEbE: "green",
-  SE: "green",
-  SEbS: "cyan",
-  SSE: "cyan",
-  SbE: "cyan",
-  S: "cyan",
-  SbW: "cyan",
-  SSW: "cyan",
-  SWbS: "blue",
-  SW: "blue",
-  SWbW: "blue",
-  WSW: "blue",
-  WbS: "blue",
-  W: "magenta",
-  WbN: "magenta",
-  WNW: "magenta",
-  NWbW: "magenta",
-  NW: "magenta",
-  NWbN: "magenta",
-  NNW: "magenta",
-  NbW: "red"
-};
 
 ```
 
@@ -128,18 +104,14 @@ colors = {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

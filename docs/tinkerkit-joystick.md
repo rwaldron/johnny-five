@@ -1,4 +1,15 @@
-# Tinkerkit Joystick
+<!--remove-start-->
+
+# TinkerKit - Joystick
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -8,7 +19,7 @@ node eg/tinkerkit-joystick.js
 
 ```javascript
 var five = require("johnny-five"),
-    Change = require("../eg/change.js");
+  Change = require("../eg/change");
 
 new five.Board().on("ready", function() {
   // var servo = new five.Servo("O0");
@@ -39,21 +50,20 @@ new five.Board().on("ready", function() {
   };
 
 
-  [ "x", "y" ].forEach(function( axis ) {
-    joystick[ axis ].scale(1, 3).on("change", function() {
-      var round = Math.round( this.value );
+  ["x", "y"].forEach(function(axis) {
+    joystick[axis].scale(1, 3).on("change", function() {
+      var round = Math.round(this.value);
 
-      if ( round !== 2 && changes[ axis ].isNoticeable( round ) ) {
+      if (round !== 2 && changes[axis].isNoticeable(round)) {
         console.log(
-          "%s changed noticeably (%d): %s", axis,  round, dirs[ axis ][ round ]
+          "%s changed noticeably (%d): %s", axis, round, dirs[axis][round]
         );
       } else {
-        changes[ axis ].last = round;
+        changes[axis].last = round;
       }
     });
   });
 });
-
 
 ```
 
@@ -63,20 +73,22 @@ new five.Board().on("ready", function() {
 
 
 
-- [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
 
 
+## Learn More
 
+- [TinkerKit JoyStick](http://tinkerkit.tihhs.nl/joystick/)
 
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
 
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+&nbsp;
 
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

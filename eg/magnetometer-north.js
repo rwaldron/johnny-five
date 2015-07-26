@@ -1,23 +1,23 @@
-var color = require("colors"),
-    five = require("../lib/johnny-five.js"),
-    board, colors, servo, mag, count, dirs, isNorth, isSeeking, last;
+var chalk = require("chalk"),
+  five = require("../lib/johnny-five.js"),
+  board, servo, mag, count, dirs, isNorth, isSeeking, last;
 
 board = new five.Board();
 
 board.on("ready", function() {
 
   count = -1;
-  dirs = [ "cw", "ccw" ];
+  dirs = ["cw", "ccw"];
   isNorth = false;
   isSeeking = false;
 
   [
-    [ 95, "ccw" ],
-    [ 85, "cw" ]
+    [95, "ccw"],
+    [85, "cw"]
 
-  ].forEach(function( def ) {
-    five.Servo.prototype[ def[1] ] = function() {
-      this.move( def[0] );
+  ].forEach(function(def) {
+    five.Servo.prototype[def[1]] = function() {
+      this.to(def[0]);
     };
   });
 
@@ -41,16 +41,16 @@ board.on("ready", function() {
   });
 
   // set the continuous servo to stopped
-  servo.move( 90 );
+  servo.to(90);
 
   // As the heading changes, log heading value
-  mag.on("read", function() {
-    var heading = Math.floor( this.heading );
+  mag.on("data", function() {
+    var heading = Math.floor(this.heading);
 
-    if ( heading > 345 || heading < 15 ) {
+    if (heading > 345 || heading < 15) {
 
-      if ( !isNorth ) {
-        console.log( "FOUND north!".yellow );
+      if (!isNorth) {
+        console.log("FOUND north!".yellow);
         isSeeking = false;
       }
 
@@ -60,13 +60,13 @@ board.on("ready", function() {
     } else {
       isNorth = false;
 
-      if ( !isSeeking ) {
-        console.log( "find north!".red, heading );
+      if (!isSeeking) {
+        console.log(chalk.red("find north!"), heading);
         isSeeking = true;
       }
 
 
-      if ( heading < 270 ) {
+      if (heading < 270) {
         servo.ccw();
       } else {
         servo.cw();
@@ -74,38 +74,3 @@ board.on("ready", function() {
     }
   });
 });
-
-colors = {
-  N: "red",
-  NbE: "red",
-  NNE: "red",
-  NEbN: "red",
-  NE: "yellow",
-  NEbE: "yellow",
-  ENE: "yellow",
-  EbN: "yellow",
-  E: "green",
-  EbS: "green",
-  ESE: "green",
-  SEbE: "green",
-  SE: "green",
-  SEbS: "cyan",
-  SSE: "cyan",
-  SbE: "cyan",
-  S: "cyan",
-  SbW: "cyan",
-  SSW: "cyan",
-  SWbS: "blue",
-  SW: "blue",
-  SWbW: "blue",
-  WSW: "blue",
-  WbS: "blue",
-  W: "magenta",
-  WbN: "magenta",
-  WNW: "magenta",
-  NWbW: "magenta",
-  NW: "magenta",
-  NWbN: "magenta",
-  NNW: "magenta",
-  NbW: "red"
-};

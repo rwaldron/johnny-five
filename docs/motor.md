@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Motor
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor"
+
+
+
+![docs/breadboard/motor.png](breadboard/motor.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -8,14 +30,14 @@ node eg/motor.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, motor, led;
+  board, motor, led;
 
 board = new five.Board();
 
 board.on("ready", function() {
   // Create a new `motor` hardware instance.
   motor = new five.Motor({
-    pin: 11
+    pin: 5
   });
 
   // Inject the `motor` hardware into
@@ -28,24 +50,27 @@ board.on("ready", function() {
   // Motor Event API
 
   // "start" events fire when the motor is started.
-  motor.on("start", function( err, timestamp ) {
-    console.log( "start", timestamp );
+  motor.on("start", function() {
+    console.log("start");
 
     // Demonstrate motor stop in 2 seconds
-    board.wait( 2000, function() {
+    board.wait(2000, function() {
       motor.stop();
     });
   });
 
-  // "stop" events fire when the motor is started.
-  motor.on("stop", function( err, timestamp ) {
-    console.log( "stop", timestamp );
+  // "stop" events fire when the motor is stopped.
+  motor.on("stop", function() {
+    console.log("stop");
   });
 
   // Motor API
 
-  // start()
+  // start([speed)
   // Start the motor. `isOn` property set to |true|
+  // Takes an optional parameter `speed` [0-255]
+  // to define the motor speed if a PWM Pin is
+  // used to connect the motor.
   motor.start();
 
   // stop()
@@ -55,27 +80,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/motor.png](breadboard/motor.png)
-[docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

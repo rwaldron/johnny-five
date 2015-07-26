@@ -1,4 +1,15 @@
-# Classic Controller
+<!--remove-start-->
+
+# Wii Classic Controller
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -8,7 +19,7 @@ node eg/classic-controller.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, nunchuk;
+  board, nunchuk;
 
 board = new five.Board();
 
@@ -47,18 +58,18 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.left.on( "change", function( err, event ) {
+  nunchuk.joystick.left.on("change", function(err, event) {
     console.log(
       "Left joystick " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
 
-  nunchuk.joystick.right.on( "change", function( err, event ) {
+  nunchuk.joystick.right.on("change", function(err, event) {
     console.log(
       "Right joystick " + event.axis,
-      event.target[ event.axis ],
+      event.target[event.axis],
       event.axis, event.direction
     );
   });
@@ -85,13 +96,14 @@ board.on("ready", function() {
   //
 
 
-  [ "down", "up", "hold" ].forEach(function( type ) {
+  ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on( type, function( err, event ) {
+    nunchuk.on(type, function(err, event) {
       console.log(
         event.target.which + " is " + type,
 
-        { isUp: event.target.isUp,
+        {
+          isUp: event.target.isUp,
           isDown: event.target.isDown
         }
       );
@@ -100,9 +112,9 @@ board.on("ready", function() {
   });
 
 
-// Further reading
-// http://media.pragprog.com/titles/msard/tinker.pdf
-// http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
+  // Further reading
+  // http://media.pragprog.com/titles/msard/tinker.pdf
+  // http://lizarum.com/assignments/physical_computing/2008/wii_nunchuck.html
 });
 
 ```
@@ -114,18 +126,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

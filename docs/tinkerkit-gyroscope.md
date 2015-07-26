@@ -1,4 +1,15 @@
-# Tinkerkit Gyroscope
+<!--remove-start-->
+
+# TinkerKit - Gyro
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,25 +18,23 @@ node eg/tinkerkit-gyroscope.js
 
 
 ```javascript
-var five = require("./lib/johnny-five.js"),
-  board, gryo;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var collection = [];
-  // Create a new `Gyroscope` hardware instance.
+  // Create a new `Gyro` hardware instance.
 
-  gyro = new five.Gyroscope({
-    pins: [ "I0", "I1" ],
-    freq: 200,
-    extent: 4
+  var gyro = new five.Gyro({
+    pins: ["I0", "I1"],
+    sensitivity: 0.67
   });
 
-  gyro.on("acceleration", function( err, data ) {
-    console.log(data.position);
+  gyro.on("change", function() {
+    console.log("X raw: %d rate: %d", this.x, this.rate.x);
+    console.log("Y raw: %d rate: %d", this.y, this.rate.y);
   });
 });
+
 ```
 
 
@@ -35,18 +44,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

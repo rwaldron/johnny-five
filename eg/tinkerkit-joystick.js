@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js"),
-    Change = require("../eg/change.js");
+  Change = require("../eg/change.js");
 
 new five.Board().on("ready", function() {
   // var servo = new five.Servo("O0");
@@ -30,22 +30,17 @@ new five.Board().on("ready", function() {
   };
 
 
-  [ "x", "y" ].forEach(function( axis ) {
-    joystick[ axis ].scale(1, 3).on("change", function() {
-      var round = Math.round( this.value );
+  ["x", "y"].forEach(function(axis) {
+    joystick[axis].scale(1, 3).on("change", function() {
+      var round = Math.round(this.value);
 
-      if ( round !== 2 && changes[ axis ].isNoticeable( round ) ) {
+      if (round !== 2 && changes[axis].isNoticeable(round)) {
         console.log(
-          "%s changed noticeably (%d): %s", axis,  round, dirs[ axis ][ round ]
+          "%s changed noticeably (%d): %s", axis, round, dirs[axis][round]
         );
       } else {
-        changes[ axis ].last = round;
+        changes[axis].last = round;
       }
     });
   });
 });
-
-// @markdown
-// - [TinkerKit JoyStick](http://www.tinkerkit.com/joystick/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-// @markdown

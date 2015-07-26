@@ -5,7 +5,7 @@ new five.Board().on("ready", function() {
 
   accel = new five.Accelerometer({
     id: "accelerometer",
-    pins: [ "I0", "I1" ]
+    pins: ["I0", "I1"]
   });
 
   slider = new five.Sensor({
@@ -26,8 +26,8 @@ new five.Board().on("ready", function() {
 
   servos = new five.Servo.Array();
 
-  slider.scale( 0, 180 ).on("change", function() {
-    servos.move( this.value );
+  slider.scale(0, 180).on("change", function() {
+    servos.to(this.value);
   });
 
   accel.on("acceleration", function() {

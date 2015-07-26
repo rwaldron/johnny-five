@@ -1,8 +1,8 @@
 {
   "name": "johnny-five",
-  "description": "Firmata based Arduino Programming Framework.",
-  "version": "0.7.0",
-  "homepage": "https://github.com/rwldrn/johnny-five",
+  "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, Raspberry Pi, Spark Core, TI Launchpad and more!",
+  "version": "0.8.85",
+  "homepage": "https://johnny-five.io",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
     "email": "waldron.rick@gmail.com"
@@ -44,48 +44,101 @@
     { "name": "Patrick Clark", "email": "<pat@hellop.at>" },
     { "name": "Boros Márton", "email": "<martonboros@gmail.com>" },
     { "name": "Jeremy Morrell", "email": "<morrell.jeremy@gmail.com>" },
-    { "name": "Bob Holt", "email": "<bholt@constantcontact.com>" },
+    { "name": "Bob Holt", "email": "<bobholt@gmail.com>" },
     { "name": "Dwayn Matthies", "email": "<dwayn.matthies@gmail.com>" },
-    { "name": "AJ Fisher", "email": "<ajfisher.td@gmail.com>" }
+    { "name": "AJ Fisher", "email": "<ajfisher.td@gmail.com>" },
+    { "name": "Julian Duque", "email": "<julianduquej@gmail.com>" },
+    { "name": "Daan van Berkel", "email": "<daan.v.berkel.1980@gmail.com>" },
+    { "name": "Oli Evans", "email": "<oli@zilla.org.uk>" },
+    { "name": "Cory Gackenheimer", "email": "<cory.gack@gmail.com>" },
+    { "name": "Ray Pierce", "email": "<ray@digitalpierce.com>" },
+    { "name": "Jonathan Clem", "email": "<jonathan@jclem.net>" },
+    { "name": "achingbrain", "email": "<alex@achingbrain.net>" },
+    { "name": "Jeff Albrecht", "email": "<jeffa@iea-software.com>" },
+    { "name": "Isaac Durazo", "email": "<isaacdurazo@gmail.com>" },
+    { "name": "Pawel Szymczykowski", "email": "<makenai@gmail.com>" },
+    { "name": "Alex Crooks", "email": "<alexcrooks@gmail.com>" },
+    { "name": "Donovan Buck", "email": "<donovan@donovan.bz>" },
+    { "name": "Taha Hesham", "email": "<taha@wizylabs.com>" },
+    { "name": "Alfonso de la Osa", "email": "<fonz@botverse.com>" },
+    { "name": "Donald Averill", "email": "<donaldaverill@nakedcitybrewing.com" },
+    { "name": "Bryan Hughes", "email": "<bryan@theoreticalideations.com>" },
+    { "name": "Robert Myers", "email": "<rmyers@euro-pro.com>" },
+    { "name": "David Resseguie", "email": "<david@resseguie.com>" },
+    { "name": "Lyza Danger Gardner", "email": "<lyza@lyza.com>" },
+    { "name": "Adam Magaluk", "email": "<AdamMagaluK@gmail.com>" },
+    { "name": "Udo Kramer", "email": "<optikfluffel@gmail.com>" },
+    { "name": "Joseph Weakley", "email": "<joew@samjoe.com>" },
+    { "name": "Dean McDonnell", "email": "<mcdonnelldean@outlook.com>" },
+    { "name": "Jonathan Petitcolas", "email": "<petitcolas.jonathan@gmail.com>" },
+    { "name": "Chinmay Pendharkar", "email": "<notthetup@gmail.com>" },
+    { "name": "Brian Genisio", "email": "<BrianGenisio@Gmail.com>" },
+    { "name": "Anna Gerber", "email": "<anna.m.gerber@gmail.com>" },
+    { "name": "Derek Wheelden" , "email": "<derek.wheelden@gmail.com>" },
+    { "name": "Sean Hussey", "email": "<sean@seanhussey.com>" },
+    { "name": "ralphtheninja", "email": "<ralphtheninja@riseup.net>" },
+    { "name": "SotirisValogiannis", "email": "<omiloparmenos@gmail.com>" },
+    { "name": "Sue Lockwood", "email": "<deathbearbrown@gmail.com>" },
+    { "name": "Henri Cavalcante", "email": "<contato@henrimichel.com.br>" },
+    { "name": "Dany Shaanan", "email": "<danyshaanan@gmail.com>" },
+    { "name": "Rachel Hazes", "email": "<>" },
+    { "name": "DeShawn Williams", "email": "<deshawn.b.williams@gmail.com>" },
+    { "name": "bartmichu", "email": "<>" },
+    { "name": "Steve Kinney", "email": "<hello@stevekinney.net>" },
+    { "name": "H. Phil Duby", "email": "<philduby@phriendly.net>" },
+    { "name": "Vincent Rubiolo", "email": "<vincent.libre@cryostase.eu>" },
+    { "name": "Jory Burson", "email": "<jory@bocoup.com>" }
   ],
   "keywords": [
-    "arduino", "usb", "serial", "serialport", "firmata"
+    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "spark", "particle", "i2c", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io", "intel edison", "edison", "pcduino"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/rwldrn/johnny-five.git"
+    "url": "git://github.com/rwaldron/johnny-five.git"
   },
   "bugs": {
-    "url": "https://github.com/rwldrn/johnny-five/issues"
+    "url": "https://github.com/rwaldron/johnny-five/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/rwldrn/johnny-five/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "lib/johnny-five",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.8.0"
   },
   "dependencies": {
-    "colors": ">=0.5.1",
-    "firmata": ">=0.2.9",
-    "lodash": ">=0.1.0",
-    "es6-collections": ">=0.0.1",
-    "socket.io": "latest",
-    "compulsive": "latest",
-    "temporal": "latest",
+    "color-convert": "~0.5.2",
+    "chalk": "latest",
     "descriptor": "latest",
-    "serialport": "latest",
-    "optimist": "~0.5.2",
-    "async": "~0.2.9",
-    "keypress": "latest"
+    "ease-component": "latest",
+    "es6-shim": "latest",
+    "lodash": "latest",
+    "nanotimer": "0.3.1",
+    "temporal": "latest",
+    "array-includes": "latest"
+  },
+  "optionalDependencies": {
+    "firmata": ">=0.2.9",
+    "serialport": "latest"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.2.0"
+    "async": "~0.9.0",
+    "board-io": "latest",
+    "copy-paste": "~0.3.0",
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.11.2",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-jsbeautifier": "~0.2.2",
+    "grunt-jscs": "~0.8.0",
+    "keypress": "latest",
+    "optimist": "~0.6.1",
+    "shelljs": "^0.3.0",
+    "sinon": "~1.10.2"
   },
-  "keywords": []
+  "scripts": {
+    "test": "grunt"
+  },
+  "browser": {
+    "galileo-io": false
+  }
 }

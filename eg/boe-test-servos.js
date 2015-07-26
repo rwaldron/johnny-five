@@ -1,14 +1,14 @@
 var five = require("../lib/johnny-five.js"),
-    board, Navigator, bot, left, right, sonar, scanner, servos,
-    expandWhich, reverseDirMap, scale;
+  board, Navigator, bot, left, right, sonar, scanner, servos,
+  expandWhich, reverseDirMap, scale;
 
 reverseDirMap = {
   right: "left",
   left: "right"
 };
 
-scale = function( speed, low, high ) {
-  return Math.floor( five.Fn.map( speed, 0, 5, low, high ) );
+scale = function(speed, low, high) {
+  return Math.floor(five.Fn.map(speed, 0, 5, low, high));
 };
 
 
@@ -16,14 +16,21 @@ scale = function( speed, low, high ) {
  * Navigator
  * @param {Object} opts Optional properties object
  */
-function Navigator( opts ) {
+
+function Navigator(opts) {
 
   // Boe Navigator continuous are calibrated to stop at 90°
   this.center = opts.center || 90;
 
   this.servos = {
-    right: new five.Servo({ pin: opts.right, type: "continuous" }),
-    left: new five.Servo({ pin: opts.left, type: "continuous" })
+    right: new five.Servo({
+      pin: opts.right,
+      type: "continuous"
+    }),
+    left: new five.Servo({
+      pin: opts.left,
+      type: "continuous"
+    })
   };
 
   this.direction = opts.direction || {
@@ -48,19 +55,19 @@ function Navigator( opts ) {
  * @param  {Number} left  Speed/Direction of left servo
  * @return {Object} this
  */
-Navigator.prototype.move = function( right, left ) {
+Navigator.prototype.move = function(right, left) {
 
   // Quietly ignore duplicate instructions
-  if ( this.direction.right === right &&
-        this.direction.left === left ) {
+  if (this.direction.right === right &&
+    this.direction.left === left) {
     return this;
   }
 
   // Servos are mounted opposite of each other,
   // the values for left and right will be in
   // opposing directions.
-  this.servos.right.move( right );
-  this.servos.left.move( left );
+  this.servos.right.to(right);
+  this.servos.left.to(left);
 
   // Store a recallable history of movement
   this.history.push({
@@ -87,15 +94,15 @@ Navigator.prototype.move = function( right, left ) {
  * @param  {Number}0-5, 0 is stopped, 5 is fastest
  * @return {Object} this
  */
-Navigator.prototype.forward = Navigator.prototype.fwd = function( speed ) {
+Navigator.prototype.forward = Navigator.prototype.fwd = function(speed) {
   speed = speed == null ? 1 : speed;
 
-  var scaled = scale( speed, this.center, 110 );
+  var scaled = scale(speed, this.center, 110);
 
   this.speed = speed;
   this.which = "forward";
 
-  return this.move( this.center - (scaled - this.center), scaled );
+  return this.to(this.center - (scaled - this.center), scaled);
 };
 
 /**
@@ -105,17 +112,17 @@ Navigator.prototype.forward = Navigator.prototype.fwd = function( speed ) {
  * @param  {Number}0-5, 0 is stopped, 5 is fastest
  * @return {Object} this
  */
-Navigator.prototype.reverse = Navigator.prototype.rev = function( speed ) {
+Navigator.prototype.reverse = Navigator.prototype.rev = function(speed) {
   speed = speed == null ? 1 : speed;
 
-  var scaled = scale( speed, this.center, 110 );
+  var scaled = scale(speed, this.center, 110);
 
   this.speed = speed;
   this.which = "reverse";
 
-  console.log( scaled, this.center - (scaled - this.center) );
+  console.log(scaled, this.center - (scaled - this.center));
 
-  return this.move( scaled, this.center - (scaled - this.center) );
+  return this.to(scaled, this.center - (scaled - this.center));
 };
 
 /**
@@ -126,7 +133,7 @@ Navigator.prototype.stop = function() {
   this.speed = this.center;
   this.which = "stop";
 
-  return this.move( this.center, this.center );
+  return this.to(this.center, this.center);
 };
 
 /**
@@ -140,18 +147,18 @@ Navigator.prototype.stop = function() {
  */
 
 
-[ "right", "left" ].forEach(function( dir ) {
-  Navigator.prototype[ dir ] = function() {
-    var actual = this.direction[ reverseDirMap[ dir ] ];
+["right", "left"].forEach(function(dir) {
+  Navigator.prototype[dir] = function() {
+    var actual = this.direction[reverseDirMap[dir]];
 
-    if ( !this.isTurning ) {
+    if (!this.isTurning) {
       this.isTurning = true;
-      this.move( actual, actual );
+      this.to(actual, actual);
 
       // Restore direction after turn
       setTimeout(function() {
 
-        this[ this.which ]( this.speed );
+        this[this.which](this.speed);
         this.isTurning = false;
 
       }.bind(this), 750);
@@ -161,63 +168,60 @@ Navigator.prototype.stop = function() {
   };
 });
 
-expandWhich = function( which ) {
+expandWhich = function(which) {
   var parts, translations;
 
-  translations = [
-    {
-      f: "forward",
-      r: "reverse",
-      fwd: "forward",
-      rev: "reverse"
-    },
-    {
-      r: "right",
-      l: "left"
-    }
-  ];
+  translations = [{
+    f: "forward",
+    r: "reverse",
+    fwd: "forward",
+    rev: "reverse"
+  }, {
+    r: "right",
+    l: "left"
+  }];
 
-  if ( which.length === 2 ) {
-    parts = [ which[0], which[1] ];
+  if (which.length === 2) {
+    parts = [which[0], which[1]];
   }
 
-  if ( !parts.length && /\-/.test(which) ) {
+  if (!parts.length && /\-/.test(which)) {
     parts = which.split("-");
   }
 
-  return parts.map(function( val, i ) {
-    return translations[ i ][ val ];
+  return parts.map(function(val, i) {
+    return translations[i][val];
   }).join("-");
 };
 
-Navigator.prototype.pivot = function( which, time ) {
+Navigator.prototype.pivot = function(which, time) {
   var actual, directions, scaled;
 
-  scaled = scale( this.speed, this.center, 110 );
-  which = expandWhich( which );
+  scaled = scale(this.speed, this.center, 110);
+  which = expandWhich(which);
 
   directions = {
     "forward-right": function() {
-      this.move( this.center, scaled );
+      this.to(this.center, scaled);
     },
     "forward-left": function() {
-      this.move( this.center - (scaled - this.center), this.center );
+      this.to(this.center - (scaled - this.center), this.center);
     },
     "reverse-right": function() {
-      this.move( scaled, this.center );
+      this.to(scaled, this.center);
     },
     "reverse-left": function() {
-      this.move( this.center, this.center - (scaled - this.center) );
+      this.to(this.center, this.center - (scaled - this.center));
     }
   };
 
-  directions[ which ].call( this, this.speed );
+  directions[which].call(this, this.speed);
 
   setTimeout(function() {
 
-    this[ this.which ]( this.speed );
+    this[this.which](this.speed);
 
-  }.bind(this), time || 1000 );
+  }.bind(this), time || 1000);
 
   return this;
 };
@@ -231,7 +235,7 @@ board.on("ready", function() {
     freq: 100
   });
   sonar.on("change", function() {
-    console.log( "Object is " + this.inches + "inches away" );
+    console.log("Object is " + this.inches + "inches away");
   });
 
   scanner = new five.Servo(12);
@@ -239,6 +243,9 @@ board.on("ready", function() {
 
   this.repl.inject({
     // create a bot, right servo = pin 10, left servo = pin 11
-    b: new Navigator({ right: 10, left: 11 })
+    b: new Navigator({
+      right: 10,
+      left: 11
+    })
   });
 });

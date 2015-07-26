@@ -1,4 +1,15 @@
-# Magnetometer Log
+<!--remove-start-->
+
+# Compass - Logger
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,85 +18,86 @@ node eg/magnetometer-log.js
 
 
 ```javascript
-var color = require("colors"),
-    five = require("johnny-five"),
-    board, colors, servo, mag, count, dirs, lock;
+var chalk = require("chalk"),
+  five = require("johnny-five"),
+  board, colors, servo, mag, count, dirs, lock;
 
 (board = new five.Board()).on("ready", function() {
 
-  count = -1;
-  dirs = [ "cw", "ccw" ];
-  lock = false;
+    count = -1;
+    dirs = ["cw", "ccw"];
+    lock = false;
 
-  [
-    // Medium Speed Counter Clock Wise
-    [ 92, "ccw" ],
-    // Medium Speed Clock Wise
-    [ 88, "cw" ]
+    [
+      // Medium Speed Counter Clock Wise
+      [92, "ccw"],
+      // Medium Speed Clock Wise
+      [88, "cw"]
 
-  ].forEach(function( def ) {
+    ].forEach(function(def) {
 
-    // Define a directional method and default speed
-    five.Servo.prototype[ def[1] ] = function( speed ) {
-      speed = speed || def[0];
+      // Define a directional method and default speed
+      five.Servo.prototype[def[1]] = function(speed) {
+        speed = speed || def[0];
 
-      this.move( speed );
-    };
+        this.move(speed);
+      };
+    });
+
+
+    // Create a new `servo` hardware instance.
+    servo = new five.Servo({
+      pin: 9,
+      // `type` defaults to standard servo.
+      // For continuous rotation servos, override the default
+      // by setting the `type` here
+      type: "continuous"
+    });
+
+
+    // Create an I2C `Magnetometer` instance
+    mag = new five.Magnetometer();
+
+    // Inject the servo and magnometer into the REPL
+    this.repl.inject({
+      servo: servo,
+      mag: mag
+    });
+
+    // set the continuous servo to stopped
+    servo.move(90);
+
+    // As the heading changes, log heading value
+    mag.on("headingchange", function() {
+      var log;
+      var color = colors[this.bearing.abbr];
+
+      log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
+
+      console.log(
+        chalk[color](log)
+      );
+
+
+
+      if (!lock && this.bearing.name === "North") {
+        // Set redirection lock
+        lock = true;
+
+        // Redirect
+        servo[dirs[++count % 2]]();
+
+        // Release redirection lock
+        board.wait(2000, function() {
+          lock = false;
+        });
+      }
+    });
+
+    this.wait(2000, function() {
+      servo[dirs[++count % 2]]();
+    });
   });
-
-
-  // Create a new `servo` hardware instance.
-  servo = new five.Servo({
-    pin: 9,
-    // `type` defaults to standard servo.
-    // For continuous rotation servos, override the default
-    // by setting the `type` here
-    type: "continuous"
-  });
-
-
-  // Create an I2C `Magnetometer` instance
-  mag = new five.Magnetometer();
-
-  // Inject the servo and magnometer into the REPL
-  this.repl.inject({
-    servo: servo,
-    mag: mag
-  });
-
-  // set the continuous servo to stopped
-  servo.move( 90 );
-
-  // As the heading changes, log heading value
-  mag.on("headingchange", function() {
-    var log;
-
-    log = ( this.bearing.name + " " + Math.floor(this.heading) + "°" );
-
-    console.log(
-      log[ colors[ this.bearing.abbr ] ]
-    );
-
-
-
-    if ( !lock && this.bearing.name === "North" ) {
-      // Set redirection lock
-      lock = true;
-
-      // Redirect
-      servo[ dirs[ ++count % 2 ] ]();
-
-      // Release redirection lock
-      board.wait( 2000, function() {
-        lock = false;
-      });
-    }
-  });
-
-  this.wait( 2000, function() {
-    servo[ dirs[ ++count % 2 ] ]();
-  });
-});
 
 colors = {
   N: "red",
@@ -131,18 +143,14 @@ colors = {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

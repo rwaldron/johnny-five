@@ -1,4 +1,26 @@
-# Button Pullup
+<!--remove-start-->
+
+# Button - Pullup
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button - Pullup"
+
+
+
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -19,8 +41,8 @@ node eg/button-pullup.js
 // http://arduino.cc/en/Tutorial/DigitalPins
 // https://learn.sparkfun.com/tutorials/pull-up-resistors
 
-var five = require("../lib/johnny-five"),
-    button, led;
+var five = require("johnny-five"),
+  button, led;
 
 five.Board().on("ready", function() {
 
@@ -31,11 +53,11 @@ five.Board().on("ready", function() {
 
   led = new five.Led(13);
 
-  button.on("down", function(value){
+  button.on("down", function(value) {
     led.on();
   });
 
-  button.on("up", function(){
+  button.on("up", function() {
     led.off();
   });
 
@@ -44,26 +66,20 @@ five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

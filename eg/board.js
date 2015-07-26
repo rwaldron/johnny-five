@@ -1,19 +1,11 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 // The board's pins will not be accessible until
 // the board has reported that it is ready
-five.Board().on("ready", function() {
-  var val = 0;
+board.on("ready", function() {
+  console.log("Ready!");
 
-  // Set pin 13 to OUTPUT mode
-  this.pinMode( 13, 1 );
-
-  // Create a loop to "flash/blink/strobe" an led
-  this.loop( 100, function() {
-    this.digitalWrite( 13, (val = val ? 0 : 1) );
-  });
+  var led = new five.Led(13);
+  led.blink(500);
 });
-
-
-// Schematic
-// http://arduino.cc/en/uploads/Tutorial/ExampleCircuit_bb.png

@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Sonar
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Sonar"
+
+
+
+![docs/breadboard/sonar.png](breadboard/sonar.png)<br>
+
+Fritzing diagram: [docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -8,7 +30,7 @@ node eg/sonar.js
 
 ```javascript
 var five = require("johnny-five"),
-    board, sonar;
+  board, sonar;
 
 board = new five.Board();
 
@@ -37,9 +59,9 @@ board.on("ready", function() {
 
   // Sonar Event API
   //
-  // "read" fired continuously
+  // "data" fired continuously
   //
-  sonar.on("read", function( err, timestamp ) {
+  sonar.on("data", function() {
     /*
 
       this.voltage - raw voltage reading
@@ -47,41 +69,34 @@ board.on("ready", function() {
       this.cm  - calculated distance, centimeters
 
     */
-    console.log( "read", "Object is " + this.inches + "inches away" );
+    console.log("data", "Object is " + this.inches + "inches away");
   });
 
   //
   // "change" fired when distance reading changes
   //
-  sonar.on("change", function( err, timestamp ) {
-    console.log( "change", "Object is " + this.inches + "inches away" );
+  sonar.on("change", function() {
+    console.log("change", "Object is " + this.inches + "inches away");
   });
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/sonar.png](breadboard/sonar.png)
-[docs/breadboard/sonar.fzz](breadboard/sonar.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

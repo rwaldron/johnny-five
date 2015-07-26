@@ -1,4 +1,4 @@
-(function( exports, io ) {
+(function(exports, io) {
 
   // private: `radars` cache array for storing instances of Radar,
 
@@ -21,20 +21,20 @@
     degrees: "°"
   };
 
-  socket.on( "ping", function( data ) {
-    if ( radars.length ) {
-      radars[ 0 ].ping( data.degrees, data.distance );
+  socket.on("ping", function(data) {
+    if (radars.length) {
+      radars[0].ping(data.degrees, data.distance);
 
 
       // TODO: This is bas
-      Object.keys( data ).forEach(function( key ) {
-        var node = document.querySelector( "#" + key );
+      Object.keys(data).forEach(function(key) {
+        var node = document.querySelector("#" + key);
 
-        if ( node !== null ) {
-          node.innerHTML = data[ key ] + addl[ key ];
+        if (node !== null) {
+          node.innerHTML = data[key] + addl[key];
 
-          if ( node.dataset.moved === undefined ) {
-            node.style.top = radars[ 0 ].height + "px";
+          if (node.dataset.moved === undefined) {
+            node.style.top = radars[0].height + "px";
             node.style.position = "relative";
             node.dataset.moved = true;
           }
@@ -43,7 +43,7 @@
     }
   });
 
-  socket.on( "reset", function() {
+  socket.on("reset", function() {
     console.log("RESET");
 
     radars.length = 0;
@@ -52,16 +52,17 @@
 
 
   // Radar Constructor
-  function Radar( selector, opts ) {
+
+  function Radar(selector, opts) {
     var node, k;
 
-    if ( !(this instanceof Radar) ) {
-      return new Radar( selector );
+    if (!(this instanceof Radar)) {
+      return new Radar(selector);
     }
 
-    node = document.querySelector( selector );
+    node = document.querySelector(selector);
 
-    if ( node === null ) {
+    if (node === null) {
       throw new Error("Missing canvas");
     }
 
@@ -73,7 +74,7 @@
     this.ctx = node.getContext("2d");
 
     // Clear the canvas
-    this.ctx.clearRect( 0, 0, node.width, node.height);
+    this.ctx.clearRect(0, 0, node.width, node.height);
 
     // Store canvas width as diameter of arc
     this.diameter = this.ctx.width;
@@ -82,14 +83,14 @@
     this.radius = this.diameter / 2;
 
     // Initialize step array
-    this.steps = [ Math.PI ];
+    this.steps = [Math.PI];
 
     // Calculate number of steps in sweep
     this.step = Math.PI / 180;
 
     // Fill in step start radians
-    for ( k = 1; k < 180; k++ ) {
-      this.steps.push( this.steps[ k - 1 ] + this.step );
+    for (k = 1; k < 180; k++) {
+      this.steps.push(this.steps[k - 1] + this.step);
     }
 
     // Set last seen angle to 0
@@ -98,12 +99,12 @@
     // Draw the "grid"
     this.grid();
 
-    radars.push( this );
+    radars.push(this);
   }
 
   Radar.prototype = {
 
-    draw: function( distance, start, end ) {
+    draw: function(distance, start, end) {
 
       var x, y;
 
@@ -132,34 +133,34 @@
       return this;
     },
 
-    ping: function( azimuth, distance ) {
+    ping: function(azimuth, distance) {
 
-      distance = Math.round( distance );
+      distance = Math.round(distance);
 
 
       // If facing forward, invert the azimuth value, as it
       // is actually moving 0-180, left-to-right
-      if ( this.direction === "forward" ) {
+      if (this.direction === "forward") {
         azimuth = Math.abs(azimuth - 180);
 
         // Normalize display from mid sweep, forward
-        if ( this.last === 0 && azimuth < 175 ) {
-          this.last = this.steps[ azimuth + 1 ];
+        if (this.last === 0 && azimuth < 175) {
+          this.last = this.steps[azimuth + 1];
         }
 
-        this.draw( distance, this.steps[ azimuth ], this.last );
+        this.draw(distance, this.steps[azimuth], this.last);
       } else {
 
         // Normalize display from mid sweep, backward
-        if ( this.last === 0 && azimuth > 5 ) {
-          this.last = this.steps[ azimuth - 1 ];
+        if (this.last === 0 && azimuth > 5) {
+          this.last = this.steps[azimuth - 1];
         }
 
-        this.draw( distance, this.last, this.steps[ azimuth ] );
+        this.draw(distance, this.last, this.steps[azimuth]);
       }
 
 
-      this.last = this.steps[ azimuth ];
+      this.last = this.steps[azimuth];
 
       return this;
     },
@@ -167,18 +168,18 @@
     grid: function() {
 
       var ctx, line, i,
-          grid = document.createElement("canvas"),
-          gridNode = document.querySelector("#radar_grid"),
-          dims = {
-            width: null,
-            height: null
-          },
-          canvas = this.ctx.canvas,
-          radarDist = 0,
-          upper = 340;
+        grid = document.createElement("canvas"),
+        gridNode = document.querySelector("#radar_grid"),
+        dims = {
+          width: null,
+          height: null
+        },
+        canvas = this.ctx.canvas,
+        radarDist = 0,
+        upper = 340;
 
 
-      if ( gridNode === null ) {
+      if (gridNode === null) {
         grid.id = "radar_grid";
         // Setup position of grid overlay
         grid.style.position = "relative";
@@ -191,14 +192,14 @@
         grid.height = canvas.height;
 
         // Insert into DOM, directly following canvas to overlay
-        canvas.parentNode.insertBefore( grid, canvas.nextSibling );
+        canvas.parentNode.insertBefore(grid, canvas.nextSibling);
 
         // Capture grid overlay canvas context
         ctx = grid.getContext("2d");
 
 
         ctx.fillStyle = "black";
-        ctx.fillRect( 0, 0, grid.width, grid.height);
+        ctx.fillRect(0, 0, grid.width, grid.height);
         ctx.closePath();
 
         ctx.font = "bold 12px Helvetica";
@@ -207,7 +208,7 @@
         ctx.fillStyle = "green";
         ctx.lineWidth = 1;
 
-        for ( i = 0; i <= 6; i++ ) {
+        for (i = 0; i <= 6; i++) {
 
           ctx.beginPath();
           ctx.arc(
@@ -220,7 +221,7 @@
             true
           );
 
-          if ( i < 6 ) {
+          if (i < 6) {
             ctx.fillText(
               radarDist + 60,
               grid.width / 2 - 7,
@@ -243,18 +244,18 @@
 
 
   // `radars` cache array access
-  Radar.get = function( index ) {
-    return index !== undefined && radars[ index ];
+  Radar.get = function(index) {
+    return index !== undefined && radars[index];
   };
 
   // Expose Radar API
   exports.Radar = Radar;
 
-}( this, this.io ) );
+}(this, this.io));
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  new Radar( "#canvas", {
+  new Radar("#canvas", {
     /**
      * direction
      *   forward  (facing away from controller)

@@ -1,4 +1,15 @@
+<!--remove-start-->
+
 # Motobot
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,52 +18,52 @@ node eg/motobot.js
 
 
 ```javascript
-var five = require("johnny-five"),
-    keypress = require("keypress"),
-    board = new five.Board();
+var five = require("johnny-five");
+var keypress = require("keypress");
+var board = new five.Board();
 
 
 board.on("ready", function() {
-  var speed, command, motors;
+  var speed, commands, motors;
 
   speed = 100;
   commands = null;
   motors = {
-    a: new five.Motor([ 3, 12 ]),
-    b: new five.Motor([ 11, 13 ])
+    a: new five.Motor([3, 12]),
+    b: new five.Motor([11, 13])
   };
 
   this.repl.inject({
     motors: motors
   });
 
-  function controller( ch, key ) {
-    if ( key ) {
-      if ( key.name === "space" ) {
+  function controller(ch, key) {
+    if (key) {
+      if (key.name === "space") {
         motors.a.stop();
         motors.b.stop();
       }
-      if ( key.name === "up" ) {
-        motors.a.fwd(speed);
-        motors.b.fwd(speed);
-      }
-      if ( key.name == "down" ) {
-        motors.a.rev(speed);
-        motors.b.rev(speed);
-      }
-      if ( key.name == "right" ) {
+      if (key.name === "up") {
         motors.a.rev(speed);
         motors.b.fwd(speed);
       }
-      if ( key.name == "left" ) {
+      if (key.name === "down") {
         motors.a.fwd(speed);
         motors.b.rev(speed);
+      }
+      if (key.name === "right") {
+        motors.a.fwd(speed * 0.75);
+        motors.b.fwd(speed * 0.75);
+      }
+      if (key.name === "left") {
+        motors.a.rev(speed * 0.75);
+        motors.b.rev(speed * 0.75);
       }
 
       commands = [].slice.call(arguments);
     } else {
-      if ( ch >= 1 && ch <= 9 ) {
-        speed = five.Fn.scale( ch, 1, 9, 0, 255 );
+      if (ch >= 1 && ch <= 9) {
+        speed = five.Fn.scale(ch, 1, 9, 0, 255);
         controller.apply(null, commands);
       }
     }
@@ -66,38 +77,50 @@ board.on("ready", function() {
   process.stdin.resume();
 });
 
+
+
 ```
 
-## Breadboard/Illustration
 
-![docs/breadboard/motobot.png](breadboard/motobot.png)
-
+## Illustrations / Photos
 
 
-## Devices
+### Complete Motobot
+
+
+Typical complete Motobot platform
+
+
+![docs/images/motobot.jpg](images/motobot.jpg)  
+
+### Motobot chassis
+
+
+Motobot chassis before addings
+
+
+![docs/images/motobot-chassis.jpg](images/motobot-chassis.jpg)  
 
 
 
 
-## Documentation
-
-_(Nothing yet)_
 
 
+## Additional Notes
+
+![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)
+
+![ArduMoto](https://cdn.sparkfun.com//assets/parts/3/8/4/9/09815-01.jpg)
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

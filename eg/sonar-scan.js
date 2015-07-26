@@ -1,11 +1,11 @@
 var five = require("../lib/johnny-five.js"),
-    board;
+  board;
 
 board = new five.Board();
 
 board.on("ready", function() {
   var center, collision, degrees, step, facing,
-  range, redirect, look, isScanning, scanner, sonar, servos;
+    range, redirect, look, isScanning, scanner, sonar, servos;
 
   // Collision distance (inches)
   collision = 6;
@@ -20,10 +20,10 @@ board.on("ready", function() {
   facing = "";
 
   // Scanning range (degrees)
-  range = [ 0, 170 ];
+  range = [0, 170];
 
   // Servo center point (degrees)
-  center = range[ 1 ] / 2;
+  center = range[1] / 2;
 
   // Redirection map
   redirect = {
@@ -50,8 +50,14 @@ board.on("ready", function() {
   });
 
   servos = {
-    right: new five.Servo({ pin: 10, type: "continuous" }),
-    left: new five.Servo({ pin: 11, type: "continuous" })
+    right: new five.Servo({
+      pin: 10,
+      type: "continuous"
+    }),
+    left: new five.Servo({
+      pin: 11,
+      type: "continuous"
+    })
   };
 
   // Initialize the scanner at it's center point
@@ -59,11 +65,11 @@ board.on("ready", function() {
   // lower and upper bound
   scanner.center();
 
-  servos.right.move(90);
-  servos.left.move(90);
+  servos.right.to(90);
+  servos.left.to(90);
 
   // Scanner/Panning loop
-  this.loop( 100, function() {
+  this.loop(100, function() {
     var bounds;
 
     bounds = {
@@ -73,9 +79,9 @@ board.on("ready", function() {
 
     // During course change, scanning is paused to avoid
     // overeager redirect instructions[1]
-    if ( isScanning ) {
+    if (isScanning) {
       // Calculate the next step position
-      if ( degrees >= scanner.range[1] || degrees === scanner.range[0] ){
+      if (degrees >= scanner.range[1] || degrees === scanner.range[0]) {
         step *= -1;
       }
 
@@ -85,38 +91,38 @@ board.on("ready", function() {
       // The following three conditions will help determine
       // which way the bot should turn if a potential collision
       // may occur in the sonar "change" event handler[2]
-      if ( degrees > bounds.left ) {
+      if (degrees > bounds.left) {
         facing = "left";
       }
 
-      if ( degrees < bounds.right ) {
+      if (degrees < bounds.right) {
         facing = "right";
       }
 
-      if ( degrees > bounds.right && degrees < bounds.left ) {
+      if (degrees > bounds.right && degrees < bounds.left) {
         facing = "forward";
       }
 
-      scanner.move( degrees );
+      scanner.to(degrees);
     }
   });
 
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", function( err ) {
+  sonar.on("change", function(err) {
     var turnTo;
 
     // Detect collision
-    if ( Math.abs(this.inches) < collision && isScanning ) {
+    if (Math.abs(this.inches) < collision && isScanning) {
       // Scanning lock will prevent multiple collision detections
       // of the same obstacle
       isScanning = false;
-      turnTo = redirect[ facing ] || Object.keys( redirect )[ Date.now() % 2 ];
+      turnTo = redirect[facing] || Object.keys(redirect)[Date.now() % 2];
 
       // Log collision detection to REPL
       console.log(
-        [ Date.now(),
+        [Date.now(),
           "Collision detected " + this.inches + " inches away.",
           "Turning " + turnTo.toUpperCase() + " to avoid"
         ].join("\n")
@@ -127,8 +133,8 @@ board.on("ready", function() {
 
       // [1] Allow 1000ms to pass and release the scanning lock
       // by setting isScanning state to true.
-      board.wait( 1500, function() {
-        console.log( "Release Scanner Lock" );
+      board.wait(1500, function() {
+        console.log("Release Scanner Lock");
         isScanning = true;
       });
     }

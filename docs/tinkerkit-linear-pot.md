@@ -1,4 +1,15 @@
-# Tinkerkit Linear Pot
+<!--remove-start-->
+
+# TinkerKit - Linear potentiometer
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -10,36 +21,43 @@ node eg/tinkerkit-linear-pot.js
 var five = require("johnny-five");
 
 new five.Board().on("ready", function() {
-  new five.Sensor("I0").scale(0, 100).on("read", function() {
-    console.log( Math.round(this.value) );
+  new five.Sensor("I0").scale(0, 255).on("data", function() {
+    console.log(Math.round(this.value));
   });
 });
-
 
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-linear-pot.png](breadboard/tinkerkit-linear-pot.png)
-
-
-
-- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+### TinkerKit Linear Potentiometer
 
 
 
+![docs/images/tinkerkit-linear-pot.png](images/tinkerkit-linear-pot.png)  
 
 
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-## Release History
-_(Nothing yet)_
+
+
+
+
+## Learn More
+
+- [TinkerKit Linear Potentiometer](http://tinkerkit.tihhs.nl/linear-pot/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

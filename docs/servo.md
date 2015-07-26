@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Servo
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Servo"
+
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,22 +29,34 @@ node eg/servo.js
 
 
 ```javascript
-var five = require("johnny-five"),
-    board, servo;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
+  var servo = new five.Servo(10);
 
-  // Create a new `servo` hardware instance.
-  servo = new five.Servo(10);
+  // Servo alternate constructor with options
+  /*
+  var servo = new five.Servo({
+    id: "MyServo",     // User defined id
+    pin: 10,           // Which pin is it attached to?
+    type: "standard",  // Default: "standard". Use "continuous" for continuous rotation servos
+    range: [0,180],    // Default: 0-180
+    fps: 100,          // Used to calculate rate of movement between positions
+    invert: false,     // Invert all specified positions
+    startAt: 90,       // Immediately move to a degree
+    center: true,      // overrides startAt if true and moves the servo to the center of the range
+    specs: {           // Is it running at 5V or 3.3V?
+      speed: five.Servo.Continuous.speeds["@5.0V"]
+    }
+  });
+  */
 
-  // Inject the `servo` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
+  // Add servo to REPL (optional)
+  this.repl.inject({
     servo: servo
   });
+
 
   // Servo API
 
@@ -44,65 +78,40 @@ board.on("ready", function() {
   //
   // centers the servo to 90°
   //
-  servo.center();
+  // servo.center();
 
-  // move( deg )
+  // to( deg )
   //
   // Moves the servo to position by degrees
   //
-  // servo.move( 90 );
+  // servo.to( 90 );
 
-  // sweep( obj )
+  // step( deg )
   //
-  // Perform a min-max cycling servo sweep (defaults to 0-180)
-  // optionally accepts an object of sweep settings:
-  // {
-  //    lapse: time in milliseconds to wait between moves
-  //           defaults to 500ms
-  //    degrees: distance in degrees to move
-  //           defaults to 10°
-  // }
+  // step all servos by deg
   //
-  // servo.sweep();
+  // eg. array.step( -20 );
 
-
-  // Servo Event API
-
-  // "move" events fire after a successful move.
-  servo.on("move", function( err, degrees ) {
-    console.log( "move", degrees );
-  });
+  servo.sweep();
 });
-
-
-// References
-//
-// http://servocity.com/html/hs-7980th_servo.html
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/servo.png](breadboard/servo.png)
-[docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 
 
 
 
 
+&nbsp;
 
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

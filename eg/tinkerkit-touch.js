@@ -9,14 +9,9 @@ new five.Board().on("ready", function() {
   // instance, like this:
   var touch = new five.Button("O5");
 
-  [ "down", "up", "hold" ].forEach(function( type ) {
-    touch.on( type, function() {
-      console.log( type );
+  ["down", "up", "hold"].forEach(function(type) {
+    touch.on(type, function() {
+      console.log(type);
     });
   });
 });
-
-// @markdown
-// - [TinkerKit Touch](http://www.tinkerkit.com/touch/)
-// - [TinkerKit Shield](http://www.tinkerkit.com/shield/)
-// @markdown

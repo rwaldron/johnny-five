@@ -1,4 +1,26 @@
-# Ir Motion
+<!--remove-start-->
+
+# IR Motion
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "IR Motion"
+
+
+
+![docs/breadboard/ir-motion.png](breadboard/ir-motion.png)<br>
+
+Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,40 +29,29 @@ node eg/ir-motion.js
 
 
 ```javascript
-var five = require("johnny-five"),
-    board, motion;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
   // Create a new `motion` hardware instance.
-  motion = new five.IR.Motion(7);
-
-  // Inject the `motion` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  this.repl.inject({
-    motion: motion
-  });
-
-  // Pir Event API
+  var motion = new five.IR.Motion(7);
 
   // "calibrated" occurs once, at the beginning of a session,
-  motion.on("calibrated", function( err, ts ) {
-    console.log( "calibrated", ts );
+  motion.on("calibrated", function() {
+    console.log("calibrated");
   });
 
   // "motionstart" events are fired when the "calibrated"
   // proximal area is disrupted, generally by some form of movement
-  motion.on("motionstart", function( err, ts ) {
-    console.log( "motionstart", ts );
+  motion.on("motionstart", function() {
+    console.log("motionstart");
   });
 
-  // "motionstart" events are fired following a "motionstart event
+  // "motionend" events are fired following a "motionstart" event
   // when no movement has occurred in X ms
-  motion.on("motionend", function( err, ts ) {
-    console.log( "motionend", ts );
+  motion.on("motionend", function() {
+    console.log("motionend");
   });
 });
 
@@ -53,18 +64,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
 
-
-
-
-
-## Contributing
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
-by maintaining the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
-
-## Release History
-_(Nothing yet)_
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->
