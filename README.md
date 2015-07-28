@@ -208,6 +208,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - Matrix Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
 - [LED - Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
 - [LED - Matrix HT16K33 16x8](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33-16x8.md)
+- [LED - Draw Matrix Characters Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-chars-demo.md)
+- [LED - Enumerate Matrix Characters & Symbols](https://github.com/rwaldron/johnny-five/blob/master/docs/led-enumeratechars.md)
 
 ### Servo
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
