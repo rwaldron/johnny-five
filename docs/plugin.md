@@ -18,8 +18,6 @@ node eg/plugin.js
 
 
 ```javascript
-var Board = require("board");
-
 module.exports = function(five) {
   return (function() {
 
@@ -38,8 +36,8 @@ module.exports = function(five) {
       //        to `this.pin = value`
       //      - Calls an IO Plugin's `normalize` method
       //
-      Board.Component.call(
-        this, opts = Board.Options(opts)
+      five.Board.Component.call(
+        this, opts = five.Board.Options(opts)
       );
 
 
