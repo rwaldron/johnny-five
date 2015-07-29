@@ -42,6 +42,7 @@ five.Board().on("ready", function() {
   });
 });
 
+
 ```
 
 
@@ -52,7 +53,7 @@ five.Board().on("ready", function() {
 
 
 ## Additional Notes
-- [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
+- [LM335 - Temperature Sensor](http://www.ti.com/lit/ds/symlink/lm335.pdf)
 
 &nbsp;
 
