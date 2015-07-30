@@ -344,6 +344,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Temperature - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
 - [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
+- [Temperature - LM335](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm335.md)
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
