@@ -814,6 +814,10 @@
         "title": "Temperature - TMP36"
       },
       {
+        "file": "temperature-lm335.js",
+        "title": "Temperature - LM335"
+      },
+      {
         "file": "temperature-lm35.js",
         "title": "Temperature - LM35"
       },

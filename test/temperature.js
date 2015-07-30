@@ -131,6 +131,102 @@ exports["Temperature -- LM35"] = {
   }
 };
 
+exports["Temperature -- LM335"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.temperature = new Temperature({
+      controller: "LM335",
+      pins: ["A0"],
+      freq: 100,
+      board: this.board
+    });
+
+    this.proto = [];
+
+    this.instance = [{
+      name: "celsius"
+    }, {
+      name: "fahrenheit"
+    }, {
+      name: "kelvin"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.temperature[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.temperature[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(4);
+    this.temperature.on("data", spy);
+
+    raw(100);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), -224);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), -372);
+    test.equals(Math.round(spy.args[0][1].kelvin), 49);
+
+    test.done();
+  },
+
+  change: function(test) {
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(1);
+    this.temperature.on("change", spy);
+
+    raw(100);
+    this.clock.tick(100);
+
+    raw(100);
+    this.clock.tick(100);
+
+    raw(200);
+    this.clock.tick(100);
+
+    raw(100);
+    this.clock.tick(100);
+
+    raw(200);
+    this.clock.tick(100);
+
+    raw(200);
+    this.clock.tick(100);
+
+    test.equal(spy.callCount, 4);
+    test.done();
+  }
+};
+
 exports["Temperature -- TMP36"] = {
 
   setUp: function(done) {
