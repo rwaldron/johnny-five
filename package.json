@@ -111,7 +111,7 @@
     "ease-component": "latest",
     "es6-shim": "latest",
     "lodash": "latest",
-    "nanotimer": "0.3.1",
+    "nanotimer": "~0.3.1",
     "temporal": "latest",
     "array-includes": "latest"
   },
