@@ -818,6 +818,10 @@
         "title": "Temperature - LM35"
       },
       {
+        "file": "temperature-lm335.js",
+        "title": "Temperature - LM335"
+      },
+      {
         "file": "temperature-ds18b20.js",
         "title": "Temperature - DS18B20"
       },
