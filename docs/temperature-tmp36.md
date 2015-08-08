@@ -37,8 +37,10 @@ five.Board().on("ready", function() {
     pin: "A0"
   });
 
-  temperature.on("data", function(err, data) {
-    console.log(data.celsius + "°C", data.fahrenheit + "°F");
+  var sensor = new five.Sensor("A5");
+
+  temperature.on("data", function() {
+    console.log(this.celsius + "°C", this.fahrenheit + "°F");
   });
 });
 

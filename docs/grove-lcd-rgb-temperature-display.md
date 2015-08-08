@@ -47,22 +47,35 @@ board.on("ready", function() {
     controller: "JHD1313M1"
   });
 
+  var f = 0;
+
   temperature.on("data", function() {
 
     // The LCD's background will change
     // color according to the temperature.
     //
+    // Hot -> Warm: Red -> Yellow
+    // Moderate: Green
+    // Cool -> Cold: Blue -> Violet
+    //
     // Experiment with sources of hot and
     // cold temperatures!
     //
-    var f = temperature.fahrenheit;
+
+
+    if (f === Math.round(this.fahrenheit)) {
+      return;
+    }
+
+    f = Math.round(this.fahrenheit);
+
     var r = linear(0x00, 0xFF, f, 100);
     var g = linear(0x00, 0x00, f, 100);
     var b = linear(0xFF, 0x00, f, 100);
 
-    console.log("temp: ", f);
+    // console.log("Fahrenheit:  %d°", f);
 
-    lcd.bgColor(r, g, b).cursor(0, 0).print(f.toFixed(2));
+    lcd.bgColor(r, g, b).cursor(0, 0).print(f);
   });
 });
 
