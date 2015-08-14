@@ -351,6 +351,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl115a2.md)
 - [Barometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-BMP180.md)
 - [Temperature - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
+- [Temperature - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)

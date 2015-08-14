@@ -764,3 +764,94 @@ exports["Temperature -- MPL115A2"] = {
     }.bind(this));
   }
 };
+
+exports["Temperature -- SI7020"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    this.temperature = new Temperature({
+      controller: "SI7020",
+      board: this.board,
+      freq: 10
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Temperature({
+      controller: "SI7020",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  enforceExplicitReadDelay: function(test) {
+    test.expect(1);
+
+    this.i2cConfig.reset();
+
+    new Temperature({
+      controller: "SI7020",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(forwarded.delay, 50000);
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(8);
+
+    test.equal(this.i2cRead.callCount, 1);
+    // address
+    test.equal(this.i2cRead.lastCall.args[0], 0x40);
+    // register
+    test.equal(this.i2cRead.lastCall.args[1], 0xE3);
+    // byte count
+    test.equal(this.i2cRead.lastCall.args[2], 2);
+
+    var spy = sinon.spy();
+    var read = this.i2cRead.lastCall.args[3];
+
+    this.temperature.on("data", spy);
+
+    read([103, 4, 63]);
+
+    this.clock.tick(10);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), 24);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
+    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+
+    test.done();
+  }
+};

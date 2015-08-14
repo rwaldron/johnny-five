@@ -872,6 +872,17 @@
           { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
           { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
         ]
+      },
+      {
+        "file": "temperature-SI7020.js",
+        "title": "Temperature - SI7020",
+        "breadboards": [
+          {"name": "temperature-SI7020", "title": "Tessel with SI7020"},
+          {"name": "temperature-SI7020-uno", "title": "Arduino with SI7020"}
+        ],
+        "externals": [
+          { "title": "SI7020 - I2C Temperature Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
       }
     ]
   },
