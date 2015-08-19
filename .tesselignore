@@ -1,0 +1,8 @@
+assets/
+docs/
+eg/
+node_modules/firmata
+node_modules/serialport
+test/
+tpl/
+util/
