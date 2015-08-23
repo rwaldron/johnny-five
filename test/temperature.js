@@ -4,6 +4,40 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Temperature = five.Temperature;
 
+function setUpShape(suite) {
+  // Base Shape for all Temperature tests
+  suite.proto = [];
+
+  suite.instance = [{
+    name: "celsius"
+  }, {
+    name: "fahrenheit"
+  }, {
+    name: "kelvin"
+  }, {
+    name: "C"
+  }, {
+    name: "F"
+  }, {
+    name: "K"
+  }];
+
+}
+
+function shapeTests(test) {
+  test.expect(this.proto.length + this.instance.length);
+
+  this.proto.forEach(function testProtoMethods(method) {
+    test.equal(typeof this.temperature[method.name], "function", method.name);
+  }, this);
+
+  this.instance.forEach(function testInstanceProperties(property) {
+    test.notEqual(typeof this.temperature[property.name], "undefined", property.name);
+  }, this);
+
+  test.done();
+}
+
 function newBoard() {
   var io = new MockFirmata();
   var board = new Board({
@@ -35,6 +69,99 @@ function restore(target) {
   }
 }
 
+
+function createAnalog(toCelsius) {
+  return new Temperature({
+    pins: ["A0"],
+    toCelsius: toCelsius,
+    freq: 100,
+    board: this.board
+  });
+}
+
+exports["Temperature -- ANALOG (Base)"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+
+    setUpShape(this);
+    this.proto.push({ name: "toCelsius" });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  shape: function(test) {
+    this.temperature = createAnalog.call(this);
+    var raw = this.analogRead.args[0][1];
+    raw(50);
+    shapeTests.call(this, test);
+  },
+
+  rawData: function(test) {
+    var temperature = createAnalog.call(this);
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(13);
+    temperature.on("data", spy);
+
+    raw(50);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    var data = spy.args[0][1];
+
+    var expected = {
+      celsius: 50,
+      C: 50,
+      fahrenheit: 122,
+      F: 122,
+      kelvin: 323,
+      K: 323,
+    };
+
+    Object.keys(expected).forEach(function(prop) {
+      test.equal(Math.round(data[prop]), expected[prop], "data event." + prop);
+      test.equal(Math.round(temperature[prop]), expected[prop], "temperature." + prop);
+    });
+
+    test.done();
+  },
+
+  customData: function(test) {
+    var toCelsius = function() { return 22; };
+    var temperature = createAnalog.call(this, toCelsius);
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(7);
+    temperature.on("data", spy);
+
+    raw(50);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    var data = spy.args[0][1];
+    test.equals(Math.round(data.celsius), 22, "celsius");
+    test.equals(Math.round(data.C), 22, "C");
+    test.equals(Math.round(data.fahrenheit), 72, "fahrenheit");
+    test.equals(Math.round(data.F), 72, "F");
+    test.equals(Math.round(data.kelvin), 295, "kelvin");
+    test.equals(Math.round(data.K), 295, "K");
+
+    test.done();
+  }
+};
+
 exports["Temperature -- LM335"] = {
 
   setUp: function(done) {
@@ -48,15 +175,7 @@ exports["Temperature -- LM335"] = {
       board: this.board
     });
 
-    this.proto = [];
-
-    this.instance = [{
-      name: "celsius"
-    }, {
-      name: "fahrenheit"
-    }, {
-      name: "kelvin"
-    }];
+    setUpShape(this);
 
     done();
   },
@@ -67,19 +186,7 @@ exports["Temperature -- LM335"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
-
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.temperature[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.temperature[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: shapeTests,
 
   data: function(test) {
 
@@ -146,15 +253,7 @@ exports["Temperature -- LM35"] = {
       board: this.board
     });
 
-    this.proto = [];
-
-    this.instance = [{
-      name: "celsius"
-    }, {
-      name: "fahrenheit"
-    }, {
-      name: "kelvin"
-    }];
+    setUpShape(this);
 
     done();
   },
@@ -165,19 +264,7 @@ exports["Temperature -- LM35"] = {
     done();
   },
 
-  shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
-
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.temperature[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.temperature[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
+  shape: shapeTests,
 
   data: function(test) {
 
@@ -519,71 +606,6 @@ exports["Temperature -- MPU6050"] = {
   }
 };
 
-function createAnalog(toCelsius) {
-  return new Temperature({
-    pins: ["A0"],
-    toCelsius: toCelsius,
-    freq: 100,
-    board: this.board
-  });
-}
-
-exports["Temperature -- ANALOG"] = {
-  setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
-
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
-
-  rawData: function(test) {
-    var temperature = createAnalog.call(this);
-    var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
-
-    test.expect(4);
-    temperature.on("data", spy);
-
-    raw(50);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 50);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 122);
-    test.equals(Math.round(spy.args[0][1].kelvin), 323);
-
-    test.done();
-  },
-
-  customData: function(test) {
-    var toCelsius = function() { return 22; };
-    var temperature = createAnalog.call(this, toCelsius);
-    var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
-
-    test.expect(4);
-    temperature.on("data", spy);
-
-    raw(50);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 22);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 72);
-    test.equals(Math.round(spy.args[0][1].kelvin), 295);
-
-    test.done();
-  }
-};
 
 exports["Temperature -- GROVE"] = {
 
