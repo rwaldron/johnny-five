@@ -322,12 +322,6 @@ exports["Temperature -- TMP36"] = {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
-    this.temperature = new Temperature({
-      controller: "TMP36",
-      pins: ["A0"],
-      freq: 100,
-      board: this.board
-    });
 
     done();
   },
@@ -339,6 +333,12 @@ exports["Temperature -- TMP36"] = {
   },
 
   data: function(test) {
+    this.temperature = new Temperature({
+      controller: "TMP36",
+      pins: ["A0"],
+      freq: 100,
+      board: this.board
+    });
 
     var raw = this.analogRead.args[0][1],
       spy = sinon.spy();
@@ -354,6 +354,66 @@ exports["Temperature -- TMP36"] = {
     test.equals(Math.round(spy.args[0][1].celsius), 23);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 74);
     test.equals(Math.round(spy.args[0][1].kelvin), 296);
+
+    test.done();
+  },
+
+  aref: function(test) {
+    this.temperature = new Temperature({
+      controller: "TMP36",
+      pins: ["A0"],
+      freq: 100,
+      board: this.board,
+      aref: 3.3
+    });
+
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(7);
+    this.temperature.on("data", spy);
+
+    raw(150);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].C), -2);
+    test.equals(Math.round(spy.args[0][1].F), 29);
+    test.equals(Math.round(spy.args[0][1].K), 271);
+
+    // changing aref changes values
+    this.temperature.aref = 1.8;
+    test.equals(Math.round(this.temperature.C), -24);
+    test.equals(Math.round(this.temperature.F), -11);
+    test.equals(Math.round(this.temperature.K), 250);
+
+    test.done();
+  },
+
+  arefFromIo: function(test) {
+    this.board.io.aref = 3.3;
+    this.temperature = new Temperature({
+      controller: "TMP36",
+      pins: ["A0"],
+      freq: 100,
+      board: this.board,
+    });
+
+    var raw = this.analogRead.args[0][1],
+      spy = sinon.spy();
+
+    test.expect(4);
+    this.temperature.on("data", spy);
+
+    raw(150);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].C), -2);
+    test.equals(Math.round(spy.args[0][1].F), 29);
+    test.equals(Math.round(spy.args[0][1].K), 271);
 
     test.done();
   }
