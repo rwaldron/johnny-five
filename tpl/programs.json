@@ -351,6 +351,10 @@
         "title": "Motor - PCA9685"
       },
       {
+        "file": "motor-LUDUS.js",
+        "title": "Motor - LUDUS"
+      },
+      {
         "file": "motor-3-pin.js",
         "title": "Motor - 3 pin"
       }
