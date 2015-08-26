@@ -39,13 +39,13 @@ exports["Piezo"] = {
 
   setUp: function(done) {
     this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
 
     this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,
-      board: this.board,
-      timer: this.timer
+      board: this.board
     });
 
     this.proto = [{
@@ -248,6 +248,9 @@ exports["Piezo"] = {
     test.expect(2);
 
     var returned = this.piezo.tone(1915, 1000);
+
+    this.clock.tick(100);
+
     test.ok(this.digitalWrite.called);
     test.equal(returned, this.piezo);
 
@@ -382,6 +385,8 @@ exports["Piezo"] = {
       test.ok(freqSpy.calledWith(672, 60000 / tempo));
       test.done();
     });
+
+    this.clock.tick(100);
   },
 
   playTuneWithStringSongAndBeat: function(test) {
@@ -407,6 +412,8 @@ exports["Piezo"] = {
       test.ok(freqSpy.calledWith(672, 60000 * beats / tempo));
       test.done();
     });
+
+    this.clock.tick(100);
   },
 
   playCanDealWithWonkyValues: function(test) {
@@ -426,5 +433,6 @@ exports["Piezo"] = {
       test.done();
     }.bind(this));
 
+    this.clock.tick(100);
   },
 };
