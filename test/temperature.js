@@ -37,7 +37,7 @@ exports.setUp = function(done) {
   }];
 
   this.board = newBoard();
-  this.sinon = sinon.sandbox.create();
+  this.sandbox = sinon.sandbox.create();
   this.clock = sinon.useFakeTimers();
   this.freq = 100;
 
@@ -46,7 +46,7 @@ exports.setUp = function(done) {
 
 exports.tearDown = function(done) {
   Board.purge();
-  this.sinon.restore();
+  this.sandbox.restore();
   this.clock.restore();
   done();
 };
@@ -62,7 +62,7 @@ function createAnalog(toCelsius) {
 
 function makeTestAnalogConversion(opts) {
   return function testAnalogConversion(test) {
-    var spy = this.sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(15);
     if (opts.aref) {
       this.temperature.aref = opts.aref;
@@ -99,7 +99,7 @@ function makeTestAnalogConversion(opts) {
 
 function testAnalogChange(test) {
   var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall),
-    spy = this.sinon.spy();
+    spy = this.sandbox.spy();
 
   test.expect(1);
   this.temperature.on("change", spy);
@@ -143,7 +143,7 @@ function testShape(test) {
 
 exports["Temperature -- ANALOG"] = {
   setUp: function(done) {
-    this.analogRead = this.sinon.stub(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
     this.analogRead.yields(0);
     this.proto.push({ name: "toCelsius" });
 
@@ -192,7 +192,7 @@ exports["Temperature -- ANALOG"] = {
 
   "custom toCelsius": {
     setUp: function(done) {
-      this.toCelsius = this.sinon.stub().returns(22);
+      this.toCelsius = this.sandbox.stub().returns(22);
       this.temperature = createAnalog.call(this, this.toCelsius);
       done();
     },
@@ -327,12 +327,12 @@ exports["Temperature -- DS18B20"] = {
 
   setUp: function(done) {
     this.pin = 2;
-    this.sendOneWireConfig = this.sinon.spy(MockFirmata.prototype, "sendOneWireConfig");
-    this.sendOneWireSearch = this.sinon.spy(MockFirmata.prototype, "sendOneWireSearch");
-    this.sendOneWireDelay = this.sinon.spy(MockFirmata.prototype, "sendOneWireDelay");
-    this.sendOneWireReset = this.sinon.spy(MockFirmata.prototype, "sendOneWireReset");
-    this.sendOneWireWrite = this.sinon.spy(MockFirmata.prototype, "sendOneWireWrite");
-    this.sendOneWireWriteAndRead = this.sinon.spy(MockFirmata.prototype, "sendOneWireWriteAndRead");
+    this.sendOneWireConfig = this.sandbox.spy(MockFirmata.prototype, "sendOneWireConfig");
+    this.sendOneWireSearch = this.sandbox.spy(MockFirmata.prototype, "sendOneWireSearch");
+    this.sendOneWireDelay = this.sandbox.spy(MockFirmata.prototype, "sendOneWireDelay");
+    this.sendOneWireReset = this.sandbox.spy(MockFirmata.prototype, "sendOneWireReset");
+    this.sendOneWireWrite = this.sandbox.spy(MockFirmata.prototype, "sendOneWireWrite");
+    this.sendOneWireWriteAndRead = this.sandbox.spy(MockFirmata.prototype, "sendOneWireWriteAndRead");
 
     done();
   },
@@ -367,7 +367,7 @@ exports["Temperature -- DS18B20"] = {
   data: function(test) {
     var device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
     var search, data;
-    var spy = this.sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(18);
 
@@ -428,8 +428,8 @@ exports["Temperature -- DS18B20"] = {
   },
 
   twoAddressedUnits: function(test) {
-    var spyA = this.sinon.spy();
-    var spyB = this.sinon.spy();
+    var spyA = this.sandbox.spy();
+    var spyB = this.sandbox.spy();
     var deviceA = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
     var deviceB = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
     var search, data;
@@ -479,9 +479,9 @@ exports["Temperature -- DS18B20"] = {
 exports["Temperature -- MPU6050"] = {
 
   setUp: function(done) {
-    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = this.sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.temperature = new Temperature({
       controller: "MPU6050",
       freq: 100,
@@ -512,7 +512,7 @@ exports["Temperature -- MPU6050"] = {
     test.done();
   },
   data: function(test) {
-    var read, spy = this.sinon.spy();
+    var read, spy = this.sandbox.spy();
 
     test.expect(12);
     this.temperature.on("data", spy);
@@ -551,7 +551,7 @@ exports["Temperature -- MPU6050"] = {
 exports["Temperature -- GROVE"] = {
 
   setUp: function(done) {
-    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "GROVE",
       pin: "A0",
@@ -564,7 +564,7 @@ exports["Temperature -- GROVE"] = {
 
   data: function(test) {
     var raw = this.analogRead.args[0][1],
-      spy = this.sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -585,7 +585,7 @@ exports["Temperature -- GROVE"] = {
 exports["Temperature -- TINKERKIT"] = {
 
   setUp: function(done) {
-    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "TINKERKIT",
       pin: "A0",
@@ -599,7 +599,7 @@ exports["Temperature -- TINKERKIT"] = {
   data: function(test) {
 
     var raw = this.analogRead.args[0][1],
-      spy = this.sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -620,10 +620,10 @@ exports["Temperature -- TINKERKIT"] = {
 exports["Temperature -- MPL115A2"] = {
 
   setUp: function(done) {
-    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = this.sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = this.sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.temperature = new Temperature({
       controller: "MPL115A2",
@@ -707,8 +707,8 @@ exports["Temperature -- MPL115A2"] = {
 exports["Temperature -- SI7020"] = {
 
   setUp: function(done) {
-    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.temperature = new Temperature({
       controller: "SI7020",
@@ -769,7 +769,7 @@ exports["Temperature -- SI7020"] = {
     // byte count
     test.equal(this.i2cRead.lastCall.args[2], 2);
 
-    var spy = this.sinon.spy();
+    var spy = this.sandbox.spy();
     var read = this.i2cRead.lastCall.args[3];
 
     this.temperature.on("data", spy);
