@@ -150,6 +150,29 @@ exports["Temperature -- ANALOG"] = {
     done();
   },
 
+  "picks aref from board.io": function(test) {
+    this.board.io.aref = 3.3;
+    this.temperature = createAnalog.call(this);
+    test.expect(1);
+
+    test.equal(this.temperature.aref, this.board.io.aref);
+    test.done();
+  },
+
+  "picks aref from options": function(test) {
+    this.board.io.aref = 3.3;
+    this.temperature = new Temperature({
+      aref: 1.8,
+      pins: ["A0"],
+      freq: this.freq,
+      board: this.board
+    });
+    test.expect(1);
+
+    test.equal(this.temperature.aref, 1.8);
+    test.done();
+  },
+
   "no controller": {
     setUp: function(done) {
       this.temperature = createAnalog.call(this);
@@ -251,108 +274,43 @@ exports["Temperature -- ANALOG"] = {
       K: 338
     }),
     data: makeTestAnalogConversion({
-      raw: 100,
-      C: 49,
-      F: 120,
-      K: 322
+      raw: 200,
+      C: 98,
+      F: 208,
+      K: 371
     }),
     change: testAnalogChange,
-  }
-};
-
-exports["Temperature -- TMP36"] = {
-
-  setUp: function(done) {
-    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
-
-    done();
   },
 
-  data: function(test) {
-    this.temperature = new Temperature({
-      controller: "TMP36",
-      pins: ["A0"],
-      freq: 100,
-      board: this.board
-    });
+  TMP36: {
+    setUp: function(done) {
+      this.temperature = new Temperature({
+        controller: "TMP36",
+        pins: ["A0"],
+        freq: this.freq,
+        board: this.board
+      });
+      done();
+    },
 
-    var raw = this.analogRead.args[0][1],
-      spy = this.sinon.spy();
+    shape: testShape,
+    change: testAnalogChange,
 
-    test.expect(4);
-    this.temperature.on("data", spy);
+    aref: makeTestAnalogConversion({
+      aref: 3.3,
+      raw: 150,
+      C: -2,
+      F: 29,
+      K: 271
+    }),
 
-    raw(150);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 23);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 74);
-    test.equals(Math.round(spy.args[0][1].kelvin), 296);
-
-    test.done();
+    data: makeTestAnalogConversion({
+      raw: 150,
+      C: 23,
+      F: 74,
+      K: 296
+    }),
   },
-
-  aref: function(test) {
-    this.temperature = new Temperature({
-      controller: "TMP36",
-      pins: ["A0"],
-      freq: 100,
-      board: this.board,
-      aref: 3.3
-    });
-
-    var raw = this.analogRead.args[0][1],
-      spy = this.sinon.spy();
-
-    test.expect(7);
-    this.temperature.on("data", spy);
-
-    raw(150);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].C), -2);
-    test.equals(Math.round(spy.args[0][1].F), 29);
-    test.equals(Math.round(spy.args[0][1].K), 271);
-
-    // changing aref changes values
-    this.temperature.aref = 1.8;
-    test.equals(Math.round(this.temperature.C), -24);
-    test.equals(Math.round(this.temperature.F), -11);
-    test.equals(Math.round(this.temperature.K), 250);
-
-    test.done();
-  },
-
-  arefFromIo: function(test) {
-    this.board.io.aref = 3.3;
-    this.temperature = new Temperature({
-      controller: "TMP36",
-      pins: ["A0"],
-      freq: 100,
-      board: this.board,
-    });
-
-    var raw = this.analogRead.args[0][1],
-      spy = this.sinon.spy();
-
-    test.expect(4);
-    this.temperature.on("data", spy);
-
-    raw(150);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].C), -2);
-    test.equals(Math.round(spy.args[0][1].F), 29);
-    test.equals(Math.round(spy.args[0][1].K), 271);
-
-    test.done();
-  }
 };
 
 function createDS18B20(pin, address) {
