@@ -232,6 +232,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor - H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
+- [Motor - LUDUS](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-LUDUS.md)
 - [Motor - 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 
 ### Stepper Motor
