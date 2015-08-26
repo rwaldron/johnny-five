@@ -76,7 +76,7 @@ function makeTestAnalogConversion(opts) {
     test.equal(Math.round(this.temperature.K), opts.K, "temp.K");
     test.equal(Math.round(this.temperature.kelvin), opts.K, "temp.kelvin");
     test.equal(Math.round(this.temperature.F), opts.F, "temp.F");
-    test.equal(Math.round(this.temperature.fahrenheit), opts.F, "temp.F");
+    test.equal(Math.round(this.temperature.fahrenheit), opts.F, "temp.fahrenheit");
 
     this.clock.tick(this.freq);
 
@@ -88,7 +88,7 @@ function makeTestAnalogConversion(opts) {
     test.equal(Math.round(data.K), opts.K, "data.K");
     test.equal(Math.round(data.kelvin), opts.K, "data.kelvin");
     test.equal(Math.round(data.F), opts.F, "data.F");
-    test.equal(Math.round(data.fahrenheit), opts.F, "data.F");
+    test.equal(Math.round(data.fahrenheit), opts.F, "data.fahrenheit");
 
     this.clock.tick(this.freq);
 
