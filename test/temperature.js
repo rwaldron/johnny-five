@@ -4,26 +4,6 @@ var MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Temperature = five.Temperature;
 
-function setUpShape(suite) {
-  // Base Shape for all Temperature tests
-  suite.proto = [];
-
-  suite.instance = [{
-    name: "celsius"
-  }, {
-    name: "fahrenheit"
-  }, {
-    name: "kelvin"
-  }, {
-    name: "C"
-  }, {
-    name: "F"
-  }, {
-    name: "K"
-  }];
-
-}
-
 function shapeTests(test) {
   test.expect(this.proto.length + this.instance.length);
 
@@ -52,23 +32,36 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
+// Global suite setUp
+exports.setUp = function(done) {
+  // Base Shape for all Temperature tests
+  this.proto = [];
+  this.instance = [{
+    name: "celsius"
+  }, {
+    name: "fahrenheit"
+  }, {
+    name: "kelvin"
+  }, {
+    name: "C"
+  }, {
+    name: "F"
+  }, {
+    name: "K"
+  }];
 
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
+  this.board = newBoard();
+  this.sinon = sinon.sandbox.create();
+  this.clock = sinon.useFakeTimers();
+  done();
+};
 
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
+exports.tearDown = function(done) {
+  Board.purge();
+  this.sinon.restore();
+  this.clock.restore();
+  done();
+};
 
 function createAnalog(toCelsius) {
   return new Temperature({
@@ -79,78 +72,63 @@ function createAnalog(toCelsius) {
   });
 }
 
-exports["Temperature -- ANALOG (Base)"] = {
+exports["Temperature -- ANALOG"] = {
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
-
-    setUpShape(this);
+    this.analogRead = this.sinon.stub(MockFirmata.prototype, "analogRead");
+    this.analogRead.yields(50);
     this.proto.push({ name: "toCelsius" });
 
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
+  "no controller": {
+    setUp: function(done) {
+      this.temperature = createAnalog.call(this);
+      done();
+    },
 
-  shape: function(test) {
-    this.temperature = createAnalog.call(this);
-    var raw = this.analogRead.args[0][1];
-    raw(50);
-    shapeTests.call(this, test);
-  },
+    shape: shapeTests,
 
-  rawData: function(test) {
-    var temperature = createAnalog.call(this);
-    var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+    rawData: function(test) {
+      var spy = this.sinon.spy();
 
-    test.expect(13);
-    temperature.on("data", spy);
+      test.expect(13);
+      this.temperature.on("data", spy);
 
-    raw(50);
+      this.clock.tick(100);
 
-    this.clock.tick(100);
+      test.ok(spy.calledOnce);
+      var data = spy.firstCall.args[1];
 
-    test.ok(spy.calledOnce);
-    var data = spy.args[0][1];
+      var expected = {
+        celsius: 50,
+        C: 50,
+        fahrenheit: 122,
+        F: 122,
+        kelvin: 323,
+        K: 323,
+      };
 
-    var expected = {
-      celsius: 50,
-      C: 50,
-      fahrenheit: 122,
-      F: 122,
-      kelvin: 323,
-      K: 323,
-    };
+      Object.keys(expected).forEach(function(prop) {
+        test.equal(Math.round(data[prop]), expected[prop], "data event." + prop);
+        test.equal(Math.round(this.temperature[prop]), expected[prop], "temperature." + prop);
+      }, this);
 
-    Object.keys(expected).forEach(function(prop) {
-      test.equal(Math.round(data[prop]), expected[prop], "data event." + prop);
-      test.equal(Math.round(temperature[prop]), expected[prop], "temperature." + prop);
-    });
-
-    test.done();
+      test.done();
+    },
   },
 
   customData: function(test) {
-    var toCelsius = function() { return 22; };
-    var temperature = createAnalog.call(this, toCelsius);
-    var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+    var spy = this.sinon.spy();
+    this.temperature = createAnalog.call(this, function toCelsius() { return 22; });
 
     test.expect(7);
-    temperature.on("data", spy);
-
-    raw(50);
+    this.temperature.on("data", spy);
 
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
-    var data = spy.args[0][1];
+    var data = spy.firstCall.args[1];
     test.equals(Math.round(data.celsius), 22, "celsius");
     test.equals(Math.round(data.C), 22, "C");
     test.equals(Math.round(data.fahrenheit), 72, "fahrenheit");
@@ -159,15 +137,13 @@ exports["Temperature -- ANALOG (Base)"] = {
     test.equals(Math.round(data.K), 295, "K");
 
     test.done();
-  }
+  },
 };
 
 exports["Temperature -- LM335"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "LM335",
       pins: ["A0"],
@@ -175,14 +151,6 @@ exports["Temperature -- LM335"] = {
       board: this.board
     });
 
-    setUpShape(this);
-
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -191,7 +159,7 @@ exports["Temperature -- LM335"] = {
   data: function(test) {
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -210,7 +178,7 @@ exports["Temperature -- LM335"] = {
 
   change: function(test) {
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(1);
     this.temperature.on("change", spy);
@@ -243,9 +211,7 @@ exports["Temperature -- LM335"] = {
 exports["Temperature -- LM35"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "LM35",
       pins: ["A0"],
@@ -253,14 +219,6 @@ exports["Temperature -- LM35"] = {
       board: this.board
     });
 
-    setUpShape(this);
-
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -269,7 +227,7 @@ exports["Temperature -- LM35"] = {
   data: function(test) {
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -288,7 +246,7 @@ exports["Temperature -- LM35"] = {
 
   change: function(test) {
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(1);
     this.temperature.on("change", spy);
@@ -319,16 +277,8 @@ exports["Temperature -- LM35"] = {
 exports["Temperature -- TMP36"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
 
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -341,7 +291,7 @@ exports["Temperature -- TMP36"] = {
     });
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -368,7 +318,7 @@ exports["Temperature -- TMP36"] = {
     });
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(7);
     this.temperature.on("data", spy);
@@ -401,7 +351,7 @@ exports["Temperature -- TMP36"] = {
     });
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -432,23 +382,18 @@ function createDS18B20(pin, address) {
 exports["Temperature -- DS18B20"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-
     this.pin = 2;
-    this.clock = sinon.useFakeTimers();
-    this.sendOneWireConfig = sinon.spy(MockFirmata.prototype, "sendOneWireConfig");
-    this.sendOneWireSearch = sinon.spy(MockFirmata.prototype, "sendOneWireSearch");
-    this.sendOneWireDelay = sinon.spy(MockFirmata.prototype, "sendOneWireDelay");
-    this.sendOneWireReset = sinon.spy(MockFirmata.prototype, "sendOneWireReset");
-    this.sendOneWireWrite = sinon.spy(MockFirmata.prototype, "sendOneWireWrite");
-    this.sendOneWireWriteAndRead = sinon.spy(MockFirmata.prototype, "sendOneWireWriteAndRead");
+    this.sendOneWireConfig = this.sinon.spy(MockFirmata.prototype, "sendOneWireConfig");
+    this.sendOneWireSearch = this.sinon.spy(MockFirmata.prototype, "sendOneWireSearch");
+    this.sendOneWireDelay = this.sinon.spy(MockFirmata.prototype, "sendOneWireDelay");
+    this.sendOneWireReset = this.sinon.spy(MockFirmata.prototype, "sendOneWireReset");
+    this.sendOneWireWrite = this.sinon.spy(MockFirmata.prototype, "sendOneWireWrite");
+    this.sendOneWireWriteAndRead = this.sinon.spy(MockFirmata.prototype, "sendOneWireWriteAndRead");
 
     done();
   },
 
   tearDown: function(done) {
-    Board.purge();
-    restore(this);
     Temperature.Drivers.clear();
     done();
   },
@@ -478,7 +423,7 @@ exports["Temperature -- DS18B20"] = {
   data: function(test) {
     var device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
     var search, data;
-    var spy = sinon.spy();
+    var spy = this.sinon.spy();
 
     test.expect(18);
 
@@ -539,8 +484,8 @@ exports["Temperature -- DS18B20"] = {
   },
 
   twoAddressedUnits: function(test) {
-    var spyA = sinon.spy();
-    var spyB = sinon.spy();
+    var spyA = this.sinon.spy();
+    var spyB = this.sinon.spy();
     var deviceA = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
     var deviceB = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
     var search, data;
@@ -590,23 +535,15 @@ exports["Temperature -- DS18B20"] = {
 exports["Temperature -- MPU6050"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
     this.temperature = new Temperature({
       controller: "MPU6050",
       freq: 100,
       board: this.board
     });
 
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -631,7 +568,7 @@ exports["Temperature -- MPU6050"] = {
     test.done();
   },
   data: function(test) {
-    var read, spy = sinon.spy();
+    var read, spy = this.sinon.spy();
 
     test.expect(12);
     this.temperature.on("data", spy);
@@ -670,9 +607,7 @@ exports["Temperature -- MPU6050"] = {
 exports["Temperature -- GROVE"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "GROVE",
       pin: "A0",
@@ -683,16 +618,9 @@ exports["Temperature -- GROVE"] = {
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
-
   data: function(test) {
-
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -713,9 +641,7 @@ exports["Temperature -- GROVE"] = {
 exports["Temperature -- TINKERKIT"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.analogRead = this.sinon.spy(MockFirmata.prototype, "analogRead");
     this.temperature = new Temperature({
       controller: "TINKERKIT",
       pin: "A0",
@@ -726,16 +652,10 @@ exports["Temperature -- TINKERKIT"] = {
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
-
   data: function(test) {
 
     var raw = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sinon.spy();
 
     test.expect(4);
     this.temperature.on("data", spy);
@@ -756,12 +676,10 @@ exports["Temperature -- TINKERKIT"] = {
 exports["Temperature -- MPL115A2"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sinon.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.temperature = new Temperature({
       controller: "MPL115A2",
@@ -769,12 +687,6 @@ exports["Temperature -- MPL115A2"] = {
       freq: 10
     });
 
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -805,7 +717,7 @@ exports["Temperature -- MPL115A2"] = {
     // var spy = sinon.spy();
     // this.temperature.on("data", spy);
 
-    var readOnce = this.i2cReadOnce.args[0][3];
+    var readOnce = this.i2cReadOnce.firstCall.args[3];
     readOnce([
       67, 111,  // A0
       176, 56,  // B1
@@ -813,24 +725,25 @@ exports["Temperature -- MPL115A2"] = {
       56, 116   // C12
     ]);
 
+
+    // In order to handle the Promise used for initialization,
+    // there can be no fake timers in this test, which means we
+    // can't use the clock.tick to move the interval forward
+    // in time.
+    this.clock.restore();
+
     setImmediate(function() {
       test.ok(this.i2cConfig.calledOnce);
       test.ok(this.i2cWrite.calledOnce);
 
-      test.equals(this.i2cWrite.args[0][0], 0x60);
-      test.deepEqual(this.i2cWrite.args[0][1], [0x12, 0x00]);
+      test.equals(this.i2cWrite.firstCall.args[0], 0x60);
+      test.deepEqual(this.i2cWrite.firstCall.args[1], [0x12, 0x00]);
 
       test.ok(this.i2cRead.calledOnce);
-      test.equals(this.i2cRead.args[0][0], 0x60);
-      test.deepEqual(this.i2cRead.args[0][1], 0x00);
-      test.equals(this.i2cRead.args[0][2], 4);
+      test.equals(this.i2cRead.firstCall.args[0], 0x60);
+      test.deepEqual(this.i2cRead.firstCall.args[1], 0x00);
+      test.equals(this.i2cRead.firstCall.args[2], 4);
 
-      // In order to handle the Promise used for initialization,
-      // there can be no fake timers in this test, which means we
-      // can't use the clock.tick to move the interval forward
-      // in time.
-      //
-      //
       // read = this.i2cRead.args[0][3];
 
       // read([
@@ -850,10 +763,8 @@ exports["Temperature -- MPL115A2"] = {
 exports["Temperature -- SI7020"] = {
 
   setUp: function(done) {
-    this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sinon.spy(MockFirmata.prototype, "i2cRead");
 
     this.temperature = new Temperature({
       controller: "SI7020",
@@ -861,12 +772,6 @@ exports["Temperature -- SI7020"] = {
       freq: 10
     });
 
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
     done();
   },
 
@@ -920,7 +825,7 @@ exports["Temperature -- SI7020"] = {
     // byte count
     test.equal(this.i2cRead.lastCall.args[2], 2);
 
-    var spy = sinon.spy();
+    var spy = this.sinon.spy();
     var read = this.i2cRead.lastCall.args[3];
 
     this.temperature.on("data", spy);
