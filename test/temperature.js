@@ -312,7 +312,7 @@ exports["Temperature -- ANALOG"] = {
     }),
   },
 
-  GROOVE: {
+  GROVE: {
     setUp: function(done) {
       this.temperature = new Temperature({
         controller: "GROVE",
