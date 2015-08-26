@@ -311,6 +311,62 @@ exports["Temperature -- ANALOG"] = {
       K: 296
     }),
   },
+
+  GROOVE: {
+    setUp: function(done) {
+      this.temperature = new Temperature({
+        controller: "GROVE",
+        pin: "A0",
+        freq: 100,
+        board: this.board
+      });
+
+      done();
+    },
+    shape: testShape,
+    aref: makeTestAnalogConversion({
+      aref: 3.3,
+      raw: 659,
+      C: 39,
+      F: 102,
+      K: 312,
+    }),
+
+    data: makeTestAnalogConversion({
+      raw: 659,
+      C: 39,
+      F: 102,
+      K: 312,
+    }),
+  },
+
+  TINKERKIT: {
+    setUp: function(done) {
+      this.temperature = new Temperature({
+        controller: "TINKERKIT",
+        pin: "A0",
+        freq: 100,
+        board: this.board
+      });
+
+      done();
+    },
+
+    aref: makeTestAnalogConversion({
+      aref: 3.3,
+      raw: 810,
+      C: 39,
+      F: 102,
+      K: 312,
+    }),
+
+    data: makeTestAnalogConversion({
+      raw: 810,
+      C: 39,
+      F: 102,
+      K: 312,
+    }),
+  },
 };
 
 function createDS18B20(pin, address) {
@@ -542,76 +598,6 @@ exports["Temperature -- MPU6050"] = {
     test.equals(Math.round(spy.args[0][1].celsius), 49);
     test.equals(Math.round(spy.args[0][1].fahrenheit), 121);
     test.equals(Math.round(spy.args[0][1].kelvin), 323);
-
-    test.done();
-  }
-};
-
-
-exports["Temperature -- GROVE"] = {
-
-  setUp: function(done) {
-    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
-    this.temperature = new Temperature({
-      controller: "GROVE",
-      pin: "A0",
-      freq: 100,
-      board: this.board
-    });
-
-    done();
-  },
-
-  data: function(test) {
-    var raw = this.analogRead.args[0][1],
-      spy = this.sandbox.spy();
-
-    test.expect(4);
-    this.temperature.on("data", spy);
-
-    raw(659);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 39);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 102);
-    test.equals(Math.round(spy.args[0][1].kelvin), 312);
-
-    test.done();
-  }
-};
-
-exports["Temperature -- TINKERKIT"] = {
-
-  setUp: function(done) {
-    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
-    this.temperature = new Temperature({
-      controller: "TINKERKIT",
-      pin: "A0",
-      freq: 100,
-      board: this.board
-    });
-
-    done();
-  },
-
-  data: function(test) {
-
-    var raw = this.analogRead.args[0][1],
-      spy = this.sandbox.spy();
-
-    test.expect(4);
-    this.temperature.on("data", spy);
-
-    raw(810);
-
-    this.clock.tick(100);
-
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][1].celsius), 39);
-    test.equals(Math.round(spy.args[0][1].fahrenheit), 102);
-    test.equals(Math.round(spy.args[0][1].kelvin), 312);
 
     test.done();
   }
