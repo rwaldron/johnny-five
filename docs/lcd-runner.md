@@ -36,7 +36,6 @@ board.on("ready", function() {
   var col = 0;
   var row = 0;
 
-  lcd.display();
   lcd.useChar("runninga");
   lcd.useChar("runningb");
 
