@@ -1,9 +1,10 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  util = require("util"),
-  Board = five.Board,
-  LCD = five.LCD;
+var MockFirmata = require("./util/mock-firmata");
+var five = require("../lib/johnny-five.js");
+var lcdChars = require("../lib/lcd-chars.js");
+var sinon = require("sinon");
+var util = require("util");
+var Board = five.Board;
+var LCD = five.LCD;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -35,6 +36,27 @@ function restore(target) {
     }
   }
 }
+
+exports["LCD.Characters"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  exists: function(test) {
+    test.expect(1);
+
+    test.deepEqual(LCD.Characters, lcdChars);
+
+    test.done();
+  },
+
+};
 
 exports["LCD"] = {
   setUp: function(done) {
