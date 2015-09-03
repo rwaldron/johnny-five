@@ -678,3 +678,153 @@ exports["LCD - I2C (LCM1602)"] = {
     test.done();
   }
 };
+
+
+exports["LCD - PCF8574"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "PCF8574",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    test.equal(this.i2cWrite.callCount, 30);
+
+    // This is the expected write sequence.
+    // If this changes, the controller will not function.
+    var sequence = [
+      [ 39, 0 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 32 ],
+      [ 39, 36 ],
+      [ 39, 32 ],
+      [ 39, 36 ],
+      [ 39, 32 ],
+      [ 39, 132 ],
+      [ 39, 128 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 196 ],
+      [ 39, 192 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 20 ],
+      [ 39, 16 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 100 ],
+      [ 39, 96 ],
+      [ 39, 8 ]
+    ];
+
+    test.deepEqual(this.i2cWrite.args, sequence);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.command(15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  },
+
+  send: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.send(0, 15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  }
+};
