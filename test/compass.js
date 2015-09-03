@@ -118,7 +118,7 @@ var expecteds = {
       this.compass.on("data", spy);
 
       handler([1, 2, 3, 4, 5, 6]);
-      this.clock.tick(11);
+      this.clock.tick(25);
 
       test.equal(spy.callCount, 1);
       test.equal(Math.round(spy.args[0][0].heading), expecteds.data[index]);
