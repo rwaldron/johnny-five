@@ -8,7 +8,7 @@ board.on("ready", function() {
 
   // Plug the Grove TSL2561 Light sensor module
   // into an I2C jack
-  var acceleration = new five.Light({
+  var light = new five.Light({
     controller: "TSL2561"
   });
 

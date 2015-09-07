@@ -45,16 +45,16 @@ board.on("ready", function() {
   function quality(ppm) {
     // Adapted from:
     // http://iotdk.intel.com/docs/master/upm/classupm_1_1_t_p401.html
-    if (value < 50) {
+    if (ppm < 50) {
       return "Fresh Air";
     }
-    if (value < 200) {
+    if (ppm < 200) {
       return "Normal Indoor Air";
     }
-    if (value < 400) {
+    if (ppm < 400) {
       return "Low Pollution";
     }
-    if (value < 600) {
+    if (ppm < 600) {
       return "High Pollution - Action Recommended";
     }
     return "Very High Pollution - Take Action Immediately";
