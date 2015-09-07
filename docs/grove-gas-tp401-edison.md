@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Air quality sensor
+# Intel Edison + Grove - Air quality sensor
 
 <!--remove-end-->
 

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Rotary Potentiometer
+# Intel Edison + Grove - Rotary Potentiometer
 
 <!--remove-end-->
 

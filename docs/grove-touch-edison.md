@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Touch
+# Intel Edison + Grove - Touch
 
 <!--remove-end-->
 

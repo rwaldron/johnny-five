@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Servo
+# Intel Edison + Grove - Servo
 
 <!--remove-end-->
 

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Button
+# Intel Edison + Grove - Button
 
 <!--remove-end-->
 

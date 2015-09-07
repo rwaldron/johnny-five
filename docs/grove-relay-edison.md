@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Relay
+# Intel Edison + Grove - Relay
 
 <!--remove-end-->
 

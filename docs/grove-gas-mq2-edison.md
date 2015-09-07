@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Gas (MQ2)
+# Intel Edison + Grove - Gas (MQ2)
 
 <!--remove-end-->
 

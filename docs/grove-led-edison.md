@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - LED
+# Intel Edison + Grove - LED
 
 <!--remove-end-->
 

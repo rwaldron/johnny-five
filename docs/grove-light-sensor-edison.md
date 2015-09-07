@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Light Sensor (TSL2561)
+# Intel Edison + Grove - Light Sensor (TSL2561)
 
 <!--remove-end-->
 

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Accelerometer, MMA7660
+# Intel Edison + Grove - Accelerometer, MMA7660
 
 <!--remove-end-->
 

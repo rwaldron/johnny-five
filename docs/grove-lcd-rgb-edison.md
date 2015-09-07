@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - RGB LCD
+# Intel Edison + Grove - RGB LCD
 
 <!--remove-end-->
 

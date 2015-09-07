@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - LCD RGB temperature display
+# Intel Edison + Grove - LCD RGB temperature display
 
 <!--remove-end-->
 

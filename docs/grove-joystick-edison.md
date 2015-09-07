@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Joystick
+# Intel Edison + Grove - Joystick
 
 <!--remove-end-->
 

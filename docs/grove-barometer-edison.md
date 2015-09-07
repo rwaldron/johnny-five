@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Barometer, BMP180
+# Intel Edison + Grove - Barometer, BMP180
 
 <!--remove-end-->
 

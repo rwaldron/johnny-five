@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - Moisture Sensor
+# Intel Edison + Grove - Moisture Sensor
 
 <!--remove-end-->
 
