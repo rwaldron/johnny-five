@@ -323,6 +323,28 @@
     ]
   },
   {
+    "topic": "Color",
+    "classes": ["Color"],
+    "examples": [
+      {
+        "file": "color-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Code)"
+      },
+      {
+        "file": "color-raw-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Raw)"
+      },
+      {
+        "file": "color-EVS_NXT.js",
+        "title": "Color - EVShield NXT (Code)"
+      },
+      {
+        "file": "color-ISL29125.js",
+        "title": "Color - ISL29125"
+      }
+    ]
+  },
+  {
     "topic": "Motor",
     "classes": ["Motor"],
     "examples": [
@@ -357,6 +379,14 @@
       {
         "file": "motor-3-pin.js",
         "title": "Motor - 3 pin"
+      },
+      {
+        "file": "motor-EVS_EV3.js",
+        "title": "Motor - EVShield EV3"
+      },
+      {
+        "file": "motor-EVS_NXT.js",
+        "title": "Motor - EVShield NXT"
       }
     ]
   },
@@ -401,28 +431,6 @@
     ]
   },
   {
-    "topic": "Sonar/Ultrasonic",
-    "classes": ["Sonar", "Ping"],
-    "examples": [
-      {
-        "file": "ping.js",
-        "title": "Ping"
-      },
-      {
-        "file": "sonar.js",
-        "title": "Sonar"
-      },
-      {
-        "file": "sonar-scan.js",
-        "title": "Sonar - Scanner"
-      },
-      {
-        "file": "sonar-srf10.js",
-        "title": "Sonar - I2C SRF10"
-      }
-    ]
-  },
-  {
     "topic": "Button / Switch",
     "classes": ["Button", "Switch"],
     "examples": [
@@ -445,6 +453,14 @@
       {
         "file": "toggle-switch.js",
         "title": "Toggle Switch"
+      },
+      {
+        "file": "button-EVS_EV3.js",
+        "title": "Button - EVShield EV3"
+      },
+      {
+        "file": "button-EVS_NXT.js",
+        "title": "Button - EVShield NXT"
       }
     ]
   },
@@ -503,8 +519,8 @@
     ]
   },
   {
-    "topic": "Infrared (Proximity, Motion, Reflectance)",
-    "classes": ["IR.Motion", "IR.Reflect", "IR.Reflect.Array"],
+    "topic": "Infrared Reflectance)",
+    "classes": ["IR.Reflect.Array"],
     "examples": [
       {
         "file": "ir-motion.js",
@@ -578,6 +594,22 @@
         "file": "proximity-lidarlite.js",
         "title": "Proximity - LIDAR-Lite",
         "description": "Basic LIDAR-Lite example."
+      },
+      {
+        "file": "proximity-EVS_EV3_IR.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
+      },
+      {
+        "file": "proximity-EVS_EV3_IR-alert.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US-alert.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
       }
     ]
   },
@@ -891,6 +923,108 @@
     ]
   },
   {
+    "topic": "Intel Edison + Grove IoT Kit",
+    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo", "Joystick"],
+    "examples": [
+      {
+        "file": "grove-accelerometer-adxl345-edison.js",
+        "title": "Grove - Accelerometer, ADXL346",
+        "description": "Using Johnny-Five with Grove's Accelerometer (ADXL346) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-accelerometer-mma7660-edison.js",
+        "title": "Grove - Accelerometer, MMA7660",
+        "description": "Using Johnny-Five with Grove's Accelerometer (MMA7660) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-barometer-edison.js",
+        "title": "Grove - Barometer, BMP180",
+        "description": "Using Johnny-Five with Grove's Barometer (BMP180) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-compass-edison.js",
+        "title": "Grove - Compass, HMC588L",
+        "description": "Using Johnny-Five with Grove's Compass (HMC588L) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-flame-sensor-edison.js",
+        "title": "Grove - Compass, HMC588L",
+        "description": "Using Johnny-Five with Grove's Flame Sensor component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-led-edison.js",
+        "title": "Grove - LED",
+        "description": "Using Johnny-Five with Grove's LED component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.",
+        "images": [
+          {"file": "grove-led.jpg", "title": "Grove LED"}
+        ]
+      },
+      {
+        "file": "grove-button-edison.js",
+        "title": "Grove - Button",
+        "description": "Using Johnny-Five with Grove's Button component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-moisture-edison.js",
+        "title": "Grove - Moisture Sensor",
+        "description": "Using Johnny-Five with Grove's Moisture component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-gas-mq2-edison.js",
+        "title": "Grove - Gas (MQ2)",
+        "description": "Using Johnny-Five with Grove's Gas MQ2 component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-gas-tp401-edison.js",
+        "title": "Grove - Air quality sensor",
+        "description": "Using Johnny-Five with Grove's Air quality sensor component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+
+
+      {
+        "file": "grove-joystick-edison.js",
+        "title": "Grove - Joystick",
+        "description": "Using Johnny-Five with Grove's Joystick component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-rotary-potentiometer-edison.js",
+        "title": "Grove - Rotary Potentiometer",
+        "description": "Using Johnny-Five with Grove's LED component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.",
+        "images": [
+          {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
+          {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
+        ]
+      },
+      {
+        "file": "grove-lcd-rgb-edison.js",
+        "title": "Grove - RGB LCD",
+        "description": "Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-lcd-rgb-temperature-display-edison.js",
+        "title": "Grove - LCD RGB temperature display",
+        "description": "Using Johnny-Five with Grove's RGB LCD and Temperature components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-relay-edison.js",
+        "title": "Grove - Relay",
+        "description": "Using Johnny-Five with Grove's Relay component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+
+      {
+        "file": "grove-servo-edison.js",
+        "title": "Grove - Servo",
+        "description": "Using Johnny-Five with Grove's Servo and Rotary Potentiometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-touch-edison.js",
+        "title": "Grove - Touch",
+        "description": "Using Johnny-Five with Grove's Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      }
+    ]
+  },
+  {
     "topic": "Grove IoT Kit (Seeed Studio)",
     "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
     "examples": [
@@ -910,8 +1044,12 @@
         "title": "Grove - Touch"
       },
       {
-        "file": "grove-sensor.js",
-        "title": "Grove - Sensor",
+        "file": "grove-joystick.js",
+        "title": "Grove - Joystick"
+      },
+      {
+        "file": "grove-rotary-potentiometer.js",
+        "title": "Grove - Rotary Potentiometer",
         "images": [
           {"file": "grove-shield.jpg", "title": "Grove Shield"},
           {"file": "grove-led.jpg", "title": "Grove LED"},
@@ -920,7 +1058,7 @@
       },
       {
         "file": "grove-lcd-rgb.js",
-        "title": "Grove - LCD RGB"
+        "title": "Grove - RGB LCD"
       },
       {
         "file": "grove-lcd-rgb-temperature-display.js",

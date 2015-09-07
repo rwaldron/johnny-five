@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - LCD RGB
+# Grove - RGB LCD
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Grove - LCD RGB"
+##### Breadboard for "Grove - RGB LCD"
 
 
 

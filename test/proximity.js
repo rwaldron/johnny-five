@@ -1,9 +1,10 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Proximity = five.Proximity;
+var sinon = require("sinon");
+var Emitter = require("events").EventEmitter;
+var MockFirmata = require("./util/mock-firmata");
+var EVS = require("../lib/evshield");
+var five = require("../lib/johnny-five");
+var Board = five.Board;
+var Proximity = five.Proximity;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -36,6 +37,20 @@ function restore(target) {
   }
 }
 
+var proto = [{
+  name: "within"
+}];
+
+var instance = [{
+  name: "centimeters"
+}, {
+  name: "cm"
+},{
+  name: "inches"
+}, {
+  name: "in"
+}];
+
 exports["Proximity"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -48,12 +63,6 @@ exports["Proximity"] = {
       board: this.board
     });
 
-    this.instance = [{
-      name: "centimeters"
-    }, {
-      name: "inches"
-    }];
-
     done();
   },
 
@@ -64,10 +73,14 @@ exports["Proximity"] = {
   },
 
   shape: function(test) {
-    test.expect(this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.proximity[property.name], "undefined");
+    proto.forEach(function(method) {
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
     test.done();
@@ -75,7 +88,7 @@ exports["Proximity"] = {
 
   emitter: function(test) {
     test.expect(1);
-    test.ok(this.proximity instanceof events.EventEmitter);
+    test.ok(this.proximity instanceof Emitter);
     test.done();
   }
 };
@@ -821,20 +834,6 @@ exports["Proximity: SRF10"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "within"
-    }];
-
-    this.instance = [{
-      name: "centimeters"
-    }, {
-      name: "cm"
-    },{
-      name: "inches"
-    }, {
-      name: "in"
-    }];
-
     done();
   },
 
@@ -866,13 +865,13 @@ exports["Proximity: SRF10"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.proto.forEach(function(method) {
+    proto.forEach(function(method) {
       test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instance.forEach(function(property) {
       test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
@@ -975,20 +974,6 @@ exports["Proximity: HCSR04"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "within"
-    }];
-
-    this.instance = [{
-      name: "centimeters"
-    }, {
-      name: "cm"
-    },{
-      name: "inches"
-    }, {
-      name: "in"
-    }];
-
     done();
   },
 
@@ -999,13 +984,13 @@ exports["Proximity: HCSR04"] = {
   },
 
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.proto.forEach(function(method) {
+    proto.forEach(function(method) {
       test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instance.forEach(function(property) {
       test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
@@ -1082,58 +1067,25 @@ exports["Proximity: LIDARLITE"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "within"
-    }];
-
-    this.instance = [{
-      name: "centimeters"
-    }, {
-      name: "cm"
-    },{
-      name: "inches"
-    }, {
-      name: "in"
-    }];
-
     done();
   },
 
   tearDown: function(done) {
-    Board.purge();
-    restore(this);
+    this.i2cConfig.restore();
+    this.i2cWrite.restore();
+    this.i2cReadOnce.restore();
+    this.clock.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
-    test.expect(3);
-
-    this.i2cConfig.reset();
-
-    new Proximity({
-      controller: "LIDARLITE",
-      address: 0xff,
-      bus: "i2c-1",
-      board: this.board
-    });
-
-    var forwarded = this.i2cConfig.lastCall.args[0];
-
-    test.equal(this.i2cConfig.callCount, 1);
-    test.equal(forwarded.address, 0xff);
-    test.equal(forwarded.bus, "i2c-1");
-
-    test.done();
-  },
-
   shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
+    test.expect(proto.length + instance.length);
 
-    this.proto.forEach(function(method) {
+    proto.forEach(function(method) {
       test.equal(typeof this.proximity[method.name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
+    instance.forEach(function(property) {
       test.notEqual(typeof this.proximity[property.name], 0);
     }, this);
 
@@ -1179,6 +1131,196 @@ exports["Proximity: LIDARLITE"] = {
     test.done();
   }
 };
+
+exports["Proximity: EVS_EV3_IR"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
+
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+      callback([15, 0]);
+    });
+
+    this.proximity = new Proximity({
+      controller: "EVS_EV3_IR",
+      pin: "BAS1",
+      freq: 100,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Proximity({
+      controller: "LIDARLITE",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  shape: function(test) {
+    test.expect(proto.length + instance.length);
+
+    proto.forEach(function(method) {
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var spy = sinon.spy();
+    test.expect(2);
+
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
+exports["Proximity: EVS_EV3_US"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+
+    this.evssetup = sinon.spy(EVS.prototype, "setup");
+    this.evsread = sinon.spy(EVS.prototype, "read");
+
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+      callback([150, 0]);
+    });
+
+    this.proximity = new Proximity({
+      controller: "EVS_EV3_US",
+      pin: "BAS1",
+      freq: 100,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(proto.length + instance.length);
+
+    proto.forEach(function(method) {
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var spy = sinon.spy();
+    test.expect(2);
+
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 5.85);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
 // - GP2D120XJ00F

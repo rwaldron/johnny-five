@@ -599,6 +599,91 @@ exports["Accelerometer -- MMA7361"] = {
   }
 };
 
+exports["Accelerometer -- MMA7660"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.accel = new Accelerometer({
+      controller: "MMA7660",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "MMA7660",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  data: function(test) {
+    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+
+    // test.expect(12);
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    read = this.i2cRead.args[0][3];
+    read([
+      0x01, 0x01, 0x01
+    ]);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.ok(this.i2cWrite.calledThrice);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 76, 7, 0 ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 76, 8, 7 ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 76, 7, 1 ]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [ 76, 0, 3 ]);
+
+    this.clock.tick(100);
+
+    test.ok(dataSpy.calledOnce);
+    test.deepEqual(dataSpy.args[0], [{
+      x: 1,
+      y: 1,
+      z: 1
+    }]);
+
+    test.ok(changeSpy.calledOnce);
+    test.deepEqual(changeSpy.args[0], [{
+      x: 0.047,
+      y: 0.047,
+      z: 0.047
+    }]);
+
+    test.done();
+  }
+};
+
 exports["Accelerometer -- ESPLORA"] = {
   setUp: function(done) {
     this.board = newBoard();
