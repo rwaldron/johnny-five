@@ -363,11 +363,11 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
 
 ### Intel Edison + Grove IoT Kit
-- [Intel Edison + Grove - Accelerometer, ADXL346](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-adxl345-edison.md)
-- [Intel Edison + Grove - Accelerometer, MMA7660](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-mma7660-edison.md)
-- [Intel Edison + Grove - Barometer, BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-barometer-edison.md)
-- [Intel Edison + Grove - Compass, HMC588L](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-compass-edison.md)
-- [Intel Edison + Grove - Compass, HMC588L](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-flame-sensor-edison.md)
+- [Intel Edison + Grove - Accelerometer (ADXL346)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-adxl345-edison.md)
+- [Intel Edison + Grove - Accelerometer (MMA7660)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-mma7660-edison.md)
+- [Intel Edison + Grove - Barometer (BMP180)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-barometer-edison.md)
+- [Intel Edison + Grove - Compass (HMC588L)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-compass-edison.md)
+- [Intel Edison + Grove - Flame Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-flame-sensor-edison.md)
 - [Intel Edison + Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led-edison.md)
 - [Intel Edison + Grove - Light Sensor (TSL2561)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-light-sensor-edison.md)
 - [Intel Edison + Grove - Button](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-button-edison.md)

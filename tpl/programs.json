@@ -928,27 +928,27 @@
     "examples": [
       {
         "file": "grove-accelerometer-adxl345-edison.js",
-        "title": "Intel Edison + Grove - Accelerometer, ADXL346",
+        "title": "Intel Edison + Grove - Accelerometer (ADXL346)",
         "description": "Using Johnny-Five with Grove's Accelerometer (ADXL346) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-accelerometer-mma7660-edison.js",
-        "title": "Intel Edison + Grove - Accelerometer, MMA7660",
+        "title": "Intel Edison + Grove - Accelerometer (MMA7660)",
         "description": "Using Johnny-Five with Grove's Accelerometer (MMA7660) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-barometer-edison.js",
-        "title": "Intel Edison + Grove - Barometer, BMP180",
+        "title": "Intel Edison + Grove - Barometer (BMP180)",
         "description": "Using Johnny-Five with Grove's Barometer (BMP180) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-compass-edison.js",
-        "title": "Intel Edison + Grove - Compass, HMC588L",
+        "title": "Intel Edison + Grove - Compass (HMC588L)",
         "description": "Using Johnny-Five with Grove's Compass (HMC588L) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-flame-sensor-edison.js",
-        "title": "Intel Edison + Grove - Compass, HMC588L",
+        "title": "Intel Edison + Grove - Flame Sensor",
         "description": "Using Johnny-Five with Grove's Flame Sensor component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {

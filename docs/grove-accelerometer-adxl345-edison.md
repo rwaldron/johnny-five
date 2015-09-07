@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Intel Edison + Grove - Accelerometer, ADXL346
+# Intel Edison + Grove - Accelerometer (ADXL346)
 
 <!--remove-end-->
 

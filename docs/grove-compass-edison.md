@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Intel Edison + Grove - Compass, HMC588L
+# Intel Edison + Grove - Compass (HMC588L)
 
 <!--remove-end-->
 
