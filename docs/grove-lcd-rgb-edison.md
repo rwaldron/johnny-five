@@ -5,32 +5,26 @@
 <!--remove-end-->
 
 
+Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.
 
 
 
-
-##### Breadboard for "Grove - RGB LCD"
-
-
-
-![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
-
-Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
-
-&nbsp;
 
 
 
 
 Run with:
 ```bash
-node eg/grove-lcd-rgb.js
+node eg/grove-lcd-rgb-edison.js
 ```
 
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board();
+var Edison = require("edison-io");
+var board = new five.Board({
+  io: new Edison()
+});
 
 board.on("ready", function() {
 
@@ -79,6 +73,8 @@ function linear(start, end, step, steps) {
 
 ## Additional Notes
 For this program, you'll need:
+
+![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 
