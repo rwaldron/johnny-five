@@ -1323,6 +1323,19 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
+  print: function(test) {
+    test.expect(1);
+
+    this.lc.print("1234");
+    test.deepEqual(this.send.args, [
+      [0, 8, 0x30],
+      [0, 7, 0x6D],
+      [0, 6, 0x79],
+      [0, 5, 0x33]
+    ]);
+
+    test.done();
+  },
   drawAll: function(test) {
     test.expect(1);
 
@@ -1339,6 +1352,79 @@ exports["LedControl - Digits"] = {
     this.lc.draw(0, "1.");
     test.deepEqual(this.send.args, [
       [0, 8, 176]
+    ]);
+
+    test.done();
+  }
+};
+
+exports["LedControl - I2C Digits"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+
+    this.lc = new LedControl({
+      controller: "HT16K33",
+      isMatrix: false,
+      board: this.board
+    });
+
+    this.each = sinon.spy(this.lc, "each");
+    this.row = sinon.spy(this.lc, "row");
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    LedControl.reset();
+    done();
+  },
+  digit: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, 1);
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  digitDigitWithDecimal: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, "1.");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x86, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  digitAlpha: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, "A");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  print: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print("12:00");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0 ]]
     ]);
 
     test.done();
