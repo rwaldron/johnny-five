@@ -374,8 +374,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Light - EVShield NXT (Reflected)](https://github.com/rwaldron/johnny-five/blob/master/docs/light-reflected-EVS_NXT.md)
 - [Motor - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_EV3.md)
 - [Motor - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_NXT.md)
-- [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR.md)
-- [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US.md)
 - [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR-alert.md)
 - [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US-alert.md)
 

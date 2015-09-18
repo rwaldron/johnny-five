@@ -999,22 +999,6 @@
         ]
       },
       {
-        "file": "proximity-EVS_EV3_IR.js",
-        "title": "Proximity - EVShield EV3 (IR)",
-        "embeds": [
-          { "src": "https://www.youtube.com/embed/3qLXcXSP87g",
-            "type": "youtube" }
-        ]
-      },
-      {
-        "file": "proximity-EVS_EV3_US.js",
-        "title": "Proximity - EVShield EV3 (Ultrasonic)",
-        "embeds": [
-          { "src": "https://www.youtube.com/embed/6-tM7L28Gcg",
-            "type": "youtube" }
-        ]
-      },
-      {
         "file": "proximity-EVS_EV3_IR-alert.js",
         "title": "Proximity - EVShield EV3 (IR)",
         "embeds": [
