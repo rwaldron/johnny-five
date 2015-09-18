@@ -923,6 +923,100 @@
     ]
   },
   {
+    "topic": "Lego EVShield",
+    "classes": ["Color", "Light", "Motor", "Button", "Proximity"],
+    "examples": [
+      {
+        "file": "button-EVS_EV3.js",
+        "title": "Button - EVShield EV3",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/mAwvQJQo09Y",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "button-EVS_NXT.js",
+        "title": "Button - EVShield NXT",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/ZwpqyrXFjnc",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Code)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/E2SD6MGpMUI",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-raw-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Raw)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/E2SD6MGpMUI",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-EVS_NXT.js",
+        "title": "Color - EVShield NXT (Code)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/tL_kKiMhUk4",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "motor-EVS_EV3.js",
+        "title": "Motor - EVShield EV3",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/MwI_OzLn0ck",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "motor-EVS_NXT.js",
+        "title": "Motor - EVShield NXT",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/WLMTxiHOWHM",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_IR.js",
+        "title": "Proximity - EVShield EV3 (IR)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/3qLXcXSP87g",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_US.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/6-tM7L28Gcg",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_IR-alert.js",
+        "title": "Proximity - EVShield EV3 (IR)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/3qLXcXSP87g",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_US-alert.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/6-tM7L28Gcg",
+            "type": "youtube" }
+        ]
+      }
+    ]
+  },
+  {
     "topic": "Intel Edison + Grove IoT Kit",
     "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo", "Joystick"],
     "examples": [

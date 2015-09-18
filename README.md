@@ -362,6 +362,19 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
 - [Temperature - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
 
+### Lego EVShield
+- [Button - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_EV3.md)
+- [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
+- [Color - EVShield EV3 (Code)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-EVS_EV3.md)
+- [Color - EVShield EV3 (Raw)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-raw-EVS_EV3.md)
+- [Color - EVShield NXT (Code)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-EVS_NXT.md)
+- [Motor - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_EV3.md)
+- [Motor - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_NXT.md)
+- [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR.md)
+- [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US.md)
+- [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR-alert.md)
+- [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US-alert.md)
+
 ### Intel Edison + Grove IoT Kit
 - [Intel Edison + Grove - Accelerometer (ADXL346)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-adxl345-edison.md)
 - [Intel Edison + Grove - Accelerometer (MMA7660)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-mma7660-edison.md)
