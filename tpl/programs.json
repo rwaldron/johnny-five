@@ -967,6 +967,22 @@
         ]
       },
       {
+        "file": "light-ambient-EVS_EV3.js",
+        "title": "Light - EVShield EV3 (Ambient)"
+      },
+      {
+        "file": "light-ambient-EVS_NXT.js",
+        "title": "Light - EVShield NXT (Ambient)"
+      },
+      {
+        "file": "light-reflected-EVS_EV3.js",
+        "title": "Light - EVShield EV3 (Reflected)"
+      },
+      {
+        "file": "light-reflected-EVS_NXT.js",
+        "title": "Light - EVShield NXT (Reflected)"
+      },
+      {
         "file": "motor-EVS_EV3.js",
         "title": "Motor - EVShield EV3",
         "embeds": [
