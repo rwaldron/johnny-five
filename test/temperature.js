@@ -18,6 +18,23 @@ function newBoard() {
   return board;
 }
 
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 // Global suite setUp
 exports.setUp = function(done) {
   // Base Shape for all Temperature tests
@@ -310,6 +327,81 @@ exports["Temperature -- ANALOG"] = {
       F: 74,
       K: 296
     }),
+  },
+
+  TMP102: {
+    setUp: function(done) {
+      this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+      this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+      this.temperature = new Temperature({
+        controller: "TMP102",
+        freq: this.freq,
+        board: this.board
+      });
+    
+      done();
+    },
+
+    tearDown: function(done) {
+      Board.purge();
+      restore(this);
+      done();
+    },
+
+    shape: testShape,
+
+    value: function(test) {
+      var raw = this.i2cRead.args[0][3];
+      test.expect(1);
+
+      raw([100, 100]);
+
+      test.equals(this.temperature.celsius, 100.375);
+
+      test.done();
+    },
+
+    negative: function(test) {
+      var raw = this.i2cRead.args[0][3];
+      test.expect(2);
+
+      raw([0xFF, 0x00]);
+      test.equals(this.temperature.celsius, -1);
+
+      raw([0xE2, 0x44]);
+      test.equals(this.temperature.celsius, -29.75);
+
+      test.done();
+    },
+
+    change: function(test) {
+      var changeHandler = sinon.spy();
+      var raw = this.i2cRead.args[0][3];
+
+      test.expect(1);
+      this.temperature.on("change", changeHandler);
+
+      raw([100, 0]);
+      this.clock.tick(this.freq);
+
+      raw([100, 0]);
+      this.clock.tick(this.freq);
+
+      raw([200, 0]);
+      this.clock.tick(this.freq);
+
+      raw([100, 0]);
+      this.clock.tick(this.freq);
+
+      raw([200, 0]);
+      this.clock.tick(this.freq);
+
+      raw([200, 0]);
+      this.clock.tick(this.freq);
+
+      test.equal(changeHandler.callCount, 4);
+      test.done();
+    }
   },
 
   GROVE: {
@@ -617,6 +709,12 @@ exports["Temperature -- MPL115A2"] = {
       freq: 10
     });
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
 
