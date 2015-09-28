@@ -1,6 +1,7 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
   var temperature = new five.Temperature({
     controller: "TMP102"
   });
