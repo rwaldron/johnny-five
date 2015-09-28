@@ -30,8 +30,9 @@ node eg/temperature-tmp102.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
   var temperature = new five.Temperature({
     controller: "TMP102"
   });
