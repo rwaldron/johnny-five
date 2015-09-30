@@ -216,6 +216,10 @@
         ]
       },
       {
+        "file": "led-digits-clock-HT16K33.js",
+        "title": "LED - Digital Clock, HT16K33"
+      },
+      {
         "file": "led-matrix.js",
         "title": "LED - Matrix"
       },

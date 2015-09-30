@@ -204,6 +204,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - RGB Intensity](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-intensity.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
+- [LED - Digital Clock, HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock-HT16K33.md)
 - [LED - Matrix](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix.md)
 - [LED - Matrix Demo](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-tutorial.md)
 - [LED - Matrix HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-matrix-HT16K33.md)
