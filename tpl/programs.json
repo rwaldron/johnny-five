@@ -220,6 +220,15 @@
         "title": "LED - Digital Clock, HT16K33"
       },
       {
+        "title": "LED - Digital Clock, Dual Displays",
+        "description": "Demonstrates using dual 7 Segment displays.",
+        "file": "led-digits-clock-dual.js",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/iD8S--2aJEo",
+            "type": "youtube" }
+        ]
+      },
+      {
         "file": "led-matrix.js",
         "title": "LED - Matrix"
       },

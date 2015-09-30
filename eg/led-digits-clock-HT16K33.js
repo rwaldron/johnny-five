@@ -14,15 +14,11 @@ board.on("ready", function() {
   }, 1000);
 });
 
-function time(isOdd) {
-  var display = moment().format(
-    isOdd ? "h:mm" : "h mm"
+function time(showColon) {
+  var display = "    " + moment().format(
+    showColon ? "h:mm" : "h mm"
   );
-
-  if (display.length === 4) {
-    display = " " + display;
-  }
-  return display;
+  return display.slice(-5);
 }
 // @markdown
 //
