@@ -89,7 +89,8 @@
     { "name": "Vincent Rubiolo", "email": "<vincent.libre@cryostase.eu>" },
     { "name": "Jory Burson", "email": "<jory@bocoup.com>" },
     { "name": "Corey Frang", "email": "<gnarf@gnarf.net>" },
-    { "name": "TRAHOMOTO", "email": "<trahomoto@i.ua>" }
+    { "name": "TRAHOMOTO", "email": "<trahomoto@i.ua>" },
+    { "name": "Don McCurdy", "email": "Don McCurdy <don.r.mccurdy@gmail.com>" }
   ],
   "keywords": [
     "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "spark", "particle", "i2c", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io", "intel edison", "edison", "pcduino"
