@@ -364,7 +364,7 @@ exports["Boards"] = {
   },
 
   methods: function(test) {
-    test.expect(7);
+    test.expect(8);
 
     test.ok(Boards.prototype.log);
     test.ok(Boards.prototype.info);
@@ -373,6 +373,7 @@ exports["Boards"] = {
     test.ok(Boards.prototype.fail);
     test.ok(Boards.prototype.each);
     test.ok(Boards.prototype.add);
+    test.ok(Boards.prototype.byId);
 
     test.done();
   },
@@ -684,6 +685,38 @@ exports["Boards"] = {
 
       test.equal(spy.callCount, 2);
 
+      test.done();
+    });
+
+    ioA.emit("connect");
+    ioB.emit("connect");
+
+    ioA.emit("ready");
+    ioB.emit("ready");
+  },
+
+  byId: function(test) {
+    test.expect(3);
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      repl: false,
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: ioB
+    }]);
+
+    boards.on("ready", function() {
+      test.equal(this.byId("A"), boards[0]);
+      test.equal(this.byId("B"), boards[1]);
+      test.equal(this.byId("C"), null);
       test.done();
     });
 
