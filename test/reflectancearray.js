@@ -1,7 +1,6 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   __ = require("../lib/fn.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
   ReflectanceArray = five.IR.Reflect.Array,
@@ -11,17 +10,22 @@ var MockFirmata = require("./mock-firmata"),
     repl: false
   });
 
+function getEyes(autoCalibrate) {
+  autoCalibrate = autoCalibrate || false;
+  return new ReflectanceArray({
+    pins: ["A0", "A1", "A2"],
+    emitter: 11,
+    freq: 25,
+    autoCalibrate: autoCalibrate,
+    board: board
+  });
+}
+
 exports["ReflectanceArray"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.analogRead = sinon.spy(board.io, "analogRead");
     this.analogWrite = sinon.spy(board.io, "analogWrite");
-    this.eyes = new ReflectanceArray({
-      pins: ["A0", "A1", "A2"],
-      emitter: 11,
-      freq: 25,
-      board: board
-    });
 
     this.sendAnalogValue = function(index, value) {
       this.analogRead.args[index][1](value);
@@ -74,6 +78,7 @@ exports["ReflectanceArray"] = {
   },
 
   shape: function(test) {
+    this.eyes = getEyes();
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
@@ -88,6 +93,7 @@ exports["ReflectanceArray"] = {
   },
 
   enable: function(test) {
+    this.eyes = getEyes();
     test.expect(4);
 
     this.eyes.enable();
@@ -102,23 +108,25 @@ exports["ReflectanceArray"] = {
   },
 
   data: function(test) {
+    this.eyes = getEyes();
     var dataSpy = sinon.spy();
 
     test.expect(1);
 
     this.eyes.on("data", dataSpy);
-    
+
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
     this.sendAnalogValue(2, 77);
     this.clock.tick(25);
-    
-    test.deepEqual(dataSpy.getCall(0).args[1], [55, 66, 77]);
-    
+
+    test.deepEqual(dataSpy.getCall(0).args[0], [55, 66, 77]);
+
     test.done();
   },
 
   calibrateOnce: function(test) {
+    this.eyes = getEyes();
     var calibratedSpy = sinon.spy();
 
     test.expect(7);
@@ -145,6 +153,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateTwice: function(test) {
+    this.eyes = getEyes();
     test.expect(2);
 
     this.eyes.calibrate();
@@ -166,6 +175,7 @@ exports["ReflectanceArray"] = {
   },
 
   loadCalibration: function(test) {
+    this.eyes = getEyes();
     test.expect(4);
 
     test.deepEqual(this.eyes.calibration.min, []);
@@ -183,6 +193,7 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateUntil: function(test) {
+    this.eyes = getEyes();
     var count = 0;
 
     test.expect(2);
@@ -213,7 +224,32 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
+  autoCalibrate: function(test) {
+    this.eyes = getEyes(true);
+
+    this.sendAnalogValue(0, 55);
+    this.sendAnalogValue(1, 66);
+    this.sendAnalogValue(2, 77);
+    this.clock.tick(25);
+
+    this.sendAnalogValue(0, 44);
+    this.sendAnalogValue(1, 88);
+    this.sendAnalogValue(2, 77);
+    this.clock.tick(25);
+
+    this.sendAnalogValue(0, 50);
+    this.sendAnalogValue(1, 99);
+    this.sendAnalogValue(2, 77);
+    this.clock.tick(25);
+
+    test.deepEqual(this.eyes.calibration.min, [44, 66, 77]);
+    test.deepEqual(this.eyes.calibration.max, [55, 99, 77]);
+
+    test.done();
+  },
+
   calibratedData: function(test) {
+    this.eyes = getEyes();
     var dataSpy = sinon.spy();
 
     var testValues = [
@@ -229,18 +265,19 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("calibratedData", dataSpy);
-    
+
     this.sendAnalogValue(0, testValues[0].raw);
     this.sendAnalogValue(1, testValues[1].raw);
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
-    
-    test.deepEqual(dataSpy.getCall(0).args[1], __.pluck(testValues, "expected"));
-    
+
+    test.deepEqual(dataSpy.getCall(0).args[0], __.pluck(testValues, "expected"));
+
     test.done();
   },
 
   solidLine: function(test) {
+    this.eyes = getEyes();
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -250,19 +287,20 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("line", dataSpy);
-    
+
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
-    
-    test.deepEqual(dataSpy.getCall(0).args[1], 1000);
+
+    test.deepEqual(dataSpy.getCall(0).args[0], 1000);
     test.equal(this.eyes.isOnLine, true);
-    
+
     test.done();
   },
 
   partialLine: function(test) {
+    this.eyes = getEyes();
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -272,21 +310,22 @@ exports["ReflectanceArray"] = {
     });
 
     this.eyes.on("line", dataSpy);
-    
+
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 435);
     this.clock.tick(25);
-    
-    test.deepEqual(dataSpy.getCall(0).args[1], 1600);
+
+    test.deepEqual(dataSpy.getCall(0).args[0], 1600);
     test.equal(this.eyes.isOnLine, true);
-    
+
     test.done();
   },
 
   isOnLine: function(test) {
+    this.eyes = getEyes();
     test.expect(1);
-    
+
     this.eyes.loadCalibration({
       min: [30, 30, 30],
       max: [600, 600, 600]
@@ -296,9 +335,9 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(1, 50);
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
-    
+
     test.equal(this.eyes.isOnLine, false);
-    
+
     test.done();
   }
 };

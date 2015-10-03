@@ -1,4 +1,4 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   sinon = require("sinon"),
@@ -108,8 +108,8 @@ exports["Sensor - Analog"] = {
     callback(512);
     this.clock.tick(25);
 
-    test.equal(spy.getCall(0).args[1], 1023);
-    test.equal(spy.getCall(1).args[1], 512);
+    test.equal(spy.getCall(0).args[0], 1023);
+    test.equal(spy.getCall(1).args[0], 512);
     test.done();
   },
 
@@ -288,11 +288,11 @@ exports["Sensor - Digital"] = {
     callback(0);
     this.clock.tick(25);
 
-    test.equal(data.getCall(0).args[1], 1);
-    test.equal(data.getCall(1).args[1], 0);
+    test.equal(data.getCall(0).args[0], 1);
+    test.equal(data.getCall(1).args[0], 0);
 
-    test.equal(change.getCall(0).args[1], 1);
-    test.equal(change.getCall(1).args[1], 0);
+    test.equal(change.getCall(0).args[0], 1);
+    test.equal(change.getCall(1).args[0], 0);
     test.done();
   },
 
@@ -303,6 +303,7 @@ exports["Sensor - Digital"] = {
     test.expect(1);
     this.sensor.on("data", spy);
     data(1);
+    this.clock.tick(25);
     test.ok(spy.calledOnce);
     test.done();
   },
@@ -318,8 +319,8 @@ exports["Sensor - Digital"] = {
     callback(0);
     this.clock.tick(25);
 
-    test.equal(spy.getCall(0).args[1], 1);
-    test.equal(spy.getCall(1).args[1], 0);
+    test.equal(spy.getCall(0).args[0], 1);
+    test.equal(spy.getCall(1).args[0], 0);
     test.done();
   },
 

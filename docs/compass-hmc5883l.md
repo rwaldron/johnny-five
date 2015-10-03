@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Compass (HMC5883L)
+
+# Compass - HMC5883L
+
+
 
 Run with:
 ```bash
 node eg/compass-hmc5883l.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -34,19 +38,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/compass-hmc5883l.png](breadboard/compass-hmc5883l.png)
-[docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5883l.fzz)
+### Breadboard for "Compass - HMC5883L"
 
 
 
+![docs/breadboard/compass-hmc5883l.png](breadboard/compass-hmc5883l.png)<br>
+
+Fritzing diagram: [docs/breadboard/compass-hmc5883l.fzz](breadboard/compass-hmc5883l.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

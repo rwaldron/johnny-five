@@ -7,16 +7,11 @@ board.on("ready", function() {
   // Initialize the servo
   var servo = new five.Servo({
     address: 0x40,
+    controller: "PCA9685",
     pin: 0,
-    controller: "PCA9685"
   });
 
-  // The address of the shield.
-  //    Defaults to 0x40
-  // controller: The type of Servo/PWM controller being used.
-  //   Defaults to "standard".
-
-  // Add servo to REPL (optional)
+  // Add servo to REPL for live control (optional)
   this.repl.inject({
     servo: servo
   });
@@ -68,7 +63,7 @@ board.on("ready", function() {
   //           defaults to 10°
   // }
   //
-  //servo.sweep();
+  servo.sweep();
 
 });
 

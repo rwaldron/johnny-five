@@ -1,6 +1,6 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./mock-firmata"),
+  MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   LedControl = five.LedControl,
   LedMatrix = five.Led.Matrix;
@@ -48,7 +48,7 @@ exports["LedControl - I2C Matrix"] = {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
+    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -75,7 +75,7 @@ exports["LedControl - I2C Matrix"] = {
       // clear
       [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     ];
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
     test.done();
   },
   clearAll: function(test) {
@@ -95,7 +95,7 @@ exports["LedControl - I2C Matrix"] = {
       ];
 
       this.lc.clear();
-      test.deepEqual(this.sendI2CWriteRequest.args, expected);
+      test.deepEqual(this.i2cWrite.args, expected);
       test.equal(this.each.callCount, 1);
 
       test.done();
@@ -115,7 +115,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0x21 ]]
     ];
     this.lc.on(0);
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -134,7 +134,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0x20 ]]
     ];
     this.lc.off(0);
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -156,7 +156,7 @@ exports["LedControl - I2C Matrix"] = {
     ];
     this.lc.brightness(0); // set min brightness
     this.lc.brightness(100); // set max brightness
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -185,7 +185,7 @@ exports["LedControl - I2C Matrix"] = {
 
     this.lc.row(0, 1, 255);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -214,7 +214,7 @@ exports["LedControl - I2C Matrix"] = {
 
     this.lc.column(0, 3, 255);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -280,7 +280,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
+    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -314,7 +314,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
       ];
 
       this.lc.clear();
-      test.deepEqual(this.sendI2CWriteRequest.args, expected);
+      test.deepEqual(this.i2cWrite.args, expected);
       test.equal(this.each.callCount, 1);
 
       test.done();
@@ -378,7 +378,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
 
     this.lc.row(0, 0, 0xffff);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },

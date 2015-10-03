@@ -52,13 +52,13 @@ var five = require("../lib/johnny-five.js"),
     // g.*() from REPL
     //
     //
-    motion.on("motionstart", function(err, ts) {
+    motion.on("motionstart", function() {
       chop();
     });
 
     // "motionstart" events are fired following a "motionstart event
     // when no movement has occurred in X ms
-    motion.on("motionend", function(err, ts) {
+    motion.on("motionend", function() {
       if (repeater) {
         repeater.stop();
         repeater = null;

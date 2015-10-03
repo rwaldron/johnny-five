@@ -31,7 +31,7 @@ board.on("ready", function() {
     //      defined speed, accel, and decel by passing an object into stepper.step
     stepper.step({
       steps: 2000,
-      direction: Stepper.DIRECTION.CCW
+      direction: Stepper.DIRECTION.CW
     }, function() {
       console.log("done moving CW");
     });

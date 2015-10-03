@@ -1,10 +1,14 @@
 <!--remove-start-->
-# ESC (PCA9685)
+
+# ESC - PCA9685
+
+
 
 Run with:
 ```bash
 node eg/esc-PCA9685.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -28,19 +32,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)
-[docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
+### Breadboard for "ESC - PCA9685"
 
 
 
+![docs/breadboard/esc-PCA9685.png](breadboard/esc-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

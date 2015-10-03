@@ -11,13 +11,12 @@ board.on("ready", function() {
   //
   // relay.off();
   //
-  // OR...
-  //
-  // relay.open();
-  //
-  // relay.close();
-  //
   this.repl.inject({
     relay: relay
   });
 });
+// @markdown
+//
+// - [JavaScript: Relay Control with Johnny-Five on Node.js](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
+//
+// @markdown

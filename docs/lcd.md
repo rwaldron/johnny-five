@@ -1,10 +1,14 @@
 <!--remove-start-->
-# LCD Component
+
+# LCD
+
+
 
 Run with:
 ```bash
 node eg/lcd.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -61,20 +65,35 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/lcd.png](breadboard/lcd.png)
-[docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
+### Breadboard for "LCD"
 
+
+
+![docs/breadboard/lcd.png](breadboard/lcd.png)<br>
+
+Fritzing diagram: [docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
+
+&nbsp;
+
+
+
+
+
+## Additional Notes
 [16 x 2 LCD White on Blue](http://www.hacktronics.com/LCDs/16-x-2-LCD-White-on-Blue/flypage.tpl.html)
 [20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

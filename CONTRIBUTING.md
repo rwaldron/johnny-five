@@ -53,7 +53,7 @@ To submit a request to support new hardware, first create a [github issue](https
 
 To contribute code to Johnny-Five, fork the project onto your github account and do your work in a branch. Before you submit the PR, make sure to rebase master into your branch so that you have the most recent changes and nothing breaks or conflicts.  Lint and test your code using [grunt](https://github.com/gruntjs/grunt). Also squash your commits to a reasonable size before submitting.
 
-All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwldrn/idiomatic.js),
+All contributions must adhere to the [Idiomatic.js Style Guide](https://github.com/rwaldron/idiomatic.js),
 by maintaining the existing coding style.
 
 If you are contributing code, it must include unit tests that fail if the working code isn't present and succeed when it is. Also make sure you run `grunt jsbeautifier` to fix any syntax issues.
@@ -73,6 +73,8 @@ It's very important that your pull requests include all of the above in order fo
 Tests are written using [nodeunit](https://github.com/caolan/nodeunit) and [sinon](http://sinonjs.org/).  If you are having issues making a test pass, ask for help in the Johnny-Five [gitter](https://gitter.im/) room.  Tests can be the hardest part to write when contributing code, so don't be discouraged.
 
 If you're interested in just writing tests to learn more about the project, check out the [tests](https://github.com/rwaldron/johnny-five/labels/Tests) label in the issues.
+
+Tests that involve temporal elements (e.g. animations, tones/songs) can be troublesome on certain hardware and can cause failures for Travis CI builds. These tests can be put in `test/extended` to prevent them from breaking builds.
 
 <a name="writing-docs"></a>
 ## Writing Documentation

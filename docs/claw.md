@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Claw
+
+# Robotic Claw
+
+
 
 Run with:
 ```bash
 node eg/claw.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -49,6 +53,10 @@ board.on("ready", function() {
 
 
 
+
+
+## Additional Notes
+
 - [Robotic Claw](https://www.sparkfun.com/products/11524)
 - [Robotic Claw Pan/Tilt](https://www.sparkfun.com/products/11674)
 - [Robotic Claw Assembly](https://www.sparkfun.com/tutorials/258)
@@ -57,11 +65,14 @@ board.on("ready", function() {
 ![Robotic Claw Pan/Tilt](https://cdn.sparkfun.com//assets/parts/7/7/6/7/11674-02.jpg)
 
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

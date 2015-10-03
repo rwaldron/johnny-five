@@ -1,19 +1,21 @@
 <!--remove-start-->
-# Shift Register Component
+
+# Shift Register
+
+
 
 Run with:
 ```bash
 node eg/shift-register.js
 ```
+
 <!--remove-end-->
 
 ```javascript
 var five = require("johnny-five");
 var board = new five.Board();
 
-// This works with the 74HC595 that comes with the SparkFun Inventor's kit.
-// Your mileage may vary with other chips. For more information on working
-// with shift registers, see http://arduino.cc/en/Tutorial/ShiftOut
+// For use with 74HC595 chip
 
 board.on("ready", function() {
   var register = new five.ShiftRegister({
@@ -39,19 +41,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/shift-register.png](breadboard/shift-register.png)
-[docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
+### Breadboard for "Shift Register"
 
 
 
+![docs/breadboard/shift-register.png](breadboard/shift-register.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register.fzz](breadboard/shift-register.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

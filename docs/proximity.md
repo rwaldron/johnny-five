@@ -1,78 +1,65 @@
 <!--remove-start-->
+
 # Proximity
+
+
+Basic infrared Proximity example
+
 
 Run with:
 ```bash
 node eg/proximity.js
 ```
+
 <!--remove-end-->
 
 ```javascript
-var five = require("johnny-five"),
-  prox, led;
+var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-
-  // Create a new IR Proximity Sensor hardware instance.
-  //
-  // five.IR.Proximity();
-  //
-  // (Alias of:
-  //   new five.IR({
-  //    device: "GP2Y0D805Z0F",
-  //    freq: 50
-  //   });
-  // )
-  //
-
-  prox = new five.IR.Proximity();
-  led = new five.Led(13);
-
-
-
-
-
-  // Properties
-
-  // prox.state
-  //
-
-  // Proximity Event API
-
-  // "motionstart"
-  //
-  // Fired motion is detected with 2"
-  //
-
-
-  // "motionend"
-  //
-  // Fired following a "motionstart" event
-  // when no movement has occurred in X ms
-  //
-  prox.on("motionstart", function(err, timestamp) {
-    led.on();
+board.on("ready", function() {
+  var proximity = new five.Proximity({
+    controller: "GP2Y0A21YK",
+    pin: "A0"
   });
 
-  prox.on("motionend", function(err, timestamp) {
-    led.off();
+  proximity.on("data", function() {
+    console.log(this.cm + "cm", this.in + "in");
   });
 
+  proximity.on("change", function() {
+    console.log("The obstruction has moved.");
+  });
 });
 
 ```
 
 
+## Illustrations / Photos
+
+
+### Breadboard for "Proximity"
+
+
+
+![docs/breadboard/proximity.png](breadboard/proximity.png)<br>
+
+Fritzing diagram: [docs/breadboard/proximity.fzz](breadboard/proximity.fzz)
+
+&nbsp;
 
 
 
 
 
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

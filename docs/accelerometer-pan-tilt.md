@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Accelerometer Pan + Tilt
+
+# Accelerometer - Pan + Tilt
+
+
 
 Run with:
 ```bash
 node eg/accelerometer-pan-tilt.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -40,7 +44,7 @@ board.on("ready", function() {
   // Center all servos
   (five.Servos()).center();
 
-  accel.on("acceleration", function(err, timestamp) {
+  accel.on("acceleration", function() {
     // console.log( "acceleration", this.axis );
 
     tilt.to(Math.abs(Math.ceil(170 * this.pitch.toFixed(2)) - 180));
@@ -59,10 +63,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

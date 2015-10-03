@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Multiple Boards in one program
+
+# Board - Multiple in one program
+
+
 
 Run with:
 ```bash
 node eg/board-multi.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -60,19 +64,31 @@ boards.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/board-multi.png](breadboard/board-multi.png)
-[docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
+### Breadboard for "Board - Multiple in one program"
 
 
 
+![docs/breadboard/board-multi.png](breadboard/board-multi.png)<br>
+
+Fritzing diagram: [docs/breadboard/board-multi.fzz](breadboard/board-multi.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

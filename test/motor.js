@@ -1,6 +1,5 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
   Motor = five.Motor,
@@ -1095,8 +1094,7 @@ exports["Motor: Inverse Speed With Brake"] = {
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.writeSpy = sinon.spy(this.board.io, "sendI2CWriteRequest");
-    this.readSpy = sinon.spy(this.board.io, "sendI2CReadRequest");
+    this.writeSpy = sinon.spy(this.board.io, "i2cWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [8, 9, 10],

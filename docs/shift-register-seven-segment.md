@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Shift Register - Seven Segment Controller
+
+# Shift Register - Seven segment controller
+
+
 
 Run with:
 ```bash
 node eg/shift-register-seven-segment.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -114,19 +118,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)
-[docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
+### Breadboard for "Shift Register - Seven segment controller"
 
 
 
+![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)<br>
+
+Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

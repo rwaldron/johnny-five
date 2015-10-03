@@ -1,8 +1,7 @@
 require("es6-shim");
 
-global.IS_TEST_MODE = true;
 
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board;
@@ -154,11 +153,40 @@ exports["Board.Component"] = {
 
     test.equal(this.board.register.length, 0);
 
-    var component = new Board.Component({
+    new Board.Component({
       pin: 2
     });
 
     test.equal(this.board.register.length, 1);
+
+    test.done();
+  },
+
+  componentOptionsForInitialization: function(test) {
+    test.expect(1);
+
+    var component = Board.Component.initialization({});
+
+    test.deepEqual(component, {
+      requestPin: true
+    });
+
+    test.done();
+  },
+
+  componentDoesNotDirectlyRequestPinOccupancy: function(test) {
+    test.expect(2);
+
+    var component = {};
+
+    Board.Component.call(component, { pin: 1 }, { requestPin: false });
+
+    var spy = sinon.spy(component.board, "warn");
+
+    Board.Component.call(component, { pin: 1 });
+
+    test.equal(component.board.occupied.length, 1);
+    test.equal(spy.notCalled, true);
 
     test.done();
   },
@@ -186,6 +214,105 @@ exports["Board.Component"] = {
     test.equal(spy.calledOnce, true);
     test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 1 is already in use" ]);
     test.equal(component.board.occupied.length, 1);
+
+    test.done();
+  },
+
+  componentPinAnalogDigitalNormalizedValueNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options(2));
+    Board.Component.call(component, Board.Options("A2"));
+
+    test.equal(component.board.occupied.length, 2);
+
+    test.done();
+  },
+  componentPinAnalogDigitalNormalizedValueArrayNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options(2));
+    Board.Component.call(component, Board.Options(["A2"]));
+
+    test.equal(component.board.occupied.length, 2);
+
+    test.done();
+  },
+  componentPinAnalogDigitalNormalizedValueSinglePinObjectNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options(2));
+    Board.Component.call(component, Board.Options({ pin: "A2" }));
+
+    test.equal(component.board.occupied.length, 2);
+
+    test.done();
+  },
+
+  componentPinAnalogDigitalNormalizedValueMultiPinObjectNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options(2));
+    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: "A3"} }));
+
+    test.equal(component.board.occupied.length, 3);
+
+    test.done();
+  },
+  componentPinAnalogDigitalNormalizedArraySinglePinObjectNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options([2]));
+    Board.Component.call(component, Board.Options({ pin: "A2" }));
+
+    test.equal(component.board.occupied.length, 2);
+
+    test.done();
+  },
+
+  componentPinAnalogDigitalNormalizedArrayMultiPinObjectNoConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options([2]));
+    Board.Component.call(component, Board.Options({ pins: { a: "A2"} }));
+
+    test.equal(component.board.occupied.length, 2);
+
+    test.done();
+  },
+
+  componentPinAnalogDigitalNormalizedMultiPinObjectConflict: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: "A2"} }));
+
+    test.equal(component.board.occupied.length, 1);
+
+    test.done();
+  },
+
+  componentPinAnalogDigitalNormalizedMultiPinObjectConflictNoConflictSameComponent: function(test) {
+    test.expect(1);
+
+    var component = {};
+
+    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: 2} }));
+
+    test.equal(component.board.occupied.length, 2);
 
     test.done();
   },

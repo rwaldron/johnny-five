@@ -1,10 +1,14 @@
 <!--remove-start-->
-# 
+
+# Sensor - Force sensitive resistor
+
+
 
 Run with:
 ```bash
 node eg/sensor-fsr.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -34,19 +38,31 @@ var five = require("johnny-five"),
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)
-[docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
+### Breadboard for "Sensor - Force sensitive resistor"
 
 
 
+![docs/breadboard/sensor-fsr.png](breadboard/sensor-fsr.png)<br>
+
+Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

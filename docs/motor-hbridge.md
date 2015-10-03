@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Motor (H-Bridge)
+
+# Motor - H-Bridge
+
+
 
 Run with:
 ```bash
 node eg/motor-hbridge.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -43,16 +47,16 @@ board.on("ready", function() {
     motor: motor
   });
 
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start", Date.now());
   });
 
-  motor.on("stop", function(err, timestamp) {
-    console.log("automated stop on timer", timestamp);
+  motor.on("stop", function() {
+    console.log("automated stop on timer", Date.now());
   });
 
-  motor.on("forward", function(err, timestamp) {
-    console.log("forward", timestamp);
+  motor.on("forward", function() {
+    console.log("forward", Date.now());
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
@@ -60,8 +64,8 @@ board.on("ready", function() {
     });
   });
 
-  motor.on("reverse", function(err, timestamp) {
-    console.log("reverse", timestamp);
+  motor.on("reverse", function() {
+    console.log("reverse", Date.now());
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {
@@ -76,19 +80,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)
-[docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+### Breadboard for "Motor - H-Bridge"
 
 
 
+![docs/breadboard/motor-hbridge.png](breadboard/motor-hbridge.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-hbridge.fzz](breadboard/motor-hbridge.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Compass (HMC6352)
+
+# Compass - HMC6352
+
+
 
 Run with:
 ```bash
 node eg/compass-hmc6352.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -34,19 +38,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)
-[docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
+### Breadboard for "Compass - HMC6352"
 
 
 
+![docs/breadboard/compass-hmc6352.png](breadboard/compass-hmc6352.png)<br>
+
+Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc6352.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

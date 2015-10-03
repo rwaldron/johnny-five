@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Servo - (PCA9685)
+
+# Servo - PCA9685
+
+
 
 Run with:
 ```bash
 node eg/servo-PCA9685.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -17,16 +21,11 @@ board.on("ready", function() {
   // Initialize the servo
   var servo = new five.Servo({
     address: 0x40,
+    controller: "PCA9685",
     pin: 0,
-    controller: "PCA9685"
   });
 
-  // The address of the shield.
-  //    Defaults to 0x40
-  // controller: The type of Servo/PWM controller being used.
-  //   Defaults to "standard".
-
-  // Add servo to REPL (optional)
+  // Add servo to REPL for live control (optional)
   this.repl.inject({
     servo: servo
   });
@@ -78,7 +77,7 @@ board.on("ready", function() {
   //           defaults to 10°
   // }
   //
-  //servo.sweep();
+  servo.sweep();
 
 });
 
@@ -90,19 +89,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)
-[docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
+### Breadboard for "Servo - PCA9685"
 
 
 
+![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

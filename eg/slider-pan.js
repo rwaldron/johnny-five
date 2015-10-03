@@ -13,7 +13,6 @@ board.on("ready", function() {
   slider.scale(range).on("slide", function() {
 
     // The slider's value will be scaled to match the tilt servo range
-
     tilt.to(this.value);
   });
 });

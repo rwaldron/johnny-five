@@ -6,7 +6,7 @@ five.Board().on("ready", function() {
     pin: "A0"
   });
 
-  temperature.on("data", function(err, data) {
+  temperature.on("data", function(data) {
     console.log(data.celsius + "°C", data.fahrenheit + "°F");
   });
 });

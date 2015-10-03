@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Wii Nunchuk Component
+
+# Wii Nunchuck
+
+
 
 Run with:
 ```bash
 node eg/nunchuk.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -45,7 +49,7 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on("change", function(err, event) {
+  nunchuk.joystick.on("change", function(event) {
     console.log(
       "joystick " + event.axis,
       event.target[event.axis],
@@ -58,7 +62,7 @@ board.on("ready", function() {
   // Fired when the accelerometer detects a change in
   // axis position.
   //
-  nunchuk.accelerometer.on("change", function(err, event) {
+  nunchuk.accelerometer.on("change", function(event) {
     console.log(
       "accelerometer " + event.axis,
       event.target[event.axis],
@@ -90,7 +94,7 @@ board.on("ready", function() {
 
   ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on(type, function(err, event) {
+    nunchuk.on(type, function(event) {
       console.log(
         event.target.which + " is " + type,
 
@@ -118,10 +122,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

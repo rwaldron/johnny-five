@@ -1,10 +1,14 @@
 <!--remove-start-->
-# Servo - An Array of Servos
+
+# Servo - Array of servos
+
+
 
 Run with:
 ```bash
 node eg/servo-array.js
 ```
+
 <!--remove-end-->
 
 ```javascript
@@ -13,17 +17,12 @@ var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create two example servos on pins 9 and 10
-  five.Servo({
-    pin: 9,
-    // Limit this servo to 170°
-    range: [0, 170]
-  });
+  // Initialize a Servo collection
+  var servos = new five.Servos([9, 10]);
 
-  five.Servo(10);
 
-  // Initialize a collection of all active Servo instances
-  var servos = new five.Servos();
+  servos.center();
+
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
@@ -31,18 +30,6 @@ board.on("ready", function() {
   this.repl.inject({
     servos: servos
   });
-
-
-  // Servo.Array API
-
-  // center()
-  //
-  // centers all servos to center of range
-  // defaults to 90°
-  //
-  // eg. servos.center();
-
-  servos.center();
 
 
   // min()
@@ -93,19 +80,33 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/servo-array.png](breadboard/servo-array.png)
-[docs/breadboard/servo-array.fzz](breadboard/servo-array.fzz)
+### Servos on pins 9 and 10
+
+
+Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-two.png](breadboard/servo-two.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
+
+&nbsp;
 
 
 
+
+
+&nbsp;
 
 <!--remove-start-->
+
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
 Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
 <!--remove-end-->

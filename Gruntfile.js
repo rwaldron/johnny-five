@@ -1,8 +1,9 @@
 require("copy-paste");
 
-var inspect = require("util").inspect;
 var fs = require("fs");
 var shell = require("shelljs");
+
+process.env.IS_TEST_MODE = true;
 
 module.exports = function(grunt) {
 
@@ -10,20 +11,18 @@ module.exports = function(grunt) {
   var file = grunt.file;
   var log = grunt.log;
   var verbose = grunt.verbose;
-  var fail = grunt.fail;
-  var option = grunt.option;
-  var config = grunt.config;
-  var template = grunt.template;
   var _ = grunt.util._;
 
   var templates = {
     eg: _.template(file.read("tpl/.eg.md")),
     img: _.template(file.read("tpl/.img.md")),
-    fritzing: _.template(file.read("tpl/.fritzing.md")),
+    breadboard: _.template(file.read("tpl/.breadboard.md")),
     eglink: _.template(file.read("tpl/.readme.eglink.md")),
     readme: _.template(file.read("tpl/.readme.md")),
     noedit: _.template(file.read("tpl/.noedit.md")),
-    plugin: _.template(file.read("tpl/.plugin.md")),
+    embeds: {
+      youtube: _.template(file.read("tpl/.embed-youtube.html")),
+    }
   };
 
   // Project configuration.
@@ -34,68 +33,13 @@ module.exports = function(grunt) {
     },
     nodeunit: {
       tests: [
-        "test/bootstrap.js",
-        "test/board.js",
-        "test/board-connection.js",
-        "test/compass.js",
-        "test/options.js",
-        "test/board.pins.js",
-        "test/board.component.js",
-        "test/capabilities.js",
-        // ------------------
-        "test/accelerometer.js",
-        "test/animation.js",
-        "test/button.js",
-        "test/esc.js",
-        "test/fn.js",
-        "test/gyro.js",
-        "test/imu.js",
-        "test/lcd.js",
-        "test/led.js",
-        "test/ledcontrol.js",
-        "test/motor.js",
-        "test/pin.js",
-        "test/piezo.js",
-        "test/ping.js",
-        "test/pir.js",
-        "test/proximity.js",
-        "test/reflectancearray.js",
-        "test/relay.js",
-        "test/repl.js",
-        "test/sensor.js",
-        "test/servo.js",
-        "test/shiftregister.js",
-        "test/sonar.js",
-        "test/stepper.js",
-        "test/temperature.js",
-        "test/switch.js",
-        "test/wii.js"
+        "test/bootstrap/*.js",
+        "test/*.js"
       ]
     },
     jshint: {
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: false,
-        newcap: false,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        strict: false,
-        esnext: true,
-        globals: {
-          exports: true,
-          document: true,
-          $: true,
-          Radar: true,
-          WeakMap: true,
-          window: true,
-          copy: true
-        }
+        jshintrc: true
       },
       files: {
         src: [
@@ -161,14 +105,23 @@ module.exports = function(grunt) {
 
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
-  grunt.registerTask("nodeunit:just", function(file) {
+  grunt.registerTask("nodeunit:just", "Run a single test specified by a target; usage: \"grunt nodeunit:just:<module-name>[.js]\"", function(file) {
     if (file) {
       grunt.config("nodeunit.tests", [
-        "test/bootstrap.js",
+        "test/bootstrap/*.js",
         "test/" + file + ".js",
       ]);
     }
 
+    grunt.task.run("nodeunit");
+  });
+
+  // Support running a complete set of tests with
+  // extended (possibly-slow) tests included.
+  grunt.registerTask("nodeunit:complete", function() {
+    var testConfig = grunt.config("nodeunit.tests");
+    testConfig.push("test/extended/*.js");
+    grunt.config("nodeunit.tests", testConfig);
     grunt.task.run("nodeunit");
   });
 
@@ -179,32 +132,42 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-jscs");
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
+  // Explicit test task runs complete set of tests
+  grunt.registerTask("test", ["jshint", "jscs", "nodeunit:complete"]);
 
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
     var entries = JSON.parse(file.read(file.expand(this.data)));
-    var titles = JSON.parse(file.read("tpl/titles.json"));
     var readme = [];
-    var tplType = "eg";
+
 
     entries.forEach(function(entry) {
-
       var topic = entry.topic;
-      var tplType = entry.tplType || "eg";
+
+      log.writeln("Processing examples for: " + entry.topic);
 
       readme.push("\n### " + topic + "\n");
 
-      entry.files.forEach(function(value) {
+      entry.examples.forEach(function(example) {
+        var markdown, filepath, eg, md, inMarkdown,
+          images, breadboards, embeds, name, imgMarkdown, values;
 
-        var markdown = [];
-        var filepath = "eg/" + value;
-        var eg = file.read(filepath);
-        var md = "docs/" + value.replace(".js", ".md");
-        var png = "docs/breadboard/" + value.replace(".js", ".png");
-        var fzz = "docs/breadboard/" + value.replace(".js", ".fzz");
-        var fritzpath = fzz.split("/");
-        var fritzfile = fritzpath[fritzpath.length - 1];
-        var inMarkdown = false;
+        markdown = [];
+        filepath = "eg/" + example.file;
+
+        if ( !example.file || !fs.existsSync(filepath) ) {
+          grunt.fail.fatal("Specified example file doesn't exist: " + filepath);
+        }
+
+        eg = file.read(filepath);
+        name = (example.name || example.file).replace(".js", "");
+
+        md = "docs/" + name + ".md";
+        inMarkdown = false;
+
+        if (!example.title) {
+          grunt.fail.fatal("Invalid example (" + name + "): title required");
+        }
 
         // Modify code in example to appear as it would if installed via npm
         eg = eg.replace(/\.\.\/lib\/|\.js/g, "").split("\n").filter(function(line) {
@@ -228,28 +191,92 @@ module.exports = function(grunt) {
           return true;
         }).join("\n");
 
-        var hasPng = fs.existsSync(png);
-        var hasFzz = fs.existsSync(fzz);
+        markdown = markdown.join("\n");
 
-        // console.log( markdown );
+        // If there are photo images to include
+        images = example.images || [];
 
-        var values = {
-          title: titles[value],
+        // Get list of breadboards diagrams to include (Default: same as file name)
+        breadboards = example.breadboards || [{
+          "name": name,
+          "title": "Breadboard for \"" + example.title + "\"",
+          "auto": true
+        }];
+
+        embeds = (example.embeds || []).map(function(embed) {
+          return templates.embeds[embed.type]({ src: embed.src });
+        });
+
+        // We'll combine markdown for images and breadboards
+        imgMarkdown = "";
+
+        images.forEach(function(img) {
+          if (!img.title || !img.file) {
+            grunt.fail.fatal("Invalid image: title and file required");
+          }
+
+          img.filepath = "docs/images/" + img.file;
+          var hasImg = fs.existsSync(img.filepath);
+          if (hasImg) {
+            imgMarkdown += templates.img({ img: img });
+          } else {
+            // If it's specified but doesn't exist, we'll consider it an error
+            grunt.fail.fatal("Invalid image: " + img.file);
+          }
+        });
+
+        breadboards.forEach(function(breadboard) {
+
+          if (!breadboard.name) {
+            grunt.fail.fatal("Invalid breadboard: name required");
+          }
+
+          if (!breadboard.title) {
+            grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
+          }
+
+          breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
+          breadboard.fzz = "docs/breadboard/" + breadboard.name + ".fzz";
+
+          breadboard.hasPng = fs.existsSync(breadboard.png);
+          breadboard.hasFzz = fs.existsSync(breadboard.fzz);
+
+          if (!breadboard.hasPng) {
+            if (breadboard.auto) {
+              // i.e. we tried to guess at a name but still doesn't exist
+              // We can just ignore and no breadboard shown
+              return;
+            } else {
+              // A breadboard was specified but doesn't exist - error
+              grunt.fail.fatal("Specified breadboard doesn't exist: " + breadboard.png);
+            }
+          }
+
+          // FZZ is optional, but we'll warn at verbose
+          if (!breadboard.hasFzz) {
+            verbose.writeln("Missing FZZ: " + breadboard.fzz);
+          }
+
+          imgMarkdown += templates.breadboard({ breadboard: breadboard });
+        });
+
+        values = {
+          title: example.title,
+          description: example.description,
           command: "node " + filepath,
           example: eg,
           file: md,
-          markdown: markdown.join("\n"),
-          breadboard: hasPng ? templates.img({ png: png }) : "",
-          fritzing: hasFzz ? templates.fritzing({ fzz: fzz }) : ""
+          markdown: markdown,
+          images: imgMarkdown,
+          embeds: embeds,
+          externals: example.externals || []
         };
 
-        if (titles[value]) {
-          // Write the file to /docs/*
-          file.write(md, templates[tplType](values));
+        // Write the file to /docs/*
+        file.write(md, templates.eg(values));
 
-          // Push a rendered markdown link into the readme "index"
-          readme.push(templates.eglink(values));
-        }
+        // Push a rendered markdown link into the readme "index"
+        readme.push(templates.eglink(values));
       });
     });
 
@@ -303,7 +330,7 @@ module.exports = function(grunt) {
 
         copy(replacement);
 
-        return '  "version": "' + replacement + '",';
+        return "  \"version\": \"" + replacement + "\",";
       }
 
       return line;

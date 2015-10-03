@@ -1,5 +1,4 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   Board = five.Board,
   LCD = five.LCD,
@@ -334,11 +333,10 @@ exports["LCD - I2C (JHD1313M1)"] = {
     //
     var spy = sinon.spy(this.board.io, "i2cWrite");
 
-    var lcd = new LCD({
+    new LCD({
       controller: "JHD1313M1",
       board: this.board
     });
-
 
     test.ok(spy.called);
     test.equal(spy.callCount, 14);
@@ -399,11 +397,10 @@ exports["LCD - I2C (LCD2004)"] = {
     //
     var spy = sinon.spy(this.board.io, "i2cWrite");
 
-    var lcd = new LCD({
+    new LCD({
       controller: "LCD2004",
       board: this.board
     });
-
 
     test.ok(spy.called);
     test.equal(spy.callCount, 30);
@@ -494,11 +491,10 @@ exports["LCD - I2C (LCM1602)"] = {
     //
     var spy = sinon.spy(this.board.io, "i2cWrite");
 
-    var lcd = new LCD({
+    new LCD({
       controller: "LCM1602",
       board: this.board
     });
-
 
     test.ok(spy.called);
     test.equal(spy.callCount, 30);

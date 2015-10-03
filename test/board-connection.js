@@ -1,5 +1,4 @@
 var sinon = require("sinon");
-var MockFirmata = require("./mock-firmata");
 var Board = require("../lib/board.js");
 
 var Serial = Board.__spy.Serial;
