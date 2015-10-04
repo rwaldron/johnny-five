@@ -791,6 +791,13 @@
           { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
           { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
         ]
+      },
+      {
+        "file": "multi-htu21d.js",
+        "title": "Multi - HTU21D",
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
       }
     ]
   },
@@ -883,6 +890,10 @@
         "title": "Temperature - MPU6050"
       },
       {
+        "file": "temperature-htu21d.js",
+        "title": "Temperature - HTU21D"
+      },
+      {
         "file": "barometer-mpl115a2.js",
         "title": "Barometer - MPL115A2",
         "breadboards": [
@@ -912,6 +923,13 @@
           { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
           { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
           { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "hygrometer-htu21d.js",
+        "title": "Hygrometer - HTU21D",
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
         ]
       },
       {
