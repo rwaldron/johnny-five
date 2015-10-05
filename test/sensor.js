@@ -47,7 +47,13 @@ function getShape(sensor) {
     threshold: sensor.threshold,
     isScaled: sensor.isScaled,
     pin: sensor.pin,
-    state: sensor.state
+    state: {
+      enabled: sensor.state.enabled,
+      booleanBarrier: sensor.state.booleanBarrier,
+      scale: sensor.state.scale,
+      value: sensor.state.value,
+      freq: sensor.state.freq,
+    }
   };
 }
 
@@ -74,20 +80,23 @@ exports["Sensor - Analog"] = {
       isScaled: false,
       pin: 1,
       state: {
+        enabled: true,
         booleanBarrier: 512,
         scale: null,
-        value: 0,// Starts at null, but gets updated before first checks
+        value: 0, // Starts at null, but gets updated before first checks
         freq: 25
       }
     };
 
     // Methods expected to be found on the prototype for sensor instances
     this.methods = [
+      "booleanAt",
       "constructor",
-      "within",
+      "enable",
+      "disable",
       "scale",
       "scaleTo",
-      "booleanAt"
+      "within",
     ];
 
     // All properties expected to be found (directly) on any sensor instance
@@ -1136,7 +1145,59 @@ exports["Sensor - Analog"] = {
     test.equals(this.sensor.analog, 127);
 
     test.done();
-  }// ./analog: function(test)
+  },// ./analog: function(test)
+
+  disable: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+
+    test.expect(1);
+
+    this.sensor.disable();
+
+    this.sensor.on("data", spy);
+    this.sensor.on("change", spy);
+
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+    callback(1023);
+    this.clock.tick(25);
+
+    test.equal(spy.callCount, 0);
+
+    test.done();
+  },
+
+  enable: function(test) {
+    var callback = this.analogRead.args[0][1];
+    var spy = sinon.spy();
+
+    test.expect(2);
+
+    this.sensor.disable();
+
+    this.sensor.on("data", spy);
+    this.sensor.on("change", spy);
+
+    callback(1023);
+    this.clock.tick(25);
+
+    test.equal(spy.callCount, 0);
+
+    this.sensor.enable();
+
+    callback(1023);
+    this.clock.tick(25);
+
+    test.equal(spy.callCount, 2);
+    test.done();
+  }
 };
 
 exports["Sensor - Digital"] = {
