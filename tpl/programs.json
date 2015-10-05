@@ -940,6 +940,16 @@
     ]
   },
   {
+    "topic": "Photon Weather Shield",
+    "classes": ["Sensor", "Pin", "Temperature", "Barometer", "Hygrometer"],
+    "examples": [
+      {
+        "file": "sensor-photon-weather-shield-moisture.js",
+        "title": "Photon Weather Shield: Moisture"
+      }
+    ]
+  },
+  {
     "topic": "Lego EVShield",
     "classes": ["Color", "Light", "Motor", "Button", "Proximity"],
     "examples": [

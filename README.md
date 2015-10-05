@@ -365,6 +365,9 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
 - [Temperature - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
 
+### Photon Weather Shield
+- [Photon Weather Shield: Moisture](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-photon-weather-shield-moisture.md)
+
 ### Lego EVShield
 - [Button - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_EV3.md)
 - [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
