@@ -9,6 +9,17 @@
 
 
 
+##### MPL3115A2
+
+
+
+![docs/breadboard/barometer-mpl3115a2.png](breadboard/barometer-mpl3115a2.png)<br>
+
+Fritzing diagram: [docs/breadboard/barometer-mpl3115a2.fzz](breadboard/barometer-mpl3115a2.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
