@@ -9,6 +9,17 @@
 
 
 
+##### HTU21D
+
+
+
+![docs/breadboard/humidity-htu21d.png](breadboard/humidity-htu21d.png)<br>
+
+Fritzing diagram: [docs/breadboard/humidity-htu21d.fzz](breadboard/humidity-htu21d.fzz)
+
+&nbsp;
+
+
 
 
 Run with:

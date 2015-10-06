@@ -9,6 +9,17 @@
 
 
 
+##### HTU21D
+
+
+
+![docs/breadboard/humidity-htu21d.png](breadboard/humidity-htu21d.png)<br>
+
+Fritzing diagram: [docs/breadboard/humidity-htu21d.fzz](breadboard/humidity-htu21d.fzz)
+
+&nbsp;
+
+
 
 
 Run with:
@@ -42,6 +53,11 @@ board.on("ready", function() {
 
 ## Additional Notes
 - [HTU21D - Humidity Sensor](https://www.adafruit.com/products/1899)
+
+
+## Learn More
+
+- [HTU21D Humidity/Temperature Sensor](https://www.adafruit.com/products/1899)
 
 &nbsp;
 

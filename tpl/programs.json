@@ -795,6 +795,9 @@
       {
         "file": "multi-htu21d.js",
         "title": "Multi - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
         ]
@@ -891,7 +894,13 @@
       },
       {
         "file": "temperature-htu21d.js",
-        "title": "Temperature - HTU21D"
+        "title": "Temperature - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
       },
       {
         "file": "barometer-mpl115a2.js",
@@ -928,6 +937,9 @@
       {
         "file": "hygrometer-htu21d.js",
         "title": "Hygrometer - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
         ]
