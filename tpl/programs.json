@@ -784,6 +784,13 @@
         ]
       },
       {
+        "file": "multi-mpl3115a2.js",
+        "title": "Multi - MPL3115A2",
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
         "file": "multi-bmp180.js",
         "title": "Multi - BMP180",
         "externals": [
@@ -910,6 +917,27 @@
         ],
         "externals": [
           { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "barometer-mpl3115a2.js",
+        "title": "Barometer - MPL3115A2",
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "altimeter-mpl3115a2.js",
+        "title": "Altimeter - MPL3115A2",
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "temperature-mpl3115a2.js",
+        "title": "Temperature - MPL3115A2",
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
         ]
       },
       {

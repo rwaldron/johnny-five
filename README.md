@@ -335,6 +335,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### IMU/Multi
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
 - [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
+- [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
 - [Multi - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-htu21d.md)
 
@@ -362,6 +363,9 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Temperature - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
 - [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
+- [Barometer - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl3115a2.md)
+- [Altimeter - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-mpl3115a2.md)
+- [Temperature - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl3115a2.md)
 - [Temperature - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl115a2.md)
 - [Barometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-BMP180.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
