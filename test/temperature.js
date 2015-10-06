@@ -870,3 +870,90 @@ exports["Temperature -- SI7020"] = {
     test.done();
   }
 };
+
+exports["Temperature -- HTU21D"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.temperature = new Temperature({
+      controller: "HTU21D",
+      board: this.board,
+      freq: 10
+    });
+
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Temperature({
+      controller: "HTU21D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  enforceExplicitReadDelay: function(test) {
+    test.expect(1);
+
+    this.i2cConfig.reset();
+
+    new Temperature({
+      controller: "SI7020",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(forwarded.delay, 50000);
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(6);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
+      0x40, // address
+      0xE5, // register
+      3,    // data length
+    ]);
+    
+
+    var spy = this.sandbox.spy();
+    var read = this.i2cReadOnce.lastCall.args[3];
+
+    this.temperature.on("data", spy);
+
+    read([0x00, 0x00, 0x00]); // humidity
+    read = this.i2cReadOnce.lastCall.args[3];
+    read([0x67, 0x0F, 0x00]); // temperature
+    read = this.i2cReadOnce.lastCall.args[3];
+    read([0x00, 0x00, 0x00]); // humidity again
+
+    this.clock.tick(10);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), 24);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
+    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+
+    test.done();
+  }
+};
