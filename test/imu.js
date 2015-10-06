@@ -220,3 +220,60 @@ exports["Multi -- MPL115A2"] = {
     test.done();
   },
 };
+
+exports["Multi -- HTU21D"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.imu = new IMU({
+      controller: "HTU21D",
+      freq: 100,
+      board: this.board
+    });
+
+    this.proto = [];
+
+    this.instance = [{
+      name: "components"
+    }, {
+      name: "hygrometer"
+    }, {
+      name: "temperature"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    IMU.Drivers.clear();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.imu[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.imu[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  components: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.imu.components, ["hygrometer", "temperature"]);
+
+    test.done();
+  },
+};
