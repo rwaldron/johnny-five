@@ -957,3 +957,177 @@ exports["Temperature -- HTU21D"] = {
     test.done();
   }
 };
+
+function mpl3115aDataLoop(test, initialCount, data) {
+  test.equal(this.i2cReadOnce.callCount, initialCount + 1);
+  test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
+    0x60, // address
+    0x00, // status register
+    1,    // data length
+  ]);
+  
+  var read = this.i2cReadOnce.lastCall.args[3];
+  read([0x04]); // write status bit
+
+  test.equal(this.i2cReadOnce.callCount, initialCount + 2);
+  test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
+    0x60, // address
+    0x01, // altitude register
+    6,    // data length (pressure + temp)
+  ]);
+
+  read = this.i2cReadOnce.lastCall.args[3];
+  read(data);
+}
+
+exports["Temperature -- MPL3115A2"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.temperature = new Temperature({
+      controller: "MPL3115A2",
+      board: this.board,
+      freq: 10
+    });
+
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Temperature({
+      controller: "MPL3115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(15);
+
+    test.equal(this.i2cWrite.callCount, 2);
+    
+    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
+      0x60, // address
+      0x13, // config register
+      0x07, // config value
+    ]);
+
+    test.deepEqual(this.i2cWrite.lastCall.args.slice(0, 3), [
+      0x60, // address
+      0x26, // control register
+      0xB9, // config value
+    ]);
+
+    var spy = this.sandbox.spy();
+    this.temperature.on("data", spy);
+
+    // Altitude Loop
+    mpl3115aDataLoop.call(this, test, 0, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // altitude
+      0x66, 0x77        // temperature
+    ]);
+    
+
+    // Pressure Loop
+    mpl3115aDataLoop.call(this, test, 2, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // pressure
+      0x18, 0x20        // temperature
+    ]);
+    
+    this.clock.tick(10);
+
+    test.ok(spy.calledOnce);
+    test.equals(Math.round(spy.args[0][1].celsius), 24);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
+    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(39);
+
+    var spy = this.sandbox.spy();
+    this.temperature.on("change", spy);
+
+    // First Pass -- initial
+    mpl3115aDataLoop.call(this, test, 0, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // altitude
+      0x18, 0x20        // temperature
+    ]);
+    mpl3115aDataLoop.call(this, test, 2, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // pressure
+      0x18, 0x20        // temperature
+    ]);
+    this.clock.tick(10);
+
+    // Second Pass -- same
+    mpl3115aDataLoop.call(this, test, 4, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // altitude
+      0x18, 0x20        // temperature
+    ]);
+    mpl3115aDataLoop.call(this, test, 6, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // pressure
+      0x18, 0x20        // temperature
+    ]);
+    this.clock.tick(10);
+
+    // Third Pass -- change
+    mpl3115aDataLoop.call(this, test, 8, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // altitude
+      0x28, 0x20        // temperature
+    ]);
+    mpl3115aDataLoop.call(this, test, 10, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // pressure
+      0x28, 0x20        // temperature
+    ]);
+    this.clock.tick(10);
+
+    // Fourth Pass -- same
+    mpl3115aDataLoop.call(this, test, 12, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // altitude
+      0x28, 0x20        // temperature
+    ]);
+    mpl3115aDataLoop.call(this, test, 14, [
+      0x00,             // status
+      0x00, 0x00, 0x00, // pressure
+      0x28, 0x20        // temperature
+    ]);
+    this.clock.tick(10);
+
+    test.ok(spy.calledTwice);
+    test.equals(Math.round(spy.args[0][1].celsius), 24);
+    test.equals(Math.round(spy.args[0][1].fahrenheit), 75);
+    test.equals(Math.round(spy.args[0][1].kelvin), 297);
+    test.equals(Math.round(spy.args[1][1].celsius), 40);
+    test.equals(Math.round(spy.args[1][1].fahrenheit), 104);
+    test.equals(Math.round(spy.args[1][1].kelvin), 313);
+
+    test.done();
+  }
+};
