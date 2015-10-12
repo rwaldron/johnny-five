@@ -3,7 +3,11 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "MPL3115A2"
+    controller: "MPL3115A2",
+    // change altitudeOffset with whatever is reported
+    // on http://www.whatismyelevation.com/.
+    // `12` is the elevation (meters) for where I live in Brooklyn
+    altitudeOffset: 12,
   });
 
   multi.on("change", function() {
