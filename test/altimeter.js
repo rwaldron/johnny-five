@@ -137,18 +137,36 @@ exports["Altimeter -- MPL3115A2"] = {
 
   data: function(test) {
     // test.expect(16);
-    test.expect(5);
+    test.expect(8);
 
-    test.equal(this.i2cWriteReg.callCount, 1);
-    test.equal(this.i2cWrite.callCount, 3);
+    test.equal(this.i2cWrite.callCount, 2);
+    test.equal(this.i2cWriteReg.callCount, 4);
 
-    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWriteReg.getCall(0).args.slice(0, 3), [
+      0x60, // address
+      0x2D, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(1).args.slice(0, 3), [
+      0x60, // address
+      0x14, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args.slice(0, 3), [
+      0x60, // address
+      0x15, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(3).args.slice(0, 3), [
       0x60, // address
       0x13, // config register
       0x07, // config value
     ]);
 
-    test.deepEqual(this.i2cWrite.secondCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
       0x60, // address
       0x26, // control register
       0x3B, // config value

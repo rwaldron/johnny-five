@@ -248,12 +248,13 @@ function mpl3115aDataLoop(test, initialCount, data) {
   read(data);
 }
 
-exports["Temperature -- MPL3115A2"] = {
+exports["Barometer -- MPL3115A2"] = {
 
   setUp: function(done) {
     this.board = newBoard();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
     this.clock = sinon.useFakeTimers();
 
@@ -271,6 +272,7 @@ exports["Temperature -- MPL3115A2"] = {
     this.clock.restore();
     this.i2cConfig.restore();
     this.i2cWrite.restore();
+    this.i2cWriteReg.restore();
     this.i2cReadOnce.restore();
     done();
   },
@@ -297,21 +299,47 @@ exports["Temperature -- MPL3115A2"] = {
   },
 
   data: function(test) {
-    test.expect(13);
+    test.expect(17);
 
-    test.equal(this.i2cWrite.callCount, 2);
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cWriteReg.callCount, 4);
 
-    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWriteReg.getCall(0).args.slice(0, 3), [
+      0x60, // address
+      0x2D, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(1).args.slice(0, 3), [
+      0x60, // address
+      0x14, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args.slice(0, 3), [
+      0x60, // address
+      0x15, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(3).args.slice(0, 3), [
       0x60, // address
       0x13, // config register
       0x07, // config value
     ]);
 
-    test.deepEqual(this.i2cWrite.lastCall.args.slice(0, 3), [
+
+    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
       0x60, // address
-      0x26, // control register
+      0x26, // config register
       0xB9, // config value
     ]);
+
+    // test.deepEqual(this.i2cWrite.lastCall.args.slice(0, 3), [
+    //   0x60, // address
+    //   0x26, // control register
+    //   0xB9, // config value
+    // ]);
 
     var spy = sinon.spy();
     this.barometer.on("data", spy);
