@@ -278,61 +278,61 @@ exports["Multi -- HTU21D"] = {
   },
 };
 
-// exports["Multi -- MPL3115A2"] = {
+exports["Multi -- MPL3115A2"] = {
 
-//   setUp: function(done) {
-//     this.board = newBoard();
-//     this.clock = sinon.useFakeTimers();
-//     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-//     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-//     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-//     this.imu = new IMU({
-//       controller: "MPL3115A2",
-//       freq: 100,
-//       board: this.board
-//     });
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.imu = new IMU({
+      controller: "MPL3115A2",
+      freq: 100,
+      board: this.board
+    });
 
-//     this.proto = [];
+    this.proto = [];
 
-//     this.instance = [{
-//       name: "components"
-//     }, {
-//       name: "barometer"
-//     }, {
-//       name: "altimeter"
-//     }, {
-//       name: "temperature"
-//     }];
+    this.instance = [{
+      name: "components"
+    }, {
+      name: "barometer"
+    }, {
+      name: "altimeter"
+    }, {
+      name: "temperature"
+    }];
 
-//     done();
-//   },
+    done();
+  },
 
-//   tearDown: function(done) {
-//     Board.purge();
-//     restore(this);
-//     IMU.Drivers.clear();
-//     done();
-//   },
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    IMU.Drivers.clear();
+    done();
+  },
 
-//   shape: function(test) {
-//     test.expect(this.proto.length + this.instance.length);
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
 
-//     this.proto.forEach(function(method) {
-//       test.equal(typeof this.imu[method.name], "function");
-//     }, this);
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.imu[method.name], "function");
+    }, this);
 
-//     this.instance.forEach(function(property) {
-//       test.notEqual(typeof this.imu[property.name], "undefined");
-//     }, this);
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.imu[property.name], "undefined");
+    }, this);
 
-//     test.done();
-//   },
+    test.done();
+  },
 
-//   components: function(test) {
-//     test.expect(1);
+  components: function(test) {
+    test.expect(1);
 
-//     test.deepEqual(this.imu.components, ["barometer", "altimeter", "temperature"]);
+    test.deepEqual(this.imu.components, ["barometer", "altimeter", "temperature"]);
 
-//     test.done();
-//   },
-// };
+    test.done();
+  },
+};
