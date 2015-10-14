@@ -86,7 +86,7 @@ exports["Board.Controller"] = {
   },
 
   requirementsMissingWarning: function(test) {
-    test.expect(2);
+    test.expect(4);
 
     var context = {
       board: this.board
@@ -98,6 +98,8 @@ exports["Board.Controller"] = {
 
     Board.Controller.call(context, controller, options);
 
+    test.equal(this.warn.getCall(0).args[0], "Object");
+    test.equal(this.warn.getCall(0).args[1], "message");
     test.equal(this.warn.callCount, 1);
     test.equal(this.odp.callCount, 1);
 

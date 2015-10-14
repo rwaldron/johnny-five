@@ -133,7 +133,7 @@ exports["Altimeter -- MPL3115A2"] = {
   },
 
   missingRequirements: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     new Altimeter({
       controller: "MPL3115A2",
@@ -143,7 +143,9 @@ exports["Altimeter -- MPL3115A2"] = {
     });
 
     test.equal(this.warn.callCount, 1);
-    test.equal(this.warn.getCall(0).args[0], "Missing `elevation` option. Without a specified base `elevation`, the altitude measurement will be inaccurate. Use whatismyelevation.com");
+    test.equal(this.warn.getCall(0).args[0], "Altimeter");
+
+    test.equal(this.warn.getCall(0).args[1], "Missing `elevation` option. Without a specified base `elevation`, the altitude measurement will be inaccurate. Use whatismyelevation.com");
 
     test.done();
   },
