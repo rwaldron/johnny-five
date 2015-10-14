@@ -85,11 +85,12 @@ function testShape(test) {
 exports["Altimeter -- MPL3115A2"] = {
 
   setUp: function(done) {
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.warn = this.sandbox.stub(this.board, "warn");
 
     this.altimeter = new Altimeter({
       elevation: 10,
@@ -103,11 +104,7 @@ exports["Altimeter -- MPL3115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cWriteReg.restore();
-    this.i2cRead.restore();
-    this.i2cReadOnce.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -131,6 +128,22 @@ exports["Altimeter -- MPL3115A2"] = {
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
     test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  missingRequirements: function(test) {
+    test.expect(2);
+
+    new Altimeter({
+      controller: "MPL3115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    test.equal(this.warn.callCount, 1);
+    test.equal(this.warn.getCall(0).args[0], "Missing `elevation` option. Without a specified base `elevation`, the altitude measurement will be inaccurate. Use whatismyelevation.com");
 
     test.done();
   },
