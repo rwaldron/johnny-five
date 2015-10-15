@@ -119,7 +119,7 @@
     "array-includes": "latest"
   },
   "optionalDependencies": {
-    "firmata": ">=0.2.9",
+    "firmata": "0.6.0",
     "serialport": "1.7.4"
   },
   "devDependencies": {
