@@ -85,11 +85,12 @@ function testShape(test) {
 exports["Altimeter -- MPL3115A2"] = {
 
   setUp: function(done) {
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.warn = this.sandbox.stub(this.board, "warn");
 
     this.altimeter = new Altimeter({
       elevation: 10,
@@ -103,11 +104,7 @@ exports["Altimeter -- MPL3115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cWriteReg.restore();
-    this.i2cRead.restore();
-    this.i2cReadOnce.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -135,20 +132,56 @@ exports["Altimeter -- MPL3115A2"] = {
     test.done();
   },
 
+  missingRequirements: function(test) {
+    test.expect(3);
+
+    new Altimeter({
+      controller: "MPL3115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    test.equal(this.warn.callCount, 1);
+    test.equal(this.warn.getCall(0).args[0], "Altimeter");
+
+    test.equal(this.warn.getCall(0).args[1], "Missing `elevation` option. Without a specified base `elevation`, the altitude measurement will be inaccurate. Use the meters value shown on whatismyelevation.com");
+
+    test.done();
+  },
+
   data: function(test) {
     // test.expect(16);
-    test.expect(5);
+    test.expect(8);
 
-    test.equal(this.i2cWriteReg.callCount, 1);
-    test.equal(this.i2cWrite.callCount, 3);
+    test.equal(this.i2cWrite.callCount, 2);
+    test.equal(this.i2cWriteReg.callCount, 4);
 
-    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWriteReg.getCall(0).args.slice(0, 3), [
+      0x60, // address
+      0x2D, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(1).args.slice(0, 3), [
+      0x60, // address
+      0x14, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args.slice(0, 3), [
+      0x60, // address
+      0x15, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(3).args.slice(0, 3), [
       0x60, // address
       0x13, // config register
       0x07, // config value
     ]);
 
-    test.deepEqual(this.i2cWrite.secondCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
       0x60, // address
       0x26, // control register
       0x3B, // config value

@@ -338,7 +338,7 @@ exports["Temperature -- ANALOG"] = {
         freq: this.freq,
         board: this.board
       });
-    
+
       done();
     },
 
@@ -934,7 +934,7 @@ exports["Temperature -- HTU21D"] = {
       0xE5, // register
       3,    // data length
     ]);
-    
+
 
     var spy = this.sandbox.spy();
     var read = this.i2cReadOnce.lastCall.args[3];
@@ -965,7 +965,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
     0x00, // status register
     1,    // data length
   ]);
-  
+
   var read = this.i2cReadOnce.lastCall.args[3];
   read([0x04]); // write status bit
 
@@ -985,6 +985,7 @@ exports["Temperature -- MPL3115A2"] = {
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.temperature = new Temperature({
@@ -1018,21 +1019,46 @@ exports["Temperature -- MPL3115A2"] = {
   },
 
   data: function(test) {
-    test.expect(15);
+    test.expect(19);
 
-    test.equal(this.i2cWrite.callCount, 2);
-    
-    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cWriteReg.callCount, 4);
+
+    test.deepEqual(this.i2cWriteReg.getCall(0).args.slice(0, 3), [
+      0x60, // address
+      0x2D, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(1).args.slice(0, 3), [
+      0x60, // address
+      0x14, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args.slice(0, 3), [
+      0x60, // address
+      0x15, // config register
+      0x00, // config value
+    ]);
+
+    test.deepEqual(this.i2cWriteReg.getCall(3).args.slice(0, 3), [
       0x60, // address
       0x13, // config register
       0x07, // config value
     ]);
 
-    test.deepEqual(this.i2cWrite.lastCall.args.slice(0, 3), [
+    test.deepEqual(this.i2cWrite.firstCall.args.slice(0, 3), [
       0x60, // address
-      0x26, // control register
+      0x26, // config register
       0xB9, // config value
     ]);
+
+    // test.deepEqual(this.i2cWrite.lastCall.args.slice(0, 3), [
+    //   0x60, // address
+    //   0x26, // control register
+    //   0xB9, // config value
+    // ]);
 
     var spy = this.sandbox.spy();
     this.temperature.on("data", spy);
@@ -1043,7 +1069,7 @@ exports["Temperature -- MPL3115A2"] = {
       0x00, 0x00, 0x00, // altitude
       0x66, 0x77        // temperature
     ]);
-    
+
 
     // Pressure Loop
     mpl3115aDataLoop.call(this, test, 2, [
@@ -1051,7 +1077,7 @@ exports["Temperature -- MPL3115A2"] = {
       0x00, 0x00, 0x00, // pressure
       0x18, 0x20        // temperature
     ]);
-    
+
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
