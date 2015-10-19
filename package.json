@@ -120,7 +120,7 @@
     "semver": "^5.0.3"
   },
   "optionalDependencies": {
-    "firmata": "0.6.0"
+    "firmata": "latest"
   },
   "devDependencies": {
     "async": "~0.9.0",
