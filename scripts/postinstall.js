@@ -1,7 +1,13 @@
 require("es6-shim");
 
+var path = require("path");
+var fs = require("fs");
+var mv = require("mv");
 var semver = require("semver");
-var spawn = require("child_process").spawn;
+var cp = require("child_process");
+var exec = cp.exec;
+var spawn = cp.spawn;
+
 var sp = {
   version: "1.7.4",
   get atVersion() {
@@ -13,15 +19,32 @@ if (semver.gte(process.version, "3.0.0")) {
   sp.version = "latest";
 }
 
-var npm = spawn("npm", ["install", sp.atVersion]);
+var sPath = path.join(process.cwd(), "node_modules", "firmata", "node_modules", "serialport");
+var dPath = path.join(process.cwd(), "node_modules", "serialport");
 
-npm.stdout.on("data", function(data) {
-  console.log(data.toString("utf8"));
-});
+fs.exists(sPath, function(exists) {
+  if (exists) {
+    mv(sPath, dPath, {mkdirp: true}, function(error) {
+      if (error) {
+        console.log("mv failed: ", error);
+      }
+    });
+  } else {
+    var npm = spawn("npm", ["install", sp.atVersion]);
 
-npm.on("close", function(code) {
-  if (code !== 0) {
-    console.log("serialport installation failed. Error Code:", code);
+    npm.stdout.on("data", function(data) {
+      console.log(data.toString("utf8"));
+    });
+
+    npm.on("close", function(code) {
+      if (code !== 0) {
+        console.log("serialport installation failed. Error Code:", code);
+      }
+
+      exec("npm uninstall mv semver", function(error, result) {
+        console.log(result);
+      });
+    });
   }
 });
 
