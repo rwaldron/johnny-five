@@ -116,11 +116,11 @@
     "lodash": "latest",
     "nanotimer": "0.3.10",
     "temporal": "latest",
-    "array-includes": "latest"
+    "array-includes": "latest",
+    "semver": "^5.0.3"
   },
   "optionalDependencies": {
-    "firmata": "0.6.0",
-    "serialport": "1.7.4"
+    "firmata": "0.6.0"
   },
   "devDependencies": {
     "async": "~0.9.0",
@@ -139,7 +139,8 @@
     "sinon": "~1.10.2"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "postinstall": "node scripts/postinstall"
   },
   "browser": {
     "galileo-io": false
