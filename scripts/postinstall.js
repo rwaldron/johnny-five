@@ -23,8 +23,6 @@ npm.on("close", function(code) {
   if (code !== 0) {
     console.log("serialport installation failed. Error Code:", code);
   }
-
-  delete process.env.SERIAL_PORT_INSTALLED;
 });
 
 /*
