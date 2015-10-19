@@ -118,7 +118,8 @@
     "temporal": "latest",
     "array-includes": "latest",
     "semver": "^5.0.3",
-    "mv": "2.1.1"
+    "mv": "2.1.1",
+    "win-spawn": "2.0.0"
   },
   "optionalDependencies": {
     "firmata": "git://github.com/jgautier/firmata.git"

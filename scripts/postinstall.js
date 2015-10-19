@@ -4,9 +4,7 @@ var path = require("path");
 var fs = require("fs");
 var mv = require("mv");
 var semver = require("semver");
-var cp = require("child_process");
-var exec = cp.exec;
-var spawn = cp.spawn;
+var spawn = require("win-spawn");
 
 var sp = {
   version: "1.7.4",
@@ -40,10 +38,6 @@ fs.exists(sPath, function(exists) {
       if (code !== 0) {
         console.log("serialport installation failed. Error Code:", code);
       }
-
-      exec("npm uninstall mv semver", function(error, result) {
-        console.log(result);
-      });
     });
   }
 });
