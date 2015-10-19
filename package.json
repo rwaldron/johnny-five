@@ -140,7 +140,7 @@
   },
   "scripts": {
     "test": "grunt",
-    "postinstall": "node scripts/postinstall"
+    "preinstall": "node scripts/preinstall"
   },
   "browser": {
     "galileo-io": false
