@@ -24,7 +24,7 @@ npm.on("close", function(code) {
     console.log("serialport installation failed. Error Code:", code);
   }
 
-  delete process.ENV.SERIAL_PORT_INSTALLED;
+  delete process.env.SERIAL_PORT_INSTALLED;
 });
 
 /*

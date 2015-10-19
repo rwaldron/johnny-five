@@ -1,1 +1,1 @@
-process.ENV.SERIAL_PORT_INSTALLED = true;
+process.env.SERIAL_PORT_INSTALLED = true;
