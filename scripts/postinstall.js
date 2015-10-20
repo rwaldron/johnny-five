@@ -1,3 +1,7 @@
+if (process.env.NO_SERIALPORT_INSTALL) {
+  process.exit(0);
+}
+
 require("es6-shim");
 
 var path = require("path");
@@ -35,9 +39,12 @@ fs.exists(sPath, function(exists) {
     });
 
     npm.on("close", function(code) {
+      var exit = 0;
       if (code !== 0) {
         console.log("serialport installation failed. Error Code:", code);
+        exit = 1;
       }
+      process.exit(exit);
     });
   }
 });
