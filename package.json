@@ -105,7 +105,7 @@
   "license": "MIT",
   "main": "lib/johnny-five",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "dependencies": {
     "color-convert": "~0.5.2",
@@ -116,10 +116,7 @@
     "lodash": "latest",
     "nanotimer": "0.3.10",
     "temporal": "latest",
-    "array-includes": "latest",
-    "semver": "^5.0.3",
-    "mv": "2.1.1",
-    "win-spawn": "2.0.0"
+    "array-includes": "latest"
   },
   "optionalDependencies": {
     "firmata": "^0.7.2",
