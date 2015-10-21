@@ -1382,6 +1382,7 @@ exports["Motor: I2C - PCA9685"] = {
     this.i2cWrite.reset();
 
     this.motor.brake();
+
     test.equal(this.i2cWrite.args[0][0], 0x60);
 
     test.equal(this.i2cWrite.args[0][1][0], 38);
@@ -1393,12 +1394,12 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.i2cWrite.args[1][1][0], 42);
     test.equal(this.i2cWrite.args[1][1][1], 0);
     test.equal(this.i2cWrite.args[1][1][2], 0);
-    test.equal(this.i2cWrite.args[1][1][3], 2032);
-    test.equal(this.i2cWrite.args[1][1][4], 7);
+    test.equal(this.i2cWrite.args[1][1][3], 4080);
+    test.equal(this.i2cWrite.args[1][1][4], 15);
 
     test.equal(this.i2cWrite.args[2][1][0], 46);
-    test.equal(this.i2cWrite.args[2][1][1], 2032);
-    test.equal(this.i2cWrite.args[2][1][2], 7);
+    test.equal(this.i2cWrite.args[2][1][1], 0);
+    test.equal(this.i2cWrite.args[2][1][2], 0);
     test.equal(this.i2cWrite.args[2][1][3], 4080);
     test.equal(this.i2cWrite.args[2][1][4], 15);
 
