@@ -3,6 +3,7 @@ var five = require("../lib/johnny-five");
 var EVS = require("../lib/evshield");
 var sinon = require("sinon");
 var Board = five.Board;
+var Expander = five.Expander;
 var Motor = five.Motor;
 var Sensor = five.Sensor;
 
@@ -1226,6 +1227,7 @@ exports["Motor: I2C - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
