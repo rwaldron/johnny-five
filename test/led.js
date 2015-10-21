@@ -2,6 +2,7 @@ var five = require("../lib/johnny-five.js");
 var sinon = require("sinon");
 var MockFirmata = require("./util/mock-firmata");
 var Board = five.Board;
+var Expander = five.Expander;
 var Led = five.Led;
 
 var protoProperties = [{
@@ -390,6 +391,7 @@ exports["Led - PCA9685 (I2C)"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -424,6 +426,7 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.i2cWrite.reset();
     this.led.on();
+
     test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
     test.equal(this.i2cWrite.callCount, 1);
 
