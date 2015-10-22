@@ -1,14 +1,20 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  Board = five.Board,
-  board = new Board({
-    io: new MockFirmata(),
+  Board = five.Board;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
 
+  return board;
+}
 /*
 UNO
 ---------------------------------------------------------
@@ -45,22 +51,29 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 
 
 exports["UNO Pin Capabilities"] = {
-
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   isDigital: function(test) {
     test.expect(7);
 
     // RX/TX: false
-    test.ok(!board.pins.isDigital(0));
-    test.ok(!board.pins.isDigital(1));
+    test.ok(!this.board.pins.isDigital(0));
+    test.ok(!this.board.pins.isDigital(1));
 
     //  In Range: true
-    test.ok(board.pins.isDigital(2));
-    test.ok(board.pins.isDigital(13));
-    test.ok(board.pins.isDigital(19));
+    test.ok(this.board.pins.isDigital(2));
+    test.ok(this.board.pins.isDigital(13));
+    test.ok(this.board.pins.isDigital(19));
 
     // Out of Range: false
-    test.ok(!board.pins.isDigital(30));
-    test.ok(!board.pins.isDigital(-1));
+    test.ok(!this.board.pins.isDigital(30));
+    test.ok(!this.board.pins.isDigital(-1));
 
     test.done();
   },
@@ -69,17 +82,17 @@ exports["UNO Pin Capabilities"] = {
     test.expect(7);
 
     // RX/TX: false
-    test.ok(!board.pins.isAnalog(0));
-    test.ok(!board.pins.isAnalog(1));
+    test.ok(!this.board.pins.isAnalog(0));
+    test.ok(!this.board.pins.isAnalog(1));
 
     //  In Range: true
-    test.ok(board.pins.isAnalog(14));
-    test.ok(board.pins.isAnalog(15));
-    test.ok(board.pins.isAnalog(19));
+    test.ok(this.board.pins.isAnalog(14));
+    test.ok(this.board.pins.isAnalog(15));
+    test.ok(this.board.pins.isAnalog(19));
 
     // Out of Range: false
-    test.ok(!board.pins.isAnalog(30));
-    test.ok(!board.pins.isAnalog(-1));
+    test.ok(!this.board.pins.isAnalog(30));
+    test.ok(!this.board.pins.isAnalog(-1));
 
     test.done();
   },
@@ -88,17 +101,17 @@ exports["UNO Pin Capabilities"] = {
     test.expect(7);
 
     // RX/TX: false
-    test.ok(!board.pins.isPwm(0));
-    test.ok(!board.pins.isPwm(1));
+    test.ok(!this.board.pins.isPwm(0));
+    test.ok(!this.board.pins.isPwm(1));
 
     //  In Range: true
-    test.ok(board.pins.isPwm(9));
-    test.ok(board.pins.isPwm(10));
-    test.ok(board.pins.isPwm(11));
+    test.ok(this.board.pins.isPwm(9));
+    test.ok(this.board.pins.isPwm(10));
+    test.ok(this.board.pins.isPwm(11));
 
     // Out of Range: false
-    test.ok(!board.pins.isPwm(30));
-    test.ok(!board.pins.isPwm(-1));
+    test.ok(!this.board.pins.isPwm(30));
+    test.ok(!this.board.pins.isPwm(-1));
 
     test.done();
   },
@@ -107,17 +120,17 @@ exports["UNO Pin Capabilities"] = {
     test.expect(7);
 
     // RX/TX: false
-    test.ok(!board.pins.isServo(0));
-    test.ok(!board.pins.isServo(1));
+    test.ok(!this.board.pins.isServo(0));
+    test.ok(!this.board.pins.isServo(1));
 
     //  In Range: true
-    test.ok(board.pins.isServo(9));
-    test.ok(board.pins.isServo(10));
-    test.ok(board.pins.isServo(11));
+    test.ok(this.board.pins.isServo(9));
+    test.ok(this.board.pins.isServo(10));
+    test.ok(this.board.pins.isServo(11));
 
     // Out of Range: false
-    test.ok(!board.pins.isServo(30));
-    test.ok(!board.pins.isServo(-1));
+    test.ok(!this.board.pins.isServo(30));
+    test.ok(!this.board.pins.isServo(-1));
 
     test.done();
   },
@@ -126,16 +139,16 @@ exports["UNO Pin Capabilities"] = {
     test.expect(6);
 
     // RX/TX: false
-    test.ok(!board.pins.isInput(0));
-    test.ok(!board.pins.isInput(1));
+    test.ok(!this.board.pins.isInput(0));
+    test.ok(!this.board.pins.isInput(1));
 
     //  In Range: true
-    test.ok(board.pins.isInput(14));
-    test.ok(board.pins.isInput(9));
+    test.ok(this.board.pins.isInput(14));
+    test.ok(this.board.pins.isInput(9));
 
     // Out of Range: false
-    test.ok(!board.pins.isInput(30));
-    test.ok(!board.pins.isInput(-1));
+    test.ok(!this.board.pins.isInput(30));
+    test.ok(!this.board.pins.isInput(-1));
 
     test.done();
   },
@@ -144,16 +157,16 @@ exports["UNO Pin Capabilities"] = {
     test.expect(6);
 
     // RX/TX: false
-    test.ok(!board.pins.isOutput(0));
-    test.ok(!board.pins.isOutput(1));
+    test.ok(!this.board.pins.isOutput(0));
+    test.ok(!this.board.pins.isOutput(1));
 
     //  In Range: true
-    test.ok(board.pins.isOutput(14));
-    test.ok(board.pins.isOutput(9));
+    test.ok(this.board.pins.isOutput(14));
+    test.ok(this.board.pins.isOutput(9));
 
     // Out of Range: false
-    test.ok(!board.pins.isOutput(30));
-    test.ok(!board.pins.isOutput(-1));
+    test.ok(!this.board.pins.isOutput(30));
+    test.ok(!this.board.pins.isOutput(-1));
 
     test.done();
   },

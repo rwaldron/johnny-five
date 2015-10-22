@@ -1,4 +1,15 @@
-# Nunchuk
+<!--remove-start-->
+
+# Wii Nunchuck
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -14,8 +25,12 @@ board = new five.Board();
 
 board.on("ready", function() {
 
+  // When using the WiiChuck adapter with an UNO,
+  // these pins act as the Ground and Power lines.
+  // This will not work on a Leonardo, so these
+  // lines can be removed.
   new five.Pin("A2").low();
-  new five.Pin("A3").low();
+  new five.Pin("A3").high();
 
   // Create a new `nunchuk` hardware instance.
   nunchuk = new five.Wii.Nunchuk({
@@ -40,7 +55,7 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on("change", function(err, event) {
+  nunchuk.joystick.on("change", function(event) {
     console.log(
       "joystick " + event.axis,
       event.target[event.axis],
@@ -53,7 +68,7 @@ board.on("ready", function() {
   // Fired when the accelerometer detects a change in
   // axis position.
   //
-  nunchuk.accelerometer.on("change", function(err, event) {
+  nunchuk.accelerometer.on("change", function(event) {
     console.log(
       "accelerometer " + event.axis,
       event.target[event.axis],
@@ -85,7 +100,7 @@ board.on("ready", function() {
 
   ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on(type, function(err, event) {
+    nunchuk.on(type, function(event) {
       console.log(
         event.target.which + " is " + type,
 
@@ -113,9 +128,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

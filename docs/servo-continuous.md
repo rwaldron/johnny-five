@@ -1,4 +1,28 @@
-# Servo Continuous
+<!--remove-start-->
+
+# Servo - Continuous
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Servo on pin 10
+
+
+Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,58 +31,62 @@ node eg/servo-continuous.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, servo;
+var five = require("johnny-five");
+var keypress = require("keypress");
 
-board = new five.Board();
+keypress(process.stdin);
+
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create a new `servo` hardware instance.
-  servo = new five.Servo({
-    pin: 10,
-    // `type` defaults to standard servo.
-    // For continuous rotation servos, override the default
-    // by setting the `type` here
-    type: "continuous"
+  console.log("Use Up and Down arrows for CW and CCW respectively. Space to stop.");
+
+  var servo = new five.Servo.Continuous(10).stop();
+
+  process.stdin.resume();
+  process.stdin.setEncoding("utf8");
+  process.stdin.setRawMode(true);
+
+  process.stdin.on("keypress", function(ch, key) {
+
+    if (!key) {
+      return;
+    }
+
+    if (key.name === "q") {
+      console.log("Quitting");
+      process.exit();
+    } else if (key.name === "up") {
+      console.log("CW");
+      servo.cw();
+    } else if (key.name === "down") {
+      console.log("CCW");
+      servo.ccw();
+    } else if (key.name === "space") {
+      console.log("Stopping");
+      servo.stop();
+    }
   });
-
-  // Inject the `servo` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    servo: servo
-  });
-
-  // Continuous Rotation Servo API
-
-  // cw( speed )
-  // clockWise( speed)
-  // ccw( speed )
-  // counterClockwise( speed )
-  //
-  // Set the speed at which the continuous rotation
-  // servo will rotate at, either clockwise or counter
-  // clockwise, respectively
-  servo.cw(0.5); // half speed clockwise
-
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/servo-continuous.png](breadboard/servo-continuous.png)
-[docs/breadboard/servo-continuous.fzz](breadboard/servo-continuous.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

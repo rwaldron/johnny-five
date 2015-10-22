@@ -1,4 +1,15 @@
-# Classic Controller
+<!--remove-start-->
+
+# Wii Classic Controller
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -47,7 +58,7 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.left.on("change", function(err, event) {
+  nunchuk.joystick.left.on("change", function(event) {
     console.log(
       "Left joystick " + event.axis,
       event.target[event.axis],
@@ -55,7 +66,7 @@ board.on("ready", function() {
     );
   });
 
-  nunchuk.joystick.right.on("change", function(err, event) {
+  nunchuk.joystick.right.on("change", function(event) {
     console.log(
       "Right joystick " + event.axis,
       event.target[event.axis],
@@ -87,7 +98,7 @@ board.on("ready", function() {
 
   ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on(type, function(err, event) {
+    nunchuk.on(type, function(event) {
       console.log(
         event.target.which + " is " + type,
 
@@ -115,9 +126,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

@@ -1,23 +1,45 @@
-var five = require("../lib/johnny-five.js"),
+var MockFirmata = require("./util/mock-firmata"),
+  five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./mock-firmata"),
-  Relay = five.Relay,
-  Board = five.Board;
+  Board = five.Board,
+  Relay = five.Relay;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
 }
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 
 exports["Relay"] = {
   setUp: function(done) {
-
     this.board = newBoard();
-
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
 
     this.relay = new Relay({
       pin: 10,
@@ -40,8 +62,16 @@ exports["Relay"] = {
       name: "isOn"
     }, {
       name: "type"
+    }, {
+      name: "value"
     }];
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -70,10 +100,10 @@ exports["Relay"] = {
     });
 
     this.relay.on();
-    test.ok(this.spy.calledWith(10, 0));
+    test.ok(this.digitalWrite.calledWith(10, 0));
 
     this.relay.off();
-    test.ok(this.spy.calledWith(10, 1));
+    test.ok(this.digitalWrite.calledWith(10, 1));
 
     test.done();
   },
@@ -82,7 +112,7 @@ exports["Relay"] = {
     test.expect(1);
 
     this.relay.on();
-    test.ok(this.spy.calledWith(10, 1));
+    test.ok(this.digitalWrite.calledWith(10, 1));
 
     test.done();
   },
@@ -91,7 +121,7 @@ exports["Relay"] = {
     test.expect(1);
 
     this.relay.off();
-    test.ok(this.spy.calledWith(10, 0));
+    test.ok(this.digitalWrite.calledWith(10, 0));
 
     test.done();
   },
@@ -118,15 +148,11 @@ exports["Relay"] = {
     this.relay.off();
     this.relay.toggle();
 
-    test.ok(this.spy.calledWith(10, 1));
+    test.ok(this.digitalWrite.calledWith(10, 1));
 
     this.relay.toggle();
-    test.ok(this.spy.calledWith(10, 0));
+    test.ok(this.digitalWrite.calledWith(10, 0));
 
     test.done();
   },
-
-  tearDown: function(done) {
-    done();
-  }
 };

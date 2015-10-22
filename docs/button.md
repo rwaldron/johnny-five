@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Button
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button"
+
+
+
+![docs/breadboard/button.png](breadboard/button.png)<br>
+
+Fritzing diagram: [docs/breadboard/button.fzz](breadboard/button.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -17,7 +39,7 @@ board.on("ready", function() {
   // Create a new `button` hardware instance.
   // This example allows the button module to
   // create a completely default instance
-  button = new five.Button(8);
+  button = new five.Button(2);
 
   // Inject the `button` hardware into
   // the Repl instance's context;
@@ -49,17 +71,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/button.png](breadboard/button.png)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

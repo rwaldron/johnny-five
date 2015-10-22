@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Piezo
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Piezo"
+
+
+
+![docs/breadboard/piezo.png](breadboard/piezo.png)<br>
+
+Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -47,23 +69,35 @@ board.on("ready", function() {
     tempo: 100
   });
 
+  // Plays the same song with a string representation
+  piezo.play({
+    // song is composed by a string of notes
+    // a default beat is set, and the default octave is used
+    // any invalid note is read as "no note"
+    song: "C D F D A - A A A A G G G G - - C D F D G - G G G G F F F F - -",
+    beats: 1 / 4,
+    tempo: 100
+  });
+
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/piezo.png](breadboard/piezo.png)
-[docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

@@ -1,24 +1,51 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Servo = five.Servo,
-  board = new Board({
-    io: new MockFirmata(),
+  Servo = five.Servo;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Servo"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(board.io, "servoWrite");
-    this.servoConfig = sinon.spy(board.io, "servoConfig");
-    this.pinMode = sinon.spy(board.io, "pinMode");
+    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+    this.servoConfig = sinon.spy(MockFirmata.prototype, "servoConfig");
+    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
     this.servo = new Servo({
       pin: 11,
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -58,7 +85,7 @@ exports["Servo"] = {
     }, {
       name: "range"
     }, {
-      name: "isInverted"
+      name: "invert"
     }, {
       name: "type"
     }, {
@@ -73,10 +100,8 @@ exports["Servo"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.servoWrite.restore();
-    this.servoConfig.restore();
-    this.pinMode.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -109,7 +134,7 @@ exports["Servo"] = {
 
     this.servo = new Servo({
       pin: 11,
-      board: board,
+      board: this.board,
       startAt: 90
     });
 
@@ -119,31 +144,13 @@ exports["Servo"] = {
     test.done();
   },
 
-  center: function(test) {
-    test.expect(1);
-
-    this.spy = sinon.spy(Servo.prototype, "center");
-
-    this.servo = new Servo({
-      pin: 11,
-      board: board,
-      center: true
-    });
-
-    test.ok(this.spy.called);
-
-    this.spy.restore();
-    test.done();
-
-  },
-
-  isInverted: function(test) {
+  inverted: function(test) {
     test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
-      board: board,
-      isInverted: true
+      board: this.board,
+      invert: true
     });
 
     this.servo.to(180);
@@ -161,62 +168,159 @@ exports["Servo"] = {
     test.done();
   },
 
-  rate: function(test) {
-    test.expect(2);
+  range: function(test) {
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
-      board: board
+      board: this.board,
+      range: [20, 160]
     });
 
-    this.servo.to(0);
-    this.servo.to(180, 1000, 100);
+    this.servo.to(180);
 
-    this.clock.tick(1010);
+    test.ok(this.servoWrite.calledWith(11, 160));
 
-    test.equal(this.servo.position, 180);
-    test.ok(this.servoWrite.callCount === 101);
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 135));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 20));
 
     test.done();
   },
 
-  fps: function(test) {
-    test.expect(1);
+  rangeWithInvert: function(test) {
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
-      board: board,
-      fps: 50
+      board: this.board,
+      invert: true,
+      range: [30, 160]
     });
 
-    this.servo.to(0);
-    this.servo.to(180, 1000);
+    this.servo.to(180);
 
-    this.clock.tick(1010);
+    test.ok(this.servoWrite.calledWith(11, 20));
 
-    test.ok(this.servoWrite.callCount === 51);
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 45));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 150));
 
     test.done();
   },
 
-  resolutionLimited: function(test) {
-    test.expect(2);
+  offset: function(test) {
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
-      board: board
+      board: this.board,
+      offset: -10
     });
 
-    this.servo.to(0);
-    this.servo.to(90, 1000, 255);
+    this.servo.to(180);
 
-    this.clock.tick(1010);
+    test.ok(this.servoWrite.calledWith(11, 170));
 
-    test.ok(this.servoWrite.callCount === 91);
-    test.equal(this.servo.position, 90);
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 125));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 0));
 
     test.done();
   },
+
+  offsetWithInvert: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board,
+      offset: -10,
+      invert: true
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 10));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 55));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    test.done();
+  },
+
+  offsetWithRange: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board,
+      offset: -10,
+      range: [20, 150]
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 140));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 125));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 10));
+
+    test.done();
+  },
+
+  offsetWithRangeAndInvert: function(test) {
+    test.expect(3);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board,
+      offset: -10,
+      range: [20, 150],
+      invert: true
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 40));
+
+    this.servo.to(135);
+
+    test.ok(this.servoWrite.calledWith(11, 55));
+
+    this.servo.to(10);
+
+    test.ok(this.servoWrite.calledWith(11, 170));
+
+    test.done();
+  },
+
+  /*
+  offset - range - invert
+  1 - 1 - 1
+  */
 
   type: function(test) {
     test.expect(1);
@@ -240,14 +344,15 @@ exports["Servo"] = {
 
 exports["Servo mode and config"] = {
   setUp: function(done) {
-    this.servoConfig = sinon.spy(board.io, "servoConfig");
-    this.pinMode = sinon.spy(board.io, "pinMode");
+    this.board = newBoard();
+    this.servoConfig = sinon.spy(MockFirmata.prototype, "servoConfig");
+    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
     done();
   },
 
   tearDown: function(done) {
-    this.servoConfig.restore();
-    this.pinMode.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -256,7 +361,7 @@ exports["Servo mode and config"] = {
 
     this.servo = new Servo({
       pin: 11,
-      board: board
+      board: this.board
     });
 
     test.equal(this.servoConfig.callCount, 0);
@@ -269,7 +374,7 @@ exports["Servo mode and config"] = {
 
     this.servo = new Servo({
       pin: 11,
-      board: board,
+      board: this.board,
       pwmRange: [1000, 2000]
     });
 
@@ -281,26 +386,27 @@ exports["Servo mode and config"] = {
 
 exports["Servo - Continuous"] = {
   setUp: function(done) {
+    this.board = newBoard();
     this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
 
     this.a = new Servo({
       pin: 11,
       type: "continuous",
-      board: board
+      board: this.board
     });
 
     this.b = new Servo.Continuous({
       pin: 11,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.servoWrite.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -349,8 +455,8 @@ exports["Servo - Continuous"] = {
 
     this.continuousServo = new Servo.Continuous({
       pin: 5,
-      board: board,
-      deadband: [85,95]
+      board: this.board,
+      deadband: [85, 95]
     });
 
     this.continuousServo.cw(0.5);
@@ -367,8 +473,8 @@ exports["Servo - Continuous"] = {
 
     this.continuousServo = new Servo.Continuous({
       pin: 5,
-      board: board,
-      deadband: [85,95],
+      board: this.board,
+      deadband: [85, 95],
       range: [20, 160]
     });
 
@@ -385,20 +491,39 @@ exports["Servo - Continuous"] = {
 };
 
 exports["Servo - Allowed Pin Names"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
   firmata: function(test) {
     test.expect(10);
+
+    this.board.analogPins = [14, 15, 16, 17, 18, 19];
 
     test.equal(new Servo(2).pin, 2);
     test.equal(new Servo(12).pin, 12);
 
-    test.equal(new Servo({ pin: 2 }).pin, 2);
-    test.equal(new Servo({ pin: 12 }).pin, 12);
+    test.equal(new Servo({
+      pin: 2
+    }).pin, 2);
+    test.equal(new Servo({
+      pin: 12
+    }).pin, 12);
 
     test.equal(new Servo("A0").pin, 14);
     test.equal(new Servo(14).pin, 14);
 
-    test.equal(new Servo({ pin: "A0" }).pin, 14);
-    test.equal(new Servo({ pin: 14 }).pin, 14);
+    test.equal(new Servo({
+      pin: "A0"
+    }).pin, 14);
+    test.equal(new Servo({
+      pin: 14
+    }).pin, 14);
 
     // Modes is SERVO
     test.equal(new Servo(12).mode, 4);
@@ -407,37 +532,59 @@ exports["Servo - Allowed Pin Names"] = {
     test.done();
   },
 
-  nonFirmata: function(test) {
+  nonFirmataNonNormalized: function(test) {
     test.expect(5);
 
-    var nonFirmata = new MockFirmata();
+    var io = new MockFirmata();
     var board = new Board({
-      io: nonFirmata,
+      io: io,
       debug: false,
       repl: false
     });
 
-    nonFirmata.name = "FooBoard";
+    io.name = "FooBoard";
 
-    test.equal(new Servo({ pin: 2, board: board }).pin, 2);
-    test.equal(new Servo({ pin: 12, board: board }).pin, 12);
-    test.equal(new Servo({ pin: "A0", board: board }).pin, 0);
+    board.on("ready", function() {
+      test.equal(new Servo({
+        pin: 2,
+        board: board
+      }).pin, 2);
+      test.equal(new Servo({
+        pin: 12,
+        board: board
+      }).pin, 12);
+      test.equal(new Servo({
+        pin: "A0",
+        board: board
+      }).pin, "A0");
 
-    // Modes is SERVO
-    test.equal(new Servo({ pin: 12, board: board }).mode, 4);
-    test.equal(new Servo({ pin: "A0", board: board }).mode, 4);
+      // Modes is SERVO
+      test.equal(new Servo({
+        pin: 12,
+        board: board
+      }).mode, 4);
+      test.equal(new Servo({
+        pin: "A0",
+        board: board
+      }).mode, 4);
 
-    test.done();
+      test.done();
+    });
+
+    io.emit("connect");
+    io.emit("ready");
   }
 };
 
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
-    this.writeSpy = sinon.spy(board.io, "sendI2CWriteRequest");
-    this.readSpy = sinon.spy(board.io, "sendI2CReadRequest");
+    this.board = newBoard();
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.servo = new Servo({
       pin: 0,
-      board: board,
+      board: this.board,
       controller: "PCA9685",
       address: 0x40
     });
@@ -446,26 +593,175 @@ exports["Servo - PCA9685"] = {
   },
 
   tearDown: function(done) {
-    this.writeSpy.restore();
-    this.readSpy.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Servo({
+      controller: "PCA9685",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  withAddress: function(test) {
+    test.expect(1);
+
+    var servo = new Servo({
+      pin: 0,
+      board: this.board,
+      controller: "PCA9685",
+      address: 0x40
+    });
+
+    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.done();
+  },
+
+  withoutAddress: function(test) {
+    test.expect(1);
+
+    var servo = new Servo({
+      pin: 0,
+      board: this.board,
+      controller: "PCA9685"
+    });
+
+    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.done();
+  },
   to: function(test) {
     test.expect(6);
-    this.writeSpy.reset();
+    this.i2cWrite.reset();
 
     this.servo.to(20);
 
-    test.equal(this.writeSpy.args[0][0], 0x40);
-    test.equal(this.writeSpy.args[0][1][0], 6);
-    test.equal(this.writeSpy.args[0][1][1], 0);
-    test.equal(this.writeSpy.args[0][1][2], 0);
-    test.equal(this.writeSpy.args[0][1][3], 187);
-    test.equal(this.writeSpy.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][0], 0x40);
+    test.equal(this.i2cWrite.args[0][1][0], 6);
+    test.equal(this.i2cWrite.args[0][1][1], 0);
+    test.equal(this.i2cWrite.args[0][1][2], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 187);
+    test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
 
+  }
+
+};
+
+exports["Servo.Array"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+
+    Servo.purge();
+
+    this.a = new Servo({
+      pin: 3,
+      board: this.board
+    });
+
+    this.b = new Servo({
+      pin: 6,
+      board: this.board
+    });
+
+    this.c = new Servo({
+      pin: 9,
+      board: this.board
+    });
+
+    this.spies = [
+      "to", "stop"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = sinon.spy(Servo.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  initFromServoNumbers: function(test) {
+    test.expect(1);
+
+    var servos = new Servo.Array([3, 6, 9]);
+
+    test.equal(servos.length, 3);
+    test.done();
+  },
+
+  initFromServos: function(test) {
+    test.expect(1);
+
+    var servos = new Servo.Array([
+      this.a, this.b, this.c
+    ]);
+
+    test.equal(servos.length, 3);
+    test.done();
+  },
+
+  callForwarding: function(test) {
+    test.expect(3);
+
+    var servos = new Servo.Array([3, 6, 9]);
+
+    servos.to(90);
+
+    test.equal(this.to.callCount, servos.length);
+    test.equal(this.to.getCall(0).args[0], 90);
+
+    servos.stop();
+
+    test.equal(this.stop.callCount, servos.length);
+
+    test.done();
+  },
+
+  arrayOfArrays: function(test) {
+    test.expect(9);
+
+    var servos = new Servo.Array([this.a, this.b]);
+    var arrayOfArrays = new Servo.Array([servos, this.c]);
+
+    arrayOfArrays.to(90);
+
+    test.equal(this.to.callCount, 3);
+    test.equal(this.to.getCall(0).args[0], 90);
+    test.equal(this.to.getCall(1).args[0], 90);
+    test.equal(this.to.getCall(2).args[0], 90);
+
+    test.equal(arrayOfArrays.length, 2);
+    test.equal(arrayOfArrays[0][0], this.a);
+    test.equal(arrayOfArrays[0][1], this.b);
+    test.equal(arrayOfArrays[1], this.c);
+
+    arrayOfArrays.stop();
+
+    test.equal(this.stop.callCount, 3);
+
+    test.done();
   }
 
 };

@@ -1,4 +1,28 @@
-# Servo Prompt
+<!--remove-start-->
+
+# Servo - Prompt
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Servo on pin 10
+
+
+Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,8 +31,8 @@ node eg/servo-prompt.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  readline = require("readline");
+var five = require("johnny-five");
+var readline = require("readline");
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -16,37 +40,36 @@ var rl = readline.createInterface({
 });
 
 five.Board().on("ready", function() {
-
-  var servo = new five.Servo(process.argv[2] || 10);
+  var servo = new five.Servo(10);
 
   rl.setPrompt("SERVO TEST (0-180)> ");
   rl.prompt();
 
   rl.on("line", function(line) {
-    var pos = line.trim();
-    servo.to(pos);
+    servo.to(+line.trim());
     rl.prompt();
   }).on("close", function() {
     process.exit(0);
   });
-
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/servo-prompt.png](breadboard/servo-prompt.png)
-[docs/breadboard/servo-prompt.fzz](breadboard/servo-prompt.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

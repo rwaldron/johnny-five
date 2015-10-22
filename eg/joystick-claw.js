@@ -8,11 +8,12 @@ board.on("ready", function() {
   var claw = new five.Servo({
     pin: 9,
     range: [0, 170]
-  }),
-    joystick = new five.Joystick({
-      pins: ["A0", "A1"],
-      freq: 250
-    });
+  });
+
+  var joystick = new five.Joystick({
+    pins: ["A0", "A1"],
+    freq: 250
+  });
 
   // Set the claw degrees to half way
   // (the joystick deadzone)

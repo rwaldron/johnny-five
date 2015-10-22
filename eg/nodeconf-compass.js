@@ -1,25 +1,23 @@
-var color = require("colors"),
-  five = require("../lib/johnny-five.js"),
-  colors, mag;
+var chalk = require("chalk");
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
 
   // Create an I2C `Magnetometer` instance
-  mag = new five.Magnetometer();
+  var mag = new five.Magnetometer();
 
   // As the heading changes, log heading value
   mag.on("headingchange", function() {
-    var log;
-
-    log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
+    var color = colors[this.bearing.abbr];
 
     console.log(
-      log[colors[this.bearing.abbr]]
+      chalk[color](this.bearing.name + " " + Math.floor(this.heading) + "°")
     );
   });
 });
 
-colors = {
+var colors = {
   N: "red",
   NbE: "red",
   NNE: "red",

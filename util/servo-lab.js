@@ -4,25 +4,25 @@ var five = require("../lib/johnny-five.js"),
 /**
  * This program is useful for manual servo administration.
  *
- * ex. node eg/servo-lab.js [ pin list ]
+ * ex. node util/servo-lab.js [ pin list ]
  *
  *     To setup servos on pins 10 and 11:
  *
- *        node eg/servo-lab.js 10 11
+ *        node util/servo-lab.js 10 11
  *
  *     To setup servos on pins 10 and 11 with custom ranges:
  *
- *        node eg/servo-lab.js 10:10:170 11
+ *        node util/servo-lab.js 10:10:170 11
  *
  *     To setup continuous servos on pins 10 and 11:
  *
- *        node eg/servo-lab.js C10  C11
+ *        node util/servo-lab.js C10  C11
  *
  *     Note: Ranges default to 0, 179
  *
  *     To setup a global range limit:
  *
- *        node utils/servo-lab.js 9 R:45:135
+ *        node util/servo-lab.js 9 R:45:135
  */
 
 args = process.argv.slice(2);

@@ -1,6 +1,5 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   sinon = require("sinon"),
-  pins = require("./mock-pins"),
   five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Ping = five.Ping,
@@ -15,7 +14,7 @@ exports["Ping"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
 
-    sinon.stub(board.io, "pulseIn", function(settings, handler) {
+    sinon.stub(board.io, "pingRead", function(settings, handler) {
       handler(1000);
     });
 
@@ -42,7 +41,7 @@ exports["Ping"] = {
   },
 
   tearDown: function(done) {
-    board.io.pulseIn.restore();
+    board.io.pingRead.restore();
     this.clock.restore();
     done();
   },
@@ -66,7 +65,7 @@ exports["Ping"] = {
     var spy = sinon.spy();
     test.expect(1);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.ping.on("data", spy);
@@ -79,7 +78,7 @@ exports["Ping"] = {
     var spy = sinon.spy();
     test.expect(1);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.ping.on("change", spy);
@@ -95,7 +94,7 @@ exports["Ping"] = {
     var spy = sinon.spy();
     test.expect(2);
 
-    // tick the clock forward to trigger the pulseIn handler
+    // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
 
     this.ping.within([0, 120], "inches", function() {

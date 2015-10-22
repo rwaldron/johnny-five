@@ -1,30 +1,24 @@
 var five = require("../lib/johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  var stepper, k = 0;
+board.on("ready", function() {
+  /**
+   * In order to use the Stepper class, your board must be flashed with
+   * either of the following:
+   *
+   * - AdvancedFirmata https://github.com/soundanalogous/AdvancedFirmata
+   * - ConfigurableFirmata https://github.com/firmata/arduino/releases/tag/v2.6.2
+   *
+   */
 
-  stepper = new five.Stepper({
+  var k = 0;
+  var stepper = new five.Stepper({
     type: five.Stepper.TYPE.DRIVER,
     stepsPerRev: 200,
     pins: [11, 12]
   });
 
-  // function sweep() {
-  //   // 200 stepsPerRev / 2 = 100 (180degree sweeps)
-  //   stepper[++k % 2 === 0 ? "ccw" : "cw"]().step(100, function() {
-  //     sweep();
-  //   });
-  // }
-
   stepper.rpm(180).ccw().step(2000, function() {
     console.log("done");
   });
-
-  this.repl.inject({
-    stepper: stepper
-  });
-
-
-
-  // sweep();
 });

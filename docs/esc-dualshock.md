@@ -1,4 +1,26 @@
-# Esc Dualshock
+<!--remove-start-->
+
+# ESC - Dualshock
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "ESC - Dualshock"
+
+
+
+![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)<br>
+
+Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -23,7 +45,7 @@ function scale(x, fromLow, fromHigh, toLow, toHigh) {
 
 board.on("ready", function() {
 
-  var esc = new five.ESC(12);
+  var esc = new five.ESC(9);
 
   controller.on("connected", function() {
     controller.isConnected = true;
@@ -64,17 +86,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/esc-dualshock.png](breadboard/esc-dualshock.png)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

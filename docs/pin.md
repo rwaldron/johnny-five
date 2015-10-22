@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Pin
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Pin"
+
+
+
+![docs/breadboard/pin.png](breadboard/pin.png)<br>
+
+Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,24 +29,21 @@ node eg/pin.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  temporal = require("temporal"),
-  board = new five.Board();
+var five = require("johnny-five");
+var temporal = require("temporal");
+var board = new five.Board();
 
 board.on("ready", function() {
-  var events, strobe, analog;
-
-  events = [];
-  strobe = new five.Pin({
-    addr: 13
-  });
+  var events = [];
+  var strobe = new five.Pin(13);
 
   temporal.loop(500, function(loop) {
     strobe[loop.called % 2 === 0 ? "high" : "low"]();
   });
 
 
-  // Event tests
+  // Pin emits "high" and "low" events, whether it's
+  // input or output.
   ["high", "low"].forEach(function(state) {
     strobe.on(state, function() {
       if (events.indexOf(state) === -1) {
@@ -34,8 +53,9 @@ board.on("ready", function() {
     });
   });
 
-  analog = new five.Pin("A0");
+  var analog = new five.Pin("A0");
 
+  // Query the analog pin for its current state.
   analog.query(function(state) {
     console.log(state);
   });
@@ -44,18 +64,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/pin.png](breadboard/pin.png)
-[docs/breadboard/pin.fzz](breadboard/pin.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

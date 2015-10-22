@@ -1,4 +1,26 @@
-# Imu Mpu6050
+<!--remove-start-->
+
+# IMU - MPU6050
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "IMU - MPU6050"
+
+
+
+![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -50,18 +72,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/imu-mpu6050.png](breadboard/imu-mpu6050.png)
-[docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

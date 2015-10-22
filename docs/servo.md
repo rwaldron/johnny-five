@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Servo
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Servo"
+
+
+
+![docs/breadboard/servo.png](breadboard/servo.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -8,12 +30,10 @@ node eg/servo.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-  console.log("Connected");
-
-  // Initialize the servo
-  var servo = new five.Servo(process.argv[2] || 10);
+board.on("ready", function() {
+  var servo = new five.Servo(10);
 
   // Servo alternate constructor with options
   /*
@@ -23,11 +43,11 @@ five.Board().on("ready", function() {
     type: "standard",  // Default: "standard". Use "continuous" for continuous rotation servos
     range: [0,180],    // Default: 0-180
     fps: 100,          // Used to calculate rate of movement between positions
-    isInverted: false, // Invert all specified positions
+    invert: false,     // Invert all specified positions
     startAt: 90,       // Immediately move to a degree
     center: true,      // overrides startAt if true and moves the servo to the center of the range
     specs: {           // Is it running at 5V or 3.3V?
-      speed: five.Servo.Continuous.speeds["@5.0V"] 
+      speed: five.Servo.Continuous.speeds["@5.0V"]
     }
   });
   */
@@ -68,45 +88,30 @@ five.Board().on("ready", function() {
 
   // step( deg )
   //
-  // Moves the servo step degrees relative to current position
+  // step all servos by deg
   //
-  // servo.step( -10 );
+  // eg. array.step( -20 );
 
-  // sweep( obj )
-  //
-  // Perform a min-max cycling servo sweep (defaults to 0-180)
-  // optionally accepts an object of sweep settings:
-  // {
-  //    lapse: time in milliseconds to wait between moves
-  //           defaults to 500ms
-  //    degrees: distance in degrees to move
-  //           defaults to 10°
-  // }
-  //
   servo.sweep();
-
 });
-
-
-// References
-//
-// http://servocity.com/html/hs-7980th_servo.html
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/servo.png](breadboard/servo.png)
-[docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

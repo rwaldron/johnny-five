@@ -1,4 +1,28 @@
-# Servo Drive
+<!--remove-start-->
+
+# Servo - Drive
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Servos on pins 9 and 10
+
+
+Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~).
+
+
+![docs/breadboard/servo-two.png](breadboard/servo-two.png)<br>
+
+Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -32,7 +56,7 @@ board.on("ready", function() {
     // For continuous rotation servos, override the default
     // by setting the `type` here
     type: "continuous",
-    isInverted: true // one wheel mounted inverted of the other
+    invert: true // one wheel mounted inverted of the other
   });
 
   wheels.both = new five.Servos().stop(); // reference both together
@@ -57,18 +81,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/servo-drive.png](breadboard/servo-drive.png)
-[docs/breadboard/servo-drive.fzz](breadboard/servo-drive.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

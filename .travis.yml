@@ -1,7 +1,13 @@
 language: node_js
 node_js:
   - "0.10"
+  - "0.12"
+  - "3.0"
+  - "4.0"
+sudo: false
 compiler: clang
+before_script:
+  - grunt test-examples
 notifications:
   webhooks:
     urls:

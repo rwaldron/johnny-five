@@ -1,4 +1,30 @@
-# Led Fade
+<!--remove-start-->
+
+# LED - Fade
+
+<!--remove-end-->
+
+
+LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).
+
+
+
+
+
+##### LED on pin 11 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 11.
+
+
+![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,58 +33,38 @@ node eg/led-fade.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, led;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Create a standard `led` hardware instance
-  led = new five.Led(11);
-
-  // pinMode is set to OUTPUT by default
-
-  // Inject the `led` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    led: led
-  });
-
-  // "fade" to the value, 0-255, in the given time.
-  // Defaults to 1000ms
-  // pinMode will be changed to PWM automatically
-  //
-  // led.fade( 255, 3000 );
-
+  var led = new five.Led(11);
 
   led.fadeIn();
 
-
   // Toggle the led after 5 seconds (shown in ms)
   this.wait(5000, function() {
-
     led.fadeOut();
-
   });
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/led-fade.png](breadboard/led-fade.png)
-[docs/breadboard/led-fade.fzz](breadboard/led-fade.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

@@ -1,4 +1,26 @@
-# Grove Lcd Rgb
+<!--remove-start-->
+
+# Grove - RGB LCD
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Grove - RGB LCD"
+
+
+
+![docs/breadboard/grove-lcd-rgb.png](breadboard/grove-lcd-rgb.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -52,19 +74,27 @@ function linear(start, end, step, steps) {
 
 
 
+
+
+
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
-![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
+![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

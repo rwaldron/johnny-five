@@ -1,11 +1,9 @@
-var five = require("../lib/johnny-five"),
-  board, lcd;
-
-board = new five.Board();
+var five = require("../lib/johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  lcd = new five.LCD({
+  var lcd = new five.LCD({
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
     // Arduino pin # 7    8   9   10  11  12
     pins: [7, 8, 9, 10, 11, 12],
@@ -13,41 +11,36 @@ board.on("ready", function() {
     cols: 20
   });
 
-  lcd.on("ready", function() {
-    var k, i, length, keys, eights;
+  var k = 0;
+  var i = 0;
+  var keys = Object.keys(five.LCD.Characters);
+  var length = keys.length;
+  var eights = [];
 
-    k = 0;
-    i = 0;
+  while (i < length) {
+    eights.push(keys.slice(i, i + 8));
+    i += 8;
+  }
 
-    keys = Object.keys(five.LCD.Characters);
-    length = keys.length;
-    eights = [];
+  console.log("Wait 5 seconds...");
 
-    while (i < length) {
-      eights.push(keys.slice(i, i + 8));
-      i += 8;
+  this.loop(2000, function() {
+    var charset = eights[k],
+      display = "";
+
+    lcd.clear();
+
+    if (k < eights.length) {
+
+      charset.forEach(function(char, index) {
+        lcd.useChar(char);
+        display += ":" + char + ":";
+      });
+
+      lcd.clear().cursor(0, 0).print(display);
+
+      k++;
     }
-
-    console.log("Wait 5 seconds...");
-
-    board.loop(2000, function() {
-      var charset = eights[k],
-        display = "";
-
-      lcd.clear();
-
-      if (k < eights.length) {
-
-        charset.forEach(function(char, index) {
-          lcd.useChar(char);
-          display += ":" + char + ":";
-        });
-
-        lcd.clear().cursor(0, 0).print(display);
-
-        k++;
-      }
-    });
   });
 });
 

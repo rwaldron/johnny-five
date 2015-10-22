@@ -1,4 +1,15 @@
-# Magnetometer Log
+<!--remove-start-->
+
+# Compass - Logger
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,7 +18,7 @@ node eg/magnetometer-log.js
 
 
 ```javascript
-var color = require("colors"),
+var chalk = require("chalk"),
   five = require("johnny-five"),
   board, colors, servo, mag, count, dirs, lock;
 
@@ -59,11 +70,12 @@ var color = require("colors"),
     // As the heading changes, log heading value
     mag.on("headingchange", function() {
       var log;
+      var color = colors[this.bearing.abbr];
 
       log = (this.bearing.name + " " + Math.floor(this.heading) + "°");
 
       console.log(
-        log[colors[this.bearing.abbr]]
+        chalk[color](log)
       );
 
 
@@ -131,9 +143,14 @@ colors = {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

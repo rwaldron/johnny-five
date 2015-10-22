@@ -1,4 +1,26 @@
-# Motor Brake
+<!--remove-start-->
+
+# Motor - Brake
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor - Brake"
+
+
+
+![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -38,20 +60,20 @@ board.on("ready", function() {
     motor: motor
   });
 
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start", Date.now());
   });
 
-  motor.on("stop", function(err, timestamp) {
-    console.log("automated stop on timer", timestamp);
+  motor.on("stop", function() {
+    console.log("automated stop on timer", Date.now());
   });
 
-  motor.on("brake", function(err, timestamp) {
-    console.log("automated brake on timer", timestamp);
+  motor.on("brake", function() {
+    console.log("automated brake on timer", Date.now());
   });
 
-  motor.on("forward", function(err, timestamp) {
-    console.log("forward", timestamp);
+  motor.on("forward", function() {
+    console.log("forward", Date.now());
 
     // demonstrate switching to reverse after 5 seconds
     board.wait(5000, function() {
@@ -59,8 +81,8 @@ board.on("ready", function() {
     });
   });
 
-  motor.on("reverse", function(err, timestamp) {
-    console.log("reverse", timestamp);
+  motor.on("reverse", function() {
+    console.log("reverse", Date.now());
 
     // demonstrate stopping after 5 seconds
     board.wait(5000, function() {
@@ -77,18 +99,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/motor-brake.png](breadboard/motor-brake.png)
-[docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

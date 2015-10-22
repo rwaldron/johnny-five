@@ -1,7 +1,5 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
   Sonar = five.Sonar,
@@ -151,9 +149,9 @@ exports["Sonar - I2C"] = {
   setUp: function(done) {
 
     this.clock = sinon.useFakeTimers();
-    this.sendI2CReadRequest = sinon.spy(board.io, "sendI2CReadRequest");
-    this.sendI2CWriteRequest = sinon.spy(board.io, "sendI2CWriteRequest");
-    this.sendI2CConfig = sinon.spy(board.io, "sendI2CConfig");
+    this.i2cReadOnce = sinon.spy(board.io, "i2cReadOnce");
+    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
+    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
 
     this.sonar = new Sonar({
       device: "SRF10",
@@ -175,9 +173,9 @@ exports["Sonar - I2C"] = {
   },
 
   tearDown: function(done) {
-    this.sendI2CReadRequest.restore();
-    this.sendI2CWriteRequest.restore();
-    this.sendI2CConfig.restore();
+    this.i2cReadOnce.restore();
+    this.i2cWrite.restore();
+    this.i2cConfig.restore();
     this.clock.restore();
     done();
   },
@@ -200,15 +198,15 @@ exports["Sonar - I2C"] = {
   // initialize: function(test) {
   //   test.expect(5);
 
-  //   test.ok(this.sendI2CConfig.called);
-  //   test.ok(this.sendI2CWriteRequest.calledThrice);
+  //   test.ok(this.i2cConfig.called);
+  //   test.ok(this.i2cWrite.calledThrice);
 
-  //   test.deepEqual(this.sendI2CConfig.args[0], [0]);
+  //   test.deepEqual(this.i2cConfig.args[0], [0]);
   //   test.deepEqual(
-  //     this.sendI2CWriteRequest.firstCall.args, [0x70, [0x01, 16]]
+  //     this.i2cWrite.firstCall.args, [0x70, [0x01, 16]]
   //   );
   //   test.deepEqual(
-  //     this.sendI2CWriteRequest.secondCall.args, [0x70, [0x02, 255]]
+  //     this.i2cWrite.secondCall.args, [0x70, [0x02, 255]]
   //   );
 
   //   test.done();
@@ -217,7 +215,7 @@ exports["Sonar - I2C"] = {
   // data: function(test) {
   //   this.clock.tick(100);
 
-  //   var callback = this.sendI2CReadRequest.args[0][2],
+  //   var callback = this.i2cReadOnce.args[0][2],
   //     spy = sinon.spy();
 
   //   test.expect(1);
@@ -235,7 +233,7 @@ exports["Sonar - I2C"] = {
   change: function(test) {
     this.clock.tick(100);
 
-    var callback = this.sendI2CReadRequest.args[0][2],
+    var callback = this.i2cReadOnce.args[0][2],
       spy = sinon.spy();
 
     test.expect(1);
@@ -256,7 +254,7 @@ exports["Sonar - I2C"] = {
   within: function(test) {
     this.clock.tick(100);
 
-    var callback = this.sendI2CReadRequest.args[0][2],
+    var callback = this.i2cReadOnce.args[0][2],
       spy = sinon.spy();
 
     test.expect(2);
@@ -280,7 +278,7 @@ exports["Sonar - I2C"] = {
   within_unit: function(test) {
     this.clock.tick(100);
 
-    var callback = this.sendI2CReadRequest.args[0][2],
+    var callback = this.i2cReadOnce.args[0][2],
       spy = sinon.spy();
 
     test.expect(2);

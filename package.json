@@ -1,8 +1,8 @@
 {
   "name": "johnny-five",
-  "description": "The JavaScript Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, Raspberry Pi, Spark Core, TI Launchpad and more!",
-  "version": "0.8.36",
-  "homepage": "https://github.com/rwldrn/johnny-five",
+  "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
+  "version": "0.9.1",
+  "homepage": "https://johnny-five.io",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
     "email": "waldron.rick@gmail.com"
@@ -77,56 +77,66 @@
     { "name": "Derek Wheelden" , "email": "<derek.wheelden@gmail.com>" },
     { "name": "Sean Hussey", "email": "<sean@seanhussey.com>" },
     { "name": "ralphtheninja", "email": "<ralphtheninja@riseup.net>" },
-    { "name": "SotirisValogiannis", "email": "<omiloparmenos@gmail.com>" }
+    { "name": "SotirisValogiannis", "email": "<omiloparmenos@gmail.com>" },
+    { "name": "Sue Lockwood", "email": "<deathbearbrown@gmail.com>" },
+    { "name": "Henri Cavalcante", "email": "<contato@henrimichel.com.br>" },
+    { "name": "Dany Shaanan", "email": "<danyshaanan@gmail.com>" },
+    { "name": "Rachel Hazes", "email": "<>" },
+    { "name": "DeShawn Williams", "email": "<deshawn.b.williams@gmail.com>" },
+    { "name": "bartmichu", "email": "<>" },
+    { "name": "Steve Kinney", "email": "<hello@stevekinney.net>" },
+    { "name": "H. Phil Duby", "email": "<philduby@phriendly.net>" },
+    { "name": "Vincent Rubiolo", "email": "<vincent.libre@cryostase.eu>" },
+    { "name": "Jory Burson", "email": "<jory@bocoup.com>" },
+    { "name": "Corey Frang", "email": "<gnarf@gnarf.net>" },
+    { "name": "TRAHOMOTO", "email": "<trahomoto@i.ua>" },
+    { "name": "Don McCurdy", "email": "Don McCurdy <don.r.mccurdy@gmail.com>" }
   ],
   "keywords": [
-    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io"
+    "arduino", "raspberrypi", "usb", "serial", "serialport", "firmata", "robot", "spark", "spark core", "spark-io", "spark", "particle", "i2c", "raspberrypi", "raspberry pi", "rpi", "raspi-io", "intel galileo", "galileo", "galileo-io", "intel edison", "edison", "pcduino"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/rwldrn/johnny-five.git"
+    "url": "git://github.com/rwaldron/johnny-five.git"
   },
   "bugs": {
-    "url": "https://github.com/rwldrn/johnny-five/issues"
+    "url": "https://github.com/rwaldron/johnny-five/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/rwldrn/johnny-five/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "main": "lib/johnny-five",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "dependencies": {
     "color-convert": "~0.5.2",
-    "colors": ">=0.5.1",
+    "chalk": "latest",
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
     "lodash": "latest",
-    "nanotimer": "0.3.1",
-    "temporal": "latest"
+    "nanotimer": "0.3.10",
+    "temporal": "latest",
+    "array-includes": "latest"
   },
   "optionalDependencies": {
-    "firmata": ">=0.2.9",
-    "serialport": "latest",
-    "galileo-io": "latest"
+    "firmata": "^0.7.2",
+    "serialport": "^2.0.1"
   },
   "devDependencies": {
     "async": "~0.9.0",
+    "board-io": "latest",
     "copy-paste": "~0.3.0",
-    "optimist": "~0.6.1",
-    "keypress": "latest",
-    "sinon": "~1.10.2",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
-    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-jshint": "~0.11.2",
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2",
-    "grunt-jscs": "~0.8.0"
+    "grunt-jscs": "~0.8.0",
+    "keypress": "latest",
+    "optimist": "~0.6.1",
+    "shelljs": "^0.3.0",
+    "sinon": "~1.10.2"
   },
   "scripts": {
     "test": "grunt"

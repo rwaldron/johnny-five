@@ -1,4 +1,15 @@
-# Grove Servo
+<!--remove-start-->
+
+# Grove - Servo
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -37,19 +48,27 @@ board.on("ready", function() {
 
 
 
+
+
+
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 
 ![Grove - Servo Module](http://www.seeedstudio.com/depot/images/product/GroveServo_01.jpg)
 
-![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
+![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

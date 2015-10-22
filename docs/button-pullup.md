@@ -1,4 +1,26 @@
-# Button Pullup
+<!--remove-start-->
+
+# Button - Pullup
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Button - Pullup"
+
+
+
+![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)<br>
+
+Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -44,17 +66,20 @@ five.Board().on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/button-pullup.png](breadboard/button-pullup.png)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

@@ -1,4 +1,15 @@
-# Lcd Runner
+<!--remove-start-->
+
+# LCD - Runner 16x2
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -21,15 +32,14 @@ board.on("ready", function() {
     cols: 16
   });
 
-  var frame = 1,
-    col = 0,
-    row = 0;
+  var frame = 1;
+  var col = 0;
+  var row = 0;
 
-  lcd.display();
   lcd.useChar("runninga");
   lcd.useChar("runningb");
 
-  board.loop(300, function() {
+  this.loop(300, function() {
 
     lcd.clear().cursor(row, col).print(
       ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
@@ -58,9 +68,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

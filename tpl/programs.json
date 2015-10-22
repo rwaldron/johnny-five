@@ -1,0 +1,1617 @@
+[
+  {
+    "topic": "Board",
+    "classes": ["Board"],
+    "examples": [
+      {
+        "file": "board.js",
+        "title": "Basic Board initialization",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "board-with-port.js",
+        "title": "Board - Specify port",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "board-multi.js",
+        "title": "Board - Multiple in one program"
+      },
+      {
+        "file": "repl.js",
+        "title": "REPL",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "pin.js",
+        "title": "Pin"
+      }
+    ]
+  },
+  {
+    "topic": "Expander",
+    "classes": ["Expander"],
+    "examples": [
+      {
+        "file": "expander-MCP23017.js",
+        "title": "Expander - MCP23017",
+        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)"
+      },
+      {
+        "file": "expander-MCP23008.js",
+        "title": "Expander - MCP23008",
+        "description": "Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8574.js",
+        "title": "Expander - PCF8574",
+        "description": "Using an PCF8574 Expander as a Virtual Board (WaveShare 8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-PCF8575.js",
+        "title": "Expander - PCF8575",
+        "description": "Using an PCF8575 Expander as a Virtual Board (SparkFun I2C Expander Breakout - PCF8575)"
+      },
+      {
+        "file": "expander-PCA9685.js",
+        "title": "Expander - PCA9685",
+        "description": "Using an PCA9685 Expander as a Virtual Board (Adafruit 16 Channel PWM Shield)"
+      },
+      {
+        "file": "expander-PCF8591.js",
+        "title": "Expander - PCF8591",
+        "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
+      }
+
+    ]
+  },
+  {
+    "topic": "LED",
+    "classes": ["Led"],
+    "examples": [
+      {
+        "file": "led.js",
+        "title": "LED",
+        "description": "Basic LED example",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"},
+          {"name": "led-resistor", "title": "LED on pin 13 with breadboard and resistor (Arduino UNO)", "description": "Basic example with LED on a breadboard and demonstrating use of a resistor"},
+          {"name": "led-13-mega", "title": "LED on pin 13 (Arduino Mega)", "description": "Basic example with LED inserted directly into pin 13"}
+        ],
+        "images": [
+          {"file": "led.jpg", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "led-PCA9685.js",
+        "title": "LED - PCA9685",
+        "description": "Basic LED example using PCA9685"
+      },
+      {
+        "file": "led-blink.js",
+        "title": "LED - Blink",
+        "description": "Basic LED blink example.",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"},
+          {"name": "led-resistor", "title": "LED on pin 13 with breadboard and resistor (Arduino UNO)", "description": "Basic example with LED on a breadboard and demonstrating use of a resistor"}
+        ],
+        "images": [
+          {"file": "led.jpg", "title": "LED on pin 13 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 13"}
+        ]
+      },
+      {
+        "file": "led-pulse.js",
+        "title": "LED - Pulse",
+        "description": "LED pulse example that fades an LED in and out repeatedly. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-pulse-animation.js",
+        "title": "LED - Pulse with animation",
+        "description": "LED pulse example that incrementally fades an LED brighter and brighter. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-fade.js",
+        "title": "LED - Fade",
+        "description": "LED fade example that fades in an led, waits 5 seconds, and then fades it out. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-fade-callback.js",
+        "title": "LED - Fade callback",
+        "description": "Demonstrates use of callbacks to fade out a series of LEDs one after the other. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-fade-animation.js",
+        "title": "LED - Fade with animation",
+        "description": "LED fade example that fades an LED up and down to varying values. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-demo-sequence.js",
+        "title": "LED - Demo sequence",
+        "description": "Demonstrates stringing some of the LED commands together to demonstrate LED capabilities. Requires LED on pin that supports PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-11-pwm", "title": "LED on pin 11 (Arduino UNO)", "description": "Basic example with LED inserted directly into pin 11."}
+        ]
+      },
+      {
+        "file": "led-slider.js",
+        "title": "LED - Slider",
+        "description": "Controls the brightness of an LED by pairing it with a slider. Requires LED on pin that supports PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-array.js",
+        "title": "LED - Array",
+        "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~)."
+      },
+      {
+        "file": "led-rgb.js",
+        "title": "LED - RGB",
+        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
+        ]
+      },
+      {
+        "file": "led-rgb-anode.js",
+        "title": "LED - RGB (Common Anode)",
+        "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb-anode", "title": "Common Anode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to +5v."}
+        ]
+      },
+      {
+        "file": "led-rgb-anode-PCA9685.js",
+        "title": "LED - RGB (Common Anode) PCA9685",
+        "description": "Demonstrates use of an RGB LED (common anode) with the PCA9685 controller by setting its color to red (`#ff0000`) and making it blink."
+      },
+      {
+        "file": "led-rgb-intensity.js",
+        "title": "LED - RGB Intensity",
+        "description": "Demonstrates changing intensity of an RGB LED. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb", "title": "RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively."}
+        ]
+      },
+      {
+        "file": "led-rainbow.js",
+        "title": "LED - Rainbow",
+        "description": "Demonstrates use of an RGB LED (common cathode) by cycling through rainbow colors. Requires RGB LED on pins that support PWM (usually denoted by ~).",
+        "breadboards": [
+          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
+        ]
+      },
+      {
+        "name": "led-digits-clock",
+        "title": "LED - Digital Clock",
+        "description": "Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.",
+        "file": "led-digits-clock-galileo.js",
+        "breadboards": [
+          {"name": "led-digits-clock-galileo", "title": "Galileo Diagram"},
+          {"name": "led-digits-clock-arduino", "title": "Arduino Diagram"}
+        ],
+        "embeds": [
+          { "name": "led-digits-clock-galileo",
+            "src": "https://www.youtube.com/embed/4A3SlE6Unco",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: A Digital Clock with Johnny-Five", "href": "http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/"}
+        ]
+      },
+      {
+        "file": "led-digits-clock-HT16K33.js",
+        "title": "LED - Digital Clock, HT16K33"
+      },
+      {
+        "title": "LED - Digital Clock, Dual Displays",
+        "description": "Demonstrates using dual 7 Segment displays.",
+        "file": "led-digits-clock-dual.js",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/iD8S--2aJEo",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "led-matrix.js",
+        "title": "LED - Matrix"
+      },
+      {
+        "file": "led-matrix-tutorial.js",
+        "title": "LED - Matrix Demo"
+      },
+      {
+        "file": "led-matrix-HT16K33.js",
+        "title": "LED - Matrix HT16K33"
+      },
+      {
+        "file": "led-matrix-HT16K33-16x8.js",
+        "title": "LED - Matrix HT16K33 16x8"
+      },
+      {
+        "file": "led-chars-demo.js",
+        "title": "LED - Draw Matrix Characters Demo",
+        "description": "Demonstrates draw() on Matrix display.",
+        "breadboards": [
+          {"name": "led-matrix", "title": "LED Matrix breadboard - Arduino Uno"}
+        ]
+      },
+      {
+        "file": "led-enumeratechars.js",
+        "title": "LED - Enumerate Matrix Characters & Symbols",
+        "description": "Loop through available characters & symbols to see what they look like on a Matrix display.",
+        "breadboards": [
+          {"name": "led-matrix", "title": "LED Matrix breadboard - Arduino Uno"}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Servo",
+    "classes": ["Servo", "Gripper"],
+    "examples": [
+      {
+        "file": "servo.js",
+        "title": "Servo"
+      },
+      {
+        "file": "servo-PCA9685.js",
+        "title": "Servo - PCA9685"
+      },
+      {
+        "file": "servo-continuous.js",
+        "title": "Servo - Continuous",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-slider.js",
+        "title": "Servo - Slider control"
+      },
+      {
+        "file": "servo-prompt.js",
+        "title": "Servo - Prompt",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-drive.js",
+        "title": "Servo - Drive",
+        "breadboards": [
+          {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-sweep.js",
+        "title": "Servo - Sweep",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-array.js",
+        "title": "Servo - Array of servos",
+        "breadboards": [
+          {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Basic example with servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Servo Animation",
+    "classes": ["Animation"],
+    "examples": [
+      {
+        "file": "servo-animation.js",
+        "title": "Servo - Animation",
+        "breadboards": [
+          {"name": "servo", "title": "Servo on pin 10", "description": "Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
+        ]
+      },
+      {
+        "file": "servo-animation-leg.js",
+        "title": "Servo - Leg Animation",
+        "breadboards": [
+          {"name": "servo-three", "title": "Servos on pins 9, 10, 11", "description": "Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~)."}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Color",
+    "classes": ["Color"],
+    "examples": [
+      {
+        "file": "color-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Code)"
+      },
+      {
+        "file": "color-raw-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Raw)"
+      },
+      {
+        "file": "color-EVS_NXT.js",
+        "title": "Color - EVShield NXT (Code)"
+      },
+      {
+        "file": "color-ISL29125.js",
+        "title": "Color - ISL29125"
+      }
+    ]
+  },
+  {
+    "topic": "Motor",
+    "classes": ["Motor"],
+    "examples": [
+      {
+        "file": "motor.js",
+        "title": "Motor"
+      },
+      {
+        "file": "motor-directional.js",
+        "title": "Motor - Directional"
+      },
+      {
+        "file": "motor-brake.js",
+        "title": "Motor - Brake"
+      },
+      {
+        "file": "motor-current.js",
+        "title": "Motor - Current"
+      },
+      {
+        "file": "motor-hbridge.js",
+        "title": "Motor - H-Bridge"
+      },
+      {
+        "file": "motor-PCA9685.js",
+        "title": "Motor - PCA9685"
+      },
+      {
+        "file": "motor-LUDUS.js",
+        "title": "Motor - LUDUS"
+      },
+      {
+        "file": "motor-3-pin.js",
+        "title": "Motor - 3 pin"
+      },
+      {
+        "file": "motor-EVS_EV3.js",
+        "title": "Motor - EVShield EV3"
+      },
+      {
+        "file": "motor-EVS_NXT.js",
+        "title": "Motor - EVShield NXT"
+      }
+    ]
+  },
+  {
+    "topic": "Stepper Motor",
+    "classes": ["Stepper"],
+    "examples": [
+      {
+        "file": "stepper-driver.js",
+        "title": "Stepper - Driver"
+      },
+      {
+        "file": "stepper-sweep.js",
+        "title": "Stepper - Sweep"
+      }
+    ]
+  },
+  {
+    "topic": "ESC & Brushless Motor",
+    "classes": ["ESC"],
+    "examples": [
+      {
+        "file": "esc-keypress.js",
+        "title": "ESC - Keypress"
+      },
+      {
+        "file": "esc-dualshock.js",
+        "title": "ESC - Dualshock"
+      },
+      {
+        "file": "esc-PCA9685.js",
+        "title": "ESC - PCA9685"
+      },
+      {
+        "file": "esc-bidirectional.js",
+        "title": "ESC - Bidirectional"
+      },
+      {
+        "file": "esc-bidirectional-forward-reverse.js",
+        "title": "ESC - Bidirectional Forward-Reverse"
+      }
+    ]
+  },
+  {
+    "topic": "Button / Switch",
+    "classes": ["Button", "Switch"],
+    "examples": [
+      {
+        "file": "button.js",
+        "title": "Button"
+      },
+      {
+        "file": "button-bumper.js",
+        "title": "Button - Bumper"
+      },
+      {
+        "file": "button-options.js",
+        "title": "Button - Options"
+      },
+      {
+        "file": "button-pullup.js",
+        "title": "Button - Pullup"
+      },
+      {
+        "file": "toggle-switch.js",
+        "title": "Toggle Switch"
+      },
+      {
+        "file": "button-EVS_EV3.js",
+        "title": "Button - EVShield EV3"
+      },
+      {
+        "file": "button-EVS_NXT.js",
+        "title": "Button - EVShield NXT"
+      }
+    ]
+  },
+  {
+    "topic": "Keypad",
+    "classes": ["Keypad"],
+    "examples": [
+      {
+        "file": "keypad-analog-vkey.js",
+        "title": "Keypad - VKEY"
+      },
+      {
+        "file": "keypad-analog-ad.js",
+        "title": "Keypad - Waveshare AD"
+      },
+      {
+        "file": "keypad-MPR121.js",
+        "title": "Keypad - MPR121"
+      },
+      {
+        "file": "keypad-MPR121QR2.js",
+        "title": "Keypad - MPR121QR2"
+      }
+    ]
+  },
+  {
+    "topic": "Relay",
+    "classes": ["Relay"],
+    "examples": [
+      {
+        "file": "relay.js",
+        "title": "Relay",
+        "breadboards": [
+          {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."},
+          {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Shift Register",
+    "classes": ["ShiftRegister"],
+    "examples": [
+      {
+        "file": "shift-register.js",
+        "title": "Shift Register"
+      },
+      {
+        "file": "shift-register-seven-segment.js",
+        "title": "Shift Register - Seven segment controller"
+      },
+      {
+        "file": "shift-register-daisy-chain.js",
+        "title": "Shift Register - Seven segments, daisy chained"
+      }
+    ]
+  },
+  {
+    "topic": "Infrared Reflectance",
+    "classes": ["IR.Reflect.Array"],
+    "examples": [
+      {
+        "file": "ir-motion.js",
+        "title": "IR Motion"
+      },
+      {
+        "file": "ir-proximity.js",
+        "title": "IR Proximity"
+      },
+      {
+        "file": "ir-reflect.js",
+        "title": "IR Reflectance"
+      },
+      {
+        "file": "ir-reflect-array.js",
+        "title": "IR Reflectance Array"
+      }
+    ]
+  },
+  {
+    "topic": "Proximity",
+    "classes": ["Proximity"],
+    "examples": [
+      {
+        "file": "proximity.js",
+        "title": "Proximity",
+        "description": "Basic infrared Proximity example"
+      },
+      {
+        "file": "proximity-GP2Y0A710K0F.js",
+        "title": "Proximity - GP2Y0A710K0F",
+        "description": "Basic infrared Proximity example with GP2Y0A710K0F sensor."
+      },
+      {
+        "file": "proximity-srf10.js",
+        "title": "Proximity - SRF10",
+        "description": "Basic sonar Proximity example with SRF10 sensor."
+      },
+      {
+        "file": "proximity-mb1000.js",
+        "title": "Proximity - MB1000",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1000", "description": "Basic sonar Proximity example with MB1000 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-mb1010.js",
+        "title": "Proximity - MB1010",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1010", "description": "Basic sonar Proximity example with MB1010 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-mb1003.js",
+        "title": "Proximity - MB1003",
+        "description": "Basic sonar Proximity example with MB1003 sensor."
+      },
+      {
+        "file": "proximity-mb1230.js",
+        "title": "Proximity - MB1230",
+        "breadboards": [
+          {"name": "proximity-mb1003", "title": "Proximity - MB1230", "description": "Basic sonar Proximity example with MB1230 sensor."}
+        ]
+      },
+      {
+        "file": "proximity-hcsr04.js",
+        "title": "Proximity - HC-SR04",
+        "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
+      },
+      {
+        "file": "proximity-lidarlite.js",
+        "title": "Proximity - LIDAR-Lite",
+        "description": "Basic LIDAR-Lite example."
+      },
+      {
+        "file": "proximity-EVS_EV3_IR.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
+      },
+      {
+        "file": "proximity-EVS_EV3_IR-alert.js",
+        "title": "Proximity - EVShield EV3 (IR)"
+      },
+      {
+        "file": "proximity-EVS_EV3_US-alert.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)"
+      }
+    ]
+  },
+  {
+    "topic": "Motion",
+    "classes": ["Motion"],
+    "examples": [
+      {
+        "file": "motion.js",
+        "title": "Motion",
+        "description": "Basic Passive Infrared Motion detection."
+      },
+      {
+        "file": "motion-gp2y0d805z0f.js",
+        "title": "Motion - GP2Y0D805Z0F",
+        "description": "Basic GP2Y0D805Z0F motion detection."
+      },
+      {
+        "file": "motion-gp2y0d810z0f.js",
+        "title": "Motion - GP2Y0D810Z0F",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0D810Z0F", "description": "Basic GP2Y0D810Z0F motion detection."}
+
+        ]
+      },
+      {
+        "file": "motion-gp2y0d815z0f.js",
+        "title": "Motion - GP2Y0D810Z0F",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0D815Z0F", "description": "Basic GP2Y0D815Z0F motion detection."}
+
+        ]
+      },
+      {
+        "file": "motion-GP2Y0A60SZLF.js",
+        "title": "Motion - GP2Y0A60SZLF",
+        "breadboards": [
+          {"name": "GP2Y0D810Z0F", "title": "Motion - GP2Y0A60SZLF", "description": "Basic GP2Y0D815Z0F motion detection."}
+
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Joystick",
+    "classes": ["Joystick"],
+    "examples": [
+      {
+        "file": "joystick.js",
+        "title": "Joystick",
+        "breadboards": [
+          {"name": "joystick-sparkfun", "title": "Joystick - Sparkfun", "description": "Sparkfun joystick breakout board."},
+          {"name": "joystick-adafruit", "title": "Joystick - Adafruit", "description": "Adafruit joystick breakout board."}
+        ]
+      },
+      {
+        "file": "joystick-esplora.js",
+        "title": "Joystick - Esplora",
+        "breadboards": [
+          {"name": "esplora", "title": "Joystick - Esplora", "description": "Esplora joystick example."}
+        ]
+      },
+      {
+        "file": "joystick-shield.js",
+        "title": "Joystick - Sparkfun Shield",
+        "breadboards": [
+          {"name": "joystick-shield", "title": "Joystick - Sparkfun Shield", "description": "Sparkfun Joystick Shield example."}
+        ]
+      },
+      {
+        "file": "joystick-pantilt.js",
+        "title": "Joystick - Pan + Tilt control"
+      }
+    ]
+  },
+  {
+    "topic": "LCD",
+    "classes": ["LCD"],
+    "examples": [
+      {
+        "file": "lcd.js",
+        "title": "LCD"
+      },
+      {
+        "file": "lcd-enumeratechars.js",
+        "title": "LCD - Enumerate characters"
+      },
+      {
+        "file": "lcd-runner-20x4.js",
+        "title": "LCD - Runner 20x4"
+      },
+      {
+        "file": "lcd-runner.js",
+        "title": "LCD - Runner 16x2"
+      },
+      {
+        "file": "lcd-i2c.js",
+        "title": "LCD - I2C"
+      },
+      {
+        "file": "lcd-i2c-PCF8574.js",
+        "title": "LCD - I2C PCF8574"
+      },
+      {
+        "file": "lcd-i2c-runner.js",
+        "title": "LCD - I2C Runner"
+      }
+    ]
+  },
+  {
+    "topic": "Compass/Magnetometer",
+    "classes": ["Magnetometer", "Compass"],
+    "examples": [
+      {
+        "file": "magnetometer.js",
+        "title": "Compass / Magnetometer"
+      },
+      {
+        "file": "compass-hmc6352.js",
+        "title": "Compass - HMC6352"
+      },
+      {
+        "file": "compass-hmc5883l.js",
+        "title": "Compass - HMC5883L"
+      },
+      {
+        "file": "magnetometer-log.js",
+        "title": "Compass - Logger"
+      },
+      {
+        "file": "magnetometer-north.js",
+        "title": "Compass - Find north"
+      }
+    ]
+  },
+  {
+    "topic": "Piezo",
+    "classes": ["Piezo"],
+    "examples": [
+      {
+        "file": "piezo.js",
+        "title": "Piezo"
+      }
+    ]
+  },
+  {
+    "topic": "IMU/Multi",
+    "classes": ["IMU", "Multi"],
+    "examples": [
+      {
+        "file": "imu-mpu6050.js",
+        "title": "IMU - MPU6050"
+      },
+      {
+        "file": "multi-mpl115a2.js",
+        "title": "Multi - MPL115A2",
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "multi-mpl3115a2.js",
+        "title": "Multi - MPL3115A2",
+        "breadboards": [
+          {"name": "barometer-mpl3115a2", "title": "MPL3115A2"}
+        ],
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "multi-bmp180.js",
+        "title": "Multi - BMP180",
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "multi-htu21d.js",
+        "title": "Multi - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Sensors",
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Temperature"],
+    "examples": [
+      {
+        "file": "sensor.js",
+        "title": "Sensor"
+      },
+      {
+        "file": "sensor-slider.js",
+        "title": "Sensor - Slide potentiometer"
+      },
+      {
+        "file": "sensor-fsr.js",
+        "title": "Sensor - Force sensitive resistor"
+      },
+      {
+        "file": "photoresistor.js",
+        "title": "Sensor - Photoresistor"
+      },
+      {
+        "file": "potentiometer.js",
+        "title": "Sensor - Potentiometer"
+      },
+      {
+        "file": "microphone.js",
+        "title": "Sensor - Microphone"
+      },
+      {
+        "file": "accelerometer.js",
+        "title": "Accelerometer"
+      },
+      {
+        "file": "accelerometer-adxl345.js",
+        "title": "Accelerometer - ADXL345"
+      },
+      {
+        "file": "accelerometer-adxl335.js",
+        "title": "Accelerometer - ADXL335"
+      },
+      {
+        "file": "accelerometer-mma7361.js",
+        "title": "Accelerometer - MMA7361"
+      },
+      {
+        "file": "accelerometer-mpu6050.js",
+        "title": "Accelerometer - MPU6050"
+      },
+      {
+        "file": "accelerometer-pan-tilt.js",
+        "title": "Accelerometer - Pan + Tilt"
+      },
+      {
+        "file": "gyro.js",
+        "title": "Gyro"
+      },
+      {
+        "file": "gyro-lpr5150l.js",
+        "title": "Gyro - Analog LPR5150AL"
+      },
+      {
+        "file": "gyro-mpu6050.js",
+        "title": "Gyro - I2C MPU6050"
+      },
+      {
+        "file": "temperature-tmp36.js",
+        "title": "Temperature - TMP36"
+      },
+      {
+        "file": "temperature-tmp102.js",
+        "title": "Temperature - TMP102"
+      },
+      {
+        "file": "temperature-lm35.js",
+        "title": "Temperature - LM35"
+      },
+      {
+        "file": "temperature-lm335.js",
+        "title": "Temperature - LM335"
+      },
+      {
+        "file": "temperature-ds18b20.js",
+        "title": "Temperature - DS18B20"
+      },
+      {
+        "file": "temperature-mpu6050.js",
+        "title": "Temperature - MPU6050"
+      },
+      {
+        "file": "temperature-htu21d.js",
+        "title": "Temperature - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
+      },
+      {
+        "file": "barometer-mpl115a2.js",
+        "title": "Barometer - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ],
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "barometer-mpl3115a2.js",
+        "title": "Barometer - MPL3115A2",
+        "breadboards": [
+          {"name": "barometer-mpl3115a2", "title": "MPL3115A2"}
+        ],
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "altimeter-mpl3115a2.js",
+        "title": "Altimeter - MPL3115A2",
+        "breadboards": [
+          {"name": "barometer-mpl3115a2", "title": "MPL3115A2"}
+        ],
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "temperature-mpl3115a2.js",
+        "title": "Temperature - MPL3115A2",
+        "breadboards": [
+          {"name": "barometer-mpl3115a2", "title": "MPL3115A2"}
+        ],
+        "externals": [
+          { "title": "MPL3115A2 - I2C Barometric Pressure/Altimeter/Temperature Sensor", "href": "https://www.adafruit.com/product/1893"}
+        ]
+      },
+      {
+        "file": "temperature-mpl115a2.js",
+        "title": "Temperature - MPL115A2",
+        "breadboards": [
+          {"name": "multi-mpl115a2", "title": "MPL115A2"}
+        ],
+        "externals": [
+          { "title": "MPL115A2 - I2C Barometric Pressure/Temperature Sensor", "href": "https://www.adafruit.com/product/992"}
+        ]
+      },
+      {
+        "file": "barometer-BMP180.js",
+        "title": "Barometer - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ],
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "hygrometer-htu21d.js",
+        "title": "Hygrometer - HTU21D",
+        "breadboards": [
+          {"name": "humidity-htu21d", "title": "HTU21D"}
+        ],
+        "externals": [
+          { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
+      },
+      {
+        "file": "temperature-BMP180.js",
+        "title": "Temperature - BMP180",
+        "breadboards": [
+          {"name": "multi-bmp180", "title": "BMP180"}
+        ],
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "temperature-SI7020.js",
+        "title": "Temperature - SI7020",
+        "breadboards": [
+          {"name": "temperature-SI7020", "title": "Tessel with SI7020"},
+          {"name": "temperature-SI7020-uno", "title": "Arduino with SI7020"}
+        ],
+        "externals": [
+          { "title": "SI7020 - I2C Temperature Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Photon Weather Shield",
+    "classes": ["Sensor", "Pin", "Temperature", "Barometer", "Hygrometer"],
+    "examples": [
+      {
+        "file": "sensor-photon-weather-shield-moisture.js",
+        "title": "Photon Weather Shield: Moisture"
+      }
+    ]
+  },
+  {
+    "topic": "Lego EVShield",
+    "classes": ["Color", "Light", "Motor", "Button", "Proximity"],
+    "examples": [
+      {
+        "file": "button-EVS_EV3.js",
+        "title": "Button - EVShield EV3",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/mAwvQJQo09Y",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "button-EVS_NXT.js",
+        "title": "Button - EVShield NXT",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/ZwpqyrXFjnc",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Code)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/E2SD6MGpMUI",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-raw-EVS_EV3.js",
+        "title": "Color - EVShield EV3 (Raw)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/E2SD6MGpMUI",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "color-EVS_NXT.js",
+        "title": "Color - EVShield NXT (Code)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/tL_kKiMhUk4",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "light-ambient-EVS_EV3.js",
+        "title": "Light - EVShield EV3 (Ambient)"
+      },
+      {
+        "file": "light-ambient-EVS_NXT.js",
+        "title": "Light - EVShield NXT (Ambient)"
+      },
+      {
+        "file": "light-reflected-EVS_EV3.js",
+        "title": "Light - EVShield EV3 (Reflected)"
+      },
+      {
+        "file": "light-reflected-EVS_NXT.js",
+        "title": "Light - EVShield NXT (Reflected)"
+      },
+      {
+        "file": "motor-EVS_EV3.js",
+        "title": "Motor - EVShield EV3",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/MwI_OzLn0ck",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "motor-EVS_NXT.js",
+        "title": "Motor - EVShield NXT",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/WLMTxiHOWHM",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_IR-alert.js",
+        "title": "Proximity - EVShield EV3 (IR)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/3qLXcXSP87g",
+            "type": "youtube" }
+        ]
+      },
+      {
+        "file": "proximity-EVS_EV3_US-alert.js",
+        "title": "Proximity - EVShield EV3 (Ultrasonic)",
+        "embeds": [
+          { "src": "https://www.youtube.com/embed/6-tM7L28Gcg",
+            "type": "youtube" }
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Intel Edison + Grove IoT Kit",
+    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo", "Joystick"],
+    "examples": [
+      {
+        "file": "grove-accelerometer-adxl345-edison.js",
+        "title": "Intel Edison + Grove - Accelerometer (ADXL346)",
+        "description": "Using Johnny-Five with Grove's Accelerometer (ADXL346) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-accelerometer-mma7660-edison.js",
+        "title": "Intel Edison + Grove - Accelerometer (MMA7660)",
+        "description": "Using Johnny-Five with Grove's Accelerometer (MMA7660) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-barometer-edison.js",
+        "title": "Intel Edison + Grove - Barometer (BMP180)",
+        "description": "Using Johnny-Five with Grove's Barometer (BMP180) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-compass-edison.js",
+        "title": "Intel Edison + Grove - Compass (HMC588L)",
+        "description": "Using Johnny-Five with Grove's Compass (HMC588L) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-flame-sensor-edison.js",
+        "title": "Intel Edison + Grove - Flame Sensor",
+        "description": "Using Johnny-Five with Grove's Flame Sensor component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-led-edison.js",
+        "title": "Intel Edison + Grove - LED",
+        "description": "Using Johnny-Five with Grove's LED component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.",
+        "images": [
+          {"file": "grove-led.jpg", "title": "Grove LED"}
+        ]
+      },
+      {
+        "file": "grove-light-sensor-edison.js",
+        "title": "Intel Edison + Grove - Light Sensor (TSL2561)",
+        "description": "Using Johnny-Five with Grove's Light Sensor (TSL2561) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-button-edison.js",
+        "title": "Intel Edison + Grove - Button",
+        "description": "Using Johnny-Five with Grove's Button component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-moisture-edison.js",
+        "title": "Intel Edison + Grove - Moisture Sensor",
+        "description": "Using Johnny-Five with Grove's Moisture component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-gas-mq2-edison.js",
+        "title": "Intel Edison + Grove - Gas (MQ2)",
+        "description": "Using Johnny-Five with Grove's Gas MQ2 component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-gas-tp401-edison.js",
+        "title": "Intel Edison + Grove - Air quality sensor",
+        "description": "Using Johnny-Five with Grove's Air quality sensor component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+
+
+      {
+        "file": "grove-joystick-edison.js",
+        "title": "Intel Edison + Grove - Joystick",
+        "description": "Using Johnny-Five with Grove's Joystick component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-rotary-potentiometer-edison.js",
+        "title": "Intel Edison + Grove - Rotary Potentiometer",
+        "description": "Using Johnny-Five with Grove's LED component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.",
+        "images": [
+          {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
+          {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
+        ]
+      },
+      {
+        "file": "grove-lcd-rgb-edison.js",
+        "title": "Intel Edison + Grove - RGB LCD",
+        "description": "Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-lcd-rgb-temperature-display-edison.js",
+        "title": "Intel Edison + Grove - LCD RGB temperature display",
+        "description": "Using Johnny-Five with Grove's RGB LCD and Temperature components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-relay-edison.js",
+        "title": "Intel Edison + Grove - Relay",
+        "description": "Using Johnny-Five with Grove's Relay component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+
+      {
+        "file": "grove-servo-edison.js",
+        "title": "Intel Edison + Grove - Servo",
+        "description": "Using Johnny-Five with Grove's Servo and Rotary Potentiometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-touch-edison.js",
+        "title": "Intel Edison + Grove - Touch",
+        "description": "Using Johnny-Five with Grove's Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      }
+    ]
+  },
+  {
+    "topic": "Grove IoT Kit (Seeed Studio)",
+    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
+    "examples": [
+      {
+        "file": "grove-led.js",
+        "title": "Grove - LED",
+        "images": [
+          {"file": "grove-led.jpg", "title": "Grove LED"}
+        ]
+      },
+      {
+        "file": "grove-button.js",
+        "title": "Grove - Button"
+      },
+      {
+        "file": "grove-touch.js",
+        "title": "Grove - Touch"
+      },
+      {
+        "file": "grove-joystick.js",
+        "title": "Grove - Joystick"
+      },
+      {
+        "file": "grove-rotary-potentiometer.js",
+        "title": "Grove - Rotary Potentiometer",
+        "images": [
+          {"file": "grove-shield.jpg", "title": "Grove Shield"},
+          {"file": "grove-led.jpg", "title": "Grove LED"},
+          {"file": "grove-rotary.jpg", "title": "Grove Rotary"}
+        ]
+      },
+      {
+        "file": "grove-lcd-rgb.js",
+        "title": "Grove - RGB LCD"
+      },
+      {
+        "file": "grove-lcd-rgb-temperature-display.js",
+        "title": "Grove - LCD RGB temperature display"
+      },
+      {
+        "file": "grove-servo.js",
+        "title": "Grove - Servo"
+      }
+    ]
+  },
+  {
+    "topic": "Micro Magician V2",
+    "classes": ["Accelerometer", "Motor", "Servo"],
+    "examples": [
+      {
+        "file": "micromagician-accelerometer.js",
+        "title": "Micro Magician V2 - Accelerometer",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      },
+      {
+        "file": "micromagician-motor.js",
+        "title": "Micro Magician V2 - Motor",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      },
+      {
+        "file": "micromagician-servo.js",
+        "title": "Micro Magician V2 - Servo",
+        "externals":[
+          {"title": "Micro Magician V2", "href": "http://www.dagurobot.com/goods.php?id=137"}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "TinkerKit",
+    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
+    "examples": [
+      {
+        "file": "tinkerkit-accelerometer.js",
+        "title": "TinkerKit - Accelerometer",
+        "externals":[
+          {"title": "TinkerKit Dual Axis Accelerometer", "href": "http://tinkerkit.tihhs.nl/accelerometer/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-blink.js",
+        "title": "TinkerKit - Blink",
+        "images": [
+          {"file": "tinkerkit-blink.png", "title": "TinkerKit Blink"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Led", "href": "http://tinkerkit.tihhs.nl/led-red-10mm/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-button.js",
+        "title": "TinkerKit - Button",
+        "images": [
+          {"file": "tinkerkit-button.png", "title": "TinkerKit Button"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Button", "href": "http://tinkerkit.tihhs.nl/button/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-combo.js",
+        "title": "TinkerKit - Combo"
+      },
+      {
+        "file": "tinkerkit-continuous-servo.js",
+        "title": "TinkerKit - Continuous servo",
+        "images": [
+          {"file": "tinkerkit-continuous-servo.png", "title": "TinkerKit Continuous Servo"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-gyroscope.js",
+        "title": "TinkerKit - Gyro"
+      },
+      {
+        "file": "tinkerkit-joystick.js",
+        "title": "TinkerKit - Joystick",
+        "externals": [
+          { "title": "TinkerKit JoyStick", "href": "http://tinkerkit.tihhs.nl/joystick/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-linear-pot.js",
+        "title": "TinkerKit - Linear potentiometer",
+        "images": [
+          {"file": "tinkerkit-linear-pot.png", "title": "TinkerKit Linear Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Linear Potentiometer", "href": "http://tinkerkit.tihhs.nl/linear-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-rotary.js",
+        "title": "TinkerKit - Rotary potentiometer",
+        "images": [
+          {"file": "tinkerkit-rotary.png", "title": "TinkerKit Rotary Potentiometer"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Rotary Potentiometer", "href": "http://tinkerkit.tihhs.nl/rotary-pot/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-thermistor.js",
+        "title": "TinkerKit - Temperature",
+        "images": [
+          {"file": "tinkerkit-thermistor.png", "title": "TinkerKit Temperature"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Thermistor", "href": "http://tinkerkit.tihhs.nl/thermistor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-tilt.js",
+        "title": "TinkerKit - Tilt",
+        "images": [
+          {"file": "tinkerkit-tilt.png", "title": "TinkerKit Tilt"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Servo", "href": "http://tinkerkit.tihhs.nl/servo/"},
+          { "title": "TinkerKit Tilt", "href": "http://tinkerkit.tihhs.nl/tilt-sensor/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      },
+      {
+        "file": "tinkerkit-touch.js",
+        "title": "TinkerKit - Touch",
+        "images": [
+          {"file": "tinkerkit-touch.png", "title": "TinkerKit Touch"}
+        ],
+        "externals": [
+          { "title": "TinkerKit Touch", "href": "http://tinkerkit.tihhs.nl/touch/"},
+          { "title": "TinkerKit Shield", "href": "http://tinkerkit.tihhs.nl/shield/"}
+        ]
+      }
+    ]
+  },
+  {
+    "topic": "Wii",
+    "classes": ["Wii.Nunchuk", "Wii.Classic"],
+    "examples": [
+      {
+        "file": "nunchuk.js",
+        "title": "Wii Nunchuck"
+      },
+      {
+        "file": "classic-controller.js",
+        "title": "Wii Classic Controller"
+      }
+    ]
+  },
+  {
+    "topic": "Complete Bots / Projects",
+    "examples": [
+      {
+        "file": "line-follower.js",
+        "title": "Line Follower"
+      },
+      {
+        "file": "motobot.js",
+        "title": "Motobot",
+        "images": [
+          {"file": "motobot.jpg", "title": "Complete Motobot", "description": "Typical complete Motobot platform"},
+          {"file": "motobot-chassis.jpg", "title": "Motobot chassis", "description": "Motobot chassis before addings"}
+        ]
+      },
+      {
+        "file": "navigator.js",
+        "title": "Navigator"
+      },
+      {
+        "file": "nodebot.js",
+        "title": "Nodebot",
+        "images": [
+          {"file": "nodebot.png", "title": "Complete Nodebot", "description": "Nodebots come in many flavors, but this is a typical setup."}
+        ]
+      },
+      {
+        "file": "whisker.js",
+        "title": "Whisker"
+      },
+      {
+        "file": "phoenix.js",
+        "title": "Phoenix Hexapod"
+      },
+      {
+        "file": "boe-test-servos.js",
+        "title": "BOE Bot"
+      },
+      {
+        "file": "bug.js",
+        "title": "Bug"
+      },
+      {
+        "file": "brat.js",
+        "title": "Lynxmotion Biped BRAT",
+        "images": [
+          {"file": "brat.png", "title": "Lynxmotion Biped BRAT", "description": "Example control of biped robot"}
+        ]
+      },
+      {
+        "file": "claw.js",
+        "title": "Robotic Claw"
+      },
+      {
+        "file": "kinect-arm-controller.js",
+        "title": "Kinect Robotic Arm Controller",
+        "images": [
+          {"file": "robotic-arm.jpg", "title": "Robotic Arm", "description": "Assembled Robotic Arm from LynxMotion"},
+          {"file": "arm-diagram.jpg", "title": "Arm Diagram", "description": "Illustrates arm joint connections."}
+        ],
+        "embeds": [
+          { "name": "kinect-arm-controller",
+            "src": "https://www.youtube.com/embed/VCjbUJzYYvI",
+            "type": "youtube" }
+        ],
+        "externals": [
+          { "title": "JavaScript: Kinect Controlled Robot Arm", "href": "http://bocoup.com/weblog/javascript-arduino-kinect-robot-arm/"},
+          { "title": "LynxMotion: AL5D Robotic Arm", "href": "http://www.lynxmotion.com/c-130-al5d.aspx"}
+        ]
+      },
+      {
+        "file": "laser-trip-wire.js",
+        "title": "Laser Trip Wire"
+      },
+      {
+        "file": "radar.js",
+        "title": "Radar"
+      }
+    ]
+  },
+  {
+    "topic": "Component Plugin Template",
+    "examples": [
+      {
+        "file": "plugin.js",
+        "title": "Example plugin"
+      }
+    ]
+  },
+  {
+    "topic": "IO Plugins",
+    "examples": [
+      {
+        "file": "imp-io.js",
+        "title": "Led Blink on Electric Imp",
+        "description": "Example using Johnny-Five + imp-io to control an Electric Imp.",
+        "images": [
+          {"file": "imp.jpg", "title": "Electric Imp"}
+        ],
+        "breadboards": [
+          {"name": "imp-led", "title": "LED on pin 9"}
+        ],
+        "externals": [
+          { "title": "imp-io on GitHub", "href": "https://github.com/rwaldron/imp-io"}
+        ]
+      },
+      {
+        "file": "spark-io.js",
+        "title": "Led Blink on Spark Core",
+        "description": "Example using Johnny-Five + Spark-io to control a Spark Core device wirelessly.",
+        "images": [
+          {"file": "spark-core.jpg", "title": "Spark Core Wifi Device"}
+        ],
+        "breadboards": [
+          {"name": "spark-led", "title": "LED on pin D1"}
+        ],
+        "externals": [
+          { "title": "spark-io on GitHub", "href": "https://github.com/rwaldron/spark-io"}
+        ]
+      },
+      {
+        "file": "pcduino-io.js",
+        "title": "Led Blink on pcDuino3",
+        "description": "Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3",
+        "images": [
+          {"file": "pcduino.jpg", "title": "pcDuino3"}
+        ],
+        "externals": [
+          { "title": "pcduino-io on GitHub", "href": "https://github.com/rwaldron/pcduino-io/"}
+        ]
+      },
+      {
+        "file": "galileo-io.js",
+        "title": "Led Blink on Intel Galileo Gen 2",
+        "description": "Example using Johnny-Five + Galileo-IO to directly control an Intel Galileo Gen 2",
+        "images": [
+          {"file": "galileo-gen2.jpg", "title": "Galileo Gen 2"}
+        ],
+        "breadboards": [
+          {"name": "led-13-galileo", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "galileo-io on GitHub", "href": "https://github.com/rwaldron/galileo-io/"}
+        ]
+      },
+      {
+        "file": "raspi-io.js",
+        "title": "Led Blink on Raspberry Pi",
+        "description": "Example using Johnny-Five + Raspi-IO to directly control a Raspberry Pi",
+        "breadboards": [
+          {"name": "led-13-raspberry-pi", "title": "LED on pin P1-13"}
+        ],
+        "externals": [
+          { "title": "raspi-io on GitHub", "href": "https://github.com/nebrius/raspi-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-arduino.js",
+        "title": "Led Blink on Intel Edison Arduino Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-arduino-board.jpg", "title": "Intel Edison Arduino Board"}
+        ],
+        "breadboards": [
+          {"name": "led-13-edison-arduinoboard", "title": "LED on pin 13"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      },
+      {
+        "file": "edison-io-miniboard.js",
+        "title": "Led Blink on Intel Edison Mini Board",
+        "description": "Example using Johnny-Five + Edison-IO to directly control an Intel Edison",
+        "images": [
+          {"file": "edison-mini-board.jpg", "title": "Intel Edison Mini Board"}
+        ],
+        "breadboards": [
+          {"name": "led-1-edison-miniboard", "title": "LED on pin 1"}
+        ],
+        "externals": [
+          { "title": "edison-io on GitHub", "href": "https://github.com/rwaldron/edison-io/"}
+        ]
+      }
+
+    ]
+  }
+]

@@ -23,7 +23,7 @@ board.on("ready", function() {
     // For continuous rotation servos, override the default
     // by setting the `type` here
     type: "continuous",
-    isInverted: true // one wheel mounted inverted of the other
+    invert: true // one wheel mounted inverted of the other
   });
 
   wheels.both = new five.Servos().stop(); // reference both together

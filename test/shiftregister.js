@@ -1,17 +1,47 @@
-var MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  ShiftRegister = five.ShiftRegister,
-  board = new Board({
-    io: new MockFirmata(),
+  ShiftRegister = five.ShiftRegister;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["ShiftRegister"] = {
 
   setUp: function(done) {
+    this.board = newBoard();
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
+    this.send = sinon.spy(ShiftRegister.prototype, "send");
 
     this.shiftRegister = new ShiftRegister({
       pins: {
@@ -19,7 +49,7 @@ exports["ShiftRegister"] = {
         clock: 3,
         latch: 4
       },
-      board: board
+      board: this.board
     });
 
     this.proto = [{
@@ -38,6 +68,12 @@ exports["ShiftRegister"] = {
       name: "latch"
     }];
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -60,26 +96,55 @@ exports["ShiftRegister"] = {
   },
 
   send: function(test) {
-    var spy = sinon.spy(board.io, "digitalWrite");
-    var shiftOutSpy = sinon.spy(board, "shiftOut");
     test.expect(8);
 
     this.shiftRegister.send(0x01);
-    test.ok(spy.getCall(0).calledWith(4, 0)); // latch, low
-    test.ok(shiftOutSpy.calledWith(2, 3, true, 1));
-    test.ok(spy.getCall(25).calledWith(4, 1)); // latch, high
+    test.ok(this.digitalWrite.getCall(0).calledWith(4, 0)); // latch, low
+    test.ok(this.shiftOut.calledWith(2, 3, true, 1));
+    test.ok(this.digitalWrite.getCall(25).calledWith(4, 1)); // latch, high
     test.equals(this.shiftRegister.value, 1);
 
     this.shiftRegister.send(0x10);
-    test.ok(spy.getCall(26).calledWith(4, 0)); // latch, low
-    test.ok(shiftOutSpy.calledWith(2, 3, true, 16));
-    test.ok(spy.getCall(51).calledWith(4, 1)); // latch, high
+    test.ok(this.digitalWrite.getCall(26).calledWith(4, 0)); // latch, low
+    test.ok(this.shiftOut.calledWith(2, 3, true, 16));
+    test.ok(this.digitalWrite.getCall(51).calledWith(4, 1)); // latch, high
     test.equals(this.shiftRegister.value, 16);
 
+    test.done();
+  },
 
-    shiftOutSpy.restore();
-    spy.restore();
+  sendMany: function(test) {
+    test.expect(4);
+
+    this.shiftRegister.send(0x01, 0x01);
+
+    test.ok(this.digitalWrite.getCall(0).calledWith(4, 0));
+    test.ok(this.shiftOut.calledWith(2, 3, true, 1));
+    test.ok(this.digitalWrite.getCall(49).calledWith(4, 1));
+    test.deepEqual(this.shiftRegister.value, [1, 1]);
+
+    test.done();
+  },
+
+  clear: function(test) {
+    test.expect(8);
+
+    this.shiftRegister.clear();
+    test.equals(this.send.callCount, 1);
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01);
+    this.shiftRegister.clear();
+    test.equals(this.send.callCount, 3);
+    test.ok(this.send.getCall(2).calledWith(0));
+    test.equals(this.shiftRegister.value, 0);
+
+    this.shiftRegister.send(0x01, 0x01);
+    this.shiftRegister.clear();
+    test.equals(this.send.callCount, 5);
+    test.ok(this.send.getCall(4).calledWith(0, 0));
+    test.deepEqual(this.shiftRegister.value, [0, 0]);
+
     test.done();
   }
-
 };

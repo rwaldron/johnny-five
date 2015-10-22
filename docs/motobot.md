@@ -1,4 +1,15 @@
+<!--remove-start-->
+
 # Motobot
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,9 +18,9 @@ node eg/motobot.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  keypress = require("keypress"),
-  board = new five.Board();
+var five = require("johnny-five");
+var keypress = require("keypress");
+var board = new five.Board();
 
 
 board.on("ready", function() {
@@ -66,20 +77,50 @@ board.on("ready", function() {
   process.stdin.resume();
 });
 
+
+
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/motobot.png](breadboard/motobot.png)
+### Complete Motobot
+
+
+Typical complete Motobot platform
+
+
+![docs/images/motobot.jpg](images/motobot.jpg)  
+
+### Motobot chassis
+
+
+Motobot chassis before addings
+
+
+![docs/images/motobot-chassis.jpg](images/motobot-chassis.jpg)  
 
 
 
 
+
+
+## Additional Notes
+
+![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)
+
+![ArduMoto](https://cdn.sparkfun.com//assets/parts/3/8/4/9/09815-01.jpg)
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

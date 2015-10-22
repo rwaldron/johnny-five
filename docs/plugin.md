@@ -1,9 +1,23 @@
-# Plugin
+<!--remove-start-->
+
+# Example plugin
+
+<!--remove-end-->
+
+
+
+
+
+
+
+
+Run with:
+```bash
+node eg/plugin.js
+```
 
 
 ```javascript
-var Board = require("board");
-
 module.exports = function(five) {
   return (function() {
 
@@ -12,7 +26,7 @@ module.exports = function(five) {
         return new Component(opts);
       }
 
-      // Board.Device
+      // Board.Component
       //    - Register the component with an
       //      existing Board instance.
       //
@@ -22,8 +36,8 @@ module.exports = function(five) {
       //        to `this.pin = value`
       //      - Calls an IO Plugin's `normalize` method
       //
-      Board.Device.call(
-        this, opts = Board.Options(opts)
+      five.Board.Component.call(
+        this, opts = five.Board.Options(opts)
       );
 
 
@@ -57,9 +71,14 @@ module.exports = function(five) {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

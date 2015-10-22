@@ -1,4 +1,26 @@
-# Temperature Mpu6050
+<!--remove-start-->
+
+# Temperature - MPU6050
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - MPU6050"
+
+
+
+![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -28,18 +50,23 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
 
 
-![docs/breadboard/temperature-mpu6050.png](breadboard/temperature-mpu6050.png)
-[docs/breadboard/temperature-mpu6050.fzz](breadboard/temperature-mpu6050.fzz)
-
-- [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/mems/gyro/mpu6050.html)
 
 
+
+
+## Additional Notes
+- [MPU-6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

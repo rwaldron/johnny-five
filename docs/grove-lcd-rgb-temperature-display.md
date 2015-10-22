@@ -1,4 +1,26 @@
-# Grove Lcd Rgb Temperature Display
+<!--remove-start-->
+
+# Grove - LCD RGB temperature display
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Grove - LCD RGB temperature display"
+
+
+
+![docs/breadboard/grove-lcd-rgb-temperature-display.png](breadboard/grove-lcd-rgb-temperature-display.png)<br>
+
+Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadboard/grove-lcd-rgb-temperature-display.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -25,22 +47,35 @@ board.on("ready", function() {
     controller: "JHD1313M1"
   });
 
+  var f = 0;
+
   temperature.on("data", function() {
 
     // The LCD's background will change
     // color according to the temperature.
     //
+    // Hot -> Warm: Red -> Yellow
+    // Moderate: Green
+    // Cool -> Cold: Blue -> Violet
+    //
     // Experiment with sources of hot and
     // cold temperatures!
     //
-    var f = temperature.fahrenheit;
+
+
+    if (f === Math.round(this.fahrenheit)) {
+      return;
+    }
+
+    f = Math.round(this.fahrenheit);
+
     var r = linear(0x00, 0xFF, f, 100);
     var g = linear(0x00, 0x00, f, 100);
     var b = linear(0xFF, 0x00, f, 100);
 
-    console.log("temp: ", f);
+    // console.log("Fahrenheit:  %d°", f);
 
-    lcd.bgColor(r, g, b).cursor(0, 0).print(f.toFixed(2));
+    lcd.bgColor(r, g, b).cursor(0, 0).print(f);
   });
 });
 
@@ -56,20 +91,30 @@ function linear(start, end, step, steps) {
 
 
 
+
+
+
+## Additional Notes
 For this program, you'll need:
+
+![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
-![Grove - Temperature Module](http://www.seeedstudio.com/depot/images/product/bgtemp1.jpg)
+![Grove - Temperature Sensor](http://www.seeedstudio.com/wiki/images/thumb/b/b0/Temperature1.jpg/400px-Temperature1.jpg)
 
 
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

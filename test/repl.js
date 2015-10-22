@@ -1,25 +1,33 @@
-require("es6-shim");
-
-global.IS_TEST_MODE = true;
-
-var SerialPort = require("./mock-serial").SerialPort,
-  MockFirmata = require("./mock-firmata"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  Repl = require("../lib/repl");
+  Repl = require("../lib/repl"),
+  Board = five.Board;
 
 exports["Repl"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   repl: function(test) {
-    var board = new five.Board({
-      io: new MockFirmata(),
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
       debug: false
     });
-    test.expect(2);
+
+    test.expect(3);
 
     board.on("ready", function() {
-      test.ok(board.repl instanceof Repl);
-      test.ok(board.repl.context);
-      Repl.isBlocked = true;
+      test.ok(this.repl === board.repl);
+      test.ok(this.repl instanceof Repl);
+      test.ok(this.repl.context);
       test.done();
     });
+
+    io.emit("connect");
+    io.emit("ready");
   },
 };

@@ -1,4 +1,15 @@
-# Sonar Scan
+<!--remove-start-->
+
+# Sonar - Scanner
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -119,7 +130,7 @@ board.on("ready", function() {
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", function(err) {
+  sonar.on("change", function() {
     var turnTo;
 
     // Detect collision
@@ -164,9 +175,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

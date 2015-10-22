@@ -1,10 +1,11 @@
-# Gripper
+<!--remove-start-->
+# Gripper Component
 
 Run with:
 ```bash
 node eg/gripper.js
 ```
-
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -85,15 +86,16 @@ var five = require("johnny-five"),
 ## Breadboard/Illustration
 
 
-![docs/breadboard/gripper.png](breadboard/gripper.png)
+![docs/breadboard/gripper.png](breadboard/gripper.png)  
 
 - [Parallax Boe-Bot Gripper](http://www.parallax.com/Portals/0/Downloads/docs/prod/acc/GripperManual-v3.0.pdf)
 - [DFRobot LG-NS Gripper](http://www.dfrobot.com/index.php?route=product/product&filter_name=gripper&product_id=628#.UCvGymNST_k)
 
 
-
+<!--remove-start-->
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+<!--remove-end-->

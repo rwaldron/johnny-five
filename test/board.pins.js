@@ -1,4 +1,4 @@
-var pins = require("./mock-pins");
+var pins = require("./util/mock-pins");
 var Pins = require("../lib/board.pins.js");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
@@ -359,7 +359,7 @@ exports["static"] = {
         type: "Other"
       },
       io: {
-        normalize: function(pin) {
+        normalize: function() {
           // normalize to a single testable value that's
           // unlikely to produce false positives.
           return MAX_SAFE_INTEGER;

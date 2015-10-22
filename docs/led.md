@@ -1,4 +1,30 @@
-# Led
+<!--remove-start-->
+
+# LED
+
+<!--remove-end-->
+
+
+Basic LED example
+
+
+
+
+
+##### LED on pin 13 (Arduino UNO)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,13 +33,15 @@ node eg/led.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
-  // Default to pin 13
-  var led = new five.Led(process.argv[2] || 13);
+  var led = new five.Led(13);
 
+  // This will grant access to the led instance
+  // from within the REPL that's created when
+  // running this program.
   this.repl.inject({
     led: led
   });
@@ -25,31 +53,65 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/led.png](breadboard/led.png)
-[docs/breadboard/led.fzz](breadboard/led.fzz)
+### LED on pin 13 (Arduino UNO)
 
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/images/led.jpg](images/led.jpg)  
+
+##### LED on pin 13 with breadboard and resistor (Arduino UNO)
+
+
+Basic example with LED on a breadboard and demonstrating use of a resistor
+
+
+![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz)
+
+&nbsp;
+##### LED on pin 13 (Arduino Mega)
+
+
+Basic example with LED inserted directly into pin 13
+
+
+![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)<br>
+
+Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
+
+&nbsp;
+
+
+
+
+
+## Additional Notes
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
 
-`>> led.on()`
-
-or
-
-`>> led.off()`
-
-To use other `Led` methods, like `fade`, `pulse`, `animate`, you'll need to
-wire the LED to a PWM pin. If you use a different pin, make sure to run
-the script with the correct pin number:
-
-`node eg/led [pinNumber]`
+```js
+>> led.stop() // to stop blinking
+// then
+>> led.off()  // to shut it off (stop doesn't mean "off")
+// then
+>> led.on()   // to turn on, but not blink
+```
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

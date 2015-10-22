@@ -1,4 +1,26 @@
-# Temperature Ds18b20
+<!--remove-start-->
+
+# Temperature - DS18B20
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - DS18B20"
+
+
+
+![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -16,8 +38,9 @@ five.Board().on("ready", function() {
     pin: 2
   });
 
-  temperature.on("data", function(err, data) {
-    console.log(data.celsius + "°C", data.fahrenheit + "°F");
+  temperature.on("data", function() {
+    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+    console.log("0x" + this.address.toString(16));
   });
 });
 
@@ -28,12 +51,20 @@ five.Board().on("ready", function() {
 
 
 
+
+
+
+## Additional Notes
 - [DS18B20 - Temperature Sensor](http://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/DS18S20.html)
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

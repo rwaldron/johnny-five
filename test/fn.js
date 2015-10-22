@@ -1,6 +1,4 @@
-var MockFirmata = require("./mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon");
+var five = require("../lib/johnny-five.js");
 
 
 var Fn = five.Fn;
@@ -97,6 +95,22 @@ exports["Fn"] = {
 
     test.equal(unique, 1000);
     test.equal(uids[0].length, 36);
+    test.done();
+  },
+
+  sum: function(test) {
+    test.expect(4);
+
+    var a = 0,
+      b = 1,
+      c = [],
+      d = [0,1];
+
+    test.equal(Fn.sum(a), 0);
+    test.equal(Fn.sum(b), 1);
+    test.equal(Fn.sum(c), 0);
+    test.equal(Fn.sum(d), 1);
+
     test.done();
   },
 

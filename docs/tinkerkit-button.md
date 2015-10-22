@@ -1,4 +1,15 @@
-# Tinkerkit Button
+<!--remove-start-->
+
+# TinkerKit - Button
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -22,22 +33,38 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-button.png](breadboard/tinkerkit-button.png)
-
-- [TinkerKit Button](http://www.tinkerkit.com/button/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+### TinkerKit Button
 
 
+
+![docs/images/tinkerkit-button.png](images/tinkerkit-button.png)  
+
+
+
+
+
+
+
+## Learn More
+
+- [TinkerKit Button](http://tinkerkit.tihhs.nl/button/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

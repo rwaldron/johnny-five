@@ -1,19 +1,54 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./mock-firmata"),
+  MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   LedControl = five.LedControl,
   LedMatrix = five.Led.Matrix;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
 }
 
 exports["Led.Matrix => LedControl"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    LedControl.reset();
+    done();
+  },
+
   wrapper: function(test) {
     test.expect(2);
 
@@ -30,6 +65,7 @@ exports["Led.Matrix => LedControl"] = {
     test.ok(matrix.isMatrix);
     test.done();
   },
+
   statics: function(test) {
     var keys = Object.keys(LedControl);
 
@@ -43,12 +79,253 @@ exports["Led.Matrix => LedControl"] = {
   }
 };
 
+exports["LedControl - I2C Matrix Initialization"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    LedControl.reset();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LedControl({
+      controller: "HT16K33",
+      address: 0x70,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0x70);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+
+  addressSingle: function(test) {
+    test.expect(1);
+
+    var matrix = new LedControl({
+      address: 0x70,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(matrix.addresses, [0x70]);
+
+    test.done();
+  },
+  addressesSingle: function(test) {
+    test.expect(1);
+
+    var matrix = new LedControl({
+      addresses: [0x70],
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(matrix.addresses, [0x70]);
+
+    test.done();
+  },
+  addressesMultiple: function(test) {
+    test.expect(1);
+
+    var matrix = new LedControl({
+      addresses: [0x70, 0x71],
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(matrix.addresses, [0x70, 0x71]);
+
+    test.done();
+  },
+  addressesMultipleInferredByDeviceCount: function(test) {
+    test.expect(1);
+
+    var matrix = new LedControl({
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(matrix.addresses, [0x70, 0x71]);
+
+    test.done();
+  },
+
+  addressesExhaustAvailability: function(test) {
+    test.expect(5);
+
+    var a = new LedControl({
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(a.addresses, [0x70, 0x71]);
+
+    var b = new LedControl({
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(b.addresses, [0x72, 0x73]);
+
+    var c = new LedControl({
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(c.addresses, [0x74, 0x75]);
+
+    var d = new LedControl({
+      devices: 2,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(d.addresses, [0x76, 0x77]);
+
+    test.throws(function() {
+      new LedControl({
+        devices: 1,
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    }.bind(this));
+
+    test.done();
+  },
+
+  addressesInvalid: function(test) {
+    test.expect(2);
+
+    test.throws(function() {
+      new LedControl({
+        address: 0xff,
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    });
+
+    test.throws(function() {
+      new LedControl({
+        addresses: [0x00, 0xff],
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    });
+
+    test.done();
+  },
+
+  addressesAvailableByDeviceCount: function(test) {
+    test.expect(1);
+
+    new LedControl({
+      devices: 8,
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.throws(function() {
+      new LedControl({
+        devices: 1,
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    });
+
+    test.done();
+  },
+
+  addressesAvailableByAddressList: function(test) {
+    test.expect(2);
+
+    new LedControl({
+      addresses: [0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77],
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.throws(function() {
+      new LedControl({
+        address: [0x70],
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    });
+
+    test.throws(function() {
+      new LedControl({
+        addresses: [0x70],
+        controller: "HT16K33",
+        isMatrix: true,
+        board: this.board
+      });
+    });
+
+    test.done();
+  },
+
+  addressesAndDevicesMissingImpliesOne: function(test) {
+    test.expect(1);
+
+    var a = new LedControl({
+      // No "address"
+      // No "addresses"
+      // No "devices"
+      controller: "HT16K33",
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.deepEqual(a.addresses, [0x70]);
+
+    test.done();
+  }
+};
+
 exports["LedControl - I2C Matrix"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -61,7 +338,9 @@ exports["LedControl - I2C Matrix"] = {
     done();
   },
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
   initialize: function(test) {
@@ -75,30 +354,30 @@ exports["LedControl - I2C Matrix"] = {
       // clear
       [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     ];
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
     test.done();
   },
   clearAll: function(test) {
-      test.expect(2);
+    test.expect(2);
 
-      var expected = [
-        // oscillator on
-        [0x70, [0x21]],
-        // blink off
-        [0x70, [0x81]],
-        // brightness at max
-        [0x70, [0xEF]],
-        // clear
-        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-        // clear
-        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-      ];
+    var expected = [
+      // oscillator on
+      [0x70, [0x21]],
+      // blink off
+      [0x70, [0x81]],
+      // brightness at max
+      [0x70, [0xEF]],
+      // clear
+      [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+      // clear
+      [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    ];
 
-      this.lc.clear();
-      test.deepEqual(this.sendI2CWriteRequest.args, expected);
-      test.equal(this.each.callCount, 1);
+    this.lc.clear();
+    test.deepEqual(this.i2cWrite.args, expected);
+    test.equal(this.each.callCount, 1);
 
-      test.done();
+    test.done();
   },
   on: function(test) {
     test.expect(1);
@@ -115,7 +394,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0x21 ]]
     ];
     this.lc.on(0);
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -134,7 +413,7 @@ exports["LedControl - I2C Matrix"] = {
       [ 0x70, [ 0x20 ]]
     ];
     this.lc.off(0);
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -156,7 +435,7 @@ exports["LedControl - I2C Matrix"] = {
     ];
     this.lc.brightness(0); // set min brightness
     this.lc.brightness(100); // set max brightness
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -185,7 +464,7 @@ exports["LedControl - I2C Matrix"] = {
 
     this.lc.row(0, 1, 255);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
@@ -214,10 +493,36 @@ exports["LedControl - I2C Matrix"] = {
 
     this.lc.column(0, 3, 255);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
+    test.deepEqual(this.i2cWrite.args, expected);
 
     test.done();
   },
+
+  draw: function(test) {
+    test.expect(2);
+
+    test.doesNotThrow(function() {
+      this.lc.draw([
+        "00111100",
+        "01000010",
+        "10100101",
+        "10000001",
+        "10100101",
+        "10011001",
+        "01000010",
+        "00111100"
+      ]);
+    }.bind(this));
+
+    test.throws(function() {
+      this.lc.draw([
+        "00111100",
+      ]);
+    }.bind(this));
+
+    test.done();
+  },
+
   drawStringArray: function(test) {
     test.expect(2);
 
@@ -249,12 +554,13 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   }
 };
+
 exports["LedControl - I2C Matrix 16x8"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.clock = sinon.useFakeTimers();
 
-    this.sendI2CWriteRequest = sinon.spy(this.board.io, "sendI2CWriteRequest");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -268,30 +574,32 @@ exports["LedControl - I2C Matrix 16x8"] = {
     done();
   },
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
   clearAll: function(test) {
-      test.expect(2);
-      var expected = [
-        // oscillator on
-        [0x70, [0x21]],
-        // blink off
-        [0x70, [0x81]],
-        // brightness at max
-        [0x70, [0xEF]],
-        // clear
-        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-        // clear
-        [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    test.expect(2);
+    var expected = [
+      // oscillator on
+      [0x70, [0x21]],
+      // blink off
+      [0x70, [0x81]],
+      // brightness at max
+      [0x70, [0xEF]],
+      // clear
+      [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+      // clear
+      [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-      ];
+    ];
 
-      this.lc.clear();
-      test.deepEqual(this.sendI2CWriteRequest.args, expected);
-      test.equal(this.each.callCount, 1);
+    this.lc.clear();
+    test.deepEqual(this.i2cWrite.args, expected);
+    test.equal(this.each.callCount, 1);
 
-      test.done();
+    test.done();
   },
   drawStringArray: function(test) {
     test.expect(2);
@@ -338,25 +646,21 @@ exports["LedControl - I2C Matrix 16x8"] = {
       [0x70, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
       // setting the values
 
-      [ 0x70,  [ 0,    64,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    0,    0,    0,    0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    0,    0 ] ],
-      [ 0x70,  [ 0,    64,    0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0,    64,   0 ] ] 
-
-
+      [ 0x70,  [ 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 0, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 0, 0 ] ],
+      [ 0x70,  [ 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0, 64, 0 ] ]
     ];
 
     this.lc.row(0, 0, 0xffff);
 
-    test.deepEqual(this.sendI2CWriteRequest.args, expected);
-
+    test.deepEqual(this.i2cWrite.args, expected);
     test.done();
   },
-
 };
 
 exports["LedControl - Matrix"] = {
@@ -437,7 +741,9 @@ exports["LedControl - Matrix"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
 
@@ -908,7 +1214,9 @@ exports["LedControl - Digits"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
+    Board.purge();
+    restore(this);
+    LedControl.reset();
     done();
   },
 
@@ -1015,6 +1323,19 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
+  print: function(test) {
+    test.expect(1);
+
+    this.lc.print("1234");
+    test.deepEqual(this.send.args, [
+      [0, 8, 0x30],
+      [0, 7, 0x6D],
+      [0, 6, 0x79],
+      [0, 5, 0x33],
+    ]);
+
+    test.done();
+  },
   drawAll: function(test) {
     test.expect(1);
 
@@ -1035,4 +1356,123 @@ exports["LedControl - Digits"] = {
 
     test.done();
   }
+};
+
+exports["LedControl - I2C Digits"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+
+    this.lc = new LedControl({
+      controller: "HT16K33",
+      isMatrix: false,
+      board: this.board
+    });
+
+    this.each = sinon.spy(this.lc, "each");
+    this.row = sinon.spy(this.lc, "row");
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    LedControl.reset();
+    done();
+  },
+  digit: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, 1);
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  digitDigitWithDecimal: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, "1.");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x86, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  digitAlpha: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.digit(0, 0, "A");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x77, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  print: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print("12:00");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0x06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      [ 0x70, [ 0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0 ]]
+    ]);
+
+    test.done();
+  },
+  printSpaceInColonSpot: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print("12 00");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 6, 0, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 6, 0, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 6, 0, 91, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 6, 0, 91, 0, 0, 0, 63, 0, 63, 0, 0, 0, 0, 0, 0, 0 ] ]
+    ]);
+
+    test.done();
+  },
+  printNoColon: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print("hola");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 116, 0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 116, 0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 116, 0, 92, 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 116, 0, 92, 0, 0, 0, 48, 0, 95, 0, 0, 0, 0, 0, 0, 0 ] ]
+    ]);
+
+    test.done();
+  },
+  printNoColonExplicitSpace: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print(" 4 09");
+    test.deepEqual(this.i2cWrite.args, [
+      [ 0x70, [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 0, 0, 102, 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
+      [ 0x70, [ 0, 0, 0, 102, 0, 0, 0, 63, 0, 111, 0, 0, 0, 0, 0, 0, 0 ] ]
+    ]);
+
+    test.done();
+  }
+
 };

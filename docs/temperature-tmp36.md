@@ -1,4 +1,26 @@
-# Temperature Tmp36
+<!--remove-start-->
+
+# Temperature - TMP36
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Temperature - TMP36"
+
+
+
+![docs/breadboard/temperature-tmp36.png](breadboard/temperature-tmp36.png)<br>
+
+Fritzing diagram: [docs/breadboard/temperature-tmp36.fzz](breadboard/temperature-tmp36.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -15,8 +37,8 @@ five.Board().on("ready", function() {
     pin: "A0"
   });
 
-  temperature.on("data", function(err, data) {
-    console.log(data.celsius + "°C", data.fahrenheit + "°F");
+  temperature.on("data", function() {
+    console.log(this.celsius + "°C", this.fahrenheit + "°F");
   });
 });
 
@@ -27,12 +49,20 @@ five.Board().on("ready", function() {
 
 
 
+
+
+
+## Additional Notes
 - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

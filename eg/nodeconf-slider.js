@@ -1,21 +1,10 @@
-var five = require("../lib/johnny-five.js"),
-  board, slider, servo, scalingRange;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
+  var slider = new five.Sensor("A0");
 
-  slider = new five.Sensor({
-    pin: "A0",
-    freq: 50
-  });
-
-  // log out the slider values to the console.
-  slider.on("slide", function(err, value) {
-    if (err) {
-      console.log("error: ", err);
-    } else {
-      console.log(Math.floor(this.value));
-    }
+  slider.on("slide", function(value) {
+    console.log(Math.floor(this.value));
   });
 });

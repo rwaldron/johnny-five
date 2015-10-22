@@ -1,10 +1,15 @@
-# Joystick Motor Led
+<!--remove-start-->
+
+# Joystick - Motor control
+
+
 
 Run with:
 ```bash
 node eg/joystick-motor-led.js
 ```
 
+<!--remove-end-->
 
 ```javascript
 var five = require("johnny-five"),
@@ -46,7 +51,7 @@ board.on("ready", function() {
 
   // Pushing the joystick to up position should start the motor,
   // releasing it will turn the motor off.
-  joystick.on("axismove", function(err, timestamp) {
+  joystick.on("axismove", function() {
 
     if (!motor.isOn && this.axis.y > 0.51) {
       motor.start();
@@ -79,18 +84,31 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)
-[docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
-
+### Breadboard for "Joystick - Motor control"
 
 
 
+![docs/breadboard/joystick-motor-led.png](breadboard/joystick-motor-led.png)<br>
+
+Fritzing diagram: [docs/breadboard/joystick-motor-led.fzz](breadboard/joystick-motor-led.fzz)
+
+&nbsp;
+
+
+
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

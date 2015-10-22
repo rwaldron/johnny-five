@@ -1,51 +1,17 @@
-var five = require("../lib/johnny-five.js"),
-  prox, led;
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
-
-  // Create a new IR Proximity Sensor hardware instance.
-  //
-  // five.IR.Proximity();
-  //
-  // (Alias of:
-  //   new five.IR({
-  //    device: "GP2Y0D805Z0F",
-  //    freq: 50
-  //   });
-  // )
-  //
-
-  prox = new five.IR.Proximity();
-  led = new five.Led(13);
-
-
-
-
-
-  // Properties
-
-  // prox.state
-  //
-
-  // Proximity Event API
-
-  // "motionstart"
-  //
-  // Fired motion is detected with 2"
-  //
-
-
-  // "motionend"
-  //
-  // Fired following a "motionstart" event
-  // when no movement has occurred in X ms
-  //
-  prox.on("motionstart", function(err, timestamp) {
-    led.on();
+board.on("ready", function() {
+  var proximity = new five.Proximity({
+    controller: "GP2Y0A21YK",
+    pin: "A0"
   });
 
-  prox.on("motionend", function(err, timestamp) {
-    led.off();
+  proximity.on("data", function() {
+    console.log(this.cm + "cm", this.in + "in");
   });
 
+  proximity.on("change", function() {
+    console.log("The obstruction has moved.");
+  });
 });

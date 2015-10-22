@@ -8,8 +8,8 @@ board.on("ready", function() {
   lcd = new five.LCD({
     // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
     // Arduino pin # 7    8   9   10  11  12
-    pins: [8, 9, 4, 5, 6, 7],
-    backlight: 10,
+    pins: [7, 8, 9, 10, 11, 12],
+    backlight: 6,
     rows: 2,
     cols: 20
 
@@ -20,30 +20,27 @@ board.on("ready", function() {
     // dots: matrix dimensions, defaults to "5x8"
   });
 
-  lcd.on("ready", function() {
-    // Tell the LCD you will use the heart character
-    lcd.useChar("check");
-    lcd.useChar("heart");
-    lcd.useChar("duck");
+  // Tell the LCD you will use these characters:
+  lcd.useChar("check");
+  lcd.useChar("heart");
+  lcd.useChar("duck");
 
-    // Line 1: Hi rmurphey & hgstrp!
-    lcd.clear().print("rmurphey, hgstrp");
-    lcd.cursor(1, 0);
+  // Line 1: Hi rmurphey & hgstrp!
+  lcd.clear().print("rmurphey, hgstrp");
+  lcd.cursor(1, 0);
 
-    // Line 2: I <3 johnny-five
-    // lcd.print("I").write(7).print(" johnny-five");
-    // can now be written as:
-    lcd.print("I :heart: johnny-five");
+  // Line 2: I <3 johnny-five
+  // lcd.print("I").write(7).print(" johnny-five");
+  // can now be written as:
+  lcd.print("I :heart: johnny-five");
 
-    setTimeout(function() {
-      lcd.clear().cursor(0, 0).print("I :check::heart: 2 :duck: :)");
-    }, 3000);
+  this.wait(3000, function() {
+    lcd.clear().cursor(0, 0).print("I :check::heart: 2 :duck: :)");
   });
 
   this.repl.inject({
     lcd: lcd
   });
-
 });
 
 

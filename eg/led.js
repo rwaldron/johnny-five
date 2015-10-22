@@ -1,10 +1,12 @@
-var five = require("../lib/johnny-five.js"),
-  board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
-  // Default to pin 13
-  var led = new five.Led(process.argv[2] || 13);
+  var led = new five.Led(13);
 
+  // This will grant access to the led instance
+  // from within the REPL that's created when
+  // running this program.
   this.repl.inject({
     led: led
   });
@@ -16,15 +18,12 @@ board.on("ready", function() {
 // This script will make `led` available in the REPL, by default on pin 13.
 // Now you can try, e.g.:
 //
-// `>> led.on()`
+// ```js
+// >> led.stop() // to stop blinking
+// // then
+// >> led.off()  // to shut it off (stop doesn't mean "off")
+// // then
+// >> led.on()   // to turn on, but not blink
+// ```
 //
-// or
-//
-// `>> led.off()`
-//
-// To use other `Led` methods, like `fade`, `pulse`, `animate`, you'll need to
-// wire the LED to a PWM pin. If you use a different pin, make sure to run
-// the script with the correct pin number:
-//
-// `node eg/led.js [pinNumber]`
 // @markdown

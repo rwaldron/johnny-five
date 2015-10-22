@@ -1,27 +1,18 @@
-var five = require("../lib/johnny-five.js"),
-  board, slider, tilt, scalingRange;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  scalingRange = [0, 170];
-
-  slider = new five.Sensor({
-    pin: "A0",
-    freq: 50
+  var range = [0, 170];
+  var slider = new five.Sensor("A0");
+  var tilt = new five.Servo({
+    pin: 10,
+    range: range
   });
 
-  tilt = new five.Servo({
-    pin: 9,
-    range: scalingRange
-  });
-
-  slider.scale(scalingRange).on("slide", function(err, value) {
+  slider.scale(range).on("slide", function() {
 
     // The slider's value will be scaled to match the tilt servo range
-
-    tilt.to(Math.floor(this.value));
-
+    tilt.to(this.value);
   });
 });

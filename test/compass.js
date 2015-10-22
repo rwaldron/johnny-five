@@ -1,96 +1,158 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./mock-firmata"),
+  MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Compass = five.Compass;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
 }
 
-["HMC6352", "HMC5883L"].forEach(function(model) {
+function restore(target) {
+  for (var prop in target) {
 
-  exports[model] = {
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
+var expecteds = {
+  data: [25, 79],
+  changes: [
+    [ 25, 0 ],
+    [ 45, 0 ]
+  ],
+  bearings: [
+    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
+    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
+  ]
+};
+
+["HMC6352", "HMC5883L"].forEach(function(controller, index) {
+
+  exports[controller] = {
     setUp: function(done) {
 
       this.clock = sinon.useFakeTimers();
-
       this.board = newBoard();
-
-      var grab = this.board.io.sendI2CReadRequest;
-
-      this.sendI2CReadRequest = sinon.spy(this.board.io, "sendI2CReadRequest");
+      this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+      this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
 
       this.compass = new Compass({
         board: this.board,
-        device: model,
-        freq: 50,
-        gauss: 1.3
+        controller: controller,
       });
 
       this.clock.tick(500);
 
-      this.instance = [{
-        name: "scale"
+      this.properties = [{
+        name: "bearing"
       }, {
-        name: "register"
-      }, {
-        name: "freq"
+        name: "heading"
       }];
 
       done();
     },
 
-    shape: function(test) {
-      test.expect(this.instance.length);
+    tearDown: function(done) {
+      Board.purge();
+      restore(this);
+      done();
+    },
 
-      this.instance.forEach(function(property) {
+    shape: function(test) {
+      test.expect(this.properties.length);
+
+      this.properties.forEach(function(property) {
         test.notEqual(typeof this.compass[property.name], "undefined");
       }, this);
       test.done();
     },
 
-    data: function(test) {
-      test.expect(1);
+    fwdOptionsToi2cConfig: function(test) {
+      test.expect(3);
 
-      this.compass.on("data", function() {
-        test.ok(true);
+      this.i2cConfig.reset();
+
+      new Compass({
+        controller: controller,
+        address: 0xff,
+        bus: "i2c-1",
+        board: this.board
       });
-      this.clock.tick(66);
+
+      var forwarded = this.i2cConfig.lastCall.args[0];
+
+      test.equal(this.i2cConfig.callCount, 1);
+      test.equal(forwarded.address, 0xff);
+      test.equal(forwarded.bus, "i2c-1");
+
       test.done();
     },
 
-    headingchange: function(test) {
-      test.expect(1);
+    data: function(test) {
+      test.expect(2);
 
-      var callback = this.sendI2CReadRequest.args[0][2];
+      var handler = this.i2cRead.getCall(0).args[3];
+      var spy = sinon.spy();
 
-      this.compass.on("headingchange", function() {
-        test.ok(true);
-        test.done();
-      });
+      this.compass.on("data", spy);
 
-      callback([0, 100, 0, 100, 0, 100]);
-      this.clock.tick(500);
+      handler([1, 2, 3, 4, 5, 6]);
+      this.clock.tick(25);
 
-      callback([0, 32, 0, 32, 0, 32]);
-      this.clock.tick(500);
+      test.equal(spy.callCount, 1);
+      test.equal(Math.round(spy.args[0][0].heading), expecteds.data[index]);
+
+      test.done();
     },
 
-    tearDown: function(done) {
-      this.clock.restore();
-      this.sendI2CReadRequest.restore();
-      done();
-    }
+    change: function(test) {
+      test.expect(4);
+
+      var handler = this.i2cRead.getCall(0).args[3];
+      var spy = sinon.spy();
+
+      this.compass.on("change", spy);
+
+      handler([0, 255, 0, 255, 0, 255]);
+      this.clock.tick(100);
+
+      handler([0, 0, 0, 0, 0, 0]);
+      this.clock.tick(100);
+
+      test.equal(spy.callCount, 2);
+
+      test.equal(spy.args[0][0].heading, expecteds.changes[index][0]);
+      test.equal(spy.args[1][0].heading, expecteds.changes[index][1]);
+      test.deepEqual(this.compass.bearing, expecteds.bearings[index]);
+
+      test.done();
+    },
   };
 });
 
 
-exports["Invalid or missing device"] = {
+exports["Invalid or missing controller"] = {
   missing: function(test) {
     test.expect(1);
     test.throws(function() {
@@ -106,11 +168,10 @@ exports["Invalid or missing device"] = {
     test.throws(function() {
       new Compass({
         board: newBoard(),
-        device: 1
+        controller: 1
       });
     });
 
     test.done();
   },
 };
-

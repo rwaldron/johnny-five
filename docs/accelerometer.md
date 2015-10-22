@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Accelerometer
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Accelerometer"
+
+
+
+![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)<br>
+
+Fritzing diagram: [docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -91,12 +113,13 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
 
 
-![docs/breadboard/accelerometer.png](breadboard/accelerometer.png)
-[docs/breadboard/accelerometer.fzz](breadboard/accelerometer.fzz)
 
+
+
+
+## Additional Notes
 
 - [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
 - [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
@@ -104,10 +127,14 @@ board.on("ready", function() {
 - [Two or Three Axis Accelerometer, LIS344AL](http://www.st.ewi.tudelft.nl/~gemund/Courses/In4073/Resources/LIS344AL.pdf)
 
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

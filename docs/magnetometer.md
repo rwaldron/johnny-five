@@ -1,4 +1,24 @@
-# Magnetometer
+<!--remove-start-->
+
+# Compass / Magnetometer
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Compass / Magnetometer"
+
+
+
+![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)<br>
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -7,10 +27,10 @@ node eg/magnetometer.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  mag;
+var five = require("johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
 
   // Create a new `Magnetometer` hardware instance.
   //
@@ -18,14 +38,14 @@ five.Board().on("ready", function() {
   //
   // (Alias of:
   //   new five.Compass({
-  //    device: "HMC5883L",
+  //    controller: "HMC5883L",
   //    freq: 50,
   //    gauss: 1.3
   //   });
   // )
   //
 
-  mag = new five.Magnetometer();
+  var magnetometer = new five.Magnetometer();
 
 
   // Properties
@@ -59,36 +79,31 @@ five.Board().on("ready", function() {
   //
   // Fires when the calculated heading has changed
   //
-  mag.on("headingchange", function() {
+  magnetometer.on("headingchange", function() {
 
     console.log("heading", Math.floor(this.heading));
-    console.log("bearing", this.bearing);
+    // console.log("bearing", this.bearing);
 
-  });
-
-  // "read"
-  //
-  // Fires continuously, every 66ms.
-  //
-  mag.on("read", function(err, timestamp) {
-    // console.log( "read", this.axis );
   });
 });
 
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/magnetometer.png](breadboard/magnetometer.png)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

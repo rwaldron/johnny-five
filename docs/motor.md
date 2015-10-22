@@ -1,4 +1,26 @@
+<!--remove-start-->
+
 # Motor
+
+<!--remove-end-->
+
+
+
+
+
+
+##### Breadboard for "Motor"
+
+
+
+![docs/breadboard/motor.png](breadboard/motor.png)<br>
+
+Fritzing diagram: [docs/breadboard/motor.fzz](breadboard/motor.fzz)
+
+&nbsp;
+
+
+
 
 Run with:
 ```bash
@@ -28,8 +50,8 @@ board.on("ready", function() {
   // Motor Event API
 
   // "start" events fire when the motor is started.
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start", Date.now());
 
     // Demonstrate motor stop in 2 seconds
     board.wait(2000, function() {
@@ -37,9 +59,9 @@ board.on("ready", function() {
     });
   });
 
-  // "stop" events fire when the motor is started.
-  motor.on("stop", function(err, timestamp) {
-    console.log("stop", timestamp);
+  // "stop" events fire when the motor is stopped.
+  motor.on("stop", function() {
+    console.log("stop", Date.now());
   });
 
   // Motor API
@@ -58,18 +80,20 @@ board.on("ready", function() {
 ```
 
 
-## Breadboard/Illustration
-
-
-![docs/breadboard/motor.png](breadboard/motor.png)
-[docs/breadboard/motor.fzz](breadboard/motor.fzz)
 
 
 
 
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

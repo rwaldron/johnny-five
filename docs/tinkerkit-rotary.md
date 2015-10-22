@@ -1,4 +1,15 @@
-# Tinkerkit Rotary
+<!--remove-start-->
+
+# TinkerKit - Rotary potentiometer
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -17,23 +28,40 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-rotary.png](breadboard/tinkerkit-rotary.png)
-
-- [TinkerKit Servo](http://www.tinkerkit.com/servo/)
-- [TinkerKit Linear Potentiometer](http://www.tinkerkit.com/linear-pot/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+### TinkerKit Rotary Potentiometer
 
 
+
+![docs/images/tinkerkit-rotary.png](images/tinkerkit-rotary.png)  
+
+
+
+
+
+
+
+## Learn More
+
+- [TinkerKit Servo](http://tinkerkit.tihhs.nl/servo/)
+
+- [TinkerKit Rotary Potentiometer](http://tinkerkit.tihhs.nl/rotary-pot/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

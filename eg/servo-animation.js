@@ -1,7 +1,5 @@
-var five = require("../lib/johnny-five.js"),
-  board;
-
-board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var board = new five.Board();
 
 board.on("ready", function() {
 
@@ -26,5 +24,4 @@ board.on("ready", function() {
     servo: servo,
     animation: animation
   });
-
 });

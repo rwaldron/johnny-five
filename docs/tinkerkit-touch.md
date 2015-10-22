@@ -1,4 +1,15 @@
-# Tinkerkit Touch
+<!--remove-start-->
+
+# TinkerKit - Touch
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -25,22 +36,38 @@ new five.Board().on("ready", function() {
   });
 });
 
-
 ```
 
 
-## Breadboard/Illustration
+## Illustrations / Photos
 
 
-![docs/breadboard/tinkerkit-touch.png](breadboard/tinkerkit-touch.png)
-
-- [TinkerKit Touch](http://www.tinkerkit.com/touch/)
-- [TinkerKit Shield](http://www.tinkerkit.com/shield/)
+### TinkerKit Touch
 
 
+
+![docs/images/tinkerkit-touch.png](images/tinkerkit-touch.png)  
+
+
+
+
+
+
+
+## Learn More
+
+- [TinkerKit Touch](http://tinkerkit.tihhs.nl/touch/)
+
+- [TinkerKit Shield](http://tinkerkit.tihhs.nl/shield/)
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

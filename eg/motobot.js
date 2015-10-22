@@ -1,6 +1,6 @@
-var five = require("../lib/johnny-five.js"),
-  keypress = require("keypress"),
-  board = new five.Board();
+var five = require("../lib/johnny-five.js");
+var keypress = require("keypress");
+var board = new five.Board();
 
 
 board.on("ready", function() {
@@ -56,3 +56,12 @@ board.on("ready", function() {
   process.stdin.setRawMode(true);
   process.stdin.resume();
 });
+
+// @markdown
+//
+// ![Chassis](https://cdn.sparkfun.com//assets/parts/9/7/3/8/12866-01.jpg)
+//
+// ![ArduMoto](https://cdn.sparkfun.com//assets/parts/3/8/4/9/09815-01.jpg)
+//
+// @markdown
+

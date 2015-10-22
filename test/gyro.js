@@ -1,27 +1,52 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
+var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
-  events = require("events"),
   sinon = require("sinon"),
   Board = five.Board,
-  Gyro = five.Gyro,
-  board = new Board({
-    io: new MockFirmata(),
+  Gyro = five.Gyro;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
 
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
 exports["Gyro -- ANALOG"] = {
 
   setUp: function(done) {
+    this.board = newBoard();
 
     this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(board.io, "analogRead");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
     this.gyro = new Gyro({
       pins: ["A0", "A1"],
       sensitivity: 0.167,
       freq: 100,
-      board: board
+      board: this.board
     });
 
     this.proto = [];
@@ -44,8 +69,8 @@ exports["Gyro -- ANALOG"] = {
   },
 
   tearDown: function(done) {
-    this.analogRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
   },
 
@@ -66,7 +91,6 @@ exports["Gyro -- ANALOG"] = {
   isCalibrated: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
 
     test.expect(2);
     test.ok(!this.gyro.isCalibrated);
@@ -83,7 +107,6 @@ exports["Gyro -- ANALOG"] = {
   recalibrate: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
 
     test.expect(4);
     test.ok(!this.gyro.isCalibrated);
@@ -164,26 +187,46 @@ exports["Gyro -- ANALOG"] = {
 exports["Gyro -- MPU6050"] = {
 
   setUp: function(done) {
+    this.board = newBoard();
 
     this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(board.io, "i2cConfig");
-    this.i2cWrite = sinon.spy(board.io, "i2cWrite");
-    this.i2cRead = sinon.spy(board.io, "i2cRead");
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.gyro = new Gyro({
       controller: "MPU6050",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.clock.restore();
+    Board.purge();
+    restore(this);
     done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Gyro({
+      controller: "MPU6050",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
   },
 
   data: function(test) {

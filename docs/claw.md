@@ -1,4 +1,15 @@
-# Claw
+<!--remove-start-->
+
+# Robotic Claw
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -7,22 +18,16 @@ node eg/claw.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board;
-
-board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 board.on("ready", function() {
 
-  var claw = new five.Servo({
-    pin: 9
-  }),
-    arm = five.Servo({
-      pin: 10
-    }),
-    degrees = 10,
-    incrementer = 10,
-    last;
+  var claw = new five.Servo(9);
+  var arm = five.Servo(10);
+  var degrees = 10;
+  var incrementer = 10;
+  var last;
 
   this.loop(25, function() {
 
@@ -46,8 +51,6 @@ board.on("ready", function() {
 });
 
 
-// Claw Assembly Instructions
-// http://blasphemousbits.wordpress.com/2011/11/05/sparkfun-robot-claw/
 
 ```
 
@@ -58,9 +61,24 @@ board.on("ready", function() {
 
 
 
+## Additional Notes
+
+- [Robotic Claw](https://www.sparkfun.com/products/11524)
+- [Robotic Claw Pan/Tilt](https://www.sparkfun.com/products/11674)
+- [Robotic Claw Assembly](https://www.sparkfun.com/tutorials/258)
+
+![Robotic Claw](https://cdn.sparkfun.com//assets/parts/7/4/4/4/11524-01a.jpg)
+![Robotic Claw Pan/Tilt](https://cdn.sparkfun.com//assets/parts/7/7/6/7/11674-02.jpg)
+
+
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

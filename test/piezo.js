@@ -1,24 +1,51 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./mock-firmata"),
+  MockFirmata = require("./util/mock-firmata"),
   Board = five.Board,
   Piezo = five.Piezo;
+
+function newBoard() {
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
+    debug: false,
+    repl: false
+  });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
+}
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
 
 exports["Piezo"] = {
 
   setUp: function(done) {
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
 
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,
-      board: this.board,
-      timer: this.timer
+      board: this.board
     });
 
     this.proto = [{
@@ -41,8 +68,9 @@ exports["Piezo"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     this.piezo.defaultOctave(4);
-
+    restore(this);
     done();
   },
 
@@ -220,24 +248,13 @@ exports["Piezo"] = {
     test.expect(2);
 
     var returned = this.piezo.tone(1915, 1000);
-    test.ok(this.spy.called);
+
+    this.clock.tick(100);
+
+    test.ok(this.digitalWrite.called);
     test.equal(returned, this.piezo);
 
     test.done();
-  },
-
-  toneStopsAfterTime: function(test) {
-    test.expect(2);
-
-    this.piezo.tone(1915, 10);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
-
-    setTimeout(function() {
-      test.ok(timerSpy.called);
-      test.equal(this.piezo.timer, undefined);
-
-      test.done();
-    }.bind(this), 30);
   },
 
   toneWhileNewToneIsPlayingCancelsExisting: function(test) {
@@ -296,7 +313,7 @@ exports["Piezo"] = {
     test.expect(2);
 
     var returned = this.piezo.noTone();
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
     test.done();
@@ -325,7 +342,7 @@ exports["Piezo"] = {
       ],
       tempo: 150
     });
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
 
@@ -335,7 +352,7 @@ exports["Piezo"] = {
       ],
       tempo: 150
     });
-    test.ok(this.spy.calledWith(3, 0));
+    test.ok(this.digitalWrite.calledWith(3, 0));
 
     test.done();
   },
@@ -344,7 +361,7 @@ exports["Piezo"] = {
     var tempo = 10000; // Make it really fast
     test.expect(6);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
+    this.piezo.play({
       song: [
         ["c", 1],
         ["d", 2],
@@ -368,53 +385,35 @@ exports["Piezo"] = {
       test.ok(freqSpy.calledWith(672, 60000 / tempo));
       test.done();
     });
+
+    this.clock.tick(100);
   },
 
-  playSingleNoteTune: function(test) {
-    var tempo = 10000;
-    test.expect(2);
+  playTuneWithStringSongAndBeat: function(test) {
+    var tempo = 10000; // Make it really fast
+    test.expect(6);
     var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
-      song: "c4",
+    var beats = 0.125;
+    this.piezo.play({
+      song: "c d d - 672 e4 -",
+      beats: beats,
       tempo: tempo // Make it real fast
+    }, function() {
+      // frequency should get called 4x; not for the null notes
+      test.ok(freqSpy.callCount === 4);
+      test.ok(freqSpy.neverCalledWith(null));
+      // First call should have been with frequency for "c4"
+      test.ok(freqSpy.args[0][0] === Piezo.Notes["c4"]);
+      // Default duration === tempo if not provided
+      test.ok(freqSpy.calledWith(Piezo.Notes["e4"], 60000 * beats / tempo));
+      // Duration should change if different beat value given
+      test.ok(freqSpy.calledWith(Piezo.Notes["d4"], (60000 * beats / tempo) * 2));
+      // OK to pass frequency directly...
+      test.ok(freqSpy.calledWith(672, 60000 * beats / tempo));
+      test.done();
     });
-    setTimeout(function() {
-      test.ok(freqSpy.calledOnce);
-      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], 60000 / tempo));
-      test.done();
-    }.bind(this), 10);
-  },
 
-  playSingleNoteTuneNoOctave: function(test) {
-    var tempo = 10000;
-    test.expect(2);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play({
-      song: "c#",
-      tempo: tempo // Make it real fast
-    });
-    setTimeout(function() {
-      test.ok(freqSpy.calledOnce);
-      test.ok(freqSpy.calledWith(Piezo.Notes["c#4"], 60000 / tempo));
-      test.done();
-    }.bind(this), 10);
-  },
-
-  playSongWithCallback: function(test) {
-    var tempo = 10000,
-      myCallback = sinon.spy(),
-      tune = {
-        song: ["c4"],
-        tempo: tempo
-      };
-    test.expect(2);
-
-    var returned = this.piezo.play(tune, myCallback);
-    setTimeout(function() {
-      test.ok(myCallback.calledOnce);
-      test.ok(myCallback.calledWith(tune));
-      test.done();
-    }.bind(this), 10);
+    this.clock.tick(100);
   },
 
   playCanDealWithWonkyValues: function(test) {
@@ -434,22 +433,6 @@ exports["Piezo"] = {
       test.done();
     }.bind(this));
 
+    this.clock.tick(100);
   },
-  /**
-   * This is a slow test by necessity because the default tempo (which can"t
-   * be overridden if `play` is invoked with a non-object arg) is 250.
-   * It does pass.
-   */
-  /*
-  playSingleNote: function(test) {
-    test.expect(2);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
-    var returned = this.piezo.play("c4");
-    setTimeout(function() {
-      test.ok(freqSpy.calledOnce);
-      test.ok(freqSpy.calledWith(Piezo.Notes["c4"], (60000 / 250)));
-      test.done();
-    }.bind(this), 260);
-  }
-  */
 };

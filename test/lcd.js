@@ -1,23 +1,67 @@
-var MockFirmata = require("./mock-firmata"),
-  pins = require("./mock-pins"),
-  five = require("../lib/johnny-five.js"),
-  Board = five.Board,
-  LCD = five.LCD,
-  sinon = require("sinon"),
-  util = require("util");
+var MockFirmata = require("./util/mock-firmata");
+var five = require("../lib/johnny-five.js");
+var lcdChars = require("../lib/lcd-chars.js");
+var sinon = require("sinon");
+var util = require("util");
+var Board = five.Board;
+var LCD = five.LCD;
 
 function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
+  var io = new MockFirmata();
+  var board = new Board({
+    io: io,
     debug: false,
     repl: false
   });
+
+  io.emit("connect");
+  io.emit("ready");
+
+  return board;
 }
+
+function restore(target) {
+  for (var prop in target) {
+
+    if (Array.isArray(target[prop])) {
+      continue;
+    }
+
+    if (target[prop] != null && typeof target[prop].restore === "function") {
+      target[prop].restore();
+    }
+
+    if (typeof target[prop] === "object") {
+      restore(target[prop]);
+    }
+  }
+}
+
+exports["LCD.Characters"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  exists: function(test) {
+    test.expect(1);
+
+    test.deepEqual(LCD.Characters, lcdChars);
+
+    test.done();
+  },
+
+};
 
 exports["LCD"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
 
     this.lcd = new LCD({
       pins: [7, 8, 9, 10, 11, 12],
@@ -37,7 +81,7 @@ exports["LCD"] = {
     }, {
       name: "cursor"
     }, {
-      name: "display"
+      name: "hilo"
     }, {
       name: "home"
     }, {
@@ -47,11 +91,11 @@ exports["LCD"] = {
     }, {
       name: "noCursor"
     }, {
-      name: "noDisplay"
+      name: "on"
+    }, {
+      name: "off"
     }, {
       name: "print"
-    }, {
-      name: "pulse"
     }, {
       name: "setCursor"
     }, {
@@ -59,7 +103,7 @@ exports["LCD"] = {
     }, {
       name: "write"
     }, {
-      name: "sendByte"
+      name: "send"
     }];
 
     this.instance = [{
@@ -81,6 +125,12 @@ exports["LCD"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
@@ -95,14 +145,16 @@ exports["LCD"] = {
     test.done();
   },
 
-  sendByte: function(test) {
+  send: function(test) {
     test.expect(4);
 
-    this.lcd.sendByte(10);
-    test.ok(this.spy.calledWith(12, 1));
-    test.ok(this.spy.calledWith(11, 0));
-    test.ok(this.spy.calledWith(10, 1));
-    test.ok(this.spy.calledWith(9, 0));
+    this.digitalWrite.reset();
+    this.lcd.send(10);
+
+    test.deepEqual(this.digitalWrite.args[0], [12, 1]);
+    test.deepEqual(this.digitalWrite.args[1], [11, 0]);
+    test.deepEqual(this.digitalWrite.args[2], [10, 1]);
+    test.deepEqual(this.digitalWrite.args[3], [9, 0]);
 
     test.done();
   },
@@ -110,30 +162,31 @@ exports["LCD"] = {
   command: function(test) {
     test.expect(10);
 
-    var wbStub = sinon.stub(this.lcd, "sendByte");
+    var wbStub = sinon.stub(this.lcd, "send");
 
     this.lcd.command(15);
     test.ok(wbStub.calledTwice);
-    test.ok(wbStub.calledWith(0));
-    test.ok(wbStub.calledWith(15));
+
+    test.deepEqual(wbStub.args[0], [0]);
+    test.deepEqual(wbStub.args[1], [15]);
 
     wbStub.reset();
     this.lcd.command(32);
     test.ok(wbStub.calledTwice);
-    test.ok(wbStub.firstCall.calledWith(2));
-    test.ok(wbStub.secondCall.calledWith(32));
+    test.deepEqual(wbStub.args[0], [2]);
+    test.deepEqual(wbStub.args[1], [32]);
 
     this.lcd.bitMode = 8;
 
     wbStub.reset();
     this.lcd.command(15);
     test.ok(wbStub.calledOnce);
-    test.ok(wbStub.calledWith(15));
+    test.deepEqual(wbStub.args[0], [15]);
 
     wbStub.reset();
     this.lcd.command(32);
     test.ok(wbStub.calledOnce);
-    test.ok(wbStub.calledWith(32));
+    test.deepEqual(wbStub.args[0], [32]);
 
     test.done();
   },
@@ -147,7 +200,7 @@ exports["LCD"] = {
     this.lcd.write(42);
     test.ok(hiloSpy.calledOn(this.lcd));
     test.ok(cSpy.calledOnce);
-    test.ok(cSpy.calledWith(0x40, 42));
+    test.deepEqual(cSpy.args[0], [0x40, 42]);
 
     hiloSpy.restore();
 
@@ -168,7 +221,7 @@ exports["LCD"] = {
     cSpy.reset();
     this.lcd.cursor(1, 1);
     test.ok(scSpy.calledOnce);
-    test.ok(scSpy.calledWith(1, 1));
+    test.deepEqual(scSpy.args[0], [1, 1]);
     test.ok(!cSpy.called);
 
     test.done();
@@ -228,7 +281,7 @@ exports["LCD"] = {
     var ccSpy = sinon.spy(this.lcd, "createChar");
 
     this.lcd.useChar("heart");
-    test.ok(ccSpy.calledWith("heart"));
+    test.ok(ccSpy.firstCall.calledWith("heart"));
 
     ccSpy.reset();
     this.lcd.useChar("heart");
@@ -315,33 +368,57 @@ exports["LCD"] = {
 };
 
 exports["LCD - I2C (JHD1313M1)"] = {
+  // TODO: Move all stubs and spies into setup
   setUp: function(done) {
     this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
   },
 
   tearDown: function(done) {
+    Board.purge();
+    restore(this);
     done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "JHD1313M1",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+
   initialization: function(test) {
-    test.expect(2);
+    test.expect(1);
     // TODO:
     // This needs to more thoroughly test
     // the expected initialization for the
     // specified device.
     //
-    var spy = sinon.spy(this.board.io, "sendI2CWriteRequest");
 
-    var lcd = new LCD({
+    new LCD({
       controller: "JHD1313M1",
       board: this.board
     });
 
-
-    test.ok(spy.called);
-    test.equal(spy.callCount, 14);
+    test.equal(this.i2cWrite.callCount, 14);
     test.done();
   },
 
@@ -353,15 +430,14 @@ exports["LCD - I2C (JHD1313M1)"] = {
       board: this.board
     });
 
-    var spy = sinon.spy(lcd.io, "sendI2CWriteRequest");
-
     lcd.command(15);
-    test.equal(spy.called, 1);
-    test.ok(spy.getCall(0).calledWith(62, [ 128, 15 ]));
+    test.equal(this.i2cWrite.called, 1);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 62, [ 128, 15 ] ]);
 
     test.done();
   },
-  sendByte: function(test) {
+
+  send: function(test) {
     test.expect(2);
 
     var lcd = new LCD({
@@ -369,11 +445,535 @@ exports["LCD - I2C (JHD1313M1)"] = {
       board: this.board
     });
 
-    var spy = sinon.spy(lcd.io, "sendI2CWriteRequest");
+    lcd.send(15);
+    test.equal(this.i2cWrite.called, 1);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 62, [ 64, 15 ] ]);
 
-    lcd.sendByte(15);
-    test.equal(spy.called, 1);
-    test.ok(spy.getCall(0).calledWith(62, [ 64, 15 ]));
+    test.done();
+  }
+};
+
+exports["LCD - I2C (LCD2004)"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "LCD2004",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(1);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    new LCD({
+      controller: "LCD2004",
+      board: this.board
+    });
+
+    test.equal(this.i2cWrite.callCount, 30);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(7);
+
+    var lcd = new LCD({
+      controller: "LCD2004",
+      board: this.board
+    });
+
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.command(15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.ok(pulse.called);
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  },
+
+  send: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "LCD2004",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.send(0, 15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  }
+};
+
+exports["LCD - I2C (LCM1602)"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "LCM1602",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(1);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    new LCD({
+      controller: "LCM1602",
+      board: this.board
+    });
+
+    test.equal(this.i2cWrite.callCount, 30);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "LCM1602",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.command(15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  },
+
+  send: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "LCM1602",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.send(0, 15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  }
+};
+
+
+exports["LCD - PCF8574"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "PCF8574",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    test.equal(this.i2cWrite.callCount, 30);
+
+    // This is the expected write sequence.
+    // If this changes, the controller will not function.
+    var sequence = [
+      [ 39, 0 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 48 ],
+      [ 39, 52 ],
+      [ 39, 48 ],
+      [ 39, 32 ],
+      [ 39, 36 ],
+      [ 39, 32 ],
+      [ 39, 36 ],
+      [ 39, 32 ],
+      [ 39, 132 ],
+      [ 39, 128 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 196 ],
+      [ 39, 192 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 20 ],
+      [ 39, 16 ],
+      [ 39, 4 ],
+      [ 39, 0 ],
+      [ 39, 100 ],
+      [ 39, 96 ],
+      [ 39, 8 ]
+    ];
+
+    test.deepEqual(this.i2cWrite.args, sequence);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.command(15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  },
+
+  send: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "PCF8574",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.send(0, 15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+
+    test.done();
+  }
+};
+
+
+exports["LCD - MJKDZ"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new LCD({
+      controller: "MJKDZ",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+    // TODO:
+    // This needs to more thoroughly test
+    // the expected initialization for the
+    // specified device.
+    //
+    new LCD({
+      controller: "MJKDZ",
+      board: this.board
+    });
+
+    test.equal(this.i2cWrite.callCount, 30);
+
+    // This is the expected write sequence.
+    // If this changes, the controller will not function.
+    var sequence = [
+      [ 39, 0 ],
+      [ 39, 3 ],
+      [ 39, 19 ],
+      [ 39, 3 ],
+      [ 39, 3 ],
+      [ 39, 19 ],
+      [ 39, 3 ],
+      [ 39, 3 ],
+      [ 39, 19 ],
+      [ 39, 3 ],
+      [ 39, 2 ],
+      [ 39, 18 ],
+      [ 39, 2 ],
+      [ 39, 18 ],
+      [ 39, 2 ],
+      [ 39, 24 ],
+      [ 39, 8 ],
+      [ 39, 16 ],
+      [ 39, 0 ],
+      [ 39, 28 ],
+      [ 39, 12 ],
+      [ 39, 16 ],
+      [ 39, 0 ],
+      [ 39, 17 ],
+      [ 39, 1 ],
+      [ 39, 16 ],
+      [ 39, 0 ],
+      [ 39, 22 ],
+      [ 39, 6 ],
+      [ 39, 8 ]
+    ];
+
+    test.deepEqual(this.i2cWrite.args, sequence);
+    test.done();
+  },
+
+  command: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "MJKDZ",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.command(15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 24 ], [ 39, 8 ], [ 39, 31 ], [ 39, 15 ] ]);
+
+    test.done();
+  },
+
+  send: function(test) {
+    test.expect(6);
+
+    var lcd = new LCD({
+      controller: "MJKDZ",
+      board: this.board
+    });
+
+    var send = sinon.spy(lcd, "send");
+    var writeBits = sinon.spy(lcd, "writeBits");
+    var pulse = sinon.spy(lcd, "pulse");
+
+    // Prevent inclusion of initialization-related writes.
+    this.i2cWrite.reset();
+
+    lcd.send(0, 15);
+
+    test.equal(send.callCount, 1);
+    test.deepEqual(send.getCall(0).args, [0, 15]);
+
+    test.equal(writeBits.callCount, 2);
+
+    test.equal(pulse.callCount, 2);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.args, [ [ 39, 24 ], [ 39, 8 ], [ 39, 31 ], [ 39, 15 ] ]);
 
     test.done();
   }

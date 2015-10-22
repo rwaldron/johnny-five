@@ -1,4 +1,15 @@
-# Grove Sensor
+<!--remove-start-->
+
+# Grove - Sensor
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -34,22 +45,50 @@ board.on("ready", function() {
 ```
 
 
+## Illustrations / Photos
+
+
+### Grove Shield
 
 
 
+![docs/images/grove-shield.jpg](images/grove-shield.jpg)  
+
+### Grove LED
+
+
+
+![docs/images/grove-led.jpg](images/grove-led.jpg)  
+
+### Grove Rotary
+
+
+
+![docs/images/grove-rotary.jpg](images/grove-rotary.jpg)  
+
+
+
+
+
+
+## Additional Notes
 For this program, you'll need:
 
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 
 ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
 
-![Grove - Rotary Angle Module](http://www.seeedstudio.com/depot/images/product/rotary.jpg)
+![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

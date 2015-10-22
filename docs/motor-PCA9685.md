@@ -1,4 +1,15 @@
-# Motor PCA9685
+<!--remove-start-->
+
+# Motor - PCA9685
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -13,7 +24,7 @@ var five = require("johnny-five"),
 board = new five.Board();
 
 /*
- * The PCA9685 controller has been test on
+ * The PCA9685 controller has been tested on
  * the Adafruit Motor/Stepper/Servo Shield v2
  */
 
@@ -35,8 +46,8 @@ board.on("ready", function() {
   // Motor Event API
 
   // "start" events fire when the motor is started.
-  motor.on("start", function(err, timestamp) {
-    console.log("start", timestamp);
+  motor.on("start", function() {
+    console.log("start", Date.now());
 
     // Demonstrate motor stop in 2 seconds
     board.wait(2000, function() {
@@ -45,8 +56,8 @@ board.on("ready", function() {
   });
 
   // "stop" events fire when the motor is started.
-  motor.on("stop", function(err, timestamp) {
-    console.log("stop", timestamp);
+  motor.on("stop", function() {
+    console.log("stop", Date.now());
   });
 
   // Motor API
@@ -66,9 +77,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

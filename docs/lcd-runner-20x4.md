@@ -1,4 +1,15 @@
-# Lcd Runner 20x4
+<!--remove-start-->
+
+# LCD - Runner 20x4
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -22,29 +33,26 @@ board.on("ready", function() {
     cols: 20
   });
 
-  lcd.on("ready", function() {
+  var frame = 1;
+  var col = 0;
+  var row = 0;
 
-    var frame = 1,
-      col = 0,
-      row = 0;
+  lcd.useChar("runninga");
+  lcd.useChar("runningb");
 
-    lcd.useChar("runninga");
-    lcd.useChar("runningb");
+  board.loop(300, function() {
 
-    board.loop(300, function() {
+    lcd.clear().cursor(row, col).print(
+      ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
+    );
 
-      lcd.clear().cursor(row, col).print(
-        ":running" + (++frame % 2 === 0 ? "a" : "b") + ":"
-      );
+    if (++col === lcd.cols) {
+      col = 0;
 
-      if (++col === lcd.cols) {
-        col = 0;
-
-        if (++row === lcd.rows) {
-          row = 0;
-        }
+      if (++row === lcd.rows) {
+        row = 0;
       }
-    });
+    }
   });
 });
 
@@ -55,13 +63,21 @@ board.on("ready", function() {
 
 
 
+
+
+
+## Additional Notes
 - [16 x 2 LCD White on Blue](http://www.hacktronics.com/LCDs/16-x-2-LCD-White-on-Blue/flypage.tpl.html)
 - [20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)
 
+&nbsp;
 
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->

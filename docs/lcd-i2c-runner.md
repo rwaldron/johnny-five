@@ -1,4 +1,15 @@
-# Lcd I2c Runner
+<!--remove-start-->
+
+# LCD - I2C Runner
+
+<!--remove-end-->
+
+
+
+
+
+
+
 
 Run with:
 ```bash
@@ -25,7 +36,7 @@ board.on("ready", function() {
   lcd.useChar("runninga");
   lcd.useChar("runningb");
 
-  board.loop(300, function() {
+  this.loop(300, function() {
 
     lcd.clear().cursor(row, col).print(
       ":running" + ((frame ^= 1) === 0 ? "a" : "b") + ":"
@@ -40,7 +51,7 @@ board.on("ready", function() {
     }
   });
 
-  board.loop(1000, function() {
+  this.loop(1000, function() {
     lcd.bgColor(clist[Math.floor(Math.random() * clength)]);
   });
 });
@@ -54,9 +65,14 @@ board.on("ready", function() {
 
 
 
+&nbsp;
+
+<!--remove-start-->
 
 ## License
-Copyright (c) 2012-2013 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014 The Johnny-Five Contributors
+Copyright (c) 2014, 2015 The Johnny-Five Contributors
 Licensed under the MIT license.
+
+<!--remove-end-->
