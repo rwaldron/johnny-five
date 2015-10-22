@@ -1988,3 +1988,256 @@ exports["Expander - PCF8591"] = {
     test.done();
   },
 };
+
+exports["Expander - MUXSHIELD2"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+
+    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
+    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+
+    this.board = newBoard();
+
+    this.expander = new Expander({
+      controller: "MUXSHIELD2",
+      board: this.board
+    });
+
+    this.virtual = new Board.Virtual({
+      io: this.expander
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    restore(this);
+    done();
+  },
+
+  initialization: function(test) {
+    test.expect(3);
+
+    test.equal(this.pinMode.callCount, 8);
+    test.deepEqual(this.pinMode.args, [
+      [ 2, 1 ],
+      [ 4, 1 ],
+      [ 6, 1 ],
+      [ 7, 1 ],
+      [ 8, 1 ],
+      [ 10, 1 ],
+      [ 11, 1 ],
+      [ 12, 1 ]
+    ]);
+    test.equal(this.digitalWrite.callCount, 1);
+    test.done();
+  },
+
+  normalize: function(test) {
+    test.expect(48);
+
+    for (var i = 0; i < 48; i++) {
+      test.equal(this.expander.normalize("XX" + i), "XX" + i);
+    }
+
+    test.done();
+  },
+
+  pinModeINPUT: function(test) {
+    test.expect(1);
+
+    this.pinMode.reset();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode("IO1-" + i, 0);
+    }
+
+    // pinMode only called ONCE per row!!
+    test.deepEqual(this.pinMode.callCount, 1);
+
+    test.done();
+  },
+
+  pinModeOUTPUT: function(test) {
+    test.expect(2);
+
+    this.pinMode.reset();
+    this.digitalWrite.reset();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode("IO1-" + i, 1);
+    }
+
+    // pinMode only called ONCE per row!!
+    test.deepEqual(this.pinMode.callCount, 1);
+    test.deepEqual(this.digitalWrite.callCount, 1);
+
+    test.done();
+  },
+
+  pinModeANALOG: function(test) {
+    test.expect(1);
+
+    this.pinMode.reset();
+    this.digitalWrite.reset();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode("IO1-" + i, 2);
+    }
+
+    // pinMode never called for ANALOG
+    test.deepEqual(this.pinMode.callCount, 0);
+
+    test.done();
+  },
+
+  analogRead: function(test) {
+    test.expect(2);
+
+    var spy = sinon.spy();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode("IO1-" + i, 2);
+    }
+
+    this.analogRead.reset();
+
+    for (var j = 0; j < 16; j++) {
+      this.expander.analogRead("IO1-" + j, spy);
+    }
+
+    // The board's analogRead is only called ONCE!
+    test.equal(this.analogRead.callCount, 1);
+
+    var callback = this.analogRead.lastCall.args[1];
+
+    callback(1023);
+    callback(1023);
+    callback(1023);
+    callback(1023);
+
+    test.equal(spy.callCount, 4);
+
+    test.done();
+  },
+
+  digitalRead: function(test) {
+    test.expect(2);
+
+    var spy = sinon.spy();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode("IO1-" + i, 2);
+    }
+
+    this.digitalRead.reset();
+
+    for (var j = 0; j < 16; j++) {
+      this.expander.digitalRead("IO1-" + j, spy);
+    }
+
+    // The board's digitalRead is only called ONCE!
+    test.equal(this.digitalRead.callCount, 1);
+
+    var callback = this.digitalRead.lastCall.args[1];
+
+    callback(1);
+    callback(1);
+    callback(1);
+    callback(1);
+
+    test.equal(spy.callCount, 4);
+
+    test.done();
+  },
+
+  digitalWrite: function(test) {
+    // test.expect(2);
+
+    this.digitalWrite.reset();
+
+    // 1 call to set pin mode
+    // 2 calls to enter OUTPUT mode: LCLK, MODE
+    //
+    // For Each 16 channels in a row:
+    //  1 call to SCLK
+    //  1 call to write value
+    //  1 call to latch in value
+    //
+    // 2 calls to leave OUTPUT mode: LCLK, MODE
+    // ---------
+    // 53
+
+    this.expander.pinMode("IO1-0", this.expander.MODES.OUTPUT);
+    this.expander.digitalWrite("IO1-0", this.expander.HIGH);
+
+    test.equal(this.digitalWrite.callCount, 53);
+
+    test.equal(this.digitalWrite.getCall(0).args[1], 1);
+    test.equal(this.digitalWrite.getCall(1).args[1], 0);
+    test.equal(this.digitalWrite.getCall(2).args[1], 1);
+
+    for (var i = 51; i < 51; i -= 3) {
+      test.equal(this.digitalWrite.getCall(i).args[1], 1);
+
+      // The bits are written backwards, so the last one is HIGH
+      if (i === 49) {
+        test.equal(this.digitalWrite.getCall(i + 1).args[1], 1);
+      } else {
+        // The rest are all still LOW
+        test.equal(this.digitalWrite.getCall(i + 1).args[1], 0);
+      }
+      test.equal(this.digitalWrite.getCall(i + 2).args[1], 0);
+    }
+
+    test.equal(this.digitalWrite.getCall(51).args[1], 1);
+    test.equal(this.digitalWrite.getCall(52).args[1], 0);
+
+    test.done();
+  },
+
+  unsupported: function(test) {
+    test.expect(10);
+
+    sinon.spy(this.expander, "analogWrite");
+    test.throws(this.expander.analogWrite);
+    test.equal(
+      this.expander.analogWrite.lastCall.exception.message,
+      "Expander:MUXSHIELD2 does not support analogWrite"
+    );
+
+    sinon.spy(this.expander, "pwmWrite");
+    test.throws(this.expander.pwmWrite);
+    test.equal(
+      this.expander.pwmWrite.lastCall.exception.message,
+      "Expander:MUXSHIELD2 does not support pwmWrite"
+    );
+
+    sinon.spy(this.expander, "i2cConfig");
+    test.throws(this.expander.i2cConfig);
+    test.equal(
+      this.expander.i2cConfig.lastCall.exception.message,
+      "Expander:MUXSHIELD2 does not support i2cConfig"
+    );
+
+    sinon.spy(this.expander, "i2cWrite");
+    test.throws(this.expander.i2cWrite);
+    test.equal(
+      this.expander.i2cWrite.lastCall.exception.message,
+      "Expander:MUXSHIELD2 does not support i2cWrite"
+    );
+
+    sinon.spy(this.expander, "i2cRead");
+    test.throws(this.expander.i2cRead);
+    test.equal(
+      this.expander.i2cRead.lastCall.exception.message,
+      "Expander:MUXSHIELD2 does not support i2cRead"
+    );
+
+    test.done();
+  },
+};

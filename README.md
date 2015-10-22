@@ -186,6 +186,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
 - [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
 - [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
+- [Expander - MUXSHIELD2, Digital Input and Output](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-mixed.md)
+- [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
 
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
@@ -280,7 +282,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Shift Register - Seven segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
 - [Shift Register - Seven segments, daisy chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
-### Infrared Reflectance)
+### Infrared Reflectance
 - [IR Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
 - [IR Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
 - [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
