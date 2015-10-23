@@ -190,6 +190,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
 - [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
+- [LED - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/led-tessel-servo-module.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [LED - Pulse with animation](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse-animation.md)
@@ -217,6 +218,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Servo
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+- [Servo - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-tessel-servo-module.md)
 - [Servo - Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
 - [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
