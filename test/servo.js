@@ -665,7 +665,7 @@ exports["Servo - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 6);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 172);
+    test.equal(this.i2cWrite.args[0][1][3], 151);
     test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
