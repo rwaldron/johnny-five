@@ -98,9 +98,9 @@ board.on("ready", function() {
   //
 
 
-  ["down", "up", "hold"].forEach(function(err, type) {
+  ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on(type, function(event) {
+    nunchuk.on(type, function(err, event) {
       console.log(
         event.target.which + " is " + type,
 
