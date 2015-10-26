@@ -1217,6 +1217,11 @@
         "file": "grove-touch-edison.js",
         "title": "Intel Edison + Grove - Touch",
         "description": "Using Johnny-Five with Grove's Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-q-touch.js",
+        "title": "Intel Edison + Grove - Q Touch",
+        "description": "Using Johnny-Five with Grove's Q Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       }
     ]
   },
