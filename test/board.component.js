@@ -4,7 +4,8 @@ require("es6-shim");
 var MockFirmata = require("./util/mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  Board = five.Board;
+  Board = five.Board,
+  Expander = five.Expander;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -40,20 +41,22 @@ function restore(target) {
 exports["Board.Component"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    Expander.purge();
+    this.sandbox.restore();
     done();
   },
 
   callThroughs: function(test) {
     test.expect(5);
 
-    var a = sinon.spy(Board, "mount");
-    var b = sinon.spy(Board.Pins, "normalize");
+    var a = this.sandbox.spy(Board, "mount");
+    var b = this.sandbox.spy(Board.Pins, "normalize");
     var opts = {};
 
     Board.purge();
@@ -152,6 +155,27 @@ exports["Board.Component"] = {
     test.done();
   },
 
+  noPinNormalization: function(test) {
+    test.expect(3);
+
+    var hasController = this.sandbox.stub(Expander, "hasController", function() {
+      return true;
+    });
+
+    var normalize = this.sandbox.spy(Board.Pins, "normalize");
+
+    var component = new Board.Component({
+      pin: 2,
+      controller: "FOO"
+    });
+
+    test.equal(component.pin, 2);
+    test.equal(hasController.callCount, 1);
+    test.equal(normalize.callCount, 0);
+
+    test.done();
+  },
+
   explicitPinNormalized: function(test) {
     test.expect(1);
 
@@ -203,7 +227,7 @@ exports["Board.Component"] = {
 
     Board.Component.call(component, { pin: 1 }, { requestPin: false });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     Board.Component.call(component, { pin: 1 });
 
@@ -222,7 +246,7 @@ exports["Board.Component"] = {
       pin: 1
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
@@ -349,7 +373,7 @@ exports["Board.Component"] = {
       address: 0x00
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
@@ -389,7 +413,7 @@ exports["Board.Component"] = {
       controller: "FOO"
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
@@ -430,7 +454,7 @@ exports["Board.Component"] = {
       address: 0x01
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
@@ -471,7 +495,7 @@ exports["Board.Component"] = {
       address: 0x01
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     // No pins to occupy
     test.equal(component.board.occupied.length, 0);
@@ -495,7 +519,7 @@ exports["Board.Component"] = {
       pins: { a: 1, b: 2, c: 3 }
     });
 
-    var spy = sinon.spy(component.board, "warn");
+    var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 3);
     test.deepEqual(component.board.occupied[0], {

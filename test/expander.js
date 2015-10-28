@@ -94,6 +94,23 @@ exports["Expander"] = {
     test.done();
   },
 
+  hasController: function(test) {
+    test.expect(6);
+
+    [
+      "MCP23017",
+      "MCP23008",
+      "PCF8574",
+      "PCF8574A",
+      "PCF8575",
+      "PCA9685",
+    ].forEach(function(controller) {
+      test.equal(Expander.hasController(controller), true);
+    });
+
+    test.done();
+  },
+
   skipsPinNormalizationCall: function(test) {
     test.expect(6);
 

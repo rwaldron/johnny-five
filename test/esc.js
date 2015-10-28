@@ -262,6 +262,7 @@ exports["ESC"] = {
 exports["ESC - PCA9685"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.board = newBoard();
@@ -336,6 +337,13 @@ exports["ESC - PCA9685"] = {
 
     test.done();
   },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
+    test.done();
+  },
+
   speed: function(test) {
     test.expect(6);
     this.i2cWrite.reset();
