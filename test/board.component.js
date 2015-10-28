@@ -21,23 +21,6 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Board.Component"] = {
   setUp: function(done) {
     this.board = newBoard();
