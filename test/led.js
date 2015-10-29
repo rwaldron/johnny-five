@@ -989,6 +989,24 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
 
   shape: testLedRgbShape,
 
+  normalization: function(test) {
+    test.expect(1);
+
+    this.a = new Led.RGB({
+      pins: {
+        red: 13,
+        green: 14,
+        blue: 15,
+      },
+      controller: "PCA9685",
+      board: this.board
+    });
+
+    test.deepEqual(this.a.pins, [13, 14, 15]);
+
+    test.done();
+  },
+
   write: function(test) {
     test.expect(12);
 
