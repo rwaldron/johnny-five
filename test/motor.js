@@ -1182,6 +1182,7 @@ exports["Motor: Inverse Speed With Brake"] = {
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.motor = new Motor({
@@ -1249,6 +1250,12 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(forwarded.address, 0xff);
     test.equal(forwarded.bus, "i2c-1");
 
+    test.done();
+  },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
     test.done();
   },
 

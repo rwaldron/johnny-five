@@ -376,6 +376,7 @@ exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
     this.pinMode = sinon.spy(this.board.io, "pinMode");
 
@@ -396,6 +397,12 @@ exports["Led - PCA9685 (I2C)"] = {
   },
 
   shape: testLedShape,
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
+    test.done();
+  },
 
   defaultMode: function(test) {
     test.expect(2);
