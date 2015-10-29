@@ -1,8 +1,13 @@
+.git/
+
 assets/
 docs/
 eg/
 node_modules/firmata
+node_modules/optimist
 node_modules/serialport
+node_modules/sinon
+node_modules/grunt*
 test/
 tpl/
 util/
