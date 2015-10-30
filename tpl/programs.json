@@ -94,6 +94,10 @@
         "description": "Basic LED example using PCA9685"
       },
       {
+        "file": "led-tessel-servo-module.js",
+        "title": "LED - Tessel Servo Module"
+      },
+      {
         "file": "led-blink.js",
         "title": "LED - Blink",
         "description": "Basic LED blink example.",
@@ -273,6 +277,10 @@
       {
         "file": "servo-PCA9685.js",
         "title": "Servo - PCA9685"
+      },
+      {
+        "file": "servo-tessel-servo-module.js",
+        "title": "Servo - Tessel Servo Module"
       },
       {
         "file": "servo-continuous.js",

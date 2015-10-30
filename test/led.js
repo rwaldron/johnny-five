@@ -2,6 +2,7 @@ var five = require("../lib/johnny-five.js");
 var sinon = require("sinon");
 var MockFirmata = require("./util/mock-firmata");
 var Board = five.Board;
+var Expander = five.Expander;
 var Led = five.Led;
 
 var protoProperties = [{
@@ -375,6 +376,7 @@ exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
     this.pinMode = sinon.spy(this.board.io, "pinMode");
 
@@ -390,10 +392,17 @@ exports["Led - PCA9685 (I2C)"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
   shape: testLedShape,
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
+    test.done();
+  },
 
   defaultMode: function(test) {
     test.expect(2);
@@ -424,7 +433,8 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.i2cWrite.reset();
     this.led.on();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
+
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
     test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
@@ -435,7 +445,7 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.i2cWrite.reset();
     this.led.off();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
     test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
@@ -448,11 +458,11 @@ exports["Led - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     this.led.toggle();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
     test.ok(!this.led.isOn);
 
     test.equal(this.i2cWrite.callCount, 2);
@@ -467,13 +477,13 @@ exports["Led - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     this.led.brightness(255);
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
 
     this.led.brightness(100);
     test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
 
     this.led.brightness(0);
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
 
     test.equal(this.i2cWrite.callCount, 3);
 
@@ -970,6 +980,13 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    Expander.purge();
+    done();
+  },
+
   shape: testLedRgbShape,
 
   write: function(test) {
@@ -978,17 +995,17 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     // Fully off
     this.ledRgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
     test.equal(this.i2cWrite.callCount, 3);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
-    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 0, 0]));
-    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4096, 16]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 4096, 16]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 4096, 16]));
     this.i2cWrite.reset();
 
     // Fully on
     this.ledRgb.write({ red: 0xff, green: 0xff, blue: 0xff });
     test.equal(this.i2cWrite.callCount, 3);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4095, 15]));
-    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 4095, 15]));
-    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 4095, 15]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 4096, 16, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 4096, 16, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 4096, 16, 0, 0]));
     this.i2cWrite.reset();
 
     // Custom color
@@ -1023,6 +1040,13 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    Expander.purge();
+    done();
+  },
+
   shape: testLedRgbShape,
 
   write: function(test) {
@@ -1030,6 +1054,7 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
 
     // Fully off
     this.ledRgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 4096, 16, 0, 0]));
     test.ok(this.i2cWrite.calledWith(64, [10, 4096, 16, 0, 0]));
@@ -1039,9 +1064,9 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
     // Fully on
     this.ledRgb.write({ red: 0xff, green: 0xff, blue: 0xff });
     test.equal(this.i2cWrite.callCount, 3);
-    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 0, 0]));
-    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 0, 0]));
-    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 0, 0]));
+    test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4096, 16]));
+    test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 4096, 16]));
+    test.ok(this.i2cWrite.calledWith(64, [14, 0, 0, 4096, 16]));
     this.i2cWrite.reset();
 
     // Custom color
