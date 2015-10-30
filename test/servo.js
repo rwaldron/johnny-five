@@ -581,6 +581,7 @@ exports["Servo - Allowed Pin Names"] = {
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
@@ -652,6 +653,12 @@ exports["Servo - PCA9685"] = {
 
     test.equal(Expander.byAddress(0x40).name, "PCA9685");
 
+    test.done();
+  },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
     test.done();
   },
 
