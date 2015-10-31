@@ -3,6 +3,7 @@
 assets/
 docs/
 eg/
+node_modules/es6-shim
 node_modules/firmata
 node_modules/optimist
 node_modules/serialport

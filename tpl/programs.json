@@ -540,7 +540,7 @@
     ]
   },
   {
-    "topic": "Infrared Reflectance)",
+    "topic": "Infrared Reflectance",
     "classes": ["IR.Reflect.Array"],
     "examples": [
       {
