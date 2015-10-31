@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Servo - PCA9685
+# Servo - Tessel Servo Module
 
 <!--remove-end-->
 
@@ -9,50 +9,34 @@
 
 
 
-##### Breadboard for "Servo - PCA9685"
-
-
-
-![docs/breadboard/servo-PCA9685.png](breadboard/servo-PCA9685.png)<br>
-
-Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.fzz)
-
-&nbsp;
-
-
 
 
 Run with:
 ```bash
-node eg/servo-PCA9685.js
+node eg/servo-tessel-servo-module.js
 ```
 
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board();
+var Tessel = require("tessel-io");
+
+var board = new five.Board({
+  io: new Tessel()
+});
 
 board.on("ready", function() {
   console.log("Connected");
 
   // Initialize the servo instance
-  var a = new five.Servo({
-    address: 0x40,
+  var servo = new five.Servo({
     controller: "PCA9685",
-    pin: 0,
-  });
-
-  var b = new five.Servo({
-    address: 0x40,
-    controller: "PCA9685",
-    range: [0, 180],
+    port: "A",
+    address: 0x73,
     pin: 1,
   });
 
-  var degrees = 0;
-
-  a.to(degrees);
-  b.to(degrees);
+  servo.sweep();
 });
 
 ```

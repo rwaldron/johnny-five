@@ -3,6 +3,7 @@ var five = require("../lib/johnny-five");
 var EVS = require("../lib/evshield");
 var sinon = require("sinon");
 var Board = five.Board;
+var Expander = five.Expander;
 var Motor = five.Motor;
 var Sensor = five.Sensor;
 
@@ -1181,6 +1182,7 @@ exports["Motor: Inverse Speed With Brake"] = {
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.motor = new Motor({
@@ -1226,6 +1228,7 @@ exports["Motor: I2C - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -1247,6 +1250,12 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(forwarded.address, 0xff);
     test.equal(forwarded.bus, "i2c-1");
 
+    test.done();
+  },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
     test.done();
   },
 
@@ -1299,8 +1308,8 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 38);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 0);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 4096);
+    test.equal(this.i2cWrite.args[0][1][4], 16);
 
     test.done();
   },
@@ -1316,20 +1325,20 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 38);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 0);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 4096);
+    test.equal(this.i2cWrite.args[0][1][4], 16);
 
     test.equal(this.i2cWrite.args[1][1][0], 46);
     test.equal(this.i2cWrite.args[1][1][1], 0);
     test.equal(this.i2cWrite.args[1][1][2], 0);
-    test.equal(this.i2cWrite.args[1][1][3], 0);
-    test.equal(this.i2cWrite.args[1][1][4], 0);
+    test.equal(this.i2cWrite.args[1][1][3], 4096);
+    test.equal(this.i2cWrite.args[1][1][4], 16);
 
     test.equal(this.i2cWrite.args[2][1][0], 42);
-    test.equal(this.i2cWrite.args[2][1][1], 0);
-    test.equal(this.i2cWrite.args[2][1][2], 0);
-    test.equal(this.i2cWrite.args[2][1][3], 4080);
-    test.equal(this.i2cWrite.args[2][1][4], 15);
+    test.equal(this.i2cWrite.args[2][1][1], 4096);
+    test.equal(this.i2cWrite.args[2][1][2], 16);
+    test.equal(this.i2cWrite.args[2][1][3], 0);
+    test.equal(this.i2cWrite.args[2][1][4], 0);
 
     test.equal(this.i2cWrite.args[3][1][0], 38);
     test.equal(this.i2cWrite.args[3][1][1], 0);
@@ -1350,20 +1359,20 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 38);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 0);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 4096);
+    test.equal(this.i2cWrite.args[0][1][4], 16);
 
     test.equal(this.i2cWrite.args[1][1][0], 46);
-    test.equal(this.i2cWrite.args[1][1][1], 0);
-    test.equal(this.i2cWrite.args[1][1][2], 0);
-    test.equal(this.i2cWrite.args[1][1][3], 4080);
-    test.equal(this.i2cWrite.args[1][1][4], 15);
+    test.equal(this.i2cWrite.args[1][1][1], 4096);
+    test.equal(this.i2cWrite.args[1][1][2], 16);
+    test.equal(this.i2cWrite.args[1][1][3], 0);
+    test.equal(this.i2cWrite.args[1][1][4], 0);
 
     test.equal(this.i2cWrite.args[2][1][0], 42);
     test.equal(this.i2cWrite.args[2][1][1], 0);
     test.equal(this.i2cWrite.args[2][1][2], 0);
-    test.equal(this.i2cWrite.args[2][1][3], 0);
-    test.equal(this.i2cWrite.args[2][1][4], 0);
+    test.equal(this.i2cWrite.args[2][1][3], 4096);
+    test.equal(this.i2cWrite.args[2][1][4], 16);
 
     test.equal(this.i2cWrite.args[3][1][0], 38);
     test.equal(this.i2cWrite.args[3][1][1], 0);
@@ -1382,31 +1391,32 @@ exports["Motor: I2C - PCA9685"] = {
     this.i2cWrite.reset();
 
     this.motor.brake();
+
     test.equal(this.i2cWrite.args[0][0], 0x60);
 
     test.equal(this.i2cWrite.args[0][1][0], 38);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 0);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 4096);
+    test.equal(this.i2cWrite.args[0][1][4], 16);
 
     test.equal(this.i2cWrite.args[1][1][0], 42);
-    test.equal(this.i2cWrite.args[1][1][1], 0);
-    test.equal(this.i2cWrite.args[1][1][2], 0);
-    test.equal(this.i2cWrite.args[1][1][3], 2032);
-    test.equal(this.i2cWrite.args[1][1][4], 7);
+    test.equal(this.i2cWrite.args[1][1][1], 4096);
+    test.equal(this.i2cWrite.args[1][1][2], 16);
+    test.equal(this.i2cWrite.args[1][1][3], 0);
+    test.equal(this.i2cWrite.args[1][1][4], 0);
 
     test.equal(this.i2cWrite.args[2][1][0], 46);
-    test.equal(this.i2cWrite.args[2][1][1], 2032);
-    test.equal(this.i2cWrite.args[2][1][2], 7);
-    test.equal(this.i2cWrite.args[2][1][3], 4080);
-    test.equal(this.i2cWrite.args[2][1][4], 15);
+    test.equal(this.i2cWrite.args[2][1][1], 4096);
+    test.equal(this.i2cWrite.args[2][1][2], 16);
+    test.equal(this.i2cWrite.args[2][1][3], 0);
+    test.equal(this.i2cWrite.args[2][1][4], 0);
 
     test.equal(this.i2cWrite.args[3][1][0], 38);
-    test.equal(this.i2cWrite.args[3][1][1], 0);
-    test.equal(this.i2cWrite.args[3][1][2], 0);
-    test.equal(this.i2cWrite.args[3][1][3], 4080);
-    test.equal(this.i2cWrite.args[3][1][4], 15);
+    test.equal(this.i2cWrite.args[3][1][1], 4096);
+    test.equal(this.i2cWrite.args[3][1][2], 16);
+    test.equal(this.i2cWrite.args[3][1][3], 0);
+    test.equal(this.i2cWrite.args[3][1][4], 0);
 
     this.i2cWrite.reset();
 
@@ -1417,20 +1427,20 @@ exports["Motor: I2C - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 38);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 0);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 4096);
+    test.equal(this.i2cWrite.args[0][1][4], 16);
 
     test.equal(this.i2cWrite.args[1][1][0], 46);
-    test.equal(this.i2cWrite.args[1][1][1], 0);
-    test.equal(this.i2cWrite.args[1][1][2], 0);
-    test.equal(this.i2cWrite.args[1][1][3], 4080);
-    test.equal(this.i2cWrite.args[1][1][4], 15);
+    test.equal(this.i2cWrite.args[1][1][1], 4096);
+    test.equal(this.i2cWrite.args[1][1][2], 16);
+    test.equal(this.i2cWrite.args[1][1][3], 0);
+    test.equal(this.i2cWrite.args[1][1][4], 0);
 
     test.equal(this.i2cWrite.args[2][1][0], 42);
     test.equal(this.i2cWrite.args[2][1][1], 0);
     test.equal(this.i2cWrite.args[2][1][2], 0);
-    test.equal(this.i2cWrite.args[2][1][3], 0);
-    test.equal(this.i2cWrite.args[2][1][4], 0);
+    test.equal(this.i2cWrite.args[2][1][3], 4096);
+    test.equal(this.i2cWrite.args[2][1][4], 16);
 
     test.equal(this.i2cWrite.args[3][1][0], 38);
     test.equal(this.i2cWrite.args[3][1][1], 0);
