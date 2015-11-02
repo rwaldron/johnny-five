@@ -832,6 +832,17 @@
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
         ]
+      },
+      {
+        "file": "multi-SI7020.js",
+        "title": "Multi - SI7020",
+        "breadboards": [
+          {"name": "temperature-SI7020", "title": "Tessel with SI7020"},
+          {"name": "temperature-SI7020-uno", "title": "Arduino with SI7020"}
+        ],
+        "externals": [
+          { "title": "SI7020 - I2C Multi Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
       }
     ]
   },
