@@ -67,6 +67,19 @@
         "file": "expander-PCF8591.js",
         "title": "Expander - PCF8591",
         "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
+      },
+      {
+        "file": "expander-MUXSHIELD2-mixed.js",
+        "title": "Expander - MUXSHIELD2, Digital Input and Output",
+        "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays pin state in console graph. (`npm install barcli`)",
+        "images": [
+          {"file": "expander-MUXSHIELD2-mixed-console-graph.png", "title": "Example output"}
+        ]
+      },
+      {
+        "file": "expander-MUXSHIELD2-analog-read.js",
+        "title": "Expander - MUXSHIELD2, Analog Sensors",
+        "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays value of potentiometers in console graph. (`npm install barcli`)"
       }
 
     ]
