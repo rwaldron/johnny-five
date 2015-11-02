@@ -845,16 +845,16 @@ exports["Temperature -- SI7020"] = {
   data: function(test) {
     test.expect(8);
 
-    test.equal(this.i2cRead.callCount, 1);
+    test.equal(this.i2cRead.callCount, 2);
     // address
-    test.equal(this.i2cRead.lastCall.args[0], 0x40);
+    test.equal(this.i2cRead.firstCall.args[0], 0x40);
     // register
-    test.equal(this.i2cRead.lastCall.args[1], 0xE3);
+    test.equal(this.i2cRead.firstCall.args[1], 0xE3);
     // byte count
-    test.equal(this.i2cRead.lastCall.args[2], 2);
+    test.equal(this.i2cRead.firstCall.args[2], 2);
 
     var spy = this.sandbox.spy();
-    var read = this.i2cRead.lastCall.args[3];
+    var read = this.i2cRead.firstCall.args[3];
 
     this.temperature.on("data", spy);
 
