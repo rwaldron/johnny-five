@@ -1162,27 +1162,6 @@ exports["Proximity: EVS_EV3_IR"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
-    test.expect(3);
-
-    this.i2cConfig.reset();
-
-    new Proximity({
-      controller: "LIDARLITE",
-      address: 0xff,
-      bus: "i2c-1",
-      board: this.board
-    });
-
-    var forwarded = this.i2cConfig.lastCall.args[0];
-
-    test.equal(this.i2cConfig.callCount, 1);
-    test.equal(forwarded.address, 0xff);
-    test.equal(forwarded.bus, "i2c-1");
-
-    test.done();
-  },
-
   shape: function(test) {
     test.expect(proto.length + instance.length);
 
