@@ -30,9 +30,7 @@ node eg/multi-SI7020.js
 
 ```javascript
 var five = require("../");
-var board = new five.Board({
-  port: "/dev/cu.usbmodem1421"
-});
+var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({

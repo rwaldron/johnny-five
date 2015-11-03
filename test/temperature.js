@@ -875,7 +875,7 @@ exports["Temperature -- HTU21D"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.temperature = new Temperature({
       controller: "HTU21D",
@@ -928,24 +928,24 @@ exports["Temperature -- HTU21D"] = {
   data: function(test) {
     test.expect(6);
 
-    test.equal(this.i2cReadOnce.callCount, 1);
-    test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
+    test.equal(this.i2cRead.callCount, 2);
+    test.deepEqual(this.i2cRead.firstCall.args.slice(0, 3), [
       0x40, // address
-      0xE5, // register
-      3,    // data length
+      0xE3, // register
+      2,    // data length
     ]);
 
 
     var spy = this.sandbox.spy();
-    var read = this.i2cReadOnce.lastCall.args[3];
+    var read = this.i2cRead.firstCall.args[3];
 
     this.temperature.on("data", spy);
 
-    read([0x00, 0x00, 0x00]); // humidity
-    read = this.i2cReadOnce.lastCall.args[3];
-    read([0x67, 0x0F, 0x00]); // temperature
-    read = this.i2cReadOnce.lastCall.args[3];
-    read([0x00, 0x00, 0x00]); // humidity again
+    read([0x67, 0x00]); // humidity
+    read = this.i2cRead.firstCall.args[3];
+    read([0x67, 0x00]); // temperature
+    read = this.i2cRead.firstCall.args[3];
+    read([0x67, 0x00]); // humidity again
 
     this.clock.tick(10);
 
