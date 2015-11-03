@@ -9,25 +9,23 @@ board.on("ready", function() {
 
   if (argv.show === 1) {
     keypad = new five.Keypad({
-      controller: "QTOUCH" // or "AT42QT1070"
+      controller: "QTOUCH", // or "AT42QT1070"
     });
   }
 
   if (argv.show === 2) {
     keypad = new five.Keypad({
-      controller: "QTOUCH" // or "AT42QT1070",
+      controller: "QTOUCH", // or "AT42QT1070",
       keys: [
-        ["!", "@", "#"],
-        ["$", "%", "^"],
-        ["&"],
+        ["1", "2", "3"]
       ]
     });
   }
 
   if (argv.show === 3) {
     keypad = new five.Keypad({
-      controller: "QTOUCH" // or "AT42QT1070",
-      keys: ["!", "@", "#", "$", "%", "^", "&"]
+      controller: "QTOUCH", // or "AT42QT1070",
+      keys: ["1", "2", "3"]
     });
   }
 
