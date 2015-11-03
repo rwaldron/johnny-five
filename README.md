@@ -415,6 +415,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Intel Edison + Grove - Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-relay-edison.md)
 - [Intel Edison + Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo-edison.md)
 - [Intel Edison + Grove - Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch-edison.md)
+- [Intel Edison + Grove - Q Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-q-touch.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
