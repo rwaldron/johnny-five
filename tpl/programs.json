@@ -517,6 +517,10 @@
       {
         "file": "keypad-MPR121QR2.js",
         "title": "Keypad - MPR121QR2"
+      },
+      {
+        "file": "keypad-QTOUCH.js",
+        "title": "Keypad - Grove QTouch"
       }
     ]
   },
