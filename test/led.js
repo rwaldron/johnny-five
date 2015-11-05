@@ -69,23 +69,6 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 function testLedShape(test) {
   test.expect(protoProperties.length + instanceProperties.length);
 
@@ -117,9 +100,10 @@ function testLedRgbShape(test) {
 exports["Led - Digital"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.digitalWrite = sinon.spy(this.board.io, "digitalWrite");
-    this.pinMode = sinon.spy(this.board.io, "pinMode");
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
 
     this.led = new Led({
       pin: 13,
@@ -131,7 +115,7 @@ exports["Led - Digital"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -238,7 +222,7 @@ exports["Led - Digital"] = {
     test.equal(this.digitalWrite.callCount, 2);
 
     this.led.stop().off();
-    spy = sinon.spy();
+    spy = this.sandbox.spy();
     this.led.strobe(100, spy);
 
     this.clock.tick(100);
@@ -247,7 +231,7 @@ exports["Led - Digital"] = {
     test.equal(spy.callCount, 2);
 
     this.led.stop().off();
-    spy = sinon.spy();
+    spy = this.sandbox.spy();
     this.led.strobe(spy);
 
     this.clock.tick(100);
@@ -278,10 +262,11 @@ exports["Led - Digital"] = {
 
 exports["Led - PWM (Analog)"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(this.board.io, "analogWrite");
-    this.pinMode = sinon.spy(this.board.io, "pinMode");
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
 
     this.led = new Led({
       pin: 11,
@@ -293,7 +278,7 @@ exports["Led - PWM (Analog)"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -374,11 +359,12 @@ exports["Led - PWM (Analog)"] = {
 
 exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
     this.board = newBoard();
-    this.normalize = sinon.spy(Board.Pins, "normalize");
-    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
-    this.pinMode = sinon.spy(this.board.io, "pinMode");
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.normalize = this.sandbox.spy(Board.Pins, "normalize");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
 
     this.led = new Led({
       pin: 0,
@@ -391,7 +377,7 @@ exports["Led - PCA9685 (I2C)"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -499,6 +485,8 @@ exports["Led.Array"] = {
       repl: false
     });
 
+    this.sandbox = sinon.sandbox.create();
+
     Led.purge();
 
     this.a = new Led({
@@ -521,7 +509,7 @@ exports["Led.Array"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(Led.prototype, method);
+      this[method] = this.sandbox.spy(Led.prototype, method);
     }.bind(this));
 
     done();
@@ -529,7 +517,7 @@ exports["Led.Array"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -557,6 +545,7 @@ exports["Led.Array"] = {
 exports["Led.RGB"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -567,9 +556,15 @@ exports["Led.RGB"] = {
       board: this.board
     });
 
-    this.analog = sinon.spy(this.board.io, "analogWrite");
-    this.write = sinon.spy(this.ledRgb, "write");
+    this.analog = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.write = this.sandbox.spy(this.ledRgb, "write");
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -845,8 +840,8 @@ exports["Led.RGB"] = {
   toggle: function(test) {
     test.expect(7);
 
-    var on = sinon.spy(this.ledRgb, "on");
-    var off = sinon.spy(this.ledRgb, "off");
+    var on = this.sandbox.spy(this.ledRgb, "on");
+    var off = this.sandbox.spy(this.ledRgb, "off");
 
     // Should default to off
     test.ok(!this.ledRgb.isOn);
@@ -924,6 +919,7 @@ exports["Led.RGB"] = {
 exports["Led.RGB - Common Anode"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -935,8 +931,14 @@ exports["Led.RGB - Common Anode"] = {
       board: this.board
     });
 
-    this.analog = sinon.spy(this.board.io, "analogWrite");
+    this.analog = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -964,6 +966,7 @@ exports["Led.RGB - Common Anode"] = {
 exports["Led.RGB - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -975,14 +978,14 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
       board: this.board
     });
 
-    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -1041,6 +1044,7 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
 exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -1053,14 +1057,14 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
       board: this.board
     });
 
-    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -1102,18 +1106,47 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
 exports["Led.RGB - BlinkM (I2C)"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       controller: "BlinkM",
       board: this.board
     });
 
-    this.i2cWrite = sinon.spy(this.board.io, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
   shape: testLedRgbShape,
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Led.RGB({
+      controller: "BlinkM",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
 
   write: function(test) {
     test.expect(6);
@@ -1143,14 +1176,21 @@ exports["Led.RGB - BlinkM (I2C)"] = {
 exports["Led.RGB - Esplora"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
     this.ledRgb = new Led.RGB({
       controller: "Esplora",
       board: this.board
     });
 
-    this.analog = sinon.spy(this.board.io, "analogWrite");
+    this.analog = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
 
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -1196,6 +1236,17 @@ exports["Led.RGB - Esplora"] = {
 };
 
 exports["Led - Default Pin w/ Firmata"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
   shape: function(test) {
     test.expect(7);
 
@@ -1220,7 +1271,7 @@ exports["Led - Default Pin w/ Firmata"] = {
     test.equal(new Led(14).mode, 1);
 
     // 12 is PWM, but the mechanism is stubbed
-    sinon.stub(five.Board.Pins.prototype, "isPwm").returns(true);
+    this.sandbox.stub(five.Board.Pins.prototype, "isPwm").returns(true);
 
     test.equal(new Led(12).mode, 3);
 
