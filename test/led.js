@@ -546,6 +546,7 @@ exports["Led.RGB"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
 
     this.ledRgb = new Led.RGB({
       pins: {
@@ -556,7 +557,6 @@ exports["Led.RGB"] = {
       board: this.board
     });
 
-    this.analog = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
     this.write = this.sandbox.spy(this.ledRgb, "write");
 
     done();
@@ -616,10 +616,10 @@ exports["Led.RGB"] = {
     test.expect(4);
 
     this.ledRgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
-    test.ok(this.analog.callCount, 3);
-    test.ok(this.analog.calledWith(9, 0xbb));
-    test.ok(this.analog.calledWith(10, 0xcc));
-    test.ok(this.analog.calledWith(11, 0xaa));
+    test.ok(this.analogWrite.callCount, 3);
+    test.ok(this.analogWrite.calledWith(9, 0xbb));
+    test.ok(this.analogWrite.calledWith(10, 0xcc));
+    test.ok(this.analogWrite.calledWith(11, 0xaa));
 
     test.done();
   },
@@ -1277,4 +1277,52 @@ exports["Led - Default Pin w/ Firmata"] = {
 
     test.done();
   }
+};
+
+exports["Led - Cycling Operations"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.ledStop = this.sandbox.spy(five.Led.prototype, "stop");
+    this.rgbStop = this.sandbox.spy(five.Led.RGB.prototype, "stop");
+
+    this.led = new Led({
+      pin: 11,
+      board: this.board
+    });
+
+    this.rgb = new Led.RGB({
+      pins: [3, 5, 6],
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  ledCallsStopBeforeNextCyclingOperation: function(test) {
+    test.expect(1);
+
+    this.led.blink();
+    this.led.fade();
+    this.led.pulse();
+
+    test.equal(this.ledStop.callCount, 3);
+    test.done();
+  },
+
+  rgbCallsStopBeforeNextCyclingOperation: function(test) {
+    test.expect(1);
+
+    this.rgb.blink();
+
+    test.equal(this.rgbStop.callCount, 1);
+    test.done();
+  },
+
 };
