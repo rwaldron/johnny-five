@@ -257,7 +257,22 @@ exports["Led - Digital"] = {
     test.ok(!this.led.isRunning);
 
     test.done();
-  }
+  },
+
+  correctReturns: function(test) {
+    test.expect(5);
+
+    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+
+    test.equal(this.led.blink(), this.led);
+    test.equal(this.led.on(), this.led);
+    test.equal(this.led.off(), this.led);
+    test.equal(this.led.toggle(), this.led);
+    test.equal(this.led.stop(), this.led);
+
+    test.done();
+  },
+
 };
 
 exports["Led - PWM (Analog)"] = {
@@ -354,7 +369,26 @@ exports["Led - PWM (Analog)"] = {
     test.equal(this.analogWrite.callCount, 3);
 
     test.done();
-  }
+  },
+
+  correctReturns: function(test) {
+    test.expect(10);
+
+    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+
+    test.equal(this.led.blink(), this.led);
+    test.equal(this.led.brightness(), this.led);
+    test.equal(this.led.fade(), this.led);
+    test.equal(this.led.fadeIn(), this.led);
+    test.equal(this.led.fadeOut(), this.led);
+    test.equal(this.led.on(), this.led);
+    test.equal(this.led.off(), this.led);
+    test.equal(this.led.toggle(), this.led);
+    test.equal(this.led.pulse(), this.led);
+    test.equal(this.led.stop(), this.led);
+
+    test.done();
+  },
 };
 
 exports["Led - PCA9685 (I2C)"] = {
@@ -1285,6 +1319,7 @@ exports["Led - Cycling Operations"] = {
     this.sandbox = sinon.sandbox.create();
     this.ledStop = this.sandbox.spy(five.Led.prototype, "stop");
     this.rgbStop = this.sandbox.spy(five.Led.RGB.prototype, "stop");
+    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
 
     this.led = new Led({
       pin: 11,
@@ -1306,13 +1341,15 @@ exports["Led - Cycling Operations"] = {
   },
 
   ledCallsStopBeforeNextCyclingOperation: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.led.blink();
     this.led.fade();
     this.led.pulse();
 
     test.equal(this.ledStop.callCount, 3);
+    // fade and pulse are animations
+    test.equal(this.enqueue.callCount, 2);
     test.done();
   },
 
