@@ -82,7 +82,7 @@ exports["Sensor - Analog"] = {
       pin: 1,
       state: {
         enabled: true,
-        booleanBarrier: 512,
+        booleanBarrier: null,
         scale: null,
         value: 0, // Starts at null, but gets updated before first checks
         freq: 25
@@ -1092,9 +1092,9 @@ exports["Sensor - Analog"] = {
   booleanAt: function(test) {
     var callback = this.analogRead.args[0][1],
       expected = false;
-    test.expect(2);
+    test.expect(4);
 
-    this.sensor.booleanAt(512);
+    // Default of 50% (512)
 
     this.sensor.on("data", function() {
       test.equals(this.boolean, expected);
@@ -1106,8 +1106,50 @@ exports["Sensor - Analog"] = {
     callback(600);
     this.clock.tick(25);
 
+    // Explicit value
+
+    this.sensor.booleanAt(768);
+    expected = false;
+    callback(760);
+    this.clock.tick(25);
+    expected = true;
+    callback(780);
+    this.clock.tick(25);
+
     test.done();
   },// ./booleanAt: function(test)
+
+  scaledBooleanAt: function(test) {
+    var callback = this.analogRead.args[0][1],
+      expected = false;
+    test.expect(4);
+
+    this.sensor.scale(100, 200);
+
+    // Default of 50% (150)
+
+    this.sensor.on("data", function() {
+      test.equals(this.boolean, expected);
+    });
+
+    callback(500);
+    this.clock.tick(25);
+    expected = true;
+    callback(600);
+    this.clock.tick(25);
+
+    // Explicit value
+
+    this.sensor.booleanAt(175);
+    expected = false;
+    callback(760);
+    this.clock.tick(25);
+    expected = true;
+    callback(780);
+    this.clock.tick(25);
+
+    test.done();
+  },
 
   constrained: function(test) {
     var callback = this.analogRead.args[0][1];
