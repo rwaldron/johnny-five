@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Using Johnny-Five with Grove's RGB LCD and Temperature components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.
+Using Johnny-Five with Grove's RGB LCD and Thermometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform.
 
 
 
@@ -30,7 +30,7 @@ board.on("ready", function() {
 
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
-  var temperature = new five.Temperature({
+  var temperature = new five.Thermometer({
     controller: "GROVE",
     pin: "A0"
   });

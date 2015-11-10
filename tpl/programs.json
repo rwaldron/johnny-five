@@ -1047,7 +1047,7 @@
   },
   {
     "topic": "Photon Weather Shield",
-    "classes": ["Sensor", "Pin", "Temperature", "Barometer", "Hygrometer"],
+    "classes": ["Sensor", "Pin", "Thermometer", "Barometer", "Hygrometer"],
     "examples": [
       {
         "file": "sensor-photon-weather-shield-moisture.js",
@@ -1236,7 +1236,7 @@
       {
         "file": "grove-lcd-rgb-temperature-display-edison.js",
         "title": "Intel Edison + Grove - LCD RGB temperature display",
-        "description": "Using Johnny-Five with Grove's RGB LCD and Temperature components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+        "description": "Using Johnny-Five with Grove's RGB LCD and Thermometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-relay-edison.js",
@@ -1263,7 +1263,7 @@
   },
   {
     "topic": "Grove IoT Kit (Seeed Studio)",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo"],
     "examples": [
       {
         "file": "grove-led.js",
@@ -1336,7 +1336,7 @@
   },
   {
     "topic": "TinkerKit",
-    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
+    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Thermometer", "Servo"],
     "examples": [
       {
         "file": "tinkerkit-accelerometer.js",

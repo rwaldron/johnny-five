@@ -5,7 +5,7 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-  var temp = new five.Temperature({
+  var temp = new five.Thermometer({
     controller: "SI7020",
     port: "A"
   });
