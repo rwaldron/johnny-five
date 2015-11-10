@@ -852,7 +852,7 @@
   },
   {
     "topic": "Sensors",
-    "classes": ["Sensor", "Accelerometer", "Gyro", "Temperature"],
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Thermometer"],
     "examples": [
       {
         "file": "sensor.js",
@@ -1151,7 +1151,7 @@
   },
   {
     "topic": "Intel Edison + Grove IoT Kit",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo", "Joystick"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Joystick"],
     "examples": [
       {
         "file": "grove-accelerometer-adxl345-edison.js",
