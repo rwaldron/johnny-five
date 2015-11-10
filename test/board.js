@@ -1,16 +1,13 @@
-require("es6-shim");
-
-
-var MockFirmata = require("./util/mock-firmata"),
-  SerialPort = require("./util/mock-serial").SerialPort,
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
+  SerialPort = mocks.SerialPort,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  __ = require("../lib/fn.js"),
-  _ = require("lodash"),
   Board = five.Board,
   Boards = five.Boards,
   Virtual = Board.Virtual,
-  Repl = five.Repl;
+  Repl = five.Repl,
+  Fn = five.Fn;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -743,7 +740,7 @@ exports["instance"] = {
 
   cache: function(test) {
     test.expect(1);
-    test.ok(_.contains(five.Board.cache, this.board));
+    test.ok(five.Board.cache.includes(this.board));
     test.done();
   },
 
@@ -851,14 +848,14 @@ exports["fn"] = {
   cache: function(test) {
     test.expect(6);
 
-    test.equal(__.scale(10, 0, 20, 0, 100), 50, "scale up");
-    test.equal(__.scale(10, 0, 20, 100, 0), 50, "scale up reversed");
+    test.equal(Fn.scale(10, 0, 20, 0, 100), 50, "scale up");
+    test.equal(Fn.scale(10, 0, 20, 100, 0), 50, "scale up reversed");
 
-    test.equal(__.scale(10, 0, 10, 0, 180), 180, "max is 180");
-    test.equal(__.scale(10, 0, 10, 180, 0), 0, "max is 0");
+    test.equal(Fn.scale(10, 0, 10, 0, 180), 180, "max is 180");
+    test.equal(Fn.scale(10, 0, 10, 180, 0), 0, "max is 0");
 
-    test.equal(__.scale(0, 0, 10, 180, 0), 180, "min is 180");
-    test.equal(__.scale(0, 0, 10, 0, 180), 0, "min is 0");
+    test.equal(Fn.scale(0, 0, 10, 180, 0), 180, "min is 180");
+    test.equal(Fn.scale(0, 0, 10, 0, 180), 0, "min is 0");
 
     test.done();
   }

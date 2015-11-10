@@ -1,7 +1,5 @@
-require("es6-shim");
-
-
-var MockFirmata = require("./util/mock-firmata"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board;

@@ -1,6 +1,7 @@
-var five = require("../lib/johnny-five.js"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   sinon = require("sinon"),
-  MockFirmata = require("./util/mock-firmata"),
+  five = require("../lib/johnny-five.js"),
   Board = five.Board,
   Piezo = five.Piezo;
 

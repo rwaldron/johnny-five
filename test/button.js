@@ -1,5 +1,6 @@
 var sinon = require("sinon");
-var MockFirmata = require("./util/mock-firmata");
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata;
 var EVS = require("../lib/evshield");
 var five = require("../lib/johnny-five");
 var Button = five.Button;

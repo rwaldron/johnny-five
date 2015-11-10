@@ -1,5 +1,6 @@
 var Emitter = require("events").EventEmitter;
-var MockFirmata = require("./util/mock-firmata");
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata;
 var controller = require("./util/mock-expander-controller");
 var five = require("../lib/johnny-five.js");
 var sinon = require("sinon");
