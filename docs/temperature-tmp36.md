@@ -32,7 +32,7 @@ node eg/temperature-tmp36.js
 var five = require("johnny-five");
 
 five.Board().on("ready", function() {
-  var temperature = new five.Temperature({
+  var temperature = new five.Thermometer({
     controller: "TMP36",
     pin: "A0"
   });

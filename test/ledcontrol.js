@@ -1,6 +1,7 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./util/mock-firmata"),
+  mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   Board = five.Board,
   LedControl = five.LedControl,
   LedMatrix = five.Led.Matrix;

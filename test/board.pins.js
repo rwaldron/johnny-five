@@ -1,4 +1,4 @@
-var pins = require("./util/mock-pins");
+var mocks = require("mock-firmata");
 var Pins = require("../lib/board.pins.js");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
@@ -6,7 +6,7 @@ exports["Pin"] = {
   setUp: function(done) {
     this.pins = new Pins({
       io: {
-        pins: pins.UNO
+        pins: mocks.Pins.UNO
       }
     });
 

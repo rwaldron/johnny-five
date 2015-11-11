@@ -1,8 +1,9 @@
-var MockFirmata = require("./util/mock-firmata"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  Temperature = five.Temperature;
+  Thermometer = five.Thermometer;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -18,26 +19,9 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 // Global suite setUp
 exports.setUp = function(done) {
-  // Base Shape for all Temperature tests
+  // Base Shape for all Thermometer tests
   this.proto = [];
   this.instance = [{
     name: "celsius"
@@ -69,7 +53,7 @@ exports.tearDown = function(done) {
 };
 
 function createAnalog(toCelsius) {
-  return new Temperature({
+  return new Thermometer({
     pins: ["A0"],
     toCelsius: toCelsius,
     freq: this.freq,
@@ -157,8 +141,15 @@ function testShape(test) {
   test.done();
 }
 
+exports["Thermometer -- Temperature alias"] = {
+  alias: function(test) {
+    test.expect(1);
+    test.equal(five.Temperature, five.Thermometer);
+    test.done();
+  }
+};
 
-exports["Temperature -- ANALOG"] = {
+exports["Thermometer -- ANALOG"] = {
   setUp: function(done) {
     this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
     this.analogRead.yields(0);
@@ -178,7 +169,7 @@ exports["Temperature -- ANALOG"] = {
 
   "picks aref from options": function(test) {
     this.board.io.aref = 3.3;
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       aref: 1.8,
       pins: ["A0"],
       freq: this.freq,
@@ -245,7 +236,7 @@ exports["Temperature -- ANALOG"] = {
 
   LM335: {
     setUp: function(done) {
-      this.temperature = new Temperature({
+      this.temperature = new Thermometer({
         controller: "LM335",
         pins: ["A0"],
         freq: 100,
@@ -272,7 +263,7 @@ exports["Temperature -- ANALOG"] = {
   },
   LM35: {
     setUp: function(done) {
-      this.temperature = new Temperature({
+      this.temperature = new Thermometer({
         controller: "LM35",
         pins: ["A0"],
         freq: 100,
@@ -301,7 +292,7 @@ exports["Temperature -- ANALOG"] = {
 
   TMP36: {
     setUp: function(done) {
-      this.temperature = new Temperature({
+      this.temperature = new Thermometer({
         controller: "TMP36",
         pins: ["A0"],
         freq: this.freq,
@@ -331,9 +322,9 @@ exports["Temperature -- ANALOG"] = {
 
   TMP102: {
     setUp: function(done) {
-      this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-      this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-      this.temperature = new Temperature({
+      this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+      this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+      this.temperature = new Thermometer({
         controller: "TMP102",
         freq: this.freq,
         board: this.board
@@ -344,7 +335,7 @@ exports["Temperature -- ANALOG"] = {
 
     tearDown: function(done) {
       Board.purge();
-      restore(this);
+      this.sandbox.restore();
       done();
     },
 
@@ -375,7 +366,7 @@ exports["Temperature -- ANALOG"] = {
     },
 
     change: function(test) {
-      var changeHandler = sinon.spy();
+      var changeHandler = this.sandbox.spy();
       var raw = this.i2cRead.args[0][3];
 
       test.expect(1);
@@ -406,7 +397,7 @@ exports["Temperature -- ANALOG"] = {
 
   GROVE: {
     setUp: function(done) {
-      this.temperature = new Temperature({
+      this.temperature = new Thermometer({
         controller: "GROVE",
         pin: "A0",
         freq: 100,
@@ -434,7 +425,7 @@ exports["Temperature -- ANALOG"] = {
 
   TINKERKIT: {
     setUp: function(done) {
-      this.temperature = new Temperature({
+      this.temperature = new Thermometer({
         controller: "TINKERKIT",
         pin: "A0",
         freq: 100,
@@ -462,7 +453,7 @@ exports["Temperature -- ANALOG"] = {
 };
 
 function createDS18B20(pin, address) {
-  return new Temperature({
+  return new Thermometer({
     controller: "DS18B20",
     pin: pin,
     address: address,
@@ -471,7 +462,7 @@ function createDS18B20(pin, address) {
   });
 }
 
-exports["Temperature -- DS18B20"] = {
+exports["Thermometer -- DS18B20"] = {
 
   setUp: function(done) {
     this.pin = 2;
@@ -486,7 +477,7 @@ exports["Temperature -- DS18B20"] = {
   },
 
   tearDown: function(done) {
-    Temperature.Drivers.clear();
+    Thermometer.Drivers.clear();
     done();
   },
 
@@ -624,13 +615,13 @@ exports["Temperature -- DS18B20"] = {
   }
 };
 
-exports["Temperature -- MPU6050"] = {
+exports["Thermometer -- MPU6050"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       controller: "MPU6050",
       freq: 100,
       board: this.board
@@ -644,7 +635,7 @@ exports["Temperature -- MPU6050"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "MPU6050",
       address: 0xff,
       bus: "i2c-1",
@@ -695,7 +686,7 @@ exports["Temperature -- MPU6050"] = {
   }
 };
 
-exports["Temperature -- MPL115A2"] = {
+exports["Thermometer -- MPL115A2"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
@@ -703,7 +694,7 @@ exports["Temperature -- MPL115A2"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       controller: "MPL115A2",
       board: this.board,
       freq: 10
@@ -712,18 +703,12 @@ exports["Temperature -- MPL115A2"] = {
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
-
   fwdOptionsToi2cConfig: function(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "MPL115A2",
       address: 0xff,
       bus: "i2c-1",
@@ -788,13 +773,13 @@ exports["Temperature -- MPL115A2"] = {
   }
 };
 
-exports["Temperature -- SI7020"] = {
+exports["Thermometer -- SI7020"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       controller: "SI7020",
       board: this.board,
       freq: 10
@@ -808,7 +793,7 @@ exports["Temperature -- SI7020"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "SI7020",
       address: 0xff,
       bus: "i2c-1",
@@ -829,7 +814,7 @@ exports["Temperature -- SI7020"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "SI7020",
       address: 0xff,
       bus: "i2c-1",
@@ -871,13 +856,13 @@ exports["Temperature -- SI7020"] = {
   }
 };
 
-exports["Temperature -- HTU21D"] = {
+exports["Thermometer -- HTU21D"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       controller: "HTU21D",
       board: this.board,
       freq: 10
@@ -891,7 +876,7 @@ exports["Temperature -- HTU21D"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "HTU21D",
       address: 0xff,
       bus: "i2c-1",
@@ -912,7 +897,7 @@ exports["Temperature -- HTU21D"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "SI7020",
       address: 0xff,
       bus: "i2c-1",
@@ -980,7 +965,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
   read(data);
 }
 
-exports["Temperature -- MPL3115A2"] = {
+exports["Thermometer -- MPL3115A2"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
@@ -988,7 +973,7 @@ exports["Temperature -- MPL3115A2"] = {
     this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
-    this.temperature = new Temperature({
+    this.temperature = new Thermometer({
       controller: "MPL3115A2",
       board: this.board,
       freq: 10
@@ -1002,7 +987,7 @@ exports["Temperature -- MPL3115A2"] = {
 
     this.i2cConfig.reset();
 
-    new Temperature({
+    new Thermometer({
       controller: "MPL3115A2",
       address: 0xff,
       bus: "i2c-1",

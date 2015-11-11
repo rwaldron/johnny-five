@@ -1,4 +1,5 @@
-var MockFirmata = require("./util/mock-firmata"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   sinon = require("sinon"),

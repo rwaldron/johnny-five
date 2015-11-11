@@ -1,4 +1,5 @@
-var MockFirmata = require("./util/mock-firmata"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -88,7 +89,7 @@ exports["IMU -- MPU6050"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["accelerometer", "temperature", "gyro"]);
+    test.deepEqual(this.imu.components, ["accelerometer", "thermometer", "gyro"]);
 
     test.done();
   },
@@ -215,7 +216,7 @@ exports["Multi -- MPL115A2"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["barometer", "temperature"]);
+    test.deepEqual(this.imu.components, ["barometer", "thermometer"]);
 
     test.done();
   },
@@ -272,7 +273,7 @@ exports["Multi -- HTU21D"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["hygrometer", "temperature"]);
+    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
 
     test.done();
   },
@@ -331,7 +332,7 @@ exports["Multi -- MPL3115A2"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["barometer", "altimeter", "temperature"]);
+    test.deepEqual(this.imu.components, ["barometer", "altimeter", "thermometer"]);
 
     test.done();
   },

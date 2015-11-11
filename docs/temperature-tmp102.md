@@ -33,7 +33,7 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var temperature = new five.Temperature({
+  var temperature = new five.Thermometer({
     controller: "TMP102"
   });
 
