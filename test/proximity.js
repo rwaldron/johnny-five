@@ -1054,8 +1054,7 @@ exports["Proximity: HCSR04I2C"] = {
     this.clock = sinon.useFakeTimers();
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = sinon.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, BYTES_TO_READ, callback) {
-      var pulseval = 1000;
-      // Split to HIGH and LOW
+      // Use this for 1000 us as duration (HIGH and LOW)
       callback([3, 232]);
     });
 
