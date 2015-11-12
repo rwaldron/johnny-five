@@ -3,7 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var proximity = new five.Proximity({
-    controller: "HCSR04I2C",
+    controller: "HCSR04I2CBACKPACK",
     freq: 100,
   });
 

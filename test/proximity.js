@@ -1061,7 +1061,7 @@ exports["Proximity: HCSR04I2C"] = {
     });
 
     this.proximity = new Proximity({
-      controller: "HCSR04I2C",
+      controller: "HCSR04I2CBACKPACK",
       freq: 100,
     });
 
