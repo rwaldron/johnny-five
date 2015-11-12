@@ -1,15 +1,17 @@
 <!--remove-start-->
 
-# Proximity - HC-SR04
+# Proximity - HC-SR04 I2C Backpack
 
 <!--remove-end-->
 
 
-Ping proximity example for use with an `HCSR04` sensor and I2C backpack. Standard
-firmata should be used or any other standard I2C capable IO Plugin. See
-[HCSR04 Backpack guide](https://github.com/ajfisher/nodebots-hcsr04) for more info.
+Ping Proximity example that uses an HCSR04 ultrasonic sensor and an I2C backpack ([see backpack documentation](https://github.com/ajfisher/nodebots-hcsr04).
 
-##### Breadboard for "Proximity - HC-SR04"
+
+
+
+
+##### Breadboard for "Proximity - HC-SR04 I2C Backpack"
 
 
 
@@ -35,6 +37,7 @@ var board = new five.Board();
 board.on("ready", function() {
   var proximity = new five.Proximity({
     controller: "HCSR04I2C",
+    freq: 100,
   });
 
   proximity.on("data", function() {

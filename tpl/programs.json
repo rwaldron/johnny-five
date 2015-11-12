@@ -631,7 +631,7 @@
       {
         "file": "proximity-hcsr04-i2c.js",
         "title": "Proximity - HC-SR04 I2C Backpack",
-        "description": "Ping Proximity example that uses an HCSR04 ultrasonic sensor and an I2C backpack ([see backpack documentation](https://github.com/ajfisher/nodebots-hcsr04).
+        "description": "Ping Proximity example that uses an HCSR04 ultrasonic sensor and an I2C backpack ([see backpack documentation](https://github.com/ajfisher/nodebots-hcsr04)."
       },
       {
         "file": "proximity-lidarlite.js",
