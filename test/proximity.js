@@ -46,7 +46,7 @@ var instance = [{
   name: "centimeters"
 }, {
   name: "cm"
-},{
+}, {
   name: "inches"
 }, {
   name: "in"
@@ -1049,6 +1049,86 @@ exports["Proximity: HCSR04"] = {
   }
 };
 
+exports["Proximity: HCSR04I2C"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cReadOnce = sinon.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, BYTES_TO_READ, callback) {
+      // Use this for 1000 us as duration (HIGH and LOW)
+      var pulseval = 1000;
+      callback([pulseval>>8, pulseval & 0xFF]);
+    });
+
+    this.proximity = new Proximity({
+      controller: "HCSR04I2CBACKPACK",
+      freq: 100,
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.i2cConfig.restore();
+    this.i2cReadOnce.restore();
+    this.clock.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(proto.length + instance.length);
+
+    proto.forEach(function(method) {
+      test.equal(typeof this.proximity[method.name], "function");
+    }, this);
+
+    instance.forEach(function(property) {
+      test.notEqual(typeof this.proximity[property.name], 0);
+    }, this);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var spy = sinon.spy();
+    test.expect(1);
+
+    this.proximity.on("data", spy);
+    this.clock.tick(100);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(1);
+
+    var spy = sinon.spy();
+
+    this.proximity.on("change", spy);
+
+    this.clock.tick(100);
+
+    test.ok(spy.called);
+    test.done();
+  },
+
+  within: function(test) {
+    var spy = sinon.spy();
+    test.expect(2);
+
+    this.clock.tick(250);
+
+    this.proximity.within([0, 120], "inches", function() {
+      test.equal(this.inches, 6.7);
+      spy();
+    });
+
+    this.clock.tick(100);
+    test.ok(spy.calledOnce);
+    test.done();
+  }
+};
+
 exports["Proximity: LIDARLITE"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -1059,7 +1139,7 @@ exports["Proximity: LIDARLITE"] = {
       var cm = 15;
 
       // Split to HIGH and LOW
-      callback([ cm >> 8, cm & 0xff ]);
+      callback([cm >> 8, cm & 0xff]);
     });
 
     this.proximity = new Proximity({

@@ -629,6 +629,11 @@
         "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
       },
       {
+        "file": "proximity-hcsr04-i2c.js",
+        "title": "Proximity - HC-SR04 I2C Backpack",
+        "description": "Ping Proximity example that uses an HCSR04 ultrasonic sensor and an I2C backpack ([see backpack documentation](https://github.com/ajfisher/nodebots-hcsr04)."
+      },
+      {
         "file": "proximity-lidarlite.js",
         "title": "Proximity - LIDAR-Lite",
         "description": "Basic LIDAR-Lite example."
