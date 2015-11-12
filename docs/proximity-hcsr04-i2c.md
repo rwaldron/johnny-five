@@ -6,7 +6,8 @@
 
 
 Ping proximity example for use with an `HCSR04` sensor and I2C backpack. Standard
-firmata should be used or any other standard I2C capable IO Plugin.
+firmata should be used or any other standard I2C capable IO Plugin. See
+[HCSR04 Backpack guide](https://github.com/ajfisher/nodebots-hcsr04) for more info.
 
 ##### Breadboard for "Proximity - HC-SR04"
 
