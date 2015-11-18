@@ -454,7 +454,10 @@ exports["Servo - Continuous"] = {
   },
 
   deadband: function(test) {
-    test.expect(2);
+    test.expect(6);
+
+    test.deepEqual(this.a.deadband, [90, 90]);
+    test.deepEqual(this.b.deadband, [90, 90]);
 
     this.continuousServo = new Servo.Continuous({
       pin: 5,
@@ -467,6 +470,19 @@ exports["Servo - Continuous"] = {
 
     this.continuousServo.ccw(0.5);
     test.equal(this.continuousServo.value, 42);
+
+
+    this.to = sinon.stub(this.continuousServo, "to");
+
+    this.continuousServo.stop();
+
+    test.equal(this.to.lastCall.args[0], 90);
+
+
+    this.continuousServo.deadband = [100, 105];
+    this.continuousServo.stop();
+
+    test.equal(this.to.lastCall.args[0], 103);
 
     test.done();
   },
