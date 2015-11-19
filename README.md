@@ -137,7 +137,8 @@ Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/12001)
 - Download [Arduino IDE](http://arduino.cc/en/main/software)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
-- Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
+- Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmataPlus
+    + StandardFirmataPlus is available in Firmata v2.5.0 or greater
 - Click the "Upload" button.
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
