@@ -7,8 +7,14 @@ board.on("ready", function() {
     pin: "BBS1"
   });
 
+  proximity.on("data", function() {
+    console.log("Proximity: ");
+    console.log("  cm  : ", this.cm);
+    console.log("  in  : ", this.in);
+    console.log("-----------------");
+  });
+
   proximity.on("change", function() {
     console.log("The obstruction has moved.");
-    console.log(this.cm + "cm", this.in + "in");
   });
 });
