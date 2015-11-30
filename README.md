@@ -208,6 +208,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
 - [LED - RGB Intensity](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-intensity.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
+- [LED - Rainbow BlinkM](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-BLINKM.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
 - [LED - Digital Clock, HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock-HT16K33.md)
 - [LED - Digital Clock, Dual Displays](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock-dual.md)

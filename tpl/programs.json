@@ -215,6 +215,14 @@
         ]
       },
       {
+        "file": "led-rgb-BLINKM.js",
+        "title": "LED - Rainbow BlinkM",
+        "description": "Demonstrates use of a BlinkM by cycling through rainbow colors.",
+        "breadboards": [
+          {"name": "tessel-led-blinkm-basic", "title": "Tessel - BlinkM Basick", "description": "emonstrates use of a BlinkM, with a Tessel 2, by cycling through rainbow colors."}
+        ]
+      },
+      {
         "name": "led-digits-clock",
         "title": "LED - Digital Clock",
         "description": "Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.",

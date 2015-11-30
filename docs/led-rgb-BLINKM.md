@@ -1,25 +1,23 @@
 <!--remove-start-->
 
-# LED - Rainbow
+# LED - Rainbow BlinkM
 
 <!--remove-end-->
 
 
-Demonstrates use of an RGB LED (common cathode) by cycling through rainbow colors. Requires RGB LED on pins that support PWM (usually denoted by ~).
+Demonstrates use of a BlinkM by cycling through rainbow colors.
 
 
 
 
 
-##### Common Cathode RGB LED. (Arduino UNO)
+##### Tessel - BlinkM Basick
 
 
-Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground.
+emonstrates use of a BlinkM, with a Tessel 2, by cycling through rainbow colors.
 
 
-![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>
-
-Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
+![docs/breadboard/tessel-led-blinkm-basic.png](breadboard/tessel-led-blinkm-basic.png)<br>
 
 &nbsp;
 
@@ -28,7 +26,7 @@ Fritzing diagram: [docs/breadboard/led-rgb.fzz](breadboard/led-rgb.fzz)
 
 Run with:
 ```bash
-node eg/led-rainbow.js
+node eg/led-rgb-BLINKM.js
 ```
 
 
@@ -37,7 +35,10 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var rgb = new five.Led.RGB([6, 5, 3]);
+  // Initialize the RGB LED
+  var rgb = new five.Led.RGB({
+    controller: "BLINKM"
+  });
   var index = 0;
   var rainbow = ["FF0000", "FF7F00", "FFFF00", "00FF00", "0000FF", "4B0082", "8F00FF"];
 
