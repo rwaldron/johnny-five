@@ -1,6 +1,3 @@
-require("es6-shim");
-
-
 var mocks = require("mock-firmata"),
   MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),

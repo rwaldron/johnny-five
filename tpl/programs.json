@@ -962,6 +962,17 @@
         ]
       },
       {
+        "file": "temperature-MCP9808.js",
+        "title": "Temperature - MCP9808",
+        "breadboards": [
+          {"name": "temperature-MCP9808", "title": "MCP9808"},
+          {"name": "temperature-MCP9808-tessel", "title": "MCP9808"}
+        ],
+        "externals": [
+          { "title": "MCP9808 High Accuracy I2C Temperature Sensor Breakout Board", "href": "http://www.adafruit.com/products/1782"}
+        ]
+      },
+      {
         "file": "barometer-mpl115a2.js",
         "title": "Barometer - MPL115A2",
         "breadboards": [

@@ -1,9 +1,9 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Thermometer = five.Thermometer;
+var mocks = require("mock-firmata");
+var five = require("../lib/johnny-five");
+var sinon = require("sinon");
+var MockFirmata = mocks.Firmata;
+var Board = five.Board;
+var Thermometer = five.Thermometer;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -318,81 +318,6 @@ exports["Thermometer -- ANALOG"] = {
       F: 74,
       K: 296
     }),
-  },
-
-  TMP102: {
-    setUp: function(done) {
-      this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-      this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-      this.temperature = new Thermometer({
-        controller: "TMP102",
-        freq: this.freq,
-        board: this.board
-      });
-
-      done();
-    },
-
-    tearDown: function(done) {
-      Board.purge();
-      this.sandbox.restore();
-      done();
-    },
-
-    shape: testShape,
-
-    value: function(test) {
-      var raw = this.i2cRead.args[0][3];
-      test.expect(1);
-
-      raw([100, 100]);
-
-      test.equals(this.temperature.celsius, 100.375);
-
-      test.done();
-    },
-
-    negative: function(test) {
-      var raw = this.i2cRead.args[0][3];
-      test.expect(2);
-
-      raw([0xFF, 0x00]);
-      test.equals(this.temperature.celsius, -1);
-
-      raw([0xE2, 0x44]);
-      test.equals(this.temperature.celsius, -29.75);
-
-      test.done();
-    },
-
-    change: function(test) {
-      var changeHandler = this.sandbox.spy();
-      var raw = this.i2cRead.args[0][3];
-
-      test.expect(1);
-      this.temperature.on("change", changeHandler);
-
-      raw([100, 0]);
-      this.clock.tick(this.freq);
-
-      raw([100, 0]);
-      this.clock.tick(this.freq);
-
-      raw([200, 0]);
-      this.clock.tick(this.freq);
-
-      raw([100, 0]);
-      this.clock.tick(this.freq);
-
-      raw([200, 0]);
-      this.clock.tick(this.freq);
-
-      raw([200, 0]);
-      this.clock.tick(this.freq);
-
-      test.equal(changeHandler.callCount, 4);
-      test.done();
-    }
   },
 
   GROVE: {
@@ -1139,6 +1064,185 @@ exports["Thermometer -- MPL3115A2"] = {
     test.equals(Math.round(spy.getCall(1).args[0].fahrenheit), 104);
     test.equals(Math.round(spy.getCall(1).args[0].kelvin), 313);
 
+    test.done();
+  }
+};
+
+exports["Thermometer -- TMP102"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.temperature = new Thermometer({
+      controller: "TMP102",
+      freq: this.freq,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Thermometer({
+      controller: "TMP102",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+
+  value: function(test) {
+    var raw = this.i2cRead.args[0][3];
+    test.expect(1);
+
+    raw([100, 100]);
+
+    test.equals(this.temperature.celsius, 100.375);
+
+    test.done();
+  },
+
+  negative: function(test) {
+    var raw = this.i2cRead.args[0][3];
+    test.expect(2);
+
+    raw([0xFF, 0x00]);
+    test.equals(this.temperature.celsius, -1);
+
+    raw([0xE2, 0x44]);
+    test.equals(this.temperature.celsius, -29.75);
+
+    test.done();
+  },
+
+  change: function(test) {
+    var changeHandler = this.sandbox.spy();
+    var raw = this.i2cRead.args[0][3];
+
+    test.expect(1);
+    this.temperature.on("change", changeHandler);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    test.equal(changeHandler.callCount, 4);
+    test.done();
+  }
+};
+
+exports["Thermometer -- MCP9808"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.temperature = new Thermometer({
+      controller: "MCP9808",
+      freq: this.freq,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Thermometer({
+      controller: "MCP9808",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+
+  value: function(test) {
+    var raw = this.i2cRead.args[0][3];
+    test.expect(1);
+
+    raw([193, 119]);
+
+    test.equals(this.temperature.celsius, 23.4375);
+
+    test.done();
+  },
+
+  change: function(test) {
+    var changeHandler = this.sandbox.spy();
+    var raw = this.i2cRead.args[0][3];
+
+    test.expect(1);
+    this.temperature.on("change", changeHandler);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    raw([100, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    raw([200, 0]);
+    this.clock.tick(this.freq);
+
+    test.equal(changeHandler.callCount, 4);
     test.done();
   }
 };

@@ -372,6 +372,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Temperature - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
+- [Temperature - MCP9808](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MCP9808.md)
 - [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
 - [Barometer - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl3115a2.md)
 - [Altimeter - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-mpl3115a2.md)
