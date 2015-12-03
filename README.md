@@ -128,7 +128,7 @@ Need help? Ask a question on the [NodeBots Community Forum](http://forums.nodebo
 
 For step-by-step examples, including an electronics primer, check out [Arduino Experimenter's Guide for NodeJS](http://node-ardx.org/) by [@AnnaGerber](https://twitter.com/AnnaGerber)
 
-Here is a list of [prerequisites](https://github.com/rwaldron/johnny-five/wiki/Prerequites) for Linux, OSX or Windows.
+Here is a list of [prerequisites](https://github.com/rwaldron/johnny-five/wiki/Getting-Started#prerequisites) for Linux, OSX or Windows.
 
 Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-MCU-Bluetooth-Serial-Port-Module-Notes) if you want to remotely control your robot.
 
