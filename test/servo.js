@@ -423,6 +423,12 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
+  stopped: function(test) {
+    test.expect(1);
+    test.ok(this.servoWrite.calledWith(11, 90));
+    test.done();
+  },
+
   cw: function(test) {
     test.expect(2);
 
