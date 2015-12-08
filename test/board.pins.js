@@ -1,8 +1,9 @@
 var mocks = require("mock-firmata");
-var Pins = require("../lib/board.pins.js");
+var five = require("../lib/johnny-five"); // jshint ignore:line
+var Pins = require("../lib/board.pins");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
-exports["Pin"] = {
+exports["Pin.prototype[isType]"] = {
   setUp: function(done) {
     this.pins = new Pins({
       io: {
@@ -24,6 +25,38 @@ exports["Pin"] = {
     test.equal(this.pins.isPwm("foo"), false);
     test.equal(this.pins.isPwm("bar"), true);
     test.equal(this.pins.isPwm(0), false);
+    test.equal(this.pins.isPwm(3), true);
+    test.equal(this.pins.isPwm("P9_22"), true);
+
+    test.done();
+  },
+};
+
+exports["Pin.prototype[isType] overrides"] = {
+  setUp: function(done) {
+    this.pins = new Pins({
+      io: {
+        pins: mocks.Pins.UNO,
+        isPwm: function() {
+          return true;
+        }
+      }
+    });
+
+    done();
+  },
+  tearDown: function(done) {
+    // Reset the cached conversion mechanism.
+    Pins.normalize.convert = null;
+    done();
+  },
+
+  isPwmOverride: function(test) {
+    test.expect(5);
+
+    test.equal(this.pins.isPwm("foo"), true);
+    test.equal(this.pins.isPwm("bar"), true);
+    test.equal(this.pins.isPwm(0), true);
     test.equal(this.pins.isPwm(3), true);
     test.equal(this.pins.isPwm("P9_22"), true);
 
