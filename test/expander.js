@@ -2358,3 +2358,444 @@ exports["Expander - MUXSHIELD2"] = {
     test.done();
   },
 };
+
+
+exports["Expander - GROVEPI"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.board = newBoard();
+
+    this.expander = new Expander({
+      controller: "GROVEPI",
+      board: this.board
+    });
+
+    this.virtual = new Board.Virtual({
+      io: this.expander
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Expander({
+      controller: "GROVEPI",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(3);
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(this.i2cWrite.callCount, 17);
+    test.deepEqual(this.i2cWrite.args, [
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 2, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 2, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 3, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 3, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 4, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 4, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 5, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 5, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 6, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 6, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 7, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 7, 0, 0 ] ],
+      // pinMode(pin, OUTPUT)
+      // [0x05, pin, 1, (empty)]
+      [ 4, [ 5, 8, 1, 0 ] ],
+      // digitalWrite(pin, LOW)
+      // [0x02, pin, LOW, (empty)]
+      [ 4, [ 2, 8, 0, 0 ] ],
+
+      // Analog pins are set to INPUT (0)
+      // pinMode(pin, ANALOG => INPUT)
+      // [0x05, pin, INPUT, (empty)]
+      [ 4, [ 5, 14, 0, 0 ] ],
+      // pinMode(pin, ANALOG => INPUT)
+      // [0x05, pin, INPUT, (empty)]
+      [ 4, [ 5, 15, 0, 0 ] ],
+      // pinMode(pin, ANALOG => INPUT)
+      // [0x05, pin, INPUT, (empty)]
+      [ 4, [ 5, 16, 0, 0 ] ],
+    ]);
+    test.done();
+  },
+
+  isTypeOverridePWM: function(test) {
+    test.expect(7);
+
+    test.equal(this.expander.isPwm("D2"), false);
+    test.equal(this.expander.isPwm("D4"), false);
+    test.equal(this.expander.isPwm("D7"), false);
+    test.equal(this.expander.isPwm("D8"), false);
+
+    test.equal(this.expander.isPwm("D3"), true);
+    test.equal(this.expander.isPwm("D5"), true);
+    test.equal(this.expander.isPwm("D6"), true);
+
+    test.done();
+  },
+
+
+  normalize: function(test) {
+    test.expect(16);
+
+    for (var i = 0; i < 16; i++) {
+      test.equal(this.expander.normalize("D" + i), "D" + i);
+    }
+
+    test.done();
+  },
+
+  pinModeINPUT: function(test) {
+    test.expect(2);
+
+    this.i2cWrite.reset();
+
+    for (var i = 2; i < 9; i++) {
+      this.expander.pinMode("D" + i, this.expander.MODES.INPUT);
+    }
+
+    test.equal(this.i2cWrite.callCount, 7);
+    test.deepEqual(this.i2cWrite.args, [
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 2, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 3, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 4, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 5, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 6, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 7, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 8, 0, 0 ] ],
+    ]);
+
+    test.done();
+  },
+
+  pinModeANALOG: function(test) {
+    test.expect(2);
+
+    this.i2cWrite.reset();
+
+    for (var i = 0; i < 3; i++) {
+      this.expander.pinMode("A" + i, this.expander.MODES.ANALOG);
+    }
+
+    test.equal(this.i2cWrite.callCount, 3);
+    test.deepEqual(this.i2cWrite.args, [
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 14, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 15, 0, 0 ] ],
+      // pinMode(pin, INPUT)
+      // [0x05, pin, 0, (empty)]
+      [ 4, [ 5, 16, 0, 0 ] ],
+    ]);
+
+    test.done();
+  },
+
+  analogRead: function(test) {
+    test.expect(27);
+
+    var spies = [
+      this.sandbox.spy(),
+      this.sandbox.spy(),
+      this.sandbox.spy(),
+    ];
+    var callbacks = [];
+    var on = this.sandbox.spy(this.expander, "on");
+
+    for (var i = 0; i < 3; i++) {
+      this.expander.pinMode("A" + i, this.expander.MODES.ANALOG);
+    }
+
+    this.i2cWrite.reset();
+
+    for (var j = 0; j < 3; j++) {
+      this.expander.analogRead("A" + j, spies[j]);
+    }
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cReadOnce.callCount, 1);
+
+
+    callbacks[0] = this.i2cReadOnce.lastCall.args[2];
+    callbacks[0]([0, 3, 255, 255]);
+    this.clock.tick(1);
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(spies[0].callCount, 1);
+    test.equal(spies[1].callCount, 0);
+    test.equal(spies[2].callCount, 0);
+
+
+    callbacks[1] = this.i2cReadOnce.lastCall.args[2];
+    callbacks[1]([0, 3, 255, 255]);
+    this.clock.tick(1);
+    test.equal(this.i2cReadOnce.callCount, 3);
+    test.equal(spies[0].callCount, 1);
+    test.equal(spies[1].callCount, 1);
+    test.equal(spies[2].callCount, 0);
+
+
+    callbacks[2] = this.i2cReadOnce.lastCall.args[2];
+    callbacks[2]([0, 3, 255, 255]);
+    this.clock.tick(1);
+    test.equal(this.i2cReadOnce.callCount, 4);
+    test.equal(spies[0].callCount, 1);
+    test.equal(spies[1].callCount, 1);
+    test.equal(spies[2].callCount, 1);
+
+
+    test.equal(on.callCount, 3);
+
+    test.equal(on.getCall(0).args[0], "analog-read-14");
+    test.equal(on.getCall(0).args[1], spies[0]);
+
+    test.equal(on.getCall(1).args[0], "analog-read-15");
+    test.equal(on.getCall(1).args[1], spies[1]);
+
+    test.equal(on.getCall(2).args[0], "analog-read-16");
+    test.equal(on.getCall(2).args[1], spies[2]);
+
+    on.getCall(0).args[1](1023);
+    on.getCall(1).args[1](1023);
+    on.getCall(2).args[1](1023);
+
+    test.equal(spies[0].callCount, 2);
+    test.equal(spies[0].lastCall.args[0], 1023);
+    test.equal(spies[1].callCount, 2);
+    test.equal(spies[1].lastCall.args[0], 1023);
+    test.equal(spies[2].callCount, 2);
+    test.equal(spies[2].lastCall.args[0], 1023);
+
+    test.done();
+  },
+
+  digitalRead: function(test) {
+    test.expect(45);
+
+    var spies = [null, null].concat(Array.from({length: 7}, function() {
+      return this.sandbox.spy();
+    }.bind(this)));
+
+    var callbacks = [];
+    var on = this.sandbox.spy(this.expander, "on");
+
+    for (var i = 2; i < 9; i++) {
+      this.expander.pinMode("D" + i, this.expander.MODES.INPUT);
+    }
+
+    this.i2cWrite.reset();
+
+    for (var j = 2; j < 9; j++) {
+      this.expander.digitalRead("D" + j, spies[j]);
+    }
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cReadOnce.callCount, 1);
+
+    for (var k = 2; k < 9; k++) {
+      callbacks[k] = this.i2cReadOnce.lastCall.args[2];
+      callbacks[k]([1]);
+      this.clock.tick(1);
+      test.equal(this.i2cReadOnce.callCount, k);
+      test.equal(spies[k].callCount, 1);
+    }
+
+    test.equal(on.callCount, 7);
+
+    for (var l = 2; l < 9; l++) {
+      test.equal(on.getCall(l - 2).args[0], "digital-read-" + l);
+      test.equal(on.getCall(l - 2).args[1], spies[l]);
+
+      on.getCall(l - 2).args[1](1);
+
+      test.equal(spies[l].callCount, 2);
+      test.equal(spies[l].lastCall.args[0], 1);
+    }
+
+    test.done();
+  },
+
+  digitalWrite: function(test) {
+    test.expect(8);
+
+    for (var i = 2; i < 9; i++) {
+      this.expander.pinMode("D" + i, this.expander.MODES.OUTPUT);
+    }
+
+    this.i2cWrite.reset();
+
+    for (var j = 2; j < 9; j++) {
+      this.expander.digitalWrite("D" + j, 1);
+    }
+
+    test.equal(this.i2cWrite.callCount, 7);
+
+    // 0x02 => DIGITAL_WRITE
+    test.deepEqual(this.i2cWrite.getCall(0).args[1], [0x02, 2, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args[1], [0x02, 3, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(2).args[1], [0x02, 4, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(3).args[1], [0x02, 5, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(4).args[1], [0x02, 6, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(5).args[1], [0x02, 7, 1, 0]);
+    test.deepEqual(this.i2cWrite.getCall(6).args[1], [0x02, 8, 1, 0]);
+
+    test.done();
+  },
+
+  analogWrite: function(test) {
+    test.expect(3);
+
+    this.pwmWrite = this.sandbox.stub(this.expander, "pwmWrite");
+
+    this.expander.analogWrite("D3", 255);
+
+    test.equal(this.pwmWrite.callCount, 1);
+    test.equal(this.pwmWrite.lastCall.args[0], "D3");
+    test.equal(this.pwmWrite.lastCall.args[1], 255);
+
+    test.done();
+  },
+
+  pwmWrite: function(test) {
+    test.expect(10);
+
+    this.expander.pinMode("D3", this.expander.MODES.PWM);
+    this.expander.pinMode("D5", this.expander.MODES.PWM);
+    this.expander.pinMode("D6", this.expander.MODES.PWM);
+
+    this.i2cWrite.reset();
+
+    this.expander.pwmWrite("D3", 255);
+    this.expander.pwmWrite("D5", 255);
+    this.expander.pwmWrite("D6", 255);
+
+    test.equal(this.i2cWrite.callCount, 3);
+
+    test.deepEqual(this.i2cWrite.getCall(0).args[1], [0x04, 3, 255, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args[1], [0x04, 5, 255, 0]);
+    test.deepEqual(this.i2cWrite.getCall(2).args[1], [0x04, 6, 255, 0]);
+
+    this.expander.pwmWrite("D3", 4096);
+    this.expander.pwmWrite("D5", 4096);
+    this.expander.pwmWrite("D6", 4096);
+
+    // Out of range clamped to 255
+    test.deepEqual(this.i2cWrite.getCall(3).args[1], [0x04, 3, 255, 0]);
+    test.deepEqual(this.i2cWrite.getCall(4).args[1], [0x04, 5, 255, 0]);
+    test.deepEqual(this.i2cWrite.getCall(5).args[1], [0x04, 6, 255, 0]);
+
+    this.expander.pwmWrite("D3", -1);
+    this.expander.pwmWrite("D5", -1);
+    this.expander.pwmWrite("D6", -1);
+
+    // Out of range clamped to 0
+    test.deepEqual(this.i2cWrite.getCall(6).args[1], [0x04, 3, 0, 0]);
+    test.deepEqual(this.i2cWrite.getCall(7).args[1], [0x04, 5, 0, 0]);
+    test.deepEqual(this.i2cWrite.getCall(8).args[1], [0x04, 6, 0, 0]);
+
+    test.done();
+  },
+  unsupported: function(test) {
+    test.expect(8);
+
+    sinon.spy(this.expander, "servoWrite");
+    test.throws(this.expander.servoWrite);
+    test.equal(
+      this.expander.servoWrite.lastCall.exception.message,
+      "Expander:GROVEPI does not support servoWrite"
+    );
+
+    sinon.spy(this.expander, "i2cConfig");
+    test.throws(this.expander.i2cConfig);
+    test.equal(
+      this.expander.i2cConfig.lastCall.exception.message,
+      "Expander:GROVEPI does not support i2cConfig"
+    );
+
+    sinon.spy(this.expander, "i2cWrite");
+    test.throws(this.expander.i2cWrite);
+    test.equal(
+      this.expander.i2cWrite.lastCall.exception.message,
+      "Expander:GROVEPI does not support i2cWrite"
+    );
+
+    sinon.spy(this.expander, "i2cRead");
+    test.throws(this.expander.i2cRead);
+    test.equal(
+      this.expander.i2cRead.lastCall.exception.message,
+      "Expander:GROVEPI does not support i2cRead"
+    );
+
+    test.done();
+  },
+};

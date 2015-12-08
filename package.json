@@ -133,7 +133,7 @@
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.2",
-    "grunt-jscs": "~0.8.0",
+    "grunt-jscs": "~2.3.0",
     "keypress": "latest",
     "mock-firmata": "latest",
     "optimist": "~0.6.1",
