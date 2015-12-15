@@ -1254,6 +1254,27 @@ exports["Motor: I2C - PCA9685"] = {
     test.done();
   },
 
+  defaultFrequency: function(test) {
+    test.expect(1);
+    test.equal(this.motor.frequency, 50);
+    test.done();
+  },
+
+  customFrequency: function(test) {
+    test.expect(1);
+
+    this.motor = new Motor({
+      frequency: 60,
+      board: this.board,
+      pins: [8, 9, 10],
+      controller: "PCA9685",
+      address: 0x60
+    });
+
+    test.equal(this.motor.frequency, 60);
+    test.done();
+  },
+
   noNormalization: function(test) {
     test.expect(1);
     test.equal(this.normalize.callCount, 0);

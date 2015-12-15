@@ -679,6 +679,26 @@ exports["Servo - PCA9685"] = {
     test.done();
   },
 
+  defaultFrequency: function(test) {
+    test.expect(1);
+    test.equal(this.servo.frequency, 50);
+    test.done();
+  },
+
+  customFrequency: function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      frequency: 60,
+      pin: 0,
+      controller: "PCA9685",
+      board: this.board
+    });
+
+    test.equal(this.servo.frequency, 60);
+    test.done();
+  },
+
   noNormalization: function(test) {
     test.expect(1);
     test.equal(this.normalize.callCount, 0);
