@@ -220,6 +220,45 @@ exports["Servo"] = {
     test.done();
   },
 
+  home: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board,
+      startAt: 20
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servo.home();
+
+    test.ok(this.servoWrite.calledWith(11, 20));
+
+    test.done();
+  },
+
+  homeNoStartAtPassed: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servo.home();
+
+    test.ok(this.servoWrite.calledWith(11, 90));
+
+    test.done();
+  },
+
   offset: function(test) {
     test.expect(3);
 
@@ -753,6 +792,8 @@ exports["Servo.Array"] = {
       this[method] = sinon.spy(Servo.prototype, method);
     }.bind(this));
 
+    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+
     done();
   },
 
@@ -795,6 +836,32 @@ exports["Servo.Array"] = {
     servos.stop();
 
     test.equal(this.stop.callCount, servos.length);
+
+    test.done();
+  },
+
+  home: function(test) {
+    test.expect(4);
+
+    this.servos = new Servo.Array([{
+      pin: 9,
+      board: this.board,
+      startAt: 40
+    }, {
+      pin: 11,
+      board: this.board,
+      startAt: 20
+    }]);
+
+    this.servos.to(180);
+
+    test.ok(this.servoWrite.calledWith(9, 180));
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servos.home();
+
+    test.ok(this.servoWrite.calledWith(9, 40));
+    test.ok(this.servoWrite.calledWith(11, 20));
 
     test.done();
   },
