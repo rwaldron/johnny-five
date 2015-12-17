@@ -39,7 +39,7 @@ board.on("ready", function() {
 // @markdown
 // For this program, you'll need:
 //
-// ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg
+// ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
 //
 // (Or similiar Grove shield and platform)
 //
