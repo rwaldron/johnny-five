@@ -469,6 +469,10 @@
       {
         "file": "esc-bidirectional-forward-reverse.js",
         "title": "ESC - Bidirectional Forward-Reverse"
+      },
+      {
+        "file": "esc-array.js",
+        "title": "ESC - ESC Array"
       }
     ]
   },

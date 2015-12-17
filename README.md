@@ -262,6 +262,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [ESC - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
 - [ESC - Bidirectional](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
 - [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
+- [ESC - ESC Array](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-array.md)
 
 ### Button / Switch
 - [Button](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
