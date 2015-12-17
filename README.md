@@ -247,6 +247,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor - H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
+- [Motor - GROVE_I2C_MOTOR_DRIVER](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-GROVE_I2C.md)
 - [Motor - LUDUS](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-LUDUS.md)
 - [Motor - 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motor - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_EV3.md)
@@ -421,6 +422,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Intel Edison + Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo-edison.md)
 - [Intel Edison + Grove - Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch-edison.md)
 - [Intel Edison + Grove - Q Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-q-touch.md)
+- [Intel Edison + Grove - I2C Motor Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-i2c-motor-driver-edison.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
@@ -431,6 +433,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Grove - RGB LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb.md)
 - [Grove - LCD RGB temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
 - [Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
+- [Grove - Motor (I2C Driver)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-i2c-motor-driver.md)
 
 ### Micro Magician V2
 - [Micro Magician V2 - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/micromagician-accelerometer.md)

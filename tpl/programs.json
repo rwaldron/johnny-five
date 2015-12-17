@@ -415,6 +415,10 @@
         "title": "Motor - PCA9685"
       },
       {
+        "file": "motor-GROVE_I2C.js",
+        "title": "Motor - GROVE_I2C_MOTOR_DRIVER"
+      },
+      {
         "file": "motor-LUDUS.js",
         "title": "Motor - LUDUS"
       },
@@ -1175,7 +1179,7 @@
   },
   {
     "topic": "Intel Edison + Grove IoT Kit",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Joystick"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Joystick", "Motor"],
     "examples": [
       {
         "file": "grove-accelerometer-adxl345-edison.js",
@@ -1282,12 +1286,17 @@
         "file": "grove-q-touch.js",
         "title": "Intel Edison + Grove - Q Touch",
         "description": "Using Johnny-Five with Grove's Q Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-i2c-motor-driver-edison.js",
+        "title": "Intel Edison + Grove - I2C Motor Driver",
+        "description": "Using Johnny-Five with Grove's I2C Motor Driver component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       }
     ]
   },
   {
     "topic": "Grove IoT Kit (Seeed Studio)",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Motor"],
     "examples": [
       {
         "file": "grove-led.js",
@@ -1328,6 +1337,10 @@
       {
         "file": "grove-servo.js",
         "title": "Grove - Servo"
+      },
+      {
+        "file": "grove-i2c-motor-driver.js",
+        "title": "Grove - Motor (I2C Driver)"
       }
     ]
   },

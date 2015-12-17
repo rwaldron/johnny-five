@@ -2074,3 +2074,272 @@ exports["Motor.Array"] = {
   }
 
 };
+
+exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+
+    this.a = new Motor({
+      controller: "GROVE_I2C_MOTOR_DRIVER",
+      pin: "A",
+      board: this.board
+    });
+
+    this.dir = this.sandbox.spy(this.a, "dir");
+    this.speed = this.sandbox.spy(this.a, "speed");
+
+    this.proto = [{
+      name: "dir"
+    }, {
+      name: "start"
+    }, {
+      name: "stop"
+    }, {
+      name: "forward"
+    }, {
+      name: "fwd"
+    }, {
+      name: "reverse"
+    }, {
+      name: "rev"
+    }, {
+      name: "resume"
+    }, {
+      name: "setPin"
+    }, {
+      name: "setPWM"
+    }];
+
+    this.instance = [{
+      name: "pins"
+    }, {
+      name: "threshold"
+    }, {
+      name: "speed"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Motor({
+      controller: "GROVE_I2C_MOTOR_DRIVER",
+      address: 0xff,
+      bus: "i2c-1",
+      pin: "A",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.a[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.a[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  pinList: function(test) {
+    test.expect(2);
+    test.equal(this.a.pins.pwm, "A");
+    test.equal(this.a.pins.dir, "A");
+    test.done();
+  },
+
+  start: function(test) {
+    test.expect(1);
+
+    this.a.start();
+
+    test.deepEqual(
+      this.i2cWrite.lastCall.args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(1);
+
+    this.a.stop();
+
+    test.deepEqual(
+      this.i2cWrite.lastCall.args[1],
+      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+    );
+    test.done();
+  },
+
+  forward: function(test) {
+    test.expect(2);
+
+    this.i2cWrite.reset();
+    this.a.forward(128);
+
+    test.deepEqual(
+      this.i2cWrite.getCall(1).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+    );
+
+    test.deepEqual(
+      this.i2cWrite.getCall(2).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+    test.done();
+  },
+
+  reverse: function(test) {
+    test.expect(2);
+
+    this.i2cWrite.reset();
+    this.a.reverse(128);
+
+    test.deepEqual(
+      this.i2cWrite.getCall(1).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 6, 1 ]
+    );
+
+    test.deepEqual(
+      this.i2cWrite.getCall(2).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+
+    test.done();
+  },
+
+  forwardControlBoth: function(test) {
+    test.expect(6);
+
+    this.b = new Motor({
+      controller: "GROVE_I2C_MOTOR_DRIVER",
+      pin: "B",
+      board: this.board
+    });
+
+
+    this.i2cWrite.reset();
+
+    this.a.forward(128);
+    this.b.forward(128);
+
+    // A stop
+    test.deepEqual(
+      this.i2cWrite.getCall(0).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+    );
+
+    // A fwd
+    test.deepEqual(
+      this.i2cWrite.getCall(1).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+    );
+
+    // A speed
+    test.deepEqual(
+      this.i2cWrite.getCall(2).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+
+    // B stop
+    test.deepEqual(
+      this.i2cWrite.getCall(3).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+
+    // B fwd
+    test.deepEqual(
+      this.i2cWrite.getCall(4).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+    );
+
+    // B speed
+    test.deepEqual(
+      this.i2cWrite.getCall(5).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 128 ]
+    );
+    test.done();
+  },
+
+  reverseControlBoth: function(test) {
+    test.expect(6);
+
+    this.b = new Motor({
+      controller: "GROVE_I2C_MOTOR_DRIVER",
+      pin: "B",
+      board: this.board
+    });
+
+
+    this.i2cWrite.reset();
+
+    this.a.reverse(128);
+    this.b.reverse(128);
+
+    // A stop
+    test.deepEqual(
+      this.i2cWrite.getCall(0).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+    );
+
+    // A rev
+    test.deepEqual(
+      this.i2cWrite.getCall(1).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 6, 1 ]
+    );
+
+    // A speed
+    test.deepEqual(
+      this.i2cWrite.getCall(2).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+
+    // B stop
+    test.deepEqual(
+      this.i2cWrite.getCall(3).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+    );
+
+    // B rev
+    test.deepEqual(
+      this.i2cWrite.getCall(4).args[1],
+      [ this.a.COMMANDS.SET_DIRECTION, 10, 1 ]
+    );
+
+    // B speed
+    test.deepEqual(
+      this.i2cWrite.getCall(5).args[1],
+      [ this.a.COMMANDS.SET_SPEED, 128, 128 ]
+    );
+    test.done();
+  },
+};
+
+
