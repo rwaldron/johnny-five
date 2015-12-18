@@ -423,6 +423,13 @@
         "title": "Motor - Current"
       },
       {
+        "file": "motor-enable.js",
+        "title": "Motor - Enable Pin",
+        "breadboards": [
+          {"name": "motor-enable", "title": "Enable pin on 7", "description": "H-bridge example with enable connected to pin 7 instead of v+."}
+        ]
+      },
+      {
         "file": "motor-hbridge.js",
         "title": "Motor - H-Bridge"
       },

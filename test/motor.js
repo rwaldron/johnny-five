@@ -43,6 +43,8 @@ exports["Motor: Non-Directional"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.spy = sinon.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+
     this.motor = new Motor({
       board: this.board,
       pin: 11
@@ -132,6 +134,28 @@ exports["Motor: Non-Directional"] = {
 
     this.motor.release();
     test.deepEqual(this.spy.args[0], [11, 128]);
+    test.done();
+  },
+
+  enablePin: function(test) {
+    test.expect(5);
+
+    var motor = new Motor({
+      board: this.board,
+      pins: { pwm: 10, enable: 7 }
+    });
+
+    // enabled by default
+    test.equal(motor.enabled, true);
+
+    motor.disable();
+    test.equal(motor.enabled, false);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 0));
+
+    motor.enable();
+    test.equal(motor.enabled, true);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 1));
+
     test.done();
   },
 
@@ -306,6 +330,28 @@ exports["Motor: Directional"] = {
     test.ok(this.analogWrite.lastCall.calledWith(11, 0));
     this.analogWrite.reset();
     this.digitalWrite.reset();
+
+    test.done();
+  },
+
+  enablePin: function(test) {
+    test.expect(5);
+
+    var motor = new Motor({
+      board: this.board,
+      pins: { pwm: 11, dir: 12, enable: 7 }
+    });
+
+    // enabled by default
+    test.equal(motor.enabled, true);
+
+    motor.disable();
+    test.equal(motor.enabled, false);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 0));
+
+    motor.enable();
+    test.equal(motor.enabled, true);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 1));
 
     test.done();
   }
@@ -871,6 +917,28 @@ exports["Motor: Directional - Three Pin"] = {
 
     test.done();
   },
+
+  enablePin: function(test) {
+    test.expect(5);
+
+    var motor = new Motor({
+      board: this.board,
+      pins: { pwm: 11, dir: 12, cdir: 8, enable: 7 }
+    });
+
+    // enabled by default
+    test.equal(motor.enabled, true);
+
+    motor.disable();
+    test.equal(motor.enabled, false);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 0));
+
+    motor.enable();
+    test.equal(motor.enabled, true);
+    test.ok(this.digitalWrite.lastCall.calledWith(7, 1));
+
+    test.done();
+  }
 
 };
 
@@ -2339,7 +2407,5 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
       [ this.a.COMMANDS.SET_SPEED, 128, 128 ]
     );
     test.done();
-  },
+  }
 };
-
-
