@@ -178,6 +178,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
+- [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 
 ### Expander

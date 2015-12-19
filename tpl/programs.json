@@ -29,6 +29,11 @@
         ]
       },
       {
+        "file": "board-sampling-interval.js",
+        "title": "Board - Specify Sampling Interval",
+        "description": "Use the board's `samplingInterval(ms)` to control the actual MCU sampling rate."
+      },
+      {
         "file": "pin.js",
         "title": "Pin"
       }
