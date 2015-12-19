@@ -759,7 +759,7 @@ exports["Thermometer -- SI7020"] = {
     // address
     test.equal(this.i2cRead.firstCall.args[0], 0x40);
     // register
-    test.equal(this.i2cRead.firstCall.args[1], 0xE3);
+    test.equal(this.i2cRead.firstCall.args[1], 0xE0);
     // byte count
     test.equal(this.i2cRead.firstCall.args[2], 2);
 
