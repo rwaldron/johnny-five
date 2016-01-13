@@ -21,7 +21,11 @@ Fritzing diagram: [docs/breadboard/expander-MCP23017.fzz](breadboard/expander-MC
 
 &nbsp;
 
-
+**Note:** MCP23017 has three pins (15-17) to set the I2C hardware address. By default, these 
+pins must be connected to ground for the default address 0x20. If you have another 
+I2C device connected with that address or you're planning to use multiple MCP23017s 
+see page eight of the
+[data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21952b.pdf).
 
 
 Run with:
