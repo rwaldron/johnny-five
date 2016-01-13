@@ -116,7 +116,7 @@
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
-    "lodash": "latest",
+    "lodash": "^3.10.1",
     "nanotimer": "0.3.10",
     "temporal": "latest",
     "array-includes": "latest"
