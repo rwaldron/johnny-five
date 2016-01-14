@@ -1,5 +1,6 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
+  five = require("../lib/johnny-five"),
   sinon = require("sinon"),
   board = new five.Board({
     io: new MockFirmata(),
@@ -121,14 +122,12 @@ exports["Animation"] = {
     var tempSegment = this.segment.single;
     this.animation.enqueue(tempSegment);
 
-    var normalizedKeyFrames = tempSegment.keyFrames;
-    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
-    normalizedKeyFrames = this.animation.normalizeKeyframes();
+    this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].value, 90);
-    test.equal(normalizedKeyFrames[0][1].value, 90);
-    test.equal(normalizedKeyFrames[0][2].value, 45);
-    test.equal(normalizedKeyFrames[0][3].value, 78);
+    test.equal(this.animation.normalizedKeyFrames[0][0].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].value, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].value, 78);
 
     test.done();
   },
@@ -141,22 +140,20 @@ exports["Animation"] = {
 
     this.animation.enqueue(tempSegment);
 
-    var normalizedKeyFrames = tempSegment.keyFrames;
-    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
-    normalizedKeyFrames = this.animation.normalizeKeyframes();
+    this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].value, 90);
-    test.equal(normalizedKeyFrames[0][1].value, 90);
-    test.equal(normalizedKeyFrames[0][2].value, 45);
-    test.equal(normalizedKeyFrames[0][3].value, 78);
-    test.equal(normalizedKeyFrames[1][0].value, 20);
-    test.equal(normalizedKeyFrames[1][1].value, 66);
-    test.equal(normalizedKeyFrames[1][2].value, 180);
-    test.equal(normalizedKeyFrames[1][3].value, 60);
-    test.equal(normalizedKeyFrames[2][0].value, 90);
-    test.equal(normalizedKeyFrames[2][1].value, 120);
-    test.equal(normalizedKeyFrames[2][2].value, 180);
-    test.equal(normalizedKeyFrames[2][3].value, 180);
+    test.equal(this.animation.normalizedKeyFrames[0][0].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].value, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].value, 78);
+    test.equal(this.animation.normalizedKeyFrames[1][0].value, 20);
+    test.equal(this.animation.normalizedKeyFrames[1][1].value, 66);
+    test.equal(this.animation.normalizedKeyFrames[1][2].value, 180);
+    test.equal(this.animation.normalizedKeyFrames[1][3].value, 60);
+    test.equal(this.animation.normalizedKeyFrames[2][0].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[2][1].value, 120);
+    test.equal(this.animation.normalizedKeyFrames[2][2].value, 180);
+    test.equal(this.animation.normalizedKeyFrames[2][3].value, 180);
 
     test.done();
 
@@ -171,16 +168,14 @@ exports["Animation"] = {
 
     this.animation.enqueue(tempSegment);
 
-    var normalizedKeyFrames = tempSegment.keyFrames;
-    normalizedKeyFrames = this.animation.target["@@normalize"](normalizedKeyFrames);
-    normalizedKeyFrames = this.animation.normalizeKeyframes();
+    this.animation.normalizeKeyframes();
 
-    test.equal(normalizedKeyFrames[0][0].value, 90);
-    test.equal(normalizedKeyFrames[0][1].value, 90);
-    test.equal(normalizedKeyFrames[0][2].value, 45);
-    test.equal(normalizedKeyFrames[0][3].value, 78);
-    test.equal(normalizedKeyFrames[1], null);
-    test.equal(normalizedKeyFrames[2], null);
+    test.equal(this.animation.normalizedKeyFrames[0][0].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][1].value, 90);
+    test.equal(this.animation.normalizedKeyFrames[0][2].value, 45);
+    test.equal(this.animation.normalizedKeyFrames[0][3].value, 78);
+    test.equal(this.animation.normalizedKeyFrames[1], null);
+    test.equal(this.animation.normalizedKeyFrames[2], null);
 
     test.done();
   },

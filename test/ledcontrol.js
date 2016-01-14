@@ -1,6 +1,7 @@
 var five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
-  MockFirmata = require("./util/mock-firmata"),
+  mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   Board = five.Board,
   LedControl = five.LedControl,
   LedMatrix = five.Led.Matrix;
@@ -439,6 +440,36 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
+
+  blink: function(test) {
+    test.expect(1);
+    var expected = [
+      // oscillator on
+      [ 0x70, [ 0x21 ]],
+      // blink off
+      [ 0x70, [ 0x81 ]],
+      // brightness at max
+      [ 0x70, [ 0xEF ]],
+      // clear
+      [ 0x70,[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]],
+      // slow blink
+      [ 0x70, [ 0x80 | 0x01 | 0x06 ]],
+      // normal blink
+      [ 0x70, [ 0x80 | 0x01 | 0x04 ]],
+      // fast blink
+      [ 0x70, [ 0x80 | 0x01 | 0x02 ]],
+      // no blink
+      [ 0x70, [ 0x80 | 0x01 | 0x00 ]]
+    ];
+    this.lc.blink("slow");
+    this.lc.blink("normal");
+    this.lc.blink("fast");
+    this.lc.blink(false);
+    test.deepEqual(this.i2cWrite.args, expected);
+
+    test.done();
+  },
+
   row: function(test) {
     test.expect(1);
 

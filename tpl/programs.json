@@ -29,6 +29,11 @@
         ]
       },
       {
+        "file": "board-sampling-interval.js",
+        "title": "Board - Specify Sampling Interval",
+        "description": "Use the board's `samplingInterval(ms)` to control the actual MCU sampling rate."
+      },
+      {
         "file": "pin.js",
         "title": "Pin"
       }
@@ -41,7 +46,7 @@
       {
         "file": "expander-MCP23017.js",
         "title": "Expander - MCP23017",
-        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)"
+        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO). Pins 15-17 are used to set the I2C hardware address. By default, these pins must be connected to ground. See page eight of the [data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21952b.pdf)"
       },
       {
         "file": "expander-MCP23008.js",
@@ -67,6 +72,19 @@
         "file": "expander-PCF8591.js",
         "title": "Expander - PCF8591",
         "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
+      },
+      {
+        "file": "expander-MUXSHIELD2-mixed.js",
+        "title": "Expander - MUXSHIELD2, Digital Input and Output",
+        "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays pin state in console graph. (`npm install barcli`)",
+        "images": [
+          {"file": "expander-MUXSHIELD2-mixed-console-graph.png", "title": "Example output"}
+        ]
+      },
+      {
+        "file": "expander-MUXSHIELD2-analog-read.js",
+        "title": "Expander - MUXSHIELD2, Analog Sensors",
+        "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays value of potentiometers in console graph. (`npm install barcli`)"
       }
 
     ]
@@ -92,6 +110,10 @@
         "file": "led-PCA9685.js",
         "title": "LED - PCA9685",
         "description": "Basic LED example using PCA9685"
+      },
+      {
+        "file": "led-tessel-servo-module.js",
+        "title": "LED - Tessel Servo Module"
       },
       {
         "file": "led-blink.js",
@@ -198,6 +220,14 @@
         ]
       },
       {
+        "file": "led-rgb-BLINKM.js",
+        "title": "LED - Rainbow BlinkM",
+        "description": "Demonstrates use of a BlinkM by cycling through rainbow colors.",
+        "breadboards": [
+          {"name": "tessel-led-blinkm-basic", "title": "Tessel - BlinkM Basick", "description": "emonstrates use of a BlinkM, with a Tessel 2, by cycling through rainbow colors."}
+        ]
+      },
+      {
         "name": "led-digits-clock",
         "title": "LED - Digital Clock",
         "description": "Demonstrates using 7 Segment Digits and Intel Galileo Gen 2 to create a clock! This example can easily be ported to use any other supported platform.",
@@ -273,6 +303,10 @@
       {
         "file": "servo-PCA9685.js",
         "title": "Servo - PCA9685"
+      },
+      {
+        "file": "servo-tessel-servo-module.js",
+        "title": "Servo - Tessel Servo Module"
       },
       {
         "file": "servo-continuous.js",
@@ -386,6 +420,10 @@
         "title": "Motor - PCA9685"
       },
       {
+        "file": "motor-GROVE_I2C.js",
+        "title": "Motor - GROVE_I2C_MOTOR_DRIVER"
+      },
+      {
         "file": "motor-LUDUS.js",
         "title": "Motor - LUDUS"
       },
@@ -440,6 +478,10 @@
       {
         "file": "esc-bidirectional-forward-reverse.js",
         "title": "ESC - Bidirectional Forward-Reverse"
+      },
+      {
+        "file": "esc-array.js",
+        "title": "ESC - ESC Array"
       }
     ]
   },
@@ -496,6 +538,10 @@
       {
         "file": "keypad-MPR121QR2.js",
         "title": "Keypad - MPR121QR2"
+      },
+      {
+        "file": "keypad-QTOUCH.js",
+        "title": "Keypad - Grove QTouch"
       }
     ]
   },
@@ -532,7 +578,7 @@
     ]
   },
   {
-    "topic": "Infrared Reflectance)",
+    "topic": "Infrared Reflectance",
     "classes": ["IR.Reflect.Array"],
     "examples": [
       {
@@ -602,6 +648,11 @@
         "file": "proximity-hcsr04.js",
         "title": "Proximity - HC-SR04",
         "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
+      },
+      {
+        "file": "proximity-hcsr04-i2c.js",
+        "title": "Proximity - HC-SR04 I2C Backpack",
+        "description": "Ping Proximity example that uses an HCSR04 ultrasonic sensor and an I2C backpack ([see backpack documentation](https://github.com/ajfisher/nodebots-hcsr04)."
       },
       {
         "file": "proximity-lidarlite.js",
@@ -811,12 +862,23 @@
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
         ]
+      },
+      {
+        "file": "multi-SI7020.js",
+        "title": "Multi - SI7020",
+        "breadboards": [
+          {"name": "temperature-SI7020", "title": "Tessel with SI7020"},
+          {"name": "temperature-SI7020-uno", "title": "Arduino with SI7020"}
+        ],
+        "externals": [
+          { "title": "SI7020 - I2C Multi Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
       }
     ]
   },
   {
     "topic": "Sensors",
-    "classes": ["Sensor", "Accelerometer", "Gyro", "Temperature"],
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Thermometer"],
     "examples": [
       {
         "file": "sensor.js",
@@ -910,6 +972,17 @@
         ],
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
+      },
+      {
+        "file": "temperature-MCP9808.js",
+        "title": "Temperature - MCP9808",
+        "breadboards": [
+          {"name": "temperature-MCP9808", "title": "MCP9808"},
+          {"name": "temperature-MCP9808-tessel", "title": "MCP9808"}
+        ],
+        "externals": [
+          { "title": "MCP9808 High Accuracy I2C Temperature Sensor Breakout Board", "href": "http://www.adafruit.com/products/1782"}
         ]
       },
       {
@@ -1011,7 +1084,7 @@
   },
   {
     "topic": "Photon Weather Shield",
-    "classes": ["Sensor", "Pin", "Temperature", "Barometer", "Hygrometer"],
+    "classes": ["Sensor", "Pin", "Thermometer", "Barometer", "Hygrometer"],
     "examples": [
       {
         "file": "sensor-photon-weather-shield-moisture.js",
@@ -1115,7 +1188,7 @@
   },
   {
     "topic": "Intel Edison + Grove IoT Kit",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo", "Joystick"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Joystick", "Motor"],
     "examples": [
       {
         "file": "grove-accelerometer-adxl345-edison.js",
@@ -1200,7 +1273,7 @@
       {
         "file": "grove-lcd-rgb-temperature-display-edison.js",
         "title": "Intel Edison + Grove - LCD RGB temperature display",
-        "description": "Using Johnny-Five with Grove's RGB LCD and Temperature components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+        "description": "Using Johnny-Five with Grove's RGB LCD and Thermometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-relay-edison.js",
@@ -1217,12 +1290,22 @@
         "file": "grove-touch-edison.js",
         "title": "Intel Edison + Grove - Touch",
         "description": "Using Johnny-Five with Grove's Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-q-touch.js",
+        "title": "Intel Edison + Grove - Q Touch",
+        "description": "Using Johnny-Five with Grove's Q Touch component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
+        "file": "grove-i2c-motor-driver-edison.js",
+        "title": "Intel Edison + Grove - I2C Motor Driver",
+        "description": "Using Johnny-Five with Grove's I2C Motor Driver component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       }
     ]
   },
   {
     "topic": "Grove IoT Kit (Seeed Studio)",
-    "classes": ["Led", "Button", "Sensor", "LCD", "Temperature", "Servo"],
+    "classes": ["Led", "Button", "Sensor", "LCD", "Thermometer", "Servo", "Motor"],
     "examples": [
       {
         "file": "grove-led.js",
@@ -1263,6 +1346,10 @@
       {
         "file": "grove-servo.js",
         "title": "Grove - Servo"
+      },
+      {
+        "file": "grove-i2c-motor-driver.js",
+        "title": "Grove - Motor (I2C Driver)"
       }
     ]
   },
@@ -1295,7 +1382,7 @@
   },
   {
     "topic": "TinkerKit",
-    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Temperature", "Servo"],
+    "classes": ["Accelerometer", "Button", "Gyro", "Joystick", "Sensor", "LCD", "Thermometer", "Servo"],
     "examples": [
       {
         "file": "tinkerkit-accelerometer.js",

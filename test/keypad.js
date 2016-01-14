@@ -1,4 +1,5 @@
-var MockFirmata = require("./util/mock-firmata"),
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -880,6 +881,205 @@ exports["Keypad: MPR121"] = {
 
     callback([ 64, 0 ]);
     callback([ 0, 0 ]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+};
+
+
+exports["Keypad: QTOUCH"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+
+    this.keypad = new Keypad({
+      controller: "QTOUCH",
+      address: 0x1B,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Keypad({
+      controller: "QTOUCH",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialize: function(test) {
+    test.expect(2);
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(this.i2cRead.callCount, 1);
+
+    test.done();
+  },
+
+  keysDefault: function(test) {
+    test.expect(7);
+
+    var keys = Array.from({ length: 7 }, function(_, index) {
+      return index;
+    });
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "QTOUCH",
+      address: 0x1B
+    });
+    var callback = this.i2cRead.getCall(1).args[3];
+    var spy = sinon.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 1 ]);
+    callback([ 2 ]);
+    callback([ 4 ]);
+    callback([ 8 ]);
+    callback([ 16 ]);
+    callback([ 32 ]);
+    callback([ 64 ]);
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  keysRowsCols: function(test) {
+    test.expect(7);
+
+    var keys = ["!", "@", "#", "$", "%", "^", "&"];
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "QTOUCH",
+      address: 0x1B,
+      keys: [
+        ["!", "@", "#"],
+        ["$", "%", "^"],
+        ["&"],
+      ]
+    });
+    var callback = this.i2cRead.getCall(1).args[3];
+    var spy = sinon.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 1 ]);
+    callback([ 2 ]);
+    callback([ 4 ]);
+    callback([ 8 ]);
+    callback([ 16 ]);
+    callback([ 32 ]);
+    callback([ 64 ]);
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  keysList: function(test) {
+    test.expect(7);
+
+    var keys = ["!", "@", "#", "$", "%", "^", "&"];
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "QTOUCH",
+      address: 0x1B,
+      keys: keys
+    });
+    var callback = this.i2cRead.getCall(1).args[3];
+    var spy = sinon.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 1 ]);
+    callback([ 2 ]);
+    callback([ 4 ]);
+    callback([ 8 ]);
+    callback([ 16 ]);
+    callback([ 32 ]);
+    callback([ 64 ]);
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  press: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[3];
+    var spy = sinon.spy();
+
+    this.keypad.on("down", spy);
+
+    // Only 3 are valid.
+    callback([ 64 ]);
+    callback([ 2 ]);
+    callback([ 4 ]);
+    callback([ 4 ]);
+    callback([ 4 ]);
+
+    test.equal(spy.callCount, 3);
+    test.done();
+  },
+
+  hold: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[3];
+    var spy = sinon.spy();
+
+    this.keypad.on("hold", spy);
+
+    callback([ 64 ]);
+    this.clock.tick(600);
+    callback([ 64 ]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  release: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[3];
+    var spy = sinon.spy();
+
+    this.keypad.on("release", spy);
+
+    callback([ 64 ]);
+    callback([ 0 ]);
 
     test.equal(spy.callCount, 1);
     test.done();

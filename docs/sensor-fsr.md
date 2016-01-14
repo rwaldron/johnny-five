@@ -48,7 +48,7 @@ var five = require("johnny-five"),
       // set the led's brightness based on force
       // applied to force sensitive resistor
 
-      led.brightness(this.value);
+      led.brightness(this.scaled);
     });
   });
 

@@ -1,9 +1,11 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  ESC = five.ESC;
+var mocks = require("mock-firmata"),
+  MockFirmata = mocks.Firmata;
+var five = require("../lib/johnny-five.js");
+var events = require("events");
+var sinon = require("sinon");
+var Board = five.Board;
+var ESC = five.ESC;
+var Expander = five.Expander;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -261,6 +263,7 @@ exports["ESC"] = {
 exports["ESC - PCA9685"] = {
   setUp: function(done) {
     this.clock = sinon.useFakeTimers();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
     this.board = newBoard();
@@ -278,6 +281,7 @@ exports["ESC - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -305,29 +309,62 @@ exports["ESC - PCA9685"] = {
   withAddress: function(test) {
     test.expect(1);
 
-    var esc = new ESC({
-      pin: 0,
+    new ESC({
+      pin: 1,
       board: this.board,
       controller: "PCA9685",
-      address: 0x40
+      address: 0x41
     });
 
-    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x41).name, "PCA9685");
     test.done();
   },
 
   withoutAddress: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var esc = new ESC({
-      pin: 0,
+    Expander.purge();
+
+    // Assert there is not another by the default address
+    test.equal(Expander.byAddress(0x40), undefined);
+
+    new ESC({
+      pin: 1,
       board: this.board,
       controller: "PCA9685"
     });
 
-    test.notEqual(esc.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x40).name, "PCA9685");
+
     test.done();
   },
+
+  defaultFrequency: function(test) {
+    test.expect(1);
+    test.equal(this.esc.frequency, 50);
+    test.done();
+  },
+
+  customFrequency: function(test) {
+    test.expect(1);
+
+    this.esc = new ESC({
+      frequency: 60,
+      pin: 0,
+      controller: "PCA9685",
+      board: this.board
+    });
+
+    test.equal(this.esc.frequency, 60);
+    test.done();
+  },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
+    test.done();
+  },
+
   speed: function(test) {
     test.expect(6);
     this.i2cWrite.reset();

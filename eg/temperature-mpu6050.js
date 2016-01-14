@@ -2,7 +2,7 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var temperature = new five.Temperature({
+  var temperature = new five.Thermometer({
     controller: "MPU6050"
   });
 

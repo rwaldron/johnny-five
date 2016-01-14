@@ -1,6 +1,7 @@
 node_modules/
 assets/
 docs/
+eg/
 tpl/
 util/
 wip/
@@ -12,3 +13,4 @@ articles.js
 *.cpp
 *.h
 release
+egs.js

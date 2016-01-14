@@ -127,12 +127,29 @@ module.exports = function(grunt) {
 
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
-  grunt.registerTask("nodeunit:just", "Run a single test specified by a target; usage: \"grunt nodeunit:just:<module-name>[.js]\"", function(file) {
+  grunt.registerTask("nodeunit:just", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:just:test-file' or 'grunt nodeunit:just:[test-file-a,test-file-b]'", function(file) {
+
+    var config = [
+      "test/bootstrap/*.js",
+    ];
+
     if (file) {
-      grunt.config("nodeunit.tests", [
-        "test/bootstrap/*.js",
-        "test/" + file + ".js",
-      ]);
+      var files = [file];
+
+      //
+      // grunt nodeunit:just:[test-file-a,test-file-b]
+      //
+      if (file[0] === "[" && file[file.length - 1] === "]") {
+        files = file.match(/(\w+)/g);
+      }
+
+      if (files) {
+        files.forEach(function(file) {
+          config.push("test/" + file + ".js");
+        });
+
+        grunt.config("nodeunit.tests", config);
+      }
     }
 
     grunt.task.run("nodeunit");

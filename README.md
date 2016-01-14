@@ -60,7 +60,7 @@
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
 [![Travis Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) 
-[![Appveyor Build Status](https://ci.appveyor.com/project/rwaldron/johnny-five)](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/rwaldron/johnny-five)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
@@ -128,7 +128,7 @@ Need help? Ask a question on the [NodeBots Community Forum](http://forums.nodebo
 
 For step-by-step examples, including an electronics primer, check out [Arduino Experimenter's Guide for NodeJS](http://node-ardx.org/) by [@AnnaGerber](https://twitter.com/AnnaGerber)
 
-Here is a list of [prerequisites](https://github.com/rwaldron/johnny-five/wiki/Prerequites) for Linux, OSX or Windows.
+Here is a list of [prerequisites](https://github.com/rwaldron/johnny-five/wiki/Getting-Started#prerequisites) for Linux, OSX or Windows.
 
 Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-MCU-Bluetooth-Serial-Port-Module-Notes) if you want to remotely control your robot.
 
@@ -137,7 +137,8 @@ Check out the [bluetooth guide](https://github.com/rwaldron/johnny-five/wiki/JY-
 - Recommended Starting Kit: [Sparkfun Inventor's Kit](https://www.sparkfun.com/products/12001)
 - Download [Arduino IDE](http://arduino.cc/en/main/software)
 - Plug in your Arduino or Arduino compatible microcontroller via USB
-- Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmata
+- Open the Arduino IDE, select: File > Examples > Firmata > StandardFirmataPlus
+    + StandardFirmataPlus is available in Firmata v2.5.0 or greater
 - Click the "Upload" button.
 
 If the upload was successful, the board is now prepared and you can close the Arduino IDE.
@@ -177,6 +178,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
+- [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 
 ### Expander
@@ -186,10 +188,13 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
 - [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
 - [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
+- [Expander - MUXSHIELD2, Digital Input and Output](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-mixed.md)
+- [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
 
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
 - [LED - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-PCA9685.md)
+- [LED - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/led-tessel-servo-module.md)
 - [LED - Blink](https://github.com/rwaldron/johnny-five/blob/master/docs/led-blink.md)
 - [LED - Pulse](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse.md)
 - [LED - Pulse with animation](https://github.com/rwaldron/johnny-five/blob/master/docs/led-pulse-animation.md)
@@ -204,6 +209,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
 - [LED - RGB Intensity](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-intensity.md)
 - [LED - Rainbow](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rainbow.md)
+- [LED - Rainbow BlinkM](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-BLINKM.md)
 - [LED - Digital Clock](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock.md)
 - [LED - Digital Clock, HT16K33](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock-HT16K33.md)
 - [LED - Digital Clock, Dual Displays](https://github.com/rwaldron/johnny-five/blob/master/docs/led-digits-clock-dual.md)
@@ -217,6 +223,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Servo
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
+- [Servo - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-tessel-servo-module.md)
 - [Servo - Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
 - [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
@@ -241,6 +248,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor - H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
+- [Motor - GROVE_I2C_MOTOR_DRIVER](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-GROVE_I2C.md)
 - [Motor - LUDUS](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-LUDUS.md)
 - [Motor - 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
 - [Motor - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_EV3.md)
@@ -256,6 +264,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [ESC - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
 - [ESC - Bidirectional](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
 - [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
+- [ESC - ESC Array](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-array.md)
 
 ### Button / Switch
 - [Button](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)
@@ -271,6 +280,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Keypad - Waveshare AD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-ad.md)
 - [Keypad - MPR121](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121.md)
 - [Keypad - MPR121QR2](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121QR2.md)
+- [Keypad - Grove QTouch](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-QTOUCH.md)
 
 ### Relay
 - [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
@@ -280,7 +290,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Shift Register - Seven segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
 - [Shift Register - Seven segments, daisy chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
 
-### Infrared Reflectance)
+### Infrared Reflectance
 - [IR Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)
 - [IR Proximity](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-proximity.md)
 - [IR Reflectance](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-reflect.md)
@@ -295,6 +305,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
 - [Proximity - MB1230](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1230.md)
 - [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
+- [Proximity - HC-SR04 I2C Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04-i2c.md)
 - [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 - [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR.md)
 - [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US.md)
@@ -339,6 +350,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
 - [Multi - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-htu21d.md)
+- [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
 
 ### Sensors
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
@@ -363,6 +375,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Temperature - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
+- [Temperature - MCP9808](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MCP9808.md)
 - [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
 - [Barometer - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl3115a2.md)
 - [Altimeter - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-mpl3115a2.md)
@@ -410,6 +423,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Intel Edison + Grove - Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-relay-edison.md)
 - [Intel Edison + Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo-edison.md)
 - [Intel Edison + Grove - Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-touch-edison.md)
+- [Intel Edison + Grove - Q Touch](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-q-touch.md)
+- [Intel Edison + Grove - I2C Motor Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-i2c-motor-driver-edison.md)
 
 ### Grove IoT Kit (Seeed Studio)
 - [Grove - LED](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-led.md)
@@ -420,6 +435,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Grove - RGB LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb.md)
 - [Grove - LCD RGB temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display.md)
 - [Grove - Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-servo.md)
+- [Grove - Motor (I2C Driver)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-i2c-motor-driver.md)
 
 ### Micro Magician V2
 - [Micro Magician V2 - Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/micromagician-accelerometer.md)

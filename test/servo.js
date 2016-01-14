@@ -1,9 +1,12 @@
-var MockFirmata = require("./util/mock-firmata"),
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Servo = five.Servo;
+var mocks = require("mock-firmata");
+var MockFirmata = mocks.Firmata;
+var five = require("../lib/johnny-five.js");
+var events = require("events");
+var sinon = require("sinon");
+var Board = five.Board;
+var Servo = five.Servo;
+var Expander = five.Expander;
+
 
 function newBoard() {
   var io = new MockFirmata();
@@ -217,6 +220,45 @@ exports["Servo"] = {
     test.done();
   },
 
+  home: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board,
+      startAt: 20
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servo.home();
+
+    test.ok(this.servoWrite.calledWith(11, 20));
+
+    test.done();
+  },
+
+  homeNoStartAtPassed: function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      pin: 11,
+      board: this.board
+    });
+
+    this.servo.to(180);
+
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servo.home();
+
+    test.ok(this.servoWrite.calledWith(11, 90));
+
+    test.done();
+  },
+
   offset: function(test) {
     test.expect(3);
 
@@ -420,6 +462,12 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
+  stopped: function(test) {
+    test.expect(1);
+    test.ok(this.servoWrite.calledWith(11, 90));
+    test.done();
+  },
+
   cw: function(test) {
     test.expect(2);
 
@@ -451,7 +499,10 @@ exports["Servo - Continuous"] = {
   },
 
   deadband: function(test) {
-    test.expect(2);
+    test.expect(6);
+
+    test.deepEqual(this.a.deadband, [90, 90]);
+    test.deepEqual(this.b.deadband, [90, 90]);
 
     this.continuousServo = new Servo.Continuous({
       pin: 5,
@@ -464,6 +515,19 @@ exports["Servo - Continuous"] = {
 
     this.continuousServo.ccw(0.5);
     test.equal(this.continuousServo.value, 42);
+
+
+    this.to = sinon.stub(this.continuousServo, "to");
+
+    this.continuousServo.stop();
+
+    test.equal(this.to.lastCall.args[0], 90);
+
+
+    this.continuousServo.deadband = [100, 105];
+    this.continuousServo.stop();
+
+    test.equal(this.to.lastCall.args[0], 103);
 
     test.done();
   },
@@ -579,6 +643,7 @@ exports["Servo - Allowed Pin Names"] = {
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.normalize = sinon.spy(Board.Pins, "normalize");
     this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
     this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
@@ -595,6 +660,7 @@ exports["Servo - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     restore(this);
+    Expander.purge();
     done();
   },
 
@@ -622,29 +688,62 @@ exports["Servo - PCA9685"] = {
   withAddress: function(test) {
     test.expect(1);
 
-    var servo = new Servo({
-      pin: 0,
+    new Servo({
+      pin: 1,
       board: this.board,
       controller: "PCA9685",
-      address: 0x40
+      address: 0x41
     });
 
-    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x41).name, "PCA9685");
     test.done();
   },
 
   withoutAddress: function(test) {
-    test.expect(1);
+    test.expect(2);
 
-    var servo = new Servo({
-      pin: 0,
+    Expander.purge();
+
+    // Assert there is not another by the default address
+    test.equal(Expander.byAddress(0x40), undefined);
+
+    this.servo = new Servo({
+      pin: 1,
       board: this.board,
       controller: "PCA9685"
     });
 
-    test.notEqual(servo.board.Drivers[0x40], undefined);
+    test.equal(Expander.byAddress(0x40).name, "PCA9685");
+
     test.done();
   },
+
+  defaultFrequency: function(test) {
+    test.expect(1);
+    test.equal(this.servo.frequency, 50);
+    test.done();
+  },
+
+  customFrequency: function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      frequency: 60,
+      pin: 0,
+      controller: "PCA9685",
+      board: this.board
+    });
+
+    test.equal(this.servo.frequency, 60);
+    test.done();
+  },
+
+  noNormalization: function(test) {
+    test.expect(1);
+    test.equal(this.normalize.callCount, 0);
+    test.done();
+  },
+
   to: function(test) {
     test.expect(6);
     this.i2cWrite.reset();
@@ -655,7 +754,7 @@ exports["Servo - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 6);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 187);
+    test.equal(this.i2cWrite.args[0][1][3], 151);
     test.equal(this.i2cWrite.args[0][1][4], 0);
 
     test.done();
@@ -692,6 +791,8 @@ exports["Servo.Array"] = {
     this.spies.forEach(function(method) {
       this[method] = sinon.spy(Servo.prototype, method);
     }.bind(this));
+
+    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
 
     done();
   },
@@ -735,6 +836,32 @@ exports["Servo.Array"] = {
     servos.stop();
 
     test.equal(this.stop.callCount, servos.length);
+
+    test.done();
+  },
+
+  home: function(test) {
+    test.expect(4);
+
+    this.servos = new Servo.Array([{
+      pin: 9,
+      board: this.board,
+      startAt: 40
+    }, {
+      pin: 11,
+      board: this.board,
+      startAt: 20
+    }]);
+
+    this.servos.to(180);
+
+    test.ok(this.servoWrite.calledWith(9, 180));
+    test.ok(this.servoWrite.calledWith(11, 180));
+
+    this.servos.home();
+
+    test.ok(this.servoWrite.calledWith(9, 40));
+    test.ok(this.servoWrite.calledWith(11, 20));
 
     test.done();
   },
