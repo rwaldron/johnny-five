@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)
+Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO). Pins 15-17 are used to set the I2C hardware address. By default, these pins must be connected to ground. See page eight of the [data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21952b.pdf)
 
 
 
