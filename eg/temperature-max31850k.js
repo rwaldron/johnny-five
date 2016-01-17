@@ -2,6 +2,7 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
 board.on("ready", function() {
+  // This requires OneWire support using the ConfigurableFirmata
   var temperature = new five.Temperature({
     controller: "MAX31850K",
     pin: 2

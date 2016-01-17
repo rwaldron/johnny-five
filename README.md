@@ -373,6 +373,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
 - [Temperature - LM335](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm335.md)
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
+- [Temperature - MAX31850](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-max31850k.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Temperature - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
 - [Temperature - MCP9808](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MCP9808.md)

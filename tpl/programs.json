@@ -961,6 +961,10 @@
         "title": "Temperature - DS18B20"
       },
       {
+        "file": "temperature-max31850k.js",
+        "title": "Temperature - MAX31850"
+      },
+      {
         "file": "temperature-mpu6050.js",
         "title": "Temperature - MPU6050"
       },
