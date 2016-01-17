@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Accelerometer (MMA7660) component on the Intel Ed
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-accelerometer-mma7660-edison.js
 ```

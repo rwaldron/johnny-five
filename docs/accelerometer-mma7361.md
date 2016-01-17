@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/accelerometer-mma7361.fzz](breadboard/acceler
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/accelerometer-mma7361.js
 ```

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/barometer-mpl3115a2.fzz](breadboard/barometer
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/barometer-mpl3115a2.js
 ```

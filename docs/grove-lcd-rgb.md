@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-lcd-rgb.js
 ```

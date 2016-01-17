@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/proximity-mb1003.fzz](breadboard/proximity-mb
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/proximity-mb1000.js
 ```

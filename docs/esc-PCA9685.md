@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/esc-PCA9685.fzz](breadboard/esc-PCA9685.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/esc-PCA9685.js
 ```

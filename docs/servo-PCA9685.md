@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/servo-PCA9685.fzz](breadboard/servo-PCA9685.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/servo-PCA9685.js
 ```

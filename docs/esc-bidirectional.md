@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/esc-bidirectional.fzz](breadboard/esc-bidirec
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/esc-bidirectional.js
 ```

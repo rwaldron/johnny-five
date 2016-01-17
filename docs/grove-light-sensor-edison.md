@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Light Sensor (TSL2561) component on the Intel Edi
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-light-sensor-edison.js
 ```

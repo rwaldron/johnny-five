@@ -22,7 +22,7 @@ Use the board's `samplingInterval(ms)` to control the actual MCU sampling rate.
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/board-sampling-interval.js
 ```

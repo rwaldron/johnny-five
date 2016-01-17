@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/expander-PCA9685.fzz](breadboard/expander-PCA
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/expander-PCA9685.js
 ```

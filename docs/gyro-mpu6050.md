@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/gyro-mpu6050.fzz](breadboard/gyro-mpu6050.fzz
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/gyro-mpu6050.js
 ```

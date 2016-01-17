@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Bre
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-lcd-rgb-edison.js
 ```

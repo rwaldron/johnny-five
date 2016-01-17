@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-array.fzz](breadboard/led-array.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-array.js
 ```

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/temperature-BMP180.js
 ```

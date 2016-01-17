@@ -26,7 +26,7 @@ Fritzing diagram: [docs/breadboard/led-rgb-anode.fzz](breadboard/led-rgb-anode.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-rgb-anode.js
 ```

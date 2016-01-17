@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/proximity-hcsr04-i2c.fzz](breadboard/proximit
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/proximity-hcsr04-i2c.js
 ```

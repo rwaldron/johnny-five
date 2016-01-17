@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Relay component on the Intel Edison Arduino Break
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-relay-edison.js
 ```

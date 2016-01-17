@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/motor-brake.fzz](breadboard/motor-brake.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motor-brake.js
 ```

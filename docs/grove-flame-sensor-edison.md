@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Flame Sensor component on the Intel Edison Arduin
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-flame-sensor-edison.js
 ```

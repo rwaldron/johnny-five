@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-13-galileo.fzz](breadboard/led-13-galileo
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/galileo-io.js
 ```

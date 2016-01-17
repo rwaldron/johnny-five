@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/microphone.fzz](breadboard/microphone.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/microphone.js
 ```

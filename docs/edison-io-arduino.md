@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-13-edison-arduinoboard.fzz](breadboard/le
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/edison-io-arduino.js
 ```

@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-fade-callback.fzz](breadboard/led-fade-ca
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-fade-callback.js
 ```

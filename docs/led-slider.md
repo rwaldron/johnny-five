@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-slider.fzz](breadboard/led-slider.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-slider.js
 ```

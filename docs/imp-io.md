@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/imp-led.fzz](breadboard/imp-led.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/imp-io.js
 ```

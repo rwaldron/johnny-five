@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-galileo.fzz](breadboard/led-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-digits-clock-galileo.js
 ```

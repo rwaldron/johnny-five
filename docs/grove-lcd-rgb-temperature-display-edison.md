@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's RGB LCD and Thermometer components on the Intel E
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-lcd-rgb-temperature-display-edison.js
 ```

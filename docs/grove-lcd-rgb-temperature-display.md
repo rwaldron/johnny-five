@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb-temperature-display.fzz](breadb
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-lcd-rgb-temperature-display.js
 ```

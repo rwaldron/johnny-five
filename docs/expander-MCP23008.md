@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/expander-MCP23008.fzz](breadboard/expander-MC
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/expander-MCP23008.js
 ```

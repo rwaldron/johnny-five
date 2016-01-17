@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/imu-mpu6050.fzz](breadboard/imu-mpu6050.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/imu-mpu6050.js
 ```

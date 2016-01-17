@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/joystick-pantilt.fzz](breadboard/joystick-pan
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/joystick-pantilt.js
 ```

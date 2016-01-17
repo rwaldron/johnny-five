@@ -20,7 +20,7 @@
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/laser-trip-wire.js
 ```

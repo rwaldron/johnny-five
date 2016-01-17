@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/toggle-switch.fzz](breadboard/toggle-switch.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/toggle-switch.js
 ```

@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-13.fzz](breadboard/led-13.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/repl.js
 ```

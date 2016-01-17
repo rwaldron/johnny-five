@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/multi-mpl115a2.fzz](breadboard/multi-mpl115a2
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/temperature-mpl115a2.js
 ```

@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Gas MQ2 component on the Intel Edison Arduino Bre
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-gas-mq2-edison.js
 ```

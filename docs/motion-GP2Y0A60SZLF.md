@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/GP2Y0D810Z0F.fzz](breadboard/GP2Y0D810Z0F.fzz
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motion-GP2Y0A60SZLF.js
 ```

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/potentiometer.fzz](breadboard/potentiometer.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/potentiometer.js
 ```

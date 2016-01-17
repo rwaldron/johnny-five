@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/sensor-slider.fzz](breadboard/sensor-slider.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/sensor-slider.js
 ```

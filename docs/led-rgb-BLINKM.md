@@ -24,7 +24,7 @@ emonstrates use of a BlinkM, with a Tessel 2, by cycling through rainbow colors.
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-rgb-BLINKM.js
 ```

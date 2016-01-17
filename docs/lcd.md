@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/lcd.fzz](breadboard/lcd.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/lcd.js
 ```

@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Moisture component on the Intel Edison Arduino Br
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-moisture-edison.js
 ```

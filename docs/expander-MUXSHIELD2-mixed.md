@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/expander-MUXSHIELD2-mixed.fzz](breadboard/exp
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/expander-MUXSHIELD2-mixed.js
 ```

@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Joystick component on the Intel Edison Arduino Br
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-joystick-edison.js
 ```

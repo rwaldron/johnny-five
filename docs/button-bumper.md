@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/button-bumper.fzz](breadboard/button-bumper.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/button-bumper.js
 ```

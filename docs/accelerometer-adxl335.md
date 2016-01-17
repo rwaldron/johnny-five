@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/accelerometer-adxl335.fzz](breadboard/acceler
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/accelerometer-adxl335.js
 ```

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/led-matrix-HT16K33.fzz](breadboard/led-matrix
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-matrix-HT16K33.js
 ```

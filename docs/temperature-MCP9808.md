@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/temperature-MCP9808.fzz](breadboard/temperatu
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/temperature-MCP9808.js
 ```

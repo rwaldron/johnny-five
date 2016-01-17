@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/temperature-mpu6050.fzz](breadboard/temperatu
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/temperature-mpu6050.js
 ```

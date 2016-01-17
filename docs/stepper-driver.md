@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/stepper-driver.js
 ```

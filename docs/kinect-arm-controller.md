@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/kinect-arm-controller.fzz](breadboard/kinect-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/kinect-arm-controller.js
 ```

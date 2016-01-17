@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/motion.fzz](breadboard/motion.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motion.js
 ```

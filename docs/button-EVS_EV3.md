@@ -11,7 +11,7 @@
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/button-EVS_EV3.js
 ```

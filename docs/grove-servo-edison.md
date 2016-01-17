@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Servo and Rotary Potentiometer components on the 
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-servo-edison.js
 ```

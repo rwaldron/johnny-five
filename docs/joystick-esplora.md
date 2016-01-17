@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/esplora.fzz](breadboard/esplora.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/joystick-esplora.js
 ```

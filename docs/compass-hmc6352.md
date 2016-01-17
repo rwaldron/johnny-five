@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/compass-hmc6352.fzz](breadboard/compass-hmc63
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/compass-hmc6352.js
 ```

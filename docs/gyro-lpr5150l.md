@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/gyro-lpr5150l.fzz](breadboard/gyro-lpr5150l.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/gyro-lpr5150l.js
 ```

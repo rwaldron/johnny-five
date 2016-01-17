@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/keypad-MPR121QR2.fzz](breadboard/keypad-MPR12
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/keypad-MPR121QR2.js
 ```

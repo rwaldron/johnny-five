@@ -26,7 +26,7 @@ Fritzing diagram: [docs/breadboard/led-11-pwm.fzz](breadboard/led-11-pwm.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-pulse.js
 ```

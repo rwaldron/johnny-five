@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/relay-open.fzz](breadboard/relay-open.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/relay.js
 ```

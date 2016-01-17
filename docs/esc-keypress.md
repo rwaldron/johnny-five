@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/esc-keypress.js
 ```

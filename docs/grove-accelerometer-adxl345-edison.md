@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Accelerometer (ADXL346) component on the Intel Ed
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-accelerometer-adxl345-edison.js
 ```

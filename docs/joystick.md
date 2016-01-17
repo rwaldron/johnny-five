@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/joystick-sparkfun.fzz](breadboard/joystick-sp
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/joystick.js
 ```

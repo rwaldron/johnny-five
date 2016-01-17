@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/esc-array.fzz](breadboard/esc-array.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/esc-array.js
 ```

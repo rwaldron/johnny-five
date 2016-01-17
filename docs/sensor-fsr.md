@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/sensor-fsr.fzz](breadboard/sensor-fsr.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/sensor-fsr.js
 ```

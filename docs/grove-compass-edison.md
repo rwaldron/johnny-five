@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Compass (HMC588L) component on the Intel Edison A
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-compass-edison.js
 ```

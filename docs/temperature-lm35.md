@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/temperature-lm35.fzz](breadboard/temperature-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/temperature-lm35.js
 ```

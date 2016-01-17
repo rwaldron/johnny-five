@@ -11,7 +11,7 @@
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motor-GROVE_I2C.js
 ```
@@ -19,7 +19,7 @@ node eg/motor-GROVE_I2C.js
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board();
+var board = new five.Board({ port: "/dev/cu.usbmodem1421" });
 
 board.on("ready", function() {
   var a = new five.Motor({

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-HT16K33.fzz](breadboard/led-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-digits-clock-HT16K33.js
 ```

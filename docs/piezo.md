@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/piezo.fzz](breadboard/piezo.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/piezo.js
 ```

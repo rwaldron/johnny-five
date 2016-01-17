@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/servo-two.fzz](breadboard/servo-two.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/servo-drive.js
 ```

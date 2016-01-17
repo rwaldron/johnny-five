@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/proximity-srf10.fzz](breadboard/proximity-srf
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/proximity-srf10.js
 ```

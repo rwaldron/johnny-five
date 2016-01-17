@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/ir-proximity.fzz](breadboard/ir-proximity.fzz
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/ir-proximity.js
 ```

@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/motor-directional.fzz](breadboard/motor-direc
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motor-directional.js
 ```

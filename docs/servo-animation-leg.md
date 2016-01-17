@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/servo-three.fzz](breadboard/servo-three.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/servo-animation-leg.js
 ```

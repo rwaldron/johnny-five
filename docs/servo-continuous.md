@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/servo.fzz](breadboard/servo.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/servo-continuous.js
 ```

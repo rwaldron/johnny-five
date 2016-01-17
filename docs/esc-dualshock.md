@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/esc-dualshock.fzz](breadboard/esc-dualshock.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/esc-dualshock.js
 ```

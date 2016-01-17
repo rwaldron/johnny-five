@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/humidity-htu21d.fzz](breadboard/humidity-htu2
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/multi-htu21d.js
 ```

@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's I2C Motor Driver component on the Intel Edison Ar
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-i2c-motor-driver-edison.js
 ```

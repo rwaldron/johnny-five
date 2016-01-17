@@ -13,7 +13,7 @@ Example using Johnny-Five + pcDuino-IO to directly control a pcDuino3
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/pcduino-io.js
 ```

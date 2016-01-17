@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Barometer (BMP180) component on the Intel Edison 
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-barometer-edison.js
 ```

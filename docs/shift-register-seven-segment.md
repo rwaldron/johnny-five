@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/shift-register-seven-segment.js
 ```

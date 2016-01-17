@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/pin.fzz](breadboard/pin.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/pin.js
 ```

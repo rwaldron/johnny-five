@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/button-options.fzz](breadboard/button-options
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/button-options.js
 ```

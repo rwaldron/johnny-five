@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-1-edison-miniboard.fzz](breadboard/led-1-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/edison-io-miniboard.js
 ```

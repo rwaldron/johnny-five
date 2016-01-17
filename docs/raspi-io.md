@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-13-raspberry-pi.fzz](breadboard/led-13-ra
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/raspi-io.js
 ```

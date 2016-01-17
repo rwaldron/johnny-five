@@ -11,7 +11,7 @@
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/motor-PCA9685.js
 ```

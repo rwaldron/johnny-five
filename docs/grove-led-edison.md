@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's LED component on the Intel Edison Arduino Breakou
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-led-edison.js
 ```

@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-rgb-anode-PCA9685.fzz](breadboard/led-rgb
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-rgb-anode-PCA9685.js
 ```

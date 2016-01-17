@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/sh
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/shift-register-daisy-chain.js
 ```

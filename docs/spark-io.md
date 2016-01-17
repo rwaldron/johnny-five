@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/spark-led.fzz](breadboard/spark-led.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/spark-io.js
 ```

@@ -13,7 +13,7 @@ Using Johnny-Five with Grove's Button component on the Intel Edison Arduino Brea
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-button-edison.js
 ```

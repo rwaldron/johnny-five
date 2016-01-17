@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-dual.fzz](breadboard/led-dig
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/led-digits-clock-dual.js
 ```

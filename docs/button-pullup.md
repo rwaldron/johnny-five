@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/button-pullup.fzz](breadboard/button-pullup.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/button-pullup.js
 ```

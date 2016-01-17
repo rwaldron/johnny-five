@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/photoresistor.fzz](breadboard/photoresistor.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/photoresistor.js
 ```
