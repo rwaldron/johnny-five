@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/led-1-edison-miniboard.fzz](breadboard/led-1-
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/edison-io-miniboard.js
 ```
@@ -83,7 +83,7 @@ npm install johnny-five edison-io
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Copyright (c) 2016 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

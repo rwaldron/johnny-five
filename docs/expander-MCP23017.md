@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)
+Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO). Pins 15-17 are used to set the I2C hardware address. By default, these pins must be connected to ground. See page eight of the [data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21952b.pdf)
 
 
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/expander-MCP23017.fzz](breadboard/expander-MC
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/expander-MCP23017.js
 ```
@@ -68,7 +68,7 @@ board.on("ready", function() {
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Copyright (c) 2016 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->
