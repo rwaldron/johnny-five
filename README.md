@@ -204,6 +204,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - Demo sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [LED - Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/led-slider.md)
 - [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
+- [LED - Array Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array-controller.md)
 - [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)

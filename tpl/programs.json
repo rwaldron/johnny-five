@@ -183,6 +183,12 @@
         "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~)."
       },
       {
+        "file": "led-array-controller.js",
+        "title": "LED - Array Controller",
+        "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array and an analog Potentiometer."
+      },
+
+      {
         "file": "led-rgb.js",
         "title": "LED - RGB",
         "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
