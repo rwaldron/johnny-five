@@ -74,6 +74,11 @@
         "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
       },
       {
+        "file": "expander-74HC595.js",
+        "title": "Expander - 74HC595",
+        "description": "Using an 74HC595 Expander as a Virtual Board (8 Pin Digital Output)"
+      },
+      {
         "file": "expander-MUXSHIELD2-mixed.js",
         "title": "Expander - MUXSHIELD2, Digital Input and Output",
         "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays pin state in console graph. (`npm install barcli`)",

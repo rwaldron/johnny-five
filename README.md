@@ -188,6 +188,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
 - [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
 - [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
+- [Expander - 74HC595](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-74HC595.md)
 - [Expander - MUXSHIELD2, Digital Input and Output](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-mixed.md)
 - [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
 
