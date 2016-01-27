@@ -103,6 +103,36 @@ exports["Collections"] = {
     test.done();
   },
 
+  sharedProperties: function(test) {
+    test.expect(12);
+
+    var reference = {};
+
+    var components = new Components({
+      pins: [1, 2, 3],
+      shared: true,
+      reference: reference
+    });
+
+    test.ok(components[0] instanceof Component);
+    test.ok(components[1] instanceof Component);
+    test.ok(components[2] instanceof Component);
+
+    test.equal(components[0].num.pin, 1);
+    test.equal(components[1].num.pin, 2);
+    test.equal(components[2].num.pin, 3);
+
+    test.equal(components[0].num.shared, true);
+    test.equal(components[1].num.shared, true);
+    test.equal(components[2].num.shared, true);
+
+    test.equal(components[0].num.reference, reference);
+    test.equal(components[1].num.reference, reference);
+    test.equal(components[2].num.reference, reference);
+
+    test.done();
+  },
+
   add: function(test) {
     test.expect(3);
 
