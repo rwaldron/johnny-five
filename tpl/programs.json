@@ -937,6 +937,10 @@
         "title": "Accelerometer - MMA7361"
       },
       {
+        "file": "accelerometer-MMA8452.js",
+        "title": "Accelerometer - MMA8452"
+      },
+      {
         "file": "accelerometer-mpu6050.js",
         "title": "Accelerometer - MPU6050"
       },

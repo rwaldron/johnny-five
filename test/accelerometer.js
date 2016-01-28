@@ -685,6 +685,80 @@ exports["Accelerometer -- MMA7660"] = {
   }
 };
 
+exports["Accelerometer -- MMA8452"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.accel = new Accelerometer({
+      controller: "MMA8452",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "MMA8452",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  data: function(test) {
+    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+
+    test.expect(11);
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 29, 42, 0 ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 29, 14, 0 ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 29, 42, 32 ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 29, 42, 33 ]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [ 29, 1, 6 ]);
+
+    read = this.i2cRead.args[0][3];
+    read([ 127, 255, 127, 254, 127, 254 ]);
+
+    this.clock.tick(100);
+
+    test.ok(dataSpy.calledOnce);
+    test.ok(changeSpy.calledOnce);
+
+    test.deepEqual([this.accel.x, this.accel.y, this.accel.z], [1, 1, 1]);
+    test.done();
+  }
+};
+
 exports["Accelerometer -- ESPLORA"] = {
   setUp: function(done) {
     this.board = newBoard();

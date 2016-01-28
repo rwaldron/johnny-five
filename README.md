@@ -366,6 +366,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Accelerometer - ADXL345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
 - [Accelerometer - ADXL335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
 - [Accelerometer - MMA7361](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
+- [Accelerometer - MMA8452](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-MMA8452.md)
 - [Accelerometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
 - [Accelerometer - Pan + Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
 - [Gyro](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro.md)
