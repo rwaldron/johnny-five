@@ -9,7 +9,7 @@ board.on("ready", function() {
   });
 
   temperature.on("data", function() {
-    console.log("temperature");
+    console.log("temperature at address: 0x" + this.address.toString(16));
     console.log("  celsius      : ", this.celsius);
     console.log("  fahrenheit   : ", this.fahrenheit);
     console.log("  kelvin       : ", this.kelvin);
