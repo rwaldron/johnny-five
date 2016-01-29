@@ -239,7 +239,7 @@ module.exports = function(grunt) {
         breadboards = example.breadboards || [{
           "name": name,
           "title": "Breadboard for \"" + example.title + "\"",
-          "auto": true
+          "auto": true,
         }];
 
         embeds = (example.embeds || []).map(function(embed) {
@@ -281,6 +281,7 @@ module.exports = function(grunt) {
           markdown: markdown,
           primary: primary ? breadboardMarkdown(primary) : "",
           title: example.title,
+          theYear: (new Date()).getUTCFullYear()
         };
 
         // Write the file to /docs/*

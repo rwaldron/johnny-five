@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/grove-lcd-rgb.fzz](breadboard/grove-lcd-rgb.f
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/grove-lcd-rgb.js
 ```
@@ -94,7 +94,7 @@ For this program, you'll need:
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Copyright (c) 2016 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

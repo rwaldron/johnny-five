@@ -22,7 +22,7 @@ Fritzing diagram: [docs/breadboard/ir-motion.fzz](breadboard/ir-motion.fzz)
 
 
 
-Run with:
+Run this example from the command line with:
 ```bash
 node eg/ir-motion.js
 ```
@@ -71,7 +71,7 @@ board.on("ready", function() {
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2014, 2015 The Johnny-Five Contributors
+Copyright (c) 2016 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

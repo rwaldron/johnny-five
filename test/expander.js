@@ -2799,3 +2799,139 @@ exports["Expander - GROVEPI"] = {
     test.done();
   },
 };
+
+exports["Expander - 74HC595"] = {
+  setUp: function(done) {
+    this.clock = sinon.useFakeTimers();
+
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
+    this.board = newBoard();
+
+    this.expander = new Expander({
+      controller: "74HC595",
+      pins: {
+        data: 2,
+        clock: 3,
+        latch: 4
+      },
+      board: this.board
+    });
+
+    this.portWrite = sinon.spy(this.expander, "portWrite");
+
+    this.virtual = new Board.Virtual({
+      io: this.expander
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    restore(this);
+    done();
+  },
+
+  initialization: function(test) {
+    test.expect(1);
+    test.equal(this.shiftOut.callCount, 1);
+    test.done();
+  },
+
+  normalize: function(test) {
+    test.expect(8);
+
+    for (var i = 0; i < 8; i++) {
+      test.equal(this.expander.normalize(i), i);
+    }
+
+    test.done();
+  },
+
+  pinMode: function(test) {
+    test.expect(8);
+
+    for (var i = 0; i < 8; i++) {
+      this.expander.pinMode(i, 1);
+    }
+
+    test.equal(this.expander.pins[0].mode, 1);
+    test.equal(this.expander.pins[1].mode, 1);
+    test.equal(this.expander.pins[2].mode, 1);
+    test.equal(this.expander.pins[3].mode, 1);
+    test.equal(this.expander.pins[4].mode, 1);
+    test.equal(this.expander.pins[5].mode, 1);
+    test.equal(this.expander.pins[6].mode, 1);
+    test.equal(this.expander.pins[7].mode, 1);
+
+    test.done();
+  },
+
+  digitalWrite: function(test) {
+    test.expect(8);
+
+    this.expander.digitalWrite(0, 1);
+    this.expander.digitalWrite(1, 1);
+    this.expander.digitalWrite(2, 1);
+    this.expander.digitalWrite(3, 1);
+    this.expander.digitalWrite(4, 1);
+    this.expander.digitalWrite(5, 1);
+    this.expander.digitalWrite(6, 1);
+    this.expander.digitalWrite(7, 1);
+
+
+    test.deepEqual(this.expander.portWrite.getCall(0).args, [0, 1]);
+    test.deepEqual(this.expander.portWrite.getCall(1).args, [0, 3]);
+    test.deepEqual(this.expander.portWrite.getCall(2).args, [0, 7]);
+    test.deepEqual(this.expander.portWrite.getCall(3).args, [0, 15]);
+    test.deepEqual(this.expander.portWrite.getCall(4).args, [0, 31]);
+    test.deepEqual(this.expander.portWrite.getCall(5).args, [0, 63]);
+    test.deepEqual(this.expander.portWrite.getCall(6).args, [0, 127]);
+    test.deepEqual(this.expander.portWrite.getCall(7).args, [0, 255]);
+
+    test.done();
+  },
+
+  unsupported: function(test) {
+    test.expect(10);
+
+    sinon.spy(this.expander, "digitalRead");
+    test.throws(this.expander.digitalRead);
+    test.equal(
+      this.expander.digitalRead.lastCall.exception.message,
+      "Expander:74HC595 does not support digitalRead"
+    );
+
+    sinon.spy(this.expander, "analogWrite");
+    test.throws(this.expander.analogWrite);
+    test.equal(
+      this.expander.analogWrite.lastCall.exception.message,
+      "Expander:74HC595 does not support analogWrite"
+    );
+
+    sinon.spy(this.expander, "analogRead");
+    test.throws(this.expander.analogRead);
+    test.equal(
+      this.expander.analogRead.lastCall.exception.message,
+      "Expander:74HC595 does not support analogRead"
+    );
+
+    sinon.spy(this.expander, "i2cWrite");
+    test.throws(this.expander.i2cWrite);
+    test.equal(
+      this.expander.i2cWrite.lastCall.exception.message,
+      "Expander:74HC595 does not support i2cWrite"
+    );
+
+    sinon.spy(this.expander, "i2cRead");
+    test.throws(this.expander.i2cRead);
+    test.equal(
+      this.expander.i2cRead.lastCall.exception.message,
+      "Expander:74HC595 does not support i2cRead"
+    );
+
+    test.done();
+  },
+};

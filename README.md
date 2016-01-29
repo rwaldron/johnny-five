@@ -188,6 +188,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - PCF8575](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8575.md)
 - [Expander - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCA9685.md)
 - [Expander - PCF8591](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-PCF8591.md)
+- [Expander - 74HC595](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-74HC595.md)
 - [Expander - MUXSHIELD2, Digital Input and Output](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-mixed.md)
 - [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
 
@@ -204,6 +205,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LED - Demo sequence](https://github.com/rwaldron/johnny-five/blob/master/docs/led-demo-sequence.md)
 - [LED - Slider](https://github.com/rwaldron/johnny-five/blob/master/docs/led-slider.md)
 - [LED - Array](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array.md)
+- [LED - Array Controller](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array-controller.md)
 - [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
@@ -305,6 +307,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Proximity - MB1003](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1003.md)
 - [Proximity - MB1230](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-mb1230.md)
 - [Proximity - HC-SR04](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04.md)
+- [Proximity - HC-SR04 (Analog)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04-analog.md)
 - [Proximity - HC-SR04 I2C Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-hcsr04-i2c.md)
 - [Proximity - LIDAR-Lite](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-lidarlite.md)
 - [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR.md)
