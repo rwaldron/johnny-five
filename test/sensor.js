@@ -97,6 +97,7 @@ exports["Sensor - Analog"] = {
       "disable",
       "scale",
       "scaleTo",
+      "fscaleTo",
       "within",
     ];
 
@@ -1067,6 +1068,36 @@ exports["Sensor - Analog"] = {
 
     test.done();
   },// ./scale: function(test)
+
+
+  scaleTo: function(test) {
+    var callback = this.analogRead.args[0][1];
+
+    test.expect(3);
+
+    this.sensor.once("change", function() {
+      test.equal(this.scaleTo(50, 100), 100);
+    });
+    callback(1023);
+    this.clock.tick(25);
+
+    this.sensor.once("change", function() {
+      test.equal(this.scaleTo(50, 100), 50);
+    });
+    callback(0);
+    this.clock.tick(25);
+
+    // Ensure sensors may return float values
+    this.sensor.scale([0, 102.3]);
+    this.sensor.once("change", function() {
+      test.equal(this.fscaleTo([0, 102.3]), 1.2);
+    });
+    callback(12);
+    this.clock.tick(25);
+
+    test.done();
+  },// ./scaleTo: function(test)
+
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
