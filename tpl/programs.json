@@ -430,6 +430,10 @@
         ]
       },
       {
+        "file": "motor-sparkfun-edison-hbridge.js",
+        "title": "Motor - Sparkfun Dual H-bridge Edison Block"
+      },
+      {
         "file": "motor-hbridge.js",
         "title": "Motor - H-Bridge"
       },

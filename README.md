@@ -249,6 +249,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - Brake](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor - Enable Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-enable.md)
+- [Motor - Sparkfun Dual H-bridge Edison Block](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-sparkfun-edison-hbridge.md)
 - [Motor - H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
 - [Motor - GROVE_I2C_MOTOR_DRIVER](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-GROVE_I2C.md)
