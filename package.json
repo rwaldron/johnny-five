@@ -124,6 +124,7 @@
     "array-includes": "latest"
   },
   "optionalDependencies": {
+    "browser-serialport": "latest",
     "firmata": "^0.7.2",
     "serialport": "^2.0.1"
   },
