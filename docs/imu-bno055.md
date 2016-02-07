@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/imu-bno055.fzz](breadboard/imu-bno055.fzz)
 
 Run this example from the command line with:
 ```bash
-node eg/imu-mpu6050-orientation.js
+node eg/imu-bno055-orientation.js
 ```
 
 
