@@ -46,7 +46,7 @@
       {
         "file": "expander-MCP23017.js",
         "title": "Expander - MCP23017",
-        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO)"
+        "description": "Using an MCP23017 Expander as a Virtual Board (16 Pin Digital IO). Pins 15-17 are used to set the I2C hardware address. By default, these pins must be connected to ground. See page eight of the [data sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21952b.pdf)"
       },
       {
         "file": "expander-MCP23008.js",
@@ -72,6 +72,11 @@
         "file": "expander-PCF8591.js",
         "title": "Expander - PCF8591",
         "description": "Using an PCF8591 Expander as a Virtual Board (4 Pin Analog Input)"
+      },
+      {
+        "file": "expander-74HC595.js",
+        "title": "Expander - 74HC595",
+        "description": "Using an 74HC595 Expander as a Virtual Board (8 Pin Digital Output)"
       },
       {
         "file": "expander-MUXSHIELD2-mixed.js",
@@ -182,6 +187,12 @@
         "title": "LED - Array",
         "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array. Requires LEDs on pins that support PWM (usually denoted by ~)."
       },
+      {
+        "file": "led-array-controller.js",
+        "title": "LED - Array Controller",
+        "description": "Demonstrates controlling multiple LEDs at once through the use of an LED array and an analog Potentiometer."
+      },
+
       {
         "file": "led-rgb.js",
         "title": "LED - RGB",
@@ -647,6 +658,11 @@
       {
         "file": "proximity-hcsr04.js",
         "title": "Proximity - HC-SR04",
+        "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
+      },
+      {
+        "file": "proximity-hcsr04-analog.js",
+        "title": "Proximity - HC-SR04 (Analog)",
         "description": "Basic ping Proximity example for any of the [`PING_PULSE_IN`](http://johnny-five.io/api/proximity/#controller-alias-table) components (eg. `HCSR04` or Parallax's Ultrasonic Ping). [PingFirmata](http://johnny-five.io/api/proximity/#pingfirmata) must be loaded onto Arduino-compatible boards to enable this component."
       },
       {

@@ -984,6 +984,48 @@ exports["Proximity: HCSR04"] = {
     done();
   },
 
+  acceptAnalogPin: function(test) {
+    test.expect(4);
+
+    var a = sinon.spy();
+    var b = sinon.spy();
+
+    this.proximity = new Proximity({
+      controller: "HCSR04",
+      pin: "A0",
+      freq: 100,
+      board: this.board
+    });
+
+    test.equal(this.proximity.pin, 14);
+
+    // tick the clock forward to trigger the pingRead handler
+    this.clock.tick(250);
+
+    this.proximity.on("data", a);
+    this.clock.tick(100);
+    test.ok(a.calledOnce);
+
+    this.proximity = new Proximity({
+      controller: "HCSR04",
+      pin: 15,
+      freq: 100,
+      board: this.board
+    });
+
+    test.equal(this.proximity.pin, 15);
+
+    // tick the clock forward to trigger the pingRead handler
+    this.clock.tick(250);
+
+    this.proximity.on("data", b);
+    this.clock.tick(100);
+
+    test.ok(b.calledOnce);
+
+    test.done();
+  },
+
   shape: function(test) {
     test.expect(proto.length + instance.length);
 
