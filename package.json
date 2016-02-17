@@ -122,14 +122,14 @@
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
-    "lodash": "^3.10.1",
+    "lodash": "~3.10.1",
     "nanotimer": "0.3.10",
     "temporal": "latest",
     "array-includes": "latest"
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "^0.7.2",
+    "firmata": "~0.8.0",
     "serialport": "^2.0.1"
   },
   "devDependencies": {
