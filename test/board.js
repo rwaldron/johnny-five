@@ -1,6 +1,6 @@
 var mocks = require("mock-firmata"),
   MockFirmata = mocks.Firmata,
-  SerialPort = mocks.SerialPort,
+  MockSerialPort = mocks.SerialPort,
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
@@ -61,7 +61,7 @@ exports["Board"] = {
   explicit: function(test) {
     test.expect(1);
 
-    var sp = new SerialPort("/dev/foo", {
+    var sp = new MockSerialPort("/dev/foo", {
       baudrate: 57600,
       buffersize: 128
     });
@@ -112,7 +112,7 @@ exports["Board"] = {
   // ioHasError: function(test) {
   //   test.expect(1);
 
-  //   var sp = new SerialPort("/dev/foo", {
+  //   var sp = new MockSerialPort("/dev/foo", {
   //     baudrate: 57600,
   //     buffersize: 128
   //   });
@@ -813,7 +813,7 @@ exports["Board.mount"] = {
   },
 };
 
-exports["bubbled events from io"] = {
+exports["Events Forwarded By IO Layer"] = {
   setUp: function(done) {
     done();
   },
@@ -841,7 +841,7 @@ exports["bubbled events from io"] = {
 
     board.emit("ready");
   },
-  close: function(test) {
+  closeBySelf: function(test) {
     test.expect(1);
 
     var io = new MockFirmata();
@@ -852,17 +852,95 @@ exports["bubbled events from io"] = {
     });
 
     board.on("ready", function() {
-      board.on("close", function() {
-        test.ok(true);
-        test.done();
-      });
       io.emit("close");
     });
 
-    board.emit("ready");
-  }
-};
+    board.on("close", function() {
+      test.ok(true);
+      test.done();
+    });
 
+    board.emit("ready");
+  },
+
+  closeByIO: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    io.isReady = false;
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      io.emit("close");
+    });
+
+    board.on("close", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    process.nextTick(function() {
+      io.isReady = true;
+      io.emit("connect");
+      io.emit("ready");
+    });
+  },
+
+  disconnectBySelf: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      io.emit("disconnect");
+    });
+
+    board.on("disconnect", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    board.emit("ready");
+  },
+
+  disconnectByIO: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    io.isReady = false;
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      io.emit("disconnect");
+    });
+
+    board.on("disconnect", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    process.nextTick(function() {
+      io.isReady = true;
+      io.emit("connect");
+      io.emit("ready");
+    });
+  },
+};
 
 exports["fn"] = {
   cache: function(test) {
