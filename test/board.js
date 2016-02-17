@@ -840,6 +840,26 @@ exports["bubbled events from io"] = {
     });
 
     board.emit("ready");
+  },
+  close: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      board.on("close", function() {
+        test.ok(true);
+        test.done();
+      });
+      io.emit("close");
+    });
+
+    board.emit("ready");
   }
 };
 
