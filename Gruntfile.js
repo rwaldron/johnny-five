@@ -159,20 +159,20 @@ module.exports = function(grunt) {
 
   //
   //
-  // grunt jsbeautifier:file:file-a.js
-  // grunt jsbeautifier:file:[file-a.js,file-b.js]
+  // grunt beautify:file-a.js
+  // grunt beautify:[file-a.js,file-b.js]
   //
-  // grunt jsbeautifier:file:file-a
-  // grunt jsbeautifier:file:[file-a,file-b]
+  // grunt beautify:file-a
+  // grunt beautify:[file-a,file-b]
   //
-  grunt.registerTask("jsbeautifier:file", "Cleanup a single or limited set of files; usage: 'grunt jsbeautifier:file:file.js' or 'grunt jsbeautifier:file:[file-a.js,file-b.js]' (extension optional)", function(file) {
+  grunt.registerTask("beautify", "Cleanup a single or limited set of files; usage: 'grunt beautify:file.js' or 'grunt beautify:[file-a.js,file-b.js]' (extension optional)", function(file) {
     var files;
 
     if (file) {
       files = [file];
 
       //
-      // grunt jsbeautifier:file:[test-file-a,test-file-b]
+      // grunt beautify:[test-file-a,test-file-b]
       //
       if (file[0] === "[" && file[file.length - 1] === "]") {
         files = file.match(/(\w+)/g);
@@ -205,6 +205,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-jsbeautifier");
   grunt.loadNpmTasks("grunt-jscs");
+
+  // grunt.registerTask("beautify", ["jsbeautifier"]);
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
   // Explicit test task runs complete set of tests
