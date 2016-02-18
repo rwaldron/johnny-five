@@ -351,6 +351,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### IMU/Multi
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+- [IMU - BNO055](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055.md)
+- [IMU - BNO055 (Orientation)](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055-orientation.md)
 - [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)

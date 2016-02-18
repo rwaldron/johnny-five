@@ -1,3 +1,34 @@
+<!--remove-start-->
+
+# IMU - BNO055 (Orientation)
+
+<!--remove-end-->
+
+
+
+
+
+
+##### IMU - BNO055 (Orientation)
+
+
+
+![docs/breadboard/imu-bno055.png](breadboard/imu-bno055.png)<br>
+
+Fritzing diagram: [docs/breadboard/imu-bno055.fzz](breadboard/imu-bno055.fzz)
+
+&nbsp;
+
+
+
+
+Run this example from the command line with:
+```bash
+node eg/imu-bno055-orientation.js
+```
+
+
+```javascript
 var five = require("../");
 var board = new five.Board();
 
@@ -44,3 +75,24 @@ board.on("ready", function() {
 
   });
 });
+
+```
+
+
+
+
+
+
+
+
+&nbsp;
+
+<!--remove-start-->
+
+## License
+Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
+Copyright (c) 2016 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

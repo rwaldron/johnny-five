@@ -855,6 +855,17 @@
         "title": "IMU - MPU6050"
       },
       {
+        "file": "imu-bno055.js",
+        "title": "IMU - BNO055"
+      },
+      {
+        "file": "imu-bno055-orientation.js",
+        "title": "IMU - BNO055 (Orientation)",
+        "breadboards": [
+          {"name": "imu-bno055", "title": "IMU - BNO055 (Orientation)"}
+        ]
+      },
+      {
         "file": "multi-mpl115a2.js",
         "title": "Multi - MPL115A2",
         "externals": [
