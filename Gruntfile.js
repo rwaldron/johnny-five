@@ -30,6 +30,20 @@ module.exports = function(grunt) {
   };
 
   var noedit = file.read("tpl/.noedit.md");
+  var programsJson = JSON.parse(file.read("tpl/programs.json"));
+  var programsList = programsJson.reduce(function(paccum, topics) {
+    return paccum.concat(
+      topics.examples.reduce(function(faccum, example) {
+        return faccum.concat(["eg/" + example.file]);
+      }, [])
+    );
+  }, []);
+
+  var primaryFiles = [
+    "Gruntfile.js",
+    "lib/**/!(johnny-five)*.js",
+    "test/**/*.js",
+  ].concat(programsList);
 
   // Project configuration.
   grunt.initConfig({
@@ -48,23 +62,11 @@ module.exports = function(grunt) {
         jshintrc: true
       },
       files: {
-        src: [
-          "Gruntfile.js",
-          "lib/**/!(johnny-five)*.js",
-          "test/**/*.js",
-          "eg/**/*.js",
-          "wip/autobot-2.js"
-        ]
+        src: primaryFiles,
       }
     },
     jscs: {
-      src: [
-        "Gruntfile.js",
-        "lib/**/!(johnny-five)*.js",
-        "test/**/*.js",
-        "eg/**/*.js",
-        "util/**/*.js"
-      ],
+      src: primaryFiles,
       options: {
         config: ".jscsrc"
       }
@@ -153,6 +155,40 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run("nodeunit");
+  });
+
+  //
+  //
+  // grunt jsbeautifier:file:file-a.js
+  // grunt jsbeautifier:file:[file-a.js,file-b.js]
+  //
+  // grunt jsbeautifier:file:file-a
+  // grunt jsbeautifier:file:[file-a,file-b]
+  //
+  grunt.registerTask("jsbeautifier:file", "Cleanup a single or limited set of files; usage: 'grunt jsbeautifier:file:file.js' or 'grunt jsbeautifier:file:[file-a.js,file-b.js]' (extension optional)", function(file) {
+    var files;
+
+    if (file) {
+      files = [file];
+
+      //
+      // grunt jsbeautifier:file:[test-file-a,test-file-b]
+      //
+      if (file[0] === "[" && file[file.length - 1] === "]") {
+        files = file.match(/(\w+)/g);
+      }
+
+      if (files) {
+        for (var i = 0; i < files.length; i++) {
+          if (!files[i].endsWith(".js")) {
+            files[i] += ".js";
+          }
+        }
+        grunt.config("jsbeautifier.files", files);
+      }
+    }
+
+    grunt.task.run("jsbeautifier");
   });
 
   // Support running a complete set of tests with
