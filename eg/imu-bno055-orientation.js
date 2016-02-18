@@ -3,7 +3,7 @@ var five = require("johnny-five"),
 
 board = new five.Board();
 
-board.on("ready", function () {
+board.on("ready", function() {
 
   // Borrowed from
   // https://github.com/adafruit/Adafruit_BNO055/blob/master/examples/bunny/bunny.ino
@@ -30,7 +30,7 @@ board.on("ready", function () {
   });
 
 
-  imu.orientation.on("change", function () {
+  imu.orientation.on("change", function() {
 
     console.log("orientation");
     console.log("  w            : ", this.quarternion.w);
