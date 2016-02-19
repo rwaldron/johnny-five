@@ -8,6 +8,7 @@ var Board = five.Board;
 var Expander = five.Expander;
 var Led = five.Led;
 var Button = five.Button;
+var Fn = five.Fn;
 
 
 function newBoard() {
@@ -29,6 +30,10 @@ exports["Expander"] = {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
     done();
   },
 
@@ -291,6 +296,10 @@ exports["Expander.get(opts)"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -363,6 +372,10 @@ exports["Expander.byAddress(...)"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -391,6 +404,10 @@ exports["Expander.byController(...)"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -426,6 +443,10 @@ exports["Expander - MCP23017"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MCP23017",
@@ -712,6 +733,10 @@ exports["Expander - MCP23008"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MCP23008",
@@ -958,6 +983,10 @@ exports["Expander - PCF8574"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -1206,6 +1235,10 @@ exports["Expander - PCF8574A"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574A",
@@ -1455,6 +1488,10 @@ exports["Expander - PCF8575"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8575",
@@ -1663,6 +1700,10 @@ exports["Expander - PCA9685"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCA9685",
@@ -1943,6 +1984,10 @@ exports["Expander - PCF8591"] = {
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8591",
@@ -2108,6 +2153,10 @@ exports["Expander - MUXSHIELD2"] = {
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MUXSHIELD2",
@@ -2362,6 +2411,10 @@ exports["Expander - GROVEPI"] = {
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "GROVEPI",
@@ -2800,6 +2853,10 @@ exports["Expander - 74HC595"] = {
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "74HC595",

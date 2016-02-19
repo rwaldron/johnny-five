@@ -5,6 +5,7 @@ var EVS = require("../lib/evshield");
 var five = require("../lib/johnny-five");
 var Button = five.Button;
 var Board = five.Board;
+var Fn = five.Fn;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -38,11 +39,15 @@ var instance = [{
 }];
 
 
+
 exports["Button -- Digital Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
@@ -96,7 +101,6 @@ exports["Button -- Digital Pin"] = {
 
     //fake timers dont play nice with __.debounce
     this.button.on("up", function() {
-      console.log(1);
       test.ok(true);
       test.done();
     });
@@ -157,6 +161,9 @@ exports["Button -- Analog Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
@@ -235,6 +242,9 @@ exports["Button -- Value Inversion"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
@@ -346,6 +356,9 @@ exports["Button -- EVS_EV3"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
     this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
@@ -436,6 +449,9 @@ exports["Button -- EVS_NXT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
     this.evsread = this.sandbox.spy(EVS.prototype, "read");
 

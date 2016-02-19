@@ -42,7 +42,6 @@ module.exports = function(grunt) {
   var primaryFiles = [
     "Gruntfile.js",
     "lib/**/!(johnny-five)*.js",
-    "!lib/vendor/**/*.js",
     "test/**/*.js",
   ].concat(programsList);
 
