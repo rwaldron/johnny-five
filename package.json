@@ -125,9 +125,8 @@
     "es6-shim": "latest",
     "lodash": "~3.10.1",
     "nanotimer": "0.3.10",
-    "temporal": "latest",
-    "array-includes": "latest"
-  },
+    "temporal": "latest"
+    },
   "optionalDependencies": {
     "browser-serialport": "latest",
     "firmata": "~0.8.0",
