@@ -118,15 +118,14 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "color-convert": "~0.5.2",
     "chalk": "latest",
+    "color-convert": "~0.5.2",
     "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
-    "lodash": "~3.10.1",
     "nanotimer": "0.3.10",
     "temporal": "latest"
-    },
+  },
   "optionalDependencies": {
     "browser-serialport": "latest",
     "firmata": "~0.8.0",

@@ -1,7 +1,6 @@
 var mocks = require("mock-firmata"),
   MockFirmata = mocks.Firmata,
   five = require("../lib/johnny-five.js"),
-  __ = require("../lib/fn.js"),
   sinon = require("sinon"),
   Board = five.Board,
   ReflectanceArray = five.IR.Reflect.Array;
@@ -287,8 +286,8 @@ exports["ReflectanceArray"] = {
 
     test.expect(1);
     this.eyes.loadCalibration({
-      min: __.pluck(testValues, "min"),
-      max: __.pluck(testValues, "max")
+      min: testValues.map(function(value) { return value.min; }),
+      max: testValues.map(function(value) { return value.max; }),
     });
 
     this.eyes.on("calibratedData", dataSpy);
@@ -298,7 +297,7 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], __.pluck(testValues, "expected"));
+    test.deepEqual(dataSpy.getCall(0).args[0], testValues.map(function(value) { return value.expected; }));
 
     test.done();
   },
