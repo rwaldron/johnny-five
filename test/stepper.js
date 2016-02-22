@@ -6,8 +6,22 @@ var mocks = require("mock-firmata"),
   Stepper = five.Stepper;
 
 
-function newBoard() {
-  var io = new MockFirmata();
+function newBoard(pins) {
+
+  if (pins) {
+    pins.forEach(function(pin) {
+      Object.assign(pin, {
+        mode: 1,
+        value: 0,
+        report: 1,
+        analogChannel: 127
+      });
+    });
+  }
+
+  var io = new MockFirmata({
+    pins: pins
+  });
   var board = new Board({
     io: io,
     debug: false,
@@ -39,8 +53,6 @@ function restore(target) {
 
 exports["Stepper Firmware Requirement"] = {
   setUp: function(done) {
-    this.board = newBoard();
-    this.board.pins[0].supportedModes = [8];
     done();
   },
   tearDown: function(done) {
@@ -50,6 +62,18 @@ exports["Stepper Firmware Requirement"] = {
   },
   valid: function(test) {
     test.expect(1);
+
+    this.board = newBoard([
+      {
+        supportedModes: [],
+      }, {
+        supportedModes: [],
+      }, {
+        supportedModes: [0, 1, 4, 8],
+      }, {
+        supportedModes: [0, 1, 3, 4, 8],
+      }
+    ]);
 
     test.doesNotThrow(function() {
       new Stepper({
@@ -66,7 +90,17 @@ exports["Stepper Firmware Requirement"] = {
   invalid: function(test) {
     test.expect(1);
 
-    this.board.pins[0].supportedModes = [];
+    this.board = newBoard([
+      {
+        supportedModes: [],
+      }, {
+        supportedModes: [],
+      }, {
+        supportedModes: [0, 1, 4],
+      }, {
+        supportedModes: [0, 1, 3, 4],
+      }
+    ]);
 
     try {
       new Stepper({
