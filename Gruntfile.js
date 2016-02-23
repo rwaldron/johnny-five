@@ -243,7 +243,7 @@ module.exports = function(grunt) {
         inMarkdown = false;
 
         if (!example.title) {
-          grunt.fail.fatal("Invalid example (" + name + "): title required");
+          example.title = null;
         }
 
         // Modify code in example to appear as it would if installed via npm
@@ -345,10 +345,6 @@ module.exports = function(grunt) {
   function breadboardMarkdown(breadboard) {
     if (!breadboard.name) {
       grunt.fail.fatal("Invalid breadboard: name required");
-    }
-
-    if (!breadboard.title) {
-      grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
     }
 
     breadboard.png = "docs/breadboard/" + breadboard.name + ".png";
