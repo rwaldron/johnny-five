@@ -524,7 +524,7 @@ exports["IMU -- BNO055"] = {
   },
 
   data: function(test) {
-    test.expect(37);
+    test.expect(38);
 
     var dspy = this.sandbox.spy();
     var ispy = this.sandbox.spy();
@@ -563,6 +563,9 @@ exports["IMU -- BNO055"] = {
         test.equal(this.i2cReadOnce.callCount, 1);
         test.equal(this.i2cRead.callCount, 3);
 
+        //by the time we get here and we have a configured/calibrated device
+        // there should have been one data event emitted from the calibration
+        test.equal(dspy.callCount, 1);
 
         // TEMP
         test.deepEqual(this.i2cRead.getCall(0).args.slice(0, -1), [0x28, 0x34, 2]);
@@ -582,7 +585,9 @@ exports["IMU -- BNO055"] = {
         readEuler([ 42, 8, 253, 255, 10, 0, 180, 26, 244, 255, 94, 0, 215, 197 ]);
 
         // Once for each of the calls to readTemp, readAccel, readEuler
-        test.equal(dspy.callCount, 3);
+        // a data event is now emitted from the calibration
+        // so we will have a call count of 4, not 3.
+        test.equal(dspy.callCount, 4);
 
         // Once for the alloted "freq"
         test.equal(ispy.callCount, 1);
