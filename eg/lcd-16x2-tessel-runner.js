@@ -1,15 +1,18 @@
 var five = require("../lib/johnny-five");
-var board = new five.Board();
+var Tessel = require("tessel-io");
+var board = new five.Board({
+  io: new Tessel()
+});
 
 board.on("ready", function() {
-
   var lcd = new five.LCD({
-    // LCD pin name  RS  EN  DB4 DB5 DB6 DB7
-    pins: [7, 8, 9, 10, 11, 12],
+    // LCD pin:
+    //      RS    EN    D4    D5    D6    D7
+    pins: ["a2", "a3", "a4", "a5", "a6", "a7"],
   });
 
   var frame = 1;
-  var frames = [":runninga:", ":runningb:"];
+  var frames = ["runninga", "runningb"];
   var row = 0;
   var col = 0;
 
@@ -38,6 +41,3 @@ board.on("ready", function() {
 });
 
 
-
-// @device [16 x 2 LCD White on Blue](http://www.hacktronics.com/LCDs/16-x-2-LCD-White-on-Blue/flypage.tpl.html)
-// @device [20 x 4 LCD White on Blue](http://www.hacktronics.com/LCDs/20-x-4-LCD-White-on-Blue/flypage.tpl.html)

@@ -785,6 +785,10 @@
         "title": "LCD"
       },
       {
+        "file": "lcd-16x2-tessel.js",
+        "title": "LCD - Tessel 2 16x2"
+      },
+      {
         "file": "lcd-enumeratechars.js",
         "title": "LCD - Enumerate characters"
       },
@@ -795,6 +799,13 @@
       {
         "file": "lcd-runner.js",
         "title": "LCD - Runner 16x2"
+      },
+      {
+        "file": "lcd-16x2-tessel-runner.js",
+        "title": "LCD - Tessel 2 16x2 Runner",
+        "breadboards": [
+          {"name": "lcd-16x2-tessel"}
+        ]
       },
       {
         "file": "lcd-i2c.js",

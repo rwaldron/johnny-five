@@ -332,9 +332,11 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### LCD
 - [LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
+- [LCD - Tessel 2 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel.md)
 - [LCD - Enumerate characters](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [LCD - Runner 20x4](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [LCD - Runner 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)
+- [LCD - Tessel 2 16x2 Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel-runner.md)
 - [LCD - I2C](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
 - [LCD - I2C PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-PCF8574.md)
 - [LCD - I2C Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)

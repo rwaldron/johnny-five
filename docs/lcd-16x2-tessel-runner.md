@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LCD - I2C Runner
+# LCD - Tessel 2 16x2 Runner
 
 <!--remove-end-->
 
@@ -9,11 +9,13 @@
 
 
 
-##### Breadboard for "LCD - I2C Runner"
 
 
 
-![docs/breadboard/lcd-i2c-runner.png](breadboard/lcd-i2c-runner.png)<br>
+
+![docs/breadboard/lcd-16x2-tessel.png](breadboard/lcd-16x2-tessel.png)<br>
+
+Fritzing diagram: [docs/breadboard/lcd-16x2-tessel.fzz](breadboard/lcd-16x2-tessel.fzz)
 
 &nbsp;
 
@@ -22,26 +24,28 @@
 
 Run this example from the command line with:
 ```bash
-node eg/lcd-i2c-runner.js
+node eg/lcd-16x2-tessel-runner.js
 ```
 
 
 ```javascript
-var colors = require("../eg/color-list");
-var five = require("../");
-var board = new five.Board();
+var five = require("johnny-five");
+var Tessel = require("tessel-io");
+var board = new five.Board({
+  io: new Tessel()
+});
 
 board.on("ready", function() {
-  var clist = Object.keys(colors);
-  var clength = clist.length;
   var lcd = new five.LCD({
-    controller: "JHD1313M1"
+    // LCD pin:
+    //      RS    EN    D4    D5    D6    D7
+    pins: ["a2", "a3", "a4", "a5", "a6", "a7"],
   });
 
   var frame = 1;
-  var frames = [":runninga:", ":runningb:"];
-  var col = 0;
+  var frames = ["runninga", "runningb"];
   var row = 0;
+  var col = 0;
 
   // These calls will store the "runninga" and "runningb"
   // characters in the LCD's built-in memory. The LCD
@@ -65,12 +69,9 @@ board.on("ready", function() {
       }
     }
   });
-
-
-  this.loop(1000, function() {
-    lcd.bgColor(clist[Math.floor(Math.random() * clength)]);
-  });
 });
+
+
 
 ```
 
