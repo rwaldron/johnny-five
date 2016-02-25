@@ -377,6 +377,169 @@ exports["Thermometer -- ANALOG"] = {
   },
 };
 
+function createMAX31850K(pin, address) {
+  return new Thermometer({
+    controller: "MAX31850K",
+    pin: pin,
+    address: address,
+    freq: 100,
+    board: this.board
+  });
+}
+
+exports["Thermometer -- MAX31850K"] = {
+
+  setUp: function(done) {
+    this.pin = 2;
+    this.sendOneWireConfig = this.sandbox.spy(MockFirmata.prototype, "sendOneWireConfig");
+    this.sendOneWireSearch = this.sandbox.spy(MockFirmata.prototype, "sendOneWireSearch");
+    this.sendOneWireDelay = this.sandbox.spy(MockFirmata.prototype, "sendOneWireDelay");
+    this.sendOneWireReset = this.sandbox.spy(MockFirmata.prototype, "sendOneWireReset");
+    this.sendOneWireWrite = this.sandbox.spy(MockFirmata.prototype, "sendOneWireWrite");
+    this.sendOneWireWriteAndRead = this.sandbox.spy(MockFirmata.prototype, "sendOneWireWriteAndRead");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Thermometer.Drivers.clear();
+    done();
+  },
+
+  initialize: function(test) {
+    var device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var search;
+
+    test.expect(5);
+
+    this.temperature = createMAX31850K(this.pin);
+    search = this.sendOneWireSearch.args[0][1];
+    search(null, [device]);
+
+
+    test.ok(this.sendOneWireConfig.calledOnce);
+    test.equals(this.sendOneWireConfig.args[0][0], this.pin);
+
+    test.ok(this.sendOneWireSearch.calledOnce);
+    test.equals(this.sendOneWireSearch.args[0][0], this.pin);
+
+    test.equals(this.temperature.address, 0x050403020100);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var search, data;
+    var spy = this.sandbox.spy();
+
+    test.expect(14);
+
+    this.temperature = createMAX31850K(this.pin);
+    this.temperature.on("data", spy);
+    search = this.sendOneWireSearch.args[0][1];
+    search(null, [device]);
+
+    data = this.sendOneWireWriteAndRead.args[0][4];
+    data(null, [0x01, 0x02]);
+
+
+    test.ok(this.sendOneWireReset.calledThrice);
+    test.equals(this.sendOneWireReset.args[0], this.pin);
+
+    test.ok(this.sendOneWireWrite.calledOnce);
+    test.equals(this.sendOneWireWrite.args[0][0], this.pin);
+    test.equals(this.sendOneWireWrite.args[0][1], device);
+    test.equals(this.sendOneWireWrite.args[0][2], 0x44);
+
+    test.ok(this.sendOneWireWriteAndRead.calledTwice);
+    test.equals(this.sendOneWireWriteAndRead.args[0][0], this.pin);
+    test.equals(this.sendOneWireWriteAndRead.args[0][1], device);
+    test.equals(this.sendOneWireWriteAndRead.args[0][2], 0xBE);
+    test.equals(this.sendOneWireWriteAndRead.args[0][3], 9);
+
+    data = this.sendOneWireWriteAndRead.args[1][4];
+    data(null, [0x01, 0x02]);
+    this.clock.tick(100);
+
+    test.equals(Math.round(spy.getCall(0).args[0].celsius), 32);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 90);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 305);
+
+    test.done();
+  },
+
+  address: function(test) {
+    var device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var device2 = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    var search;
+
+    test.expect(3);
+
+    this.temperature = createMAX31850K(this.pin, 0x554433221100);
+    search = this.sendOneWireSearch.args[0][1];
+    search(null, [device1, device2]);
+
+    test.equals(this.sendOneWireWrite.args[0][1], device2);
+    test.equals(this.sendOneWireWriteAndRead.args[0][1], device2);
+    test.equals(this.temperature.address, 0x554433221100);
+
+    test.done();
+  },
+
+  twoAddressedUnits: function(test) {
+    var spyA = this.sandbox.spy();
+    var spyB = this.sandbox.spy();
+    var deviceA = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var deviceB = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    var search, data;
+
+    test.expect(2);
+
+    this.temperatureA = createMAX31850K(this.pin, 0x554433221100);
+    this.temperatureA.on("data", spyA);
+    this.temperatureB = createMAX31850K(this.pin, 0x050403020100);
+    this.temperatureB.on("data", spyB);
+
+    search = this.sendOneWireSearch.args[0][1];
+    search(null, [deviceA, deviceB]);
+
+    data = this.sendOneWireWriteAndRead.args[0][4];
+    data(null, [0x01, 0x02]);
+    data = this.sendOneWireWriteAndRead.args[1][4];
+    data(null, [0x03, 0x04]);
+    data = this.sendOneWireWriteAndRead.args[2][4];
+    data(null, [0x01, 0x02]);
+    data = this.sendOneWireWriteAndRead.args[3][4];
+    data(null, [0x03, 0x04]);
+
+    this.clock.tick(100);
+
+    test.equals(Math.round(spyA.getCall(0).args[0].celsius), 32);
+    test.equals(Math.round(spyB.getCall(0).args[0].celsius), 64);
+
+    test.done();
+  },
+
+  twoAddresslessUnitsThrowsError: function(test) {
+    var failedToCreate = false;
+
+    test.expect(1);
+
+    this.temperature = createMAX31850K(this.pin);
+
+    try {
+      createMAX31850K(this.pin);
+    } catch (err) {
+      failedToCreate = true;
+    }
+
+    test.equals(failedToCreate, true);
+
+    test.done();
+  }
+};
+
 function createDS18B20(pin, address) {
   return new Thermometer({
     controller: "DS18B20",
