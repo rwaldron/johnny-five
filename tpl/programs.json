@@ -538,6 +538,13 @@
       {
         "file": "button-EVS_NXT.js",
         "title": "Button - EVShield NXT"
+      },
+      {
+        "file": "switch-magnetic-door.js",
+        "title": "Switch - Magnetic Door",
+        "externals": [
+          { "title": "Magnetic Door Switch", "href": "https://www.sparkfun.com/products/13247"}
+        ]
       }
     ]
   },

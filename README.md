@@ -278,6 +278,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 - [Button - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_EV3.md)
 - [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
+- [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
 
 ### Keypad
 - [Keypad - VKEY](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-vkey.md)
