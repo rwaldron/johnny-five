@@ -537,10 +537,10 @@ exports["IMU -- BNO055"] = {
     this.imu.on("data", ispy);
 
     //catch the calibration events coming out of the driver the imu class
-    this.driver.on('calibration', cspy);
-    this.imu.on('calibration', cspy);
-    this.imu.on('calibrated', cspy);
-    this.driver.on('calibrated', cspy);
+    this.driver.on("calibration", cspy);
+    this.imu.on("calibration", cspy);
+    this.imu.on("calibrated", cspy);
+    this.driver.on("calibrated", cspy);
 
     test.equal(this.i2cWriteReg.callCount, 3);
     test.deepEqual(this.i2cWriteReg.getCall(0).args, [0x28, 0X3D, 0x00]);
