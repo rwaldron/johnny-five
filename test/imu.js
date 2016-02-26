@@ -529,9 +529,18 @@ exports["IMU -- BNO055"] = {
     var dspy = this.sandbox.spy();
     var ispy = this.sandbox.spy();
 
+    //add this for catching calibration events
+    var cspy = this.sandbox.spy();
+
+
     this.driver.on("data", dspy);
     this.imu.on("data", ispy);
 
+    //catch the calibration events coming out of the driver the imu class
+    this.driver.on('calibration', cspy);
+    this.imu.on('calibration', cspy);
+    this.imu.on('calibrated', cspy);
+    this.driver.on('calibrated', cspy);
 
     test.equal(this.i2cWriteReg.callCount, 3);
     test.deepEqual(this.i2cWriteReg.getCall(0).args, [0x28, 0X3D, 0x00]);
@@ -563,9 +572,10 @@ exports["IMU -- BNO055"] = {
         test.equal(this.i2cReadOnce.callCount, 1);
         test.equal(this.i2cRead.callCount, 3);
 
-        //by the time we get here and we have a configured/calibrated device
-        // there should have been one data event emitted from the calibration
-        test.equal(dspy.callCount, 1);
+        //we should get a calibration event, and a calibrated event on
+        //both the driver and the imu
+        test.equal(cspy.callCount, 4);
+
 
         // TEMP
         test.deepEqual(this.i2cRead.getCall(0).args.slice(0, -1), [0x28, 0x34, 2]);
@@ -587,7 +597,7 @@ exports["IMU -- BNO055"] = {
         // Once for each of the calls to readTemp, readAccel, readEuler
         // a data event is now emitted from the calibration
         // so we will have a call count of 4, not 3.
-        test.equal(dspy.callCount, 4);
+        test.equal(dspy.callCount, 3);
 
         // Once for the alloted "freq"
         test.equal(ispy.callCount, 1);
