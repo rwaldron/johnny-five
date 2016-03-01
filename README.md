@@ -176,6 +176,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Board
 - [Basic Board initialization](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
+- [Board - Cleanup in 'exit' event](https://github.com/rwaldron/johnny-five/blob/master/docs/board-cleanup.md)
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 - [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)

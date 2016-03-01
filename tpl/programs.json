@@ -18,6 +18,13 @@
         ]
       },
       {
+        "file": "board-cleanup.js",
+        "title": "Board - Cleanup in 'exit' event",
+        "breadboards": [
+          {"name": "led-13", "title": "LED on pin 13 (Arduino UNO)"}
+        ]
+      },
+      {
         "file": "board-multi.js",
         "title": "Board - Multiple in one program"
       },
