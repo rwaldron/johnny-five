@@ -169,5 +169,19 @@ exports["Collections"] = {
     });
 
     test.done();
-  }
+  },
+
+  forEach: function(test) {
+    test.expect(6);
+
+    var context = {};
+
+    this.components.forEach(function(component) {
+      test.notEqual(component, this);
+      test.equal(context, this);
+    }, context);
+
+    test.done();
+  },
+
 };
