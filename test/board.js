@@ -171,6 +171,37 @@ exports["Board"] = {
     io.emit("ready");
   },
 
+  emitExitNoRepl: function(test) {
+    test.expect(2);
+
+    var io = new MockFirmata();
+
+    io.name = "Foo";
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false,
+      sigint: true,
+    });
+
+    var reallyExit = sinon.stub(process, "reallyExit", function() {
+      reallyExit.restore();
+      test.ok(true);
+      test.done();
+    });
+
+    board.on("ready", function() {
+      this.on("exit", function() {
+        test.ok(true);
+      });
+      process.emit("SIGINT");
+    });
+
+    io.emit("connect");
+    io.emit("ready");
+  },
+
   emitsLogsAsEvents: function(test) {
     test.expect(19);
 
