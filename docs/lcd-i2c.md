@@ -9,6 +9,17 @@
 
 
 
+##### Breadboard for "LCD - I2C"
+
+
+
+![docs/breadboard/lcd-i2c.png](breadboard/lcd-i2c.png)<br>
+
+Fritzing diagram: [docs/breadboard/lcd-i2c.fzz](breadboard/lcd-i2c.fzz)
+
+&nbsp;
+
+
 
 
 Run this example from the command line with:

@@ -682,7 +682,7 @@ exports["Led.RGB"] = {
   color: function(test) {
     var rgb = this.rgb;
 
-    test.expect(30);
+    test.expect(36);
 
     // returns this
     test.equal(this.rgb.color("#000000"), this.rgb);
@@ -703,6 +703,18 @@ exports["Led.RGB"] = {
     this.rgb.color("0000ff");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({ red: 0x00, green: 0x00, blue: 0xff }));
+    this.write.reset();
+
+    // name
+    this.rgb.color("PapayaWhip");
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 0xff, green: 0xef, blue: 0xd5 }));
+    this.write.reset();
+
+    // lowercase names
+    this.rgb.color("papayawhip");
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({ red: 0xff, green: 0xef, blue: 0xd5 }));
     this.write.reset();
 
     // three arguments
@@ -752,6 +764,14 @@ exports["Led.RGB"] = {
     });
     test.throws(function() {
       rgb.color("#ffffffff");
+    });
+
+    // bad color names
+    test.throws(function() {
+      rgb.color("not a real color");
+    });
+    test.throws(function() {
+      rgb.color("#papayawhip");
     });
 
     // missing/null/undefined param

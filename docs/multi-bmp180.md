@@ -9,13 +9,13 @@
 
 
 
-##### Breadboard for "Multi - BMP180"
+##### BMP180
 
 
 
-![docs/breadboard/multi-bmp180.png](breadboard/multi-bmp180.png)<br>
+![docs/breadboard/multi-bmp180-sfe.png](breadboard/multi-bmp180-sfe.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz)
+Fritzing diagram: [docs/breadboard/multi-bmp180-sfe.fzz](breadboard/multi-bmp180-sfe.fzz)
 
 &nbsp;
 
@@ -53,7 +53,18 @@ board.on("ready", function() {
 ```
 
 
+## Illustrations / Photos
 
+
+##### BMP180 (Adafruit)
+
+
+
+![docs/breadboard/multi-bmp180.png](breadboard/multi-bmp180.png)<br>
+
+Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz)
+
+&nbsp;
 
 
 

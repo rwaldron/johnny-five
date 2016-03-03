@@ -86,6 +86,27 @@ exports["IMU -- MPU6050"] = {
     test.done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "MPU6050",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
   components: function(test) {
     test.expect(1);
 
@@ -213,6 +234,27 @@ exports["Multi -- MPL115A2"] = {
     test.done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "MPL115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
   components: function(test) {
     test.expect(1);
 
@@ -266,6 +308,27 @@ exports["Multi -- HTU21D"] = {
     this.instance.forEach(function(property) {
       test.notEqual(typeof this.imu[property.name], "undefined");
     }, this);
+
+    test.done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "HTU21D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
 
     test.done();
   },
@@ -329,11 +392,260 @@ exports["Multi -- MPL3115A2"] = {
     test.done();
   },
 
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "MPL3115A2",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
   components: function(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["barometer", "altimeter", "thermometer"]);
 
     test.done();
+  },
+};
+
+exports["IMU -- BNO055"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock =this.sandbox.useFakeTimers();
+    this.i2cConfig =this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite =this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg =this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead =this.sandbox.stub(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce =this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, bytes, callback) {
+
+      // CALIBRATION
+      if (register === 0x35) {
+        callback([255]);
+      }
+
+
+
+    });
+    this.imu = new IMU({
+      controller: "BNO055",
+      freq: 500,
+      board: this.board
+    });
+
+    this.driver = IMU.Drivers.get(this.board, "BNO055", {});
+
+    this.proto = [];
+
+    this.instance = [{
+      name: "components"
+    }, {
+      name: "accelerometer"
+    }, {
+      name: "thermometer"
+    }, {
+      name: "gyro"
+    }, {
+      name: "magnetometer"
+    }, {
+      name: "orientation"
+    }, {
+      name: "calibration"
+    }, {
+      name: "isCalibrated"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore(this);
+    IMU.Drivers.clear();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.imu[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.imu[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "BNO055",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  components: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "magnetometer", "thermometer", "orientation"]);
+
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(37);
+
+    var dspy = this.sandbox.spy();
+    var ispy = this.sandbox.spy();
+
+    this.driver.on("data", dspy);
+    this.imu.on("data", ispy);
+
+
+    test.equal(this.i2cWriteReg.callCount, 3);
+    test.deepEqual(this.i2cWriteReg.getCall(0).args, [0x28, 0X3D, 0x00]);
+    test.deepEqual(this.i2cWriteReg.getCall(1).args, [0x28, 0x07, 0x00]);
+    test.deepEqual(this.i2cWriteReg.getCall(2).args, [0x28, 0x3F, 0x20]);
+
+    this.clock.tick(650);
+
+    test.equal(this.i2cWriteReg.callCount, 7);
+    test.deepEqual(this.i2cWriteReg.getCall(3).args, [0x28, 0x3E, 0x00]);
+    test.deepEqual(this.i2cWriteReg.getCall(4).args, [0x28, 0x3F, 0x00]);
+    test.deepEqual(this.i2cWriteReg.getCall(5).args, [0x28, 0x41, 0x24]);
+    test.deepEqual(this.i2cWriteReg.getCall(6).args, [0x28, 0x42, 0x00]);
+
+    this.clock.tick(10);
+
+    test.equal(this.i2cWriteReg.callCount, 8);
+    test.deepEqual(this.i2cWriteReg.getCall(7).args, [0x28, 0x3D, 0x0C]);
+
+    this.clock.restore();
+
+    var interval = setInterval(function() {
+      if (this.i2cReadOnce.callCount === 1) {
+        clearInterval(interval);
+
+        this.clock =this.sandbox.useFakeTimers();
+
+
+        test.equal(this.i2cReadOnce.callCount, 1);
+        test.equal(this.i2cRead.callCount, 3);
+
+
+        // TEMP
+        test.deepEqual(this.i2cRead.getCall(0).args.slice(0, -1), [0x28, 0x34, 2]);
+        // ACCEL
+        test.deepEqual(this.i2cRead.getCall(1).args.slice(0, -1), [0x28, 0x08, 18]);
+        // EULER
+        test.deepEqual(this.i2cRead.getCall(2).args.slice(0, -1), [0x28, 0x1A, 14]);
+
+
+        var readTemp = this.i2cRead.getCall(0).args[3];
+        var readAccel = this.i2cRead.getCall(1).args[3];
+        var readEuler = this.i2cRead.getCall(2).args[3];
+
+        // Taken from an actual reading
+        readTemp([ 28, 51 ]);
+        readAccel([ 255, 255, 242, 255, 221, 3, 204, 255, 95, 254, 56, 255, 1, 0, 1, 0, 2, 0 ]);
+        readEuler([ 42, 8, 253, 255, 10, 0, 180, 26, 244, 255, 94, 0, 215, 197 ]);
+
+        // Once for each of the calls to readTemp, readAccel, readEuler
+        test.equal(dspy.callCount, 3);
+
+        // Once for the alloted "freq"
+        test.equal(ispy.callCount, 1);
+
+        var darg = dspy.lastCall.args[0];
+
+        test.deepEqual(darg, {
+          accelerometer: {
+            x: -1,
+            y: -14,
+            z: 989
+          },
+          gyro: {
+            x: 1,
+            y: 1,
+            z: 2
+          },
+          magnetometer: {
+            x: -52,
+            y: -417,
+            z: -200
+          },
+          orientation: {
+            euler: {
+              heading: 2090,
+              roll: -3,
+              pitch: 10
+            },
+            quarternion: {
+              w: 6836,
+              x: -12,
+              y: 94,
+              z: -14889
+            }
+          },
+          temperature: 28,
+          calibration: 51
+        });
+
+
+        var iarg = ispy.lastCall.args[0];
+
+        test.equal(this.imu.accelerometer.x, iarg.accelerometer.x);
+        test.equal(this.imu.accelerometer.y, iarg.accelerometer.y);
+        test.equal(this.imu.accelerometer.z, iarg.accelerometer.z);
+        test.equal(this.imu.gyro.x, iarg.gyro.x);
+        test.equal(this.imu.gyro.y, iarg.gyro.y);
+        test.equal(this.imu.gyro.z, iarg.gyro.z);
+        test.equal(this.imu.magnetometer.x, iarg.magnetometer.x);
+        test.equal(this.imu.magnetometer.y, iarg.magnetometer.y);
+        test.equal(this.imu.magnetometer.z, iarg.magnetometer.z);
+        test.equal(this.imu.orientation.euler.heading, iarg.orientation.euler.heading);
+        test.equal(this.imu.orientation.euler.pitch, iarg.orientation.euler.pitch);
+        test.equal(this.imu.orientation.euler.roll, iarg.orientation.euler.roll);
+        test.equal(this.imu.orientation.quarternion.w, iarg.orientation.quarternion.w);
+        test.equal(this.imu.orientation.quarternion.x, iarg.orientation.quarternion.x);
+        test.equal(this.imu.orientation.quarternion.y, iarg.orientation.quarternion.y);
+        test.equal(this.imu.orientation.quarternion.z, iarg.orientation.quarternion.z);
+        test.equal(this.imu.temperature, iarg.temperature);
+        test.equal(this.imu.calibration, iarg.calibration);
+
+        test.done();
+      }
+    }.bind(this), 10);
   },
 };

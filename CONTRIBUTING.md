@@ -61,7 +61,7 @@ If you are contributing code, it must include unit tests that fail if the workin
 When contributing new features that support new hardware, you must include documentation.  The docs need to have:
 
 - [ ] fritzing diagram
-- [ ] anotated example script in the eg/ folder
+- [ ] annotated example script in the eg/ folder
 - [ ] api documentation in the wiki
 
 It's very important that your pull requests include all of the above in order for users to be able to use your code. Pull requests with undocumented code will not be accepted.

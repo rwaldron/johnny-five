@@ -3,7 +3,7 @@ var mocks = require("mock-firmata"),
   five = require("../lib/johnny-five.js"),
   events = require("events"),
   sinon = require("sinon"),
-  _ = require("lodash"),
+  Fn = five.Fn,
   Board = five.Board,
   Sensor = five.Sensor;
 
@@ -523,7 +523,7 @@ exports["Sensor - Analog"] = {
       ": change event handler should not be called at tick " + this.defShape.freq * 4);
 
     // Check that setting a new threshold property value changes the boundaries for when change events are emitted
-    newShape = _.cloneDeep(this.defShape);
+    newShape = Fn.cloneDeep(this.defShape);
     newShape.threshold = 0.5;
     // Any (normal) change should trigger a change event
     this.sensor.threshold = newShape.threshold;
@@ -712,7 +712,7 @@ exports["Sensor - Analog"] = {
     var newShape, newId;
     test.expect(3);
 
-    newShape = _.cloneDeep(this.defShape);
+    newShape = Fn.cloneDeep(this.defShape);
     newId = "test sensor id";
     newShape.id = newId;
     this.sensor.id = newId;
@@ -787,7 +787,7 @@ exports["Sensor - Analog"] = {
     test.strictEqual(limitSpy.callCount + lowerSpy.callCount + upperSpy.callCount, 0,
       "tick " + tickAccum + ": no limit event handlers should be called while limit is null");
 
-    newShape = _.cloneDeep(this.defShape);
+    newShape = Fn.cloneDeep(this.defShape);
     // test.deepEqual(this.defShape, newShape);//DBG verify that deep copy is working
     // test.deepStrictEqual(this.defShape, newShape);//DBG verify that deep copy is working
     // newShape.limit = "junk";
@@ -979,7 +979,7 @@ exports["Sensor - Analog"] = {
     // After explicitly setting the frep property value of the existing instance, the shape (properties)
     // of the instance should match the default shape, with (only) the freq property value and the
     // clone in the state information, updated to match the specified value.
-    newShape = _.cloneDeep(this.defShape);
+    newShape = Fn.cloneDeep(this.defShape);
     newFreq = 35;
     newShape.freq = newFreq;
     newShape.state.freq = newFreq ;

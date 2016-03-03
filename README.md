@@ -176,6 +176,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Board
 - [Basic Board initialization](https://github.com/rwaldron/johnny-five/blob/master/docs/board.md)
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
+- [Board - Cleanup in 'exit' event](https://github.com/rwaldron/johnny-five/blob/master/docs/board-cleanup.md)
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 - [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)
@@ -278,11 +279,13 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 - [Button - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_EV3.md)
 - [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
+- [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
 
 ### Keypad
 - [Keypad - VKEY](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-vkey.md)
 - [Keypad - Waveshare AD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-ad.md)
 - [Keypad - MPR121](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121.md)
+- [Keypad - MPR121, Sensitivity](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121-sensitivity.md)
 - [Keypad - MPR121QR2](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121QR2.md)
 - [Keypad - Grove QTouch](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-QTOUCH.md)
 
@@ -332,9 +335,11 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### LCD
 - [LCD](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd.md)
+- [LCD - Tessel 2 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel.md)
 - [LCD - Enumerate characters](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-enumeratechars.md)
 - [LCD - Runner 20x4](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [LCD - Runner 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)
+- [LCD - Tessel 2 16x2 Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel-runner.md)
 - [LCD - I2C](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c.md)
 - [LCD - I2C PCF8574](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-PCF8574.md)
 - [LCD - I2C Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-i2c-runner.md)
@@ -351,6 +356,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### IMU/Multi
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+- [IMU - BNO055](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055.md)
+- [IMU - BNO055 (Orientation)](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055-orientation.md)
 - [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
@@ -378,6 +385,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
 - [Temperature - LM335](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm335.md)
 - [Temperature - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
+- [Temperature - MAX31850](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-max31850k.md)
 - [Temperature - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Temperature - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
 - [Temperature - MCP9808](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MCP9808.md)

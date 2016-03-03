@@ -30,6 +30,20 @@ module.exports = function(grunt) {
   };
 
   var noedit = file.read("tpl/.noedit.md");
+  var programsJson = JSON.parse(file.read("tpl/programs.json"));
+  var programsList = programsJson.reduce(function(paccum, topics) {
+    return paccum.concat(
+      topics.examples.reduce(function(faccum, example) {
+        return faccum.concat(["eg/" + example.file]);
+      }, [])
+    );
+  }, []);
+
+  var primaryFiles = [
+    "Gruntfile.js",
+    "lib/**/!(johnny-five)*.js",
+    "test/**/*.js",
+  ].concat(programsList);
 
   // Project configuration.
   grunt.initConfig({
@@ -48,23 +62,11 @@ module.exports = function(grunt) {
         jshintrc: true
       },
       files: {
-        src: [
-          "Gruntfile.js",
-          "lib/**/!(johnny-five)*.js",
-          "test/**/*.js",
-          "eg/**/*.js",
-          "wip/autobot-2.js"
-        ]
+        src: primaryFiles,
       }
     },
     jscs: {
-      src: [
-        "Gruntfile.js",
-        "lib/**/!(johnny-five)*.js",
-        "test/**/*.js",
-        "eg/**/*.js",
-        "util/**/*.js"
-      ],
+      src: primaryFiles,
       options: {
         config: ".jscsrc"
       }
@@ -155,6 +157,40 @@ module.exports = function(grunt) {
     grunt.task.run("nodeunit");
   });
 
+  //
+  //
+  // grunt beautify:file-a.js
+  // grunt beautify:[file-a.js,file-b.js]
+  //
+  // grunt beautify:file-a
+  // grunt beautify:[file-a,file-b]
+  //
+  grunt.registerTask("beautify", "Cleanup a single or limited set of files; usage: 'grunt beautify:file.js' or 'grunt beautify:[file-a.js,file-b.js]' (extension optional)", function(file) {
+    var files;
+
+    if (file) {
+      files = [file];
+
+      //
+      // grunt beautify:[test-file-a,test-file-b]
+      //
+      if (file[0] === "[" && file[file.length - 1] === "]") {
+        files = file.match(/(\w+)/g);
+      }
+
+      if (files) {
+        for (var i = 0; i < files.length; i++) {
+          if (!files[i].endsWith(".js")) {
+            files[i] += ".js";
+          }
+        }
+        grunt.config("jsbeautifier.files", files);
+      }
+    }
+
+    grunt.task.run("jsbeautifier");
+  });
+
   // Support running a complete set of tests with
   // extended (possibly-slow) tests included.
   grunt.registerTask("nodeunit:complete", function() {
@@ -169,6 +205,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-jsbeautifier");
   grunt.loadNpmTasks("grunt-jscs");
+
+  // grunt.registerTask("beautify", ["jsbeautifier"]);
 
   grunt.registerTask("default", ["jshint", "jscs", "nodeunit"]);
   // Explicit test task runs complete set of tests
@@ -205,7 +243,7 @@ module.exports = function(grunt) {
         inMarkdown = false;
 
         if (!example.title) {
-          grunt.fail.fatal("Invalid example (" + name + "): title required");
+          example.title = null;
         }
 
         // Modify code in example to appear as it would if installed via npm
@@ -307,10 +345,6 @@ module.exports = function(grunt) {
   function breadboardMarkdown(breadboard) {
     if (!breadboard.name) {
       grunt.fail.fatal("Invalid breadboard: name required");
-    }
-
-    if (!breadboard.title) {
-      grunt.fail.fatal("Invalid breadboard (" + breadboard.name + "): title required");
     }
 
     breadboard.png = "docs/breadboard/" + breadboard.name + ".png";

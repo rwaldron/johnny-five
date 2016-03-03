@@ -8,6 +8,7 @@ var Board = five.Board;
 var Expander = five.Expander;
 var Led = five.Led;
 var Button = five.Button;
+var Fn = five.Fn;
 
 
 function newBoard() {
@@ -24,34 +25,22 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Expander"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -115,7 +104,7 @@ exports["Expander"] = {
   skipsPinNormalizationCall: function(test) {
     test.expect(6);
 
-    this.normalize = sinon.spy(Board.Pins, "normalize");
+    this.normalize = this.sandbox.spy(Board.Pins, "normalize");
 
     [
       "MCP23017",
@@ -174,7 +163,7 @@ exports["Expander"] = {
   initializes: function(test) {
     test.expect(1);
 
-    this.initialize = sinon.spy(controller.initialize, "value");
+    this.initialize = this.sandbox.spy(controller.initialize, "value");
 
     new Expander({
       board: this.board,
@@ -206,7 +195,7 @@ exports["Expander"] = {
   virtualBoard: function(test) {
     test.expect(13);
 
-    this.initialize = sinon.stub(controller.initialize, "value", function() {
+    this.initialize = this.sandbox.stub(controller.initialize, "value", function() {
       this.MODES.INPUT = this.io.MODES.INPUT;
       this.MODES.OUTPUT = this.io.MODES.OUTPUT;
 
@@ -230,9 +219,9 @@ exports["Expander"] = {
       this.isReady = true;
     });
 
-    this.pinMode = sinon.spy(controller.pinMode, "value");
-    this.digitalWrite = sinon.spy(controller.digitalWrite, "value");
-    this.digitalRead = sinon.spy(controller.digitalRead, "value");
+    this.pinMode = this.sandbox.spy(controller.pinMode, "value");
+    this.digitalWrite = this.sandbox.spy(controller.digitalWrite, "value");
+    this.digitalRead = this.sandbox.spy(controller.digitalRead, "value");
 
     var expander = new Expander({
       board: this.board,
@@ -305,8 +294,12 @@ exports["Expander"] = {
 
 exports["Expander.get(opts)"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -318,7 +311,7 @@ exports["Expander.get(opts)"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -377,8 +370,12 @@ exports["Expander.get(opts)"] = {
 
 exports["Expander.byAddress(...)"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -390,7 +387,7 @@ exports["Expander.byAddress(...)"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -405,8 +402,12 @@ exports["Expander.byAddress(...)"] = {
 
 exports["Expander.byController(...)"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -418,7 +419,7 @@ exports["Expander.byController(...)"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -434,13 +435,18 @@ exports["Expander.byController(...)"] = {
 
 exports["Expander - MCP23017"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MCP23017",
@@ -457,7 +463,7 @@ exports["Expander - MCP23017"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -635,7 +641,7 @@ exports["Expander - MCP23017"] = {
   digitalRead: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 16; i++) {
       this.expander.pinMode(i, 1);
@@ -677,35 +683,35 @@ exports["Expander - MCP23017"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
 
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:MCP23017 does not support analogWrite"
     );
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:MCP23017 does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:MCP23017 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:MCP23017 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -719,13 +725,18 @@ exports["Expander - MCP23017"] = {
 
 exports["Expander - MCP23008"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MCP23008",
@@ -742,7 +753,7 @@ exports["Expander - MCP23008"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -889,7 +900,7 @@ exports["Expander - MCP23008"] = {
   digitalRead: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 8; i++) {
       this.expander.pinMode(i, 1);
@@ -923,35 +934,35 @@ exports["Expander - MCP23008"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
 
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:MCP23008 does not support analogWrite"
     );
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:MCP23008 does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:MCP23008 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:MCP23008 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -964,13 +975,18 @@ exports["Expander - MCP23008"] = {
 
 exports["Expander - PCF8574"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574",
@@ -987,7 +1003,7 @@ exports["Expander - PCF8574"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1136,7 +1152,7 @@ exports["Expander - PCF8574"] = {
   digitalRead: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 8; i++) {
       this.expander.pinMode(i, 1);
@@ -1170,35 +1186,35 @@ exports["Expander - PCF8574"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
 
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:PCF8574 does not support analogWrite"
     );
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:PCF8574 does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:PCF8574 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:PCF8574 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -1211,13 +1227,18 @@ exports["Expander - PCF8574"] = {
 
 exports["Expander - PCF8574A"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8574A",
@@ -1234,7 +1255,7 @@ exports["Expander - PCF8574A"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1383,7 +1404,7 @@ exports["Expander - PCF8574A"] = {
   digitalRead: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 8; i++) {
       this.expander.pinMode(i, 1);
@@ -1417,35 +1438,35 @@ exports["Expander - PCF8574A"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
 
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:PCF8574A does not support analogWrite"
     );
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:PCF8574A does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:PCF8574A does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:PCF8574A does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -1459,13 +1480,18 @@ exports["Expander - PCF8574A"] = {
 
 exports["Expander - PCF8575"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8575",
@@ -1482,7 +1508,7 @@ exports["Expander - PCF8575"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1590,7 +1616,7 @@ exports["Expander - PCF8575"] = {
   digitalRead: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 8; i++) {
       this.expander.pinMode(i, 1);
@@ -1624,35 +1650,35 @@ exports["Expander - PCF8575"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
 
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:PCF8575 does not support analogWrite"
     );
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:PCF8575 does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:PCF8575 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:PCF8575 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -1665,14 +1691,19 @@ exports["Expander - PCF8575"] = {
 
 exports["Expander - PCA9685"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCA9685",
@@ -1689,7 +1720,7 @@ exports["Expander - PCA9685"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1910,28 +1941,28 @@ exports["Expander - PCA9685"] = {
   unsupported: function(test) {
     test.expect(8);
 
-    sinon.spy(this.expander, "digitalRead");
+    this.sandbox.spy(this.expander, "digitalRead");
     test.throws(this.expander.digitalRead);
     test.equal(
       this.expander.digitalRead.lastCall.exception.message,
       "Expander:PCA9685 does not support digitalRead"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:PCA9685 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:PCA9685 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -1945,13 +1976,18 @@ exports["Expander - PCA9685"] = {
 
 exports["Expander - PCF8591"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "PCF8591",
@@ -1968,7 +2004,7 @@ exports["Expander - PCF8591"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -2034,7 +2070,7 @@ exports["Expander - PCF8591"] = {
   analogRead: function(test) {
     test.expect(4);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 4; i++) {
       this.expander.pinMode(i, 2);
@@ -2074,28 +2110,28 @@ exports["Expander - PCF8591"] = {
   unsupported: function(test) {
     test.expect(8);
 
-    sinon.spy(this.expander, "digitalRead");
+    this.sandbox.spy(this.expander, "digitalRead");
     test.throws(this.expander.digitalRead);
     test.equal(
       this.expander.digitalRead.lastCall.exception.message,
       "Expander:PCF8591 does not support digitalRead"
     );
 
-    sinon.spy(this.expander, "digitalWrite");
+    this.sandbox.spy(this.expander, "digitalWrite");
     test.throws(this.expander.digitalWrite);
     test.equal(
       this.expander.digitalWrite.lastCall.exception.message,
       "Expander:PCF8591 does not support digitalWrite"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:PCF8591 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -2108,14 +2144,19 @@ exports["Expander - PCF8591"] = {
 
 exports["Expander - MUXSHIELD2"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "MUXSHIELD2",
@@ -2132,7 +2173,7 @@ exports["Expander - MUXSHIELD2"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -2215,7 +2256,7 @@ exports["Expander - MUXSHIELD2"] = {
   analogRead: function(test) {
     test.expect(2);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 16; i++) {
       this.expander.pinMode("IO1-" + i, 2);
@@ -2245,7 +2286,7 @@ exports["Expander - MUXSHIELD2"] = {
   digitalRead: function(test) {
     test.expect(2);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     for (var i = 0; i < 16; i++) {
       this.expander.pinMode("IO1-" + i, 2);
@@ -2320,35 +2361,35 @@ exports["Expander - MUXSHIELD2"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:MUXSHIELD2 does not support analogWrite"
     );
 
-    sinon.spy(this.expander, "pwmWrite");
+    this.sandbox.spy(this.expander, "pwmWrite");
     test.throws(this.expander.pwmWrite);
     test.equal(
       this.expander.pwmWrite.lastCall.exception.message,
       "Expander:MUXSHIELD2 does not support pwmWrite"
     );
 
-    sinon.spy(this.expander, "i2cConfig");
+    this.sandbox.spy(this.expander, "i2cConfig");
     test.throws(this.expander.i2cConfig);
     test.equal(
       this.expander.i2cConfig.lastCall.exception.message,
       "Expander:MUXSHIELD2 does not support i2cConfig"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:MUXSHIELD2 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -2370,6 +2411,10 @@ exports["Expander - GROVEPI"] = {
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "GROVEPI",
@@ -2768,28 +2813,28 @@ exports["Expander - GROVEPI"] = {
   unsupported: function(test) {
     test.expect(8);
 
-    sinon.spy(this.expander, "servoWrite");
+    this.sandbox.spy(this.expander, "servoWrite");
     test.throws(this.expander.servoWrite);
     test.equal(
       this.expander.servoWrite.lastCall.exception.message,
       "Expander:GROVEPI does not support servoWrite"
     );
 
-    sinon.spy(this.expander, "i2cConfig");
+    this.sandbox.spy(this.expander, "i2cConfig");
     test.throws(this.expander.i2cConfig);
     test.equal(
       this.expander.i2cConfig.lastCall.exception.message,
       "Expander:GROVEPI does not support i2cConfig"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:GROVEPI does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,
@@ -2802,11 +2847,16 @@ exports["Expander - GROVEPI"] = {
 
 exports["Expander - 74HC595"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
-    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
 
     this.expander = new Expander({
       controller: "74HC595",
@@ -2818,7 +2868,7 @@ exports["Expander - 74HC595"] = {
       board: this.board
     });
 
-    this.portWrite = sinon.spy(this.expander, "portWrite");
+    this.portWrite = this.sandbox.spy(this.expander, "portWrite");
 
     this.virtual = new Board.Virtual({
       io: this.expander
@@ -2830,7 +2880,7 @@ exports["Expander - 74HC595"] = {
   tearDown: function(done) {
     Board.purge();
     Expander.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -2897,35 +2947,35 @@ exports["Expander - 74HC595"] = {
   unsupported: function(test) {
     test.expect(10);
 
-    sinon.spy(this.expander, "digitalRead");
+    this.sandbox.spy(this.expander, "digitalRead");
     test.throws(this.expander.digitalRead);
     test.equal(
       this.expander.digitalRead.lastCall.exception.message,
       "Expander:74HC595 does not support digitalRead"
     );
 
-    sinon.spy(this.expander, "analogWrite");
+    this.sandbox.spy(this.expander, "analogWrite");
     test.throws(this.expander.analogWrite);
     test.equal(
       this.expander.analogWrite.lastCall.exception.message,
       "Expander:74HC595 does not support analogWrite"
     );
 
-    sinon.spy(this.expander, "analogRead");
+    this.sandbox.spy(this.expander, "analogRead");
     test.throws(this.expander.analogRead);
     test.equal(
       this.expander.analogRead.lastCall.exception.message,
       "Expander:74HC595 does not support analogRead"
     );
 
-    sinon.spy(this.expander, "i2cWrite");
+    this.sandbox.spy(this.expander, "i2cWrite");
     test.throws(this.expander.i2cWrite);
     test.equal(
       this.expander.i2cWrite.lastCall.exception.message,
       "Expander:74HC595 does not support i2cWrite"
     );
 
-    sinon.spy(this.expander, "i2cRead");
+    this.sandbox.spy(this.expander, "i2cRead");
     test.throws(this.expander.i2cRead);
     test.equal(
       this.expander.i2cRead.lastCall.exception.message,

@@ -5,6 +5,7 @@ var EVS = require("../lib/evshield");
 var five = require("../lib/johnny-five");
 var Button = five.Button;
 var Board = five.Board;
+var Fn = five.Fn;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -19,24 +20,6 @@ function newBoard() {
 
   return board;
 }
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 
 var proto = [];
 var instance = [{
@@ -56,10 +39,16 @@ var instance = [{
 }];
 
 
+
 exports["Button -- Digital Pin"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
       board: this.board
@@ -70,7 +59,7 @@ exports["Button -- Digital Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -112,7 +101,6 @@ exports["Button -- Digital Pin"] = {
 
     //fake timers dont play nice with __.debounce
     this.button.on("up", function() {
-
       test.ok(true);
       test.done();
     });
@@ -121,7 +109,7 @@ exports["Button -- Digital Pin"] = {
   },
 
   hold: function(test) {
-    var clock = sinon.useFakeTimers();
+    var clock = this.sandbox.useFakeTimers();
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
@@ -142,8 +130,8 @@ exports["Button -- Digital Pin"] = {
   },
 
   holdRepeatsUntilRelease: function(test) {
-    var clock = sinon.useFakeTimers();
-    var spy = sinon.spy();
+    var clock = this.sandbox.useFakeTimers();
+    var spy = this.sandbox.spy();
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
@@ -171,8 +159,12 @@ exports["Button -- Digital Pin"] = {
 
 exports["Button -- Analog Pin"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
       board: this.board
@@ -183,7 +175,7 @@ exports["Button -- Analog Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -225,7 +217,7 @@ exports["Button -- Analog Pin"] = {
   },
 
   hold: function(test) {
-    var clock = sinon.useFakeTimers();
+    var clock = this.sandbox.useFakeTimers();
     var callback = this.digitalRead.args[0][1];
     test.expect(1);
 
@@ -248,8 +240,12 @@ exports["Button -- Analog Pin"] = {
 
 exports["Button -- Value Inversion"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
       board: this.board
@@ -261,7 +257,7 @@ exports["Button -- Value Inversion"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -358,13 +354,17 @@ exports["Button -- Value Inversion"] = {
 
 exports["Button -- EVS_EV3"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.button = new Button({
       controller: "EVS_EV3",
@@ -377,7 +377,7 @@ exports["Button -- EVS_EV3"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -427,7 +427,7 @@ exports["Button -- EVS_EV3"] = {
   },
 
   hold: function(test) {
-    var clock = sinon.useFakeTimers();
+    var clock = this.sandbox.useFakeTimers();
     var callback = this.i2cRead.args[0][3];
     test.expect(1);
 
@@ -447,13 +447,17 @@ exports["Button -- EVS_EV3"] = {
 
 exports["Button -- EVS_NXT"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.button = new Button({
       controller: "EVS_NXT",
@@ -466,7 +470,7 @@ exports["Button -- EVS_NXT"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -516,7 +520,7 @@ exports["Button -- EVS_NXT"] = {
   },
 
   hold: function(test) {
-    var clock = sinon.useFakeTimers();
+    var clock = this.sandbox.useFakeTimers();
     var callback = this.i2cRead.args[0][3];
     test.expect(1);
 

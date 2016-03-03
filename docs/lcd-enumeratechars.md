@@ -9,6 +9,17 @@
 
 
 
+##### Breadboard for "LCD - Enumerate characters"
+
+
+
+![docs/breadboard/lcd-enumeratechars.png](breadboard/lcd-enumeratechars.png)<br>
+
+Fritzing diagram: [docs/breadboard/lcd-enumeratechars.fzz](breadboard/lcd-enumeratechars.fzz)
+
+&nbsp;
+
+
 
 
 Run this example from the command line with:

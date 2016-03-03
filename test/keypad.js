@@ -667,6 +667,106 @@ exports["Keypad: MPR121QR2"] = {
     test.equal(spy.callCount, 1);
     test.done();
   },
+
+  sensitivityDefault: function(test) {
+    test.expect(26);
+
+    // Defaults
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+
+    var register = 0x41;
+
+    for (var i = 0; i < 12; i++) {
+      var p = (i * 2) + 8;
+      var r = (i * 2) + 8 + 1;
+      test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 12]);
+      test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 6]);
+    }
+
+    test.done();
+  },
+
+  sensitivityFill: function(test) {
+    test.expect(28);
+
+    // Defaults
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+
+    this.i2cWrite.reset();
+
+    // Set custom
+    this.keypad = new Keypad({
+      board: this.board,
+      controller: "MPR121QR2",
+      sensitivity: {
+        press: 1,
+        release: 0.5,
+      },
+    });
+
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(1));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.5));
+
+    var register = 0x41;
+
+    for (var i = 0; i < 12; i++) {
+      var p = (i * 2) + 8;
+      var r = (i * 2) + 8 + 1;
+      test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
+      test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 127]);
+    }
+
+    test.done();
+  },
+
+  sensitivityExplicit: function(test) {
+    test.expect(28);
+
+    // Defaults
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+
+    this.i2cWrite.reset();
+
+    // Set a custom
+    this.keypad = new Keypad({
+      board: this.board,
+      controller: "MPR121QR2",
+      sensitivity: [
+        { press: 1, release: 0.5, },
+        { press: 1, release: 0.5, },
+      ],
+    });
+
+    test.deepEqual(
+      this.keypad.sensitivity.press,
+      [ 1, 1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05 ]
+    );
+    test.deepEqual(
+      this.keypad.sensitivity.release,
+      [ 0.5, 0.5, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025 ]
+    );
+
+    var register = 0x41;
+
+    for (var i = 0; i < 12; i++) {
+      var p = (i * 2) + 8;
+      var r = (i * 2) + 8 + 1;
+
+      if (i < 2) {
+        test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
+        test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 127]);
+      } else {
+        test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 12]);
+        test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 6]);
+      }
+    }
+
+    test.done();
+  },
+
 };
 
 
