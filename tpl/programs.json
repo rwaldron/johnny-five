@@ -572,6 +572,13 @@
         "title": "Keypad - MPR121"
       },
       {
+        "file": "keypad-MPR121-sensitivity.js",
+        "title": "Keypad - MPR121, Sensitivity",
+        "breadboards": [
+          {"name": "keypad-MPR121"}
+        ]
+      },
+      {
         "file": "keypad-MPR121QR2.js",
         "title": "Keypad - MPR121QR2"
       },
