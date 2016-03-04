@@ -458,13 +458,14 @@ exports["PiezoWithCustomControllers"] = {
   },
 
   canRedefineFrequencyWithController: function (test) {
-    test.expect(2);
+    test.expect(4);
 
     var TestController = {
       frequency: {
         writable: true,
         value: function (frequency, duration) {
           test.equal(frequency, 440);
+          test.equal(duration, 1000);
         }
       }
     };
@@ -476,13 +477,14 @@ exports["PiezoWithCustomControllers"] = {
   },
 
   canRedefineToneWithController: function (test) {
-    test.expect(2);
+    test.expect(4);
 
     var TestController = {
       tone: {
         writable: true,
         value: function (tone, duration) {
           test.equal(tone, 1136);
+          test.equal(duration, 1000);
         }
       }
     };
