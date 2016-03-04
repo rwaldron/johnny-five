@@ -678,8 +678,8 @@ exports["Keypad: MPR121QR2"] = {
     var register = 0x41;
 
     for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 8;
-      var r = (i * 2) + 8 + 1;
+      var p = (i * 2) + 9;
+      var r = (i * 2) + 9 + 1;
       test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 12]);
       test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 6]);
     }
@@ -712,8 +712,8 @@ exports["Keypad: MPR121QR2"] = {
     var register = 0x41;
 
     for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 8;
-      var r = (i * 2) + 8 + 1;
+      var p = (i * 2) + 9;
+      var r = (i * 2) + 9 + 1;
       test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
       test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 127]);
     }
@@ -752,8 +752,8 @@ exports["Keypad: MPR121QR2"] = {
     var register = 0x41;
 
     for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 8;
-      var r = (i * 2) + 8 + 1;
+      var p = (i * 2) + 9;
+      var r = (i * 2) + 9 + 1;
 
       if (i < 2) {
         test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
