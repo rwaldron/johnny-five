@@ -10,6 +10,7 @@ board.on("ready", function() {
    * we only need one to control them both.
    */
   var register = new five.ShiftRegister({
+    isAnode: true,
     size: 2,
     pins: {
       data: 2,
@@ -31,7 +32,6 @@ board.on("ready", function() {
     register.clear();
     return register.display(Math.round(Math.random() * 20));
   }
-
 
   /**
    * This is an array of delays in ms.  When a button is pressed,
