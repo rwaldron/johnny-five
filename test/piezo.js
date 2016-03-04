@@ -449,18 +449,18 @@ exports["Piezo"] = {
 
 exports["PiezoWithCustomControllers"] = {
 
-  setUp: function (done) {
+  setUp: function(done) {
     this.board = newBoard();
     done();
   },
 
-  canRedefineFrequencyWithController: function (test) {
+  canRedefineFrequencyWithController: function(test) {
     test.expect(4);
 
     var TestController = {
       frequency: {
         writable: true,
-        value: function (frequency, duration) {
+        value: function(frequency, duration) {
           test.equal(frequency, 440);
           test.equal(duration, 1000);
         }
@@ -477,13 +477,13 @@ exports["PiezoWithCustomControllers"] = {
     test.done();
   },
 
-  canRedefineToneWithController: function (test) {
+  canRedefineToneWithController: function(test) {
     test.expect(4);
 
     var TestController = {
       tone: {
         writable: true,
-        value: function (tone, duration) {
+        value: function(tone, duration) {
           test.equal(tone, 1136);
           test.equal(duration, 1000);
         }
@@ -500,7 +500,7 @@ exports["PiezoWithCustomControllers"] = {
     test.done();
   },
 
-  throwsIfNeitherToneNorFrequency: function (test) {
+  throwsIfNeitherToneNorFrequency: function(test) {
     test.expect(2);
 
     var piezo = new Piezo({
