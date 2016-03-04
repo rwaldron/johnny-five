@@ -709,8 +709,8 @@ exports["LedControl - Matrix"] = {
       board: this.board
     });
 
-    this.digitalWrite = sinon.spy(this.board, "digitalWrite");
-    this.shiftOut = sinon.spy(this.board, "shiftOut");
+    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
 
     this.proto = [{
         name: "column",
