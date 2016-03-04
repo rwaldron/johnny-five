@@ -509,9 +509,9 @@ exports["Keypad: MPR121QR2"] = {
     test.expect(2);
 
     test.equal(this.i2cConfig.callCount, 1);
-    // 10 settings
+    // 11 settings
     // 24 Thresholds
-    test.equal(this.i2cWrite.callCount, 34);
+    test.equal(this.i2cWrite.callCount, 35);
 
     test.done();
   },
@@ -818,9 +818,9 @@ exports["Keypad: MPR121"] = {
     test.expect(2);
 
     test.equal(this.i2cConfig.callCount, 1);
-    // 10 settings
+    // 11 settings
     // 24 Thresholds
-    test.equal(this.i2cWrite.callCount, 34);
+    test.equal(this.i2cWrite.callCount, 35);
 
     test.done();
   },
