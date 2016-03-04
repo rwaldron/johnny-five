@@ -451,9 +451,6 @@ exports["PiezoWithCustomControllers"] = {
 
   setUp: function (done) {
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
     done();
   },
 
@@ -469,7 +466,11 @@ exports["PiezoWithCustomControllers"] = {
         }
       }
     };
-    var piezo = new Piezo({pin: 3, controller: TestController});
+    var piezo = new Piezo({
+      pin: 3,
+      controller: TestController,
+      board: this.board
+    });
     piezo.frequency(440, 1000);
     piezo.tone(1136, 1000);
 
@@ -488,7 +489,11 @@ exports["PiezoWithCustomControllers"] = {
         }
       }
     };
-    var piezo = new Piezo({pin: 3, controller: TestController});
+    var piezo = new Piezo({
+      pin: 3,
+      controller: TestController,
+      board: this.board
+    });
     piezo.frequency(440, 1000);
     piezo.tone(1136, 1000);
 
@@ -498,7 +503,11 @@ exports["PiezoWithCustomControllers"] = {
   throwsIfNeitherToneNorFrequency: function (test) {
     test.expect(2);
 
-    var piezo = new Piezo({pin: 3, controller: {}});
+    var piezo = new Piezo({
+      pin: 3,
+      controller: {},
+      board: this.board
+    });
 
     test.throws(function() {
       piezo.frequency(440, 1000);
