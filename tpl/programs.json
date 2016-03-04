@@ -612,11 +612,19 @@
       },
       {
         "file": "shift-register-seven-segment.js",
-        "title": "Shift Register - Seven segment controller"
+        "title": "Shift Register - Seven Segment controller"
+      },
+      {
+        "file": "shift-register-seven-segment-anode.js",
+        "title": "Shift Register - Common Anode Seven Segment controller"
       },
       {
         "file": "shift-register-daisy-chain.js",
-        "title": "Shift Register - Seven segments, daisy chained"
+        "title": "Shift Register - Seven segments, Chained"
+      },
+      {
+        "file": "shift-register-daisy-chain-anode.js",
+        "title": "Shift Register - Common Anode Seven segments, Chained"
       }
     ]
   },

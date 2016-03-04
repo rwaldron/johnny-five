@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Shift Register - Seven segments, Chained
+# Shift Register - Common Anode Seven segments, Chained
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### Breadboard for "Shift Register - Seven segments, Chained"
+##### Breadboard for "Shift Register - Common Anode Seven segments, Chained"
 
 
 
-![docs/breadboard/shift-register-daisy-chain.png](breadboard/shift-register-daisy-chain.png)<br>
+![docs/breadboard/shift-register-daisy-chain-anode.png](breadboard/shift-register-daisy-chain-anode.png)<br>
 
-Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/shift-register-daisy-chain.fzz)
+Fritzing diagram: [docs/breadboard/shift-register-daisy-chain-anode.fzz](breadboard/shift-register-daisy-chain-anode.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/shift-register-daisy-chain.fzz](breadboard/sh
 
 Run this example from the command line with:
 ```bash
-node eg/shift-register-daisy-chain.js
+node eg/shift-register-daisy-chain-anode.js
 ```
 
 
@@ -41,6 +41,7 @@ board.on("ready", function() {
    * we only need one to control them both.
    */
   var register = new five.ShiftRegister({
+    isAnode: true,
     size: 2,
     pins: {
       data: 2,
@@ -62,7 +63,6 @@ board.on("ready", function() {
     register.clear();
     return register.display(Math.round(Math.random() * 20));
   }
-
 
   /**
    * This is an array of delays in ms.  When a button is pressed,

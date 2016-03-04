@@ -294,8 +294,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Shift Register
 - [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
-- [Shift Register - Seven segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
-- [Shift Register - Seven segments, daisy chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
+- [Shift Register - Seven Segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment.md)
+- [Shift Register - Common Anode Seven Segment controller](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-seven-segment-anode.md)
+- [Shift Register - Seven segments, Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain.md)
+- [Shift Register - Common Anode Seven segments, Chained](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register-daisy-chain-anode.md)
 
 ### Infrared Reflectance
 - [IR Motion](https://github.com/rwaldron/johnny-five/blob/master/docs/ir-motion.md)

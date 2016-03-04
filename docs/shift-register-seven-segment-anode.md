@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Shift Register - Seven Segment controller
+# Shift Register - Common Anode Seven Segment controller
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### Breadboard for "Shift Register - Seven Segment controller"
+##### Breadboard for "Shift Register - Common Anode Seven Segment controller"
 
 
 
-![docs/breadboard/shift-register-seven-segment.png](breadboard/shift-register-seven-segment.png)<br>
+![docs/breadboard/shift-register-seven-segment-anode.png](breadboard/shift-register-seven-segment-anode.png)<br>
 
-Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/shift-register-seven-segment.fzz)
+Fritzing diagram: [docs/breadboard/shift-register-seven-segment-anode.fzz](breadboard/shift-register-seven-segment-anode.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/shift-register-seven-segment.fzz](breadboard/
 
 Run this example from the command line with:
 ```bash
-node eg/shift-register-seven-segment.js
+node eg/shift-register-seven-segment-anode.js
 ```
 
 
@@ -34,14 +34,18 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var register = new five.ShiftRegister({
+    isAnode: true,
     pins: {
       data: 2,
       clock: 3,
       latch: 4,
+      reset: 9,
     }
   });
   var number = 0;
   var decimal = 0;
+
+  register.reset();
 
   // Display numbers 0-9, one at a time in a loop.
   // Shows just the number for a half second, then

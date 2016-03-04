@@ -45,14 +45,10 @@ board.on("ready", function() {
 
   var value = 0;
 
-  function next() {
+  setInterval(function() {
     value = value > 0x11 ? value >> 1 : 0x88;
     register.send(value);
-    setTimeout(next, 200);
-  }
-
-  next();
-
+  }, 200);
 });
 
 ```
