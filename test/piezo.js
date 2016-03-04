@@ -520,6 +520,27 @@ exports["PiezoWithCustomControllers"] = {
     test.done();
   },
 
+  canRedefineNoTone: function(test) {
+    test.expect(2);
+
+    var piezo = new Piezo({
+      pin: 3,
+      controller: {
+        noTone: {
+          value: function() {
+            test.ok(1);
+          }
+        }
+      },
+      board: this.board
+    });
+
+    piezo.off();
+    piezo.noTone();
+
+    test.done();
+  },
+
   tearDown: function(done) {
     Board.purge();
     restore(this);
