@@ -6,6 +6,9 @@ var mocks = require("mock-firmata"),
   Keypad = five.Keypad;
 
 
+var mpr121 = require("../lib/definitions/mpr121");
+
+
 function newBoard() {
   var io = new MockFirmata();
   var board = new Board({
@@ -506,12 +509,22 @@ exports["Keypad: MPR121QR2"] = {
   },
 
   initialize: function(test) {
-    test.expect(2);
+    test.expect(11);
 
     test.equal(this.i2cConfig.callCount, 1);
     // 11 settings
     // 24 Thresholds
     test.equal(this.i2cWrite.callCount, 35);
+
+    test.deepEqual(this.i2cWrite.getCall(0).args, [0x5A, mpr121.MPR121_SOFTRESET, 0x63]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [0x5A, mpr121.MHD_RISING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [0x5A, mpr121.NHD_AMOUNT_RISING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [0x5A, mpr121.NCL_RISING, 0x00]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [0x5A, mpr121.FDL_RISING, 0x00]);
+    test.deepEqual(this.i2cWrite.getCall(5).args, [0x5A, mpr121.MHD_FALLING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(6).args, [0x5A, mpr121.NHD_AMOUNT_FALLING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(7).args, [0x5A, mpr121.NCL_FALLING, 0xFF]);
+    test.deepEqual(this.i2cWrite.getCall(8).args, [0x5A, mpr121.FDL_FALLING, 0x02]);
 
     test.done();
   },
@@ -815,12 +828,22 @@ exports["Keypad: MPR121"] = {
   },
 
   initialize: function(test) {
-    test.expect(2);
+    test.expect(11);
 
     test.equal(this.i2cConfig.callCount, 1);
     // 11 settings
     // 24 Thresholds
     test.equal(this.i2cWrite.callCount, 35);
+
+    test.deepEqual(this.i2cWrite.getCall(0).args, [0x5A, mpr121.MPR121_SOFTRESET, 0x63]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [0x5A, mpr121.MHD_RISING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [0x5A, mpr121.NHD_AMOUNT_RISING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [0x5A, mpr121.NCL_RISING, 0x00]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [0x5A, mpr121.FDL_RISING, 0x00]);
+    test.deepEqual(this.i2cWrite.getCall(5).args, [0x5A, mpr121.MHD_FALLING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(6).args, [0x5A, mpr121.NHD_AMOUNT_FALLING, 0x01]);
+    test.deepEqual(this.i2cWrite.getCall(7).args, [0x5A, mpr121.NCL_FALLING, 0xFF]);
+    test.deepEqual(this.i2cWrite.getCall(8).args, [0x5A, mpr121.FDL_FALLING, 0x02]);
 
     test.done();
   },
