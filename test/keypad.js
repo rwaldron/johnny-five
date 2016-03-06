@@ -685,8 +685,8 @@ exports["Keypad: MPR121QR2"] = {
     test.expect(26);
 
     // Defaults
-    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
-    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.95));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.975));
 
     var register = 0x41;
 
@@ -700,12 +700,46 @@ exports["Keypad: MPR121QR2"] = {
     test.done();
   },
 
-  sensitivityFill: function(test) {
+  sensitivityFillLow: function(test) {
     test.expect(28);
 
     // Defaults
-    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
-    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.95));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.975));
+
+    this.i2cWrite.reset();
+
+    // Set custom
+    this.keypad = new Keypad({
+      board: this.board,
+      controller: "MPR121QR2",
+      sensitivity: {
+        press: 0.5,
+        release: 0,
+      },
+    });
+
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.5));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0));
+
+    var register = 0x41;
+
+    for (var i = 0; i < 12; i++) {
+      var p = (i * 2) + 9;
+      var r = (i * 2) + 9 + 1;
+      test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 127]);
+      test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 255]);
+    }
+
+    test.done();
+  },
+
+  sensitivityFillHigh: function(test) {
+    test.expect(28);
+
+    // Defaults
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.95));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.975));
 
     this.i2cWrite.reset();
 
@@ -715,20 +749,20 @@ exports["Keypad: MPR121QR2"] = {
       controller: "MPR121QR2",
       sensitivity: {
         press: 1,
-        release: 0.5,
+        release: 0.9,
       },
     });
 
     test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(1));
-    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.5));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.9));
 
     var register = 0x41;
 
     for (var i = 0; i < 12; i++) {
       var p = (i * 2) + 9;
       var r = (i * 2) + 9 + 1;
-      test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
-      test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 127]);
+      test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 0]);
+      test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 25]);
     }
 
     test.done();
@@ -738,8 +772,8 @@ exports["Keypad: MPR121QR2"] = {
     test.expect(28);
 
     // Defaults
-    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.05));
-    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.025));
+    test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.95));
+    test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.975));
 
     this.i2cWrite.reset();
 
@@ -755,11 +789,11 @@ exports["Keypad: MPR121QR2"] = {
 
     test.deepEqual(
       this.keypad.sensitivity.press,
-      [ 1, 1, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05 ]
+      [ 1, 1, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95 ]
     );
     test.deepEqual(
       this.keypad.sensitivity.release,
-      [ 0.5, 0.5, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025, 0.025 ]
+      [ 0.5, 0.5, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975 ]
     );
 
     var register = 0x41;
@@ -769,7 +803,7 @@ exports["Keypad: MPR121QR2"] = {
       var r = (i * 2) + 9 + 1;
 
       if (i < 2) {
-        test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 255]);
+        test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 0]);
         test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 127]);
       } else {
         test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 12]);
