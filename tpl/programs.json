@@ -97,6 +97,21 @@
         "file": "expander-MUXSHIELD2-analog-read.js",
         "title": "Expander - MUXSHIELD2, Analog Sensors",
         "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays value of potentiometers in console graph. (`npm install barcli`)"
+      },
+      {
+        "file": "expander-CD74HC4067.js",
+        "title": "Expander - CD74HC4067, 16 Channel Analog Input Breakout",
+        "description": "Using a CD74HC4067 connected to an Arduino Nano Backpack. Displays value of potentiometers in console graph. (`npm install barcli`)",
+        "breadboards": [
+          {"name": "expander-CD74HC4067-14-pots", "title": "Using 14 potentiometers!", "description": "The CD74HC4067 can accomodate up to 16 inputs"}
+        ],
+        "images": [
+          {"file": "CD74HC4067-3-pot-barcli.png", "title": "Barcli output"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/"}
+        ]
+
       }
 
     ]

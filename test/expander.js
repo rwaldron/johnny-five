@@ -2985,3 +2985,180 @@ exports["Expander - 74HC595"] = {
     test.done();
   },
 };
+
+exports["Expander - CD74HC4067"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+
+    this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
+
+    this.expander = new Expander({
+      controller: "CD74HC4067",
+      board: this.board
+    });
+
+    this.virtual = new Board.Virtual({
+      io: this.expander
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Expander.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Expander({
+      controller: "CD74HC4067",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(1 );
+    test.equal(this.i2cConfig.callCount, 1);
+    test.done();
+  },
+
+  normalize: function(test) {
+    test.expect(16);
+
+    for (var i = 0; i < 16; i++) {
+      test.equal(this.expander.normalize(i), i);
+    }
+
+    test.done();
+  },
+
+  normalizeString: function(test) {
+    test.expect(16);
+
+    for (var i = 0; i < 16; i++) {
+      test.equal(this.expander.normalize("A" + i), i);
+    }
+
+    test.done();
+  },
+
+  pinMode: function(test) {
+    test.expect(17);
+
+    this.i2cWrite.reset();
+
+    for (var i = 0; i < 16; i++) {
+      this.expander.pinMode(i, 2);
+      test.equal(this.expander.pins[i].mode, 2);
+    }
+
+    test.deepEqual(this.i2cWrite.callCount, 0);
+
+    test.done();
+  },
+
+  analogRead: function(test) {
+    test.expect(11);
+
+    var spy = this.sandbox.spy();
+
+    var data = [ 3, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 255 ];
+
+
+    this.expander.pinMode(0, 2);
+    this.expander.pinMode(7, 2);
+    this.expander.pinMode(15, 2);
+
+    this.i2cRead.reset();
+
+    this.expander.analogRead(0, spy);
+    this.expander.analogRead(7, spy);
+    this.expander.analogRead(15, spy);
+
+    test.equal(this.i2cWrite.callCount, 3);
+    test.equal(this.i2cWrite.getCall(0).args[1], 0);
+    test.equal(this.i2cWrite.getCall(1).args[1], 7);
+    test.equal(this.i2cWrite.getCall(2).args[1], 15);
+
+    test.equal(this.i2cWrite.getCall(0).args[2], 1);
+    test.equal(this.i2cWrite.getCall(1).args[2], 1);
+    test.equal(this.i2cWrite.getCall(2).args[2], 1);
+
+    test.equal(this.i2cRead.callCount, 1);
+    test.equal(this.i2cRead.lastCall.args[1], 32);
+
+    var i2cRead = this.i2cRead.lastCall.args[2];
+
+    i2cRead(data);
+
+    test.equal(spy.callCount, 3);
+
+
+
+    test.deepEqual(
+      spy.args.map(function(args) { return args[0]; }),
+      [1023, 1023, 1023]
+    );
+
+    test.done();
+  },
+
+  unsupported: function(test) {
+    test.expect(8);
+
+    this.sandbox.spy(this.expander, "digitalRead");
+    test.throws(this.expander.digitalRead);
+    test.equal(
+      this.expander.digitalRead.lastCall.exception.message,
+      "Expander:CD74HC4067 does not support digitalRead"
+    );
+
+    this.sandbox.spy(this.expander, "digitalWrite");
+    test.throws(this.expander.digitalWrite);
+    test.equal(
+      this.expander.digitalWrite.lastCall.exception.message,
+      "Expander:CD74HC4067 does not support digitalWrite"
+    );
+
+    this.sandbox.spy(this.expander, "i2cWrite");
+    test.throws(this.expander.i2cWrite);
+    test.equal(
+      this.expander.i2cWrite.lastCall.exception.message,
+      "Expander:CD74HC4067 does not support i2cWrite"
+    );
+
+    this.sandbox.spy(this.expander, "i2cRead");
+    test.throws(this.expander.i2cRead);
+    test.equal(
+      this.expander.i2cRead.lastCall.exception.message,
+      "Expander:CD74HC4067 does not support i2cRead"
+    );
+
+    test.done();
+  },
+};

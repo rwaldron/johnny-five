@@ -192,6 +192,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Expander - 74HC595](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-74HC595.md)
 - [Expander - MUXSHIELD2, Digital Input and Output](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-mixed.md)
 - [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
+- [Expander - CD74HC4067, 16 Channel Analog Input Breakout](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-CD74HC4067.md)
 
 ### LED
 - [LED](https://github.com/rwaldron/johnny-five/blob/master/docs/led.md)
@@ -516,6 +517,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 #### [Joystick Controlled Claw](http://jsfiddle.net/rwaldron/6ZXFe/show/light/)
 #### [Robot Claw](http://jsfiddle.net/rwaldron/CFSZJ/show/light/)
 #### [Joystick, Motor & Led](http://jsfiddle.net/rwaldron/gADSz/show/light/)
+#### [Build you own drone](http://github.com/darioodiaz/node-open-pilot/)
 
 
 
