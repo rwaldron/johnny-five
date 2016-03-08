@@ -58,7 +58,7 @@ exports["Board"] = {
     done();
   },
 
-  explicit: function(test) {
+  explicitTransport: function(test) {
     test.expect(1);
 
     var sp = new MockSerialPort("/dev/foo", {
@@ -66,19 +66,48 @@ exports["Board"] = {
       buffersize: 128
     });
 
-    var board = new Board({
+    this.board = new Board({
       port: sp,
       debug: false,
       repl: false
     });
 
-    test.equal(board.io.sp, sp);
+    test.equal(this.board.io.transport, sp);
 
-    board.abort = true;
+    this.board.abort = true;
 
     setImmediate(function() {
       test.done();
     });
+  },
+
+  timeoutTransport: function(test) {
+    test.expect(1);
+
+    this.tm = Board.testMode();
+    this.clock = sinon.useFakeTimers();
+    this.setTimeout = sinon.stub(global, "setTimeout");
+
+    Board.testMode(false);
+    Board.purge();
+
+    var sp = new MockSerialPort("/dev/foo", {
+      baudrate: 57600,
+      buffersize: 128
+    });
+
+    this.board = new Board({
+      port: sp,
+      timeout: Infinity,
+      debug: false,
+      repl: false
+    });
+
+    test.equal(this.setTimeout.lastCall.args[1], Infinity);
+
+    Board.testMode(this.tm);
+
+    test.done();
   },
 
   ioIsReady: function(test) {
