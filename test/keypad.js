@@ -1242,3 +1242,218 @@ exports["Keypad: QTOUCH"] = {
     test.done();
   },
 };
+
+
+exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+
+    this.keypad = new Keypad({
+      controller: "3X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Keypad({
+      controller: "3X4_I2C_NANO_BACKPACK",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialize: function(test) {
+    test.expect(2);
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(this.i2cRead.callCount, 1);
+
+    test.done();
+  },
+
+  keysDefault: function(test) {
+    test.expect(12);
+
+    var keys = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#" ];
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "3X4_I2C_NANO_BACKPACK",
+      address: 0x0A
+    });
+    var callback = this.i2cRead.getCall(1).args[2];
+    var spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 0, 0 ]);
+    callback([ 0, 1 ]);
+    callback([ 0, 2 ]);
+    callback([ 0, 3 ]);
+    callback([ 0, 4 ]);
+    callback([ 0, 5 ]);
+    callback([ 0, 6 ]);
+    callback([ 0, 7 ]);
+    callback([ 0, 8 ]);
+    callback([ 0, 9 ]);
+    callback([ 0, 10 ]);
+    callback([ 0, 11 ]);
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  keysRowsCols: function(test) {
+    test.expect(12);
+
+    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "3X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      keys: [
+        ["!", "@", "#"],
+        ["$", "%", "^"],
+        ["&", "-", "+"],
+        ["_", "=", ":"]
+      ]
+    });
+    var callback = this.i2cRead.getCall(1).args[2];
+    var spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 0, 0 ]);
+    callback([ 0, 1 ]);
+    callback([ 0, 2 ]);
+    callback([ 0, 3 ]);
+    callback([ 0, 4 ]);
+    callback([ 0, 5 ]);
+    callback([ 0, 6 ]);
+    callback([ 0, 7 ]);
+    callback([ 0, 8 ]);
+    callback([ 0, 9 ]);
+    callback([ 0, 10 ]);
+    callback([ 0, 11 ]);
+
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  keysList: function(test) {
+    test.expect(12);
+
+    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    var keypad = new five.Keypad({
+      board: this.board,
+      controller: "3X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      keys: keys
+    });
+    var callback = this.i2cRead.getCall(1).args[2];
+    var spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([ 0, 0 ]);
+    callback([ 0, 1 ]);
+    callback([ 0, 2 ]);
+    callback([ 0, 3 ]);
+    callback([ 0, 4 ]);
+    callback([ 0, 5 ]);
+    callback([ 0, 6 ]);
+    callback([ 0, 7 ]);
+    callback([ 0, 8 ]);
+    callback([ 0, 9 ]);
+    callback([ 0, 10 ]);
+    callback([ 0, 11 ]);
+
+    keys.forEach(function(key, index) {
+      test.equal(spy.args[index][0].which, key);
+    });
+
+    test.done();
+  },
+
+  press: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[2];
+    var spy = this.sandbox.spy();
+
+    this.keypad.on("down", spy);
+
+    // Only 3 are valid.
+    callback([ 0, 0 ]);
+    callback([ 0, 20 ]);
+    callback([ 0, 6 ]);
+    callback([ 0, 10 ]);
+    callback([ 0, 14 ]);
+
+    test.equal(spy.callCount, 3);
+    test.done();
+  },
+
+  hold: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[2];
+    var spy = this.sandbox.spy();
+
+    this.keypad.on("hold", spy);
+
+    callback([ 0, 11 ]);
+    this.clock.tick(600);
+    callback([ 0, 11 ]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  release: function(test) {
+    test.expect(1);
+
+    var callback = this.i2cRead.getCall(0).args[2];
+    var spy = this.sandbox.spy();
+
+    this.keypad.on("release", spy);
+
+    callback([ 0, 11 ]);
+    callback([ 0, 255 ]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+};

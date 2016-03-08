@@ -109,7 +109,7 @@
           {"file": "CD74HC4067-3-pot-barcli.png", "title": "Barcli output"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/eg/cd74hc4067.ino"}
         ]
 
       }
@@ -600,6 +600,17 @@
       {
         "file": "keypad-QTOUCH.js",
         "title": "Keypad - Grove QTouch"
+      },
+      {
+        "file": "keypad-3X4_I2C_NANO_BACKPACK.js",
+        "title": "Keypad - 3x4 I2C Nano Backpack",
+        "images": [
+          {"file": "keypad-i2c-backpack-1.jpg", "title": "Nano soldering assembly 1"},
+          {"file": "keypad-i2c-backpack-2.jpg", "title": "Nano soldering assembly 2"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/eg/3x4_i2c_nano_backpack.ino"}
+        ]
       }
     ]
   },

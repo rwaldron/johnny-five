@@ -89,7 +89,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
+- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/eg/cd74hc4067.ino)
 
 &nbsp;
 
