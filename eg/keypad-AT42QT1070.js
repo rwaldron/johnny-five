@@ -5,16 +5,16 @@ var board = new five.Board();
 board.on("ready", function() {
   // AT42QT1070 Capacitive Touch Shield
   // Same as QTOUCH
-  var keypad;
+  var touchpad;
 
   if (argv.show === 1) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "AT42QT1070"
     });
   }
 
   if (argv.show === 2) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "AT42QT1070",
       keys: [
         ["!", "@", "#"],
@@ -25,15 +25,15 @@ board.on("ready", function() {
   }
 
   if (argv.show === 3) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "AT42QT1070",
       keys: ["!", "@", "#", "$", "%", "^", "&"]
     });
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(data) {
-      console.log("Event: %s, Target: %s", eventType, data.which);
+    touchpad.on(eventType, function(event) {
+      console.log("Event: %s, Target: %s", eventType, event.which);
     });
   });
 });

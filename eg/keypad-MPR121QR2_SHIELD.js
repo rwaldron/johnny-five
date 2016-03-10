@@ -4,17 +4,17 @@ var board = new five.Board();
 
 board.on("ready", function() {
   // MPR121QR2 3x3 Capacitive Touch Shield
-  var keypad;
+  var touchpad;
 
   if (argv.show === 1) {
-    keypad = new five.Keypad({
-      controller: "MPR121QR2"
+    touchpad = new five.Touchpad({
+      controller: "MPR121QR2_SHIELD"
     });
   }
 
   if (argv.show === 2) {
-    keypad = new five.Keypad({
-      controller: "MPR121QR2",
+    touchpad = new five.Touchpad({
+      controller: "MPR121QR2_SHIELD",
       keys: [
         ["!", "@", "#"],
         ["$", "%", "^"],
@@ -24,15 +24,15 @@ board.on("ready", function() {
   }
 
   if (argv.show === 3) {
-    keypad = new five.Keypad({
-      controller: "MPR121QR2",
+    touchpad = new five.Touchpad({
+      controller: "MPR121QR2_SHIELD",
       keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+"]
     });
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(data) {
-      console.log("Event: %s, Target: %s", eventType, data.which);
+    touchpad.on(eventType, function(event) {
+      console.log("Event: %s, Target: %s", eventType, event.which);
     });
   });
 });

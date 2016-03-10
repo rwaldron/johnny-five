@@ -285,10 +285,12 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Keypad
 - [Keypad - VKEY](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-vkey.md)
 - [Keypad - Waveshare AD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-ad.md)
-- [Keypad - MPR121](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121.md)
-- [Keypad - MPR121, Sensitivity](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121-sensitivity.md)
-- [Keypad - MPR121QR2](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121QR2.md)
-- [Keypad - Grove QTouch](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-QTOUCH.md)
+- [Touchpad - MPR121](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121.md)
+- [Touchpad - MPR121_SHIELD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121_SHIELD.md)
+- [Touchpad - MPR121_KEYPAD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121_KEYPAD.md)
+- [Touchpad - MPR121, Sensitivity](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121-sensitivity.md)
+- [Touchpad - MPR121QR2_SHIELD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-MPR121QR2_SHIELD.md)
+- [Touchpad - Grove QTouch](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-QTOUCH.md)
 - [Keypad - 3x4 I2C Nano Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-3X4_I2C_NANO_BACKPACK.md)
 
 ### Relay

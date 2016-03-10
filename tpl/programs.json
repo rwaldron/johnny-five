@@ -584,22 +584,30 @@
       },
       {
         "file": "keypad-MPR121.js",
-        "title": "Keypad - MPR121"
+        "title": "Touchpad - MPR121"
+      },
+      {
+        "file": "keypad-MPR121_SHIELD.js",
+        "title": "Touchpad - MPR121_SHIELD"
+      },
+      {
+        "file": "keypad-MPR121_KEYPAD.js",
+        "title": "Touchpad - MPR121_KEYPAD"
       },
       {
         "file": "keypad-MPR121-sensitivity.js",
-        "title": "Keypad - MPR121, Sensitivity",
+        "title": "Touchpad - MPR121, Sensitivity",
         "breadboards": [
-          {"name": "keypad-MPR121"}
+          {"name": "keypad-MPR121_SHIELD"}
         ]
       },
       {
-        "file": "keypad-MPR121QR2.js",
-        "title": "Keypad - MPR121QR2"
+        "file": "keypad-MPR121QR2_SHIELD.js",
+        "title": "Touchpad - MPR121QR2_SHIELD"
       },
       {
         "file": "keypad-QTOUCH.js",
-        "title": "Keypad - Grove QTouch"
+        "title": "Touchpad - Grove QTouch"
       },
       {
         "file": "keypad-3X4_I2C_NANO_BACKPACK.js",

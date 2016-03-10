@@ -6,10 +6,10 @@ board.on("ready", function() {
   // MPR121 3x4 Capacitive Touch Pad
   // Demonstrates increasing the sensitivity
   // deviation for touch and release.
-  var keypad;
+  var touchpad;
 
   if (argv.show === 1) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "MPR121",
       sensitivity: {
         press: 0.10,
@@ -19,7 +19,7 @@ board.on("ready", function() {
   }
 
   if (argv.show === 2) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "MPR121",
       sensitivity: {
         press: 0.10,
@@ -35,7 +35,7 @@ board.on("ready", function() {
   }
 
   if (argv.show === 3) {
-    keypad = new five.Keypad({
+    touchpad = new five.Touchpad({
       controller: "MPR121",
       sensitivity: {
         press: 0.10,
@@ -46,7 +46,7 @@ board.on("ready", function() {
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(data) {
+    touchpad.on(eventType, function(data) {
       console.log("Event: %s, Target: %s", eventType, data.which);
     });
   });

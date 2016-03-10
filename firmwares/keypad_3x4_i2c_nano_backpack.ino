@@ -49,20 +49,24 @@ void setup() {
 
 void loop() {
   int state = read();
-  int index = toIndex(state);
+  // int index = toIndex(state);
 
-  if (state == 0) {
-    index = 0xFF;
-  }
+  // if (state == 0) {
+  //   index = 0xFF;
+  // }
 
-  #if DEBUG_MODE
-  if (index != 0xff) {
-    Serial.println(index);
-  }
-  #endif
+  // #if DEBUG_MODE
+  // if (index != 0xff) {
+  //   Serial.println(index);
+  // }
+  // #endif
 
-  buffer[0] = index >> 8;
-  buffer[1] = index & 0xFF;
+  // buffer[0] = index >> 8;
+  // buffer[1] = index & 0xFF;
+
+  buffer[0] = state >> 8;
+  buffer[1] = state & 0xFF;
+
   delay(10);
 }
 

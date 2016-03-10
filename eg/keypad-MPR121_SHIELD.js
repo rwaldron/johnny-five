@@ -3,42 +3,37 @@ var five = require("../lib/johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  // Sparkfun's VKey Voltage Keypad
-  var keypad;
+  // MPR121 3x4 Capacitive Touch Shield
+  var touchpad;
 
   if (argv.show === 1) {
-    keypad = new five.Keypad({
-      controller: "VKEY",
-      pin: "A0",
+    touchpad = new five.Touchpad({
+      controller: "MPR121_SHIELD"
     });
   }
 
   if (argv.show === 2) {
-    keypad = new five.Keypad({
-      controller: "VKEY",
-      pin: "A0",
+    touchpad = new five.Touchpad({
+      controller: "MPR121_SHIELD",
       keys: [
         ["!", "@", "#"],
         ["$", "%", "^"],
         ["&", "-", "+"],
-        ["<", ">", "?"],
+        ["_", "=", ":"]
       ]
     });
   }
 
   if (argv.show === 3) {
-    keypad = new five.Keypad({
-      controller: "VKEY",
-      pin: "A0",
-      keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"]
+    touchpad = new five.Touchpad({
+      controller: "MPR121_SHIELD",
+      keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"]
     });
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(event) {
+    touchpad.on(eventType, function(event) {
       console.log("Event: %s, Target: %s", eventType, event.which);
     });
   });
 });
-
-

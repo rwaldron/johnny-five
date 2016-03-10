@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Keypad - Waveshare AD
+# Touchpad - MPR121_KEYPAD
 
 <!--remove-end-->
 
@@ -9,11 +9,11 @@
 
 
 
-##### Breadboard for "Keypad - Waveshare AD"
+##### Breadboard for "Touchpad - MPR121_KEYPAD"
 
 
 
-![docs/breadboard/keypad-analog-ad.png](breadboard/keypad-analog-ad.png)<br>
+![docs/breadboard/keypad-MPR121_KEYPAD.png](breadboard/keypad-MPR121_KEYPAD.png)<br>
 
 &nbsp;
 
@@ -22,7 +22,7 @@
 
 Run this example from the command line with:
 ```bash
-node eg/keypad-analog-ad.js
+node eg/keypad-MPR121_KEYPAD.js
 ```
 
 
@@ -32,43 +32,39 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  // WaveShare AD Keypad
-  var keypad;
+  var touchpad;
 
   if (argv.show === 1) {
-    keypad = new five.Keypad({
-      pin: "A0",
-      length: 16
+    touchpad = new five.Touchpad({
+      controller: "MPR121_KEYPAD"
     });
   }
 
   if (argv.show === 2) {
-    keypad = new five.Keypad({
-      pin: "A0",
+    touchpad = new five.Touchpad({
+      controller: "MPR121_KEYPAD",
       keys: [
-        ["1", "!", "@", "#"],
-        ["2", "$", "%", "^"],
-        ["3", "&", "-", "+"],
-        ["4", "<", ">", "?"],
+        ["!", "@", "#"],
+        ["$", "%", "^"],
+        ["&", "-", "+"],
+        ["_", "=", ":"]
       ]
     });
   }
 
   if (argv.show === 3) {
-    keypad = new five.Keypad({
-      pin: "A0",
-      keys: ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"]
+    touchpad = new five.Touchpad({
+      controller: "MPR121_KEYPAD",
+      keys: ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"]
     });
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(event) {
+    touchpad.on(eventType, function(event) {
       console.log("Event: %s, Target: %s", eventType, event.which);
     });
   });
 });
-
-
 
 ```
 

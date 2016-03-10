@@ -64,8 +64,8 @@ board.on("ready", function() {
   }
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
-    keypad.on(eventType, function(data) {
-      console.log("Event: %s, Target: %s", eventType, data.which);
+    keypad.on(eventType, function(event) {
+      console.log("Event: %s, Target: %s", eventType, event.which);
     });
   });
 });
