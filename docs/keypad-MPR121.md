@@ -34,7 +34,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var touchpad = new five.Touchpad({
-    controller: "MPR121",
+    controller: "MPR121"
   });
 
   ["change", "press", "hold", "release"].forEach(function(eventType) {
