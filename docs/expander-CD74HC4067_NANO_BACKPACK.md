@@ -28,7 +28,7 @@ Fritzing diagram: [docs/breadboard/expander-CD74HC4067-14-pots.fzz](breadboard/e
 
 Run this example from the command line with:
 ```bash
-node eg/expander-CD74HC4067.js
+node eg/expander-CD74HC4067_NANO_BACKPACK.js
 ```
 
 

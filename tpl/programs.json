@@ -99,7 +99,7 @@
         "description": "Using a MUXSHIELD2 Expander as a Virtual Board. Displays value of potentiometers in console graph. (`npm install barcli`)"
       },
       {
-        "file": "expander-CD74HC4067.js",
+        "file": "expander-CD74HC4067_NANO_BACKPACK.js",
         "title": "Expander - CD74HC4067, 16 Channel Analog Input Breakout",
         "description": "Using a CD74HC4067 connected to an Arduino Nano Backpack. Displays value of potentiometers in console graph. (`npm install barcli`)",
         "breadboards": [
@@ -109,7 +109,7 @@
           {"file": "CD74HC4067-3-pot-barcli.png", "title": "Barcli output"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/eg/cd74hc4067.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/cd74hc4067_i2c_backpack.ino"}
         ]
 
       }
@@ -609,7 +609,7 @@
           {"file": "keypad-i2c-backpack-2.jpg", "title": "Nano soldering assembly 2"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/eg/keypad_3x4_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino"}
         ]
       }
     ]

@@ -99,7 +99,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/eg/keypad_3x4_i2c_nano_backpack.ino)
+- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino)
 
 &nbsp;
 
