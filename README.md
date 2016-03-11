@@ -369,6 +369,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
 - [Multi - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-htu21d.md)
 - [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
+- [Multi - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-MS5611.md)
 
 ### Sensors
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)

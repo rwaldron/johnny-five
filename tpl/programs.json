@@ -989,6 +989,10 @@
         "externals": [
           { "title": "SI7020 - I2C Multi Sensor", "href": "https://tessel.io/docs/climate"}
         ]
+      },
+      {
+        "file": "multi-MS5611.js",
+        "title": "Multi - MS5611"
       }
     ]
   },
