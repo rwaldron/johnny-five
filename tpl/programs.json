@@ -1170,7 +1170,7 @@
       },
       {
         "file": "altimeter-BMP180.js",
-        "title": "Altimeter - MS5611",
+        "title": "Altimeter - BMP180",
         "breadboards": [
           {"name": "multi-bmp180-sfe", "title": "BMP180"},
           {"name": "multi-bmp180", "title": "BMP180 (Adafruit)"}

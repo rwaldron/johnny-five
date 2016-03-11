@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# ESC - Keypress
+# ESC - Keypress controlled ESCs
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "ESC - Keypress"
+##### Breadboard for "ESC - Keypress controlled ESCs"
 
 
 

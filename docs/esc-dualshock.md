@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# ESC - Dualshock
+# ESC - Dualshock controlled ESCs
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "ESC - Dualshock"
+##### Breadboard for "ESC - Dualshock controlled ESCs"
 
 
 

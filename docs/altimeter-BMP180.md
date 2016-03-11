@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Altimeter - MS5611
+# Altimeter - BMP180
 
 <!--remove-end-->
 

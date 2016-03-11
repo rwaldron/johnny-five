@@ -259,8 +259,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### ESC & Brushless Motor
 - [ESC - Bidirectional](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
 - [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
-- [ESC - Dualshock](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
-- [ESC - Keypress](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
+- [ESC - Dualshock controlled ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
+- [ESC - Keypress controlled ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
 - [ESC - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
 - [ESCs - An array of ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-array.md)
 
@@ -370,8 +370,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Accelerometer - MMA7361](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
 - [Accelerometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
 - [Accelerometer - Pan + Tilt](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-pan-tilt.md)
+- [Altimeter - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-BMP180.md)
 - [Altimeter - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-mpl3115a2.md)
-- [Altimeter - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-BMP180.md)
 - [Altimeter - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-MS5611.md)
 - [Barometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-BMP180.md)
 - [Barometer - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-mpl115a2.md)
