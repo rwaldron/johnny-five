@@ -402,9 +402,13 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Temperature - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl3115a2.md)
 - [Temperature - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl115a2.md)
 - [Barometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-BMP180.md)
+- [Barometer - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/barometer-MS5611.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
 - [Temperature - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
 - [Temperature - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
+- [Temperature - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MS5611.md)
+- [Altimeter - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-MS5611.md)
+- [Altimeter - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/altimeter-BMP180.md)
 
 ### Photon Weather Shield
 - [Photon Weather Shield: Moisture](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-photon-weather-shield-moisture.md)

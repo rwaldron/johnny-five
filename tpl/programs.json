@@ -998,7 +998,7 @@
   },
   {
     "topic": "Sensors",
-    "classes": ["Sensor", "Accelerometer", "Gyro", "Thermometer"],
+    "classes": ["Sensor", "Accelerometer", "Gyro", "Thermometer", "Barometer", "Altimeter"],
     "examples": [
       {
         "file": "sensor.js",
@@ -1173,6 +1173,13 @@
         ]
       },
       {
+        "file": "barometer-MS5611.js",
+        "title": "Barometer - MS5611",
+        "breadboards": [
+          {"name": "multi-MS5611", "title": "Barometer - MS5611"}
+        ]
+      },
+      {
         "file": "hygrometer-htu21d.js",
         "title": "Hygrometer - HTU21D",
         "breadboards": [
@@ -1204,6 +1211,28 @@
         ],
         "externals": [
           { "title": "SI7020 - I2C Temperature Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
+      },
+      {
+        "file": "temperature-MS5611.js",
+        "title": "Temperature - MS5611",
+        "breadboards": [
+          {"name": "multi-MS5611", "title": "Temperature - MS5611"}
+        ]
+      },
+      {
+        "file": "altimeter-MS5611.js",
+        "title": "Altimeter - MS5611",
+        "breadboards": [
+          {"name": "multi-MS5611", "title": "MS5611"}
+        ]
+      },
+      {
+        "file": "altimeter-BMP180.js",
+        "title": "Altimeter - MS5611",
+        "breadboards": [
+          {"name": "multi-bmp180-sfe", "title": "BMP180"},
+          {"name": "multi-bmp180", "title": "BMP180 (Adafruit)"}
         ]
       }
     ]
