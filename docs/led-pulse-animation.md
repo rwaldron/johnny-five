@@ -14,7 +14,7 @@ LED pulse example that incrementally fades an LED brighter and brighter. Require
 ##### LED on pin 11 (Arduino UNO)
 
 
-Basic example with LED inserted directly into pin 11.
+LED inserted directly into pin 11.
 
 
 ![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>

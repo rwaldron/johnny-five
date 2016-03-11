@@ -14,7 +14,7 @@ LED fade example that fades an LED up and down to varying values. Requires LED o
 ##### LED on pin 11 (Arduino UNO)
 
 
-Basic example with LED inserted directly into pin 11.
+LED inserted directly into pin 11.
 
 
 ![docs/breadboard/led-11-pwm.png](breadboard/led-11-pwm.png)<br>

@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic infrared Proximity example
+Infrared Proximity example
 
 
 

@@ -14,7 +14,7 @@ Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#f
 ##### Common Cathode RGB LED. (Arduino UNO)
 
 
-Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground.
+RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground.
 
 
 ![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>

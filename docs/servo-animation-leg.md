@@ -12,7 +12,7 @@
 ##### Servos on pins 9, 10, 11
 
 
-Basic example with servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~).
+Servos connected to pins 9, 10, and 11. Requires servos on pins that support PWM (usually denoted by ~).
 
 
 ![docs/breadboard/servo-three.png](breadboard/servo-three.png)<br>

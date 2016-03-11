@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic infrared Proximity example with GP2Y0A710K0F sensor.
+Infrared Proximity example with GP2Y0A710K0F sensor.
 
 
 

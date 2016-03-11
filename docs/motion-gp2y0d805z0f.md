@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic GP2Y0D805Z0F motion detection.
+Motion detection with GP2Y0D805Z0F sensor.
 
 
 

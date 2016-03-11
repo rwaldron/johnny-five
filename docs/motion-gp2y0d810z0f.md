@@ -12,7 +12,7 @@
 ##### Motion - GP2Y0D810Z0F
 
 
-Basic GP2Y0D810Z0F motion detection.
+Motion detection with GP2Y0D810Z0F sensor.
 
 
 ![docs/breadboard/GP2Y0D810Z0F.png](breadboard/GP2Y0D810Z0F.png)<br>

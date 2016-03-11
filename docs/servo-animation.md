@@ -12,7 +12,7 @@
 ##### Servo on pin 10
 
 
-Basic example with servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
+Servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~).
 
 
 ![docs/breadboard/servo.png](breadboard/servo.png)<br>

@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic sonar Proximity example with SRF10 sensor.
+Sonar Proximity example with SRF10 sensor.
 
 
 

@@ -12,7 +12,7 @@
 ##### Proximity - MB1230
 
 
-Basic sonar Proximity example with MB1230 sensor.
+Sonar Proximity example with MB1230 sensor.
 
 
 ![docs/breadboard/proximity-mb1003.png](breadboard/proximity-mb1003.png)<br>

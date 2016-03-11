@@ -14,7 +14,7 @@ Basic LED example
 ##### LED on pin 13 (Arduino UNO)
 
 
-Basic example with LED inserted directly into pin 13
+LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13.png](breadboard/led-13.png)<br>
@@ -59,7 +59,7 @@ board.on("ready", function() {
 ### LED on pin 13 (Arduino UNO)
 
 
-Basic example with LED inserted directly into pin 13
+LED inserted directly into pin 13
 
 
 ![docs/images/led.jpg](images/led.jpg)  
@@ -67,7 +67,7 @@ Basic example with LED inserted directly into pin 13
 ##### LED on pin 13 with breadboard and resistor (Arduino UNO)
 
 
-Basic example with LED on a breadboard and demonstrating use of a resistor
+LED on a breadboard and demonstrating use of a resistor
 
 
 ![docs/breadboard/led-resistor.png](breadboard/led-resistor.png)<br>
@@ -78,7 +78,7 @@ Fritzing diagram: [docs/breadboard/led-resistor.fzz](breadboard/led-resistor.fzz
 ##### LED on pin 13 (Arduino Mega)
 
 
-Basic example with LED inserted directly into pin 13
+LED inserted directly into pin 13
 
 
 ![docs/breadboard/led-13-mega.png](breadboard/led-13-mega.png)<br>

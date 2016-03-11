@@ -14,7 +14,7 @@ Demonstrates changing intensity of an RGB LED. Requires RGB LED on pins that sup
 ##### RGB LED. (Arduino UNO)
 
 
-Basic example with RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively.
+RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively.
 
 
 ![docs/breadboard/led-rgb.png](breadboard/led-rgb.png)<br>

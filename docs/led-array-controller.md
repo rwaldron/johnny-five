@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LED - Array Controller
+# LEDs - Controlling an array of LEDs
 
 <!--remove-end-->
 
@@ -11,7 +11,7 @@ Demonstrates controlling multiple LEDs at once through the use of an LED array a
 
 
 
-##### Breadboard for "LED - Array Controller"
+##### Breadboard for "LEDs - Controlling an array of LEDs"
 
 
 

@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic Passive Infrared Motion detection.
+Motion detection with Passive Infrared sensor.
 
 
 

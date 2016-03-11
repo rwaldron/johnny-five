@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# ESC - ESC Array
+# ESCs - An array of ESCs
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "ESC - ESC Array"
+##### Breadboard for "ESCs - An array of ESCs"
 
 
 

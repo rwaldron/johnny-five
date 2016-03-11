@@ -5,7 +5,7 @@
 <!--remove-end-->
 
 
-Basic sonar Proximity example with MB1003 sensor.
+Sonar Proximity example with MB1003 sensor.
 
 
 
