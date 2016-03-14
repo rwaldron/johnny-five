@@ -227,6 +227,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Servo - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-tessel-servo-module.md)
 - [Servos - An array of servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 
+### GPS
+- [GPS - Adafruit Ultimate GPS Breakout](https://github.com/rwaldron/johnny-five/blob/master/docs/gps-adafruit.md)
+- [GPS - Default GPS](https://github.com/rwaldron/johnny-five/blob/master/docs/gps.md)
+
 ### Servo Animation
 - [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
 - [Servo - Leg Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation-leg.md)
