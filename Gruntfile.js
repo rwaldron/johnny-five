@@ -235,7 +235,7 @@ module.exports = function(grunt) {
         return 0;
       }).forEach(function(example) {
         var markdown, filepath, eg, md, inMarkdown,
-          images, breadboards, embeds, name, imgMarkdown, values, primary;
+          images, alternates, breadboards, embeds, name, imgMarkdown, values, primary;
 
         markdown = [];
         filepath = "eg/" + example.file;
@@ -316,11 +316,22 @@ module.exports = function(grunt) {
           imgMarkdown += breadboardMarkdown(breadboard);
         });
 
+        if (example.alternates) {
+          alternates = example.alternates.map(function(alternate) {
+            return {
+              description: alternate.description || "",
+              source: file.read("eg/" + alternate.file).replace("../", "johnny-five"),
+              title: alternate.title || "",
+            };
+          });
+        }
+
         values = {
           command: "node " + filepath,
           description: example.description,
           embeds: embeds,
           example: eg,
+          alternates: alternates || [],
           externals: example.externals || [],
           file: md,
           images: imgMarkdown,
