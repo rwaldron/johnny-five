@@ -1126,7 +1126,7 @@
         ]
       },
       {
-        "file": "barometer-bmp085.js",
+        "file": "barometer-BMP085.js",
         "title": "Barometer - BMP085",
         "breadboards": [
           {"name": "multi-bmp085-sfe", "title": "BMP085"},
@@ -1224,7 +1224,7 @@
         ]
       },
       {
-        "file": "altimeter-bmp085.js",
+        "file": "altimeter-BMP085.js",
         "title": "Altimeter - BMP085",
         "breadboards": [
           {"name": "multi-bmp085-sfe", "title": "BMP085"},
