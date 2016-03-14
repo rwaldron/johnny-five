@@ -2,14 +2,10 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
-  // By including a base `elevation` property, the values
-  // received will be absolute elevation (from sealevel)
+  // By omitting the base `elevation` property, the values
+  // received will be relative to your present elevation
   var alt = new five.Altimeter({
-    controller: "BMP085",
-    // Change `elevation` with whatever is reported
-    // on http://www.whatismyelevation.com/.
-    // `12` is the elevation (meters) for where I live in Brooklyn
-    elevation: 12,
+    controller: "BMP180",
   });
 
   alt.on("change", function() {

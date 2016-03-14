@@ -33,6 +33,8 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
+  // By including a base `elevation` property, the values
+  // received will be absolute elevation (from sealevel)
   var alt = new five.Altimeter({
     controller: "BMP180",
     // Change `elevation` with whatever is reported
@@ -50,6 +52,35 @@ board.on("ready", function() {
 });
 
 ```
+
+## Alternates
+
+
+### BMP180 - Relative Elevation
+
+
+
+```javascript
+var five = require("johnny-five");
+var board = new five.Board();
+
+board.on("ready", function() {
+  // By omitting the base `elevation` property, the values
+  // received will be relative to your present elevation
+  var alt = new five.Altimeter({
+    controller: "BMP180",
+  });
+
+  alt.on("change", function() {
+    console.log("altimeter");
+    console.log("  feet         : ", this.feet);
+    console.log("  meters       : ", this.meters);
+    console.log("--------------------------------------");
+  });
+});
+
+```
+
 
 
 ## Illustrations / Photos
