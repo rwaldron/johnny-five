@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - TMP36
+# Thermometer - TMP36
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Temperature - TMP36"
+##### Breadboard for "Thermometer - TMP36"
 
 
 

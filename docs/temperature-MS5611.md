@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MS5611
+# Thermometer - MS5611
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Temperature - MS5611
+##### Thermometer - MS5611
 
 
 

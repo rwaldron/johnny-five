@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - LM335
+# Thermometer - LM335
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Temperature - LM335"
+##### Breadboard for "Thermometer - LM335"
 
 
 

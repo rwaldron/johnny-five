@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MPL115A2
+# Thermometer - MPL115A2
 
 <!--remove-end-->
 

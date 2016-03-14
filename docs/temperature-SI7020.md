@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - SI7020
+# Thermometer - SI7020
 
 <!--remove-end-->
 

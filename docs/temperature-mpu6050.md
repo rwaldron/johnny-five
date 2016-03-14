@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MPU6050
+# Thermometer - MPU6050
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Temperature - MPU6050"
+##### Breadboard for "Thermometer - MPU6050"
 
 
 

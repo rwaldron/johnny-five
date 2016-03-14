@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MCP9808
+# Thermometer - MCP9808
 
 <!--remove-end-->
 

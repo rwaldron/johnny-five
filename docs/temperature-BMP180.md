@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - BMP180
+# Thermometer - BMP180
 
 <!--remove-end-->
 

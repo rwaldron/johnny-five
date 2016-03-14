@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - DS18B20
+# Thermometer - DS18B20
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Temperature - DS18B20"
+##### Breadboard for "Thermometer - DS18B20"
 
 
 

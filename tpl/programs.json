@@ -911,6 +911,18 @@
         ]
       },
       {
+        "file": "multi-bmp085.js",
+        "title": "Multi - BMP085",
+        "breadboards": [
+          {"name": "multi-bmp085-sfe", "title": "BMP085"},
+          {"name": "multi-bmp085", "title": "BMP085 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "BMP085 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/391"},
+          { "title": "Grove - Barometer Sensor（BMP085)", "href": "http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html"}
+        ]
+      },
+      {
         "file": "multi-htu21d.js",
         "title": "Multi - HTU21D",
         "breadboards": [
@@ -1003,35 +1015,35 @@
       },
       {
         "file": "temperature-tmp36.js",
-        "title": "Temperature - TMP36"
+        "title": "Thermometer - TMP36"
       },
       {
         "file": "temperature-tmp102.js",
-        "title": "Temperature - TMP102"
+        "title": "Thermometer - TMP102"
       },
       {
         "file": "temperature-lm35.js",
-        "title": "Temperature - LM35"
+        "title": "Thermometer - LM35"
       },
       {
         "file": "temperature-lm335.js",
-        "title": "Temperature - LM335"
+        "title": "Thermometer - LM335"
       },
       {
         "file": "temperature-ds18b20.js",
-        "title": "Temperature - DS18B20"
+        "title": "Thermometer - DS18B20"
       },
       {
         "file": "temperature-max31850k.js",
-        "title": "Temperature - MAX31850"
+        "title": "Thermometer - MAX31850"
       },
       {
         "file": "temperature-mpu6050.js",
-        "title": "Temperature - MPU6050"
+        "title": "Thermometer - MPU6050"
       },
       {
         "file": "temperature-htu21d.js",
-        "title": "Temperature - HTU21D",
+        "title": "Thermometer - HTU21D",
         "breadboards": [
           {"name": "humidity-htu21d", "title": "HTU21D"}
         ],
@@ -1041,7 +1053,7 @@
       },
       {
         "file": "temperature-MCP9808.js",
-        "title": "Temperature - MCP9808",
+        "title": "Thermometer - MCP9808",
         "breadboards": [
           {"name": "temperature-MCP9808", "title": "MCP9808"},
           {"name": "temperature-MCP9808-tessel", "title": "MCP9808"}
@@ -1082,7 +1094,7 @@
       },
       {
         "file": "temperature-mpl3115a2.js",
-        "title": "Temperature - MPL3115A2",
+        "title": "Thermometer - MPL3115A2",
         "breadboards": [
           {"name": "barometer-mpl3115a2", "title": "MPL3115A2"}
         ],
@@ -1092,7 +1104,7 @@
       },
       {
         "file": "temperature-mpl115a2.js",
-        "title": "Temperature - MPL115A2",
+        "title": "Thermometer - MPL115A2",
         "breadboards": [
           {"name": "multi-mpl115a2", "title": "MPL115A2"}
         ],
@@ -1114,6 +1126,18 @@
         ]
       },
       {
+        "file": "barometer-bmp085.js",
+        "title": "Barometer - BMP085",
+        "breadboards": [
+          {"name": "multi-bmp085-sfe", "title": "BMP085"},
+          {"name": "multi-bmp085", "title": "BMP085 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "BMP085 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/391"},
+          { "title": "Grove - Barometer Sensor（BMP085)", "href": "http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html"}
+        ]
+      },
+      {
         "file": "barometer-MS5611.js",
         "title": "Barometer - MS5611",
         "breadboards": [
@@ -1132,7 +1156,7 @@
       },
       {
         "file": "temperature-BMP180.js",
-        "title": "Temperature - BMP180",
+        "title": "Thermometer - BMP180",
         "breadboards": [
           {"name": "multi-bmp180-sfe", "title": "BMP180"},
           {"name": "multi-bmp180", "title": "BMP180 (Adafruit)"}
@@ -1144,8 +1168,20 @@
         ]
       },
       {
+        "file": "temperature-bmp085.js",
+        "title": "Thermometer - BMP085",
+        "breadboards": [
+          {"name": "multi-bmp085-sfe", "title": "BMP085"},
+          {"name": "multi-bmp085", "title": "BMP085 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "BMP085 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/391"},
+          { "title": "Grove - Barometer Sensor（BMP085)", "href": "http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html"}
+        ]
+      },
+      {
         "file": "temperature-SI7020.js",
-        "title": "Temperature - SI7020",
+        "title": "Thermometer - SI7020",
         "breadboards": [
           {"name": "temperature-SI7020", "title": "Tessel with SI7020"},
           {"name": "temperature-SI7020-uno", "title": "Arduino with SI7020"}
@@ -1156,9 +1192,9 @@
       },
       {
         "file": "temperature-MS5611.js",
-        "title": "Temperature - MS5611",
+        "title": "Thermometer - MS5611",
         "breadboards": [
-          {"name": "multi-MS5611", "title": "Temperature - MS5611"}
+          {"name": "multi-MS5611", "title": "Thermometer - MS5611"}
         ]
       },
       {
@@ -1174,6 +1210,23 @@
         "breadboards": [
           {"name": "multi-bmp180-sfe", "title": "BMP180"},
           {"name": "multi-bmp180", "title": "BMP180 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
+          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
+          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+        ]
+      },
+      {
+        "file": "altimeter-bmp085.js",
+        "title": "Altimeter - BMP085",
+        "breadboards": [
+          {"name": "multi-bmp085-sfe", "title": "BMP085"},
+          {"name": "multi-bmp085", "title": "BMP085 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "BMP085 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/391"},
+          { "title": "Grove - Barometer Sensor（BMP085)", "href": "http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html"}
         ]
       }
     ]

@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - HTU21D
+# Thermometer - HTU21D
 
 <!--remove-end-->
 

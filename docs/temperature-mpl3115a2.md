@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MPL3115A2
+# Thermometer - MPL3115A2
 
 <!--remove-end-->
 

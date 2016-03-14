@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Multi - BMP180
+# Multi - BMP085
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### BMP180
+##### BMP085
 
 
 
-![docs/breadboard/multi-bmp180-sfe.png](breadboard/multi-bmp180-sfe.png)<br>
+![docs/breadboard/multi-bmp085-sfe.png](breadboard/multi-bmp085-sfe.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-bmp180-sfe.fzz](breadboard/multi-bmp180-sfe.fzz)
+Fritzing diagram: [docs/breadboard/multi-bmp085-sfe.fzz](breadboard/multi-bmp085-sfe.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-bmp180-sfe.fzz](breadboard/multi-bmp180
 
 Run this example from the command line with:
 ```bash
-node eg/multi-bmp180.js
+node eg/multi-bmp085.js
 ```
 
 
@@ -34,7 +34,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "BMP180"
+    controller: "BMP085"
   });
 
   multi.on("change", function() {
@@ -61,13 +61,13 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-##### BMP180 (Adafruit)
+##### BMP085 (Adafruit)
 
 
 
-![docs/breadboard/multi-bmp180.png](breadboard/multi-bmp180.png)<br>
+![docs/breadboard/multi-bmp085.png](breadboard/multi-bmp085.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz)
+Fritzing diagram: [docs/breadboard/multi-bmp085.fzz](breadboard/multi-bmp085.fzz)
 
 &nbsp;
 
@@ -78,11 +78,9 @@ Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz
 
 ## Learn More
 
-- [BMP180 Barometric Pressure/Temperature/Altitude Sensor](https://www.adafruit.com/products/1603)
+- [BMP085 Barometric Pressure/Temperature/Altitude Sensor](https://www.adafruit.com/products/391)
 
-- [SparkFun Barometric Pressure Sensor Breakout - BMP180](https://www.sparkfun.com/products/11824)
-
-- [Grove - Barometer Sensor（BMP180)](http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html)
+- [Grove - Barometer Sensor（BMP085)](http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html)
 
 &nbsp;
 

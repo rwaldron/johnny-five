@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Temperature - MAX31850
+# Thermometer - MAX31850
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Temperature - MAX31850"
+##### Breadboard for "Thermometer - MAX31850"
 
 
 
