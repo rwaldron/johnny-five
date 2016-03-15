@@ -310,6 +310,15 @@ exports["Piezo"] = {
     test.done();
   },
 
+  frequencyToneConversion: function(test) {
+    test.expect(2);
+
+    test.equal(Piezo.toneToFrequency(1136), 440);
+    test.equal(Piezo.frequencyToTone(440), 1136);
+
+    test.done();
+  },
+
   noTone: function(test) {
     test.expect(2);
 
@@ -436,4 +445,106 @@ exports["Piezo"] = {
 
     this.clock.tick(100);
   },
+};
+
+exports["PiezoWithCustomControllers"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+
+  canRedefineFrequencyWithController: function(test) {
+    test.expect(4);
+
+    var TestController = {
+      frequency: {
+        writable: true,
+        value: function(frequency, duration) {
+          test.equal(frequency, 440);
+          test.equal(duration, 1000);
+        }
+      }
+    };
+    var piezo = new Piezo({
+      pin: 3,
+      controller: TestController,
+      board: this.board
+    });
+    piezo.frequency(440, 1000);
+    piezo.tone(1136, 1000);
+
+    test.done();
+  },
+
+  canRedefineToneWithController: function(test) {
+    test.expect(4);
+
+    var TestController = {
+      tone: {
+        writable: true,
+        value: function(tone, duration) {
+          test.equal(tone, 1136);
+          test.equal(duration, 1000);
+        }
+      }
+    };
+    var piezo = new Piezo({
+      pin: 3,
+      controller: TestController,
+      board: this.board
+    });
+    piezo.frequency(440, 1000);
+    piezo.tone(1136, 1000);
+
+    test.done();
+  },
+
+  throwsIfNeitherToneNorFrequency: function(test) {
+    test.expect(2);
+
+    var piezo = new Piezo({
+      pin: 3,
+      controller: {},
+      board: this.board
+    });
+
+    test.throws(function() {
+      piezo.frequency(440, 1000);
+    }.bind(this));
+
+    test.throws(function() {
+      piezo.tone(1136, 1000);
+    }.bind(this));
+
+    test.done();
+  },
+
+  canRedefineNoTone: function(test) {
+    test.expect(2);
+
+    var piezo = new Piezo({
+      pin: 3,
+      controller: {
+        noTone: {
+          value: function() {
+            test.ok(1);
+          }
+        }
+      },
+      board: this.board
+    });
+
+    piezo.off();
+    piezo.noTone();
+
+    test.done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
+  }
+
 };
