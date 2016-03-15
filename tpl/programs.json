@@ -324,6 +324,23 @@
     ]
   },
   {
+    "topic": "GPS",
+    "classes": ["GPS"],
+    "examples": [
+      {
+        "file": "gps.js",
+        "title": "GPS - Default GPS"
+      },
+      {
+        "file": "gps-adafruit.js",
+        "title": "GPS - Adafruit Ultimate GPS Breakout",
+        "breadboards": [
+          {"name": "gps-adafruit", "title": "Adafruit Ultimate GPS Breakout", "description": "Example of Adafruit Ultimate GPS on serial."}
+        ]
+      }
+    ]
+  },
+  {
     "topic": "Servo Animation",
     "classes": ["Animation"],
     "examples": [
