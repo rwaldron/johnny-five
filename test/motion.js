@@ -245,7 +245,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.ok(this.i2cWrite.calledOnce);
     test.ok(this.i2cRead.calledOnce);
 
-    test.deepEqual(this.i2cWriteReg.firstCall.args, [ 0x26, 0x03, 0xFE ]);
+    test.deepEqual(this.i2cWriteReg.firstCall.args, [0x26, 0x03, 0xFE]);
     test.deepEqual(this.i2cWrite.firstCall.args, [0x26, [0x00]]);
 
     test.equal(this.i2cRead.firstCall.args[0], 0x26);

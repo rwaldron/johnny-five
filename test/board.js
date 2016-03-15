@@ -249,7 +249,9 @@ exports["Board"] = {
       this.on("info", function(event) {
         test.equal(event.class, "Board");
         test.equal(event.message, "message 1");
-        test.deepEqual(event.data, { foo: 2 });
+        test.deepEqual(event.data, {
+          foo: 2
+        });
       });
 
       this.on("fail", function(event) {
@@ -278,7 +280,9 @@ exports["Board"] = {
         test.ok(true);
       });
 
-      this.info("Board", "message", 1, { foo: 2 });
+      this.info("Board", "message", 1, {
+        foo: 2
+      });
       this.fail("Board", "message");
       this.warn("Board", "message", [1, 2, 3]);
       this.log("Board", "message");

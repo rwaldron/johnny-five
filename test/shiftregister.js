@@ -86,7 +86,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.expect(7);
 
     this.shiftRegister = new ShiftRegister({
-      pins: [ 2, 3, 4 ],
+      pins: [2, 3, 4],
       board: this.board
     });
 
@@ -95,7 +95,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.equal(this.shiftRegister.pins.latch, 4);
 
     this.shiftRegister = new ShiftRegister({
-      pins: [ 6, 7, 8, 9 ],
+      pins: [6, 7, 8, 9],
       board: this.board
     });
 
@@ -110,13 +110,13 @@ exports["ShiftRegister - Common Cathode (default)"] = {
   shorthandPinsInitializations: function(test) {
     test.expect(7);
 
-    this.shiftRegister = new ShiftRegister([ 2, 3, 4 ]);
+    this.shiftRegister = new ShiftRegister([2, 3, 4]);
 
     test.equal(this.shiftRegister.pins.data, 2);
     test.equal(this.shiftRegister.pins.clock, 3);
     test.equal(this.shiftRegister.pins.latch, 4);
 
-    this.shiftRegister = new ShiftRegister([ 6, 7, 8, 9 ]);
+    this.shiftRegister = new ShiftRegister([6, 7, 8, 9]);
 
     test.equal(this.shiftRegister.pins.data, 6);
     test.equal(this.shiftRegister.pins.clock, 7);
@@ -131,7 +131,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 6, 7, 8, 9 ],
+      pins: [6, 7, 8, 9],
       board: this.board
     });
 
@@ -152,7 +152,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 6, 7, 8 ],
+      pins: [6, 7, 8],
       board: this.board
     });
 
@@ -186,26 +186,25 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     var encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
 
-    Array.from({length: 10}, function(_, index) {
+    Array.from({
+      length: 10
+    }, function(_, index) {
       // As numbers...
       this.shiftRegister.display(index);
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index] | (1 << 7) ] // The decimal is removed
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index] | (1 << 7)] // The decimal is removed
       );
 
       // As strings...
       this.shiftRegister.display(String(index));
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index] | (1 << 7) ] // The decimal is removed
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index] | (1 << 7)] // The decimal is removed
       );
 
       // As strings with decimal point
       this.shiftRegister.display(index + ".");
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index]]
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index]]
       );
     }, this);
 
@@ -227,7 +226,9 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     var encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
 
-    Array.from({length: 10}, function(_, index) {
+    Array.from({
+      length: 10
+    }, function(_, index) {
       this.shiftOut.reset();
       this.shiftRegister.display(index + ".0");
 
@@ -235,7 +236,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       test.deepEqual(
         this.shiftOut.firstCall.args,
         // The first number is "1."
-        [2, 3, true, encoded[index] ]
+        [2, 3, true, encoded[index]]
       );
 
       test.deepEqual(
@@ -243,7 +244,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
         // The second number is "0", so find its
         // encoded character. There will be no decimal
         // for this number
-        [2, 3, true, encoded[0] | (1 << 7) ]
+        [2, 3, true, encoded[0] | (1 << 7)]
       );
 
       this.shiftOut.reset();
@@ -253,13 +254,13 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       test.deepEqual(
         this.shiftOut.firstCall.args,
         // The first number is "1."
-        [2, 3, true, encoded[index] ]
+        [2, 3, true, encoded[index]]
       );
 
       test.deepEqual(
         this.shiftOut.secondCall.args,
         // The second number is "0."
-        [2, 3, true, encoded[0] ]
+        [2, 3, true, encoded[0]]
       );
 
       test.deepEqual(
@@ -267,7 +268,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
         // The second number is "0", so find its
         // encoded character. There will be no decimal
         // for this number
-        [2, 3, true, encoded[0] | (1 << 7) ]
+        [2, 3, true, encoded[0] | (1 << 7)]
       );
     }, this);
 
@@ -292,19 +293,19 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 1);
-    test.deepEqual(this.shiftRegister.value, [ 0 ]);
+    test.deepEqual(this.shiftRegister.value, [0]);
 
     this.shiftRegister.send(0x01);
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 3);
-    test.ok(this.send.getCall(2).calledWith([ 0 ]));
-    test.deepEqual(this.shiftRegister.value, [ 0 ]);
+    test.ok(this.send.getCall(2).calledWith([0]));
+    test.deepEqual(this.shiftRegister.value, [0]);
 
     this.shiftRegister.send(0x01, 0x01);
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 5);
-    test.deepEqual(this.send.getCall(4).args[0], [ 0 ]);
-    test.deepEqual(this.shiftRegister.value, [ 0 ]);
+    test.deepEqual(this.send.getCall(4).args[0], [0]);
+    test.deepEqual(this.shiftRegister.value, [0]);
 
     test.done();
   }
@@ -344,7 +345,7 @@ exports["ShiftRegister - Common Anode"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 2, 3, 4 ],
+      pins: [2, 3, 4],
       board: this.board
     });
 
@@ -354,7 +355,7 @@ exports["ShiftRegister - Common Anode"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 6, 7, 8, 9 ],
+      pins: [6, 7, 8, 9],
       board: this.board
     });
 
@@ -371,7 +372,7 @@ exports["ShiftRegister - Common Anode"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 6, 7, 8, 9 ],
+      pins: [6, 7, 8, 9],
       board: this.board
     });
 
@@ -392,7 +393,7 @@ exports["ShiftRegister - Common Anode"] = {
 
     this.shiftRegister = new ShiftRegister({
       isAnode: true,
-      pins: [ 6, 7, 8 ],
+      pins: [6, 7, 8],
       board: this.board
     });
 
@@ -426,26 +427,25 @@ exports["ShiftRegister - Common Anode"] = {
 
     var encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
 
-    Array.from({length: 10}, function(_, index) {
+    Array.from({
+      length: 10
+    }, function(_, index) {
       // As numbers...
       this.shiftRegister.display(index);
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index] | (1 << 7) ] // The decimal is removed
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index] | (1 << 7)] // The decimal is removed
       );
 
       // As strings...
       this.shiftRegister.display(String(index));
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index] | (1 << 7) ] // The decimal is removed
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index] | (1 << 7)] // The decimal is removed
       );
 
       // As strings with decimal point
       this.shiftRegister.display(index + ".");
       test.deepEqual(
-        this.shiftOut.lastCall.args,
-        [2, 3, true, encoded[index]]
+        this.shiftOut.lastCall.args, [2, 3, true, encoded[index]]
       );
 
       this.shiftOut.reset();
@@ -455,13 +455,13 @@ exports["ShiftRegister - Common Anode"] = {
       test.deepEqual(
         this.shiftOut.firstCall.args,
         // The first number is "1."
-        [2, 3, true, encoded[index] ]
+        [2, 3, true, encoded[index]]
       );
 
       test.deepEqual(
         this.shiftOut.secondCall.args,
         // The second number is "0."
-        [2, 3, true, encoded[0] ]
+        [2, 3, true, encoded[0]]
       );
 
       test.deepEqual(
@@ -469,7 +469,7 @@ exports["ShiftRegister - Common Anode"] = {
         // The second number is "0", so find its
         // encoded character. There will be no decimal
         // for this number
-        [2, 3, true, encoded[0] | (1 << 7) ]
+        [2, 3, true, encoded[0] | (1 << 7)]
       );
     }, this);
 
@@ -492,7 +492,9 @@ exports["ShiftRegister - Common Anode"] = {
 
     var encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
 
-    Array.from({length: 10}, function(_, index) {
+    Array.from({
+      length: 10
+    }, function(_, index) {
       this.shiftOut.reset();
       this.shiftRegister.display(index + ".0");
 
@@ -500,7 +502,7 @@ exports["ShiftRegister - Common Anode"] = {
       test.deepEqual(
         this.shiftOut.firstCall.args,
         // The first number is "1."
-        [2, 3, true, encoded[index] ]
+        [2, 3, true, encoded[index]]
       );
 
       test.deepEqual(
@@ -508,7 +510,7 @@ exports["ShiftRegister - Common Anode"] = {
         // The second number is "0", so find its
         // encoded character. There will be no decimal
         // for this number
-        [2, 3, true, encoded[0] | (1 << 7) ]
+        [2, 3, true, encoded[0] | (1 << 7)]
       );
     }, this);
 
@@ -533,19 +535,19 @@ exports["ShiftRegister - Common Anode"] = {
 
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 1);
-    test.deepEqual(this.shiftRegister.value, [ 255 ]);
+    test.deepEqual(this.shiftRegister.value, [255]);
 
     this.shiftRegister.send(0x01);
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 3);
-    test.ok(this.send.getCall(2).calledWith([ 255 ]));
-    test.deepEqual(this.shiftRegister.value, [ 255 ]);
+    test.ok(this.send.getCall(2).calledWith([255]));
+    test.deepEqual(this.shiftRegister.value, [255]);
 
     this.shiftRegister.send(0x01, 0x01);
     this.shiftRegister.clear();
     test.equal(this.send.callCount, 5);
-    test.deepEqual(this.send.getCall(4).args[0], [ 255 ]);
-    test.deepEqual(this.shiftRegister.value, [ 255 ]);
+    test.deepEqual(this.send.getCall(4).args[0], [255]);
+    test.deepEqual(this.shiftRegister.value, [255]);
 
     test.done();
   }

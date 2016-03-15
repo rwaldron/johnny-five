@@ -74,10 +74,10 @@ exports["Nunchuk"] = {
 
     this.nunchuk.joystick.on("change", spy);
 
-    callback([31,127,149,88,134,135]);
+    callback([31, 127, 149, 88, 134, 135]);
     this.clock.tick(50);
 
-    callback([199,127,156,92,151,127]);
+    callback([199, 127, 156, 92, 151, 127]);
     this.clock.tick(50);
 
     test.ok(spy.called);
@@ -94,17 +94,17 @@ exports["Nunchuk"] = {
 
     this.nunchuk.accelerometer.on("change", spy);
 
-    callback([31,127,149,88,134,135]);
+    callback([31, 127, 149, 88, 134, 135]);
     this.clock.tick(50);
 
-    callback([199,127,156,92,151,127]);
+    callback([199, 127, 156, 92, 151, 127]);
     this.clock.tick(50);
 
     test.ok(spy.called);
     test.done();
   },
 
-  "empty constructor" : function(test) {
+  "empty constructor": function(test) {
     test.expect(1);
 
     test.ok(new Wii.Nunchuk());
@@ -161,7 +161,7 @@ exports["Classic"] = {
     test.done();
   },
 
-  "empty constructor" : function(test) {
+  "empty constructor": function(test) {
     test.expect(1);
 
     test.ok(new Wii.Classic());

@@ -30,7 +30,9 @@ exports["Board Connection"] = {
     this.list = this.sandbox.stub(MockSerialPort, "list", function(callback) {
       calls++;
       process.nextTick(function() {
-        callback(null, calls === 2 ? [{comName: "/dev/usb"}] : []);
+        callback(null, calls === 2 ? [{
+          comName: "/dev/usb"
+        }] : []);
       });
     });
 

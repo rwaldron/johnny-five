@@ -63,17 +63,15 @@ exports["Stepper Firmware Requirement"] = {
   valid: function(test) {
     test.expect(1);
 
-    this.board = newBoard([
-      {
-        supportedModes: [],
-      }, {
-        supportedModes: [],
-      }, {
-        supportedModes: [0, 1, 4, 8],
-      }, {
-        supportedModes: [0, 1, 3, 4, 8],
-      }
-    ]);
+    this.board = newBoard([{
+      supportedModes: [],
+    }, {
+      supportedModes: [],
+    }, {
+      supportedModes: [0, 1, 4, 8],
+    }, {
+      supportedModes: [0, 1, 3, 4, 8],
+    }]);
 
     test.doesNotThrow(function() {
       new Stepper({
@@ -90,17 +88,15 @@ exports["Stepper Firmware Requirement"] = {
   invalid: function(test) {
     test.expect(1);
 
-    this.board = newBoard([
-      {
-        supportedModes: [],
-      }, {
-        supportedModes: [],
-      }, {
-        supportedModes: [0, 1, 4],
-      }, {
-        supportedModes: [0, 1, 3, 4],
-      }
-    ]);
+    this.board = newBoard([{
+      supportedModes: [],
+    }, {
+      supportedModes: [],
+    }, {
+      supportedModes: [0, 1, 4],
+    }, {
+      supportedModes: [0, 1, 3, 4],
+    }]);
 
     try {
       new Stepper({
@@ -139,7 +135,7 @@ exports["Stepper - constructor"] = {
         stepsPerRev: 200,
         pins: [2, 3]
       });
-    } catch ( error ) {
+    } catch (error) {
       test.equals(error.message, "Stepper requires a `type` number value (DRIVER, TWO_WIRE)");
     }
 
@@ -225,8 +221,10 @@ exports["Stepper - constructor"] = {
 
     test.equal(stepper.type, Stepper.TYPE.DRIVER);
     test.deepEqual(
-      stepper.pins,
-      {step: pins[0], dir: pins[1]}
+      stepper.pins, {
+        step: pins[0],
+        dir: pins[1]
+      }
     );
 
     test.done();
@@ -258,8 +256,10 @@ exports["Stepper - constructor"] = {
 
     test.equal(stepper.type, Stepper.TYPE.TWO_WIRE);
     test.deepEqual(
-      stepper.pins,
-      {motor1: pins[0], motor2: pins[1]}
+      stepper.pins, {
+        motor1: pins[0],
+        motor2: pins[1]
+      }
     );
 
     test.done();
@@ -293,8 +293,12 @@ exports["Stepper - constructor"] = {
 
     test.equal(stepper.type, Stepper.TYPE.FOUR_WIRE);
     test.deepEqual(
-      stepper.pins,
-      {motor1: pins[0], motor2: pins[1], motor3: pins[2], motor4: pins[3]}
+      stepper.pins, {
+        motor1: pins[0],
+        motor2: pins[1],
+        motor3: pins[2],
+        motor4: pins[3]
+      }
     );
 
     test.done();
@@ -308,11 +312,9 @@ exports["Stepper - max steppers"] = {
 
     this.board1 = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
+        pins: [{
+          supportedModes: [8]
+        }]
       }),
       debug: false,
       repl: false
@@ -320,11 +322,9 @@ exports["Stepper - max steppers"] = {
 
     this.board2 = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
+        pins: [{
+          supportedModes: [8]
+        }]
       }),
       debug: false,
       repl: false
@@ -407,11 +407,9 @@ exports["Stepper - step callback"] = {
   setUp: function(done) {
     this.board = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
+        pins: [{
+          supportedModes: [8]
+        }]
       }),
       debug: false,
       repl: false
@@ -454,11 +452,9 @@ exports["Stepper - set direction required before step"] = {
 
     this.board = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
+        pins: [{
+          supportedModes: [8]
+        }]
       }),
       debug: false,
       repl: false
@@ -508,11 +504,9 @@ exports["Stepper - chainable direction"] = {
 
     this.board = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8]
-          }
-        ]
+        pins: [{
+          supportedModes: [8]
+        }]
       }),
       debug: false,
       repl: false
@@ -548,11 +542,9 @@ exports["Stepper - rpm / speed"] = {
 
     this.board = new Board({
       io: new MockFirmata({
-        pins: [
-          {
-            supportedModes: [8],
-          },
-        ]
+        pins: [{
+          supportedModes: [8],
+        }, ]
       }),
       debug: false,
       repl: false

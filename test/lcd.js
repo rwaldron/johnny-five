@@ -340,10 +340,10 @@ exports["LCD"] = {
         comparison = pair[1];
 
       (text.match(/:\w+?:/g) || []).forEach(function(match) {
-          if (":unknown:" !== match) {
-            this.lcd.useChar(match.slice(1, -1));
-          }
-        }, this);
+        if (":unknown:" !== match) {
+          this.lcd.useChar(match.slice(1, -1));
+        }
+      }, this);
       var cSpy = sinon.spy(this.lcd, "command");
       this.lcd.print(text);
 
@@ -433,7 +433,7 @@ exports["LCD - I2C (JHD1313M1)"] = {
 
     lcd.command(15);
     test.equal(this.i2cWrite.called, 1);
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 62, [ 128, 15 ] ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [62, [128, 15]]);
 
     test.done();
   },
@@ -448,7 +448,7 @@ exports["LCD - I2C (JHD1313M1)"] = {
 
     lcd.send(15);
     test.equal(this.i2cWrite.called, 1);
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 62, [ 64, 15 ] ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [62, [64, 15]]);
 
     test.done();
   }
@@ -532,7 +532,12 @@ exports["LCD - I2C (LCD2004)"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   },
@@ -562,7 +567,12 @@ exports["LCD - I2C (LCD2004)"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   }
@@ -644,7 +654,12 @@ exports["LCD - I2C (LCM1602)"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   },
@@ -674,7 +689,12 @@ exports["LCD - I2C (LCM1602)"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   }
@@ -733,36 +753,36 @@ exports["LCD - PCF8574"] = {
     // This is the expected write sequence.
     // If this changes, the controller will not function.
     var sequence = [
-      [ 39, 0 ],
-      [ 39, 48 ],
-      [ 39, 52 ],
-      [ 39, 48 ],
-      [ 39, 48 ],
-      [ 39, 52 ],
-      [ 39, 48 ],
-      [ 39, 48 ],
-      [ 39, 52 ],
-      [ 39, 48 ],
-      [ 39, 32 ],
-      [ 39, 36 ],
-      [ 39, 32 ],
-      [ 39, 36 ],
-      [ 39, 32 ],
-      [ 39, 132 ],
-      [ 39, 128 ],
-      [ 39, 4 ],
-      [ 39, 0 ],
-      [ 39, 196 ],
-      [ 39, 192 ],
-      [ 39, 4 ],
-      [ 39, 0 ],
-      [ 39, 20 ],
-      [ 39, 16 ],
-      [ 39, 4 ],
-      [ 39, 0 ],
-      [ 39, 100 ],
-      [ 39, 96 ],
-      [ 39, 8 ]
+      [39, 0],
+      [39, 48],
+      [39, 52],
+      [39, 48],
+      [39, 48],
+      [39, 52],
+      [39, 48],
+      [39, 48],
+      [39, 52],
+      [39, 48],
+      [39, 32],
+      [39, 36],
+      [39, 32],
+      [39, 36],
+      [39, 32],
+      [39, 132],
+      [39, 128],
+      [39, 4],
+      [39, 0],
+      [39, 196],
+      [39, 192],
+      [39, 4],
+      [39, 0],
+      [39, 20],
+      [39, 16],
+      [39, 4],
+      [39, 0],
+      [39, 100],
+      [39, 96],
+      [39, 8]
     ];
 
     test.deepEqual(this.i2cWrite.args, sequence);
@@ -794,7 +814,12 @@ exports["LCD - PCF8574"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   },
@@ -824,7 +849,12 @@ exports["LCD - PCF8574"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 12 ], [ 39, 8 ], [ 39, 252 ], [ 39, 248 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 12],
+      [39, 8],
+      [39, 252],
+      [39, 248]
+    ]);
 
     test.done();
   }
@@ -883,36 +913,36 @@ exports["LCD - MJKDZ"] = {
     // This is the expected write sequence.
     // If this changes, the controller will not function.
     var sequence = [
-      [ 39, 0 ],
-      [ 39, 3 ],
-      [ 39, 19 ],
-      [ 39, 3 ],
-      [ 39, 3 ],
-      [ 39, 19 ],
-      [ 39, 3 ],
-      [ 39, 3 ],
-      [ 39, 19 ],
-      [ 39, 3 ],
-      [ 39, 2 ],
-      [ 39, 18 ],
-      [ 39, 2 ],
-      [ 39, 18 ],
-      [ 39, 2 ],
-      [ 39, 24 ],
-      [ 39, 8 ],
-      [ 39, 16 ],
-      [ 39, 0 ],
-      [ 39, 28 ],
-      [ 39, 12 ],
-      [ 39, 16 ],
-      [ 39, 0 ],
-      [ 39, 17 ],
-      [ 39, 1 ],
-      [ 39, 16 ],
-      [ 39, 0 ],
-      [ 39, 22 ],
-      [ 39, 6 ],
-      [ 39, 8 ]
+      [39, 0],
+      [39, 3],
+      [39, 19],
+      [39, 3],
+      [39, 3],
+      [39, 19],
+      [39, 3],
+      [39, 3],
+      [39, 19],
+      [39, 3],
+      [39, 2],
+      [39, 18],
+      [39, 2],
+      [39, 18],
+      [39, 2],
+      [39, 24],
+      [39, 8],
+      [39, 16],
+      [39, 0],
+      [39, 28],
+      [39, 12],
+      [39, 16],
+      [39, 0],
+      [39, 17],
+      [39, 1],
+      [39, 16],
+      [39, 0],
+      [39, 22],
+      [39, 6],
+      [39, 8]
     ];
 
     test.deepEqual(this.i2cWrite.args, sequence);
@@ -944,7 +974,12 @@ exports["LCD - MJKDZ"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 24 ], [ 39, 8 ], [ 39, 31 ], [ 39, 15 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 24],
+      [39, 8],
+      [39, 31],
+      [39, 15]
+    ]);
 
     test.done();
   },
@@ -974,7 +1009,12 @@ exports["LCD - MJKDZ"] = {
     test.equal(pulse.callCount, 2);
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.args, [ [ 39, 24 ], [ 39, 8 ], [ 39, 31 ], [ 39, 15 ] ]);
+    test.deepEqual(this.i2cWrite.args, [
+      [39, 24],
+      [39, 8],
+      [39, 31],
+      [39, 15]
+    ]);
 
     test.done();
   }

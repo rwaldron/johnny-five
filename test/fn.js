@@ -52,9 +52,9 @@ exports["Fn"] = {
     var e = Fn.range(0, -9, -3);
     var f = Fn.range(0, -10, -2);
 
-    test.deepEqual(a, [ 0, 1, 2, 3, 4 ]);
-    test.deepEqual(b, [ 5, 6, 7, 8, 9, 10 ]);
-    test.deepEqual(c, [ 3, 6, 9, 12, 15, 18, 21, 24, 27 ]);
+    test.deepEqual(a, [0, 1, 2, 3, 4]);
+    test.deepEqual(b, [5, 6, 7, 8, 9, 10]);
+    test.deepEqual(c, [3, 6, 9, 12, 15, 18, 21, 24, 27]);
 
     // Negative Range
     test.deepEqual(d, [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]);
@@ -104,7 +104,7 @@ exports["Fn"] = {
     var a = 0,
       b = 1,
       c = [],
-      d = [0,1];
+      d = [0, 1];
 
     test.equal(Fn.sum(a), 0);
     test.equal(Fn.sum(b), 1);

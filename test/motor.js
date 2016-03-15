@@ -142,7 +142,10 @@ exports["Motor: Non-Directional"] = {
 
     var motor = new Motor({
       board: this.board,
-      pins: { pwm: 10, enable: 7 }
+      pins: {
+        pwm: 10,
+        enable: 7
+      }
     });
 
     // enabled by default
@@ -339,7 +342,11 @@ exports["Motor: Directional"] = {
 
     var motor = new Motor({
       board: this.board,
-      pins: { pwm: 11, dir: 12, enable: 7 }
+      pins: {
+        pwm: 11,
+        dir: 12,
+        enable: 7
+      }
     });
 
     // enabled by default
@@ -923,7 +930,12 @@ exports["Motor: Directional - Three Pin"] = {
 
     var motor = new Motor({
       board: this.board,
-      pins: { pwm: 11, dir: 12, cdir: 8, enable: 7 }
+      pins: {
+        pwm: 11,
+        dir: 12,
+        cdir: 8,
+        enable: 7
+      }
     });
 
     // enabled by default
@@ -1553,9 +1565,18 @@ exports["Motor: ShiftRegister"] = {
     this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
     this.motor = new Motor({
       board: this.board,
-      pins: {pwm: 11},
-      register: { data: 8, clock: 4, latch: 12 },
-      bits: { a: 2, b: 3 }
+      pins: {
+        pwm: 11
+      },
+      register: {
+        data: 8,
+        clock: 4,
+        latch: 12
+      },
+      bits: {
+        a: 2,
+        b: 3
+      }
     });
 
     this.proto = [{
@@ -1749,8 +1770,7 @@ exports["Motor: EVS_EV3"] = {
 
     this.motor.start();
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1760,8 +1780,7 @@ exports["Motor: EVS_EV3"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ 50, 0, 0, 129 ]
+      78, [50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -1774,8 +1793,7 @@ exports["Motor: EVS_EV3"] = {
 
     this.motor.stop();
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1799,8 +1817,7 @@ exports["Motor: EVS_EV3"] = {
 
     this.motor.forward(128);
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1810,8 +1827,7 @@ exports["Motor: EVS_EV3"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ 50, 0, 0, 129 ]
+      78, [50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -1824,8 +1840,7 @@ exports["Motor: EVS_EV3"] = {
 
     this.motor.reverse(128);
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1835,8 +1850,7 @@ exports["Motor: EVS_EV3"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ -50, 0, 0, 129 ]
+      78, [-50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -1927,8 +1941,7 @@ exports["Motor: EVS_NXT"] = {
 
     this.motor.start();
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1938,8 +1951,7 @@ exports["Motor: EVS_NXT"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ 50, 0, 0, 129 ]
+      78, [50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -1952,8 +1964,7 @@ exports["Motor: EVS_NXT"] = {
 
     this.motor.stop();
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1977,8 +1988,7 @@ exports["Motor: EVS_NXT"] = {
 
     this.motor.forward(128);
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -1988,8 +1998,7 @@ exports["Motor: EVS_NXT"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ 50, 0, 0, 129 ]
+      78, [50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -2002,8 +2011,7 @@ exports["Motor: EVS_NXT"] = {
 
     this.motor.reverse(128);
 
-    var expect = [
-      {
+    var expect = [{
         analog: undefined,
         address: 27,
         bank: "b",
@@ -2013,8 +2021,7 @@ exports["Motor: EVS_NXT"] = {
         port: 8,
         sensor: undefined
       },
-      78,
-      [ -50, 0, 0, 129 ]
+      78, [-50, 0, 0, 129]
     ];
 
     test.deepEqual(this.ev3write.lastCall.args, expect);
@@ -2074,11 +2081,16 @@ exports["Motor.Array"] = {
   initFromMotorNumbers: function(test) {
     test.expect(1);
 
-    var motors = new Motor.Array([
-      { pwm: 3, dir: 4 },
-      { pwm: 5, dir: 6 },
-      { pwm: 9, dir: 10 }
-    ]);
+    var motors = new Motor.Array([{
+      pwm: 3,
+      dir: 4
+    }, {
+      pwm: 5,
+      dir: 6
+    }, {
+      pwm: 9,
+      dir: 10
+    }]);
 
     test.equal(motors.length, 3);
     test.done();
@@ -2098,11 +2110,16 @@ exports["Motor.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var motors = new Motor.Array([
-      { pwm: 3, dir: 4 },
-      { pwm: 5, dir: 6 },
-      { pwm: 9, dir: 10 }
-    ]);
+    var motors = new Motor.Array([{
+      pwm: 3,
+      dir: 4
+    }, {
+      pwm: 5,
+      dir: 6
+    }, {
+      pwm: 9,
+      dir: 10
+    }]);
 
     motors.start(90);
 
@@ -2248,8 +2265,7 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
     this.a.start();
 
     test.deepEqual(
-      this.i2cWrite.lastCall.args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.lastCall.args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
     test.done();
   },
@@ -2260,8 +2276,7 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
     this.a.stop();
 
     test.deepEqual(
-      this.i2cWrite.lastCall.args[1],
-      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+      this.i2cWrite.lastCall.args[1], [this.a.COMMANDS.SET_SPEED, 0, 0]
     );
     test.done();
   },
@@ -2273,13 +2288,11 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
     this.a.forward(128);
 
     test.deepEqual(
-      this.i2cWrite.getCall(1).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+      this.i2cWrite.getCall(1).args[1], [this.a.COMMANDS.SET_DIRECTION, 5, 1]
     );
 
     test.deepEqual(
-      this.i2cWrite.getCall(2).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(2).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
     test.done();
   },
@@ -2291,13 +2304,11 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
     this.a.reverse(128);
 
     test.deepEqual(
-      this.i2cWrite.getCall(1).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 6, 1 ]
+      this.i2cWrite.getCall(1).args[1], [this.a.COMMANDS.SET_DIRECTION, 6, 1]
     );
 
     test.deepEqual(
-      this.i2cWrite.getCall(2).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(2).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
 
     test.done();
@@ -2320,38 +2331,32 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
 
     // A stop
     test.deepEqual(
-      this.i2cWrite.getCall(0).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+      this.i2cWrite.getCall(0).args[1], [this.a.COMMANDS.SET_SPEED, 0, 0]
     );
 
     // A fwd
     test.deepEqual(
-      this.i2cWrite.getCall(1).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+      this.i2cWrite.getCall(1).args[1], [this.a.COMMANDS.SET_DIRECTION, 5, 1]
     );
 
     // A speed
     test.deepEqual(
-      this.i2cWrite.getCall(2).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(2).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
 
     // B stop
     test.deepEqual(
-      this.i2cWrite.getCall(3).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(3).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
 
     // B fwd
     test.deepEqual(
-      this.i2cWrite.getCall(4).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 5, 1 ]
+      this.i2cWrite.getCall(4).args[1], [this.a.COMMANDS.SET_DIRECTION, 5, 1]
     );
 
     // B speed
     test.deepEqual(
-      this.i2cWrite.getCall(5).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 128 ]
+      this.i2cWrite.getCall(5).args[1], [this.a.COMMANDS.SET_SPEED, 128, 128]
     );
     test.done();
   },
@@ -2373,38 +2378,32 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
 
     // A stop
     test.deepEqual(
-      this.i2cWrite.getCall(0).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 0, 0 ]
+      this.i2cWrite.getCall(0).args[1], [this.a.COMMANDS.SET_SPEED, 0, 0]
     );
 
     // A rev
     test.deepEqual(
-      this.i2cWrite.getCall(1).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 6, 1 ]
+      this.i2cWrite.getCall(1).args[1], [this.a.COMMANDS.SET_DIRECTION, 6, 1]
     );
 
     // A speed
     test.deepEqual(
-      this.i2cWrite.getCall(2).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(2).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
 
     // B stop
     test.deepEqual(
-      this.i2cWrite.getCall(3).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 0 ]
+      this.i2cWrite.getCall(3).args[1], [this.a.COMMANDS.SET_SPEED, 128, 0]
     );
 
     // B rev
     test.deepEqual(
-      this.i2cWrite.getCall(4).args[1],
-      [ this.a.COMMANDS.SET_DIRECTION, 10, 1 ]
+      this.i2cWrite.getCall(4).args[1], [this.a.COMMANDS.SET_DIRECTION, 10, 1]
     );
 
     // B speed
     test.deepEqual(
-      this.i2cWrite.getCall(5).args[1],
-      [ this.a.COMMANDS.SET_SPEED, 128, 128 ]
+      this.i2cWrite.getCall(5).args[1], [this.a.COMMANDS.SET_SPEED, 128, 128]
     );
     test.done();
   }

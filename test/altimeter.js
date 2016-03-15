@@ -290,5 +290,3 @@ exports["Altimeter -- MPL3115A2"] = {
   //   test.done();
   // }
 };
-
-

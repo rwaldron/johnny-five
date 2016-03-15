@@ -12,7 +12,7 @@ board.on("ready", function() {
     console.log("  fahrenheit   : ", this.temperature.fahrenheit);
     console.log("  kelvin       : ", this.temperature.kelvin);
     console.log("--------------------------------------");
-  
+
     console.log("accelerometer");
     console.log("  x            : ", this.accelerometer.x);
     console.log("  y            : ", this.accelerometer.y);
@@ -23,7 +23,7 @@ board.on("ready", function() {
     console.log("  inclination  : ", this.accelerometer.inclination);
     console.log("  orientation  : ", this.accelerometer.orientation);
     console.log("--------------------------------------");
-    
+
     console.log("gyro");
     console.log("  x            : ", this.gyro.x);
     console.log("  y            : ", this.gyro.y);
@@ -33,7 +33,7 @@ board.on("ready", function() {
     console.log("  yaw          : ", this.gyro.yaw);
     console.log("  rate         : ", this.gyro.rate);
     console.log("  isCalibrated : ", this.gyro.isCalibrated);
-    console.log("--------------------------------------");    
+    console.log("--------------------------------------");
   });
 
 });

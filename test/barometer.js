@@ -78,10 +78,10 @@ exports["Barometer -- MPL115A2"] = {
 
     var readOnce = this.i2cReadOnce.args[0][3];
     readOnce([
-      67, 111,  // A0
-      176, 56,  // B1
+      67, 111, // A0
+      176, 56, // B1
       179, 101, // B2
-      56, 116   // C12
+      56, 116 // C12
     ]);
 
     setImmediate(function() {
@@ -211,7 +211,7 @@ exports["Barometer -- BMP180"] = {
       test.ok(this.i2cWriteReg.calledOnce);
       test.ok(this.i2cReadOnce.called);
 
-      test.deepEqual(this.i2cWriteReg.lastCall.args, [ 119, 244, 46 ]);
+      test.deepEqual(this.i2cWriteReg.lastCall.args, [119, 244, 46]);
 
       // In order to handle the Promise used for initialization,
       // there can be no fake timers in this test, which means we
@@ -232,7 +232,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
   test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
     0x60, // address
     0x00, // status register
-    1,    // data length
+    1, // data length
   ]);
 
   var read = this.i2cReadOnce.lastCall.args[3];
@@ -242,7 +242,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
   test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
     0x60, // address
     0x01, // altitude register
-    6,    // data length (pressure + temp)
+    6, // data length (pressure + temp)
   ]);
 
   read = this.i2cReadOnce.lastCall.args[3];
@@ -347,17 +347,17 @@ exports["Barometer -- MPL3115A2"] = {
 
     // Altitude Loop
     mpl3115aDataLoop.call(this, test, 0, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
 
 
     // Pressure Loop
     mpl3115aDataLoop.call(this, test, 2, [
-      0x00,             // status
+      0x00, // status
       0xAA, 0xBB, 0xCC, // pressure
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
 
     this.clock.tick(10);
@@ -376,53 +376,53 @@ exports["Barometer -- MPL3115A2"] = {
 
     // First Pass -- initial
     mpl3115aDataLoop.call(this, test, 0, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 2, [
-      0x00,             // status
+      0x00, // status
       0xAA, 0xBB, 0xCC, // pressure
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     this.clock.tick(10);
 
     // Second Pass -- same
     mpl3115aDataLoop.call(this, test, 4, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 6, [
-      0x00,             // status
+      0x00, // status
       0xAA, 0xBB, 0xCC, // pressure
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     this.clock.tick(10);
 
     // Third Pass -- change
     mpl3115aDataLoop.call(this, test, 8, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 10, [
-      0x00,             // status
+      0x00, // status
       0x55, 0x66, 0x77, // pressure
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     this.clock.tick(10);
 
     // Fourth Pass -- same
     mpl3115aDataLoop.call(this, test, 12, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 14, [
-      0x00,             // status
+      0x00, // status
       0x55, 0x66, 0x77, // pressure
-      0x00, 0x00        // temperature
+      0x00, 0x00 // temperature
     ]);
     this.clock.tick(10);
 

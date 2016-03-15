@@ -18,5 +18,3 @@ board.on("ready", function() {
     console.log("The obstruction has moved.");
   });
 });
-
-

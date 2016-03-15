@@ -670,7 +670,11 @@ exports["Led.RGB"] = {
   write: function(test) {
     test.expect(4);
 
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.ok(this.analogWrite.callCount, 3);
     test.ok(this.analogWrite.calledWith(9, 0xbb));
     test.ok(this.analogWrite.calledWith(10, 0xcc));
@@ -691,42 +695,70 @@ exports["Led.RGB"] = {
     // hex values
     this.rgb.color("#0000ff");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0x00, green: 0x00, blue: 0xff }));
+    test.ok(this.write.calledWith({
+      red: 0x00,
+      green: 0x00,
+      blue: 0xff
+    }));
     this.write.reset();
 
     this.rgb.color("#bbccaa");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0xbb, green: 0xcc, blue: 0xaa }));
+    test.ok(this.write.calledWith({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    }));
     this.write.reset();
 
     // without "#"
     this.rgb.color("0000ff");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0x00, green: 0x00, blue: 0xff }));
+    test.ok(this.write.calledWith({
+      red: 0x00,
+      green: 0x00,
+      blue: 0xff
+    }));
     this.write.reset();
 
     // name
     this.rgb.color("PapayaWhip");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0xff, green: 0xef, blue: 0xd5 }));
+    test.ok(this.write.calledWith({
+      red: 0xff,
+      green: 0xef,
+      blue: 0xd5
+    }));
     this.write.reset();
 
     // lowercase names
     this.rgb.color("papayawhip");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0xff, green: 0xef, blue: 0xd5 }));
+    test.ok(this.write.calledWith({
+      red: 0xff,
+      green: 0xef,
+      blue: 0xd5
+    }));
     this.write.reset();
 
     // three arguments
     this.rgb.color(255, 100, 50);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 255, green: 100, blue: 50 }));
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
+    }));
     this.write.reset();
 
     // with constraints
     this.rgb.color(999, -999, 0);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 255, green: 0, blue: 0 }));
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 0,
+      blue: 0
+    }));
     this.write.reset();
 
     // by object
@@ -736,13 +768,21 @@ exports["Led.RGB"] = {
       blue: 50
     });
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 255, green: 100, blue: 50 }));
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
+    }));
     this.write.reset();
 
     // by array
     this.rgb.color([255, 100, 50]);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 255, green: 100, blue: 50 }));
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
+    }));
     this.write.reset();
 
     // bad values
@@ -798,19 +838,32 @@ exports["Led.RGB"] = {
 
     // missing/null/undefined value in object
     test.throws(function() {
-      rgb.color({red: 255, green: 100});
+      rgb.color({
+        red: 255,
+        green: 100
+      });
     });
     test.throws(function() {
-      rgb.color({red: 255, green: 100, blue: null});
+      rgb.color({
+        red: 255,
+        green: 100,
+        blue: null
+      });
     });
     test.throws(function() {
-      rgb.color({red: 255, green: 100, blue: undefined});
+      rgb.color({
+        red: 255,
+        green: 100,
+        blue: undefined
+      });
     });
 
     // returns color if no params
     this.rgb.color([10, 20, 30]);
     test.deepEqual(this.rgb.color(), {
-      red: 10, green: 20, blue: 30
+      red: 10,
+      green: 20,
+      blue: 30
     });
 
     test.done();
@@ -823,7 +876,9 @@ exports["Led.RGB"] = {
 
     test.ok(!this.rgb.isOn);
     test.deepEqual(this.rgb.values, {
-      red: 0, green: 0, blue: 0
+      red: 0,
+      green: 0,
+      blue: 0
     });
 
     // Should default to #ffffff
@@ -831,7 +886,11 @@ exports["Led.RGB"] = {
     this.rgb.on();
 
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0xff, green: 0xff, blue: 0xff }));
+    test.ok(this.write.calledWith({
+      red: 0xff,
+      green: 0xff,
+      blue: 0xff
+    }));
     this.write.reset();
 
     color = this.rgb.color();
@@ -843,7 +902,11 @@ exports["Led.RGB"] = {
     // Set a color and make sure .on() doesn't override
     this.rgb.color("#bbccaa");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0xbb, green: 0xcc, blue: 0xaa }));
+    test.ok(this.write.calledWith({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    }));
     this.write.reset();
     this.rgb.on();
     test.ok(!this.write.called);
@@ -883,7 +946,11 @@ exports["Led.RGB"] = {
 
     this.rgb.off();
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0, green: 0, blue: 0 }));
+    test.ok(this.write.calledWith({
+      red: 0,
+      green: 0,
+      blue: 0
+    }));
     this.write.reset();
 
     // Test saved state
@@ -954,36 +1021,84 @@ exports["Led.RGB"] = {
     // partial intensity
     test.equal(this.rgb.intensity(20), this.rgb);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 10, green: 34, blue: 0 }));
-    test.deepEqual(this.rgb.values, { red: 10, green: 34, blue: 0 });
-    test.deepEqual(this.rgb.color(), { red: 0x33, green: 0xaa, blue: 0x00 });
+    test.ok(this.write.calledWith({
+      red: 10,
+      green: 34,
+      blue: 0
+    }));
+    test.deepEqual(this.rgb.values, {
+      red: 10,
+      green: 34,
+      blue: 0
+    });
+    test.deepEqual(this.rgb.color(), {
+      red: 0x33,
+      green: 0xaa,
+      blue: 0x00
+    });
     test.equal(this.rgb.intensity(), 20);
     this.write.reset();
 
     // change color
     this.rgb.color("#ff0000");
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 51, green: 0, blue: 0 }));
-    test.deepEqual(this.rgb.values, { red: 51, green: 0, blue: 0 });
-    test.deepEqual(this.rgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.ok(this.write.calledWith({
+      red: 51,
+      green: 0,
+      blue: 0
+    }));
+    test.deepEqual(this.rgb.values, {
+      red: 51,
+      green: 0,
+      blue: 0
+    });
+    test.deepEqual(this.rgb.color(), {
+      red: 0xff,
+      green: 0x00,
+      blue: 0x00
+    });
     test.equal(this.rgb.intensity(), 20);
     this.write.reset();
 
     // fully off
     test.equal(this.rgb.intensity(0), this.rgb);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 0, green: 0, blue: 0 }));
-    test.deepEqual(this.rgb.values, { red: 0, green: 0, blue: 0 });
-    test.deepEqual(this.rgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.ok(this.write.calledWith({
+      red: 0,
+      green: 0,
+      blue: 0
+    }));
+    test.deepEqual(this.rgb.values, {
+      red: 0,
+      green: 0,
+      blue: 0
+    });
+    test.deepEqual(this.rgb.color(), {
+      red: 0xff,
+      green: 0x00,
+      blue: 0x00
+    });
     test.equal(this.rgb.intensity(), 0);
     this.write.reset();
 
     // restore from off
     test.equal(this.rgb.intensity(50), this.rgb);
     test.ok(this.write.calledOnce);
-    test.ok(this.write.calledWith({ red: 128, green: 0, blue: 0 }));
-    test.deepEqual(this.rgb.values, { red: 128, green: 0, blue: 0 });
-    test.deepEqual(this.rgb.color(), { red: 0xff, green: 0x00, blue: 0x00 });
+    test.ok(this.write.calledWith({
+      red: 128,
+      green: 0,
+      blue: 0
+    }));
+    test.deepEqual(this.rgb.values, {
+      red: 128,
+      green: 0,
+      blue: 0
+    });
+    test.deepEqual(this.rgb.color(), {
+      red: 0xff,
+      green: 0x00,
+      blue: 0x00
+    });
     test.equal(this.rgb.intensity(), 50);
     this.write.reset();
 
@@ -1017,7 +1132,7 @@ exports["Led.RGB - Common Anode"] = {
     done();
   },
 
-  isAnode: function (test) {
+  isAnode: function(test) {
     test.expect(1);
 
     test.equal(this.rgb.isAnode, true);
@@ -1028,7 +1143,11 @@ exports["Led.RGB - Common Anode"] = {
   write: function(test) {
     test.expect(4);
 
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.ok(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(9, 0x44));
     test.ok(this.analog.calledWith(10, 0x33));
@@ -1113,7 +1232,11 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     test.expect(12);
 
     // Fully off
-    this.rgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    this.rgb.write({
+      red: 0x00,
+      green: 0x00,
+      blue: 0x00
+    });
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4096, 16]));
     test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 4096, 16]));
@@ -1121,7 +1244,11 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     // Fully on
-    this.rgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    this.rgb.write({
+      red: 0xff,
+      green: 0xff,
+      blue: 0xff
+    });
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 4096, 16, 0, 0]));
     test.ok(this.i2cWrite.calledWith(64, [10, 4096, 16, 0, 0]));
@@ -1129,7 +1256,11 @@ exports["Led.RGB - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     // Custom color
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 3003, 11]));
     test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 3276, 12]));
@@ -1174,7 +1305,11 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
     test.expect(12);
 
     // Fully off
-    this.rgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    this.rgb.write({
+      red: 0x00,
+      green: 0x00,
+      blue: 0x00
+    });
 
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 4096, 16, 0, 0]));
@@ -1183,7 +1318,11 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
     this.i2cWrite.reset();
 
     // Fully on
-    this.rgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    this.rgb.write({
+      red: 0xff,
+      green: 0xff,
+      blue: 0xff
+    });
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 4096, 16]));
     test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 4096, 16]));
@@ -1191,7 +1330,11 @@ exports["Led.RGB - PCA9685 (I2C) Common Anode"] = {
     this.i2cWrite.reset();
 
     // Custom color
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.equal(this.i2cWrite.callCount, 3);
     test.ok(this.i2cWrite.calledWith(64, [6, 0, 0, 1092, 4]));
     test.ok(this.i2cWrite.calledWith(64, [10, 0, 0, 819, 3]));
@@ -1251,19 +1394,31 @@ exports["Led.RGB - BlinkM (I2C)"] = {
     test.expect(6);
 
     // Fully off
-    this.rgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    this.rgb.write({
+      red: 0x00,
+      green: 0x00,
+      blue: 0x00
+    });
     test.equal(this.i2cWrite.callCount, 1);
     test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0x00, 0x00, 0x00]));
     this.i2cWrite.reset();
 
     // Fully on
-    this.rgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    this.rgb.write({
+      red: 0xff,
+      green: 0xff,
+      blue: 0xff
+    });
     test.equal(this.i2cWrite.callCount, 1);
     test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0xff, 0xff, 0xff]));
     this.i2cWrite.reset();
 
     // Custom color
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.equal(this.i2cWrite.callCount, 1);
     test.ok(this.i2cWrite.calledWith(0x09, [0x6e, 0xbb, 0xcc, 0xaa]));
     this.i2cWrite.reset();
@@ -1307,7 +1462,11 @@ exports["Led.RGB - Esplora"] = {
     test.expect(12);
 
     // Fully off
-    this.rgb.write({ red: 0x00, green: 0x00, blue: 0x00 });
+    this.rgb.write({
+      red: 0x00,
+      green: 0x00,
+      blue: 0x00
+    });
     test.ok(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(5, 0x00));
     test.ok(this.analog.calledWith(10, 0x00));
@@ -1315,7 +1474,11 @@ exports["Led.RGB - Esplora"] = {
     this.analog.reset();
 
     // Fully on
-    this.rgb.write({ red: 0xff, green: 0xff, blue: 0xff });
+    this.rgb.write({
+      red: 0xff,
+      green: 0xff,
+      blue: 0xff
+    });
     test.ok(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(5, 0xff));
     test.ok(this.analog.calledWith(10, 0xff));
@@ -1323,7 +1486,11 @@ exports["Led.RGB - Esplora"] = {
     this.analog.reset();
 
     // Custom color
-    this.rgb.write({ red: 0xbb, green: 0xcc, blue: 0xaa });
+    this.rgb.write({
+      red: 0xbb,
+      green: 0xcc,
+      blue: 0xaa
+    });
     test.ok(this.analog.callCount, 3);
     test.ok(this.analog.calledWith(5, 0xbb));
     test.ok(this.analog.calledWith(10, 0xcc));

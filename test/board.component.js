@@ -206,11 +206,17 @@ exports["Board.Component"] = {
 
     var component = {};
 
-    Board.Component.call(component, { pin: 1 }, { requestPin: false });
+    Board.Component.call(component, {
+      pin: 1
+    }, {
+      requestPin: false
+    });
 
     var spy = this.sandbox.spy(component.board, "warn");
 
-    Board.Component.call(component, { pin: 1 });
+    Board.Component.call(component, {
+      pin: 1
+    });
 
     test.equal(component.board.occupied.length, 1);
     test.equal(spy.notCalled, true);
@@ -231,7 +237,8 @@ exports["Board.Component"] = {
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
-      value: 1, type: "pin"
+      value: 1,
+      type: "pin"
     });
 
     Board.Component.call(component, {
@@ -239,7 +246,7 @@ exports["Board.Component"] = {
     });
 
     test.equal(spy.calledOnce, true);
-    test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 1 is already in use" ]);
+    test.deepEqual(spy.getCall(0).args, ["Component", "pin: 1 is already in use"]);
     test.equal(component.board.occupied.length, 1);
 
     test.done();
@@ -275,7 +282,9 @@ exports["Board.Component"] = {
     var component = {};
 
     Board.Component.call(component, Board.Options(2));
-    Board.Component.call(component, Board.Options({ pin: "A2" }));
+    Board.Component.call(component, Board.Options({
+      pin: "A2"
+    }));
 
     test.equal(component.board.occupied.length, 2);
 
@@ -288,7 +297,12 @@ exports["Board.Component"] = {
     var component = {};
 
     Board.Component.call(component, Board.Options(2));
-    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: "A3"} }));
+    Board.Component.call(component, Board.Options({
+      pins: {
+        a: "A2",
+        b: "A3"
+      }
+    }));
 
     test.equal(component.board.occupied.length, 3);
 
@@ -300,7 +314,9 @@ exports["Board.Component"] = {
     var component = {};
 
     Board.Component.call(component, Board.Options([2]));
-    Board.Component.call(component, Board.Options({ pin: "A2" }));
+    Board.Component.call(component, Board.Options({
+      pin: "A2"
+    }));
 
     test.equal(component.board.occupied.length, 2);
 
@@ -313,7 +329,11 @@ exports["Board.Component"] = {
     var component = {};
 
     Board.Component.call(component, Board.Options([2]));
-    Board.Component.call(component, Board.Options({ pins: { a: "A2"} }));
+    Board.Component.call(component, Board.Options({
+      pins: {
+        a: "A2"
+      }
+    }));
 
     test.equal(component.board.occupied.length, 2);
 
@@ -325,7 +345,12 @@ exports["Board.Component"] = {
 
     var component = {};
 
-    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: "A2"} }));
+    Board.Component.call(component, Board.Options({
+      pins: {
+        a: "A2",
+        b: "A2"
+      }
+    }));
 
     test.equal(component.board.occupied.length, 1);
 
@@ -337,7 +362,12 @@ exports["Board.Component"] = {
 
     var component = {};
 
-    Board.Component.call(component, Board.Options({ pins: { a: "A2", b: 2} }));
+    Board.Component.call(component, Board.Options({
+      pins: {
+        a: "A2",
+        b: 2
+      }
+    }));
 
     test.equal(component.board.occupied.length, 2);
 
@@ -358,7 +388,9 @@ exports["Board.Component"] = {
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
-      value: 2, type: "pin", address: 0x00
+      value: 2,
+      type: "pin",
+      address: 0x00
     });
 
     // This SHOULD NOT interfere with the above pin request,
@@ -378,7 +410,7 @@ exports["Board.Component"] = {
     });
 
     test.equal(spy.calledOnce, true);
-    test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 2, address: 0 is already in use" ]);
+    test.deepEqual(spy.getCall(0).args, ["Component", "pin: 2, address: 0 is already in use"]);
     test.equal(component.board.occupied.length, 2);
 
     test.done();
@@ -398,7 +430,9 @@ exports["Board.Component"] = {
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
-      value: 3, type: "pin", controller: "FOO"
+      value: 3,
+      type: "pin",
+      controller: "FOO"
     });
 
     // This SHOULD NOT interfere with the above pin request,
@@ -418,7 +452,7 @@ exports["Board.Component"] = {
     });
 
     test.equal(spy.calledOnce, true);
-    test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 3, controller: FOO is already in use" ]);
+    test.deepEqual(spy.getCall(0).args, ["Component", "pin: 3, controller: FOO is already in use"]);
     test.equal(component.board.occupied.length, 2);
 
     test.done();
@@ -439,7 +473,10 @@ exports["Board.Component"] = {
 
     test.equal(component.board.occupied.length, 1);
     test.deepEqual(component.board.occupied[0], {
-      value: 4, type: "pin", controller: "FOO", address: 0x01
+      value: 4,
+      type: "pin",
+      controller: "FOO",
+      address: 0x01
     });
 
     // This SHOULD NOT interfere with the above pin request,
@@ -460,7 +497,7 @@ exports["Board.Component"] = {
     });
 
     test.equal(spy.calledOnce, true);
-    test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 4, controller: FOO, address: 1 is already in use" ]);
+    test.deepEqual(spy.getCall(0).args, ["Component", "pin: 4, controller: FOO, address: 1 is already in use"]);
     test.equal(component.board.occupied.length, 2);
 
     test.done();
@@ -497,22 +534,29 @@ exports["Board.Component"] = {
     var component = {};
 
     Board.Component.call(component, {
-      pins: { a: 1, b: 2, c: 3 }
+      pins: {
+        a: 1,
+        b: 2,
+        c: 3
+      }
     });
 
     var spy = this.sandbox.spy(component.board, "warn");
 
     test.equal(component.board.occupied.length, 3);
     test.deepEqual(component.board.occupied[0], {
-      value: 1, type: "pin"
+      value: 1,
+      type: "pin"
     });
 
     test.deepEqual(component.board.occupied[1], {
-      value: 2, type: "pin"
+      value: 2,
+      type: "pin"
     });
 
     test.deepEqual(component.board.occupied[2], {
-      value: 3, type: "pin"
+      value: 3,
+      type: "pin"
     });
 
     // This will be rejected since the pin is already
@@ -536,17 +580,21 @@ exports["Board.Component"] = {
     // This will be rejected since the pin is already
     // occupied for this controller.
     Board.Component.call(component, {
-      pins: { a: 1, b: 2, c: 3 }
+      pins: {
+        a: 1,
+        b: 2,
+        c: 3
+      }
     });
 
     // 1, 2, 3 + 3
     test.equal(spy.callCount, 6);
-    test.deepEqual(spy.getCall(0).args, [ "Component", "pin: 1 is already in use" ]);
-    test.deepEqual(spy.getCall(1).args, [ "Component", "pin: 2 is already in use" ]);
-    test.deepEqual(spy.getCall(2).args, [ "Component", "pin: 3 is already in use" ]);
-    test.deepEqual(spy.getCall(3).args, [ "Component", "pin: 1 is already in use" ]);
-    test.deepEqual(spy.getCall(4).args, [ "Component", "pin: 2 is already in use" ]);
-    test.deepEqual(spy.getCall(5).args, [ "Component", "pin: 3 is already in use" ]);
+    test.deepEqual(spy.getCall(0).args, ["Component", "pin: 1 is already in use"]);
+    test.deepEqual(spy.getCall(1).args, ["Component", "pin: 2 is already in use"]);
+    test.deepEqual(spy.getCall(2).args, ["Component", "pin: 3 is already in use"]);
+    test.deepEqual(spy.getCall(3).args, ["Component", "pin: 1 is already in use"]);
+    test.deepEqual(spy.getCall(4).args, ["Component", "pin: 2 is already in use"]);
+    test.deepEqual(spy.getCall(5).args, ["Component", "pin: 3 is already in use"]);
 
     test.equal(component.board.occupied.length, 3);
 

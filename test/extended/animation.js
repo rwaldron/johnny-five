@@ -34,7 +34,11 @@ exports["Animation"] = {
         this.result = this.result.concat(args);
       },
       "@@normalize": function(keyFrames) {
-        var last = [{degrees: 50}, {degrees: 70}, -20];
+        var last = [{
+          degrees: 50
+        }, {
+          degrees: 70
+        }, -20];
 
         // If user passes null as the first element in keyFrames use current position
         if (keyFrames[0] === null) {
@@ -55,9 +59,17 @@ exports["Animation"] = {
         fps: 10,
         cuePoints: [0, 0.33, 0.66, 1.0],
         keyFrames: [
-          [null, false, { degrees: 45 }, 33],
-          [null, 46, { degrees: 180 }, -120],
-          [null, { degrees: 120 }, { step: 60 }]
+          [null, false, {
+            degrees: 45
+          }, 33],
+          [null, 46, {
+            degrees: 180
+          }, -120],
+          [null, {
+            degrees: 120
+          }, {
+            step: 60
+          }]
         ]
       }
     };

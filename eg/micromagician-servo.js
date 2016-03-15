@@ -1,6 +1,8 @@
 var five = require("../lib/johnny-five.js");
 
-var board = new five.Board({ debug: true});
+var board = new five.Board({
+  debug: true
+});
 
 board.on("ready", function() {
 

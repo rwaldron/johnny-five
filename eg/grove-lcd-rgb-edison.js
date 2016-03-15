@@ -49,5 +49,3 @@ function linear(start, end, step, steps) {
 // ![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
 //
 // @markdown
-
-

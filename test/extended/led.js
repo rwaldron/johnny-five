@@ -84,7 +84,12 @@ exports["Led - PWM (Analog)"] = {
     test.expect(2);
 
     this.count = 0;
-    this.led.pulse({duration: 100, onloop: function() {this.count++;}.bind(this)});
+    this.led.pulse({
+      duration: 100,
+      onloop: function() {
+        this.count++;
+      }.bind(this)
+    });
 
     setTimeout(function() {
       test.ok(Math.abs(renderSpy.callCount - 61) <= 1);

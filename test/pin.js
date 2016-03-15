@@ -503,16 +503,24 @@ exports["PinShape"] = {
     test.expect(23);
 
     // Check for cases that should throw an exception
-    test.throws(function () {
+    test.throws(function() {
       test.rawDef = new Pin();
-    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
+    }, function(msg) {
+      return msg.toString() === "Error: Pins must have a pin number";
+    });
 
-    test.throws(function () {
+    test.throws(function() {
       test.rawDef = new Pin({});
-    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
-    test.throws(function () {
-      test.rawDef = new Pin({ id: "No Pin number"});
-    }, function(msg) {return msg.toString() === "Error: Pins must have a pin number"; });
+    }, function(msg) {
+      return msg.toString() === "Error: Pins must have a pin number";
+    });
+    test.throws(function() {
+      test.rawDef = new Pin({
+        id: "No Pin number"
+      });
+    }, function(msg) {
+      return msg.toString() === "Error: Pins must have a pin number";
+    });
 
     // default digital pin : new Pin(2)
     test.equal(this.dig2Def.mode, 1, "pin(2) mode --> 1 (output)");
@@ -551,16 +559,46 @@ exports["PinMode"] = {
     newBoard();
 
     // Pins to test
-    this.modeD0 = new Pin({ pin: 4, mode: 0});
-    this.modeD1 = new Pin({ pin: 7, mode: 1});
-    this.modeD2 = new Pin({ pin: 14, mode: 2});
-    this.modeD3 = new Pin({ pin: 3, mode: 3});
-    this.modeD4 = new Pin({ pin: 5, mode: 4});
-    this.modeA0 = new Pin({ pin: 15, mode: 0});
-    this.modeA1 = new Pin({ pin: 16, mode: 1});
-    this.modeA2 = new Pin({ pin: 17, mode: 2});
-    this.modeA3 = new Pin({ pin: 18, mode: 3});
-    this.modeA4 = new Pin({ pin: 19, mode: 4});
+    this.modeD0 = new Pin({
+      pin: 4,
+      mode: 0
+    });
+    this.modeD1 = new Pin({
+      pin: 7,
+      mode: 1
+    });
+    this.modeD2 = new Pin({
+      pin: 14,
+      mode: 2
+    });
+    this.modeD3 = new Pin({
+      pin: 3,
+      mode: 3
+    });
+    this.modeD4 = new Pin({
+      pin: 5,
+      mode: 4
+    });
+    this.modeA0 = new Pin({
+      pin: 15,
+      mode: 0
+    });
+    this.modeA1 = new Pin({
+      pin: 16,
+      mode: 1
+    });
+    this.modeA2 = new Pin({
+      pin: 17,
+      mode: 2
+    });
+    this.modeA3 = new Pin({
+      pin: 18,
+      mode: 3
+    });
+    this.modeA4 = new Pin({
+      pin: 19,
+      mode: 4
+    });
 
     done();
   },

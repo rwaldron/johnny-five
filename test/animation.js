@@ -54,7 +54,9 @@ exports["Animation"] = {
         duration: 500,
         fps: 10,
         cuePoints: [0, 0.33, 0.66, 1.0],
-        keyFrames: [null, false, { degrees: 45 }, 33],
+        keyFrames: [null, false, {
+          degrees: 45
+        }, 33],
         paused: true
       },
       multi: {
@@ -62,9 +64,17 @@ exports["Animation"] = {
         fps: 10,
         cuePoints: [0, 0.33, 0.66, 1.0],
         keyFrames: [
-          [null, false, { degrees: 45 }, 33],
-          [null, 46, { degrees: 180 }, -120],
-          [null, { degrees: 120 }, { step: 60 }]
+          [null, false, {
+            degrees: 45
+          }, 33],
+          [null, 46, {
+            degrees: 180
+          }, -120],
+          [null, {
+            degrees: 120
+          }, {
+            step: 60
+          }]
         ],
         paused: true
       }
@@ -242,7 +252,10 @@ exports["Animation"] = {
 
     var tempSegment = this.segment.single;
 
-    tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
+    tempSegment.keyFrames[3] = {
+      step: 33,
+      easing: "inOutCirc"
+    };
     tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
@@ -262,7 +275,10 @@ exports["Animation"] = {
     var tempSegment = this.segment.single;
 
     tempSegment.easing = "inOutCirc";
-    tempSegment.keyFrames[3] = { step: 33, easing: "inOutCirc"};
+    tempSegment.keyFrames[3] = {
+      step: 33,
+      easing: "inOutCirc"
+    };
     tempSegment.progress = 0.9;
     this.animation.enqueue(tempSegment);
 
@@ -283,7 +299,15 @@ exports["Animation"] = {
 
     var tempSegment = this.segment.multi;
 
-    tempSegment.keyFrames = [null, { position: [60, 10, 10] }, null, { position: [10, 40, 20] }, { position: [10, 80, 20] }, { position: [50, 60, -20] } ];
+    tempSegment.keyFrames = [null, {
+      position: [60, 10, 10]
+    }, null, {
+      position: [10, 40, 20]
+    }, {
+      position: [10, 80, 20]
+    }, {
+      position: [50, 60, -20]
+    }];
     tempSegment.cuePoints = [0, 0.3, 0.4, 0.5, 0.8, 1.0];
 
     tempSegment.progress = 0.9;

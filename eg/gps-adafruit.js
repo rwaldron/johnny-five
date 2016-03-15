@@ -9,7 +9,10 @@ board.on("ready", function() {
    */
   var gps = new five.GPS({
     breakout: "ADAFRUIT_ULTIMATE_GPS",
-    pins: {tx: 10, rx: 11}
+    pins: {
+      tx: 10,
+      rx: 11
+    }
   });
 
   // If lat, long, course or speed change log it

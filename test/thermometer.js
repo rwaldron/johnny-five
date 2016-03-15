@@ -153,7 +153,9 @@ exports["Thermometer -- ANALOG"] = {
   setUp: function(done) {
     this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
     this.analogRead.yields(0);
-    this.proto.push({ name: "toCelsius" });
+    this.proto.push({
+      name: "toCelsius"
+    });
 
     done();
   },

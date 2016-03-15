@@ -39,5 +39,3 @@ board.on("ready", function() {
     }
   });
 });
-
-

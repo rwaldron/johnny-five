@@ -290,13 +290,13 @@ exports["Accelerometer -- autoCalibrate"] = {
 
     test.expect(1);
 
-    for (i=0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
       x(value + i);
     }
-    for (i=0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
       y(value + 10 + i);
     }
-    for (i=0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
       z(value + 20 + i);
     }
 
@@ -398,7 +398,8 @@ exports["Accelerometer -- MPU-6050"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+    var read, dataSpy = sinon.spy(),
+      changeSpy = sinon.spy();
 
     test.expect(12);
     this.accel.on("data", dataSpy);
@@ -407,8 +408,8 @@ exports["Accelerometer -- MPU-6050"] = {
     read = this.i2cRead.args[0][3];
     read([
       0x11, 0x11, 0x22, 0x22, 0x33, 0x33, // accelerometer
-      0x00, 0x00,                         // temperature
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00  // gyro
+      0x00, 0x00, // temperature
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00 // gyro
     ]);
 
 
@@ -487,7 +488,8 @@ exports["Accelerometer -- ADXL345"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+    var read, dataSpy = sinon.spy(),
+      changeSpy = sinon.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -502,12 +504,12 @@ exports["Accelerometer -- ADXL345"] = {
     test.ok(this.i2cConfig.calledOnce);
 
     test.ok(this.i2cWrite.calledThrice);
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 83, 45, 0 ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 83, 45, 8 ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 83, 49, 8 ]);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [83, 45, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [83, 45, 8]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [83, 49, 8]);
 
     test.ok(this.i2cRead.calledOnce);
-    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [ 83, 50, 6 ]);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [83, 50, 6]);
 
     this.clock.tick(100);
 
@@ -644,7 +646,8 @@ exports["Accelerometer -- MMA7660"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(), changeSpy = sinon.spy();
+    var read, dataSpy = sinon.spy(),
+      changeSpy = sinon.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -658,12 +661,12 @@ exports["Accelerometer -- MMA7660"] = {
     test.ok(this.i2cConfig.calledOnce);
 
     test.ok(this.i2cWrite.calledThrice);
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 76, 7, 0 ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 76, 8, 7 ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 76, 7, 1 ]);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [76, 7, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [76, 8, 7]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [76, 7, 1]);
 
     test.ok(this.i2cRead.calledOnce);
-    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [ 76, 0, 3 ]);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [76, 0, 3]);
 
     this.clock.tick(100);
 

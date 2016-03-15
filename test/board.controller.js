@@ -71,7 +71,9 @@ exports["Board.Controller"] = {
       board: this.board
     };
     var controller = Object.assign({}, defaultController);
-    var options = { thing: 1 };
+    var options = {
+      thing: 1
+    };
 
     this.odp.reset();
 

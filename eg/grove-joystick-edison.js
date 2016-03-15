@@ -9,7 +9,7 @@ board.on("ready", function() {
   // Plug the Joystick module into the
   // Grove Shield's A0 jack. Use
   // the Joystick class to control.
-  var joystick = new five.Joystick([ "A0", "A1" ]);
+  var joystick = new five.Joystick(["A0", "A1"]);
 
   // Observe change events from the Joystick!
   joystick.on("change", function() {

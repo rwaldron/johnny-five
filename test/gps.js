@@ -47,7 +47,10 @@ exports["Chip -- MT3339"] = {
 
     this.gps = new GPS({
       chip: "MT3339",
-      pins: { tx: 10, rx: 11 },
+      pins: {
+        tx: 10,
+        rx: 11
+      },
       board: this.board
     });
 
@@ -143,7 +146,7 @@ exports["Chip -- MT3339"] = {
 
     this.gps.frequency = 5;
     test.equal(this.serialWrite.args[0][0], 8);
-    test.deepEqual(this.serialWrite.args[0][1], [ 36, 80, 77, 84, 75, 50, 50, 48, 44, 49, 48, 48, 42, 50, 70, 13, 10 ]);
+    test.deepEqual(this.serialWrite.args[0][1], [36, 80, 77, 84, 75, 50, 50, 48, 44, 49, 48, 48, 42, 50, 70, 13, 10]);
 
     this.serialConfig.reset();
     this.serialWrite.reset();
@@ -155,7 +158,7 @@ exports["Chip -- MT3339"] = {
 
     this.gps.restart();
     test.equal(this.serialWrite.args[0][0], 8);
-    test.deepEqual(this.serialWrite.args[0][1], [ 36, 80, 77, 84, 75, 49, 48, 49, 42, 51, 50, 13, 10 ]);
+    test.deepEqual(this.serialWrite.args[0][1], [36, 80, 77, 84, 75, 49, 48, 49, 42, 51, 50, 13, 10]);
 
     this.serialConfig.reset();
     this.serialWrite.reset();
@@ -167,7 +170,7 @@ exports["Chip -- MT3339"] = {
 
     this.gps.restart(true);
     test.equal(this.serialWrite.args[0][0], 8);
-    test.deepEqual(this.serialWrite.args[0][1], [ 36, 80, 77, 84, 75, 49, 48, 51, 42, 51, 48, 13, 10 ]);
+    test.deepEqual(this.serialWrite.args[0][1], [36, 80, 77, 84, 75, 49, 48, 51, 42, 51, 48, 13, 10]);
 
     this.serialConfig.reset();
     this.serialWrite.reset();
@@ -179,7 +182,7 @@ exports["Chip -- MT3339"] = {
 
     this.gps.sendCommand("Hey,laser,lips,your,mama,was,a,snow,blower\r\n");
     test.equal(this.serialWrite.args[0][0], 8);
-    test.deepEqual(this.serialWrite.args[0][1], [ 72,  101,  121,  44,  108,  97,  115,  101,  114,  44,  108,  105,  112,  115,  44,  121,  111,  117,  114,  44,  109,  97,  109,  97,  44,  119,  97,  115,  44,  97,  44,  115,  110,  111,  119,  44,  98,  108,  111,  119,  101,  114,  13,  10,  42,  54,  53,  13,  10 ]);
+    test.deepEqual(this.serialWrite.args[0][1], [72, 101, 121, 44, 108, 97, 115, 101, 114, 44, 108, 105, 112, 115, 44, 121, 111, 117, 114, 44, 109, 97, 109, 97, 44, 119, 97, 115, 44, 97, 44, 115, 110, 111, 119, 44, 98, 108, 111, 119, 101, 114, 13, 10, 42, 54, 53, 13, 10]);
 
     this.serialConfig.reset();
     this.serialWrite.reset();
@@ -234,7 +237,12 @@ exports["Chip -- MT3339"] = {
 
     //GPGSA
     this.gps.parseNmeaSentence("$GPGSA,A,3,19,28,14,18,27,22,31,39,,,,,1.7,1.0,1.3*34");
-    test.deepEqual(this.gps.sat, { satellites: [ "19", "28", "14", "18", "27", "22", "31", "39", "", "", "", "" ], pdop: 1.7, hdop: 1.0, vdop: 1.3 });
+    test.deepEqual(this.gps.sat, {
+      satellites: ["19", "28", "14", "18", "27", "22", "31", "39", "", "", "", ""],
+      pdop: 1.7,
+      hdop: 1.0,
+      vdop: 1.3
+    });
 
     //GPRMC
     this.gps.parseNmeaSentence("$GPRMC,220516,A,5133.82,N,00042.24,W,173.8,231.8,130694,004.2,W*70");

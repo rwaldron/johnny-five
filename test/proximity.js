@@ -1099,7 +1099,7 @@ exports["Proximity: HCSR04I2C"] = {
     this.i2cReadOnce = sinon.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, BYTES_TO_READ, callback) {
       // Use this for 1000 us as duration (HIGH and LOW)
       var pulseval = 1000;
-      callback([pulseval>>8, pulseval & 0xFF]);
+      callback([pulseval >> 8, pulseval & 0xFF]);
     });
 
     this.proximity = new Proximity({

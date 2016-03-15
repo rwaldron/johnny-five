@@ -111,7 +111,7 @@ exports["Hygrometer -- HTU21D"] = {
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
       0x40, // address
       0xE5, // register
-      3,    // data length
+      3, // data length
     ]);
 
 
@@ -137,7 +137,7 @@ exports["Hygrometer -- HTU21D"] = {
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
       0x40, // address
       0xE5, // register
-      3,    // data length
+      3, // data length
     ]);
 
 
@@ -228,7 +228,7 @@ exports["Hygrometer -- SI7020"] = {
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
       0x40, // address
       0xE5, // register
-      2,    // data length
+      2, // data length
     ]);
 
 
@@ -254,7 +254,7 @@ exports["Hygrometer -- SI7020"] = {
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
       0x40, // address
       0xE5, // register
-      2,    // data length
+      2, // data length
     ]);
 
 

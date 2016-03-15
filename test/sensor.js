@@ -103,34 +103,68 @@ exports["Sensor - Analog"] = {
 
     // All properties expected to be found (directly) on any sensor instance
     this.members = {
-      id: { type: "string" },
-      pin: { type: "number" },
-      mode: { type: "number" },
-      freq: { type: "number" },
-      range: { type: "object" },
-      threshold: { type: "number" },
-      isScaled: { type: "boolean" },
-      raw: { type: "object" }, // defined property that returns var inited to null
-      analog: { type: "object" }, // defined property
-      constrained: { type: "object" }, // defined property
-      boolean: { type: "boolean" }, // defined property always true or false
-      scaled: { type: "object" }, // defined property
-      value: { type: "object" }, // defined property
-      state: { type: "object" }, // defined (for test mode) property
+      id: {
+        type: "string"
+      },
+      pin: {
+        type: "number"
+      },
+      mode: {
+        type: "number"
+      },
+      freq: {
+        type: "number"
+      },
+      range: {
+        type: "object"
+      },
+      threshold: {
+        type: "number"
+      },
+      isScaled: {
+        type: "boolean"
+      },
+      raw: {
+        type: "object"
+      }, // defined property that returns var inited to null
+      analog: {
+        type: "object"
+      }, // defined property
+      constrained: {
+        type: "object"
+      }, // defined property
+      boolean: {
+        type: "boolean"
+      }, // defined property always true or false
+      scaled: {
+        type: "object"
+      }, // defined property
+      value: {
+        type: "object"
+      }, // defined property
+      state: {
+        type: "object"
+      }, // defined (for test mode) property
 
-      board: { type: "object" },
-      io: { type: "object" },
-      limit: { type: "object" } // null initial value
+      board: {
+        type: "object"
+      },
+      io: {
+        type: "object"
+      },
+      limit: {
+        type: "object"
+      } // null initial value
     };
 
     done();
-  },// ./setUp: function(done)
+  }, // ./setUp: function(done)
 
   tearDown: function(done) {
     Board.purge();
     restore(this);
     done();
-  },// ./tearDown: function(done)
+  }, // ./tearDown: function(done)
 
   shape: function(test) {
     var propsActual, propsExpected, methodsActual;
@@ -152,7 +186,7 @@ exports["Sensor - Analog"] = {
     propsActual.forEach(function(property) {
       test.ok(propsExpected.includes(property), "found unexpected '" + property + "' sensor instance member");
       test.ok(propsExpected.includes(property) && typeof this.sensor[property] === this.members[property].type,
-        "Unexpected datatype '" + typeof this.sensor[property]+ "' found for '" + property + "' property");
+        "Unexpected datatype '" + typeof this.sensor[property] + "' found for '" + property + "' property");
     }, this);
     methodsActual.forEach(function(proto) {
       test.ok(this.methods.includes(proto), "found unexpected '" + proto + "' sensor prototype method");
@@ -166,7 +200,7 @@ exports["Sensor - Analog"] = {
     test.deepEqual(getShape(this.sensor), this.defShape, "sensor instance properties should match default shape values");
 
     test.done();
-  },// ./shape: function(test)
+  }, // ./shape: function(test)
 
   emitter: function(test) {
     test.expect(1);
@@ -174,7 +208,7 @@ exports["Sensor - Analog"] = {
     test.ok(this.sensor instanceof events.EventEmitter);
 
     test.done();
-  },// ./emitter: function(test)
+  }, // ./emitter: function(test)
 
   data: function(test) {
     var tickAccum, tickDelta, spy = sinon.spy();
@@ -211,7 +245,7 @@ exports["Sensor - Analog"] = {
     test.ok(spy.calledTwice, "tick " + tickAccum + ": data event handler should be called second time at tick " + (this.defShape.freq * 2));
 
     test.done();
-  },// ./data: function(test)
+  }, // ./data: function(test)
 
   filtered: function(test) {
     var callback = this.analogRead.args[0][1],
@@ -340,7 +374,7 @@ exports["Sensor - Analog"] = {
     test.strictEqual(spyCall.args[0], filtered, "data event value expected to be still the median (" + filtered + ") value");
 
     test.done();
-  },// ./filtered: function(test)
+  }, // ./filtered: function(test)
 
   change: function(test) {
     var callback = this.analogRead.args[0][1],
@@ -404,7 +438,7 @@ exports["Sensor - Analog"] = {
     test.strictEqual(spy.getCall(1).args[0], chgValue, "second change event value expected to be " + chgValue);
 
     test.done();
-  },// ./change: function(test)
+  }, // ./change: function(test)
 
   // Tests to check that the thresholds are handled correctly to control when change events get emitted
   threshold: function(test) {
@@ -706,7 +740,7 @@ exports["Sensor - Analog"] = {
     test.ok(spyCall.calledOn(this.sensor), "change event 'this' parameter expected to be source sensor object");
 
     test.done();
-  },// ./threshold: function(test)
+  }, // ./threshold: function(test)
 
   id: function(test) {
     var newShape, newId;
@@ -727,7 +761,7 @@ exports["Sensor - Analog"] = {
     test.strictEqual(this.sensor.id, newId, "id specified as numeric 1234");
 
     test.done();
-  },// ./id: function(test)
+  }, // ./id: function(test)
 
   limit: function(test) {
     var callback = this.analogRead.args[0][1],
@@ -875,7 +909,10 @@ exports["Sensor - Analog"] = {
     test.strictEqual(upperSpy.callCount, 0, "tick " + tickAccum +
       ": limit:upper event handler should not be called at " + this.defShape.freq + " ticks; value at lower limit");
     test.strictEqual(dataSpy.getCall(4).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(0).args[0], { boundary: "lower", value: filtered },
+    test.deepEqual(limitSpy.getCall(0).args[0], {
+        boundary: "lower",
+        value: filtered
+      },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
     test.strictEqual(lowerSpy.getCall(0).args[0], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
 
@@ -896,7 +933,10 @@ exports["Sensor - Analog"] = {
     test.strictEqual(upperSpy.callCount, 1, "tick " + tickAccum +
       ": limit:upper event handler should be called at " + this.defShape.freq + " ticks; value at upper limit");
     test.strictEqual(dataSpy.getCall(5).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(1).args[0], { boundary: "upper", value: filtered },
+    test.deepEqual(limitSpy.getCall(1).args[0], {
+        boundary: "upper",
+        value: filtered
+      },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
     test.strictEqual(upperSpy.getCall(0).args[0], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
 
@@ -917,7 +957,10 @@ exports["Sensor - Analog"] = {
     test.strictEqual(upperSpy.callCount, 1, "tick " + tickAccum +
       ": limit:upper event handler should not be called at " + this.defShape.freq + " ticks; value at lower limit");
     test.strictEqual(dataSpy.getCall(6).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(2).args[0], { boundary: "lower", value: filtered },
+    test.deepEqual(limitSpy.getCall(2).args[0], {
+        boundary: "lower",
+        value: filtered
+      },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
     test.strictEqual(lowerSpy.getCall(1).args[0], filtered, "limit:lower event value expected to be the median (" + filtered + ") value");
 
@@ -938,12 +981,15 @@ exports["Sensor - Analog"] = {
     test.strictEqual(upperSpy.callCount, 2, "tick " + tickAccum +
       ": limit:upper event handler should be called at " + this.defShape.freq + " ticks; value at upper limit");
     test.strictEqual(dataSpy.getCall(7).args[0], filtered, "data event value expected to be the median (" + filtered + ") value");
-    test.deepEqual(limitSpy.getCall(3).args[0], { boundary: "upper", value: filtered },
+    test.deepEqual(limitSpy.getCall(3).args[0], {
+        boundary: "upper",
+        value: filtered
+      },
       "limit event value expected to be the lower boundary with the median (" + filtered + ") value");
     test.strictEqual(upperSpy.getCall(1).args[0], filtered, "limit:upper event value expected to be the median (" + filtered + ") value");
 
     test.done();
-  },// ./limit: function(test)
+  }, // ./limit: function(test)
 
   freq: function(test) {
     var spy = sinon.spy(),
@@ -982,7 +1028,7 @@ exports["Sensor - Analog"] = {
     newShape = Fn.cloneDeep(this.defShape);
     newFreq = 35;
     newShape.freq = newFreq;
-    newShape.state.freq = newFreq ;
+    newShape.state.freq = newFreq;
     this.sensor.freq = newFreq;
     test.deepEqual(getShape(this.sensor), newShape,
       "sensor instance properties should match shape with new freq");
@@ -1036,7 +1082,7 @@ exports["Sensor - Analog"] = {
       ": data event handler should be called third time at tick " + (this.defShape.freq + 2 * newFreq));
 
     test.done();
-  },// ./freq: function(test)
+  }, // ./freq: function(test)
 
   scale: function(test) {
     var callback = this.analogRead.args[0][1];
@@ -1067,7 +1113,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.done();
-  },// ./scale: function(test)
+  }, // ./scale: function(test)
 
 
   scaleTo: function(test) {
@@ -1096,7 +1142,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.done();
-  },// ./scaleTo: function(test)
+  }, // ./scaleTo: function(test)
 
 
   within: function(test) {
@@ -1118,7 +1164,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.done();
-  },// ./within: function(test)
+  }, // ./within: function(test)
 
   booleanAt: function(test) {
     var callback = this.analogRead.args[0][1],
@@ -1148,7 +1194,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.done();
-  },// ./booleanAt: function(test)
+  }, // ./booleanAt: function(test)
 
   scaledBooleanAt: function(test) {
     var callback = this.analogRead.args[0][1],
@@ -1210,7 +1256,7 @@ exports["Sensor - Analog"] = {
     test.equals(this.sensor.analog, 127);
 
     test.done();
-  },// ./analog: function(test)
+  }, // ./analog: function(test)
 
   disable: function(test) {
     var callback = this.analogRead.args[0][1];

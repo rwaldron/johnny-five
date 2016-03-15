@@ -39,13 +39,24 @@ function restore(target) {
 var expecteds = {
   data: [25, 79],
   changes: [
-    [ 25, 0 ],
-    [ 45, 0 ]
+    [25, 0],
+    [45, 0]
   ],
-  bearings: [
-    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
-    { name: "North", abbr: "N", low: 0, mid: 0, high: 5.62, heading: 0 },
-  ]
+  bearings: [{
+    name: "North",
+    abbr: "N",
+    low: 0,
+    mid: 0,
+    high: 5.62,
+    heading: 0
+  }, {
+    name: "North",
+    abbr: "N",
+    low: 0,
+    mid: 0,
+    high: 5.62,
+    heading: 0
+  }, ]
 };
 
 ["HMC6352", "HMC5883L"].forEach(function(controller, index) {

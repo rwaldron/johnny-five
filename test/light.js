@@ -190,8 +190,8 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
       sensor: 1
     };
 
-    test.deepEqual(this.evssetup.lastCall.args, [ shield, EVS.Type_EV3 ]);
-    test.deepEqual(this.evswrite.lastCall.args, [ shield, 0x81 + shield.offset, EVS.Type_EV3_LIGHT ]);
+    test.deepEqual(this.evssetup.lastCall.args, [shield, EVS.Type_EV3]);
+    test.deepEqual(this.evswrite.lastCall.args, [shield, 0x81 + shield.offset, EVS.Type_EV3_LIGHT]);
 
     test.done();
   },
@@ -296,8 +296,8 @@ exports["Light: EVS_EV3, Reflected"] = {
       sensor: 1
     };
 
-    test.deepEqual(this.evssetup.lastCall.args, [ shield, EVS.Type_EV3 ]);
-    test.deepEqual(this.evswrite.lastCall.args, [ shield, 0x81 + shield.offset, EVS.Type_EV3_LIGHT_REFLECTED ]);
+    test.deepEqual(this.evssetup.lastCall.args, [shield, EVS.Type_EV3]);
+    test.deepEqual(this.evswrite.lastCall.args, [shield, 0x81 + shield.offset, EVS.Type_EV3_LIGHT_REFLECTED]);
 
     test.done();
   },
@@ -401,7 +401,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
       sensor: 1
     };
 
-    test.deepEqual(this.evssetup.lastCall.args, [ shield, EVS.Type_NXT_LIGHT ]);
+    test.deepEqual(this.evssetup.lastCall.args, [shield, EVS.Type_NXT_LIGHT]);
 
     test.done();
   },
@@ -506,7 +506,7 @@ exports["Light: EVS_NXT, Reflected"] = {
       sensor: 1
     };
 
-    test.deepEqual(this.evssetup.lastCall.args, [ shield, EVS.Type_NXT_LIGHT_REFLECTED ]);
+    test.deepEqual(this.evssetup.lastCall.args, [shield, EVS.Type_NXT_LIGHT_REFLECTED]);
 
     test.done();
   },

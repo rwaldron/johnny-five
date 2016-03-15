@@ -104,7 +104,9 @@ exports["ReflectanceArray"] = {
   },
 
   shape: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function(method) {
@@ -119,7 +121,9 @@ exports["ReflectanceArray"] = {
   },
 
   enable: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     test.expect(4);
 
     this.eyes.enable();
@@ -134,7 +138,9 @@ exports["ReflectanceArray"] = {
   },
 
   data: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var dataSpy = sinon.spy();
 
     test.expect(1);
@@ -152,7 +158,9 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateOnce: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var calibratedSpy = sinon.spy();
 
     test.expect(7);
@@ -179,7 +187,9 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateTwice: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     test.expect(2);
 
     this.eyes.calibrate();
@@ -201,7 +211,9 @@ exports["ReflectanceArray"] = {
   },
 
   loadCalibration: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     test.expect(4);
 
     test.deepEqual(this.eyes.calibration.min, []);
@@ -219,7 +231,9 @@ exports["ReflectanceArray"] = {
   },
 
   calibrateUntil: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var count = 0;
 
     test.expect(2);
@@ -251,7 +265,10 @@ exports["ReflectanceArray"] = {
   },
 
   autoCalibrate: function(test) {
-    this.eyes = getEyes({ board: this.board, autoCalibrate: true });
+    this.eyes = getEyes({
+      board: this.board,
+      autoCalibrate: true
+    });
 
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
@@ -275,19 +292,36 @@ exports["ReflectanceArray"] = {
   },
 
   calibratedData: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var dataSpy = sinon.spy();
 
-    var testValues = [
-      {min: 100, max: 200, raw: 150, expected: 500},
-      {min: 100, max: 200, raw: 50,  expected: 0},
-      {min: 100, max: 200, raw: 300, expected: 1000}
-    ];
+    var testValues = [{
+      min: 100,
+      max: 200,
+      raw: 150,
+      expected: 500
+    }, {
+      min: 100,
+      max: 200,
+      raw: 50,
+      expected: 0
+    }, {
+      min: 100,
+      max: 200,
+      raw: 300,
+      expected: 1000
+    }];
 
     test.expect(1);
     this.eyes.loadCalibration({
-      min: testValues.map(function(value) { return value.min; }),
-      max: testValues.map(function(value) { return value.max; }),
+      min: testValues.map(function(value) {
+        return value.min;
+      }),
+      max: testValues.map(function(value) {
+        return value.max;
+      }),
     });
 
     this.eyes.on("calibratedData", dataSpy);
@@ -297,13 +331,17 @@ exports["ReflectanceArray"] = {
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], testValues.map(function(value) { return value.expected; }));
+    test.deepEqual(dataSpy.getCall(0).args[0], testValues.map(function(value) {
+      return value.expected;
+    }));
 
     test.done();
   },
 
   solidLine: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -326,7 +364,9 @@ exports["ReflectanceArray"] = {
   },
 
   partialLine: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     var dataSpy = sinon.spy();
 
     test.expect(2);
@@ -349,7 +389,9 @@ exports["ReflectanceArray"] = {
   },
 
   isOnLine: function(test) {
-    this.eyes = getEyes({ board: this.board });
+    this.eyes = getEyes({
+      board: this.board
+    });
     test.expect(1);
 
     this.eyes.loadCalibration({

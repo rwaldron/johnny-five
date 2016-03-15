@@ -124,7 +124,7 @@ exports["IMU -- MPU6050"] = {
     read = this.i2cRead.args[0][3];
     read([
       0x11, 0x11, 0x22, 0x22, 0x33, 0x33, // accelerometer
-      0x11, 0x22,                         // temperature
+      0x11, 0x22, // temperature
       0x11, 0x11, 0x33, 0x33, 0x55, 0x55, // gyro
     ]);
 
@@ -164,7 +164,7 @@ exports["IMU -- MPU6050"] = {
     read = this.i2cRead.args[0][3];
     read([
       0x11, 0x11, 0x22, 0x22, 0x33, 0x33, // accelerometer
-      0x11, 0x22,                         // temperature
+      0x11, 0x22, // temperature
       0x11, 0x11, 0x33, 0x33, 0x55, 0x55, // gyro
     ]);
 
@@ -174,7 +174,7 @@ exports["IMU -- MPU6050"] = {
 
     read([
       0x11, 0x11, 0x22, 0x22, 0x33, 0x33,
-      0x22, 0x33,                         // only change temperature
+      0x22, 0x33, // only change temperature
       0x11, 0x11, 0x33, 0x33, 0x55, 0x55,
     ]);
 
@@ -427,12 +427,12 @@ exports["IMU -- BNO055"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock =this.sandbox.useFakeTimers();
-    this.i2cConfig =this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite =this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg =this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cRead =this.sandbox.stub(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce =this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, bytes, callback) {
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, bytes, callback) {
 
       // CALIBRATION
       if (register === 0x35) {
@@ -566,7 +566,7 @@ exports["IMU -- BNO055"] = {
       if (this.i2cReadOnce.callCount === 1) {
         clearInterval(interval);
 
-        this.clock =this.sandbox.useFakeTimers();
+        this.clock = this.sandbox.useFakeTimers();
 
 
         test.equal(this.i2cReadOnce.callCount, 1);
@@ -590,9 +590,9 @@ exports["IMU -- BNO055"] = {
         var readEuler = this.i2cRead.getCall(2).args[3];
 
         // Taken from an actual reading
-        readTemp([ 28, 51 ]);
-        readAccel([ 255, 255, 242, 255, 221, 3, 204, 255, 95, 254, 56, 255, 1, 0, 1, 0, 2, 0 ]);
-        readEuler([ 42, 8, 253, 255, 10, 0, 180, 26, 244, 255, 94, 0, 215, 197 ]);
+        readTemp([28, 51]);
+        readAccel([255, 255, 242, 255, 221, 3, 204, 255, 95, 254, 56, 255, 1, 0, 1, 0, 2, 0]);
+        readEuler([42, 8, 253, 255, 10, 0, 180, 26, 244, 255, 94, 0, 215, 197]);
 
         // Once for each of the calls to readTemp, readAccel, readEuler
         // a data event is now emitted from the calibration

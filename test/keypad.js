@@ -76,7 +76,9 @@ exports["Keypad: Analog"] = {
   keysDefault: function(test) {
     test.expect(12);
 
-    var keys = Array.from({ length: 12 }, function(_, index) {
+    var keys = Array.from({
+      length: 12
+    }, function(_, index) {
       return index;
     });
     var keypad = new five.Keypad({
@@ -291,7 +293,9 @@ exports["Keypad: VKey"] = {
   keysDefault: function(test) {
     test.expect(12);
 
-    var keys = Array.from({ length: 12 }, function(_, index) {
+    var keys = Array.from({
+      length: 12
+    }, function(_, index) {
       return index + 1;
     });
     var keypad = new five.Keypad({
@@ -532,7 +536,9 @@ exports["Keypad: MPR121"] = {
   keysDefault: function(test) {
     test.expect(9);
 
-    var keys = Array.from({ length: 9 }, function(_, index) {
+    var keys = Array.from({
+      length: 9
+    }, function(_, index) {
       return index;
     });
     var keypad = new five.Keypad({
@@ -545,18 +551,18 @@ exports["Keypad: MPR121"] = {
 
     keypad.on("down", spy);
 
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 256, 0 ]);
-    callback([ 512, 0 ]);
-    callback([ 1024, 0 ]);
-    callback([ 2048, 0 ]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+    callback([256, 0]);
+    callback([512, 0]);
+    callback([1024, 0]);
+    callback([2048, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -594,18 +600,18 @@ exports["Keypad: MPR121"] = {
     // callback([ 8, 0 ]);
     // callback([ 1, 0 ]);
 
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 256, 0 ]);
-    callback([ 512, 0 ]);
-    callback([ 1024, 0 ]);
-    callback([ 2048, 0 ]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+    callback([256, 0]);
+    callback([512, 0]);
+    callback([1024, 0]);
+    callback([2048, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -639,18 +645,18 @@ exports["Keypad: MPR121"] = {
     // callback([ 8, 0 ]);
     // callback([ 1, 0 ]);
 
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 256, 0 ]);
-    callback([ 512, 0 ]);
-    callback([ 1024, 0 ]);
-    callback([ 2048, 0 ]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+    callback([256, 0]);
+    callback([512, 0]);
+    callback([1024, 0]);
+    callback([2048, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -668,11 +674,11 @@ exports["Keypad: MPR121"] = {
     this.keypad.on("down", spy);
 
     // Only 3 are valid.
-    callback([ 64, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 0, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 0, 0 ]);
+    callback([64, 0]);
+    callback([2, 0]);
+    callback([0, 0]);
+    callback([4, 0]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 3);
     test.done();
@@ -686,12 +692,12 @@ exports["Keypad: MPR121"] = {
 
     this.keypad.on("down", spy);
 
-    callback([ 192, 0 ]);
-    callback([ 48, 0 ]);
+    callback([192, 0]);
+    callback([48, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 6, 7 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 4, 5 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [6, 7]);
+    test.deepEqual(spy.lastCall.args[0].which, [4, 5]);
 
     test.done();
   },
@@ -704,9 +710,9 @@ exports["Keypad: MPR121"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 64, 0 ]);
+    callback([64, 0]);
     this.clock.tick(600);
-    callback([ 64, 0 ]);
+    callback([64, 0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -720,15 +726,15 @@ exports["Keypad: MPR121"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 192, 0 ]);
+    callback([192, 0]);
     this.clock.tick(600);
-    callback([ 192, 0 ]);
+    callback([192, 0]);
     this.clock.tick(600);
-    callback([ 128, 0 ]);
+    callback([128, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 6, 7 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 7 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [6, 7]);
+    test.deepEqual(spy.lastCall.args[0].which, [7]);
 
     test.done();
   },
@@ -741,8 +747,8 @@ exports["Keypad: MPR121"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 64, 0 ]);
-    callback([ 0, 0 ]);
+    callback([64, 0]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -756,13 +762,13 @@ exports["Keypad: MPR121"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 192, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 0, 0 ]);
+    callback([192, 0]);
+    callback([128, 0]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 6 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 7 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [6]);
+    test.deepEqual(spy.lastCall.args[0].which, [7]);
 
     test.done();
   },
@@ -867,19 +873,20 @@ exports["Keypad: MPR121"] = {
     this.keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
-      sensitivity: [
-        { press: 1, release: 0.5, },
-        { press: 1, release: 0.5, },
-      ],
+      sensitivity: [{
+        press: 1,
+        release: 0.5,
+      }, {
+        press: 1,
+        release: 0.5,
+      }, ],
     });
 
     test.deepEqual(
-      this.keypad.sensitivity.press,
-      [ 1, 1, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95 ]
+      this.keypad.sensitivity.press, [1, 1, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95, 0.95]
     );
     test.deepEqual(
-      this.keypad.sensitivity.release,
-      [ 0.5, 0.5, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975 ]
+      this.keypad.sensitivity.release, [0.5, 0.5, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975]
     );
 
     var register = 0x41;
@@ -971,7 +978,9 @@ exports["Keypad: MPR121_KEYPAD"] = {
   keysDefault: function(test) {
     test.expect(12);
 
-    var keys = Array.from({ length: 12 }, function(_, index) {
+    var keys = Array.from({
+      length: 12
+    }, function(_, index) {
       return index + 1;
     });
     var keypad = new five.Keypad({
@@ -984,18 +993,18 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     keypad.on("down", spy);
 
-    callback([ 8, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 2048, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 1024 , 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 512, 0 ]);
-    callback([ 1, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 256, 0 ]);
+    callback([8, 0]);
+    callback([128, 0]);
+    callback([2048, 0]);
+    callback([4, 0]);
+    callback([64, 0]);
+    callback([1024, 0]);
+    callback([2, 0]);
+    callback([32, 0]);
+    callback([512, 0]);
+    callback([1, 0]);
+    callback([16, 0]);
+    callback([256, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1024,18 +1033,18 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     keypad.on("down", spy);
 
-    callback([ 8, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 0, 8 ]);
-    callback([ 4, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 0, 4 ]);
-    callback([ 2, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 0, 2 ]);
-    callback([ 1, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 0, 1 ]);
+    callback([8, 0]);
+    callback([128, 0]);
+    callback([0, 8]);
+    callback([4, 0]);
+    callback([64, 0]);
+    callback([0, 4]);
+    callback([2, 0]);
+    callback([32, 0]);
+    callback([0, 2]);
+    callback([1, 0]);
+    callback([16, 0]);
+    callback([0, 1]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1059,18 +1068,18 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     keypad.on("down", spy);
 
-    callback([ 8, 0 ]);
-    callback([ 128, 0 ]);
-    callback([ 0, 8 ]);
-    callback([ 4, 0 ]);
-    callback([ 64, 0 ]);
-    callback([ 0, 4 ]);
-    callback([ 2, 0 ]);
-    callback([ 32, 0 ]);
-    callback([ 0, 2 ]);
-    callback([ 1, 0 ]);
-    callback([ 16, 0 ]);
-    callback([ 0, 1 ]);
+    callback([8, 0]);
+    callback([128, 0]);
+    callback([0, 8]);
+    callback([4, 0]);
+    callback([64, 0]);
+    callback([0, 4]);
+    callback([2, 0]);
+    callback([32, 0]);
+    callback([0, 2]);
+    callback([1, 0]);
+    callback([16, 0]);
+    callback([0, 1]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1088,11 +1097,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     this.keypad.on("down", spy);
 
     // Only 3 are valid.
-    callback([ 64, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 0, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 0, 0 ]);
+    callback([64, 0]);
+    callback([2, 0]);
+    callback([0, 0]);
+    callback([4, 0]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 3);
     test.done();
@@ -1106,12 +1115,12 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     this.keypad.on("down", spy);
 
-    callback([ 65, 0 ]);
-    callback([ 7, 0 ]);
+    callback([65, 0]);
+    callback([7, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 5, 10 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 4, 7 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [5, 10]);
+    test.deepEqual(spy.lastCall.args[0].which, [4, 7]);
 
     test.done();
   },
@@ -1124,9 +1133,9 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 64, 0 ]);
+    callback([64, 0]);
     this.clock.tick(600);
-    callback([ 64, 0 ]);
+    callback([64, 0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1140,15 +1149,15 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 3, 0 ]);
+    callback([3, 0]);
     this.clock.tick(600);
-    callback([ 3, 0 ]);
+    callback([3, 0]);
     this.clock.tick(600);
-    callback([ 2, 0 ]);
+    callback([2, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 7, 10 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 7 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [7, 10]);
+    test.deepEqual(spy.lastCall.args[0].which, [7]);
 
     test.done();
   },
@@ -1161,8 +1170,8 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 64, 0 ]);
-    callback([ 0, 0 ]);
+    callback([64, 0]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1176,13 +1185,13 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 3, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 1, 0 ]);
+    callback([3, 0]);
+    callback([2, 0]);
+    callback([1, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 10 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 7 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [10]);
+    test.deepEqual(spy.lastCall.args[0].which, [7]);
 
     test.done();
   },
@@ -1245,7 +1254,9 @@ exports["Keypad: QTOUCH"] = {
   keysDefault: function(test) {
     test.expect(7);
 
-    var keys = Array.from({ length: 7 }, function(_, index) {
+    var keys = Array.from({
+      length: 7
+    }, function(_, index) {
       return index;
     });
     var keypad = new five.Keypad({
@@ -1258,13 +1269,13 @@ exports["Keypad: QTOUCH"] = {
 
     keypad.on("down", spy);
 
-    callback([ 1 ]);
-    callback([ 2 ]);
-    callback([ 4 ]);
-    callback([ 8 ]);
-    callback([ 16 ]);
-    callback([ 32 ]);
-    callback([ 64 ]);
+    callback([1]);
+    callback([2]);
+    callback([4]);
+    callback([8]);
+    callback([16]);
+    callback([32]);
+    callback([64]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1292,13 +1303,13 @@ exports["Keypad: QTOUCH"] = {
 
     keypad.on("down", spy);
 
-    callback([ 1 ]);
-    callback([ 2 ]);
-    callback([ 4 ]);
-    callback([ 8 ]);
-    callback([ 16 ]);
-    callback([ 32 ]);
-    callback([ 64 ]);
+    callback([1]);
+    callback([2]);
+    callback([4]);
+    callback([8]);
+    callback([16]);
+    callback([32]);
+    callback([64]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1322,13 +1333,13 @@ exports["Keypad: QTOUCH"] = {
 
     keypad.on("down", spy);
 
-    callback([ 1 ]);
-    callback([ 2 ]);
-    callback([ 4 ]);
-    callback([ 8 ]);
-    callback([ 16 ]);
-    callback([ 32 ]);
-    callback([ 64 ]);
+    callback([1]);
+    callback([2]);
+    callback([4]);
+    callback([8]);
+    callback([16]);
+    callback([32]);
+    callback([64]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1346,11 +1357,11 @@ exports["Keypad: QTOUCH"] = {
     this.keypad.on("down", spy);
 
     // Only 3 are valid.
-    callback([ 64 ]);
-    callback([ 2 ]);
-    callback([ 4 ]);
-    callback([ 4 ]);
-    callback([ 4 ]);
+    callback([64]);
+    callback([2]);
+    callback([4]);
+    callback([4]);
+    callback([4]);
 
     test.equal(spy.callCount, 3);
     test.done();
@@ -1364,9 +1375,9 @@ exports["Keypad: QTOUCH"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 64 ]);
+    callback([64]);
     this.clock.tick(600);
-    callback([ 64 ]);
+    callback([64]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1380,8 +1391,8 @@ exports["Keypad: QTOUCH"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 64 ]);
-    callback([ 0 ]);
+    callback([64]);
+    callback([0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1445,7 +1456,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
   keysDefault: function(test) {
     test.expect(12);
 
-    var keys = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#" ];
+    var keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"];
     var keypad = new five.Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
@@ -1456,18 +1467,18 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     keypad.on("down", spy);
 
-    callback([ 0, 1 ]);
-    callback([ 0, 2 ]);
-    callback([ 0, 4 ]);
-    callback([ 0, 8 ]);
-    callback([ 0, 16 ]);
-    callback([ 0, 32 ]);
-    callback([ 0, 64 ]);
-    callback([ 0, 128 ]);
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1496,18 +1507,18 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     keypad.on("down", spy);
 
-    callback([ 0, 1 ]);
-    callback([ 0, 2 ]);
-    callback([ 0, 4 ]);
-    callback([ 0, 8 ]);
-    callback([ 0, 16 ]);
-    callback([ 0, 32 ]);
-    callback([ 0, 64 ]);
-    callback([ 0, 128 ]);
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
 
 
     keys.forEach(function(key, index) {
@@ -1532,18 +1543,18 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     keypad.on("down", spy);
 
-    callback([ 0, 1 ]);
-    callback([ 0, 2 ]);
-    callback([ 0, 4 ]);
-    callback([ 0, 8 ]);
-    callback([ 0, 16 ]);
-    callback([ 0, 32 ]);
-    callback([ 0, 64 ]);
-    callback([ 0, 128 ]);
-    callback([ 1, 0 ]);
-    callback([ 2, 0 ]);
-    callback([ 4, 0 ]);
-    callback([ 8, 0 ]);
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
 
     keys.forEach(function(key, index) {
       test.deepEqual(spy.args[index][0].which, [key]);
@@ -1562,11 +1573,11 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
 
     // Only 3 are valid.
-    callback([ 0, 1 ]);
-    callback([ 0, 20 ]);
-    callback([ 0, 4 ]);
-    callback([ 0, 10 ]);
-    callback([ 0, 8 ]);
+    callback([0, 1]);
+    callback([0, 20]);
+    callback([0, 4]);
+    callback([0, 10]);
+    callback([0, 8]);
 
     test.equal(spy.callCount, 3);
     test.done();
@@ -1580,12 +1591,12 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     this.keypad.on("down", spy);
 
-    callback([ 0, 3 ]);
-    callback([ 12, 0 ]);
+    callback([0, 3]);
+    callback([12, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 1, 2 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 0, "#" ]);
+    test.deepEqual(spy.firstCall.args[0].which, [1, 2]);
+    test.deepEqual(spy.lastCall.args[0].which, [0, "#"]);
 
     test.done();
   },
@@ -1599,9 +1610,9 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 0, 8 ]);
+    callback([0, 8]);
     this.clock.tick(600);
-    callback([ 0, 8 ]);
+    callback([0, 8]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1615,16 +1626,16 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     this.keypad.on("hold", spy);
 
-    callback([ 0, 3 ]);
+    callback([0, 3]);
     this.clock.tick(600);
-    callback([ 0, 3 ]);
+    callback([0, 3]);
     this.clock.tick(600);
-    callback([ 0, 1 ]);
+    callback([0, 1]);
 
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 1, 2 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 1 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [1, 2]);
+    test.deepEqual(spy.lastCall.args[0].which, [1]);
 
     test.done();
   },
@@ -1637,8 +1648,8 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 0, 1 ]);
-    callback([ 0, 0 ]);
+    callback([0, 1]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 1);
     test.done();
@@ -1652,13 +1663,13 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
 
     this.keypad.on("release", spy);
 
-    callback([ 0, 3 ]);
-    callback([ 0, 1 ]);
-    callback([ 0, 0 ]);
+    callback([0, 3]);
+    callback([0, 1]);
+    callback([0, 0]);
 
     test.equal(spy.callCount, 2);
-    test.deepEqual(spy.firstCall.args[0].which, [ 2 ]);
-    test.deepEqual(spy.lastCall.args[0].which, [ 1 ]);
+    test.deepEqual(spy.firstCall.args[0].which, [2]);
+    test.deepEqual(spy.lastCall.args[0].which, [1]);
 
     test.done();
   },

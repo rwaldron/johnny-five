@@ -8,8 +8,12 @@ five.Board().on("ready", function() {
   });
 
   // calibrate for two seconds
-  eyes.calibrateUntil(function() { return !calibrating; });
-  setTimeout(function() { calibrating = false; }, 2000);
+  eyes.calibrateUntil(function() {
+    return !calibrating;
+  });
+  setTimeout(function() {
+    calibrating = false;
+  }, 2000);
 
   eyes.enable();
 
@@ -21,4 +25,3 @@ five.Board().on("ready", function() {
     console.log("line: ", line);
   });
 });
-
