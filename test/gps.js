@@ -7,6 +7,10 @@ var mocks = require("mock-firmata"),
 
 function newBoard() {
   var io = new MockFirmata();
+
+  // Temporary
+  io.SERIAL_PORT_IDs.DEFAULT = 0x08;
+
   var board = new Board({
     io: io,
     debug: false,
