@@ -71,8 +71,6 @@ board.on("ready", function() {
   });
 });
 
-
-
 ```
 
 

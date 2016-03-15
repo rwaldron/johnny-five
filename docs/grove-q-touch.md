@@ -20,7 +20,11 @@ node eg/grove-q-touch.js
 
 
 ```javascript
-var argv = require("minimist")(process.argv.slice(2), { default: { show: 1 } });
+var argv = require("minimist")(process.argv.slice(2), {
+  default: {
+    show: 1
+  }
+});
 var five = require("johnny-five");
 var Edison = require("edison-io");
 var board = new five.Board({

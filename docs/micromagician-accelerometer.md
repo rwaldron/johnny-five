@@ -20,7 +20,9 @@ node eg/micromagician-accelerometer.js
 ```javascript
 var five = require("johnny-five");
 
-var board = new five.Board({ debug: true});
+var board = new five.Board({
+  debug: true
+});
 
 board.on("ready", function() {
 
@@ -42,7 +44,7 @@ board.on("ready", function() {
     console.log("  orientation  : ", this.orientation);
     console.log("--------------------------------------");
   });
-  
+
 });
 
 ```

@@ -52,8 +52,6 @@ board.on("ready", function() {
   });
 });
 
-
-
 ```
 
 

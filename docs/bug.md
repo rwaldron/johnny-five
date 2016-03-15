@@ -100,7 +100,7 @@ Bug.prototype.step = function(opts) {
   last = this.history.length ?
     this.history[this.history.length - 1] : {
       step: 1
-  };
+    };
 
   // increment the last step
   step = last.step + 1;
@@ -202,9 +202,9 @@ five.Board().on("ready", function() {
   bug = new Bug({
     front: new five.Servo(9),
     rear: new five.Servo(10)
-    //,
-    //left: new five.Servo({ pin: 5, range: [ 70, 115 ] }),
-    //right: new five.Servo({ pin: 6, range: [ 70, 115 ] })
+      //,
+      //left: new five.Servo({ pin: 5, range: [ 70, 115 ] }),
+      //right: new five.Servo({ pin: 6, range: [ 70, 115 ] })
   });
 
   // Inject the Servo Array into the REPL as "s"

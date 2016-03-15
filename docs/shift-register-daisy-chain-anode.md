@@ -70,11 +70,11 @@ board.on("ready", function() {
    * delay.  This simulates a die bouncing on a table.
    */
   var delays = new Array(10).fill(16)
-              .concat(new Array(8).fill(32))
-              .concat(new Array(6).fill(64))
-              .concat(new Array(4).fill(128))
-              .concat(new Array(2).fill(256))
-              .concat(512);
+    .concat(new Array(8).fill(32))
+    .concat(new Array(6).fill(64))
+    .concat(new Array(4).fill(128))
+    .concat(new Array(2).fill(256))
+    .concat(512);
 
   register.reset();
   register.clear();

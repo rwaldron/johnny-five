@@ -60,7 +60,7 @@ board.on("ready", function() {
       five.Fn.scale(this.value, esc.range[0], esc.neutral, 100, 0);
 
     if (esc.value !== value) {
-      esc[ isForward ? "forward" : "reverse" ](value);
+      esc[isForward ? "forward" : "reverse"](value);
     }
   });
 });

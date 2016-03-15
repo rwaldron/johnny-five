@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-bmp085-sfe.fzz](breadboard/multi-bmp085
 
 Run this example from the command line with:
 ```bash
-node eg/barometer-bmp085.js
+node eg/barometer-BMP085.js
 ```
 
 

@@ -22,7 +22,7 @@ var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var rgb = new five.Led.RGB([ 9, 10, 11 ]);
+  var rgb = new five.Led.RGB([9, 10, 11]);
   var color = new five.Color({
     controller: "ISL29125"
   });

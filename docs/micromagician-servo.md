@@ -20,7 +20,9 @@ node eg/micromagician-servo.js
 ```javascript
 var five = require("johnny-five");
 
-var board = new five.Board({ debug: true});
+var board = new five.Board({
+  debug: true
+});
 
 board.on("ready", function() {
 

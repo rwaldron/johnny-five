@@ -72,7 +72,6 @@ board.on("ready", function() {
 //     https://www.sparkfun.com/products/12728
 //
 
-
 ```
 
 

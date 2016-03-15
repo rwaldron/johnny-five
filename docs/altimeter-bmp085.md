@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-bmp085-sfe.fzz](breadboard/multi-bmp085
 
 Run this example from the command line with:
 ```bash
-node eg/altimeter-bmp085.js
+node eg/altimeter-BMP085.js
 ```
 
 
