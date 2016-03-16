@@ -5,6 +5,8 @@
 <!--remove-end-->
 
 
+When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.
+
 
 
 

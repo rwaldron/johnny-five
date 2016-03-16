@@ -329,11 +329,13 @@
     "examples": [
       {
         "file": "gps.js",
-        "title": "GPS - Default GPS"
+        "title": "GPS - Default GPS",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board."
       },
       {
         "file": "gps-adafruit.js",
         "title": "GPS - Adafruit Ultimate GPS Breakout",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",
         "breadboards": [
           {"name": "gps-adafruit", "title": "Adafruit Ultimate GPS Breakout", "description": "Example of Adafruit Ultimate GPS on serial."}
         ]
