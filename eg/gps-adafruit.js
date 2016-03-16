@@ -10,14 +10,16 @@ board.on("ready", function() {
   var gps = new five.GPS({
     breakout: "ADAFRUIT_ULTIMATE_GPS",
     pins: {
+      rx: 11,
       tx: 10,
-      rx: 11
     }
   });
 
-  // If lat, long, course or speed change log it
+  // If latitude, longitude, course or speed change log it
   gps.on("change", function() {
-    console.log(this.latitude, this.longitude);
+    console.log("position");
+    console.log("  latitude   : ", this.latitude);
+    console.log("  longitude  : ", this.longitude);
+    console.log("--------------------------------------");
   });
-
 });

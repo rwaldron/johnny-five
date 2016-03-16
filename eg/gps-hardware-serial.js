@@ -10,9 +10,11 @@ board.on("ready", function() {
     port: this.io.SERIAL_PORT_IDs.HW_SERIAL1
   });
 
-  // If lat, long, course or speed change log it
+  // If latitude, longitude, course or speed change log it
   gps.on("change", function() {
-    console.log(this.latitude, this.longitude);
+    console.log("position");
+    console.log("  latitude   : ", this.latitude);
+    console.log("  longitude  : ", this.longitude);
+    console.log("--------------------------------------");
   });
-
 });

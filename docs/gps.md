@@ -9,6 +9,17 @@
 
 
 
+##### Breadboard for "GPS - Default GPS"
+
+
+
+![docs/breadboard/gps.png](breadboard/gps.png)<br>
+
+Fritzing diagram: [docs/breadboard/gps.fzz](breadboard/gps.fzz)
+
+&nbsp;
+
+
 
 
 Run this example from the command line with:
@@ -29,16 +40,18 @@ board.on("ready", function() {
    */
   var gps = new five.GPS({
     pins: {
+      rx: 11,
       tx: 10,
-      rx: 11
     }
   });
 
-  // If lat, long, course or speed change log it
+  // If latitude, longitude, course or speed change log it
   gps.on("change", function() {
-    console.log(this.latitude, this.longitude);
+    console.log("position");
+    console.log("  latitude   : ", this.latitude);
+    console.log("  longitude  : ", this.longitude);
+    console.log("--------------------------------------");
   });
-
 });
 
 ```
