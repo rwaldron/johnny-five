@@ -88,6 +88,8 @@ exports["Board"] = {
     this.clock = sinon.useFakeTimers();
     this.setTimeout = sinon.stub(global, "setTimeout");
 
+    this.detect = sinon.stub(Board.Serial, "detect");
+
     Board.testMode(false);
     Board.purge();
 
