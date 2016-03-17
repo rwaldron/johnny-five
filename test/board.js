@@ -82,34 +82,40 @@ exports["Board"] = {
   },
 
   timeoutTransport: function(test) {
-    test.expect(1);
 
-    this.tm = Board.testMode();
-    this.clock = sinon.useFakeTimers();
-    this.setTimeout = sinon.stub(global, "setTimeout");
+    if (process.env.NO_SERIALPORT_INSTALL) {
+      test.done();
+    } else {
+      test.expect(1);
 
-    this.detect = sinon.stub(Board.Serial, "detect");
+      this.tm = Board.testMode();
+      this.clock = sinon.useFakeTimers();
+      this.setTimeout = sinon.stub(global, "setTimeout");
 
-    Board.testMode(false);
-    Board.purge();
+      this.detect = sinon.stub(Board.Serial, "detect");
 
-    var sp = new MockSerialPort("/dev/foo", {
-      baudrate: 57600,
-      buffersize: 128
-    });
+      Board.testMode(false);
+      Board.purge();
 
-    this.board = new Board({
-      port: sp,
-      timeout: Infinity,
-      debug: false,
-      repl: false
-    });
+      var sp = new MockSerialPort("/dev/foo", {
+        baudrate: 57600,
+        buffersize: 128
+      });
 
-    test.equal(this.setTimeout.lastCall.args[1], Infinity);
+      this.board = new Board({
+        port: sp,
+        timeout: Infinity,
+        debug: false,
+        repl: false
+      });
 
-    Board.testMode(this.tm);
+      test.equal(this.setTimeout.lastCall.args[1], Infinity);
 
-    test.done();
+      Board.testMode(this.tm);
+
+      test.done();
+
+    }
   },
 
   ioIsReady: function(test) {
