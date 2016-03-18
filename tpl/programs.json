@@ -1484,6 +1484,11 @@
         "description": "Using Johnny-Five with Grove's Barometer (BMP180) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
+        "file": "grove-humidity-temperature-edison.js",
+        "title": "Intel Edison + Grove - Humidity & Temperature (TH02)",
+        "description": "Using Johnny-Five with Grove's Humidity & Temperature (TH02) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
         "file": "grove-compass-edison.js",
         "title": "Intel Edison + Grove - Compass (HMC588L)",
         "description": "Using Johnny-Five with Grove's Compass (HMC588L) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."

@@ -452,6 +452,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Intel Edison + Grove - Compass (HMC588L)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-compass-edison.md)
 - [Intel Edison + Grove - Flame Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-flame-sensor-edison.md)
 - [Intel Edison + Grove - Gas (MQ2)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-gas-mq2-edison.md)
+- [Intel Edison + Grove - Humidity & Temperature (TH02)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-humidity-temperature-edison.md)
 - [Intel Edison + Grove - I2C Motor Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-i2c-motor-driver-edison.md)
 - [Intel Edison + Grove - Joystick](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-joystick-edison.md)
 - [Intel Edison + Grove - LCD RGB temperature display](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-lcd-rgb-temperature-display-edison.md)
