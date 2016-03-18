@@ -367,6 +367,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-MS5611.md)
 - [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
+- [Multi - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-TH02.md)
 
 ### Sensors
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
@@ -388,6 +389,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Gyro - Analog LPR5150AL](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
 - [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
+- [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
@@ -407,6 +409,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Thermometer - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MS5611.md)
 - [Thermometer - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
+- [Thermometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-TH02.md)
 - [Thermometer - TMP102](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp102.md)
 - [Thermometer - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)
 

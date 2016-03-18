@@ -952,6 +952,13 @@
         ]
       },
       {
+        "file": "multi-TH02.js",
+        "title": "Multi - TH02",
+        "externals": [
+          { "title": "Grove - Temperature&Humidity Sensor (High-Accuracy & Mini)", "href": "http://www.seeedstudio.com/depot/Grove-TemperatureHumidity-Sensor-HighAccuracy-Mini-p-1921.html"}
+        ]
+      },
+      {
         "file": "multi-SI7020.js",
         "title": "Multi - SI7020",
         "breadboards": [
@@ -1237,9 +1244,18 @@
           {"file": "altimeter-BMP180-relative-elevation.js", "title": "BMP180 - Relative Elevation"}
         ],
         "externals": [
-          { "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/1603"},
-          { "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180", "href": "https://www.sparkfun.com/products/11824"},
-          { "title": "Grove - Barometer Sensor（BMP180)", "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"}
+          {
+            "title": "BMP180 Barometric Pressure/Temperature/Altitude Sensor",
+            "href": "https://www.adafruit.com/products/1603"
+          },
+          {
+            "title": "SparkFun Barometric Pressure Sensor Breakout - BMP180",
+            "href": "https://www.sparkfun.com/products/11824"
+          },
+          {
+            "title": "Grove - Barometer Sensor（BMP180)",
+            "href": "http://www.seeedstudio.com/depot/Grove-Barometer-SensorBMP180-p-1840.html"
+          }
         ]
       },
       {
@@ -1255,6 +1271,21 @@
         "externals": [
           { "title": "BMP085 Barometric Pressure/Temperature/Altitude Sensor", "href": "https://www.adafruit.com/products/391"},
           { "title": "Grove - Barometer Sensor（BMP085)", "href": "http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html"}
+        ]
+      },
+
+      {
+        "file": "temperature-TH02.js",
+        "title": "Thermometer - TH02",
+        "externals": [
+          { "title": "Grove - Temperature&Humidity Sensor (High-Accuracy & Mini)", "href": "http://www.seeedstudio.com/depot/Grove-TemperatureHumidity-Sensor-HighAccuracy-Mini-p-1921.html"}
+        ]
+      },
+      {
+        "file": "hygrometer-TH02.js",
+        "title": "Hygrometer - TH02",
+        "externals": [
+          { "title": "Grove - Temperature&Humidity Sensor (High-Accuracy & Mini)", "href": "http://www.seeedstudio.com/depot/Grove-TemperatureHumidity-Sensor-HighAccuracy-Mini-p-1921.html"}
         ]
       }
     ]
