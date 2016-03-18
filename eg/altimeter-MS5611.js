@@ -2,6 +2,8 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
+  // By including a base `elevation` property, the values
+  // received will be absolute elevation (from sealevel)
   var alt = new five.Altimeter({
     controller: "MS5611",
     // Change `elevation` with whatever is reported
