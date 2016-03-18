@@ -28,7 +28,7 @@ Fritzing diagram: [docs/breadboard/gps-sparkfun.fzz](breadboard/gps-sparkfun.fzz
 
 Run this example from the command line with:
 ```bash
-node eg/gps-adafruit.js
+node eg/gps-sparkfun.js
 ```
 
 
@@ -43,7 +43,7 @@ board.on("ready", function() {
    * We assume SW_SERIAL0 for the port
    */
   var gps = new five.GPS({
-    breakout: "ADAFRUIT_ULTIMATE_GPS",
+    breakout: "SPARKFUN_VENUS_GPS",
     pins: {
       rx: 11,
       tx: 10,
