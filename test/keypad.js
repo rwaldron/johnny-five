@@ -516,9 +516,9 @@ exports["Keypad: MPR121"] = {
     test.expect(11);
 
     test.equal(this.i2cConfig.callCount, 1);
-    // 11 settings
+    // 16 settings
     // 24 Thresholds
-    test.equal(this.i2cWrite.callCount, 35);
+    test.equal(this.i2cWrite.callCount, 40);
 
     test.deepEqual(this.i2cWrite.getCall(0).args, [0x5A, mpr121.MPR121_SOFTRESET, 0x63]);
     test.deepEqual(this.i2cWrite.getCall(1).args, [0x5A, mpr121.MHD_RISING, 0x01]);
@@ -958,9 +958,9 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.expect(11);
 
     test.equal(this.i2cConfig.callCount, 1);
-    // 11 settings
+    // 16 settings
     // 24 Thresholds
-    test.equal(this.i2cWrite.callCount, 35);
+    test.equal(this.i2cWrite.callCount, 40);
 
     test.deepEqual(this.i2cWrite.getCall(0).args, [0x5A, mpr121.MPR121_SOFTRESET, 0x63]);
     test.deepEqual(this.i2cWrite.getCall(1).args, [0x5A, mpr121.MHD_RISING, 0x01]);
