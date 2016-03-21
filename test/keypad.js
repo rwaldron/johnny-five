@@ -513,7 +513,7 @@ exports["Keypad: MPR121"] = {
   },
 
   initialize: function(test) {
-    test.expect(11);
+    test.expect(18);
 
     test.equal(this.i2cConfig.callCount, 1);
     // 16 settings
@@ -529,6 +529,19 @@ exports["Keypad: MPR121"] = {
     test.deepEqual(this.i2cWrite.getCall(6).args, [0x5A, mpr121.NHD_AMOUNT_FALLING, 0x01]);
     test.deepEqual(this.i2cWrite.getCall(7).args, [0x5A, mpr121.NCL_FALLING, 0xFF]);
     test.deepEqual(this.i2cWrite.getCall(8).args, [0x5A, mpr121.FDL_FALLING, 0x02]);
+
+
+    test.deepEqual(this.i2cWrite.getCall(33).args, [0x5A, mpr121.FILTER_CONFIG, 0x13]);
+    test.deepEqual(this.i2cWrite.getCall(34).args, [0x5A, mpr121.AFE_CONFIGURATION, 0x80]);
+
+    // Bypassing auto calibration by setting Vdd range and target manually
+    test.deepEqual(this.i2cWrite.getCall(35).args, [0x5A, mpr121.AUTO_CONFIG_CONTROL_0, 0x8F]);
+    test.deepEqual(this.i2cWrite.getCall(36).args, [0x5A, mpr121.AUTO_CONFIG_USL, 0xE4]);
+    test.deepEqual(this.i2cWrite.getCall(37).args, [0x5A, mpr121.AUTO_CONFIG_LSL, 0x94]);
+    test.deepEqual(this.i2cWrite.getCall(38).args, [0x5A, mpr121.AUTO_CONFIG_TARGET_LEVEL, 0xCD]);
+
+    // Electrode sensor "run mode"
+    test.deepEqual(this.i2cWrite.getCall(39).args, [0x5A, mpr121.ELECTRODE_CONFIG, 0xCC]);
 
     test.done();
   },
