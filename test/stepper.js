@@ -34,30 +34,15 @@ function newBoard(pins) {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
 
 exports["Stepper Firmware Requirement"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     done();
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
   valid: function(test) {
@@ -115,6 +100,7 @@ exports["Stepper Firmware Requirement"] = {
 
 exports["Stepper - constructor"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
 
     this.board = newBoard();
     this.board.pins[0].supportedModes = [8];
@@ -123,7 +109,7 @@ exports["Stepper - constructor"] = {
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
   inferTypeAmbiguous: function(test) {
@@ -195,7 +181,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  typeDevice: function(test) {
+  typeDriver: function(test) {
     test.expect(4);
     var pins = {
       step: 2,
@@ -227,6 +213,65 @@ exports["Stepper - constructor"] = {
       }
     );
 
+    test.done();
+  },
+
+  invalidDriverEmpty: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: {}
+      });
+    });
+    test.done();
+  },
+
+  invalidDriverStep: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: {
+          dir: 4,
+        }
+      });
+    });
+    test.done();
+  },
+
+  invalidDriverDir: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: {
+          step: 1,
+        }
+      });
+    });
+    test.done();
+  },
+
+  validDriver: function(test) {
+    test.expect(1);
+    test.doesNotThrow(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.DRIVER,
+        stepsPerRev: 200,
+        pins: {
+          step: 0,
+          dir: 1,
+        }
+      });
+    });
     test.done();
   },
 
@@ -262,6 +307,65 @@ exports["Stepper - constructor"] = {
       }
     );
 
+    test.done();
+  },
+
+  invalid2wireEmpty: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.TWO_WIRE,
+        stepsPerRev: 200,
+        pins: {}
+      });
+    });
+    test.done();
+  },
+
+  invalid2wire1: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.TWO_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor2: 4,
+        }
+      });
+    });
+    test.done();
+  },
+
+  invalid2wire2: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.TWO_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 1,
+        }
+      });
+    });
+    test.done();
+  },
+
+  valid2wire: function(test) {
+    test.expect(1);
+    test.doesNotThrow(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.TWO_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 0,
+          motor2: 1,
+        }
+      });
+    });
     test.done();
   },
 
@@ -302,11 +406,111 @@ exports["Stepper - constructor"] = {
     );
 
     test.done();
+  },
+
+  invalid4wireEmpty: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {}
+      });
+    });
+    test.done();
+  },
+
+  invalid4wire1: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor2: 3,
+          motor3: 4,
+          motor4: 5
+        }
+      });
+    });
+    test.done();
+  },
+
+  invalid4wire2: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 1,
+          motor3: 4,
+          motor4: 5
+        }
+      });
+    });
+    test.done();
+  },
+
+  invalid4wire3: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 3,
+          motor2: 4,
+          motor4: 5
+        }
+      });
+    });
+    test.done();
+  },
+
+  invalid4wire4: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 3,
+          motor2: 4,
+          motor3: 5
+        }
+      });
+    });
+    test.done();
+  },
+
+  valid4wire: function(test) {
+    test.expect(1);
+    test.doesNotThrow(function() {
+      new Stepper({
+        board: this.board,
+        type: five.Stepper.TYPE.FOUR_WIRE,
+        stepsPerRev: 200,
+        pins: {
+          motor1: 0,
+          motor2: 1,
+          motor3: 4,
+          motor4: 5
+        }
+      });
+    });
+    test.done();
   }
 };
 
 exports["Stepper - max steppers"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
 
     this.maxSteppers = 6;
 
@@ -335,7 +539,7 @@ exports["Stepper - max steppers"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -405,6 +609,7 @@ exports["Stepper - max steppers"] = {
 
 exports["Stepper - step callback"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = new Board({
       io: new MockFirmata({
         pins: [{
@@ -422,7 +627,7 @@ exports["Stepper - step callback"] = {
       pins: [2, 3]
     });
 
-    this.step = sinon.spy(MockFirmata.prototype, "stepperStep");
+    this.step = this.sandbox.spy(MockFirmata.prototype, "stepperStep");
 
     done();
   },
@@ -433,7 +638,7 @@ exports["Stepper - step callback"] = {
   },
 
   step: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -449,6 +654,7 @@ exports["Stepper - step callback"] = {
 
 exports["Stepper - set direction required before step"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
       io: new MockFirmata({
@@ -467,7 +673,7 @@ exports["Stepper - set direction required before step"] = {
       pins: [2, 3]
     });
 
-    this.stepperStep = sinon.spy(MockFirmata.prototype, "stepperStep");
+    this.stepperStep = this.sandbox.spy(MockFirmata.prototype, "stepperStep");
 
     done();
   },
@@ -478,7 +684,7 @@ exports["Stepper - set direction required before step"] = {
   },
 
   directionSet: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(2);
 
@@ -501,6 +707,7 @@ exports["Stepper - set direction required before step"] = {
 
 exports["Stepper - chainable direction"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
       io: new MockFirmata({
@@ -539,6 +746,7 @@ exports["Stepper - chainable direction"] = {
 
 exports["Stepper - rpm / speed"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
       io: new MockFirmata({
@@ -550,7 +758,7 @@ exports["Stepper - rpm / speed"] = {
       repl: false
     });
 
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     this.stepper = new Stepper({
       board: this.board,
       type: five.Stepper.TYPE.DRIVER,
