@@ -838,3 +838,144 @@ exports["Multi -- TH02"] = {
     test.done();
   },
 };
+
+exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.imu = new IMU({
+      controller: "DHT11_I2C_NANO_BACKPACK",
+      freq: 100,
+      board: this.board
+    });
+
+    this.proto = [];
+
+    this.instance = [{
+      name: "components"
+    }, {
+      name: "hygrometer"
+    }, {
+      name: "temperature"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    IMU.Drivers.clear();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.imu[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.imu[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "DHT11_I2C_NANO_BACKPACK",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  components: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+
+    test.done();
+  },
+
+  data: function(test) {
+    var read, spy = sinon.spy();
+
+    test.expect(7);
+    this.imu.on("data", spy);
+
+    read = this.i2cRead.args[0][2];
+
+    // Taken from actual readings
+    read([ 13, 72, 9, 196 ]);
+
+
+    test.ok(this.i2cConfig.calledOnce);
+    test.ok(this.i2cRead.calledOnce);
+
+    test.equals(this.i2cRead.lastCall.args[0], 0x0A);
+    test.equals(this.i2cRead.lastCall.args[1], 4);
+
+    this.clock.tick(100);
+
+    test.ok(spy.calledOnce);
+    test.equals(spy.lastCall.args[0].hygrometer.relativeHumidity, 34);
+    test.equals(spy.lastCall.args[0].thermometer.celsius, 25);
+
+    test.done();
+  },
+
+  change: function(test) {
+    var read, spy = sinon.spy();
+
+    test.expect(8);
+    this.imu.on("data", spy);
+
+    read = this.i2cRead.args[0][2];
+
+    // Taken from actual readings
+    read([ 13, 72, 9, 196 ]);
+
+
+    test.ok(this.i2cConfig.calledOnce);
+    test.ok(this.i2cRead.calledOnce);
+
+    test.equals(this.i2cRead.lastCall.args[0], 0x0A);
+    test.equals(this.i2cRead.lastCall.args[1], 4);
+
+    this.clock.tick(100);
+
+    test.equal(spy.callCount, 1);
+
+    test.equals(spy.lastCall.args[0].hygrometer.relativeHumidity, 34);
+    test.equals(spy.lastCall.args[0].thermometer.celsius, 25);
+
+
+    // Taken from actual readings
+    read([ 12, 70, 20, 196 ]);
+    this.clock.tick(100);
+
+
+    test.equal(spy.callCount, 2);
+
+    test.done();
+  }
+
+};

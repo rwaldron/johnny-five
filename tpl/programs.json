@@ -952,6 +952,16 @@
         ]
       },
       {
+        "file": "multi-DHT11_I2C_NANO_BACKPACK.js",
+        "title": "Multi - DHT11_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "DHT11"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
         "file": "multi-TH02.js",
         "title": "Multi - TH02",
         "externals": [
@@ -1286,6 +1296,26 @@
         "title": "Hygrometer - TH02",
         "externals": [
           { "title": "Grove - Temperature&Humidity Sensor (High-Accuracy & Mini)", "href": "http://www.seeedstudio.com/depot/Grove-TemperatureHumidity-Sensor-HighAccuracy-Mini-p-1921.html"}
+        ]
+      },
+      {
+        "file": "temperature-DHT11_I2C_NANO_BACKPACK.js",
+        "title": "Thermometer - DHT11_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Thermometer DHT11"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "hygrometer-DHT11_I2C_NANO_BACKPACK.js",
+        "title": "Hygrometer - DHT11_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Hygrometer DHT11"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
         ]
       }
     ]
