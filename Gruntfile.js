@@ -2,7 +2,7 @@ require("es6-shim");
 require("copy-paste");
 
 var fs = require("fs");
-var exec = require("child_process").exec;
+var cp = require("child_process");
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -39,11 +39,30 @@ module.exports = function(grunt) {
     );
   }, []);
 
+
+  var changedFiles = [];
+
+  if (Number(process.versions.node.split(".")[0]) >= 4) {
+    changedFiles = cp.execSync("git diff --name-only").toString().split("\n").reduce(function(accum, line) {
+      var value = line.trim();
+      if (value) {
+        accum.push(value);
+      }
+      return accum;
+    }, []);
+  }
+
   var primaryFiles = [
     "Gruntfile.js",
     "lib/**/!(johnny-five)*.js",
     "test/**/*.js",
   ].concat(programsList);
+
+
+  if (changedFiles.length) {
+    primaryFiles = changedFiles;
+  }
+
 
   // Project configuration.
   grunt.initConfig({
@@ -72,7 +91,7 @@ module.exports = function(grunt) {
       }
     },
     jsbeautifier: {
-      files: ["lib/**/*.js", "eg/**/*.js", "test/**/*.js"],
+      files: primaryFiles,
       options: {
         js: {
           braceStyle: "collapse",
@@ -97,12 +116,7 @@ module.exports = function(grunt) {
     },
     watch: {
       src: {
-        files: [
-          "Gruntfile.js",
-          "lib/**/!(johnny-five)*.js",
-          "test/**/*.js",
-          "eg/**/*.js"
-        ],
+        files: primaryFiles,
         tasks: ["default"],
         options: {
           interrupt: true,
@@ -483,7 +497,7 @@ module.exports = function(grunt) {
       version = "HEAD";
     }
 
-    exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
+    cp.exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
       if (error) {
         console.log(error.message);
         return;
