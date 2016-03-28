@@ -686,17 +686,18 @@ exports["Multi -- TH02"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
-
-      if (register === 0x00) {
-        this.status();
-        handler([0x00]);
-      } else {
-        if (this.i2cWrite.lastCall.args[2] === 0x01) {
-          handler([ 0, 57, 208 ]);
+      process.nextTick(function() {
+        if (register === 0x00) {
+          this.status();
+          handler([0x00]);
         } else {
-          handler([ 0, 36, 44 ]);
+          if (this.i2cWrite.lastCall.args[2] === 0x01) {
+            handler([ 0, 57, 208 ]);
+          } else {
+            handler([ 0, 36, 44 ]);
+          }
         }
-      }
+      }.bind(this));
     }.bind(this));
 
     this.imu = new IMU({
@@ -790,20 +791,10 @@ exports["Multi -- TH02"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [ 0x40, 0x03, 0x11 ]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [0x40, 0x00, 1]);
 
-    var interval = setInterval(function() {
-      var args = this.i2cReadOnce.lastCall.args;
-
-      if (args[1] === 0x01) {
-        clearInterval(interval);
-
-        test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [ 0x40, 0x01, 3 ]);
-        test.deepEqual(this.i2cWrite.lastCall.args, [ 0x40, 0x03, 0x01 ]);
-        test.done();
-      }
-    }.bind(this), 0);
-
-
-    test.done();
+    IMU.Drivers.get(this.board, "TH02", {}).on('data', function(){
+      console.log("TH02", arguments);
+      test.done();
+    });
   },
 
   // change: function(test) {
