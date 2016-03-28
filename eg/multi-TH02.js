@@ -7,7 +7,7 @@ board.on("ready", function() {
   });
 
   multi.on("change", function() {
-    console.log("temperature");
+    console.log("Temperature");
     console.log("  celsius           : ", this.temperature.celsius);
     console.log("  fahrenheit        : ", this.temperature.fahrenheit);
     console.log("  kelvin            : ", this.temperature.kelvin);
