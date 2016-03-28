@@ -119,6 +119,11 @@ exports["IMU -- MPU6050"] = {
     var read, spy = sinon.spy();
 
     test.expect(16);
+
+    this.imu.components.forEach(function(component) {
+      this[component].emit("change");
+    }, this.imu);
+
     this.imu.on("data", spy);
 
     read = this.i2cRead.args[0][3];
@@ -533,6 +538,9 @@ exports["IMU -- BNO055"] = {
     //add this for catching calibration events
     var cspy = this.sandbox.spy();
 
+    this.imu.components.forEach(function(component) {
+      this[component].emit("change");
+    }, this.imu);
 
     this.driver.on("data", dspy);
     this.imu.on("data", ispy);
@@ -753,6 +761,10 @@ exports["Multi -- TH02"] = {
 
     var i2cReadOnce;
     var spy = this.sandbox.spy();
+
+    this.imu.components.forEach(function(component) {
+      this[component].emit("change");
+    }, this.imu);
 
     this.imu.on("data", spy);
 
