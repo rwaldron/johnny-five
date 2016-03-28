@@ -393,7 +393,7 @@ exports["Multi -- MPL3115A2"] = {
   },
 
   fwdOptionsToi2cConfig: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     this.i2cConfig.reset();
 
@@ -409,6 +409,7 @@ exports["Multi -- MPL3115A2"] = {
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
     test.equal(forwarded.bus, "i2c-1");
+    test.deepEqual(forwarded.settings, {stopTX: true});
 
     test.done();
   },
