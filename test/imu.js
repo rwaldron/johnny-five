@@ -692,9 +692,11 @@ exports["Multi -- TH02"] = {
           handler([0x00]);
         } else {
           if (this.i2cWrite.lastCall.args[2] === 0x01) {
-            handler([ 0, 57, 208 ]);
+            // MEASURE_HUMIDITY
+            handler([ 0, 71, 192 ]);
           } else {
-            handler([ 0, 36, 44 ]);
+            // MEASURE_TEMPERATURE
+            handler([ 0, 36, 84 ]);
           }
         }
       }.bind(this));
@@ -772,16 +774,11 @@ exports["Multi -- TH02"] = {
   },
 
   data: function(test) {
-    test.expect(5);
-
-    this.clock.restore();
-    var spy = this.sandbox.spy();
+    test.expect(6);
 
     this.imu.components.forEach(function(component) {
       this[component].emit("change");
     }, this.imu);
-
-    this.imu.on("data", spy);
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledOnce);
@@ -791,10 +788,10 @@ exports["Multi -- TH02"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [ 0x40, 0x03, 0x11 ]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [0x40, 0x00, 1]);
 
-    IMU.Drivers.get(this.board, "TH02", {}).on('data', function(){
-      console.log("TH02", arguments);
+    IMU.Drivers.get(this.board, "TH02").on("data", function() {
+      test.equal(this.status.callCount, 4);
       test.done();
-    });
+    }.bind(this));
   },
 
   // change: function(test) {
