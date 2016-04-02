@@ -594,6 +594,24 @@ exports["Led.Collection"] = {
 
     test.equal(leds.length, 3);
     test.done();
+  },
+
+  blink: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.prototype, "blink");
+    this.stop = this.sandbox.stub(Led.prototype, "stop");
+
+    var leds = new Led.Collection([
+      this.a, this.b, this.c
+    ]);
+
+    leds.blink().stop();
+
+    test.equal(this.blink.callCount, 3);
+    test.equal(this.stop.callCount, 3);
+
+    test.done();
   }
 };
 
