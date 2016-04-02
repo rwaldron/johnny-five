@@ -1124,6 +1124,113 @@ exports["Led.RGB"] = {
   }
 };
 
+exports["Led.RGB.Collection"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+
+    // Make all of these PWM pins for testing
+    this.board.io.pins.forEach(function(pin) {
+      pin.supportedModes.push(3);
+    });
+
+    this.a = new Led.RGB({
+      pins: [3, 5, 6],
+      board: this.board
+    });
+
+    this.b = new Led.RGB({
+      pins: [9, 10, 11],
+      board: this.board
+    });
+
+
+    [
+      "off", "on", "intensity"
+    ].forEach(function(method) {
+      this[method] = this.sandbox.spy(Led.RGB.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.board.io.pins.forEach(function(pin) {
+      pin.supportedModes.pop();
+    });
+
+    Board.purge();
+    Led.RGB.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  initFromObject: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection({
+      pins: [
+        [1, 2, 3],
+        [4, 5, 6],
+      ],
+      board: this.board,
+    });
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  initFromArrayOfPinNumbers: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  initFromArrayOfRGBOptions: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      { pins: [1, 2, 3], board: this.board },
+      { pins: [4, 5, 6], board: this.board },
+    ]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+
+  initFromLeds: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([this.a, this.b]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.RGB.prototype, "blink");
+    this.stop = this.sandbox.stub(Led.RGB.prototype, "stop");
+
+    var rgbs = new Led.RGB.Collection([this.a, this.b]);
+
+    rgbs.blink().stop();
+
+    test.equal(this.blink.callCount, 2);
+    test.equal(this.stop.callCount, 2);
+
+    test.done();
+  }
+};
+
 exports["Led.RGB - Common Anode"] = {
   setUp: function(done) {
     this.board = newBoard();
