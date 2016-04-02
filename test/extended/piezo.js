@@ -5,16 +5,21 @@ var five = require("../../lib/johnny-five.js"),
   Board = five.Board,
   Piezo = five.Piezo;
 
+
+function newBoard() {
+  return new Board({
+    io: new MockFirmata(),
+    debug: false,
+    repl: false
+  });
+}
+
 exports["Piezo"] = {
 
   setUp: function(done) {
-    this.board = new Board({
-      io: new MockFirmata(),
-      debug: false,
-      repl: false
-    });
-
-    this.spy = sinon.spy(this.board.io, "digitalWrite");
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,
@@ -41,11 +46,16 @@ exports["Piezo"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
   toneStopsAfterTime: function(test) {
     test.expect(2);
 
     this.piezo.tone(1915, 10);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
+    var timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
 
     setTimeout(function() {
       test.ok(timerSpy.called);
@@ -58,7 +68,7 @@ exports["Piezo"] = {
   playSingleNoteTune: function(test) {
     var tempo = 10000;
     test.expect(2);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var freqSpy = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
       song: "c4",
       tempo: tempo // Make it real fast
@@ -73,7 +83,7 @@ exports["Piezo"] = {
   playSingleNoteTuneNoOctave: function(test) {
     var tempo = 10000;
     test.expect(2);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var freqSpy = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
       song: "c#",
       tempo: tempo // Make it real fast
@@ -87,7 +97,7 @@ exports["Piezo"] = {
 
   playSongWithCallback: function(test) {
     var tempo = 10000,
-      myCallback = sinon.spy(),
+      myCallback = this.sandbox.spy(),
       tune = {
         song: ["c4"],
         tempo: tempo
@@ -109,7 +119,7 @@ exports["Piezo"] = {
 
   playSingleNote: function(test) {
     test.expect(2);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var freqSpy = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play("c4");
     setTimeout(function() {
       test.ok(freqSpy.calledOnce);

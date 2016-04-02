@@ -76,6 +76,7 @@ exports["Servo"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     if (this.servo.animation) {
       this.servo.animation.stop();
     }
