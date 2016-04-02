@@ -97,20 +97,6 @@ Collection.installMethodForwarding(
   Inputs.prototype, Input.prototype
 );
 
-// Object.keys(Input.prototype).forEach(function(method) {
-//   // Create Inputs wrappers for each method listed.
-//   // This will allow us control over all Input instances
-//   // simultaneously.
-//   Inputs.prototype[method] = function() {
-//     var length = this.length;
-
-//     for (var i = 0; i < length; i++) {
-//       this[i][method].apply(this[i], arguments);
-//     }
-//     return this;
-//   };
-// });
-
 
 exports["Collection"] = {
   setUp: function(done) {
