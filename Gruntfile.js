@@ -1,4 +1,6 @@
-require("es6-shim");
+if (!Array.from || !Object.assign || !Map) {
+  require("es6-shim");
+}
 require("copy-paste");
 
 var fs = require("fs");
