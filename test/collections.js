@@ -359,15 +359,11 @@ exports["Collection.Emitter"] = {
   },
 
   data: function(test) {
-    test.expect(4);
+    test.expect(5);
 
-    this.inputs.on("data", function() {
-      test.equal(this.length, 3);
-      test.equal(this[0].value, 2);
-      test.equal(this[1].value, 1);
-      test.equal(this[2].value, 1);
-      test.done();
-    });
+    var spy = this.sandbox.spy();
+
+    this.inputs.on("data", spy);
 
     this.clock.tick(1);
     this.inputs[0].emit("data", 1023);
@@ -377,8 +373,17 @@ exports["Collection.Emitter"] = {
     this.inputs[0].emit("data", 1);
     this.inputs[1].emit("data", 1);
     this.inputs[2].emit("data", 1);
-    this.clock.tick(2);
+    this.clock.tick(5);
     this.inputs[0].emit("data", 2);
+
+    test.equal(spy.callCount, 1);
+
+    test.equal(this.inputs.length, 3);
+    test.equal(this.inputs[0].value, 2);
+    test.equal(this.inputs[1].value, 1);
+    test.equal(this.inputs[2].value, 1);
+
+    test.done();
   },
 
   change: function(test) {
@@ -422,14 +427,9 @@ exports["Collection.Emitter"] = {
   dataFromLateAddition: function(test) {
     test.expect(5);
 
-    this.inputs.on("data", function() {
-      test.equal(this.length, 4);
-      test.equal(this[0].value, 1);
-      test.equal(this[1].value, 1);
-      test.equal(this[2].value, 1);
-      test.equal(this[3].value, 2);
-      test.done();
-    });
+    var spy = this.sandbox.spy();
+
+    this.inputs.on("data", spy);
 
     this.clock.tick(1);
 
@@ -448,5 +448,13 @@ exports["Collection.Emitter"] = {
     this.inputs[2].emit("data", 1);
     this.clock.tick(3);
     this.inputs[3].emit("data", 2);
+
+    test.equal(this.inputs.length, 4);
+    test.equal(this.inputs[0].value, 1);
+    test.equal(this.inputs[1].value, 1);
+    test.equal(this.inputs[2].value, 1);
+    test.equal(this.inputs[3].value, 2);
+    test.done();
+
   },
 };
