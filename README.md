@@ -291,6 +291,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Relay
 - [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
+- [Relay - Collection](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-collection.md)
 
 ### Shift Register
 - [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)

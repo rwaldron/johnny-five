@@ -593,6 +593,10 @@
           {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."},
           {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."}
         ]
+      },
+      {
+        "file": "relay-collection.js",
+        "title": "Relay - Collection"
       }
     ]
   },
