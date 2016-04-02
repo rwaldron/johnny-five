@@ -63,6 +63,7 @@ function Input(opts) {
   this.on("data", function(value) {
     this.value = value;
   }.bind(this));
+
 }
 
 Input.prototype = Object.create(Emitter.prototype, {
@@ -389,39 +390,38 @@ exports["Collection.Emitter"] = {
   change: function(test) {
     test.expect(4);
 
-    this.inputs[0].id = "x";
-    this.inputs[1].id = "y";
-    this.inputs[2].id = "z";
+    this.inputs = new Inputs({
+      pins: ["A0", "A1", "A2"],
+      board: this.board,
+    });
 
-    var expecting = {x: false, y: false, z: false};
+    var spy = this.sandbox.spy();
 
-    this.inputs.on("change", function(input) {
-      expecting[input.id] = true;
+    this.inputs.on("change", spy);
 
-      test.ok(this.inputs.includes(input));
-
-      var isDone = Object.keys(expecting).every(function(key) {
-        return expecting[key];
-      });
-
-      if (isDone) {
-        test.done();
-      }
-    }.bind(this));
-
-    this.inputs[0].emit("change");
-
-    this.inputs[1].emit("change");
-    this.inputs[1].emit("change");
-
-    this.inputs[2].emit("change");
-    this.inputs[2].emit("change");
+    this.inputs[0].emit("data", 0);
+    this.inputs[1].emit("data", 0);
+    this.inputs[2].emit("data", 0);
+    this.inputs[0].emit("data", 1023);
+    this.inputs[1].emit("data", 1023);
+    this.inputs[2].emit("data", 1023);
+    this.inputs[0].emit("data", 1);
+    this.inputs[1].emit("data", 1);
+    this.inputs[2].emit("data", 1);
+    this.inputs[0].emit("data", 2);
 
     this.inputs[0].emit("change");
-    this.inputs[0].emit("change");
-
-    this.inputs[2].emit("change");
     this.inputs[1].emit("change");
+    this.inputs[2].emit("change");
+
+
+    test.equal(this.inputs.length, 3);
+    test.equal(this.inputs[0].value, 2);
+    test.equal(this.inputs[1].value, 1);
+    test.equal(this.inputs[2].value, 1);
+
+    test.done();
+
   },
 
   dataFromLateAddition: function(test) {
@@ -457,4 +457,28 @@ exports["Collection.Emitter"] = {
     test.done();
 
   },
+
+  respondToUnknownEvents: function(test) {
+    test.expect(2);
+
+    var spy = this.sandbox.spy();
+
+    this.inputs.on("unknown-1", spy);
+
+    this.inputs[0].emit("unknown-1");
+    this.inputs[1].emit("unknown-1");
+    this.inputs[2].emit("unknown-1");
+
+    test.equal(spy.callCount, 3);
+
+    this.inputs.on("unknown-2", spy);
+
+    this.inputs[0].emit("unknown-2");
+    this.inputs[1].emit("unknown-2");
+    this.inputs[2].emit("unknown-2");
+
+    test.equal(spy.callCount, 6);
+    test.done();
+  },
+
 };
