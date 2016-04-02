@@ -1,7 +1,7 @@
 var mocks = require("mock-firmata");
 var MockFirmata = mocks.Firmata;
 var five = require("../lib/johnny-five.js");
-var events = require("events");
+var Emitter = require("events").EventEmitter;
 var sinon = require("sinon");
 var Board = five.Board;
 var Servo = five.Servo;
@@ -22,30 +22,14 @@ function newBoard() {
   return board;
 }
 
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Servo"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
-    this.servoConfig = sinon.spy(MockFirmata.prototype, "servoConfig");
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
+    this.clock = this.sandbox.useFakeTimers();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
+    this.servoConfig = this.sandbox.spy(MockFirmata.prototype, "servoConfig");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     this.servo = new Servo({
       pin: 11,
       board: this.board
@@ -104,7 +88,7 @@ exports["Servo"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -124,16 +108,14 @@ exports["Servo"] = {
 
   emitter: function(test) {
     test.expect(1);
-
-    test.ok(this.servo instanceof events.EventEmitter);
-
+    test.ok(this.servo instanceof Emitter);
     test.done();
   },
 
   startAt: function(test) {
     test.expect(1);
 
-    this.spy = sinon.spy(Servo.prototype, "to");
+    this.to = this.sandbox.spy(Servo.prototype, "to");
 
     this.servo = new Servo({
       pin: 11,
@@ -141,9 +123,7 @@ exports["Servo"] = {
       startAt: 90
     });
 
-    test.ok(this.spy.called);
-
-    this.spy.restore();
+    test.ok(this.to.called);
     test.done();
   },
 
@@ -386,15 +366,16 @@ exports["Servo"] = {
 
 exports["Servo mode and config"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.servoConfig = sinon.spy(MockFirmata.prototype, "servoConfig");
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
+    this.servoConfig = this.sandbox.spy(MockFirmata.prototype, "servoConfig");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -428,9 +409,10 @@ exports["Servo mode and config"] = {
 
 exports["Servo - Continuous"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+    this.clock = this.sandbox.useFakeTimers();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
     this.a = new Servo({
       pin: 11,
@@ -448,7 +430,7 @@ exports["Servo - Continuous"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -517,7 +499,7 @@ exports["Servo - Continuous"] = {
     test.equal(this.continuousServo.value, 42);
 
 
-    this.to = sinon.stub(this.continuousServo, "to");
+    this.to = this.sandbox.stub(this.continuousServo, "to");
 
     this.continuousServo.stop();
 
@@ -556,12 +538,13 @@ exports["Servo - Continuous"] = {
 
 exports["Servo - Allowed Pin Names"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
   firmata: function(test) {
@@ -642,11 +625,12 @@ exports["Servo - Allowed Pin Names"] = {
 
 exports["Servo - PCA9685"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.normalize = sinon.spy(Board.Pins, "normalize");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.normalize = this.sandbox.spy(Board.Pins, "normalize");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.servo = new Servo({
       pin: 0,
       board: this.board,
@@ -659,7 +643,7 @@ exports["Servo - PCA9685"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -765,6 +749,7 @@ exports["Servo - PCA9685"] = {
 
 exports["Servo.Collection"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
     Servo.purge();
@@ -789,17 +774,17 @@ exports["Servo.Collection"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(Servo.prototype, method);
+      this[method] = this.sandbox.spy(Servo.prototype, method);
     }.bind(this));
 
-    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
