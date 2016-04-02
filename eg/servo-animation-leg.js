@@ -24,14 +24,14 @@ var board = new five.Board().on("ready", function() {
     startAt: 180
   });
 
-  // Create a Servo.Array for those leg parts
-  ph.leg = new five.Servo.Array([ph.coxa, ph.femur, ph.tibia]);
+  // Create a Servos instance for those leg parts
+  ph.leg = new five.Servos([ph.coxa, ph.femur, ph.tibia]);
 
   /**
    * Create an Animation(target) object. A newly initialized
    * animation object is essentially an empty queue (array) for
    * animation segments that will run asynchronously.
-   * @param {target} A Servo or Servo.Array to be animated
+   * @param {target} A Servo or Servos instance to be animated
    */
   var legAnimation = new five.Animation(ph.leg);
 

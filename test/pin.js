@@ -349,7 +349,7 @@ exports["Pin"] = {
   }
 };
 
-exports["Pin.Array"] = {
+exports["Pin.Collection"] = {
   setUp: function(done) {
     this.board = newBoard();
 
@@ -390,7 +390,7 @@ exports["Pin.Array"] = {
   initFromPinNumbers: function(test) {
     test.expect(1);
 
-    var pins = new Pin.Array([3, 7, 9]);
+    var pins = new Pin.Collection([3, 7, 9]);
 
     test.equal(pins.length, 3);
     test.done();
@@ -399,7 +399,7 @@ exports["Pin.Array"] = {
   initFromPins: function(test) {
     test.expect(1);
 
-    var pins = new Pin.Array([
+    var pins = new Pin.Collection([
       this.digital, this.analog, this.dtoa
     ]);
 
@@ -410,7 +410,7 @@ exports["Pin.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var pins = new Pin.Array([3, 7, 9]);
+    var pins = new Pin.Collection([3, 7, 9]);
 
     pins.write(1);
 

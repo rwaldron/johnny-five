@@ -3,7 +3,7 @@ var mocks = require("mock-firmata"),
   five = require("../lib/johnny-five.js"),
   sinon = require("sinon"),
   Board = five.Board,
-  ReflectanceArray = five.IR.Reflect.Array;
+  ReflectanceArray = five.IR.Reflect.Collection;
 
 function newBoard() {
   var io = new MockFirmata();

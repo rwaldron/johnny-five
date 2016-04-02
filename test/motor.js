@@ -2030,7 +2030,7 @@ exports["Motor: EVS_NXT"] = {
   },
 };
 
-exports["Motor.Array"] = {
+exports["Motor.Collection"] = {
   setUp: function(done) {
     this.board = newBoard();
 
@@ -2081,7 +2081,7 @@ exports["Motor.Array"] = {
   initFromMotorNumbers: function(test) {
     test.expect(1);
 
-    var motors = new Motor.Array([{
+    var motors = new Motor.Collection([{
       pwm: 3,
       dir: 4
     }, {
@@ -2099,7 +2099,7 @@ exports["Motor.Array"] = {
   initFromMotors: function(test) {
     test.expect(1);
 
-    var motors = new Motor.Array([
+    var motors = new Motor.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -2110,7 +2110,7 @@ exports["Motor.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var motors = new Motor.Array([{
+    var motors = new Motor.Collection([{
       pwm: 3,
       dir: 4
     }, {
@@ -2133,25 +2133,25 @@ exports["Motor.Array"] = {
     test.done();
   },
 
-  arrayOfArrays: function(test) {
+  collectionFromArray: function(test) {
     test.expect(9);
 
-    var motors = new Motor.Array([this.a, this.b]);
-    var arrayOfArrays = new Motor.Array([motors, this.c]);
+    var motors = new Motor.Collection([this.a, this.b]);
+    var collectionFromArray = new Motor.Collection([motors, this.c]);
 
-    arrayOfArrays.start(90);
+    collectionFromArray.start(90);
 
     test.equal(this.start.callCount, 3);
     test.equal(this.start.getCall(0).args[0], 90);
     test.equal(this.start.getCall(1).args[0], 90);
     test.equal(this.start.getCall(2).args[0], 90);
 
-    test.equal(arrayOfArrays.length, 2);
-    test.equal(arrayOfArrays[0][0], this.a);
-    test.equal(arrayOfArrays[0][1], this.b);
-    test.equal(arrayOfArrays[1], this.c);
+    test.equal(collectionFromArray.length, 2);
+    test.equal(collectionFromArray[0][0], this.a);
+    test.equal(collectionFromArray[0][1], this.b);
+    test.equal(collectionFromArray[1], this.c);
 
-    arrayOfArrays.stop();
+    collectionFromArray.stop();
 
     test.equal(this.stop.callCount, 3);
 

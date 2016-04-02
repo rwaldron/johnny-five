@@ -428,7 +428,7 @@ exports["Boards"] = {
 
   exists: function(test) {
     test.expect(1);
-    test.equal(five.Boards, five.Board.Array);
+    test.equal(five.Boards, five.Board.Collection);
     test.done();
   },
 

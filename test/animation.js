@@ -47,7 +47,7 @@ exports["Animation"] = {
       }
     };
 
-    this.servoArray = new five.Servo.Array([this.a, this.b, this.c]);
+    this.servos = new five.Servo.Collection([this.a, this.b, this.c]);
 
     this.segment = {
       single: {
@@ -142,8 +142,8 @@ exports["Animation"] = {
     test.done();
   },
 
-  normalizeServoArray: function(test) {
-    this.animation = new five.Animation(this.servoArray);
+  normalizeServoCollection: function(test) {
+    this.animation = new five.Animation(this.servos);
     test.expect(12);
 
     var tempSegment = this.segment.multi;
@@ -170,7 +170,7 @@ exports["Animation"] = {
   },
 
   rightPadKeyframes: function(test) {
-    this.animation = new five.Animation(this.servoArray);
+    this.animation = new five.Animation(this.servos);
     test.expect(6);
 
     var tempSegment = this.segment.multi;

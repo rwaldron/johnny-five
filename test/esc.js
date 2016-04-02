@@ -505,7 +505,7 @@ exports["ESC - FORWARD_REVERSE"] = {
   },
 };
 
-exports["ESC.Array"] = {
+exports["ESC.Collection"] = {
   setUp: function(done) {
     this.board = newBoard();
 
@@ -548,7 +548,7 @@ exports["ESC.Array"] = {
   initFromESCNumbers: function(test) {
     test.expect(1);
 
-    var escs = new ESC.Array([3, 6, 9]);
+    var escs = new ESC.Collection([3, 6, 9]);
 
     test.equal(escs.length, 3);
     test.done();
@@ -557,7 +557,7 @@ exports["ESC.Array"] = {
   initFromESCs: function(test) {
     test.expect(1);
 
-    var escs = new ESC.Array([
+    var escs = new ESC.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -568,7 +568,7 @@ exports["ESC.Array"] = {
   callForwarding: function(test) {
     test.expect(3);
 
-    var escs = new ESC.Array([3, 6, 9]);
+    var escs = new ESC.Collection([3, 6, 9]);
 
     escs.speed(100);
 

@@ -532,7 +532,7 @@ exports["Led - PCA9685 (I2C)"] = {
   }
 };
 
-exports["Led.Array"] = {
+exports["Led.Collection"] = {
   setUp: function(done) {
     var board = new Board({
       io: new MockFirmata(),
@@ -579,7 +579,7 @@ exports["Led.Array"] = {
   initFromLedNumbers: function(test) {
     test.expect(1);
 
-    var leds = new Led.Array([3, 7, 9]);
+    var leds = new Led.Collection([3, 7, 9]);
 
     test.equal(leds.length, 3);
     test.done();
@@ -588,7 +588,7 @@ exports["Led.Array"] = {
   initFromLeds: function(test) {
     test.expect(1);
 
-    var leds = new Led.Array([
+    var leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 

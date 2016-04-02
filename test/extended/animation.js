@@ -51,7 +51,7 @@ exports["Animation"] = {
       }
     };
 
-    this.servoArray = new five.Servo.Array([this.a, this.b, this.c]);
+    this.servos = new five.Servo.Collection([this.a, this.b, this.c]);
 
     this.segment = {
       long: {
@@ -120,7 +120,7 @@ exports["Animation"] = {
 
   longRunning: function(test) {
 
-    this.animation = new five.Animation(this.servoArray);
+    this.animation = new five.Animation(this.servos);
 
     test.expect(2);
 
