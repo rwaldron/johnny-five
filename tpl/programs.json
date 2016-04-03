@@ -666,6 +666,11 @@
         "description": "Infrared Proximity example"
       },
       {
+        "file": "proximity-filtered.js",
+        "title": "Proximity - Filtered",
+        "description": "Infrared Proximity with filtered output."
+      },
+      {
         "file": "proximity-GP2Y0A710K0F.js",
         "title": "Proximity - GP2Y0A710K0F",
         "description": "Infrared Proximity example with GP2Y0A710K0F sensor."
