@@ -537,3 +537,143 @@ exports["Button -- EVS_NXT"] = {
     callback([1000]);
   },
 };
+
+exports["Button.Collection"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.board = newBoard();
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Button.purge();
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  data: function(test) {
+    test.expect(4);
+
+    this.sensors = new Button.Collection([2, 3, 4]);
+
+    this.callbacks = [
+      this.digitalRead.getCall(0).args[1],
+      this.digitalRead.getCall(1).args[1],
+      this.digitalRead.getCall(2).args[1],
+    ];
+
+    var spy = this.sandbox.spy();
+
+    this.sensors.on("data", spy);
+
+    this.callbacks[0](0);
+    this.callbacks[1](0);
+    this.callbacks[2](0);
+
+    this.clock.tick(25);
+    this.callbacks[0](1);
+    this.callbacks[1](1);
+    this.callbacks[2](1);
+    this.clock.tick(25);
+    this.callbacks[0](0);
+    this.callbacks[1](0);
+    this.callbacks[2](0);
+    this.clock.tick(25);
+    this.callbacks[0](1);
+
+    test.equal(this.sensors.length, 3);
+    test.equal(this.sensors[0].value, 1);
+    test.equal(this.sensors[1].value, 0);
+    test.equal(this.sensors[2].value, 0);
+    test.done();
+
+  },
+
+  change: function(test) {
+    test.expect(4);
+
+    this.sensors = new Button.Collection({
+      pins: [2, 3, 4],
+      board: this.board,
+    });
+
+    this.callbacks = [
+      this.digitalRead.getCall(0).args[1],
+      this.digitalRead.getCall(1).args[1],
+      this.digitalRead.getCall(2).args[1],
+    ];
+
+    var spy = this.sandbox.spy();
+
+    this.sensors.on("change", spy);
+
+    this.callbacks[0](0);
+    this.callbacks[1](0);
+    this.callbacks[2](0);
+    this.callbacks[0](1);
+    this.callbacks[1](1);
+    this.callbacks[2](1);
+    this.callbacks[0](0);
+    this.callbacks[1](0);
+    this.callbacks[2](0);
+    this.callbacks[0](1);
+
+    test.equal(this.sensors.length, 3);
+    test.equal(this.sensors[0].value, 1);
+    test.equal(this.sensors[1].value, 0);
+    test.equal(this.sensors[2].value, 0);
+    test.done();
+
+  },
+
+  dataFromLateAddition: function(test) {
+    test.expect(5);
+
+    this.sensors = new Button.Collection({
+      pins: [2, 3, 4],
+      board: this.board,
+    });
+
+    this.callbacks = [
+      this.digitalRead.getCall(0).args[1],
+      this.digitalRead.getCall(1).args[1],
+      this.digitalRead.getCall(2).args[1],
+    ];
+
+    var spy = this.sandbox.spy();
+
+    this.sensors.on("change", spy);
+
+    this.clock.tick(1);
+
+    this.callbacks[0](1);
+    this.callbacks[1](1);
+    this.callbacks[2](1);
+    this.clock.tick(1);
+
+    this.sensors.add(new Button(5));
+
+    this.callbacks.push(this.digitalRead.lastCall.args[1]);
+
+    this.clock.tick(2);
+
+    this.callbacks[3](0);
+    this.callbacks[0](0);
+    this.callbacks[1](0);
+    this.callbacks[2](0);
+    this.clock.tick(3);
+    this.callbacks[3](1);
+
+    test.equal(this.sensors.length, 4);
+    test.equal(this.sensors[0].value, 0);
+    test.equal(this.sensors[1].value, 0);
+    test.equal(this.sensors[2].value, 0);
+    test.equal(this.sensors[3].value, 1);
+    test.done();
+
+  },
+};
