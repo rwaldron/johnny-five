@@ -275,6 +275,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
 - [Button - Options](https://github.com/rwaldron/johnny-five/blob/master/docs/button-options.md)
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
+- [Buttons - Collection w/ AT42QT1070](https://github.com/rwaldron/johnny-five/blob/master/docs/button-collection-AT42QT1070.md)
 - [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 
