@@ -43,6 +43,10 @@
       {
         "file": "pin.js",
         "title": "Pin"
+      },
+      {
+        "file": "custom-properties.js",
+        "title": "Custom Data Properties"
       }
     ]
   },

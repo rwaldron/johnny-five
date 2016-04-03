@@ -179,6 +179,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
+- [Custom Data Properties](https://github.com/rwaldron/johnny-five/blob/master/docs/custom-properties.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 

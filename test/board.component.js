@@ -601,4 +601,65 @@ exports["Board.Component"] = {
     test.done();
   },
 
+  componentCustomReservedSpace: function(test) {
+    test.expect(8);
+
+    var a = {};
+
+    Board.Component.call(a, {
+      controller: "FOO",
+      address: 0x01,
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(a.custom.x, 1);
+    test.equal(a.custom.y, 2);
+
+    var b = {};
+
+    Board.Component.call(b, {
+      pin: 2,
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(b.custom.x, 1);
+    test.equal(b.custom.y, 2);
+
+
+    var c = {};
+
+    Board.Component.call(c, {
+      pins: [3, 4, 5],
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(c.custom.x, 1);
+    test.equal(c.custom.y, 2);
+
+
+    var d = {};
+
+    Board.Component.call(d, {
+      pins: { mosi: 11, miso: 12, ss: 10 },
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(d.custom.x, 1);
+    test.equal(d.custom.y, 2);
+
+    test.done();
+  },
+
 };

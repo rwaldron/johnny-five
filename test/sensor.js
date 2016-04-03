@@ -41,6 +41,7 @@ function restore(target) {
 function getShape(sensor) {
   return {
     id: sensor.id,
+    custom: sensor.custom,
     mode: sensor.mode,
     freq: sensor.freq,
     range: sensor.range,
@@ -73,6 +74,7 @@ exports["Sensor - Analog"] = {
     // excluding the 'external' references for the board and io properties.
     this.defShape = {
       id: this.sensor.id,
+      custom: null,
       mode: this.sensor.io.MODES.ANALOG,
       freq: 25,
       range: [0, 1023],
@@ -105,6 +107,9 @@ exports["Sensor - Analog"] = {
     this.members = {
       id: {
         type: "string"
+      },
+      custom: {
+        type: "object"
       },
       pin: {
         type: "number"
