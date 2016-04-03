@@ -1,6 +1,4 @@
-var IS_TEST_MODE = !!process.env.IS_TEST_MODE;
 var Emitter = require("events").EventEmitter;
-var Board = require("../lib/board");
 var Collection = require("../lib/mixins/collection");
 var sinon = require("sinon");
 
@@ -52,8 +50,6 @@ function Input(opts) {
       pin: opts
     };
   }
-
-  var cycle = 0;
 
   Object.assign(this, opts);
 
