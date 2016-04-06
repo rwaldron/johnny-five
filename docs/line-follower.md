@@ -20,13 +20,12 @@ node eg/line-follower.js
 ```javascript
 // This is an example of a line following robot.  It uses a
 // Pololu QTR-8A reflectance array to read a line on my
-// counter drawn with electrical tape.  You can see the 
+// counter drawn with electrical tape.  You can see the
 // bot in action here: https://www.youtube.com/watch?v=i6n4CwqQer0
 
-var fs = require("fs"),
-  five = require("johnny-five"),
-  ReflectArray = require("./reflect.array"),
-  board = new five.Board();
+var fs = require("fs");
+var five = require("johnny-five");
+var board = new five.Board();
 
 // Setup Standard input.  We use this to let the bot know that we"ve finished
 // calibrating
@@ -129,14 +128,8 @@ board.on("ready", function() {
 
   // These are the continuous servos that control the wheels
   var wheels = {
-    left: new five.Servo({
-      pin: 10,
-      type: "continuous"
-    }),
-    right: new five.Servo({
-      pin: 9,
-      type: "continuous"
-    })
+    left: new five.Servo.Continuous(10),
+    right: new five.Servo.Continuous(9)
   };
 
   // Make the eyes and wheels available in the REPL UI
