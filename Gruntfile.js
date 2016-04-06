@@ -42,17 +42,17 @@ module.exports = function(grunt) {
   }, []);
 
 
-  var changedFiles = [];
+  // var changedFiles = [];
 
-  if (Number(process.versions.node.split(".")[0]) >= 4) {
-    changedFiles = cp.execSync("git diff --name-only").toString().split("\n").reduce(function(accum, line) {
-      var value = line.trim();
-      if (value) {
-        accum.push(value);
-      }
-      return accum;
-    }, []);
-  }
+  // if (Number(process.versions.node.split(".")[0]) >= 4) {
+  //   changedFiles = cp.execSync("git diff --name-only").toString().split("\n").reduce(function(accum, line) {
+  //     var value = line.trim();
+  //     if (value) {
+  //       accum.push(value);
+  //     }
+  //     return accum;
+  //   }, []);
+  // }
 
   var primaryFiles = [
     "Gruntfile.js",
@@ -61,9 +61,9 @@ module.exports = function(grunt) {
   ].concat(programsList);
 
 
-  if (changedFiles.length) {
-    primaryFiles = changedFiles;
-  }
+  // if (changedFiles.length) {
+  //   primaryFiles = changedFiles;
+  // }
 
 
   // Project configuration.
