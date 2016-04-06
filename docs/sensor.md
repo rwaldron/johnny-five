@@ -28,8 +28,8 @@ board.on("ready", function() {
   var sensor = new five.Sensor("A0");
 
   // When the sensor value changes, log the value
-  sensor.on("change", function() {
-    console.log(this.value);
+  sensor.on("change", function(value) {
+    console.log(value);
   });
 });
 
