@@ -245,7 +245,7 @@ exports["Proximity: GP2D120XJ00F"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 10.43);
+      test.equal(this.inches, 10.433);
       spy();
     });
 
@@ -325,7 +325,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 8.54);
+      test.equal(this.inches, 8.542);
       spy();
     });
 
@@ -486,7 +486,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 33.85);
+      test.equal(this.inches, 33.846);
       spy();
     });
 
@@ -567,7 +567,7 @@ exports["Proximity: MB1000"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 5.45);
+      test.equal(this.inches, 5.448);
       spy();
     });
 
@@ -648,7 +648,7 @@ exports["Proximity: MB1010"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 5.45);
+      test.equal(this.inches, 5.448);
       spy();
     });
 
@@ -1081,7 +1081,7 @@ exports["Proximity: HCSR04"] = {
     this.proximity.within([0, 120], "inches", function() {
       // The fake microseconds value is 1000, which
       // calculates to 6.76 inches.
-      test.equal(this.inches, 6.7);
+      test.equal(this.inches, 6.701);
       spy();
     });
 
@@ -1161,7 +1161,7 @@ exports["Proximity: HCSR04I2C"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 6.7);
+      test.equal(this.inches, 6.701);
       spy();
     });
 
