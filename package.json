@@ -121,7 +121,7 @@
   },
   "dependencies": {
     "chalk": "latest",
-    "color-convert": "~0.5.2",
+    "color-convert": "~1.2.2",
     "ease-component": "latest",
     "es6-shim": "latest",
     "lodash.clonedeep": "^4.3.0",
