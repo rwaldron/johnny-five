@@ -585,7 +585,7 @@
           {"file": "keypad-i2c-backpack-2.jpg", "title": "Nano soldering assembly 2"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmware", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino"}
         ]
       }
     ]
