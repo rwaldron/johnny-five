@@ -40,28 +40,13 @@ function restore(target) {
   }
 }
 
-exports["Chip -- MT3339"] = {
-
+exports["general"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
     this.serialConfig = sinon.spy(MockFirmata.prototype, "serialConfig");
-    this.serialWrite = sinon.spy(MockFirmata.prototype, "serialWrite");
-    this.serialRead = sinon.spy(MockFirmata.prototype, "serialRead");
-
-    this.gps = new GPS({
-      chip: "MT3339",
-      pins: {
-        tx: 10,
-        rx: 11
-      },
-      board: this.board
-    });
 
     this.proto = [{
       name: "configure"
-    }, {
-      name: "restart"
     }, {
       name: "initialize"
     }, {
@@ -74,8 +59,6 @@ exports["Chip -- MT3339"] = {
 
     this.instance = [{
       name: "baud"
-    }, {
-      name: "frequency"
     }, {
       name: "fixed"
     }, {
@@ -102,15 +85,76 @@ exports["Chip -- MT3339"] = {
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
+    var gps = new GPS({
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      board: this.board
+    });
+
     this.proto.forEach(function(method) {
-      test.equal(typeof this.gps[method.name], "function");
-    }, this);
+      test.equal(typeof gps[method.name], "function");
+    });
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.gps[property.name], "undefined");
-    }, this);
+      test.notEqual(typeof gps[property.name], "undefined");
+    });
 
     test.done();
+  },
+
+  useCustomBaud: function(test) {
+    test.expect(1);
+
+    var gps = new GPS({
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      baud: 4800,
+      board: this.board
+    });
+
+    test.deepEqual(this.serialConfig.args[0][0], {
+      portId: 8,
+      baud: 4800,
+      rxPin: 11,
+      txPin: 10
+    });
+
+    gps = null;
+    this.serialConfig.reset();
+    test.done();
+  }
+
+};
+
+exports["Chip -- MT3339"] = {
+
+  setUp: function(done) {
+    this.board = newBoard();
+    this.clock = sinon.useFakeTimers();
+    this.serialConfig = sinon.spy(MockFirmata.prototype, "serialConfig");
+    this.serialWrite = sinon.spy(MockFirmata.prototype, "serialWrite");
+    this.serialRead = sinon.spy(MockFirmata.prototype, "serialRead");
+
+    this.gps = new GPS({
+      chip: "MT3339",
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    restore(this);
+    done();
   },
 
   useDefaultPort: function(test) {
