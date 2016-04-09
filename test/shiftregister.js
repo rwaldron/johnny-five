@@ -46,9 +46,9 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     }];
 
     this.pins = [{
-      name: "data"
+      name: "mosi"
     }, {
-      name: "clock"
+      name: "clk"
     }, {
       name: "latch"
     }, {
@@ -90,8 +90,8 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       board: this.board
     });
 
-    test.equal(this.shiftRegister.pins.data, 2);
-    test.equal(this.shiftRegister.pins.clock, 3);
+    test.equal(this.shiftRegister.pins.mosi, 2);
+    test.equal(this.shiftRegister.pins.clk, 3);
     test.equal(this.shiftRegister.pins.latch, 4);
 
     this.shiftRegister = new ShiftRegister({
@@ -99,8 +99,8 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       board: this.board
     });
 
-    test.equal(this.shiftRegister.pins.data, 6);
-    test.equal(this.shiftRegister.pins.clock, 7);
+    test.equal(this.shiftRegister.pins.mosi, 6);
+    test.equal(this.shiftRegister.pins.clk, 7);
     test.equal(this.shiftRegister.pins.latch, 8);
     test.equal(this.shiftRegister.pins.reset, 9);
 
@@ -112,14 +112,14 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
     this.shiftRegister = new ShiftRegister([2, 3, 4]);
 
-    test.equal(this.shiftRegister.pins.data, 2);
-    test.equal(this.shiftRegister.pins.clock, 3);
+    test.equal(this.shiftRegister.pins.mosi, 2);
+    test.equal(this.shiftRegister.pins.clk, 3);
     test.equal(this.shiftRegister.pins.latch, 4);
 
     this.shiftRegister = new ShiftRegister([6, 7, 8, 9]);
 
-    test.equal(this.shiftRegister.pins.data, 6);
-    test.equal(this.shiftRegister.pins.clock, 7);
+    test.equal(this.shiftRegister.pins.mosi, 6);
+    test.equal(this.shiftRegister.pins.clk, 7);
     test.equal(this.shiftRegister.pins.latch, 8);
     test.equal(this.shiftRegister.pins.reset, 9);
 
@@ -349,8 +349,8 @@ exports["ShiftRegister - Common Anode"] = {
       board: this.board
     });
 
-    test.equal(this.shiftRegister.pins.data, 2);
-    test.equal(this.shiftRegister.pins.clock, 3);
+    test.equal(this.shiftRegister.pins.mosi, 2);
+    test.equal(this.shiftRegister.pins.clk, 3);
     test.equal(this.shiftRegister.pins.latch, 4);
 
     this.shiftRegister = new ShiftRegister({
@@ -359,8 +359,8 @@ exports["ShiftRegister - Common Anode"] = {
       board: this.board
     });
 
-    test.equal(this.shiftRegister.pins.data, 6);
-    test.equal(this.shiftRegister.pins.clock, 7);
+    test.equal(this.shiftRegister.pins.mosi, 6);
+    test.equal(this.shiftRegister.pins.clk, 7);
     test.equal(this.shiftRegister.pins.latch, 8);
     test.equal(this.shiftRegister.pins.reset, 9);
 
