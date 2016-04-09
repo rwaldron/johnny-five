@@ -42,6 +42,27 @@ exports["Fn"] = {
     test.done();
   },
 
+  inRange: function(test) {
+    test.expect(6);
+
+    var a = Fn.inRange(5, 4, 6);
+    var b = Fn.inRange(5, 4.5, 5.5);
+    var c = Fn.inRange(5, -1, 5);
+    var d = Fn.inRange(0, -9, -1);
+    var e = Fn.inRange(0, -9, -3);
+    var f = Fn.inRange(0, -10, -2);
+
+    test.equal(a, true);
+    test.equal(b, true);
+    test.equal(c, true);
+    test.equal(d, false);
+    test.equal(e, false);
+    test.equal(f, false);
+
+
+    test.done();
+  },
+
   range: function(test) {
     test.expect(6);
 
