@@ -1,9 +1,10 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Keypad = five.Keypad;
+var mocks = require("mock-firmata");
+var MockFirmata = mocks.Firmata;
+var five = require("../lib/johnny-five.js");
+var sinon = require("sinon");
+var Board = five.Board;
+var Fn = five.Fn;
+var Keypad = five.Keypad;
 
 
 var mpr121 = require("../lib/definitions/mpr121");
@@ -27,6 +28,9 @@ exports["Keypad: Analog"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
@@ -249,15 +253,19 @@ exports["Keypad: Analog"] = {
       test.equal(this, keypad);
       test.done();
     });
-    callback(403);
 
-  }
+    callback(403);
+  },
+
 };
 
 exports["Keypad: VKey"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
@@ -572,6 +580,9 @@ exports["Keypad: MPR121"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -1028,6 +1039,9 @@ exports["Keypad: MPR121_KEYPAD"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -1318,6 +1332,9 @@ exports["Keypad: QTOUCH"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
@@ -1520,6 +1537,9 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
