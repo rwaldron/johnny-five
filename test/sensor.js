@@ -74,7 +74,7 @@ exports["Sensor - Analog"] = {
     // excluding the 'external' references for the board and io properties.
     this.defShape = {
       id: this.sensor.id,
-      custom: null,
+      custom: {},
       mode: this.sensor.io.MODES.ANALOG,
       freq: 25,
       range: [0, 1023],
