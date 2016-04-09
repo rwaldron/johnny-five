@@ -76,3 +76,53 @@ exports["static"] = {
     test.done();
   }
 };
+
+exports["aliasing"] = {
+  mosi: function(test) {
+    var result = new Options({
+      pins: {
+        data: 1
+      }
+    })
+
+    test.equal(result.pins.mosi, 1);
+
+    test.done();
+  },
+
+  miso: function(test) {
+    var result = new Options({
+      pins: {
+        dout: 1
+      }
+    })
+
+    test.equal(result.pins.miso, 1);
+
+    test.done();
+  },
+
+  clk: function(test) {
+    var result = new Options({
+      pins: {
+        clock: 1
+      }
+    })
+
+    test.equal(result.pins.clk, 1);
+
+    test.done();
+  },
+
+  ss: function(test) {
+    var result = new Options({
+      pins: {
+        cs: 1
+      }
+    })
+
+    test.equal(result.pins.ss, 1);
+
+    test.done();
+  }
+};
