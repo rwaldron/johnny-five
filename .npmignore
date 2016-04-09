@@ -2,6 +2,7 @@ node_modules/
 assets/
 docs/
 eg/
+test/
 tpl/
 util/
 wip/
