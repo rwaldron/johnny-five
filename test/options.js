@@ -83,7 +83,7 @@ exports["aliasing"] = {
       pins: {
         data: 1
       }
-    })
+    });
 
     test.equal(result.pins.mosi, 1);
 
@@ -95,7 +95,7 @@ exports["aliasing"] = {
       pins: {
         dout: 1
       }
-    })
+    });
 
     test.equal(result.pins.miso, 1);
 
@@ -107,7 +107,7 @@ exports["aliasing"] = {
       pins: {
         clock: 1
       }
-    })
+    });
 
     test.equal(result.pins.clk, 1);
 
@@ -119,7 +119,7 @@ exports["aliasing"] = {
       pins: {
         cs: 1
       }
-    })
+    });
 
     test.equal(result.pins.ss, 1);
 
