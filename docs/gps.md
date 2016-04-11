@@ -52,7 +52,7 @@ board.on("ready", function() {
     console.log("position");
     console.log("  latitude   : ", this.latitude);
     console.log("  longitude  : ", this.longitude);
-    console.log("  altitude  : ", this.altitude);
+    console.log("  altitude   : ", this.altitude);
     console.log("--------------------------------------");
   });
   // If speed, course change log it
