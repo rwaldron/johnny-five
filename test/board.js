@@ -259,7 +259,31 @@ exports["Board"] = {
 
     io.emit("connect");
     io.emit("ready");
-  }
+  },
+
+  millisFromReady: function(test) {
+    test.expect(1);
+
+    Board.purge();
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      var a = board.millis();
+      var b = board.millis();
+      test.notEqual(a, b);
+      test.done();
+    });
+
+    io.emit("connect");
+    io.emit("ready");
+  },
+
 };
 
 exports["Virtual"] = {
@@ -274,7 +298,7 @@ exports["Virtual"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -315,14 +339,15 @@ exports["Virtual"] = {
 
 exports["samplingInterval"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.setSamplingInterval = sinon.spy(MockFirmata.prototype, "setSamplingInterval");
+    this.setSamplingInterval = this.sandbox.spy(MockFirmata.prototype, "setSamplingInterval");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -374,12 +399,17 @@ exports["static"] = {
 exports["Boards"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.replInit = this.sandbox.stub(Repl.prototype, "initialize", function(callback) {
+      callback();
+    });
+
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -471,10 +501,6 @@ exports["Boards"] = {
   readyInitReplArray: function(test) {
     test.expect(1);
 
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
-
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
 
@@ -503,9 +529,6 @@ exports["Boards"] = {
   readyInitReplObject: function(test) {
     test.expect(1);
 
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
 
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
@@ -539,10 +562,6 @@ exports["Boards"] = {
   readyNoReplArray1: function(test) {
     test.expect(1);
 
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
-
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
 
@@ -573,10 +592,6 @@ exports["Boards"] = {
   readyNoReplArray2: function(test) {
     test.expect(1);
 
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
-
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
 
@@ -606,10 +621,6 @@ exports["Boards"] = {
 
   readyNoReplObject: function(test) {
     test.expect(1);
-
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
 
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
@@ -643,10 +654,6 @@ exports["Boards"] = {
   readyNoReplNoDebugObject: function(test) {
     test.expect(2);
 
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
-
     var ioA = new MockFirmata();
     var ioB = new MockFirmata();
 
@@ -664,7 +671,7 @@ exports["Boards"] = {
       }]
     });
 
-    var clog = sinon.spy(console, "log");
+    var clog = this.sandbox.spy(console, "log");
 
     boards.on("ready", function() {
       // Repl.prototype.initialize IS NOT CALLED
@@ -701,7 +708,7 @@ exports["Boards"] = {
       }]
     });
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     boards.on("error", spy);
 
@@ -758,6 +765,7 @@ exports["Boards"] = {
 exports["instance"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
