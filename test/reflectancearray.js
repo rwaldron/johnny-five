@@ -1,40 +1,4 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  ReflectanceArray = five.IR.Reflect.Collection;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
+var ReflectanceArray = five.IR.Reflect.Collection;
 
 function getEyes(options) {
   var autoCalibrate = options.autoCalibrate || false;
@@ -49,10 +13,11 @@ function getEyes(options) {
 
 exports["ReflectanceArray"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
 
     this.sendAnalogValue = function(index, value) {
       this.analogRead.args[index][1](value);
@@ -99,7 +64,7 @@ exports["ReflectanceArray"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -141,7 +106,7 @@ exports["ReflectanceArray"] = {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = sinon.spy();
+    var dataSpy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -161,7 +126,7 @@ exports["ReflectanceArray"] = {
     this.eyes = getEyes({
       board: this.board
     });
-    var calibratedSpy = sinon.spy();
+    var calibratedSpy = this.sandbox.spy();
 
     test.expect(7);
 
@@ -295,7 +260,7 @@ exports["ReflectanceArray"] = {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = sinon.spy();
+    var dataSpy = this.sandbox.spy();
 
     var testValues = [{
       min: 100,
@@ -342,7 +307,7 @@ exports["ReflectanceArray"] = {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = sinon.spy();
+    var dataSpy = this.sandbox.spy();
 
     test.expect(2);
     this.eyes.loadCalibration({
@@ -367,7 +332,7 @@ exports["ReflectanceArray"] = {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = sinon.spy();
+    var dataSpy = this.sandbox.spy();
 
     test.expect(2);
     this.eyes.loadCalibration({

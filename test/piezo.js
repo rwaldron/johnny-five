@@ -1,48 +1,11 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  sinon = require("sinon"),
-  five = require("../lib/johnny-five.js"),
-  Board = five.Board,
-  Piezo = five.Piezo;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Piezo"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
       pin: 3,
@@ -71,7 +34,7 @@ exports["Piezo"] = {
   tearDown: function(done) {
     Board.purge();
     this.piezo.defaultOctave(4);
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -232,7 +195,7 @@ exports["Piezo"] = {
     test.expect(4);
 
     // note delegates to tone;
-    var toneSpy = sinon.spy(this.piezo, "tone");
+    var toneSpy = this.sandbox.spy(this.piezo, "tone");
 
     // accepts octave.
     test.equal(this.piezo.note("c4", 100), this.piezo);
@@ -262,7 +225,7 @@ exports["Piezo"] = {
     test.expect(1);
 
     this.piezo.tone(1915, 100);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
+    var timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
     this.piezo.tone(1915, 100);
 
     test.ok(timerSpy.called);
@@ -302,7 +265,7 @@ exports["Piezo"] = {
 
   frequency: function(test) {
     test.expect(2);
-    var toneSpy = sinon.spy(this.piezo, "tone");
+    var toneSpy = this.sandbox.spy(this.piezo, "tone");
 
     var returned = this.piezo.frequency(440, 100);
     test.ok(toneSpy.calledWith(1136, 100));
@@ -333,7 +296,7 @@ exports["Piezo"] = {
     test.expect(2);
 
     this.piezo.tone(500, 1000);
-    var timerSpy = sinon.spy(this.piezo.timer, "clearInterval");
+    var timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
 
     this.piezo.noTone();
     test.ok(timerSpy.called);
@@ -370,7 +333,7 @@ exports["Piezo"] = {
   playTune: function(test) {
     var tempo = 10000; // Make it really fast
     test.expect(6);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var freqSpy = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
       song: [
         ["c", 1],
@@ -402,7 +365,7 @@ exports["Piezo"] = {
   playTuneWithStringSongAndBeat: function(test) {
     var tempo = 10000; // Make it really fast
     test.expect(6);
-    var freqSpy = sinon.spy(this.piezo, "frequency");
+    var freqSpy = this.sandbox.spy(this.piezo, "frequency");
     var beats = 0.125;
     this.piezo.play({
       song: "c d d - 672 e4 -",
@@ -450,6 +413,7 @@ exports["Piezo"] = {
 exports["PiezoWithCustomControllers"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
@@ -543,7 +507,7 @@ exports["PiezoWithCustomControllers"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   }
 

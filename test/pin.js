@@ -1,45 +1,6 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  sinon = require("sinon"),
-  events = require("events"),
-  five = require("../lib/johnny-five.js"),
-  Board = five.Board,
-  Pin = five.Pin;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Pin"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     this.spies = [
       "analogWrite", "digitalWrite",
       "analogRead", "digitalRead",
@@ -47,12 +8,12 @@ exports["Pin"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(MockFirmata.prototype, method);
+      this[method] = this.sandbox.spy(MockFirmata.prototype, method);
     }.bind(this));
 
     this.board = newBoard();
 
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
     this.digital = new Pin({
       pin: 11,
@@ -101,7 +62,7 @@ exports["Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -122,7 +83,7 @@ exports["Pin"] = {
   emitter: function(test) {
     test.expect(1);
 
-    test.ok(this.digital instanceof events.EventEmitter);
+    test.ok(this.digital instanceof Emitter);
 
     test.done();
   },
@@ -223,7 +184,7 @@ exports["Pin"] = {
     });
 
     var readHandler = this.digitalRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
 
     pin.read(spy);
@@ -257,7 +218,7 @@ exports["Pin"] = {
       board: newBoard()
     });
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.equal(pin.mode, 1);
 
@@ -283,7 +244,7 @@ exports["Pin"] = {
     });
 
     var readHandler = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     pin.read(spy);
 
@@ -319,7 +280,7 @@ exports["Pin"] = {
       board: newBoard()
     });
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.equal(pin.mode, 2);
 
@@ -351,6 +312,7 @@ exports["Pin"] = {
 
 exports["Pin.Collection"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
     Pin.purge();
@@ -375,7 +337,7 @@ exports["Pin.Collection"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(Pin.prototype, method);
+      this[method] = this.sandbox.spy(Pin.prototype, method);
     }.bind(this));
 
     done();
@@ -383,7 +345,7 @@ exports["Pin.Collection"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -480,7 +442,7 @@ exports["Pin.isAnalog"] = {
 
 exports["PinShape"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     // This will put a board in the cache
     newBoard();
     // Pins to test
@@ -496,6 +458,7 @@ exports["PinShape"] = {
 
   tearDown: function(done) {
     Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -556,6 +519,7 @@ exports["PinShape"] = {
 
 exports["PinMode"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     newBoard();
 
     // Pins to test
@@ -605,6 +569,7 @@ exports["PinMode"] = {
 
   tearDown: function(done) {
     Board.purge();
+    this.sandbox.restore();
     done();
   },
 

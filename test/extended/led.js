@@ -1,17 +1,3 @@
-var five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  MockFirmata = require("mock-firmata").Firmata,
-  Board = five.Board,
-  Led = five.Led;
-
-function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-}
-
 exports["Led - PWM"] = {
   setUp: function(done) {
     this.board = newBoard();

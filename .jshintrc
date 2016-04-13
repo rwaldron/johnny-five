@@ -21,6 +21,7 @@
     "Radar": true,
     "WeakMap": true,
     "window": true,
-    "copy": true
+    "copy": true,
+    "mocks": true
   }
 }

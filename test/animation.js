@@ -1,31 +1,23 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five"),
-  sinon = require("sinon"),
-  board = new five.Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-
 exports["Animation"] = {
   setUp: function(done) {
-    this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
-    this.a = new five.Servo({
+    this.a = new Servo({
       pin: 3,
-      board: board
+      board: this.board
     });
 
-    this.b = new five.Servo({
+    this.b = new Servo({
       pin: 5,
-      board: board,
+      board: this.board,
       startAt: 20
     });
 
-    this.c = new five.Servo({
+    this.c = new Servo({
       pin: 6,
-      board: board
+      board: this.board
     });
 
     this.mockChain = {
@@ -47,7 +39,7 @@ exports["Animation"] = {
       }
     };
 
-    this.servos = new five.Servo.Collection([this.a, this.b, this.c]);
+    this.servos = new Servo.Collection([this.a, this.b, this.c]);
 
     this.segment = {
       single: {
@@ -104,14 +96,15 @@ exports["Animation"] = {
   },
 
   tearDown: function(done) {
-    this.servoWrite.restore();
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
 
     this.proto.forEach(function(method) {
       test.equal(typeof this.animation[method.name], "function");
@@ -126,7 +119,7 @@ exports["Animation"] = {
 
   normalizeServo: function(test) {
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(4);
 
     var tempSegment = this.segment.single;
@@ -143,7 +136,7 @@ exports["Animation"] = {
   },
 
   normalizeServoCollection: function(test) {
-    this.animation = new five.Animation(this.servos);
+    this.animation = new Animation(this.servos);
     test.expect(12);
 
     var tempSegment = this.segment.multi;
@@ -170,7 +163,7 @@ exports["Animation"] = {
   },
 
   rightPadKeyframes: function(test) {
-    this.animation = new five.Animation(this.servos);
+    this.animation = new Animation(this.servos);
     test.expect(6);
 
     var tempSegment = this.segment.multi;
@@ -191,7 +184,7 @@ exports["Animation"] = {
   },
 
   progress: function(test) {
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(2);
 
     var tempSegment = this.segment.single;
@@ -207,7 +200,7 @@ exports["Animation"] = {
   },
 
   reverse: function(test) {
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(2);
 
     var tempSegment = this.segment.single,
@@ -229,7 +222,7 @@ exports["Animation"] = {
 
   timelineEasing: function(test) {
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(1);
 
     var tempSegment = this.segment.single;
@@ -247,7 +240,7 @@ exports["Animation"] = {
 
   keyframeEasing: function(test) {
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(1);
 
     var tempSegment = this.segment.single;
@@ -269,7 +262,7 @@ exports["Animation"] = {
 
   additiveEasing: function(test) {
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
     test.expect(1);
 
     var tempSegment = this.segment.single;
@@ -293,7 +286,7 @@ exports["Animation"] = {
 
   tweenTuple: function(test) {
 
-    this.animation = new five.Animation(this.mockChain);
+    this.animation = new Animation(this.mockChain);
 
     test.expect(3);
 

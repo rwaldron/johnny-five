@@ -1,49 +1,11 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
-var five = require("../lib/johnny-five");
 var EVS = require("../lib/evshield");
-var sinon = require("sinon");
-var Board = five.Board;
-var Expander = five.Expander;
-var Motor = five.Motor;
-var Sensor = five.Sensor;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
 
 exports["Motor: Non-Directional"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.spy = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.spy = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     this.motor = new Motor({
       board: this.board,
@@ -77,7 +39,7 @@ exports["Motor: Non-Directional"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -181,9 +143,10 @@ exports["Motor: Non-Directional"] = {
 
 exports["Motor: Directional"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [11, 12]
@@ -216,7 +179,7 @@ exports["Motor: Directional"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -366,9 +329,10 @@ exports["Motor: Directional"] = {
 
 exports["Motor: Directional with no speed passed"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [11, 12]
@@ -401,7 +365,7 @@ exports["Motor: Directional with no speed passed"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -477,9 +441,10 @@ exports["Motor: Directional with no speed passed"] = {
 
 exports["Motor: Directional with Brake"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: {
@@ -528,7 +493,7 @@ exports["Motor: Directional with Brake"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -689,9 +654,10 @@ exports["Motor: Directional with Brake"] = {
 
 exports["Motor: Directional with Current Sensing Pin"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: {
@@ -745,7 +711,7 @@ exports["Motor: Directional with Current Sensing Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -785,9 +751,10 @@ exports["Motor: Directional with Current Sensing Pin"] = {
 
 exports["Motor: Directional - Three Pin"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [11, 12, 13]
@@ -828,7 +795,7 @@ exports["Motor: Directional - Three Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -956,9 +923,10 @@ exports["Motor: Directional - Three Pin"] = {
 
 exports["Motor: Inverse Speed When Forward"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [11, 12],
@@ -1002,7 +970,7 @@ exports["Motor: Inverse Speed When Forward"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1145,9 +1113,10 @@ exports["Motor: Inverse Speed When Forward"] = {
 
 exports["Motor: Inverse Speed With Brake"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.motor = new Motor({
       board: this.board,
       pins: {
@@ -1195,7 +1164,7 @@ exports["Motor: Inverse Speed With Brake"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1262,10 +1231,11 @@ exports["Motor: Inverse Speed With Brake"] = {
 
 exports["Motor: I2C - PCA9685"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.normalize = sinon.spy(Board.Pins, "normalize");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.normalize = this.sandbox.spy(Board.Pins, "normalize");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.motor = new Motor({
       board: this.board,
       pins: [8, 9, 10],
@@ -1308,7 +1278,7 @@ exports["Motor: I2C - PCA9685"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -1559,10 +1529,11 @@ exports["Motor: I2C - PCA9685"] = {
 
 exports["Motor: ShiftRegister"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
-    this.analogWrite = sinon.spy(MockFirmata.prototype, "analogWrite");
-    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
     this.motor = new Motor({
       board: this.board,
       pins: {
@@ -1614,7 +1585,7 @@ exports["Motor: ShiftRegister"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1691,12 +1662,13 @@ exports["Motor: ShiftRegister"] = {
 
 exports["Motor: EVS_EV3"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
-    this.ev3write = sinon.spy(EVS.prototype, "write");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.ev3write = this.sandbox.spy(EVS.prototype, "write");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.motor = new Motor({
       controller: "EVS_EV3",
@@ -1739,7 +1711,7 @@ exports["Motor: EVS_EV3"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1862,12 +1834,13 @@ exports["Motor: EVS_EV3"] = {
 
 exports["Motor: EVS_NXT"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
-    this.ev3write = sinon.spy(EVS.prototype, "write");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.ev3write = this.sandbox.spy(EVS.prototype, "write");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.motor = new Motor({
       controller: "EVS_NXT",
@@ -1910,7 +1883,7 @@ exports["Motor: EVS_NXT"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -2032,6 +2005,7 @@ exports["Motor: EVS_NXT"] = {
 
 exports["Motor.Collection"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
     this.a = new Motor({
@@ -2066,7 +2040,7 @@ exports["Motor.Collection"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(Motor.prototype, method);
+      this[method] = this.sandbox.spy(Motor.prototype, method);
     }.bind(this));
 
     done();
@@ -2074,7 +2048,7 @@ exports["Motor.Collection"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -2162,8 +2136,8 @@ exports["Motor.Collection"] = {
 
 exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
   setUp: function(done) {
-    this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");

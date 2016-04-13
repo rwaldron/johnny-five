@@ -1,11 +1,3 @@
-var five = require("../lib/johnny-five.js");
-var sinon = require("sinon");
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
-var Board = five.Board;
-var Expander = five.Expander;
-var Led = five.Led;
-
 var protoProperties = [{
   name: "on"
 }, {
@@ -55,20 +47,6 @@ var rgbProtoProperties = [{
 }];
 
 var rgbInstanceProperties = [];
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 function testLedShape(test) {
   test.expect(protoProperties.length + instanceProperties.length);
@@ -263,7 +241,7 @@ exports["Led - Digital"] = {
   correctReturns: function(test) {
     test.expect(5);
 
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     test.equal(this.led.blink(), this.led);
     test.equal(this.led.on(), this.led);
@@ -375,7 +353,7 @@ exports["Led - PWM (Analog)"] = {
   correctReturns: function(test) {
     test.expect(10);
 
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     test.equal(this.led.blink(), this.led);
     test.equal(this.led.brightness(), this.led);
@@ -1662,7 +1640,7 @@ exports["Led - Default Pin w/ Firmata"] = {
     test.equal(new Led(14).mode, 1);
 
     // 12 is PWM, but the mechanism is stubbed
-    this.sandbox.stub(five.Board.Pins.prototype, "isPwm").returns(true);
+    this.sandbox.stub(Board.Pins.prototype, "isPwm").returns(true);
 
     test.equal(new Led(12).mode, 3);
 
@@ -1674,9 +1652,9 @@ exports["Led - Cycling Operations"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
-    this.ledStop = this.sandbox.spy(five.Led.prototype, "stop");
-    this.rgbStop = this.sandbox.spy(five.Led.RGB.prototype, "stop");
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.ledStop = this.sandbox.spy(Led.prototype, "stop");
+    this.rgbStop = this.sandbox.spy(Led.RGB.prototype, "stop");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     this.led = new Led({
       pin: 11,

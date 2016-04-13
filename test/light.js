@@ -1,43 +1,4 @@
-var sinon = require("sinon");
-var Emitter = require("events").EventEmitter;
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
 var EVS = require("../lib/evshield");
-var five = require("../lib/johnny-five");
-var Board = five.Board;
-var Light = five.Light;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 var proto = [{
   name: "within"
 }];
@@ -50,9 +11,10 @@ var instance = [{
 
 exports["Light"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.light = new Light({
       pin: "A1",
       freq: 100,
@@ -64,7 +26,7 @@ exports["Light"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -91,9 +53,10 @@ exports["Light"] = {
 
 exports["Light: ALSPT19"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.light = new Light({
       controller: "ALSPT19",
       pin: "A1",
@@ -106,7 +69,7 @@ exports["Light: ALSPT19"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -133,16 +96,17 @@ exports["Light: ALSPT19"] = {
 
 exports["Light: EVS_EV3, Ambient (Default)"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evswrite = sinon.spy(EVS.prototype, "write");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evswrite = this.sandbox.spy(EVS.prototype, "write");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([15, 0]);
     });
 
@@ -158,7 +122,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -197,7 +161,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -209,7 +173,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -220,7 +184,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -238,16 +202,17 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 
 exports["Light: EVS_EV3, Reflected"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evswrite = sinon.spy(EVS.prototype, "write");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evswrite = this.sandbox.spy(EVS.prototype, "write");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([15, 0]);
     });
 
@@ -264,7 +229,7 @@ exports["Light: EVS_EV3, Reflected"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -303,7 +268,7 @@ exports["Light: EVS_EV3, Reflected"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -315,7 +280,7 @@ exports["Light: EVS_EV3, Reflected"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -326,7 +291,7 @@ exports["Light: EVS_EV3, Reflected"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -344,16 +309,17 @@ exports["Light: EVS_EV3, Reflected"] = {
 
 exports["Light: EVS_NXT, Ambient (Default)"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evswrite = sinon.spy(EVS.prototype, "write");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evswrite = this.sandbox.spy(EVS.prototype, "write");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([100, 3]);
     });
 
@@ -369,7 +335,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -407,7 +373,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -419,7 +385,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -430,7 +396,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -448,16 +414,17 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 
 exports["Light: EVS_NXT, Reflected"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evswrite = sinon.spy(EVS.prototype, "write");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evswrite = this.sandbox.spy(EVS.prototype, "write");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([100, 3]);
     });
 
@@ -474,7 +441,7 @@ exports["Light: EVS_NXT, Reflected"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -512,7 +479,7 @@ exports["Light: EVS_NXT, Reflected"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -524,7 +491,7 @@ exports["Light: EVS_NXT, Reflected"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -535,7 +502,7 @@ exports["Light: EVS_NXT, Reflected"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);

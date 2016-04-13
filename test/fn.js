@@ -1,8 +1,3 @@
-var five = require("../lib/johnny-five.js");
-
-
-var Fn = five.Fn;
-
 exports["Fn"] = {
   setUp: function(done) {
     done();

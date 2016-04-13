@@ -1,41 +1,3 @@
-var five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  Board = five.Board,
-  Compass = five.Compass;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 var expecteds = {
   data: [25, 79],
   changes: [
@@ -63,11 +25,11 @@ var expecteds = {
 
   exports[controller] = {
     setUp: function(done) {
-
-      this.clock = sinon.useFakeTimers();
+      this.sandbox = sinon.sandbox.create();
+      this.clock = this.sandbox.useFakeTimers();
       this.board = newBoard();
-      this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-      this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+      this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+      this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
       this.compass = new Compass({
         board: this.board,
@@ -87,7 +49,7 @@ var expecteds = {
 
     tearDown: function(done) {
       Board.purge();
-      restore(this);
+      this.sandbox.restore();
       done();
     },
 

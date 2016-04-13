@@ -1,49 +1,8 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  GPS = five.GPS;
-
-function newBoard() {
-  var io = new MockFirmata();
-
-  // Temporary
-  io.SERIAL_PORT_IDs.DEFAULT = 0x08;
-
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
-exports["general"] = {
+exports["GPS"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.serialConfig = sinon.spy(MockFirmata.prototype, "serialConfig");
+    this.serialConfig = this.sandbox.spy(MockFirmata.prototype, "serialConfig");
 
     this.proto = [{
       name: "configure"
@@ -78,7 +37,7 @@ exports["general"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -124,7 +83,6 @@ exports["general"] = {
     });
 
     gps = null;
-    this.serialConfig.reset();
     test.done();
   }
 
@@ -133,11 +91,12 @@ exports["general"] = {
 exports["Chip -- MT3339"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.serialConfig = sinon.spy(MockFirmata.prototype, "serialConfig");
-    this.serialWrite = sinon.spy(MockFirmata.prototype, "serialWrite");
-    this.serialRead = sinon.spy(MockFirmata.prototype, "serialRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.serialConfig = this.sandbox.spy(MockFirmata.prototype, "serialConfig");
+    this.serialWrite = this.sandbox.spy(MockFirmata.prototype, "serialWrite");
+    this.serialRead = this.sandbox.spy(MockFirmata.prototype, "serialRead");
 
     this.gps = new GPS({
       chip: "MT3339",
@@ -153,7 +112,7 @@ exports["Chip -- MT3339"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 

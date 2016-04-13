@@ -1,41 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Joystick = five.Joystick;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 var instance = [{
   name: "x"
 }, {
@@ -46,9 +8,10 @@ var instance = [{
 exports["Joystick -- Analog"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.stick = new Joystick({
       pins: ["A0", "A1"],
       board: this.board
@@ -59,7 +22,7 @@ exports["Joystick -- Analog"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -76,7 +39,7 @@ exports["Joystick -- Analog"] = {
   data: function(test) {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(2);
 
@@ -99,7 +62,7 @@ exports["Joystick -- Analog"] = {
   change: function(test) {
     test.expect(10);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
 
@@ -174,7 +137,7 @@ exports["Joystick -- Analog"] = {
   nochange: function(test) {
     test.expect(5);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
 
@@ -315,9 +278,10 @@ exports["Joystick -- Analog"] = {
 exports["Joystick -- ESPLORA"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.stick = new Joystick({
       controller: "ESPLORA",
       board: this.board
@@ -328,7 +292,7 @@ exports["Joystick -- ESPLORA"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -345,7 +309,7 @@ exports["Joystick -- ESPLORA"] = {
   data: function(test) {
     test.expect(2);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.stick.on("data", spy);
 
@@ -375,7 +339,7 @@ exports["Joystick -- ESPLORA"] = {
   change: function(test) {
     test.expect(10);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.stick.on("change", spy);
 
@@ -473,7 +437,7 @@ exports["Joystick -- ESPLORA"] = {
   nochange: function(test) {
     test.expect(5);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.stick.on("change", spy);
 

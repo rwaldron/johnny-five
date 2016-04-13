@@ -1,7 +1,3 @@
-var Emitter = require("events").EventEmitter;
-var Collection = require("../lib/mixins/collection");
-var sinon = require("sinon");
-
 function Output(opts) {
   if (typeof opts === "number") {
     opts = {

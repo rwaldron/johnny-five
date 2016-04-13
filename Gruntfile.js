@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     },
     nodeunit: {
       tests: [
-        "test/bootstrap/*.js",
+        "test/common/bootstrap.js",
         "test/*.js"
       ]
     },
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
   grunt.registerTask("nodeunit:just", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:just:test-file' or 'grunt nodeunit:just:{test-file-a,test-file-b}'", function(file) {
 
     var config = [
-      "test/bootstrap/*.js",
+      "test/common/bootstrap.js",
     ];
 
     if (file) {

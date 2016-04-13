@@ -1,20 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Animation = five.Animation,
-  Board = five.Board,
-  Servo = five.Servo;
-
-function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-}
-
-
 exports["Animation"] = {
   setUp: function(done) {
     this.board = newBoard();

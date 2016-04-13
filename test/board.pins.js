@@ -1,5 +1,3 @@
-var mocks = require("mock-firmata");
-var five = require("../lib/johnny-five"); // jshint ignore:line
 var Pins = require("../lib/board.pins");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 

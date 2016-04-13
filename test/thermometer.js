@@ -1,24 +1,3 @@
-var mocks = require("mock-firmata");
-var five = require("../lib/johnny-five");
-var sinon = require("sinon");
-var MockFirmata = mocks.Firmata;
-var Board = five.Board;
-var Thermometer = five.Thermometer;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
 // Global suite setUp
 exports.setUp = function(done) {
   // Base Shape for all Thermometer tests

@@ -1,51 +1,8 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  MockSerialPort = mocks.SerialPort,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Boards = five.Boards,
-  Virtual = Board.Virtual,
-  Repl = five.Repl,
-  Fn = five.Fn;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Board"] = {
   setUp: function(done) {
-
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-
-    this.replInit = sinon.stub(Repl.prototype, "initialize", function(callback) {
+    this.replInit = this.sandbox.stub(Repl.prototype, "initialize", function(callback) {
       callback();
     });
 
@@ -54,7 +11,7 @@ exports["Board"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -89,10 +46,10 @@ exports["Board"] = {
       test.expect(1);
 
       this.tm = Board.testMode();
-      this.clock = sinon.useFakeTimers();
-      this.setTimeout = sinon.stub(global, "setTimeout");
+      this.clock = this.sandbox.useFakeTimers();
+      this.setTimeout = this.sandbox.stub(global, "setTimeout");
 
-      this.detect = sinon.stub(Board.Serial, "detect");
+      this.detect = this.sandbox.stub(Board.Serial, "detect");
 
       Board.testMode(false);
       Board.purge();
@@ -222,7 +179,7 @@ exports["Board"] = {
       sigint: true,
     });
 
-    var reallyExit = sinon.stub(process, "reallyExit", function() {
+    var reallyExit = this.sandbox.stub(process, "reallyExit", function() {
       reallyExit.restore();
       test.ok(true);
       test.done();
@@ -242,7 +199,7 @@ exports["Board"] = {
   emitsLogsAsEvents: function(test) {
     test.expect(19);
 
-    var spy = sinon.spy(Board.prototype, "log");
+    var spy = this.sandbox.spy(Board.prototype, "log");
     var io = new MockFirmata();
     var board = new Board({
       io: io,
@@ -307,9 +264,9 @@ exports["Board"] = {
 
 exports["Virtual"] = {
   setUp: function(done) {
-    // board = newBoard();
-    this.Board = sinon.stub(five, "Board", function() {});
-    this.Expander = sinon.stub(five, "Expander", function() {
+    this.sandbox = sinon.sandbox.create();
+    this.Board = this.sandbox.stub(five, "Board", function() {});
+    this.Expander = this.sandbox.stub(five, "Expander", function() {
       this.name = "MCP23017";
     });
     done();
@@ -383,26 +340,26 @@ exports["samplingInterval"] = {
 exports["static"] = {
   "Board.cache": function(test) {
     test.expect(2);
-    test.equal(typeof five.Board.cache, "object", "Board.cache");
-    test.ok(Array.isArray(five.Board.cache), "Board.cache");
+    test.equal(typeof Board.cache, "object", "Board.cache");
+    test.ok(Array.isArray(Board.cache), "Board.cache");
     test.done();
   },
 
   "Board.Options": function(test) {
     test.expect(1);
-    test.ok(five.Board.Options);
+    test.ok(Board.Options);
     test.done();
   },
   "Board.Pins": function(test) {
     test.expect(1);
-    test.ok(five.Board.Pins, "Board.Pins");
+    test.ok(Board.Pins, "Board.Pins");
     test.done();
   },
 
   "Board.Event": function(test) {
     test.expect(2);
     var serial = {},
-      boardEvent = new five.Board.Event({
+      boardEvent = new Board.Event({
         type: "read",
         target: serial
       });
@@ -428,7 +385,7 @@ exports["Boards"] = {
 
   exists: function(test) {
     test.expect(1);
-    test.equal(five.Boards, five.Board.Collection);
+    test.equal(Boards, Board.Collection);
     test.done();
   },
 
@@ -812,7 +769,7 @@ exports["instance"] = {
 
   cache: function(test) {
     test.expect(1);
-    test.ok(five.Board.cache.includes(this.board));
+    test.ok(Board.cache.includes(this.board));
     test.done();
   },
 
@@ -855,32 +812,32 @@ exports["Board.mount"] = {
   },
   "Board.mount()": function(test) {
     test.expect(1);
-    test.equal(typeof five.Board.mount, "function", "Board.mount");
+    test.equal(typeof Board.mount, "function", "Board.mount");
     test.done();
   },
 
   "Board.mount(obj)": function(test) {
     test.expect(2);
-    test.ok(five.Board.mount({
+    test.ok(Board.mount({
       board: this.board
-    }), "five.Board.mount({ board: board })");
-    test.deepEqual(five.Board.mount({
+    }), "Board.mount({ board: board })");
+    test.deepEqual(Board.mount({
       board: this.board
-    }), this.board, "five.Board.mount({ board: board }) deep equals board");
+    }), this.board, "Board.mount({ board: board }) deep equals board");
     test.done();
   },
 
   "Board.mount(index)": function(test) {
     test.expect(2);
-    test.ok(five.Board.mount(0), "five.Board.mount(0)");
-    test.deepEqual(five.Board.mount(0), this.board, "five.Board.mount(0)");
+    test.ok(Board.mount(0), "Board.mount(0)");
+    test.deepEqual(Board.mount(0), this.board, "Board.mount(0)");
     test.done();
   },
 
   "Board.mount(/*none*/)": function(test) {
     test.expect(2);
-    test.ok(five.Board.mount(), "five.Board.mount()");
-    test.deepEqual(five.Board.mount(), this.board, "five.Board.mount() matches board instance");
+    test.ok(Board.mount(), "Board.mount()");
+    test.deepEqual(Board.mount(), this.board, "Board.mount() matches board instance");
     test.done();
   },
 };

@@ -1,47 +1,8 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
-var five = require("../lib/johnny-five.js");
-var events = require("events");
-var sinon = require("sinon");
-var Board = five.Board;
-var ESC = five.ESC;
-var Expander = five.Expander;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["ESC"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
-    this.servoWrite = sinon.spy(MockFirmata.prototype, "servoWrite");
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
     this.board = newBoard();
 
 
@@ -80,7 +41,7 @@ exports["ESC"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -101,7 +62,7 @@ exports["ESC"] = {
   emitter: function(test) {
     test.expect(1);
 
-    test.ok(this.esc instanceof events.EventEmitter);
+    test.ok(this.esc instanceof Emitter);
 
     test.done();
   },
@@ -109,7 +70,7 @@ exports["ESC"] = {
   startAt: function(test) {
     test.expect(2);
 
-    this.spy = sinon.spy(ESC.prototype, "speed");
+    this.spy = this.sandbox.spy(ESC.prototype, "speed");
     this.servoWrite.reset();
 
     this.esc = new ESC({
@@ -262,10 +223,11 @@ exports["ESC"] = {
 
 exports["ESC - PCA9685"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
-    this.normalize = sinon.spy(Board.Pins, "normalize");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.normalize = this.sandbox.spy(Board.Pins, "normalize");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.board = newBoard();
 
     this.esc = new ESC({
@@ -280,7 +242,7 @@ exports["ESC - PCA9685"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     Expander.purge();
     done();
   },
@@ -386,14 +348,15 @@ exports["ESC - PCA9685"] = {
 
 exports["ESC - FORWARD_REVERSE"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -413,7 +376,7 @@ exports["ESC - FORWARD_REVERSE"] = {
   neutralStartAt: function(test) {
     test.expect(2);
 
-    var spy = sinon.spy(ESC.prototype, "speed");
+    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -431,7 +394,7 @@ exports["ESC - FORWARD_REVERSE"] = {
   forward: function(test) {
     test.expect(4);
 
-    var spy = sinon.spy(ESC.prototype, "speed");
+    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -457,7 +420,7 @@ exports["ESC - FORWARD_REVERSE"] = {
   reverse: function(test) {
     test.expect(4);
 
-    var spy = sinon.spy(ESC.prototype, "speed");
+    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -490,7 +453,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       board: this.board,
     });
 
-    var spy = sinon.spy(esc, "write");
+    var spy = this.sandbox.spy(esc, "write");
 
     esc.forward(1);
     spy.reset();
@@ -508,6 +471,7 @@ exports["ESC - FORWARD_REVERSE"] = {
 exports["ESC.Collection"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
 
 
     ESC.purge();
@@ -533,7 +497,7 @@ exports["ESC.Collection"] = {
     ];
 
     this.spies.forEach(function(method) {
-      this[method] = sinon.spy(ESC.prototype, method);
+      this[method] = this.sandbox.spy(ESC.prototype, method);
     }.bind(this));
 
     done();
@@ -541,7 +505,7 @@ exports["ESC.Collection"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 

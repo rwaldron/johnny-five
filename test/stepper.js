@@ -1,40 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Stepper = five.Stepper;
-
-
-function newBoard(pins) {
-
-  if (pins) {
-    pins.forEach(function(pin) {
-      Object.assign(pin, {
-        mode: 1,
-        value: 0,
-        report: 1,
-        analogChannel: 127
-      });
-    });
-  }
-
-  var io = new MockFirmata({
-    pins: pins
-  });
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-
 exports["Stepper Firmware Requirement"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
@@ -61,7 +24,7 @@ exports["Stepper Firmware Requirement"] = {
     test.doesNotThrow(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: [2, 3]
       });
@@ -86,7 +49,7 @@ exports["Stepper Firmware Requirement"] = {
     try {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: [2, 3]
       });
@@ -189,7 +152,7 @@ exports["Stepper - constructor"] = {
     };
     var stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: pins
     });
@@ -200,7 +163,7 @@ exports["Stepper - constructor"] = {
     pins = [3, 4];
     stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: pins
     });
@@ -221,7 +184,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: {}
       });
@@ -234,7 +197,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: {
           dir: 4,
@@ -249,7 +212,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: {
           step: 1,
@@ -264,7 +227,7 @@ exports["Stepper - constructor"] = {
     test.doesNotThrow(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.DRIVER,
+        type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: {
           step: 0,
@@ -283,7 +246,7 @@ exports["Stepper - constructor"] = {
     };
     var stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.TWO_WIRE,
+      type: Stepper.TYPE.TWO_WIRE,
       stepsPerRev: 200,
       pins: pins
     });
@@ -294,7 +257,7 @@ exports["Stepper - constructor"] = {
     pins = [3, 4];
     stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.TWO_WIRE,
+      type: Stepper.TYPE.TWO_WIRE,
       stepsPerRev: 200,
       pins: pins
     });
@@ -315,7 +278,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.TWO_WIRE,
+        type: Stepper.TYPE.TWO_WIRE,
         stepsPerRev: 200,
         pins: {}
       });
@@ -328,7 +291,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.TWO_WIRE,
+        type: Stepper.TYPE.TWO_WIRE,
         stepsPerRev: 200,
         pins: {
           motor2: 4,
@@ -343,7 +306,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.TWO_WIRE,
+        type: Stepper.TYPE.TWO_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 1,
@@ -358,7 +321,7 @@ exports["Stepper - constructor"] = {
     test.doesNotThrow(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.TWO_WIRE,
+        type: Stepper.TYPE.TWO_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 0,
@@ -379,7 +342,7 @@ exports["Stepper - constructor"] = {
     };
     var stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.FOUR_WIRE,
+      type: Stepper.TYPE.FOUR_WIRE,
       stepsPerRev: 200,
       pins: pins
     });
@@ -390,7 +353,7 @@ exports["Stepper - constructor"] = {
     pins = [3, 4, 5, 6];
     stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.FOUR_WIRE,
+      type: Stepper.TYPE.FOUR_WIRE,
       stepsPerRev: 200,
       pins: pins
     });
@@ -413,7 +376,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {}
       });
@@ -426,7 +389,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {
           motor2: 3,
@@ -443,7 +406,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 1,
@@ -460,7 +423,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 3,
@@ -477,7 +440,7 @@ exports["Stepper - constructor"] = {
     test.throws(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 3,
@@ -494,7 +457,7 @@ exports["Stepper - constructor"] = {
     test.doesNotThrow(function() {
       new Stepper({
         board: this.board,
-        type: five.Stepper.TYPE.FOUR_WIRE,
+        type: Stepper.TYPE.FOUR_WIRE,
         stepsPerRev: 200,
         pins: {
           motor1: 0,
@@ -622,7 +585,7 @@ exports["Stepper - step callback"] = {
 
     this.stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: [2, 3]
     });
@@ -668,7 +631,7 @@ exports["Stepper - set direction required before step"] = {
 
     this.stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: [2, 3]
     });
@@ -721,7 +684,7 @@ exports["Stepper - chainable direction"] = {
 
     this.stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: [2, 3]
     });
@@ -761,7 +724,7 @@ exports["Stepper - rpm / speed"] = {
     this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     this.stepper = new Stepper({
       board: this.board,
-      type: five.Stepper.TYPE.DRIVER,
+      type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
       pins: [2, 3]
     });

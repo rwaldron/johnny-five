@@ -1,19 +1,3 @@
-/* Possibly-slow piezo tests */
-var five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  MockFirmata = require("mock-firmata").Firmata,
-  Board = five.Board,
-  Piezo = five.Piezo;
-
-
-function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-}
-
 exports["Piezo"] = {
 
   setUp: function(done) {

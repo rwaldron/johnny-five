@@ -1,47 +1,10 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Accelerometer = five.Accelerometer;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Accelerometer -- Analog"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1"],
       freq: 100,
@@ -79,7 +42,7 @@ exports["Accelerometer -- Analog"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -101,7 +64,7 @@ exports["Accelerometer -- Analog"] = {
 
     var x = this.analogRead.args[0][1],
       y = this.analogRead.args[1][1],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("data", spy);
@@ -126,7 +89,7 @@ exports["Accelerometer -- Analog"] = {
 
     var x = this.analogRead.args[0][1],
       y = this.analogRead.args[1][1],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(1);
     this.accel.on("change", spy);
@@ -154,7 +117,7 @@ exports["Accelerometer -- Analog"] = {
 
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var i;
 
     test.expect(6);
@@ -198,7 +161,7 @@ exports["Accelerometer -- Analog"] = {
 
   disableAndEnable: function(test) {
     var x = this.analogRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(3);
     this.accel.on("change", spy);
@@ -222,9 +185,10 @@ exports["Accelerometer -- Analog"] = {
 
 exports["Accelerometer -- distinctZeroV"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1", "A2"],
       freq: 100,
@@ -238,7 +202,7 @@ exports["Accelerometer -- distinctZeroV"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -263,9 +227,10 @@ exports["Accelerometer -- distinctZeroV"] = {
 
 exports["Accelerometer -- autoCalibrate"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       pins: ["A0", "A1", "A2"],
       board: this.board,
@@ -278,7 +243,7 @@ exports["Accelerometer -- autoCalibrate"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -309,9 +274,10 @@ exports["Accelerometer -- autoCalibrate"] = {
 exports["Accelerometer -- ADXL335"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       controller: "ADXL335",
       pins: ["A0", "A1", "A2"],
@@ -324,7 +290,7 @@ exports["Accelerometer -- ADXL335"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -332,7 +298,7 @@ exports["Accelerometer -- ADXL335"] = {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
     var z = this.analogRead.args[2][1];
-    var changeSpy = sinon.spy();
+    var changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("change", changeSpy);
@@ -356,11 +322,12 @@ exports["Accelerometer -- ADXL335"] = {
 exports["Accelerometer -- MPU-6050"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.accel = new Accelerometer({
       controller: "MPU6050",
       freq: 100,
@@ -372,7 +339,7 @@ exports["Accelerometer -- MPU-6050"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -398,8 +365,8 @@ exports["Accelerometer -- MPU-6050"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(),
-      changeSpy = sinon.spy();
+    var read, dataSpy = this.sandbox.spy(),
+      changeSpy = this.sandbox.spy();
 
     test.expect(12);
     this.accel.on("data", dataSpy);
@@ -447,11 +414,12 @@ exports["Accelerometer -- MPU-6050"] = {
 exports["Accelerometer -- ADXL345"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.accel = new Accelerometer({
       controller: "ADXL345",
       board: this.board
@@ -462,7 +430,7 @@ exports["Accelerometer -- ADXL345"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -488,8 +456,8 @@ exports["Accelerometer -- ADXL345"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(),
-      changeSpy = sinon.spy();
+    var read, dataSpy = this.sandbox.spy(),
+      changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -533,11 +501,12 @@ exports["Accelerometer -- ADXL345"] = {
 
 exports["Accelerometer -- MMA7361"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.accel = new Accelerometer({
       controller: "MMA7361",
       pins: ["A0", "A1", "A2"],
@@ -551,7 +520,7 @@ exports["Accelerometer -- MMA7361"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -581,7 +550,7 @@ exports["Accelerometer -- MMA7361"] = {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
     var z = this.analogRead.args[2][1];
-    var changeSpy = sinon.spy();
+    var changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("change", changeSpy);
@@ -605,11 +574,12 @@ exports["Accelerometer -- MMA7361"] = {
 exports["Accelerometer -- MMA7660"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.accel = new Accelerometer({
       controller: "MMA7660",
       board: this.board
@@ -620,7 +590,7 @@ exports["Accelerometer -- MMA7660"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -646,8 +616,8 @@ exports["Accelerometer -- MMA7660"] = {
   },
 
   data: function(test) {
-    var read, dataSpy = sinon.spy(),
-      changeSpy = sinon.spy();
+    var read, dataSpy = this.sandbox.spy(),
+      changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -690,9 +660,10 @@ exports["Accelerometer -- MMA7660"] = {
 
 exports["Accelerometer -- ESPLORA"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.accel = new Accelerometer({
       controller: "ESPLORA",
       freq: 100,
@@ -704,7 +675,7 @@ exports["Accelerometer -- ESPLORA"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -712,7 +683,7 @@ exports["Accelerometer -- ESPLORA"] = {
     var x = this.analogRead.args[0][1];
     var y = this.analogRead.args[1][1];
     var z = this.analogRead.args[2][1];
-    var changeSpy = sinon.spy();
+    var changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("change", changeSpy);

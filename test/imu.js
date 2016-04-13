@@ -1,49 +1,12 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  IMU = five.IMU;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["IMU -- MPU6050"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.imu = new IMU({
       controller: "MPU6050",
       freq: 100,
@@ -67,7 +30,7 @@ exports["IMU -- MPU6050"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -116,7 +79,7 @@ exports["IMU -- MPU6050"] = {
   },
 
   data: function(test) {
-    var read, spy = sinon.spy();
+    var read, spy = this.sandbox.spy();
 
     test.expect(16);
 
@@ -160,7 +123,7 @@ exports["IMU -- MPU6050"] = {
   },
 
   change: function(test) {
-    var read, changeSpy = sinon.spy();
+    var read, changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.imu.on("change", changeSpy);
@@ -194,11 +157,12 @@ exports["IMU -- MPU6050"] = {
 exports["Multi -- MPL115A2"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.imu = new IMU({
       controller: "MPL115A2",
       freq: 100,
@@ -220,7 +184,7 @@ exports["Multi -- MPL115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -272,11 +236,12 @@ exports["Multi -- MPL115A2"] = {
 exports["Multi -- HTU21D"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.imu = new IMU({
       controller: "HTU21D",
       freq: 100,
@@ -298,7 +263,7 @@ exports["Multi -- HTU21D"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -350,11 +315,12 @@ exports["Multi -- HTU21D"] = {
 exports["Multi -- MPL3115A2"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.imu = new IMU({
       controller: "MPL3115A2",
       freq: 100,
@@ -378,7 +344,7 @@ exports["Multi -- MPL3115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -444,9 +410,6 @@ exports["IMU -- BNO055"] = {
       if (register === 0x35) {
         callback([255]);
       }
-
-
-
     });
     this.imu = new IMU({
       controller: "BNO055",
@@ -481,7 +444,7 @@ exports["IMU -- BNO055"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.sandbox.restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -837,10 +800,11 @@ exports["Multi -- TH02"] = {
 exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.imu = new IMU({
       controller: "DHT11_I2C_NANO_BACKPACK",
       freq: 100,
@@ -862,7 +826,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
@@ -911,7 +875,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
   },
 
   data: function(test) {
-    var read, spy = sinon.spy();
+    var read, spy = this.sandbox.spy();
 
     test.expect(7);
     this.imu.on("data", spy);
@@ -938,7 +902,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
   },
 
   change: function(test) {
-    var read, spy = sinon.spy();
+    var read, spy = this.sandbox.spy();
 
     test.expect(8);
     this.imu.on("data", spy);

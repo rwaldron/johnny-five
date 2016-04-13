@@ -1,27 +1,3 @@
-var mocks = require("mock-firmata");
-var MockFirmata = mocks.Firmata;
-var five = require("../lib/johnny-five.js");
-var Emitter = require("events").EventEmitter;
-var sinon = require("sinon");
-var Board = five.Board;
-var Servo = five.Servo;
-var Expander = five.Expander;
-
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
 exports["Servo"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

@@ -1,43 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Fn = five.Fn,
-  Board = five.Board,
-  Sensor = five.Sensor;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 function getShape(sensor) {
   return {
     id: sensor.id,
@@ -62,9 +22,10 @@ function getShape(sensor) {
 
 exports["Sensor - Analog"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.sensor = new Sensor({
       pin: "A1",
       board: this.board
@@ -167,7 +128,7 @@ exports["Sensor - Analog"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   }, // ./tearDown: function(done)
 
@@ -210,13 +171,13 @@ exports["Sensor - Analog"] = {
   emitter: function(test) {
     test.expect(1);
 
-    test.ok(this.sensor instanceof events.EventEmitter);
+    test.ok(this.sensor instanceof Emitter);
 
     test.done();
   }, // ./emitter: function(test)
 
   data: function(test) {
-    var tickAccum, tickDelta, spy = sinon.spy();
+    var tickAccum, tickDelta, spy = this.sandbox.spy();
     test.expect(4);
 
     // Make sure that no event is emitted before the end of the initial interval is reached
@@ -254,8 +215,8 @@ exports["Sensor - Analog"] = {
 
   filtered: function(test) {
     var callback = this.analogRead.args[0][1],
-      dataSpy = sinon.spy(),
-      chgSpy = sinon.spy(),
+      dataSpy = this.sandbox.spy(),
+      chgSpy = this.sandbox.spy(),
       tickDelta, tickAccum, spyCall, raw, filtered;
     test.expect(37);
 
@@ -383,7 +344,7 @@ exports["Sensor - Analog"] = {
 
   change: function(test) {
     var callback = this.analogRead.args[0][1],
-      spy = sinon.spy(),
+      spy = this.sandbox.spy(),
       tickAccum, tickDelta, chgValue;
     test.expect(8);
 
@@ -448,7 +409,7 @@ exports["Sensor - Analog"] = {
   // Tests to check that the thresholds are handled correctly to control when change events get emitted
   threshold: function(test) {
     var callback = this.analogRead.args[0][1],
-      spy = sinon.spy(),
+      spy = this.sandbox.spy(),
       tickDelta, tickAccum, spyCall, raw, filtered, newShape;
     test.expect(45);
 
@@ -770,10 +731,10 @@ exports["Sensor - Analog"] = {
 
   limit: function(test) {
     var callback = this.analogRead.args[0][1],
-      dataSpy = sinon.spy(),
-      limitSpy = sinon.spy(),
-      lowerSpy = sinon.spy(),
-      upperSpy = sinon.spy(),
+      dataSpy = this.sandbox.spy(),
+      limitSpy = this.sandbox.spy(),
+      lowerSpy = this.sandbox.spy(),
+      upperSpy = this.sandbox.spy(),
       newShape, raw, filtered, tickDelta, tickAccum, lowerLimit, upperLimit;
     test.expect(46);
     this.sensor.on("data", dataSpy);
@@ -997,7 +958,7 @@ exports["Sensor - Analog"] = {
   }, // ./limit: function(test)
 
   freq: function(test) {
-    var spy = sinon.spy(),
+    var spy = this.sandbox.spy(),
       newShape, newFreq, tickDelta, tickAccum;
     test.expect(10);
 
@@ -1265,7 +1226,7 @@ exports["Sensor - Analog"] = {
 
   disable: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -1292,7 +1253,7 @@ exports["Sensor - Analog"] = {
 
   enable: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     test.expect(2);
 
@@ -1318,9 +1279,10 @@ exports["Sensor - Analog"] = {
 
 exports["Sensor - Digital"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.sensor = new Sensor({
       type: "digital",
       pin: 3,
@@ -1370,14 +1332,14 @@ exports["Sensor - Digital"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
   digital: function(test) {
     var callback = this.digitalRead.args[0][1],
-      change = sinon.spy(),
-      data = sinon.spy();
+      change = this.sandbox.spy(),
+      data = this.sandbox.spy();
 
     test.expect(4);
 
@@ -1399,7 +1361,7 @@ exports["Sensor - Digital"] = {
 
   data: function(test) {
     var data = this.digitalRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(1);
     this.sensor.on("data", spy);
@@ -1411,7 +1373,7 @@ exports["Sensor - Digital"] = {
 
   change: function(test) {
     var callback = this.digitalRead.args[0][1],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(2);
     this.sensor.on("change", spy);

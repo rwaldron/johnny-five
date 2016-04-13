@@ -1,31 +1,12 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Barometer = five.Barometer;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-  return board;
-}
-
 exports["Barometer -- MPL115A2"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.barometer = new Barometer({
       controller: "MPL115A2",
@@ -42,10 +23,7 @@ exports["Barometer -- MPL115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-    this.i2cReadOnce.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -73,7 +51,7 @@ exports["Barometer -- MPL115A2"] = {
   data: function(test) {
     test.expect(8);
 
-    // var spy = sinon.spy();
+    // var spy = this.sandbox.spy();
     // this.barometer.on("data", spy);
 
     var readOnce = this.i2cReadOnce.args[0][3];
@@ -121,10 +99,11 @@ exports["Barometer -- MPL115A2"] = {
 exports["Barometer -- BMP180"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.barometer = new Barometer({
       controller: "BMP180",
@@ -141,9 +120,7 @@ exports["Barometer -- BMP180"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cWriteReg.restore();
-    this.i2cReadOnce.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -171,7 +148,7 @@ exports["Barometer -- BMP180"] = {
   data: function(test) {
     test.expect(5);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     this.barometer.on("data", spy);
 
 
@@ -252,12 +229,13 @@ function mpl3115aDataLoop(test, initialCount, data) {
 exports["Barometer -- MPL3115A2"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
-    this.clock = sinon.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.clock = this.sandbox.useFakeTimers();
 
     this.barometer = new Barometer({
       controller: "MPL3115A2",
@@ -270,11 +248,7 @@ exports["Barometer -- MPL3115A2"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.clock.restore();
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cWriteReg.restore();
-    this.i2cReadOnce.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -342,7 +316,7 @@ exports["Barometer -- MPL3115A2"] = {
     //   0xB9, // config value
     // ]);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     this.barometer.on("data", spy);
 
     // Altitude Loop
@@ -371,7 +345,7 @@ exports["Barometer -- MPL3115A2"] = {
   change: function(test) {
     test.expect(35);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     this.barometer.on("change", spy);
 
     // First Pass -- initial

@@ -1,25 +1,4 @@
-var sinon = require("sinon");
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
 var EVS = require("../lib/evshield");
-var five = require("../lib/johnny-five");
-var Button = five.Button;
-var Board = five.Board;
-var Fn = five.Fn;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 var proto = [];
 var instance = [{

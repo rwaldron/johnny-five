@@ -1,28 +1,4 @@
-var mocks = require("mock-firmata");
-var MockFirmata = mocks.Firmata;
-var five = require("../lib/johnny-five.js");
-var sinon = require("sinon");
-var Board = five.Board;
-var Fn = five.Fn;
-var Keypad = five.Keypad;
-
-
 var mpr121 = require("../lib/definitions/mpr121");
-
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 exports["Keypad: Analog"] = {
   setUp: function(done) {
@@ -69,7 +45,7 @@ exports["Keypad: Analog"] = {
     }, function(_, index) {
       return index;
     });
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       pin: "A0",
       length: 12
@@ -107,7 +83,7 @@ exports["Keypad: Analog"] = {
     test.expect(16);
 
     var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       pin: "A0",
       keys: [
@@ -150,7 +126,7 @@ exports["Keypad: Analog"] = {
     test.expect(16);
 
     var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       pin: "A0",
       keys: keys
@@ -291,7 +267,7 @@ exports["Keypad: VKey"] = {
 
     // Defaults to 5V, does not throw
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -305,7 +281,7 @@ exports["Keypad: VKey"] = {
 
     // Explicitly 5V, does not throw
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -321,7 +297,7 @@ exports["Keypad: VKey"] = {
 
     // Explicitly 3.3V, does not throw
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -338,7 +314,7 @@ exports["Keypad: VKey"] = {
     // Provided by plugin 3.3V, does not throw
     test.doesNotThrow(function() {
       this.board.io.aref = 3.3;
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0"
@@ -355,7 +331,7 @@ exports["Keypad: VKey"] = {
 
     // Explicitly out of range, throws
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -365,7 +341,7 @@ exports["Keypad: VKey"] = {
 
     // Explicitly out of range, throws
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -375,7 +351,7 @@ exports["Keypad: VKey"] = {
 
     // Explicitly out of range, throws
     test.doesNotThrow(function() {
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -387,7 +363,7 @@ exports["Keypad: VKey"] = {
     // Explicitly out of range from Plugin, throws
     test.doesNotThrow(function() {
       this.board.io.aref = 6;
-      new five.Keypad({
+      new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
@@ -406,7 +382,7 @@ exports["Keypad: VKey"] = {
     }, function(_, index) {
       return index + 1;
     });
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
@@ -440,7 +416,7 @@ exports["Keypad: VKey"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
@@ -480,7 +456,7 @@ exports["Keypad: VKey"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
@@ -666,7 +642,7 @@ exports["Keypad: MPR121"] = {
     }, function(_, index) {
       return index;
     });
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A
@@ -700,7 +676,7 @@ exports["Keypad: MPR121"] = {
     test.expect(9);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A,
@@ -749,7 +725,7 @@ exports["Keypad: MPR121"] = {
     test.expect(9);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A,
@@ -1112,7 +1088,7 @@ exports["Keypad: MPR121_KEYPAD"] = {
     }, function(_, index) {
       return index + 1;
     });
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A
@@ -1146,7 +1122,7 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A,
@@ -1186,7 +1162,7 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A,
@@ -1392,7 +1368,7 @@ exports["Keypad: QTOUCH"] = {
     }, function(_, index) {
       return index;
     });
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B
@@ -1421,7 +1397,7 @@ exports["Keypad: QTOUCH"] = {
     test.expect(7);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B,
@@ -1455,7 +1431,7 @@ exports["Keypad: QTOUCH"] = {
     test.expect(7);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B,
@@ -1593,7 +1569,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.expect(12);
 
     var keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A
@@ -1627,7 +1603,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A,
@@ -1668,7 +1644,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.expect(12);
 
     var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new five.Keypad({
+    var keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A,
