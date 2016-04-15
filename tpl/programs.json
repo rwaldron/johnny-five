@@ -964,6 +964,16 @@
         ]
       },
       {
+        "file": "multi-sht31d.js",
+        "title": "Multi - SHT31D",
+        "breadboards": [
+          {"name": "humidity-sht31d", "title": "SHT31D"}
+        ],
+        "externals": [
+          { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
+        ]
+      },
+      {
         "file": "multi-DHT11_I2C_NANO_BACKPACK.js",
         "title": "Multi - DHT11_I2C_NANO_BACKPACK",
         "breadboards": [
@@ -1100,6 +1110,16 @@
         ]
       },
       {
+        "file": "temperature-sht31d.js",
+        "title": "Thermometer - SHT31D",
+        "breadboards": [
+          {"name": "humidity-sht31d", "title": "SHT31D"}
+        ],
+        "externals": [
+          { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
+        ]
+      },
+      {
         "file": "temperature-MCP9808.js",
         "title": "Thermometer - MCP9808",
         "breadboards": [
@@ -1200,6 +1220,16 @@
         ],
         "externals": [
           { "title": "HTU21D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/1899"}
+        ]
+      },
+      {
+        "file": "hygrometer-sht31d.js",
+        "title": "Hygrometer - SHT31D",
+        "breadboards": [
+          {"name": "humidity-sht31d", "title": "SHT31D"}
+        ],
+        "externals": [
+          { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
         ]
       },
       {

@@ -233,6 +233,85 @@ exports["Multi -- MPL115A2"] = {
   },
 };
 
+exports["Multi -- SHT31D"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.imu = new IMU({
+      controller: "SHT31D",
+      freq: 100,
+      board: this.board
+    });
+
+    this.proto = [];
+
+    this.instance = [{
+      name: "components"
+    }, {
+      name: "hygrometer"
+    }, {
+      name: "temperature"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    IMU.Drivers.clear();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(function(method) {
+      test.equal(typeof this.imu[method.name], "function");
+    }, this);
+
+    this.instance.forEach(function(property) {
+      test.notEqual(typeof this.imu[property.name], "undefined");
+    }, this);
+
+    test.done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new IMU({
+      controller: "SHT31D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  components: function(test) {
+    test.expect(1);
+
+    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+
+    test.done();
+  },
+};
+
 exports["Multi -- HTU21D"] = {
 
   setUp: function(done) {

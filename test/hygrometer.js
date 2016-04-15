@@ -27,6 +27,54 @@ function testShape(test) {
   test.done();
 }
 
+exports["Hygrometer -- SHT31D"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+
+    this.hygrometer = new Hygrometer({
+      controller: "SHT31D",
+      board: this.board,
+      freq: 10
+    });
+
+    this.instance = [{
+      name: "relativeHumidity"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  testShape: testShape,
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Hygrometer({
+      controller: "SHT31D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
 exports["Hygrometer -- HTU21D"] = {
 
   setUp: function(done) {
