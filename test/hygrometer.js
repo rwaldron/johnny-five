@@ -74,6 +74,7 @@ exports["Hygrometer -- SHT31D"] = {
 
     test.done();
   },
+};
 
 exports["Hygrometer -- HTU21D"] = {
 
