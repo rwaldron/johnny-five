@@ -13,7 +13,7 @@
 
 
 
-![docs/breadboard/humidity-sht31-d.png](breadboard/humidity-sht31d.png)<br>
+![docs/breadboard/humidity-sht31d.png](breadboard/humidity-sht31d.png)<br>
 
 Fritzing diagram: [docs/breadboard/humidity-sht31d.fzz](breadboard/humidity-sht31d.fzz)
 
