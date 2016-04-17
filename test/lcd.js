@@ -405,7 +405,43 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [62, [64, 15]]);
 
     test.done();
-  }
+  },
+
+  bgColor: function(test) {
+    test.expect(8);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    this.hexRgb = this.sandbox.spy(converter.hex, "rgb");
+    this.keyRgb = this.sandbox.spy(converter.keyword, "rgb");
+
+    lcd.bgColor([0, 0, 0]);
+
+    test.equal(this.keyRgb.callCount, 0);
+    test.equal(this.hexRgb.callCount, 0);
+
+    lcd.bgColor("blue");
+
+    test.equal(this.keyRgb.callCount, 1);
+    test.equal(this.hexRgb.callCount, 0);
+
+
+    lcd.bgColor("ff0000");
+
+    test.equal(this.keyRgb.callCount, 2);
+    test.equal(this.hexRgb.callCount, 1);
+
+    lcd.bgColor("#ff0000");
+
+    test.equal(this.keyRgb.callCount, 3);
+    test.equal(this.hexRgb.callCount, 2);
+
+
+    test.done();
+  },
 };
 
 exports["LCD - I2C (LCD2004)"] = {

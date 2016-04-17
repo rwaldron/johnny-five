@@ -1,22 +1,21 @@
 global.IS_TEST_MODE = true;
 
-
+// Built-ins
 global.Emitter = require("events").EventEmitter;
+
+// Internal
 global.Collection = require("../../lib/mixins/collection");
 global.within = require("../../lib/mixins/within");
-
-
-global.mocks = require("mock-firmata");
-
-
-
-
-
 global.five = require("../../lib/johnny-five");
-global.sinon = require("sinon");
-// global.Firmata = require("firmata");
-// Used in the late connection tests
+
+// Third Party (library)
+global.converter = require("color-convert");
 global.SerialPort = require("serialport");
+
+// Third Party (test)
+global.mocks = require("mock-firmata");
+global.sinon = require("sinon");
+
 
 global.Firmata = mocks.Firmata;
 global.MockFirmata = mocks.Firmata;

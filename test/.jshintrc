@@ -25,6 +25,7 @@
     "sinon": true,
     "newBoard": true,
     "mocks": true,
+    "converter": true,
     "Firmata": true,
     "MockFirmata": true,
     "SerialPort": true,
