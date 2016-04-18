@@ -850,7 +850,7 @@ exports["Board.mount"] = {
   },
 };
 
-exports["Events Forwarded By IO Layer"] = {
+exports["Events Forwarded By IO Plugin layer"] = {
   setUp: function(done) {
     done();
   },
@@ -976,6 +976,38 @@ exports["Events Forwarded By IO Layer"] = {
       io.emit("connect");
       io.emit("ready");
     });
+  },
+};
+
+exports["Repl controlled by IO Plugin layer"] = {
+  setUp: function(done) {
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
+  ioForcesReplFalse: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+    });
+
+    board.on("ready", function() {
+      test.equal(this.repl, false);
+      test.done();
+    });
+
+    // At any point during its own initialization,
+    // but always _before_ emitting "ready",
+    // the IO plugin could set this false.
+    io.repl = false;
+
+    io.emit("connect");
+    io.emit("ready");
   },
 };
 
