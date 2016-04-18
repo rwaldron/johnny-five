@@ -15,3 +15,16 @@ articles.js
 *.h
 release
 egs.js
+send.sh
+awesome.md
+parts.md
+Gruntfile.js
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+colors.js
+.travis.yml
+.jshintrc
+.jscsrc
+.gitignore
+appveyor.yml
+LICENSE-MIT
