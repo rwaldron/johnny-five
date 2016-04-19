@@ -158,4 +158,91 @@ exports["Fn"] = {
 
     test.done();
   },
+
+  bitsIn: function(test) {
+    test.expect(5);
+
+    test.equal(Fn.bitsIn(1000), 10);
+    test.equal(Fn.bitsIn(1024), 10);
+    test.equal(Fn.bitsIn(Number.MAX_SAFE_INTEGER), 53);
+    test.equal(Fn.bitsIn(Number.MAX_VALUE), 1024);
+    test.equal(Fn.bitsIn(8), 3);
+
+    test.done();
+  }
+};
+
+
+var bitSizes = [ 4, 8, 10, 12, 16, 20, 24, 32 ];
+
+
+exports["Fn.s*"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    done();
+  },
+
+  cast: function(test) {
+    test.expect(24);
+
+    bitSizes.forEach(function(bits) {
+      var decimal = Fn["POW_2_" + bits];
+      var half = decimal / 2 >>> 0;
+      test.equal(Fn["s" + bits](decimal - 1), decimal - decimal - 1);
+      test.equal(Fn["s" + bits](half), -half);
+      test.equal(Fn["s" + bits](half + 1), -half + 1);
+    });
+
+    test.done();
+  },
+};
+
+exports["Fn.u*"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    done();
+  },
+
+  cast: function(test) {
+    test.expect(bitSizes.length);
+
+    bitSizes.forEach(function(bits) {
+      var decimal = Fn["POW_2_" + bits];
+      var half = decimal / 2 >>> 0;
+      var halfPlusOne = half - 1;
+      test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
+    });
+
+    test.done();
+  },
+};
+
+exports["Fn.POW_2_*"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+
+    done();
+  },
+
+  maxSafeIntegerBits: function(test) {
+    var MAX = Fn.bitsIn(Number.MAX_SAFE_INTEGER);
+
+    test.expect(MAX);
+
+    for (var i = 0; i < MAX; i++) {
+      test.equal(Fn["POW_2_" + i], Math.pow(2, i));
+    }
+
+    test.done();
+  }
+
 };
