@@ -214,8 +214,6 @@ exports["Fn.u*"] = {
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
-      var half = decimal / 2 >>> 0;
-      var halfPlusOne = half - 1;
       test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
     });
 
