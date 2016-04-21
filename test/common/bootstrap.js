@@ -106,3 +106,17 @@ function newBoard(pins) {
 
 global.newBoard = newBoard;
 
+
+var digits = {
+  all: function(x) {
+    return this.integral(Number(String(x).replace(/\./g, "")));
+  },
+  integral: function(x) {
+    return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+  },
+  fractional: function(x) {
+    return this.all(x) - this.integral(x);
+  },
+};
+
+global.digits = digits;

@@ -24,6 +24,7 @@
     "copy": true,
     "sinon": true,
     "newBoard": true,
+    "digits": true,
     "mocks": true,
     "converter": true,
     "Firmata": true,

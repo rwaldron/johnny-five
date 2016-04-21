@@ -283,10 +283,15 @@ exports["Thermometer -- ANALOG"] = {
     data: makeTestAnalogConversion({
       raw: 100,
       C: -224,
-      F: -372,
+      F: -371,
       K: 49,
     }),
     change: testAnalogChange,
+    digits: function(test) {
+      test.expect(1);
+      test.equal(digits.fractional(this.temperature.C), 0);
+      test.done();
+    }
   },
   LM35: {
     setUp: function(done) {
@@ -303,10 +308,10 @@ exports["Thermometer -- ANALOG"] = {
     shape: testShape,
     aref: makeTestAnalogConversion({
       aref: 3.3,
-      raw: 200,
-      C: 64,
-      F: 148,
-      K: 338
+      raw: 81,
+      C: 26,
+      F: 79,
+      K: 299
     }),
     data: makeTestAnalogConversion({
       raw: 200,
@@ -315,6 +320,12 @@ exports["Thermometer -- ANALOG"] = {
       K: 371
     }),
     change: testAnalogChange,
+    digits: function(test) {
+      test.expect(1);
+      test.equal(digits.fractional(this.temperature.C), 0);
+      test.done();
+    }
+
   },
 
   TMP36: {
@@ -335,16 +346,21 @@ exports["Thermometer -- ANALOG"] = {
       aref: 3.3,
       raw: 150,
       C: -2,
-      F: 29,
+      F: 28,
       K: 271
     }),
 
     data: makeTestAnalogConversion({
       raw: 150,
       C: 23,
-      F: 74,
+      F: 73,
       K: 296
     }),
+    digits: function(test) {
+      test.expect(1);
+      test.equal(digits.fractional(this.temperature.C), 0);
+      test.done();
+    }
   },
 
   GROVE: {
@@ -373,6 +389,11 @@ exports["Thermometer -- ANALOG"] = {
       F: 102,
       K: 312,
     }),
+    digits: function(test) {
+      test.expect(1);
+      test.equal(digits.fractional(this.temperature.C), 0);
+      test.done();
+    }
   },
 
   TINKERKIT: {
@@ -401,6 +422,12 @@ exports["Thermometer -- ANALOG"] = {
       F: 102,
       K: 312,
     }),
+
+    digits: function(test) {
+      test.expect(1);
+      test.equal(digits.fractional(this.temperature.C), 0);
+      test.done();
+    }
   },
 };
 
@@ -521,7 +548,7 @@ exports["Thermometer -- MAX31850K"] = {
     var deviceB = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
     var search, data;
 
-    test.expect(2);
+    test.expect(3);
 
     this.temperatureA = createMAX31850K(this.pin, 0x554433221100);
     this.temperatureA.on("data", spyA);
@@ -545,6 +572,8 @@ exports["Thermometer -- MAX31850K"] = {
     test.equals(Math.round(spyA.getCall(0).args[0].celsius), 32);
     test.equals(Math.round(spyB.getCall(0).args[0].celsius), 64);
 
+    test.equal(digits.fractional(this.temperatureA.C), 2);
+
     test.done();
   },
 
@@ -564,7 +593,7 @@ exports["Thermometer -- MAX31850K"] = {
     test.equals(failedToCreate, true);
 
     test.done();
-  }
+  },
 };
 
 function createDS18B20(pin, address) {
@@ -623,7 +652,7 @@ exports["Thermometer -- DS18B20"] = {
     var search, data;
     var spy = this.sandbox.spy();
 
-    test.expect(18);
+    test.expect(19);
 
     this.temperature = createDS18B20(this.pin);
     this.temperature.on("data", spy);
@@ -659,6 +688,8 @@ exports["Thermometer -- DS18B20"] = {
     test.equals(Math.round(spy.getCall(0).args[0].celsius), 32);
     test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 90);
     test.equals(Math.round(spy.getCall(0).args[0].kelvin), 305);
+
+    test.equal(digits.fractional(this.temperature.C), 4);
 
     test.done();
   },
@@ -768,7 +799,7 @@ exports["Thermometer -- MPU6050"] = {
   data: function(test) {
     var read, spy = this.sandbox.spy();
 
-    test.expect(12);
+    test.expect(13);
     this.temperature.on("data", spy);
 
     read = this.i2cRead.args[0][3];
@@ -794,8 +825,10 @@ exports["Thermometer -- MPU6050"] = {
 
     test.ok(spy.calledOnce);
     test.equals(Math.round(spy.getCall(0).args[0].celsius), 49);
-    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 121);
-    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 323);
+    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 120);
+    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 322);
+
+    test.equal(digits.fractional(this.temperature.C), 0);
 
     test.done();
   }
@@ -862,7 +895,6 @@ exports["Thermometer -- MPL115A2"] = {
 
     setImmediate(function() {
       test.ok(this.i2cConfig.calledOnce);
-      test.ok(this.i2cWrite.calledOnce);
 
       test.equals(this.i2cWrite.firstCall.args[0], 0x60);
       test.deepEqual(this.i2cWrite.firstCall.args[1], [0x12, 0x00]);
@@ -883,6 +915,8 @@ exports["Thermometer -- MPL115A2"] = {
       // test.ok(spy.called);
       // test.equals(Math.round(spy.args[0][0].temperature), 70);
 
+
+      test.equal(digits.fractional(this.temperature.C), 0);
       test.done();
     }.bind(this));
   }
@@ -943,7 +977,7 @@ exports["Thermometer -- SI7020"] = {
   },
 
   data: function(test) {
-    test.expect(8);
+    test.expect(9);
 
     test.equal(this.i2cRead.callCount, 2);
     // address
@@ -966,6 +1000,8 @@ exports["Thermometer -- SI7020"] = {
     test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
     test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
     test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
+
+    test.equal(digits.fractional(this.temperature.C), 1);
 
     test.done();
   }
@@ -1026,7 +1062,7 @@ exports["Thermometer -- HTU21D"] = {
   },
 
   data: function(test) {
-    test.expect(6);
+    test.expect(7);
 
     test.equal(this.i2cRead.callCount, 2);
     test.deepEqual(this.i2cRead.firstCall.args.slice(0, 3), [
@@ -1053,6 +1089,8 @@ exports["Thermometer -- HTU21D"] = {
     test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
     test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
     test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
+
+    test.equal(digits.fractional(this.temperature.C), 2);
 
     test.done();
   }
@@ -1119,7 +1157,7 @@ exports["Thermometer -- MPL3115A2"] = {
   },
 
   data: function(test) {
-    test.expect(19);
+    test.expect(20);
 
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWriteReg.callCount, 4);
@@ -1185,6 +1223,7 @@ exports["Thermometer -- MPL3115A2"] = {
     test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
     test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
 
+    test.equal(digits.fractional(this.temperature.C), 0);
     test.done();
   },
 
@@ -1302,11 +1341,12 @@ exports["Thermometer -- TMP102"] = {
 
   value: function(test) {
     var raw = this.i2cRead.args[0][3];
-    test.expect(1);
+    test.expect(2);
 
-    raw([100, 100]);
+    raw([100, 102]);
 
-    test.equals(this.temperature.celsius, 100.375);
+    test.equals(this.temperature.celsius, 100.4);
+    test.equal(digits.fractional(this.temperature.C), 1);
 
     test.done();
   },
@@ -1319,7 +1359,7 @@ exports["Thermometer -- TMP102"] = {
     test.equals(this.temperature.celsius, -1);
 
     raw([0xE2, 0x44]);
-    test.equals(this.temperature.celsius, -29.75);
+    test.equals(this.temperature.celsius, -29.8);
 
     test.done();
   },
@@ -1398,11 +1438,12 @@ exports["Thermometer -- MCP9808"] = {
 
   value: function(test) {
     var raw = this.i2cRead.args[0][3];
-    test.expect(1);
+    test.expect(2);
 
     raw([193, 119]);
 
-    test.equals(this.temperature.celsius, 23.4375);
+    test.equals(this.temperature.celsius, 23.44);
+    test.equal(digits.fractional(this.temperature.C), 2);
 
     test.done();
   },
@@ -1436,3 +1477,14 @@ exports["Thermometer -- MCP9808"] = {
     test.done();
   }
 };
+
+
+// TODO:
+// SHT31D
+// BMP085
+// BMP180
+// BMP280
+// DHT11
+// TH02
+// MS5611
+//
