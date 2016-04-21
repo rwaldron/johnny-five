@@ -128,6 +128,52 @@ exports["Thermometer -- Temperature alias"] = {
   }
 };
 
+exports["Thermometer -- ANY"] = {
+  neverEmitNullOrUndefined: function(test) {
+    test.expect(4);
+
+    var spy = this.sandbox.spy();
+    var controller = {
+      initialize: {
+        value: function(opts, dataHandler) {
+          setTimeout(function() {
+            dataHandler(25);
+          }, 2);
+        }
+      },
+      toCelsius: {
+        value: function(raw) {
+          return raw;
+        }
+      }
+    };
+
+    this.temperature = new Thermometer({
+      controller: controller,
+      board: this.board,
+      freq: 1
+    });
+
+    this.temperature.on("data", spy);
+
+    this.clock.tick(1);
+
+    // No reading has occurred yet.
+    test.equal(this.temperature.C, null);
+    test.equal(spy.callCount, 0);
+
+    // 2ms passed, a reading has occurred, safe
+    // to emit the data and C is not null
+    this.clock.tick(1);
+
+    test.equal(this.temperature.C, 25);
+    test.equal(spy.callCount, 1);
+
+    test.done();
+  }
+};
+
+
 exports["Thermometer -- ANALOG"] = {
   setUp: function(done) {
     this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
