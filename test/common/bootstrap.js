@@ -11,13 +11,13 @@ global.five = require("../../lib/johnny-five");
 // Third Party (library)
 global.converter = require("color-convert");
 global.SerialPort = require("serialport");
+global.Firmata = require("firmata");
 
 // Third Party (test)
 global.mocks = require("mock-firmata");
 global.sinon = require("sinon");
 
 
-global.Firmata = mocks.Firmata;
 global.MockFirmata = mocks.Firmata;
 global.MockSerialPort = mocks.SerialPort;
 

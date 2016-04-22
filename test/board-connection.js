@@ -3,7 +3,7 @@ exports["Board Connection"] = {
     this.sandbox = sinon.sandbox.create();
     this.connect = this.sandbox.spy(Board.Serial, "connect");
     this.detect = this.sandbox.spy(Board.Serial, "detect");
-    this.MockFirmata = this.sandbox.stub(mocks, "Firmata");
+    this.MockFirmata = this.sandbox.stub(Firmata, "Board");
     done();
   },
 
