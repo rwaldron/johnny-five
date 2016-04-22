@@ -9,6 +9,10 @@ node_js:
   - "5"
 sudo: false
 compiler: clang
+before_install:
+  - npm install -g npm@3
+  - npm install -g grunt-cli
+install: npm install
 before_script:
   - grunt test-examples
 notifications:
