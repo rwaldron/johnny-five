@@ -310,6 +310,38 @@ exports["Multi -- SHT31D"] = {
 
     test.done();
   },
+
+  data: function(test) {
+    test.expect(6);
+
+    var spy = this.sandbox.spy();
+
+    this.imu.on("data", spy);
+
+    test.ok(this.i2cConfig.calledOnce);
+    test.ok(this.i2cWrite.calledTwice);
+    test.deepEqual(this.i2cWrite.firstCall.args, [ 68, [ 48, 162 ] ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 68, [ 36, 0 ] ]);
+    test.equal(this.i2cRead.callCount, 1);
+
+    var i2cRead = this.i2cRead.lastCall.args[2];
+
+    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+
+    this.clock.tick(100);
+
+    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+
+    this.clock.tick(100);
+
+    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+
+    this.clock.tick(100);
+
+    test.equal(spy.callCount, 3);
+    test.done();
+  },
+
 };
 
 exports["Multi -- HTU21D"] = {
