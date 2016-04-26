@@ -3,7 +3,7 @@ var board = new five.Board();
 var tilt;
 
 board.on("ready", function() {
-  tilt = new five.Button(2) // digital pin 2
+  tilt = new five.Button(2); // digital pin 2
 
   board.repl.inject({
     button: tilt
