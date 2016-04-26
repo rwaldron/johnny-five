@@ -40,8 +40,13 @@ board.on("ready", function() {
   );
 
   var leds = new five.Leds(
-    Array.from({ length: 8 }, function(_, i) {
-      return new five.Led({ pin: i * 2, board: virtual });
+    Array.from({
+      length: 8
+    }, function(_, i) {
+      return new five.Led({
+        pin: i * 2,
+        board: virtual
+      });
     })
   );
 

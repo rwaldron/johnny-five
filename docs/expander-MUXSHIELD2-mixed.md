@@ -49,8 +49,13 @@ board.on("ready", function() {
   );
 
   var leds = new five.Leds(
-    Array.from({ length: 16 }, function(_, index) {
-      var bar = new Barcli({ label: "IO3-" + index, range: [0, 1] });
+    Array.from({
+      length: 16
+    }, function(_, index) {
+      var bar = new Barcli({
+        label: "IO3-" + index,
+        range: [0, 1]
+      });
       var lit = new five.Sensor({
         type: "digital",
         pin: "IO3-" + index,
@@ -64,7 +69,7 @@ board.on("ready", function() {
 
       lit.on("data", function() {
         if (index === activeLed.last ||
-            index === activeLed.next) {
+          index === activeLed.next) {
           bar.update(this.value);
         }
       });

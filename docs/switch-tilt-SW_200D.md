@@ -9,6 +9,17 @@
 
 
 
+##### Breadboard for "Switch - Tilt SW-200D"
+
+
+
+![docs/breadboard/switch-tilt-SW_200D.png](breadboard/switch-tilt-SW_200D.png)<br>
+
+Fritzing diagram: [docs/breadboard/switch-tilt-SW_200D.fzz](breadboard/switch-tilt-SW_200D.fzz)
+
+&nbsp;
+
+
 
 
 Run this example from the command line with:
@@ -23,7 +34,7 @@ var board = new five.Board();
 var tilt;
 
 board.on("ready", function() {
-  tilt = new five.Button(2); // digital pin 2
+  tilt = new five.Button(2) // digital pin 2
 
   board.repl.inject({
     button: tilt

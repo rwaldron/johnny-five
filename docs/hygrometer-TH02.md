@@ -33,7 +33,6 @@ board.on("ready", function() {
   });
 });
 
-
 ```
 
 

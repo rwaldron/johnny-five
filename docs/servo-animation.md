@@ -46,7 +46,13 @@ board.on("ready", function() {
   // See Animation example and docs for details
   animation.enqueue({
     cuePoints: [0, 0.25, 0.75, 1],
-    keyFrames: [90, { value: 180, easing: "inQuad" }, { value: 0, easing: "outQuad" }, 90],
+    keyFrames: [90, {
+      value: 180,
+      easing: "inQuad"
+    }, {
+      value: 0,
+      easing: "outQuad"
+    }, 90],
     duration: 2000
   });
 

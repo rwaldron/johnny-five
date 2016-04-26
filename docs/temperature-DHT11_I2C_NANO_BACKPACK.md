@@ -46,7 +46,6 @@ board.on("ready", function() {
   });
 });
 
-
 ```
 
 

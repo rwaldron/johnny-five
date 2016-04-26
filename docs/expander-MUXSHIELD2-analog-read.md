@@ -40,8 +40,14 @@ var board = new five.Board({
 
 board.on("ready", function() {
   var bars = {
-    a: new Barcli({ label: "IO1-15", range: [0, 1023] }),
-    b: new Barcli({ label: "IO2-15", range: [0, 1023] }),
+    a: new Barcli({
+      label: "IO1-15",
+      range: [0, 1023]
+    }),
+    b: new Barcli({
+      label: "IO2-15",
+      range: [0, 1023]
+    }),
   };
 
   var virtual = new five.Board.Virtual(
