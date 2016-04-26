@@ -32,18 +32,15 @@ board.on("ready", function() {
     pin: "I2"
   });
 
-  var servos = new five.Servos([
-    {
-      id: "servo",
-      pin: "O0",
-      type: "continuous"
-    },
-    {
-      id: "servo",
-      pin: "O0",
-      type: "continuous"
-    }
-  ]);
+  var servos = new five.Servos([{
+    id: "servo",
+    pin: "O0",
+    type: "continuous"
+  }, {
+    id: "servo",
+    pin: "O0",
+    type: "continuous"
+  }]);
 
   slider.scale(0, 180).on("change", function() {
     servos.to(this.value);

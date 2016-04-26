@@ -353,7 +353,10 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.i2cConfig.callCount, 1);
     // This controller will actually forward 2 addresses
     // as an object of addresses.
-    test.deepEqual(forwarded.address, { lcd: 0xff, rgb: 0x62 });
+    test.deepEqual(forwarded.address, {
+      lcd: 0xff,
+      rgb: 0x62
+    });
     test.equal(forwarded.bus, "i2c-1");
 
     test.done();

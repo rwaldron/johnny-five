@@ -320,21 +320,21 @@ exports["Multi -- SHT31D"] = {
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledTwice);
-    test.deepEqual(this.i2cWrite.firstCall.args, [ 68, [ 48, 162 ] ]);
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 68, [ 36, 0 ] ]);
+    test.deepEqual(this.i2cWrite.firstCall.args, [68, [48, 162]]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [68, [36, 0]]);
     test.equal(this.i2cRead.callCount, 1);
 
     var i2cRead = this.i2cRead.lastCall.args[2];
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    i2cRead([100, 200, 169, 93, 90, 131]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    i2cRead([100, 200, 169, 93, 90, 131]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    i2cRead([100, 200, 169, 93, 90, 131]);
 
     this.clock.tick(100);
 
@@ -491,7 +491,9 @@ exports["Multi -- MPL3115A2"] = {
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
     test.equal(forwarded.bus, "i2c-1");
-    test.deepEqual(forwarded.settings, {stopTX: true});
+    test.deepEqual(forwarded.settings, {
+      stopTX: true
+    });
 
     test.done();
   },
@@ -767,10 +769,10 @@ exports["Multi -- TH02"] = {
         } else {
           if (this.i2cWrite.lastCall.args[2] === 0x01) {
             // MEASURE_HUMIDITY
-            handler([ 0, 71, 192 ]);
+            handler([0, 71, 192]);
           } else {
             // MEASURE_TEMPERATURE
-            handler([ 0, 36, 84 ]);
+            handler([0, 36, 84]);
           }
         }
       }.bind(this));
@@ -859,7 +861,7 @@ exports["Multi -- TH02"] = {
     test.ok(this.i2cReadOnce.calledOnce);
 
     // First command will be the MEASURE_TEMPERATURE command
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 0x40, 0x03, 0x11 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [0x40, 0x03, 0x11]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [0x40, 0x00, 1]);
 
     IMU.Drivers.get(this.board, "TH02").on("data", function() {
@@ -994,7 +996,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     read = this.i2cRead.args[0][2];
 
     // Taken from actual readings
-    read([ 13, 72, 9, 196 ]);
+    read([13, 72, 9, 196]);
 
 
     test.ok(this.i2cConfig.calledOnce);
@@ -1021,7 +1023,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     read = this.i2cRead.args[0][2];
 
     // Taken from actual readings
-    read([ 13, 72, 9, 196 ]);
+    read([13, 72, 9, 196]);
 
 
     test.ok(this.i2cConfig.calledOnce);
@@ -1039,7 +1041,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 
 
     // Taken from actual readings
-    read([ 12, 70, 20, 196 ]);
+    read([12, 70, 20, 196]);
     this.clock.tick(100);
 
 
@@ -1063,15 +1065,15 @@ exports["Multi -- BME280"] = {
     this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
       process.nextTick(function() {
         if (register === 0x88) {
-          handler([ 206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16 ]);
+          handler([206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16]);
         }
 
         if (register === 0xA1) {
-          handler([ 75 ]);
+          handler([75]);
         }
 
         if (register === 0xE1) {
-          handler([ 91, 1, 0, 22, 2, 0, 30, 227 ]);
+          handler([91, 1, 0, 22, 2, 0, 30, 227]);
         }
 
       });
@@ -1079,7 +1081,7 @@ exports["Multi -- BME280"] = {
 
     this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, length, handler) {
       process.nextTick(function() {
-        handler([ 85, 43, 224, 129, 192, 48, 117, 114 ]);
+        handler([85, 43, 224, 129, 192, 48, 117, 114]);
       });
     }.bind(this));
 
@@ -1167,7 +1169,7 @@ exports["Multi -- BME280"] = {
     test.ok(this.i2cWrite.calledOnce);
     test.equal(this.i2cReadOnce.callCount, 3);
 
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 119, 224, 182 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [119, 224, 182]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [119, 225, 8]);
 
     IMU.Drivers.get(this.board, "BME280").on("data", function() {
@@ -1189,14 +1191,14 @@ exports["Multi -- BMP280"] = {
     this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
       process.nextTick(function() {
         if (register === 0x88) {
-          handler([ 206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16 ]);
+          handler([206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16]);
         }
       });
     }.bind(this));
 
     this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, length, handler) {
       process.nextTick(function() {
-        handler([ 85, 43, 224, 129, 192, 48 ]);
+        handler([85, 43, 224, 129, 192, 48]);
       });
     }.bind(this));
 
@@ -1280,7 +1282,7 @@ exports["Multi -- BMP280"] = {
     test.ok(this.i2cWrite.calledOnce);
     test.equal(this.i2cReadOnce.callCount, 1);
 
-    test.deepEqual(this.i2cWrite.lastCall.args, [ 119, 224, 182 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args, [119, 224, 182]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [119, 136, 24]);
 
     IMU.Drivers.get(this.board, "BMP280").on("data", function() {

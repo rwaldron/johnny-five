@@ -173,7 +173,7 @@ exports["Fn"] = {
 };
 
 
-var bitSizes = [ 4, 8, 10, 12, 16, 20, 24, 32 ];
+var bitSizes = [4, 8, 10, 12, 16, 20, 24, 32];
 
 
 exports["Fn.s*"] = {

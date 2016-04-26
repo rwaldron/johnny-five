@@ -238,9 +238,24 @@ board = new five.Board().on("ready", function() {
       ph.state = "sleep";
     },
     keyFrames: [
-      [null, false, { degrees: 45, easing: easeOut }],
-      [null, { degrees: 136, easing: easeInOut }, { degrees: 180, easing: easeInOut }],
-      [null, { degrees: 120, easing: easeInOut }, { step: 60, easing: easeInOut }]
+      [null, false, {
+        degrees: 45,
+        easing: easeOut
+      }],
+      [null, {
+        degrees: 136,
+        easing: easeInOut
+      }, {
+        degrees: 180,
+        easing: easeInOut
+      }],
+      [null, {
+        degrees: 120,
+        easing: easeInOut
+      }, {
+        step: 60,
+        easing: easeInOut
+      }]
     ]
   };
 
@@ -252,9 +267,52 @@ board = new five.Board().on("ready", function() {
       ph.state = "stand";
     },
     keyFrames: [
-      [null, false, { degrees: 120, easing: easeInOut }, false, false, false, false, false, { degrees: 52, easing: easeInOut }, {copyDegrees: 0, easing: easeInOut} ], // r1c
-      [null, { step: 55, easing: easeInOut }, false, false, false, false, false, false, { step: -55, easing: easeInOut }, {copyDegrees: 0, easing: easeInOut} ], // r1f
-      [null, { degrees: 85, easing: easeInOut }, { degrees: 45, easing: easeInOut }, { step: -15, easing: easeInOut}, { step: 30, easing: easeInOut}, { copyDegrees: 3, easing: easeInOut}, { copyFrame: 4 }, { copyDegrees: 2, easing: easeInOut}, { copyFrame: 1 }, {copyDegrees: 0, easing: easeInOut} ]
+      [null, false, {
+        degrees: 120,
+        easing: easeInOut
+      }, false, false, false, false, false, {
+        degrees: 52,
+        easing: easeInOut
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }], // r1c
+      [null, {
+        step: 55,
+        easing: easeInOut
+      }, false, false, false, false, false, false, {
+        step: -55,
+        easing: easeInOut
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }], // r1f
+      [null, {
+        degrees: 85,
+        easing: easeInOut
+      }, {
+        degrees: 45,
+        easing: easeInOut
+      }, {
+        step: -15,
+        easing: easeInOut
+      }, {
+        step: 30,
+        easing: easeInOut
+      }, {
+        copyDegrees: 3,
+        easing: easeInOut
+      }, {
+        copyFrame: 4
+      }, {
+        copyDegrees: 2,
+        easing: easeInOut
+      }, {
+        copyFrame: 1
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }]
     ]
   };
 
@@ -266,9 +324,52 @@ board = new five.Board().on("ready", function() {
       ph.state = "stand";
     },
     keyFrames: [
-      [null, false, { degrees: 120, easing: easeInOut }, false, false, false, false, false, { degrees: 52, easing: easeInOut }, {copyDegrees: 0, easing: easeInOut} ], // l1c
-      [null, { step: 55, easing: easeInOut }, false, false, false, false, false, false, { step: -55, easing: easeInOut }, {copyDegrees: 0, easing: easeInOut} ], // l1f
-      [null, { degrees: 85, easing: easeInOut }, { degrees: 45, easing: easeInOut }, { step: -15, easing: easeInOut}, { step: 30, easing: easeInOut}, { copyDegrees: 3, easing: easeInOut}, { copyFrame: 4 }, { copyDegrees: 2, easing: easeInOut}, { copyFrame: 1 }, {copyDegrees: 0, easing: easeInOut} ]
+      [null, false, {
+        degrees: 120,
+        easing: easeInOut
+      }, false, false, false, false, false, {
+        degrees: 52,
+        easing: easeInOut
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }], // l1c
+      [null, {
+        step: 55,
+        easing: easeInOut
+      }, false, false, false, false, false, false, {
+        step: -55,
+        easing: easeInOut
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }], // l1f
+      [null, {
+        degrees: 85,
+        easing: easeInOut
+      }, {
+        degrees: 45,
+        easing: easeInOut
+      }, {
+        step: -15,
+        easing: easeInOut
+      }, {
+        step: 30,
+        easing: easeInOut
+      }, {
+        copyDegrees: 3,
+        easing: easeInOut
+      }, {
+        copyFrame: 4
+      }, {
+        copyDegrees: 2,
+        easing: easeInOut
+      }, {
+        copyFrame: 1
+      }, {
+        copyDegrees: 0,
+        easing: easeInOut
+      }]
     ]
   };
 
@@ -287,29 +388,245 @@ board = new five.Board().on("ready", function() {
       },
       oncomplete: function() {},
       keyFrames: [
-        [ null, null, {degrees: s.front.coxa[a]}, {degrees: s.front.coxa[1]}, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}],
-        [ null, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}, {degrees: s.front.femur[1]}, {degrees: s.front.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[a], easing: easeIn}, {degrees: s.front.tibia[1]}, {degrees: s.front.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[a], easing: easeIn}],
+        [null, null, {
+          degrees: s.front.coxa[a]
+        }, {
+          degrees: s.front.coxa[1]
+        }, {
+          degrees: s.front.coxa[b]
+        }, null, {
+          degrees: s.front.coxa[a]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.front.femur[1]
+        }, {
+          degrees: s.front.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[a],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.front.tibia[1]
+        }, {
+          degrees: s.front.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[a],
+          easing: easeIn
+        }],
 
-        [ null, null, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}, {degrees: s.front.coxa[1]}, {degrees: s.front.coxa[b]}],
-        [ null, null, {degrees: s.front.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}, {degrees: s.front.femur[1]}, {degrees: s.front.femur[b]}],
-        [ null, null, {degrees: s.front.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[a], easing: easeIn}, {degrees: s.front.tibia[1]}, {degrees: s.front.tibia[b]}],
+        [null, null, {
+          degrees: s.front.coxa[b]
+        }, null, {
+          degrees: s.front.coxa[a]
+        }, {
+          degrees: s.front.coxa[1]
+        }, {
+          degrees: s.front.coxa[b]
+        }],
+        [null, null, {
+          degrees: s.front.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.front.femur[1]
+        }, {
+          degrees: s.front.femur[b]
+        }],
+        [null, null, {
+          degrees: s.front.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.front.tibia[1]
+        }, {
+          degrees: s.front.tibia[b]
+        }],
 
-        [ null, null, {degrees: s.mid.coxa[b]}, null, {degrees: s.mid.coxa[a]}, {degrees: s.mid.coxa[1]}, {degrees: s.mid.coxa[b]}],
-        [ null, null, {degrees: s.mid.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[a], easing: easeIn}, {degrees: s.mid.femur[1]}, {degrees: s.mid.femur[b]}],
-        [ null, null, {degrees: s.mid.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[a], easing: easeIn}, {degrees: s.mid.tibia[1]}, {degrees: s.mid.tibia[b]}],
+        [null, null, {
+          degrees: s.mid.coxa[b]
+        }, null, {
+          degrees: s.mid.coxa[a]
+        }, {
+          degrees: s.mid.coxa[1]
+        }, {
+          degrees: s.mid.coxa[b]
+        }],
+        [null, null, {
+          degrees: s.mid.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.mid.femur[1]
+        }, {
+          degrees: s.mid.femur[b]
+        }],
+        [null, null, {
+          degrees: s.mid.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.mid.tibia[1]
+        }, {
+          degrees: s.mid.tibia[b]
+        }],
 
-        [ null, null, {degrees: s.mid.coxa[a]}, {degrees: s.mid.coxa[1]}, {degrees: s.mid.coxa[b]}, null, {degrees: s.mid.coxa[a]}],
-        [ null, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[a], easing: easeIn}, {degrees: s.mid.femur[1]}, {degrees: s.mid.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[a], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[a], easing: easeIn}, {degrees: s.mid.tibia[1]}, {degrees: s.mid.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[a], easing: easeIn}],
+        [null, null, {
+          degrees: s.mid.coxa[a]
+        }, {
+          degrees: s.mid.coxa[1]
+        }, {
+          degrees: s.mid.coxa[b]
+        }, null, {
+          degrees: s.mid.coxa[a]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.mid.femur[1]
+        }, {
+          degrees: s.mid.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[a],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.mid.tibia[1]
+        }, {
+          degrees: s.mid.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[a],
+          easing: easeIn
+        }],
 
-        [ null, null, {degrees: s.rear.coxa[a]}, {degrees: s.rear.coxa[1]}, {degrees: s.rear.coxa[b]}, null, {degrees: s.rear.coxa[a]}],
-        [ null, { step: lift.femur, easing: easeOut },  {degrees: s.rear.femur[a], easing: easeIn}, {degrees: s.rear.femur[1]}, {degrees: s.rear.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.rear.femur[a], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[a], easing: easeIn}, {degrees: s.rear.tibia[1]}, {degrees: s.rear.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[a], easing: easeIn}],
+        [null, null, {
+          degrees: s.rear.coxa[a]
+        }, {
+          degrees: s.rear.coxa[1]
+        }, {
+          degrees: s.rear.coxa[b]
+        }, null, {
+          degrees: s.rear.coxa[a]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.rear.femur[1]
+        }, {
+          degrees: s.rear.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[a],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.rear.tibia[1]
+        }, {
+          degrees: s.rear.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[a],
+          easing: easeIn
+        }],
 
-        [ null, null, {degrees: s.rear.coxa[b]}, null, {degrees: s.rear.coxa[a]}, {degrees: s.rear.coxa[1]}, {degrees: s.rear.coxa[b]}],
-        [ null, null, {degrees: s.rear.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.rear.femur[a], easing: easeIn}, {degrees: s.rear.femur[1]}, {degrees: s.rear.femur[b]}],
-        [ null, null, {degrees: s.rear.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[a], easing: easeIn}, {degrees: s.rear.tibia[1]}, {degrees: s.rear.tibia[b]}],
+        [null, null, {
+          degrees: s.rear.coxa[b]
+        }, null, {
+          degrees: s.rear.coxa[a]
+        }, {
+          degrees: s.rear.coxa[1]
+        }, {
+          degrees: s.rear.coxa[b]
+        }],
+        [null, null, {
+          degrees: s.rear.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[a],
+          easing: easeIn
+        }, {
+          degrees: s.rear.femur[1]
+        }, {
+          degrees: s.rear.femur[b]
+        }],
+        [null, null, {
+          degrees: s.rear.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[a],
+          easing: easeIn
+        }, {
+          degrees: s.rear.tibia[1]
+        }, {
+          degrees: s.rear.tibia[b]
+        }],
       ]
     });
     return this;
@@ -329,29 +646,209 @@ board = new five.Board().on("ready", function() {
         ph.att();
       },
       keyFrames: [
-        [ null, null, {degrees: s.front.coxa[a]}, null, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}],
-        [ null, null, {degrees: s.front.femur[a]}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[b]}, null, {degrees: s.front.femur[a]}],
-        [ null, null, {degrees: s.front.tibia[a]}, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[b]}, null, {degrees: s.front.tibia[a]}],
+        [null, null, {
+          degrees: s.front.coxa[a]
+        }, null, {
+          degrees: s.front.coxa[b]
+        }, null, {
+          degrees: s.front.coxa[a]
+        }],
+        [null, null, {
+          degrees: s.front.femur[a]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[b]
+        }, null, {
+          degrees: s.front.femur[a]
+        }],
+        [null, null, {
+          degrees: s.front.tibia[a]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[b]
+        }, null, {
+          degrees: s.front.tibia[a]
+        }],
 
-        [ null, null, {degrees: s.front.coxa[a]}, null, {degrees: s.front.coxa[b]}, null, {degrees: s.front.coxa[a]}],
-        [ null, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}, null, {degrees: s.front.femur[b], easing: easeIn}, { step: lift.femur, easing: easeOut }, {degrees: s.front.femur[a], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[a], easing: easeIn}, null, {degrees: s.front.tibia[b], easing: easeIn}, { step: lift.tibia, easing: easeOut }, {degrees: s.front.tibia[a], easing: easeIn}],
+        [null, null, {
+          degrees: s.front.coxa[a]
+        }, null, {
+          degrees: s.front.coxa[b]
+        }, null, {
+          degrees: s.front.coxa[a]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[a],
+          easing: easeIn
+        }, null, {
+          degrees: s.front.femur[b],
+          easing: easeIn
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.front.femur[a],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[a],
+          easing: easeIn
+        }, null, {
+          degrees: s.front.tibia[b],
+          easing: easeIn
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.front.tibia[a],
+          easing: easeIn
+        }],
 
-        [ null, null, {degrees: s.mid.coxa[b]}, null, {degrees: s.mid.coxa[a]}, null, {degrees: s.mid.coxa[b]}],
-        [ null, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[b], easing: easeIn}, null, {degrees: s.mid.femur[a], easing: easeIn}, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[b], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[b], easing: easeIn}, null, {degrees: s.mid.tibia[a], easing: easeIn}, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[b], easing: easeIn}],
+        [null, null, {
+          degrees: s.mid.coxa[b]
+        }, null, {
+          degrees: s.mid.coxa[a]
+        }, null, {
+          degrees: s.mid.coxa[b]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[b],
+          easing: easeIn
+        }, null, {
+          degrees: s.mid.femur[a],
+          easing: easeIn
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[b],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[b],
+          easing: easeIn
+        }, null, {
+          degrees: s.mid.tibia[a],
+          easing: easeIn
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[b],
+          easing: easeIn
+        }],
 
-        [ null, null, {degrees: s.mid.coxa[b]}, null, {degrees: s.mid.coxa[a]}, null, {degrees: s.mid.coxa[b]}],
-        [ null, null, {degrees: s.mid.femur[b]}, { step: lift.femur, easing: easeOut }, {degrees: s.mid.femur[a]}, null, {degrees: s.mid.femur[b]}],
-        [ null, null, {degrees: s.mid.tibia[b]}, { step: lift.tibia, easing: easeOut }, {degrees: s.mid.tibia[a]}, null, {degrees: s.mid.tibia[b]}],
+        [null, null, {
+          degrees: s.mid.coxa[b]
+        }, null, {
+          degrees: s.mid.coxa[a]
+        }, null, {
+          degrees: s.mid.coxa[b]
+        }],
+        [null, null, {
+          degrees: s.mid.femur[b]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.mid.femur[a]
+        }, null, {
+          degrees: s.mid.femur[b]
+        }],
+        [null, null, {
+          degrees: s.mid.tibia[b]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.mid.tibia[a]
+        }, null, {
+          degrees: s.mid.tibia[b]
+        }],
 
-        [ null, null, {degrees: s.rear.coxa[a]}, null, {degrees: s.rear.coxa[b]}, null, {degrees: s.rear.coxa[a]}],
-        [ null, null, {degrees: s.rear.femur[a]}, { step: lift.femur, easing: easeOut }, {degrees: s.rear.femur[b]}, null, {degrees: s.rear.femur[a]}],
-        [ null, null, {degrees: s.rear.tibia[a]}, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[b]}, null, {degrees: s.rear.tibia[a]}],
+        [null, null, {
+          degrees: s.rear.coxa[a]
+        }, null, {
+          degrees: s.rear.coxa[b]
+        }, null, {
+          degrees: s.rear.coxa[a]
+        }],
+        [null, null, {
+          degrees: s.rear.femur[a]
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[b]
+        }, null, {
+          degrees: s.rear.femur[a]
+        }],
+        [null, null, {
+          degrees: s.rear.tibia[a]
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[b]
+        }, null, {
+          degrees: s.rear.tibia[a]
+        }],
 
-        [ null, null, {degrees: s.rear.coxa[a]}, null, {degrees: s.rear.coxa[b]}, null, {degrees: s.rear.coxa[a]}],
-        [ null, { step: lift.femur, easing: easeOut }, {degrees: s.rear.femur[a], easing: easeIn}, null, {degrees: s.rear.femur[b], easing: easeIn}, { step: lift.femur, easing: easeOut }, {degrees: s.rear.femur[a], easing: easeIn}],
-        [ null, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[a], easing: easeIn}, null, {degrees: s.rear.tibia[b], easing: easeIn}, { step: lift.tibia, easing: easeOut }, {degrees: s.rear.tibia[a], easing: easeIn}]
+        [null, null, {
+          degrees: s.rear.coxa[a]
+        }, null, {
+          degrees: s.rear.coxa[b]
+        }, null, {
+          degrees: s.rear.coxa[a]
+        }],
+        [null, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[a],
+          easing: easeIn
+        }, null, {
+          degrees: s.rear.femur[b],
+          easing: easeIn
+        }, {
+          step: lift.femur,
+          easing: easeOut
+        }, {
+          degrees: s.rear.femur[a],
+          easing: easeIn
+        }],
+        [null, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[a],
+          easing: easeIn
+        }, null, {
+          degrees: s.rear.tibia[b],
+          easing: easeIn
+        }, {
+          step: lift.tibia,
+          easing: easeOut
+        }, {
+          degrees: s.rear.tibia[a],
+          easing: easeIn
+        }]
       ]
     });
 
@@ -360,14 +857,44 @@ board = new five.Board().on("ready", function() {
   };
 
   ph.att = function() {
-    var most = 0, grouped, mostIndex, ani, work = [
-      { name: "r1", offset: 0, home: s.front.femur[1], thome: s.front.tibia[1], chome: s.front.coxa[1]},
-      { name: "r2", offset: 0, home: s.mid.femur[1], thome: s.mid.tibia[1], chome: s.front.coxa[1] },
-      { name: "r3", offset: 0, home: s.rear.femur[1], thome: s.rear.tibia[1], chome: s.front.coxa[1] },
-      { name: "l1", offset: 0, home: s.front.femur[1], thome: s.front.tibia[1], chome: s.front.coxa[1] },
-      { name: "l2", offset: 0, home: s.mid.femur[1], thome: s.mid.tibia[1], chome: s.front.coxa[1] },
-      { name: "l3", offset: 0, home: s.rear.femur[1], thome: s.rear.tibia[1], chome: s.front.coxa[1] }
-    ];
+    var most = 0,
+      grouped, mostIndex, ani, work = [{
+        name: "r1",
+        offset: 0,
+        home: s.front.femur[1],
+        thome: s.front.tibia[1],
+        chome: s.front.coxa[1]
+      }, {
+        name: "r2",
+        offset: 0,
+        home: s.mid.femur[1],
+        thome: s.mid.tibia[1],
+        chome: s.front.coxa[1]
+      }, {
+        name: "r3",
+        offset: 0,
+        home: s.rear.femur[1],
+        thome: s.rear.tibia[1],
+        chome: s.front.coxa[1]
+      }, {
+        name: "l1",
+        offset: 0,
+        home: s.front.femur[1],
+        thome: s.front.tibia[1],
+        chome: s.front.coxa[1]
+      }, {
+        name: "l2",
+        offset: 0,
+        home: s.mid.femur[1],
+        thome: s.mid.tibia[1],
+        chome: s.front.coxa[1]
+      }, {
+        name: "l3",
+        offset: 0,
+        home: s.rear.femur[1],
+        thome: s.rear.tibia[1],
+        chome: s.front.coxa[1]
+      }];
 
     work.forEach(function(leg, i) {
       work[i].offset = Math.abs(ph[leg.name + "f"].last.reqDegrees - leg.home);

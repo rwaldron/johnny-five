@@ -278,6 +278,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
 - [Buttons - Collection w/ AT42QT1070](https://github.com/rwaldron/johnny-five/blob/master/docs/button-collection-AT42QT1070.md)
 - [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
+- [Switch - Tilt SW-200D](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-tilt-SW_200D.md)
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 
 ### Keypad
