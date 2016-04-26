@@ -628,7 +628,11 @@ exports["Board.Component"] = {
     var d = {};
 
     Board.Component.call(d, {
-      pins: { mosi: 11, miso: 12, ss: 10 },
+      pins: {
+        mosi: 11,
+        miso: 12,
+        ss: 10
+      },
       custom: {
         x: 1,
         y: 2,
