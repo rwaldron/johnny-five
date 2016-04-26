@@ -112,7 +112,7 @@ board.on("ready", function() {
     fore: new Change(2),
   };
 
-  void (function main() {
+  void(function main() {
     setImmediate(main);
 
     var joints, right, orientation, upper, fore, rotator, axis;

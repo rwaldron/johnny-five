@@ -17,7 +17,10 @@ board.on("ready", function() {
 
   inputs.forEach(function(input) {
 
-    var bar = new Barcli({ label: input, range: [0, 1023] });
+    var bar = new Barcli({
+      label: input,
+      range: [0, 1023]
+    });
 
     // Initialize a Sensor instance with
     // the virtual board created above

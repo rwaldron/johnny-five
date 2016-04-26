@@ -1,4 +1,3 @@
-
 function Component(options) {
   Emitter.call(this);
 
@@ -190,17 +189,17 @@ exports["Within"] = {
     }
 
     test.deepEqual(spy.args, [
-      [ null, 0 ],
-      [ null, 0.1 ],
-      [ null, 0.2 ],
-      [ null, 0.3 ],
-      [ null, 0.4 ],
-      [ null, 0.5 ],
-      [ null, 0.6 ],
-      [ null, 0.7 ],
-      [ null, 0.8 ],
-      [ null, 0.9 ],
-      [ null, 1 ],
+      [null, 0],
+      [null, 0.1],
+      [null, 0.2],
+      [null, 0.3],
+      [null, 0.4],
+      [null, 0.5],
+      [null, 0.6],
+      [null, 0.7],
+      [null, 0.8],
+      [null, 0.9],
+      [null, 1],
     ]);
 
     // range is inclusive
