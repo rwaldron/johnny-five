@@ -535,6 +535,10 @@
         "externals": [
           { "title": "Magnetic Door Switch", "href": "https://www.sparkfun.com/products/13247"}
         ]
+      },
+      {
+        "file": "switch-tilt-SW_200D.js",
+        "title": "Switch - Tilt SW-200D"
       }
     ]
   },

@@ -805,8 +805,8 @@ exports["Thermometer -- MPU6050"] = {
     read = this.i2cRead.args[0][3];
     read([
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // accelerometer
-      0x11, 0x22,                         // temperature
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00  // gyro
+      0x11, 0x22, // temperature
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00 // gyro
     ]);
 
 
@@ -880,10 +880,10 @@ exports["Thermometer -- MPL115A2"] = {
 
     var readOnce = this.i2cReadOnce.firstCall.args[3];
     readOnce([
-      67, 111,  // A0
-      176, 56,  // B1
+      67, 111, // A0
+      176, 56, // B1
       179, 101, // B2
-      56, 116   // C12
+      56, 116 // C12
     ]);
 
 
@@ -1068,7 +1068,7 @@ exports["Thermometer -- HTU21D"] = {
     test.deepEqual(this.i2cRead.firstCall.args.slice(0, 3), [
       0x40, // address
       0xE3, // register
-      2,    // data length
+      2, // data length
     ]);
 
 
@@ -1101,7 +1101,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
   test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
     0x60, // address
     0x00, // status register
-    1,    // data length
+    1, // data length
   ]);
 
   var read = this.i2cReadOnce.lastCall.args[3];
@@ -1111,7 +1111,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
   test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [
     0x60, // address
     0x01, // altitude register
-    6,    // data length (pressure + temp)
+    6, // data length (pressure + temp)
   ]);
 
   read = this.i2cReadOnce.lastCall.args[3];
@@ -1203,17 +1203,17 @@ exports["Thermometer -- MPL3115A2"] = {
 
     // Altitude Loop
     mpl3115aDataLoop.call(this, test, 0, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x66, 0x77        // temperature
+      0x66, 0x77 // temperature
     ]);
 
 
     // Pressure Loop
     mpl3115aDataLoop.call(this, test, 2, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // pressure
-      0x18, 0x20        // temperature
+      0x18, 0x20 // temperature
     ]);
 
     this.clock.tick(10);
@@ -1235,53 +1235,53 @@ exports["Thermometer -- MPL3115A2"] = {
 
     // First Pass -- initial
     mpl3115aDataLoop.call(this, test, 0, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x18, 0x20        // temperature
+      0x18, 0x20 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 2, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // pressure
-      0x18, 0x20        // temperature
+      0x18, 0x20 // temperature
     ]);
     this.clock.tick(10);
 
     // Second Pass -- same
     mpl3115aDataLoop.call(this, test, 4, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x18, 0x20        // temperature
+      0x18, 0x20 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 6, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // pressure
-      0x18, 0x20        // temperature
+      0x18, 0x20 // temperature
     ]);
     this.clock.tick(10);
 
     // Third Pass -- change
     mpl3115aDataLoop.call(this, test, 8, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x28, 0x20        // temperature
+      0x28, 0x20 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 10, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // pressure
-      0x28, 0x20        // temperature
+      0x28, 0x20 // temperature
     ]);
     this.clock.tick(10);
 
     // Fourth Pass -- same
     mpl3115aDataLoop.call(this, test, 12, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // altitude
-      0x28, 0x20        // temperature
+      0x28, 0x20 // temperature
     ]);
     mpl3115aDataLoop.call(this, test, 14, [
-      0x00,             // status
+      0x00, // status
       0x00, 0x00, 0x00, // pressure
-      0x28, 0x20        // temperature
+      0x28, 0x20 // temperature
     ]);
     this.clock.tick(10);
 

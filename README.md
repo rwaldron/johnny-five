@@ -3,17 +3,17 @@
 # Johnny-Five
 ### The JavaScript Robotics Programming Framework
 
-<!-- 
+<!--
 
     Hello!
 
     Please don't edit this file!
 
-    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example: 
+    If you'd like to make changes to the readme contents, please make them in the tpl/.readme.md file. If you'd like to add an example:
 
     1. Add the file in `eg/`
     2. Add a breadboard image in `docs/breadboards`
-    3. Add an entry to `tpl/programs.json`. 
+    3. Add an entry to `tpl/programs.json`.
     4. Generated the markdown with: `grunt examples`
 
 
@@ -59,7 +59,7 @@
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
-[![Travis Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five) 
+[![Travis Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)](https://ci.appveyor.com/project/rwaldron/johnny-five)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/rwaldron/johnny-five?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -67,7 +67,7 @@ _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
 **Johnny-Five is an Open Source, Firmata Protocol based, IoT and Robotics programming framework, developed at [Bocoup](http://bocoup.com). Johnny-Five programs can be written for Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!**
 
-Johnny-Five has grown from a passion project into a tool for inspiring learning and creativity for people of all ages, backgrounds, and from all across the world. 
+Johnny-Five has grown from a passion project into a tool for inspiring learning and creativity for people of all ages, backgrounds, and from all across the world.
 
 Just interested in learning and building awesome things? You might want to start with the official [Johnny-Five website](http://johnny-five.io). The website combines content from this repo, the wiki, tutorials from the Bocoup blog and several third-party websites into a single, easily-discoverable source:
 
@@ -103,7 +103,7 @@ board.on("ready", function() {
   // Create an Led on pin 13
   var led = new five.Led(13);
   // Blink every half second
-  led.blink(500); 
+  led.blink(500);
 });
 ```
 
@@ -279,6 +279,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Buttons - Collection w/ AT42QT1070](https://github.com/rwaldron/johnny-five/blob/master/docs/button-collection-AT42QT1070.md)
 - [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
+- [Switch - Tilt SW-200D](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-tilt-SW_200D.md)
 
 ### Keypad
 - [Keypad - 3x4 I2C Nano Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-3X4_I2C_NANO_BACKPACK.md)

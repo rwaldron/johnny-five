@@ -277,7 +277,7 @@ exports["Keypad: VKey"] = {
     state = priv.getCall(0).args[1];
 
     test.equal(priv.callCount, 1);
-    test.deepEqual(state.scale, [ 17, 40, 496 ]);
+    test.deepEqual(state.scale, [17, 40, 496]);
 
     // Explicitly 5V, does not throw
     test.doesNotThrow(function() {
@@ -292,7 +292,7 @@ exports["Keypad: VKey"] = {
     state = priv.getCall(1).args[1];
 
     test.equal(priv.callCount, 2);
-    test.deepEqual(state.scale, [ 17, 40, 496 ]);
+    test.deepEqual(state.scale, [17, 40, 496]);
 
 
     // Explicitly 3.3V, does not throw
@@ -308,7 +308,7 @@ exports["Keypad: VKey"] = {
     state = priv.getCall(2).args[1];
 
     test.equal(priv.callCount, 3);
-    test.deepEqual(state.scale, [ 26, 58, 721 ]);
+    test.deepEqual(state.scale, [26, 58, 721]);
 
 
     // Provided by plugin 3.3V, does not throw
@@ -326,7 +326,7 @@ exports["Keypad: VKey"] = {
     state = priv.getCall(3).args[1];
 
     test.equal(priv.callCount, 4);
-    test.deepEqual(state.scale, [ 26, 58, 721 ]);
+    test.deepEqual(state.scale, [26, 58, 721]);
 
 
     // Explicitly out of range, throws

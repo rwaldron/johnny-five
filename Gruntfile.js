@@ -262,7 +262,7 @@ module.exports = function(grunt) {
         markdown = [];
         filepath = "eg/" + example.file;
 
-        if ( !example.file || !fs.existsSync(filepath) ) {
+        if (!example.file || !fs.existsSync(filepath)) {
           grunt.fail.fatal("Specified example file doesn't exist: " + filepath);
         }
 
@@ -311,7 +311,9 @@ module.exports = function(grunt) {
         }];
 
         embeds = (example.embeds || []).map(function(embed) {
-          return templates.embeds[embed.type]({ src: embed.src });
+          return templates.embeds[embed.type]({
+            src: embed.src
+          });
         });
 
         // We'll combine markdown for images and breadboards
@@ -327,7 +329,9 @@ module.exports = function(grunt) {
           img.filepath = "docs/images/" + img.file;
           var hasImg = fs.existsSync(img.filepath);
           if (hasImg) {
-            imgMarkdown += templates.img({ img: img });
+            imgMarkdown += templates.img({
+              img: img
+            });
           } else {
             // If it's specified but doesn't exist, we'll consider it an error
             grunt.fail.fatal("Invalid image: " + img.file);
@@ -410,7 +414,9 @@ module.exports = function(grunt) {
       verbose.writeln("Missing FZZ: " + breadboard.fzz);
     }
 
-    return templates.breadboard({ breadboard: breadboard });
+    return templates.breadboard({
+      breadboard: breadboard
+    });
   }
 
   // run the examples task and fail if there are uncommitted changes to the docs directory
@@ -512,8 +518,12 @@ module.exports = function(grunt) {
       }
 
       var commits = result.split("\n")
-        .filter(function(cmt) { return cmt.trim() !== ""; })
-        .map(function(cmt) { return cmt.split("|"); });
+        .filter(function(cmt) {
+          return cmt.trim() !== "";
+        })
+        .map(function(cmt) {
+          return cmt.split("|");
+        });
 
       var rows = commits.reduce(function(accum, commit) {
         if (commit[3].indexOf("Merge") === 0) {
@@ -524,7 +534,9 @@ module.exports = function(grunt) {
         return accum;
       }, "");
 
-      log.writeln(templates.changelog({ rows: rows }));
+      log.writeln(templates.changelog({
+        rows: rows
+      }));
 
       done();
     });

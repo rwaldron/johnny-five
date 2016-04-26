@@ -48,9 +48,24 @@ var board = new five.Board().on("ready", function() {
       ph.state = "sleep";
     },
     keyFrames: [
-      [null, false, { degrees: 45, easing: "outCirc" }],
-      [null, { degrees: 136, easing: "inOutCirc" }, { degrees: 180, easing: "inOutCirc" }],
-      [null, { degrees: 120, easing: "inOutCirc" }, { step: 60, easing: "inOutCirc" }]
+      [null, false, {
+        degrees: 45,
+        easing: "outCirc"
+      }],
+      [null, {
+        degrees: 136,
+        easing: "inOutCirc"
+      }, {
+        degrees: 180,
+        easing: "inOutCirc"
+      }],
+      [null, {
+        degrees: 120,
+        easing: "inOutCirc"
+      }, {
+        step: 60,
+        easing: "inOutCirc"
+      }]
     ]
   };
 
@@ -65,9 +80,21 @@ var board = new five.Board().on("ready", function() {
       ph.state = "stand";
     },
     keyFrames: [
-      [null, { degrees: 66 }],
-      [null, false, false, { degrees: 130, easing: "outCirc"}, { degrees: 104, easing: "inCirc"}],
-      [null, false, { degrees: 106}, false, { degrees: 93 }]
+      [null, {
+        degrees: 66
+      }],
+      [null, false, false, {
+        degrees: 130,
+        easing: "outCirc"
+      }, {
+        degrees: 104,
+        easing: "inCirc"
+      }],
+      [null, false, {
+        degrees: 106
+      }, false, {
+        degrees: 93
+      }]
     ]
   };
 

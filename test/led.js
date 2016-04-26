@@ -1173,10 +1173,13 @@ exports["Led.RGB.Collection"] = {
   initFromArrayOfRGBOptions: function(test) {
     test.expect(1);
 
-    var rgbs = new Led.RGB.Collection([
-      { pins: [1, 2, 3], board: this.board },
-      { pins: [4, 5, 6], board: this.board },
-    ]);
+    var rgbs = new Led.RGB.Collection([{
+      pins: [1, 2, 3],
+      board: this.board
+    }, {
+      pins: [4, 5, 6],
+      board: this.board
+    }, ]);
 
     test.equal(rgbs.length, 2);
     test.done();
