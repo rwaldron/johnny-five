@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
-  "version": "0.9.36",
+  "version": "0.9.37",
   "homepage": "https://johnny-five.io",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -83,7 +83,7 @@
     "Dany Shaanan <danyshaanan@gmail.com>",
     "Rachel Hazes <>",
     "DeShawn Williams <deshawn.b.williams@gmail.com>",
-    "bartmichu <>",
+    "Michał <bartmichu@gmail.com>",
     "Steve Kinney <hello@stevekinney.net>",
     "H. Phil Duby <philduby@phriendly.net>",
     "Vincent Rubiolo <vincent.libre@cryostase.eu>",
@@ -122,7 +122,6 @@
   "dependencies": {
     "chalk": "latest",
     "color-convert": "~0.5.2",
-    "descriptor": "latest",
     "ease-component": "latest",
     "es6-shim": "latest",
     "lodash.clonedeep": "^4.3.0",
@@ -132,7 +131,7 @@
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "^v0.10.1",
+    "firmata": "^0.11.0",
     "serialport": "^2.0.1"
   },
   "devDependencies": {
