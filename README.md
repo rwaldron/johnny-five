@@ -355,6 +355,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Compass - HMC5883L](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc5883l.md)
 - [Compass - HMC6352](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-hmc6352.md)
 - [Compass - Logger](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-log.md)
+- [Compass - MAG3110](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-MAG3110.md)
+- [Compass - MAG3110 on Tessel 2](https://github.com/rwaldron/johnny-five/blob/master/docs/compass-MAG3110-tessel.md)
 - [Compass / Magnetometer](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer.md)
 
 ### Piezo

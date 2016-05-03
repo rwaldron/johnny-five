@@ -873,6 +873,14 @@
         "title": "Compass - HMC6352"
       },
       {
+        "file": "compass-MAG3110.js",
+        "title": "Compass - MAG3110"
+      },
+      {
+        "file": "compass-MAG3110-tessel.js",
+        "title": "Compass - MAG3110 on Tessel 2"
+      },
+      {
         "file": "compass-hmc5883l.js",
         "title": "Compass - HMC5883L"
       },
