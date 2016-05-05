@@ -169,7 +169,7 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask("nodeunit:files", "Run a subset of tests by specifying a file name, bracket list of file names, or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", (file) => {
+  grunt.registerTask("nodeunit:files", "Run a subset of tests by specifying a file name, bracket list of file names, or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", function(file) {
     grunt.task.run("nodeunit:file:" + file);
   });
 
