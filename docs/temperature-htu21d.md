@@ -37,7 +37,7 @@ board.on("ready", function() {
     controller: "HTU21D"
   });
 
-  temperature.on("data", function() {
+  temperature.on("change", function() {
     console.log(this.celsius + "°C", this.fahrenheit + "°F");
   });
 });

@@ -15,12 +15,12 @@ five.Board().on("ready", function() {
   });
 
 
-  temperatureA.on("data", function() {
-    console.log("A", this.celsius + "°C", this.fahrenheit + "°F");
+  temperatureA.on("change", function() {
+    console.log("A", this.celsius + "°C");
   });
 
-  temperatureB.on("data", function(err, data) {
-    console.log("B", this.celsius + "°C", this.fahrenheit + "°F");
+  temperatureB.on("change", function(err, data) {
+    console.log("B", this.celsius + "°C");
   });
 });
 

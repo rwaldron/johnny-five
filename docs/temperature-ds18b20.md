@@ -38,9 +38,9 @@ five.Board().on("ready", function() {
     pin: 2
   });
 
-  temperature.on("data", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
-    console.log("0x" + this.address.toString(16));
+  temperature.on("change", function() {
+    console.log(this.celsius + "°C");
+    // console.log("0x" + this.address.toString(16));
   });
 });
 

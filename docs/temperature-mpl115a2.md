@@ -37,7 +37,7 @@ board.on("ready", function() {
     controller: "MPL115A2"
   });
 
-  temperature.on("data", function() {
+  temperature.on("change", function() {
     console.log("temperature");
     console.log("  celsius      : ", this.celsius);
     console.log("  fahrenheit   : ", this.fahrenheit);

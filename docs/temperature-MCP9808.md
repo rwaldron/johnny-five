@@ -37,7 +37,7 @@ board.on("ready", function() {
     controller: "MCP9808"
   });
 
-  temp.on("data", function() {
+  temp.on("change", function() {
     console.log("temperature");
     console.log("  celsius      : ", this.celsius);
     console.log("  fahrenheit   : ", this.fahrenheit);

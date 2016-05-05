@@ -37,7 +37,7 @@ five.Board().on("ready", function() {
     pin: "A0"
   });
 
-  temperature.on("data", function() {
+  temperature.on("change", function() {
     console.log(this.celsius + "°C", this.fahrenheit + "°F");
   });
 });
