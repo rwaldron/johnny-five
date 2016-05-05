@@ -1011,7 +1011,7 @@ exports["Thermometer -- HTU21D"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.temperature = new Thermometer({
       controller: "HTU21D",
@@ -1049,7 +1049,7 @@ exports["Thermometer -- HTU21D"] = {
     this.i2cConfig.reset();
 
     new Thermometer({
-      controller: "SI7020",
+      controller: "HTU21D",
       address: 0xff,
       bus: "i2c-1",
       board: this.board
@@ -1062,35 +1062,69 @@ exports["Thermometer -- HTU21D"] = {
   },
 
   data: function(test) {
-    test.expect(7);
-
-    test.equal(this.i2cRead.callCount, 2);
-    test.deepEqual(this.i2cRead.firstCall.args.slice(0, 3), [
-      0x40, // address
-      0xE3, // register
-      2,    // data length
-    ]);
-
-
+    test.expect(8);
+    var readOnce;
     var spy = this.sandbox.spy();
-    var read = this.i2cRead.firstCall.args[3];
 
     this.temperature.on("data", spy);
 
-    read([0x67, 0x00]); // humidity
-    read = this.i2cRead.firstCall.args[3];
-    read([0x67, 0x00]); // temperature
-    read = this.i2cRead.firstCall.args[3];
-    read([0x67, 0x00]); // humidity again
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
 
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
     this.clock.tick(10);
 
-    test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.getCall(0).args[0].celsius), 24);
-    test.equals(Math.round(spy.getCall(0).args[0].fahrenheit), 75);
-    test.equals(Math.round(spy.getCall(0).args[0].kelvin), 297);
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE5);
 
-    test.equal(digits.fractional(this.temperature.C), 2);
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
+    this.clock.tick(10);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 94, 6 ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 2);
+    test.equal(Math.round(this.temperature.C), 22);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(5);
+
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.temperature.on("change", spy);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 136 ]);
+    this.clock.tick(10);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 93, 202 ]);
+    this.clock.tick(10);
+
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
+    this.clock.tick(10);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 94, 6 ]);
+    this.clock.tick(10);
+
+
+    test.equal(spy.callCount, 2);
+    test.equal(Math.round(this.temperature.C), 22);
 
     test.done();
   }

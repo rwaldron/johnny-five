@@ -80,7 +80,7 @@ exports["Hygrometer -- HTU21D"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.hygrometer = new Hygrometer({
       controller: "HTU21D",
@@ -125,65 +125,66 @@ exports["Hygrometer -- HTU21D"] = {
   },
 
   data: function(test) {
-    test.expect(4);
-
-    test.equal(this.i2cRead.callCount, 2);
-    test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
-      0x40, // address
-      0xE5, // register
-      3, // data length
-    ]);
-
-
+    test.expect(8);
+    var readOnce;
     var spy = this.sandbox.spy();
-    var read = this.i2cRead.lastCall.args[3];
 
     this.hygrometer.on("data", spy);
 
-    read([0x6F, 0xFF, 0x00]); // humidity
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
 
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
     this.clock.tick(10);
 
-    test.ok(spy.calledOnce);
-    test.equal(Math.round(spy.args[0][0].relativeHumidity), 49);
 
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE5);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 94, 6 ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 1);
+    test.equal(Math.round(this.hygrometer.relativeHumidity), 40);
     test.done();
   },
 
   change: function(test) {
-    test.expect(4);
+    test.expect(5);
 
-    test.equal(this.i2cRead.callCount, 2);
-    test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
-      0x40, // address
-      0xE5, // register
-      3, // data length
-    ]);
-
-
+    var readOnce;
     var spy = this.sandbox.spy();
-    var read = this.i2cRead.lastCall.args[3];
 
     this.hygrometer.on("change", spy);
 
-    read([0x6F, 0xFF, 0x6F, 0xFF]); // humidity
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 136 ]);
     this.clock.tick(10);
 
-    read = this.i2cRead.lastCall.args[3];
-    read([0x6F, 0xFF, 0x00]); // temperature
-    read = this.i2cRead.lastCall.args[3];
-    read([0x6F, 0xFF, 0x00]); // humidity -- same
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 93, 202 ]);
     this.clock.tick(10);
 
-    read = this.i2cRead.lastCall.args[3];
-    read([0x6F, 0xFF, 0x00]); // temperature
-    read = this.i2cRead.lastCall.args[3];
-    read([0x40, 0x00, 0x00]); // humidity -- different --
 
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
     this.clock.tick(10);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 94, 6 ]);
+    this.clock.tick(10);
+
 
     test.equal(spy.callCount, 2);
-    test.equal(Math.round(spy.lastCall.args[0].relativeHumidity), 25);
+    test.equal(Math.round(this.hygrometer.relativeHumidity), 40);
 
     test.done();
   }
