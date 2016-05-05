@@ -3,8 +3,9 @@ if (!Array.from || !Object.assign || !Map) {
 }
 require("copy-paste");
 
-var fs = require("fs");
 var cp = require("child_process");
+var fs = require("fs");
+var path = require("path");
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -144,70 +145,42 @@ module.exports = function(grunt) {
     }
   });
 
-  // Support running a single test suite:
-  // grunt nodeunit:just:motor for example
-  grunt.registerTask("nodeunit:just", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:just:test-file' or 'grunt nodeunit:just:{test-file-a,test-file-b}'", function(file) {
+  function expandRulesToFiles(rPath, input) {
+    if (!input.endsWith(".js")) {
+      if (!input.endsWith("*") || !input.endsWith("**/*")) {
+        input = ["{", path.normalize(input + "*"), ",", path.normalize(input + "**/*"), "}"].join("");
+      }
+    }
+    return rPath + input;
+  }
+
+  grunt.registerTask("nodeunit:file", "Run a subset of tests by specifying a file name or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", function(input) {
 
     var config = [
       "test/common/bootstrap.js",
     ];
 
-    if (file) {
-      var files = [file];
-
-      //
-      // grunt nodeunit:just:[test-file-a,test-file-b]
-      //
-      if (file[0] === "[" && file[file.length - 1] === "]") {
-        files = file.match(/(\w+)/g);
-      }
-
-      if (files) {
-        files.forEach(function(file) {
-          config.push("test/" + file + ".js");
-        });
-
-        grunt.config("nodeunit.tests", config);
-      }
+    if (input) {
+      config.push(expandRulesToFiles("test/", input));
+      grunt.config("nodeunit.tests", config);
     }
 
     grunt.task.run("nodeunit");
   });
 
-  grunt.registerTask("nodeunit:file", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:file:test-file' or 'grunt nodeunit:file:{test-file-a,test-file-b}'", function(file) {
-    grunt.task.run("nodeunit:just:" + file);
+
+  grunt.registerTask("nodeunit:files", "Run a subset of tests by specifying a file name, bracket list of file names, or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", (file) => {
+    grunt.task.run("nodeunit:file:" + file);
   });
 
 
-  //
-  //
-  // grunt beautify:file-a.js
-  // grunt beautify:[file-a.js,file-b.js]
-  //
-  // grunt beautify:file-a
-  // grunt beautify:[file-a,file-b]
-  //
-  grunt.registerTask("beautify", "Cleanup a single or limited set of files; usage: 'grunt beautify:file.js' or 'grunt beautify:[file-a.js,file-b.js]' (extension optional)", function(file) {
-    var files;
+  grunt.registerTask("beautify", "Cleanup a single or limited set of files; usage: 'grunt beautify:file.js' or 'grunt beautify:{file-a.js,file-b.js}' (extension optional)", function(input) {
 
-    if (file) {
-      files = [file];
+    var config = [];
 
-      //
-      // grunt beautify:[test-file-a,test-file-b]
-      //
-      if (file[0] === "[" && file[file.length - 1] === "]") {
-        files = file.match(/(\w+)/g);
-      }
-
-      if (files) {
-        for (var i = 0; i < files.length; i++) {
-          if (!files[i].endsWith(".js")) {
-            files[i] += ".js";
-          }
-        }
-        grunt.config("jsbeautifier.files", files);
-      }
+    if (input) {
+      config.push(expandRulesToFiles("", input));
+      grunt.config("jsbeautifier.files", config);
     }
 
     grunt.task.run("jsbeautifier");
