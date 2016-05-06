@@ -336,6 +336,72 @@ exports["Servo"] = {
     test.equal(this.servo.value, 100);
 
     test.done();
+  },
+
+  sweep: function(test) {
+    test.expect(19);
+
+    var args;
+
+    this.to = this.sandbox.stub(Servo.prototype, "to");
+
+    // Default behaviour
+    this.servo.sweep();
+
+    test.equal(this.to.callCount, 1);
+
+    args = this.to.lastCall.args[0];
+
+    test.deepEqual(args.keyFrames, [ { degrees: 0 }, { degrees: 180 } ]);
+    test.equal(args.metronomic, true);
+    test.equal(args.loop, true);
+    test.equal(args.easing, "inOutSine");
+
+    // Range behaviour
+    this.servo.sweep([ 35, 145 ]);
+
+    args = this.to.lastCall.args[0];
+
+    test.deepEqual(args.keyFrames, [ { degrees: 35 }, { degrees: 145 } ]);
+    test.equal(args.metronomic, true);
+    test.equal(args.loop, true);
+    test.equal(args.easing, "inOutSine");
+
+    // Options behaviour
+    this.servo.sweep({
+      range: [ 10, 170 ],
+      interval: 5000,
+      step: 10,
+    });
+
+    args = this.to.lastCall.args[0];
+
+    test.deepEqual(args.keyFrames, [ { degrees: 10 }, { degrees: 170 } ]);
+    test.equal(args.interval, 5000);
+    test.equal(args.metronomic, true);
+    test.equal(args.loop, true);
+    test.equal(args.easing, "inOutSine");
+
+    // Options w/ inOutQuad
+    this.servo.sweep({
+      range: [ 10, 170 ],
+      easing: "inOutQuad",
+      interval: 5000,
+      step: 10,
+    });
+
+    args = this.to.lastCall.args[0];
+
+    test.deepEqual(args.keyFrames, [ { degrees: 10 }, { degrees: 170 } ]);
+    test.equal(args.interval, 5000);
+    test.equal(args.metronomic, true);
+    test.equal(args.loop, true);
+    test.equal(args.easing, "inOutQuad");
+
+    // @dtex
+    // Turns out `step` is broken and I"m not
+    // sure how to fix it with Animation.
+    test.done();
   }
 };
 
