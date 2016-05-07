@@ -361,6 +361,48 @@ exports["samplingInterval"] = {
   }
 };
 
+exports["loop"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.board = newBoard();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  exists: function(test) {
+    test.expect(2);
+    test.equal(typeof Board.prototype.loop, "function");
+    test.equal(typeof this.board.loop, "function");
+    test.done();
+  },
+
+  stoppable: function(test) {
+    test.expect(4);
+    var iterations = 0;
+
+    this.board.loop(10, function(stop) {
+      iterations++;
+      stop();
+    });
+
+    test.equal(iterations, 0);
+    this.clock.tick(10);
+    test.equal(iterations, 1);
+    this.clock.tick(10);
+    test.equal(iterations, 1);
+    this.clock.tick(10);
+    test.equal(iterations, 1);
+    test.done();
+  },
+
+};
 
 exports["static"] = {
   "Board.cache": function(test) {
@@ -805,6 +847,7 @@ exports["instance"] = {
     test.done();
   },
 };
+
 
 
 exports["Board.mount"] = {
