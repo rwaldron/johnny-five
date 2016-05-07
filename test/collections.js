@@ -237,13 +237,13 @@ exports["Collection"] = {
   },
 
   slice: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     test.equal(this.outputs.slice(0).length, this.outputs.length);
     test.equal(this.outputs.slice(0).includes(this.outputs[0]), true);
     test.equal(this.outputs.slice(0).includes(this.outputs[1]), true);
     test.equal(this.outputs.slice(0).includes(this.outputs[2]), true);
-
+    test.equal(this.outputs.slice(0) instanceof Outputs, true);
     test.done();
   },
 
