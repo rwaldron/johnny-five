@@ -94,16 +94,16 @@ exports["Sensor - Analog"] = {
         type: "object"
       }, // defined property that returns var inited to null
       analog: {
-        type: "object"
+        type: "number"
       }, // defined property
       constrained: {
-        type: "object"
+        type: "number"
       }, // defined property
       boolean: {
         type: "boolean"
       }, // defined property always true or false
       scaled: {
-        type: "object"
+        type: "number"
       }, // defined property
       value: {
         type: "object"
@@ -298,7 +298,7 @@ exports["Sensor - Analog"] = {
     // Check that no event is emitted before the end of the next interval
     test.ok(dataSpy.calledOnce, "tick " + tickAccum + ": data event handler should not be called again until tick " + this.defShape.freq * 2);
     test.ok(chgSpy.calledOnce, "tick " + tickAccum + ": change event handler should not be called again until tick " + this.defShape.freq * 2);
-    filtered = 202.5; // Median of values sent through callback (last === 102) (avg(102,103))
+    filtered = 202.5; // Round median of values sent through callback (last === 102) (avg(102,103))
 
     // Check that events are emitted at the end of the second interval
     tickDelta = 1;
