@@ -492,8 +492,59 @@ exports["Accelerometer -- ADXL345"] = {
     test.deepEqual(changeSpy.args[0], [{
       x: 0.01,
       y: 0.02,
-      z: 1.02
+      z: 0.9
     }]);
+
+    test.done();
+  },
+
+  dataAltRange: function(test) {
+
+    this.i2cConfig.reset();
+    this.i2cWrite.reset();
+    this.i2cRead.reset();
+
+    this.accel = new Accelerometer({
+      controller: "ADXL345",
+      range: 16,
+      board: this.board,
+    });
+
+
+    var read, dataSpy = this.sandbox.spy(),
+      changeSpy = this.sandbox.spy();
+
+    // test.expect(12);
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    read = this.i2cRead.args[0][3];
+    read([
+      // Derived from actual reading set.
+      0x03, 0x00, 0x05, 0x00, 0xFE, 0x00
+    ]);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.ok(this.i2cWrite.calledThrice);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [83, 45, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [83, 45, 8]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [83, 49, 11]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [83, 50, 6]);
+
+    this.clock.tick(100);
+
+    test.ok(dataSpy.calledOnce);
+    test.deepEqual(dataSpy.args[0], [{
+      x: 3,
+      y: 5,
+      z: 254
+    }]);
+
+    test.ok(changeSpy.calledOnce);
+    test.deepEqual(changeSpy.args[0], [{ x: 0.1, y: 0.16, z: 7.26 }]);
 
     test.done();
   }
