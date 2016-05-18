@@ -1,31 +1,23 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  board = new five.Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-
 exports["Animation"] = {
   setUp: function(done) {
-    this.servoWrite = sinon.spy(board.io, "servoWrite");
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
-    this.a = new five.Servo({
+    this.a = new Servo({
       pin: 3,
-      board: board
+      board: this.board
     });
 
-    this.b = new five.Servo({
+    this.b = new Servo({
       pin: 5,
-      board: board,
+      board: this.board,
       startAt: 20
     });
 
-    this.c = new five.Servo({
+    this.c = new Servo({
       pin: 6,
-      board: board
+      board: this.board
     });
 
     this.mockChain = {
@@ -51,7 +43,7 @@ exports["Animation"] = {
       }
     };
 
-    this.servoArray = new five.Servo.Array([this.a, this.b, this.c]);
+    this.servos = new Servo.Collection([this.a, this.b, this.c]);
 
     this.segment = {
       long: {
@@ -98,14 +90,16 @@ exports["Animation"] = {
   },
 
   tearDown: function(done) {
-    this.servoWrite.restore();
+    Board.purge();
+    Servo.purge();
+    this.sandbox.restore();
     done();
   },
 
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.animation = new five.Animation(this.a);
+    this.animation = new Animation(this.a);
 
     this.proto.forEach(function(method) {
       test.equal(typeof this.animation[method.name], "function");
@@ -120,7 +114,7 @@ exports["Animation"] = {
 
   longRunning: function(test) {
 
-    this.animation = new five.Animation(this.servoArray);
+    this.animation = new Animation(this.servos);
 
     test.expect(2);
 

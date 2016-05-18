@@ -1,24 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Altimeter = five.Altimeter;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-  return board;
-}
-
-// Global suite setUp
 exports.setUp = function(done) {
   // Base Shape for all Temperature tests
   this.proto = [];
@@ -34,7 +13,7 @@ exports.setUp = function(done) {
 
   this.board = newBoard();
   this.sandbox = sinon.sandbox.create();
-  this.clock = sinon.useFakeTimers();
+  this.clock = this.sandbox.useFakeTimers();
   this.freq = 100;
 
   done();
@@ -43,7 +22,6 @@ exports.setUp = function(done) {
 exports.tearDown = function(done) {
   Board.purge();
   this.sandbox.restore();
-  this.clock.restore();
   done();
 };
 

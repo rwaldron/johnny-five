@@ -179,6 +179,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Board - Multiple in one program](https://github.com/rwaldron/johnny-five/blob/master/docs/board-multi.md)
 - [Board - Specify Sampling Interval](https://github.com/rwaldron/johnny-five/blob/master/docs/board-sampling-interval.md)
 - [Board - Specify port](https://github.com/rwaldron/johnny-five/blob/master/docs/board-with-port.md)
+- [Custom Data Properties](https://github.com/rwaldron/johnny-five/blob/master/docs/custom-properties.md)
 - [Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/pin.md)
 - [REPL](https://github.com/rwaldron/johnny-five/blob/master/docs/repl.md)
 
@@ -275,7 +276,9 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Button - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/button-EVS_NXT.md)
 - [Button - Options](https://github.com/rwaldron/johnny-five/blob/master/docs/button-options.md)
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
+- [Buttons - Collection w/ AT42QT1070](https://github.com/rwaldron/johnny-five/blob/master/docs/button-collection-AT42QT1070.md)
 - [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
+- [Switch - Tilt SW-200D](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-tilt-SW_200D.md)
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
 
 ### Keypad
@@ -291,6 +294,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Relay
 - [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
+- [Relay - Collection](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-collection.md)
 
 ### Shift Register
 - [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)
@@ -367,6 +371,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-MS5611.md)
+- [Multi - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-sht31d.md)
 - [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
 - [Multi - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-TH02.md)
 
@@ -391,6 +396,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Hygrometer - DHT11_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-DHT11_I2C_NANO_BACKPACK.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
+- [Hygrometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-sht31d.md)
 - [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
@@ -411,6 +417,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpl3115a2.md)
 - [Thermometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-mpu6050.md)
 - [Thermometer - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MS5611.md)
+- [Thermometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-sht31d.md)
 - [Thermometer - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
 - [Thermometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-TH02.md)
 - [Thermometer - TMP102](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp102.md)

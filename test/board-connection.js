@@ -1,15 +1,9 @@
-var mocks = require("mock-firmata");
-var MockSerialPort = mocks.SerialPort;
-var sinon = require("sinon");
-var five = require("../lib/johnny-five");
-var Board = five.Board;
-
 exports["Board Connection"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.connect = this.sandbox.spy(Board.Serial, "connect");
     this.detect = this.sandbox.spy(Board.Serial, "detect");
-    this.MockFirmata = this.sandbox.stub(mocks, "Firmata");
+    this.MockFirmata = this.sandbox.stub(Firmata, "Board");
     done();
   },
 
@@ -27,7 +21,7 @@ exports["Board Connection"] = {
     var calls = 0;
     var attempts = Board.Serial.attempts;
 
-    this.list = this.sandbox.stub(MockSerialPort, "list", function(callback) {
+    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
       calls++;
       process.nextTick(function() {
         callback(null, calls === 2 ? [{

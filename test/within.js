@@ -1,25 +1,3 @@
-var Emitter = require("events").EventEmitter;
-var five = require("../lib/johnny-five");
-var within = require("../lib/mixins/within");
-var mocks = require("mock-firmata");
-var sinon = require("sinon");
-
-var MockFirmata = mocks.Firmata;
-var Board = five.Board;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 function Component(options) {
   Emitter.call(this);
@@ -91,6 +69,7 @@ exports["Within"] = {
     done();
   },
   tearDown: function(done) {
+    Board.purge();
     this.sandbox.restore();
     done();
   },

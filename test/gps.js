@@ -1,67 +1,11 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  GPS = five.GPS;
-
-function newBoard() {
-  var io = new MockFirmata();
-
-  // Temporary
-  io.SERIAL_PORT_IDs.DEFAULT = 0x08;
-
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
-exports["Chip -- MT3339"] = {
-
+exports["GPS"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.serialConfig = sinon.spy(MockFirmata.prototype, "serialConfig");
-    this.serialWrite = sinon.spy(MockFirmata.prototype, "serialWrite");
-    this.serialRead = sinon.spy(MockFirmata.prototype, "serialRead");
-
-    this.gps = new GPS({
-      chip: "MT3339",
-      pins: {
-        tx: 10,
-        rx: 11
-      },
-      board: this.board
-    });
+    this.serialConfig = this.sandbox.spy(MockFirmata.prototype, "serialConfig");
 
     this.proto = [{
       name: "configure"
-    }, {
-      name: "restart"
     }, {
       name: "initialize"
     }, {
@@ -69,13 +13,11 @@ exports["Chip -- MT3339"] = {
     }, {
       name: "listen"
     }, {
-      name: "parseNmeaSentence"
+      name: "parseSentence"
     }];
 
     this.instance = [{
       name: "baud"
-    }, {
-      name: "frequency"
     }, {
       name: "fixed"
     }, {
@@ -95,22 +37,83 @@ exports["Chip -- MT3339"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
 
+    var gps = new GPS({
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      board: this.board
+    });
+
     this.proto.forEach(function(method) {
-      test.equal(typeof this.gps[method.name], "function");
-    }, this);
+      test.equal(typeof gps[method.name], "function");
+    });
 
     this.instance.forEach(function(property) {
-      test.notEqual(typeof this.gps[property.name], "undefined");
-    }, this);
+      test.notEqual(typeof gps[property.name], "undefined");
+    });
 
     test.done();
+  },
+
+  useCustomBaud: function(test) {
+    test.expect(1);
+
+    var gps = new GPS({
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      baud: 4800,
+      board: this.board
+    });
+
+    test.deepEqual(this.serialConfig.args[0][0], {
+      portId: 8,
+      baud: 4800,
+      rxPin: 11,
+      txPin: 10
+    });
+
+    gps = null;
+    test.done();
+  }
+
+};
+
+exports["Chip -- MT3339"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.serialConfig = this.sandbox.spy(MockFirmata.prototype, "serialConfig");
+    this.serialWrite = this.sandbox.spy(MockFirmata.prototype, "serialWrite");
+    this.serialRead = this.sandbox.spy(MockFirmata.prototype, "serialRead");
+
+    this.gps = new GPS({
+      chip: "MT3339",
+      pins: {
+        tx: 10,
+        rx: 11
+      },
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
   },
 
   useDefaultPort: function(test) {
@@ -207,40 +210,40 @@ exports["Chip -- MT3339"] = {
     test.done();
   },
 
-  parseNmeaSentence: function(test) {
+  parseSentence: function(test) {
 
     test.expect(25);
 
     //GPGGA North and West Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172814.0,3723.46587704,N,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*4F");
+    this.gps.parseSentence("$GPGGA,172814.0,3723.46587704,N,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*4F");
     test.equal(this.gps.latitude, 37.3910980);
     test.equal(this.gps.longitude, -122.037826);
     test.equal(this.gps.altitude, 18.893);
     test.equal(this.gps.time, "172814.0");
 
     //North and East Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172815.0,3723.46587704,N,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*5C");
+    this.gps.parseSentence("$GPGGA,172815.0,3723.46587704,N,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*5C");
     test.equal(this.gps.latitude, 37.3910980);
     test.equal(this.gps.longitude, 122.037826);
     test.equal(this.gps.altitude, 18.893);
     test.equal(this.gps.time, "172815.0");
 
     //GPGGA South and West Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*50");
+    this.gps.parseSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*50");
     test.equal(this.gps.latitude, -37.3910980);
     test.equal(this.gps.longitude, -122.037826);
     test.equal(this.gps.altitude, 18.893);
     test.equal(this.gps.time, "172816.0");
 
     //GPGGA South and East Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*42");
+    this.gps.parseSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*42");
     test.equal(this.gps.latitude, -37.3910980);
     test.equal(this.gps.longitude, 122.037826);
     test.equal(this.gps.altitude, 18.893);
     test.equal(this.gps.time, "172816.0");
 
     //GPGSA
-    this.gps.parseNmeaSentence("$GPGSA,A,3,19,28,14,18,27,22,31,39,,,,,1.7,1.0,1.3*34");
+    this.gps.parseSentence("$GPGSA,A,3,19,28,14,18,27,22,31,39,,,,,1.7,1.0,1.3*34");
     test.deepEqual(this.gps.sat, {
       satellites: ["19", "28", "14", "18", "27", "22", "31", "39", "", "", "", ""],
       pdop: 1.7,
@@ -249,7 +252,7 @@ exports["Chip -- MT3339"] = {
     });
 
     //GPRMC
-    this.gps.parseNmeaSentence("$GPRMC,220516,A,5133.82,N,00042.24,W,173.8,231.8,130694,004.2,W*70");
+    this.gps.parseSentence("$GPRMC,220516,A,5133.82,N,00042.24,W,173.8,231.8,130694,004.2,W*70");
     test.equal(this.gps.latitude, 51.563667);
     test.equal(this.gps.longitude, -0.704000000);
     test.equal(this.gps.altitude, 18.893);
@@ -258,7 +261,7 @@ exports["Chip -- MT3339"] = {
     test.equal(this.gps.time, "220516");
 
     //GPVTG
-    this.gps.parseNmeaSentence("$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48");
+    this.gps.parseSentence("$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48");
     test.equal(this.gps.course, 54.7);
     test.equal(this.gps.speed, 2.829442);
     test.done();
@@ -296,7 +299,7 @@ exports["Chip -- Venus638FLPx"] = {
     }, {
       name: "listen"
     }, {
-      name: "parseNmeaSentence"
+      name: "parseSentence"
     }];
 
     this.instance = [{
@@ -337,38 +340,6 @@ exports["Chip -- Venus638FLPx"] = {
       test.notEqual(typeof this.gps[property.name], "undefined");
     }, this);
 
-    test.done();
-  },
-
-  useDefaultPort: function(test) {
-    test.expect(1);
-
-    test.deepEqual(this.serialConfig.args[0][0], {
-      portId: 8,
-      baud: 9600,
-      rxPin: 11,
-      txPin: 10
-    });
-
-    this.serialConfig.reset();
-    test.done();
-  },
-
-  useHwSerial: function(test) {
-    test.expect(1);
-
-    // flush args from generated by setUp
-    this.serialConfig.reset();
-
-    this.gps = new GPS({
-      device: "Venus638FLPx",
-      port: this.board.io.SERIAL_PORT_IDs.HW_SERIAL1,
-      board: this.board,
-    });
-
-    test.equal(this.serialConfig.args[0][0].portId, 1);
-
-    this.serialConfig.reset();
     test.done();
   },
 
@@ -422,19 +393,7 @@ exports["Chip -- Venus638FLPx"] = {
   sendCommand: function(test) {
     test.expect(2);
 
-    this.gps.sendCommand("Hey,laser,lips,your,mama,was,a,snow,blower\r\n");
-    test.equal(this.serialWrite.args[0][0], 8);
-    test.deepEqual(this.serialWrite.args[0][1], [72, 101, 121, 44, 108, 97, 115, 101, 114, 44, 108, 105, 112, 115, 44, 121, 111, 117, 114, 44, 109, 97, 109, 97, 44, 119, 97, 115, 44, 97, 44, 115, 110, 111, 119, 44, 98, 108, 111, 119, 101, 114, 13, 10, 42, 54, 53, 13, 10]);
-
-    this.serialConfig.reset();
-    this.serialWrite.reset();
-    test.done();
-  },
-
-  sendSkyTraqCommand: function(test) {
-    test.expect(2);
-
-    this.gps.sendSkyTraqCommand([ 14, 5 ]);
+    this.gps.sendCommand([ 14, 5 ]);
     test.equal(this.serialWrite.args[0][0], 8);
     test.deepEqual(this.serialWrite.args[0][1], [ 160, 161, 0, 2, 14, 5, 11, 13, 10 ] );
     test.done();
@@ -455,63 +414,5 @@ exports["Chip -- Venus638FLPx"] = {
 
     this.serialRead.reset();
     test.done();
-  },
-
-  parseNmeaSentence: function(test) {
-
-    test.expect(25);
-
-    //GPGGA North and West Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172814.0,3723.46587704,N,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*4F");
-    test.equal(this.gps.latitude, 37.3910980);
-    test.equal(this.gps.longitude, -122.037826);
-    test.equal(this.gps.altitude, 18.893);
-    test.equal(this.gps.time, "172814.0");
-
-    //North and East Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172815.0,3723.46587704,N,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*5C");
-    test.equal(this.gps.latitude, 37.3910980);
-    test.equal(this.gps.longitude, 122.037826);
-    test.equal(this.gps.altitude, 18.893);
-    test.equal(this.gps.time, "172815.0");
-
-    //GPGGA South and West Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,W,2,6,1.2,18.893,M,-25.669,M,2.0,0031*50");
-    test.equal(this.gps.latitude, -37.3910980);
-    test.equal(this.gps.longitude, -122.037826);
-    test.equal(this.gps.altitude, 18.893);
-    test.equal(this.gps.time, "172816.0");
-
-    //GPGGA South and East Hemispheres
-    this.gps.parseNmeaSentence("$GPGGA,172816.0,3723.46587704,S,12202.26957864,E,2,6,1.2,18.893,M,-25.669,M,2.0,0031*42");
-    test.equal(this.gps.latitude, -37.3910980);
-    test.equal(this.gps.longitude, 122.037826);
-    test.equal(this.gps.altitude, 18.893);
-    test.equal(this.gps.time, "172816.0");
-
-    //GPGSA
-    this.gps.parseNmeaSentence("$GPGSA,A,3,19,28,14,18,27,22,31,39,,,,,1.7,1.0,1.3*34");
-    test.deepEqual(this.gps.sat, {
-      satellites: ["19", "28", "14", "18", "27", "22", "31", "39", "", "", "", ""],
-      pdop: 1.7,
-      hdop: 1.0,
-      vdop: 1.3
-    });
-
-    //GPRMC
-    this.gps.parseNmeaSentence("$GPRMC,220516,A,5133.82,N,00042.24,W,173.8,231.8,130694,004.2,W*70");
-    test.equal(this.gps.latitude, 51.563667);
-    test.equal(this.gps.longitude, -0.704000000);
-    test.equal(this.gps.altitude, 18.893);
-    test.equal(this.gps.course, 231.8);
-    test.equal(this.gps.speed, 89.410367);
-    test.equal(this.gps.time, "220516");
-
-    //GPVTG
-    this.gps.parseNmeaSentence("$GPVTG,054.7,T,034.4,M,005.5,N,010.2,K*48");
-    test.equal(this.gps.course, 54.7);
-    test.equal(this.gps.speed, 2.829442);
-    test.done();
   }
-
 };

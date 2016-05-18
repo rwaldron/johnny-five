@@ -1,10 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  Repl = require("../lib/repl"),
-  sinon = require("sinon"),
-  Board = five.Board;
-
 exports["Repl"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

@@ -1,68 +1,19 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
-var five = require("../lib/johnny-five.js");
 var lcdChars = require("../lib/lcd-chars.js");
-var sinon = require("sinon");
 var util = require("util");
-var Board = five.Board;
-var LCD = five.LCD;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
 
 exports["LCD.Characters"] = {
-  setUp: function(done) {
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    restore(this);
-    done();
-  },
-
   exists: function(test) {
     test.expect(1);
-
     test.deepEqual(LCD.Characters, lcdChars);
-
     test.done();
   },
-
 };
 
 exports["LCD"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     this.lcd = new LCD({
       pins: [7, 8, 9, 10, 11, 12],
@@ -128,7 +79,7 @@ exports["LCD"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -163,7 +114,7 @@ exports["LCD"] = {
   command: function(test) {
     test.expect(10);
 
-    var wbStub = sinon.stub(this.lcd, "send");
+    var wbStub = this.sandbox.stub(this.lcd, "send");
 
     this.lcd.command(15);
     test.ok(wbStub.calledTwice);
@@ -195,8 +146,8 @@ exports["LCD"] = {
   write: function(test) {
     test.expect(3);
 
-    var cSpy = sinon.spy(this.lcd, "command");
-    var hiloSpy = sinon.spy(this.lcd, "hilo");
+    var cSpy = this.sandbox.spy(this.lcd, "command");
+    var hiloSpy = this.sandbox.spy(this.lcd, "hilo");
 
     this.lcd.write(42);
     test.ok(hiloSpy.calledOn(this.lcd));
@@ -211,8 +162,8 @@ exports["LCD"] = {
   cursor: function(test) {
     test.expect(6);
 
-    var scSpy = sinon.stub(this.lcd, "setCursor");
-    var cSpy = sinon.stub(this.lcd, "command");
+    var scSpy = this.sandbox.stub(this.lcd, "setCursor");
+    var cSpy = this.sandbox.stub(this.lcd, "command");
 
     this.lcd.cursor();
     test.ok(!scSpy.called);
@@ -231,7 +182,7 @@ exports["LCD"] = {
   noCursor: function(test) {
     test.expect(2);
 
-    var cSpy = sinon.stub(this.lcd, "command");
+    var cSpy = this.sandbox.stub(this.lcd, "command");
 
     this.lcd.noCursor();
     test.ok(cSpy.calledOnce);
@@ -244,7 +195,7 @@ exports["LCD"] = {
     test.expect(143);
 
     // Numbers capped to 7, direct addresses, proper commands
-    var cSpy = sinon.spy(this.lcd, "command");
+    var cSpy = this.sandbox.spy(this.lcd, "command");
     var charMap = [0, 1, 2, 3, 4, 5, 6, 7];
 
     for (var num = 0; num <= 8; ++num) {
@@ -279,7 +230,7 @@ exports["LCD"] = {
   useChar: function(test) {
     test.expect(3);
 
-    var ccSpy = sinon.spy(this.lcd, "createChar");
+    var ccSpy = this.sandbox.spy(this.lcd, "createChar");
 
     this.lcd.useChar("heart");
     test.ok(ccSpy.firstCall.calledWith("heart"));
@@ -296,7 +247,7 @@ exports["LCD"] = {
     // No test.expect() as these are a bit cumbersome/coupled to obtain
 
     var sentences = ["hello world", "", "   ", " hello ", " hello  "];
-    var cSpy = sinon.spy(this.lcd, "command");
+    var cSpy = this.sandbox.spy(this.lcd, "command");
 
     sentences.forEach(function(text) {
       var comparison = text;
@@ -344,7 +295,7 @@ exports["LCD"] = {
           this.lcd.useChar(match.slice(1, -1));
         }
       }, this);
-      var cSpy = sinon.spy(this.lcd, "command");
+      var cSpy = this.sandbox.spy(this.lcd, "command");
       this.lcd.print(text);
 
       test.strictEqual(cSpy.callCount, comparison.length,
@@ -371,16 +322,17 @@ exports["LCD"] = {
 exports["LCD - I2C (JHD1313M1)"] = {
   // TODO: Move all stubs and spies into setup
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -399,7 +351,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     var forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
-    test.equal(forwarded.address, 0xff);
+    // This controller will actually forward 2 addresses
+    // as an object of addresses.
+    test.deepEqual(forwarded.address, { lcd: 0xff, rgb: 0x62 });
     test.equal(forwarded.bus, "i2c-1");
 
     test.done();
@@ -451,20 +405,57 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [62, [64, 15]]);
 
     test.done();
-  }
+  },
+
+  bgColor: function(test) {
+    test.expect(8);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    this.hexRgb = this.sandbox.spy(converter.hex, "rgb");
+    this.keyRgb = this.sandbox.spy(converter.keyword, "rgb");
+
+    lcd.bgColor([0, 0, 0]);
+
+    test.equal(this.keyRgb.callCount, 0);
+    test.equal(this.hexRgb.callCount, 0);
+
+    lcd.bgColor("blue");
+
+    test.equal(this.keyRgb.callCount, 1);
+    test.equal(this.hexRgb.callCount, 0);
+
+
+    lcd.bgColor("ff0000");
+
+    test.equal(this.keyRgb.callCount, 2);
+    test.equal(this.hexRgb.callCount, 1);
+
+    lcd.bgColor("#ff0000");
+
+    test.equal(this.keyRgb.callCount, 3);
+    test.equal(this.hexRgb.callCount, 2);
+
+
+    test.done();
+  },
 };
 
 exports["LCD - I2C (LCD2004)"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -514,9 +505,9 @@ exports["LCD - I2C (LCD2004)"] = {
     });
 
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -550,9 +541,9 @@ exports["LCD - I2C (LCD2004)"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -580,15 +571,16 @@ exports["LCD - I2C (LCD2004)"] = {
 
 exports["LCD - I2C (LCM1602)"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -637,9 +629,9 @@ exports["LCD - I2C (LCM1602)"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -672,9 +664,9 @@ exports["LCD - I2C (LCM1602)"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -703,15 +695,16 @@ exports["LCD - I2C (LCM1602)"] = {
 
 exports["LCD - PCF8574"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -797,9 +790,9 @@ exports["LCD - PCF8574"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -832,9 +825,9 @@ exports["LCD - PCF8574"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -863,15 +856,16 @@ exports["LCD - PCF8574"] = {
 
 exports["LCD - MJKDZ"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -957,9 +951,9 @@ exports["LCD - MJKDZ"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();
@@ -992,9 +986,9 @@ exports["LCD - MJKDZ"] = {
       board: this.board
     });
 
-    var send = sinon.spy(lcd, "send");
-    var writeBits = sinon.spy(lcd, "writeBits");
-    var pulse = sinon.spy(lcd, "pulse");
+    var send = this.sandbox.spy(lcd, "send");
+    var writeBits = this.sandbox.spy(lcd, "writeBits");
+    var pulse = this.sandbox.spy(lcd, "pulse");
 
     // Prevent inclusion of initialization-related writes.
     this.i2cWrite.reset();

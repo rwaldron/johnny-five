@@ -1,4 +1,6 @@
-require("es6-shim");
+if (!Array.from || !Object.assign || !Map) {
+  require("es6-shim");
+}
 require("copy-paste");
 
 var fs = require("fs");
@@ -45,7 +47,7 @@ module.exports = function(grunt) {
   if (Number(process.versions.node.split(".")[0]) >= 4) {
     changedFiles = cp.execSync("git diff --name-only").toString().split("\n").reduce(function(accum, line) {
       var value = line.trim();
-      if (value) {
+      if (value && value.endsWith(".js")) {
         accum.push(value);
       }
       return accum;
@@ -59,10 +61,11 @@ module.exports = function(grunt) {
   ].concat(programsList);
 
 
-  if (changedFiles.length) {
-    primaryFiles = changedFiles;
+  if (!process.env.APPVEYOR && !process.env.TRAVIS) {
+    if (changedFiles.length) {
+      primaryFiles = changedFiles;
+    }
   }
-
 
   // Project configuration.
   grunt.initConfig({
@@ -72,7 +75,7 @@ module.exports = function(grunt) {
     },
     nodeunit: {
       tests: [
-        "test/bootstrap/*.js",
+        "test/common/bootstrap.js",
         "test/*.js"
       ]
     },
@@ -143,10 +146,10 @@ module.exports = function(grunt) {
 
   // Support running a single test suite:
   // grunt nodeunit:just:motor for example
-  grunt.registerTask("nodeunit:just", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:just:test-file' or 'grunt nodeunit:just:[test-file-a,test-file-b]'", function(file) {
+  grunt.registerTask("nodeunit:just", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:just:test-file' or 'grunt nodeunit:just:{test-file-a,test-file-b}'", function(file) {
 
     var config = [
-      "test/bootstrap/*.js",
+      "test/common/bootstrap.js",
     ];
 
     if (file) {
@@ -170,6 +173,11 @@ module.exports = function(grunt) {
 
     grunt.task.run("nodeunit");
   });
+
+  grunt.registerTask("nodeunit:file", "Run a single or limited set of tests specified by a target; usage: 'grunt nodeunit:file:test-file' or 'grunt nodeunit:file:{test-file-a,test-file-b}'", function(file) {
+    grunt.task.run("nodeunit:just:" + file);
+  });
+
 
   //
   //

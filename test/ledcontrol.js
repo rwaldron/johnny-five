@@ -1,51 +1,13 @@
-var five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  Board = five.Board,
-  LedControl = five.LedControl,
-  LedMatrix = five.Led.Matrix;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Led.Matrix => LedControl"] = {
   setUp: function(done) {
     this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -53,7 +15,7 @@ exports["Led.Matrix => LedControl"] = {
   wrapper: function(test) {
     test.expect(2);
 
-    var matrix = new LedMatrix({
+    var matrix = new Led.Matrix({
       pins: {
         data: 2,
         clock: 3,
@@ -73,7 +35,7 @@ exports["Led.Matrix => LedControl"] = {
     test.expect(keys.length);
 
     keys.forEach(function(key) {
-      test.equal(LedMatrix[key], LedControl[key]);
+      test.equal(Led.Matrix[key], LedControl[key]);
     });
 
     test.done();
@@ -82,14 +44,15 @@ exports["Led.Matrix => LedControl"] = {
 
 exports["LedControl - I2C Matrix Initialization"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -323,10 +286,11 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
 exports["LedControl - I2C Matrix"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -334,13 +298,13 @@ exports["LedControl - I2C Matrix"] = {
       board: this.board
     });
 
-    this.each = sinon.spy(this.lc, "each");
-    this.row = sinon.spy(this.lc, "row");
+    this.each = this.sandbox.spy(this.lc, "each");
+    this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -588,10 +552,11 @@ exports["LedControl - I2C Matrix"] = {
 
 exports["LedControl - I2C Matrix 16x8"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -600,13 +565,13 @@ exports["LedControl - I2C Matrix 16x8"] = {
       isBicolor: false,
       board: this.board
     });
-    this.each = sinon.spy(this.lc, "each");
-    this.row = sinon.spy(this.lc, "row");
+    this.each = this.sandbox.spy(this.lc, "each");
+    this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -696,8 +661,9 @@ exports["LedControl - I2C Matrix 16x8"] = {
 
 exports["LedControl - Matrix"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
     this.lc = new LedControl({
       pins: {
@@ -709,8 +675,8 @@ exports["LedControl - Matrix"] = {
       board: this.board
     });
 
-    this.digitalWrite = sinon.spy(MockFirmata.prototype, "digitalWrite");
-    this.shiftOut = sinon.spy(Board.prototype, "shiftOut");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
 
     this.proto = [{
       name: "column",
@@ -754,25 +720,25 @@ exports["LedControl - Matrix"] = {
     }];
 
 
-    this.each = sinon.spy(this.lc, "each");
-    this.row = sinon.spy(this.lc, "row");
-    this.column = sinon.spy(this.lc, "column");
-    this.draw = sinon.spy(this.lc, "draw");
-    this.on = sinon.spy(this.lc, "on");
-    this.off = sinon.spy(this.lc, "off");
-    this.scanLimit = sinon.spy(this.lc, "scanLimit");
-    this.brightness = sinon.spy(this.lc, "brightness");
-    this.clear = sinon.spy(this.lc, "clear");
-    this.led = sinon.spy(this.lc, "led");
-    this.initialize = sinon.spy(this.lc, "initialize");
-    this.send = sinon.spy(this.lc, "send");
+    this.each = this.sandbox.spy(this.lc, "each");
+    this.row = this.sandbox.spy(this.lc, "row");
+    this.column = this.sandbox.spy(this.lc, "column");
+    this.draw = this.sandbox.spy(this.lc, "draw");
+    this.on = this.sandbox.spy(this.lc, "on");
+    this.off = this.sandbox.spy(this.lc, "off");
+    this.scanLimit = this.sandbox.spy(this.lc, "scanLimit");
+    this.brightness = this.sandbox.spy(this.lc, "brightness");
+    this.clear = this.sandbox.spy(this.lc, "clear");
+    this.led = this.sandbox.spy(this.lc, "led");
+    this.initialize = this.sandbox.spy(this.lc, "initialize");
+    this.send = this.sandbox.spy(this.lc, "send");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -1223,8 +1189,9 @@ exports["LedControl - Matrix"] = {
 
 exports["LedControl - Digits"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
     this.lc = new LedControl({
       pins: {
@@ -1235,17 +1202,17 @@ exports["LedControl - Digits"] = {
       board: this.board
     });
 
-    this.digitalWrite = sinon.spy(this.board, "digitalWrite");
-    this.shiftOut = sinon.spy(this.board, "shiftOut");
-    this.each = sinon.spy(this.lc, "each");
-    this.send = sinon.spy(this.lc, "send");
+    this.digitalWrite = this.sandbox.spy(this.board, "digitalWrite");
+    this.shiftOut = this.sandbox.spy(this.board, "shiftOut");
+    this.each = this.sandbox.spy(this.lc, "each");
+    this.send = this.sandbox.spy(this.lc, "send");
 
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },
@@ -1390,10 +1357,11 @@ exports["LedControl - Digits"] = {
 
 exports["LedControl - I2C Digits"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
 
     this.lc = new LedControl({
       controller: "HT16K33",
@@ -1401,13 +1369,13 @@ exports["LedControl - I2C Digits"] = {
       board: this.board
     });
 
-    this.each = sinon.spy(this.lc, "each");
-    this.row = sinon.spy(this.lc, "row");
+    this.each = this.sandbox.spy(this.lc, "each");
+    this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     LedControl.reset();
     done();
   },

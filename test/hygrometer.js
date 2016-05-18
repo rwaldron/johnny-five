@@ -1,23 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Hygrometer = five.Hygrometer;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-  return board;
-}
-
 // Global suite setUp
 exports.setUp = function(done) {
   // Base Shape for all Temperature tests
@@ -28,16 +8,8 @@ exports.setUp = function(done) {
 
   this.board = newBoard();
   this.sandbox = sinon.sandbox.create();
-  this.clock = sinon.useFakeTimers();
+  this.clock = this.sandbox.useFakeTimers();
   this.freq = 100;
-
-  done();
-};
-
-exports.tearDown = function(done) {
-  Board.purge();
-  this.sandbox.restore();
-  this.clock.restore();
   done();
 };
 
@@ -55,11 +27,60 @@ function testShape(test) {
   test.done();
 }
 
+exports["Hygrometer -- SHT31D"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+
+    this.hygrometer = new Hygrometer({
+      controller: "SHT31D",
+      board: this.board,
+      freq: 10
+    });
+
+    this.instance = [{
+      name: "relativeHumidity"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  testShape: testShape,
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Hygrometer({
+      controller: "SHT31D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+};
+
 exports["Hygrometer -- HTU21D"] = {
 
   setUp: function(done) {
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.hygrometer = new Hygrometer({
       controller: "HTU21D",
@@ -76,8 +97,7 @@ exports["Hygrometer -- HTU21D"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cRead.restore();
+    this.sandbox.restore();
     done();
   },
 
@@ -171,12 +191,11 @@ exports["Hygrometer -- HTU21D"] = {
 };
 
 
-
 exports["Hygrometer -- SI7020"] = {
 
   setUp: function(done) {
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
     this.hygrometer = new Hygrometer({
       controller: "SI7020",
@@ -193,8 +212,7 @@ exports["Hygrometer -- SI7020"] = {
 
   tearDown: function(done) {
     Board.purge();
-    this.i2cConfig.restore();
-    this.i2cRead.restore();
+    this.sandbox.restore();
     done();
   },
 

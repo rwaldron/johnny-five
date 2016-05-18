@@ -603,7 +603,7 @@ ED.prototype.move = function(positions) {
 
   // Inject into REPL for manual controls
   this.repl.inject({
-    s: new five.Servo.Array(),
+    s: new five.Servos(),
     b: biped
   });
 

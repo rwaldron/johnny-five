@@ -75,7 +75,7 @@ board = new five.Board().on("ready", function() {
     offset: -7,
     startAt: 180
   });
-  ph.r1 = new five.Servo.Array([ph.r1c, ph.r1f, ph.r1t]);
+  ph.r1 = new five.Servos([ph.r1c, ph.r1f, ph.r1t]);
 
   ph.l1c = new five.Servo({
     pin: 27,
@@ -95,7 +95,7 @@ board = new five.Board().on("ready", function() {
     offset: -8,
     startAt: 180
   });
-  ph.l1 = new five.Servo.Array([ph.l1c, ph.l1f, ph.l1t]);
+  ph.l1 = new five.Servos([ph.l1c, ph.l1f, ph.l1t]);
 
   ph.r2c = new five.Servo({
     pin: 17,
@@ -112,7 +112,7 @@ board = new five.Board().on("ready", function() {
     offset: 2,
     startAt: 180
   });
-  ph.r2 = new five.Servo.Array([ph.r2c, ph.r2f, ph.r2t]);
+  ph.r2 = new five.Servos([ph.r2c, ph.r2f, ph.r2t]);
 
   ph.l2c = new five.Servo({
     pin: 20,
@@ -132,7 +132,7 @@ board = new five.Board().on("ready", function() {
     offset: -3,
     startAt: 180
   });
-  ph.l2 = new five.Servo.Array([ph.l2c, ph.l2f, ph.l2t]);
+  ph.l2 = new five.Servos([ph.l2c, ph.l2f, ph.l2t]);
 
   ph.r3c = new five.Servo({
     pin: 9,
@@ -150,7 +150,7 @@ board = new five.Board().on("ready", function() {
     offset: -10,
     startAt: 180
   });
-  ph.r3 = new five.Servo.Array([ph.r3c, ph.r3f, ph.r3t]);
+  ph.r3 = new five.Servos([ph.r3c, ph.r3f, ph.r3t]);
 
   ph.l3c = new five.Servo({
     pin: 14,
@@ -168,14 +168,14 @@ board = new five.Board().on("ready", function() {
     invert: true,
     startAt: 180
   });
-  ph.l3 = new five.Servo.Array([ph.l3c, ph.l3f, ph.l3t]);
+  ph.l3 = new five.Servos([ph.l3c, ph.l3f, ph.l3t]);
 
-  ph.femurs = new five.Servo.Array([ph.r1f, ph.l1f, ph.r2f, ph.l2f, ph.r3f, ph.l3f]);
-  ph.tibia = new five.Servo.Array([ph.r1t, ph.l1t, ph.r2t, ph.l2t, ph.r3t, ph.l3t]);
-  ph.coxa = new five.Servo.Array([ph.r1c, ph.l1c, ph.r2c, ph.l2c, ph.r3c, ph.l3c]);
-  ph.joints = new five.Servo.Array([ph.coxa, ph.femurs, ph.tibia]);
+  ph.femurs = new five.Servos([ph.r1f, ph.l1f, ph.r2f, ph.l2f, ph.r3f, ph.l3f]);
+  ph.tibia = new five.Servos([ph.r1t, ph.l1t, ph.r2t, ph.l2t, ph.r3t, ph.l3t]);
+  ph.coxa = new five.Servos([ph.r1c, ph.l1c, ph.r2c, ph.l2c, ph.r3c, ph.l3c]);
+  ph.joints = new five.Servos([ph.coxa, ph.femurs, ph.tibia]);
 
-  ph.legs = new five.Servo.Array([ph.r1c, ph.r1f, ph.r1t, ph.l1c, ph.l1f, ph.l1t, ph.r2c, ph.r2f, ph.r2t, ph.l2c, ph.l2f, ph.l2t, ph.r3c, ph.r3f, ph.r3t, ph.l3c, ph.l3f, ph.l3t]);
+  ph.legs = new five.Servos([ph.r1c, ph.r1f, ph.r1t, ph.l1c, ph.l1f, ph.l1t, ph.r2c, ph.r2f, ph.r2t, ph.l2c, ph.l2f, ph.l2t, ph.r3c, ph.r3f, ph.r3t, ph.l3c, ph.l3f, ph.l3t]);
 
   var legsAnimation = new five.Animation(ph.legs);
 

@@ -1,23 +1,8 @@
-var five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  Wii = five.Wii,
-  Board = five.Board;
-
-function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-}
-
 exports["Nunchuk"] = {
 
   setUp: function(done) {
-
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
 
     this.nunchuk = new Wii.Nunchuk({
@@ -25,7 +10,7 @@ exports["Nunchuk"] = {
       freq: 50
     });
 
-    this.i2cReadOnce = sinon.spy(this.nunchuk.io, "i2cReadOnce");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.instance = [{
       name: "threshold"
@@ -38,6 +23,12 @@ exports["Nunchuk"] = {
     done();
   },
 
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
   shape: function(test) {
     test.expect(this.instance.length);
 
@@ -46,12 +37,6 @@ exports["Nunchuk"] = {
     }, this);
 
     test.done();
-  },
-
-  tearDown: function(done) {
-    this.clock.restore();
-    this.i2cReadOnce.restore();
-    done();
   },
 
   data: function(test) {
@@ -70,7 +55,7 @@ exports["Nunchuk"] = {
     this.clock.tick(100);
     var callback = this.i2cReadOnce.args[0][2];
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.nunchuk.joystick.on("change", spy);
 
@@ -90,7 +75,7 @@ exports["Nunchuk"] = {
     this.clock.tick(100);
     var callback = this.i2cReadOnce.args[0][2];
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.nunchuk.accelerometer.on("change", spy);
 
@@ -114,8 +99,8 @@ exports["Nunchuk"] = {
 
 exports["Classic"] = {
   setUp: function(done) {
-
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
 
     this.classic = new Wii.Classic({
@@ -123,7 +108,7 @@ exports["Classic"] = {
       freq: 50
     });
 
-    this.i2cReadOnce = sinon.spy(this.classic.io, "i2cReadOnce");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.instance = [{
       name: "threshold"
@@ -136,8 +121,8 @@ exports["Classic"] = {
   },
 
   tearDown: function(done) {
-    this.clock.restore();
-    this.i2cReadOnce.restore();
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 

@@ -1,22 +1,9 @@
-var five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  MockFirmata = require("mock-firmata").Firmata,
-  Board = five.Board,
-  Led = five.Led;
-
-function newBoard() {
-  return new Board({
-    io: new MockFirmata(),
-    debug: false,
-    repl: false
-  });
-}
-
-exports["Led - PWM (Analog)"] = {
+exports["Led - PWM"] = {
   setUp: function(done) {
     this.board = newBoard();
-    this.analogWrite = sinon.spy(this.board.io, "analogWrite");
-    this.pinMode = sinon.spy(this.board.io, "pinMode");
+    this.sandbox = sinon.sandbox.create();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
 
     this.led = new Led({
       pin: 11,
@@ -59,6 +46,8 @@ exports["Led - PWM (Analog)"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
     if (this.led.animation) {
       this.led.animation.stop();
     }
@@ -80,7 +69,7 @@ exports["Led - PWM (Analog)"] = {
   },
 
   pulse: function(test) {
-    var renderSpy = sinon.spy(this.led, "@@render");
+    var renderSpy = this.sandbox.spy(this.led, "@@render");
     test.expect(2);
 
     this.count = 0;
@@ -103,7 +92,7 @@ exports["Led - PWM (Analog)"] = {
   pulseCallback: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.led.pulse(100, spy);
 
@@ -116,7 +105,7 @@ exports["Led - PWM (Analog)"] = {
   },
 
   fade: function(test) {
-    var renderSpy = sinon.spy(this.led, "@@render");
+    var renderSpy = this.sandbox.spy(this.led, "@@render");
     test.expect(2);
 
     this.led.fade(50, 500);
@@ -178,7 +167,7 @@ exports["Led - PWM (Analog)"] = {
   fadeCallback: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.led.fade(0, 100, spy);
     setTimeout(function() {
@@ -191,7 +180,7 @@ exports["Led - PWM (Analog)"] = {
   fadeInCallback: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.led.fadeIn(100, spy);
     setTimeout(function() {
@@ -204,7 +193,7 @@ exports["Led - PWM (Analog)"] = {
   fadeOutCallback: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.led.fadeOut(100, spy);
     setTimeout(function() {

@@ -1,24 +1,3 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Expander = five.Expander;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
 exports["Board.Component"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -597,6 +576,67 @@ exports["Board.Component"] = {
     test.deepEqual(spy.getCall(5).args, ["Component", "pin: 3 is already in use"]);
 
     test.equal(component.board.occupied.length, 3);
+
+    test.done();
+  },
+
+  componentCustomReservedSpace: function(test) {
+    test.expect(8);
+
+    var a = {};
+
+    Board.Component.call(a, {
+      controller: "FOO",
+      address: 0x01,
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(a.custom.x, 1);
+    test.equal(a.custom.y, 2);
+
+    var b = {};
+
+    Board.Component.call(b, {
+      pin: 2,
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(b.custom.x, 1);
+    test.equal(b.custom.y, 2);
+
+
+    var c = {};
+
+    Board.Component.call(c, {
+      pins: [3, 4, 5],
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(c.custom.x, 1);
+    test.equal(c.custom.y, 2);
+
+
+    var d = {};
+
+    Board.Component.call(d, {
+      pins: { mosi: 11, miso: 12, ss: 10 },
+      custom: {
+        x: 1,
+        y: 2,
+      }
+    });
+
+    test.equal(d.custom.x, 1);
+    test.equal(d.custom.y, 2);
 
     test.done();
   },

@@ -1,11 +1,3 @@
-var five = require("../lib/johnny-five.js");
-var sinon = require("sinon");
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
-var Board = five.Board;
-var Expander = five.Expander;
-var Led = five.Led;
-
 var protoProperties = [{
   name: "on"
 }, {
@@ -55,20 +47,6 @@ var rgbProtoProperties = [{
 }];
 
 var rgbInstanceProperties = [];
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 function testLedShape(test) {
   test.expect(protoProperties.length + instanceProperties.length);
@@ -263,7 +241,7 @@ exports["Led - Digital"] = {
   correctReturns: function(test) {
     test.expect(5);
 
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     test.equal(this.led.blink(), this.led);
     test.equal(this.led.on(), this.led);
@@ -375,7 +353,7 @@ exports["Led - PWM (Analog)"] = {
   correctReturns: function(test) {
     test.expect(10);
 
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     test.equal(this.led.blink(), this.led);
     test.equal(this.led.brightness(), this.led);
@@ -532,7 +510,7 @@ exports["Led - PCA9685 (I2C)"] = {
   }
 };
 
-exports["Led.Array"] = {
+exports["Led.Collection"] = {
   setUp: function(done) {
     var board = new Board({
       io: new MockFirmata(),
@@ -579,7 +557,7 @@ exports["Led.Array"] = {
   initFromLedNumbers: function(test) {
     test.expect(1);
 
-    var leds = new Led.Array([3, 7, 9]);
+    var leds = new Led.Collection([3, 7, 9]);
 
     test.equal(leds.length, 3);
     test.done();
@@ -588,11 +566,29 @@ exports["Led.Array"] = {
   initFromLeds: function(test) {
     test.expect(1);
 
-    var leds = new Led.Array([
+    var leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 
     test.equal(leds.length, 3);
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.prototype, "blink");
+    this.stop = this.sandbox.stub(Led.prototype, "stop");
+
+    var leds = new Led.Collection([
+      this.a, this.b, this.c
+    ]);
+
+    leds.blink().stop();
+
+    test.equal(this.blink.callCount, 3);
+    test.equal(this.stop.callCount, 3);
+
     test.done();
   }
 };
@@ -1106,6 +1102,113 @@ exports["Led.RGB"] = {
   }
 };
 
+exports["Led.RGB.Collection"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+
+    // Make all of these PWM pins for testing
+    this.board.io.pins.forEach(function(pin) {
+      pin.supportedModes.push(3);
+    });
+
+    this.a = new Led.RGB({
+      pins: [3, 5, 6],
+      board: this.board
+    });
+
+    this.b = new Led.RGB({
+      pins: [9, 10, 11],
+      board: this.board
+    });
+
+
+    [
+      "off", "on", "intensity"
+    ].forEach(function(method) {
+      this[method] = this.sandbox.spy(Led.RGB.prototype, method);
+    }.bind(this));
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.board.io.pins.forEach(function(pin) {
+      pin.supportedModes.pop();
+    });
+
+    Board.purge();
+    Led.RGB.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  initFromObject: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection({
+      pins: [
+        [1, 2, 3],
+        [4, 5, 6],
+      ],
+      board: this.board,
+    });
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  initFromArrayOfPinNumbers: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  initFromArrayOfRGBOptions: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      { pins: [1, 2, 3], board: this.board },
+      { pins: [4, 5, 6], board: this.board },
+    ]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+
+  initFromLeds: function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([this.a, this.b]);
+
+    test.equal(rgbs.length, 2);
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.RGB.prototype, "blink");
+    this.stop = this.sandbox.stub(Led.RGB.prototype, "stop");
+
+    var rgbs = new Led.RGB.Collection([this.a, this.b]);
+
+    rgbs.blink().stop();
+
+    test.equal(this.blink.callCount, 2);
+    test.equal(this.stop.callCount, 2);
+
+    test.done();
+  }
+};
+
 exports["Led.RGB - Common Anode"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -1537,7 +1640,7 @@ exports["Led - Default Pin w/ Firmata"] = {
     test.equal(new Led(14).mode, 1);
 
     // 12 is PWM, but the mechanism is stubbed
-    this.sandbox.stub(five.Board.Pins.prototype, "isPwm").returns(true);
+    this.sandbox.stub(Board.Pins.prototype, "isPwm").returns(true);
 
     test.equal(new Led(12).mode, 3);
 
@@ -1549,9 +1652,9 @@ exports["Led - Cycling Operations"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
-    this.ledStop = this.sandbox.spy(five.Led.prototype, "stop");
-    this.rgbStop = this.sandbox.spy(five.Led.RGB.prototype, "stop");
-    this.enqueue = this.sandbox.stub(five.Animation.prototype, "enqueue");
+    this.ledStop = this.sandbox.spy(Led.prototype, "stop");
+    this.rgbStop = this.sandbox.spy(Led.RGB.prototype, "stop");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     this.led = new Led({
       pin: 11,

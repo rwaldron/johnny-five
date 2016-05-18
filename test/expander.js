@@ -1,29 +1,4 @@
-var Emitter = require("events").EventEmitter;
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
 var controller = require("./util/mock-expander-controller");
-var five = require("../lib/johnny-five.js");
-var sinon = require("sinon");
-var Board = five.Board;
-var Expander = five.Expander;
-var Led = five.Led;
-var Button = five.Button;
-var Fn = five.Fn;
-
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
 
 exports["Expander"] = {
   setUp: function(done) {

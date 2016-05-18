@@ -1,42 +1,4 @@
-var sinon = require("sinon");
-var Emitter = require("events").EventEmitter;
-var mocks = require("mock-firmata");
-var MockFirmata = mocks.Firmata;
 var EVS = require("../lib/evshield");
-var five = require("../lib/johnny-five");
-var Board = five.Board;
-var Proximity = five.Proximity;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
 
 var proto = [{
   name: "within"
@@ -54,9 +16,10 @@ var instance = [{
 
 exports["Proximity"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
@@ -69,7 +32,7 @@ exports["Proximity"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -96,9 +59,10 @@ exports["Proximity"] = {
 
 exports["Proximity: GP2Y0A21YK"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A21YK",
       pin: "A1",
@@ -111,7 +75,7 @@ exports["Proximity: GP2Y0A21YK"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -132,7 +96,7 @@ exports["Proximity: GP2Y0A21YK"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -148,7 +112,7 @@ exports["Proximity: GP2Y0A21YK"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -158,7 +122,7 @@ exports["Proximity: GP2Y0A21YK"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(500);
@@ -177,9 +141,10 @@ exports["Proximity: GP2Y0A21YK"] = {
 
 exports["Proximity: GP2D120XJ00F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2D120XJ00F",
       pin: "A1",
@@ -192,7 +157,7 @@ exports["Proximity: GP2D120XJ00F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -212,7 +177,7 @@ exports["Proximity: GP2D120XJ00F"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -228,7 +193,7 @@ exports["Proximity: GP2D120XJ00F"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -238,7 +203,7 @@ exports["Proximity: GP2D120XJ00F"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(100);
@@ -257,9 +222,10 @@ exports["Proximity: GP2D120XJ00F"] = {
 
 exports["Proximity: GP2Y0A02YK0F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A02YK0F",
       pin: "A1",
@@ -272,7 +238,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -292,7 +258,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
     test.done();
   },
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -308,7 +274,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -318,7 +284,7 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(500);
@@ -337,9 +303,10 @@ exports["Proximity: GP2Y0A02YK0F"] = {
 
 exports["Proximity: GP2Y0A41SK0F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A41SK0F",
       pin: "A1",
@@ -352,7 +319,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -373,7 +340,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -389,7 +356,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -399,7 +366,7 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(128);
@@ -418,9 +385,10 @@ exports["Proximity: GP2Y0A41SK0F"] = {
 
 exports["Proximity: GP2Y0A710K0F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "GP2Y0A710K0F",
       pin: "A1",
@@ -433,7 +401,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -453,7 +421,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -469,7 +437,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -479,7 +447,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(500);
@@ -498,9 +466,10 @@ exports["Proximity: GP2Y0A710K0F"] = {
 
 exports["Proximity: MB1000"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1000",
       pin: "A1",
@@ -513,7 +482,7 @@ exports["Proximity: MB1000"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -534,7 +503,7 @@ exports["Proximity: MB1000"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -550,7 +519,7 @@ exports["Proximity: MB1000"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -560,7 +529,7 @@ exports["Proximity: MB1000"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(11);
@@ -579,9 +548,10 @@ exports["Proximity: MB1000"] = {
 
 exports["Proximity: MB1010"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1010",
       pin: "A1",
@@ -594,7 +564,7 @@ exports["Proximity: MB1010"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -615,7 +585,7 @@ exports["Proximity: MB1010"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -631,7 +601,7 @@ exports["Proximity: MB1010"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -641,7 +611,7 @@ exports["Proximity: MB1010"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(11);
@@ -660,9 +630,10 @@ exports["Proximity: MB1010"] = {
 
 exports["Proximity: MB1003"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1003",
       pin: "A1",
@@ -675,7 +646,7 @@ exports["Proximity: MB1003"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -696,7 +667,7 @@ exports["Proximity: MB1003"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -712,7 +683,7 @@ exports["Proximity: MB1003"] = {
 
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -722,7 +693,7 @@ exports["Proximity: MB1003"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(30);
@@ -741,9 +712,10 @@ exports["Proximity: MB1003"] = {
 
 exports["Proximity: MB1230"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.proximity = new Proximity({
       controller: "MB1230",
       pin: "A1",
@@ -756,7 +728,7 @@ exports["Proximity: MB1230"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -776,7 +748,7 @@ exports["Proximity: MB1230"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -793,7 +765,7 @@ exports["Proximity: MB1230"] = {
     // 250 is an actual reading at ~250cm
     callback(250);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
     this.clock.tick(100);
@@ -803,7 +775,7 @@ exports["Proximity: MB1230"] = {
 
   within: function(test) {
     var callback = this.analogRead.args[0][1];
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     callback(15);
@@ -824,11 +796,12 @@ exports["Proximity: MB1230"] = {
 exports["Proximity: SRF10"] = {
 
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cReadOnce = sinon.spy(MockFirmata.prototype, "i2cReadOnce");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
 
     this.proximity = new Proximity({
       controller: "SRF10",
@@ -840,7 +813,7 @@ exports["Proximity: SRF10"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -901,7 +874,7 @@ exports["Proximity: SRF10"] = {
     this.clock.tick(100);
 
     var callback = this.i2cReadOnce.args[0][2],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.equal(spy.callCount, 0);
 
@@ -920,7 +893,7 @@ exports["Proximity: SRF10"] = {
     this.clock.tick(100);
 
     var callback = this.i2cReadOnce.args[0][2],
-      spy = sinon.spy();
+      spy = this.sandbox.spy();
 
     test.expect(1);
     this.proximity.on("change", spy);
@@ -960,11 +933,12 @@ exports["Proximity: SRF10"] = {
 
 exports["Proximity: HCSR04"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
     this.pulseVal = 1000;
 
-    sinon.stub(MockFirmata.prototype, "pingRead", function(settings, handler) {
+    this.sandbox.stub(MockFirmata.prototype, "pingRead", function(settings, handler) {
       handler(this.pulseVal);
     }.bind(this));
 
@@ -980,15 +954,15 @@ exports["Proximity: HCSR04"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
   acceptAnalogPin: function(test) {
     test.expect(4);
 
-    var a = sinon.spy();
-    var b = sinon.spy();
+    var a = this.sandbox.spy();
+    var b = this.sandbox.spy();
 
     this.proximity = new Proximity({
       controller: "HCSR04",
@@ -1041,7 +1015,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     // tick the clock forward to trigger the pingRead handler
@@ -1054,7 +1028,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   change: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.pulseVal = 0;
@@ -1072,7 +1046,7 @@ exports["Proximity: HCSR04"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     // tick the clock forward to trigger the pingRead handler
@@ -1093,10 +1067,11 @@ exports["Proximity: HCSR04"] = {
 
 exports["Proximity: HCSR04I2C"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cReadOnce = sinon.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, BYTES_TO_READ, callback) {
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, BYTES_TO_READ, callback) {
       // Use this for 1000 us as duration (HIGH and LOW)
       var pulseval = 1000;
       callback([pulseval >> 8, pulseval & 0xFF]);
@@ -1132,7 +1107,7 @@ exports["Proximity: HCSR04I2C"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -1144,7 +1119,7 @@ exports["Proximity: HCSR04I2C"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
 
@@ -1155,7 +1130,7 @@ exports["Proximity: HCSR04I2C"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -1173,11 +1148,12 @@ exports["Proximity: HCSR04I2C"] = {
 
 exports["Proximity: LIDARLITE"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cReadOnce = sinon.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, READREGISTER, BYTES_TO_READ, callback) {
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(ADDRESS, READREGISTER, BYTES_TO_READ, callback) {
       var cm = 15;
 
       // Split to HIGH and LOW
@@ -1216,7 +1192,7 @@ exports["Proximity: LIDARLITE"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -1228,7 +1204,7 @@ exports["Proximity: LIDARLITE"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
 
@@ -1239,7 +1215,7 @@ exports["Proximity: LIDARLITE"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -1257,15 +1233,16 @@ exports["Proximity: LIDARLITE"] = {
 
 exports["Proximity: EVS_EV3_IR"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([15, 0]);
     });
 
@@ -1281,7 +1258,7 @@ exports["Proximity: EVS_EV3_IR"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1300,7 +1277,7 @@ exports["Proximity: EVS_EV3_IR"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -1312,7 +1289,7 @@ exports["Proximity: EVS_EV3_IR"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
 
@@ -1323,7 +1300,7 @@ exports["Proximity: EVS_EV3_IR"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -1341,15 +1318,16 @@ exports["Proximity: EVS_EV3_IR"] = {
 
 exports["Proximity: EVS_EV3_US"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([150, 0]);
     });
 
@@ -1365,7 +1343,7 @@ exports["Proximity: EVS_EV3_US"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -1384,7 +1362,7 @@ exports["Proximity: EVS_EV3_US"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.proximity.on("data", spy);
@@ -1396,7 +1374,7 @@ exports["Proximity: EVS_EV3_US"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.proximity.on("change", spy);
 
@@ -1407,7 +1385,7 @@ exports["Proximity: EVS_EV3_US"] = {
   },
 
   within: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);

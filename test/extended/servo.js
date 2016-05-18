@@ -1,8 +1,8 @@
-var MockFirmata = require("mock-firmata").Firmata,
-  five = require("../../lib/johnny-five.js"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Servo = five.Servo;
+var MockFirmata = mocks.Firmata;
+var five = require("../../lib/johnny-five.js");
+var sinon = require("sinon");
+var Board = five.Board;
+var Servo = five.Servo;
 
 function newBoard() {
   var io = new MockFirmata();
@@ -76,6 +76,7 @@ exports["Servo"] = {
   },
 
   tearDown: function(done) {
+    Board.purge();
     if (this.servo.animation) {
       this.servo.animation.stop();
     }

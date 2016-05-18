@@ -19,32 +19,31 @@ node eg/tinkerkit-combo.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board();
 
-new five.Board().on("ready", function() {
-  var accel, slider, servos;
-
-  accel = new five.Accelerometer({
+board.on("ready", function() {
+  var accel = new five.Accelerometer({
     id: "accelerometer",
     pins: ["I0", "I1"]
   });
 
-  slider = new five.Sensor({
+  var slider = new five.Sensor({
     id: "slider",
     pin: "I2"
   });
 
-  new five.Servo({
-    id: "servo",
-    pin: "O0",
-    type: "continuous"
-  });
-
-  new five.Servo({
-    id: "servo",
-    pin: "O1"
-  });
-
-  servos = new five.Servo.Array();
+  var servos = new five.Servos([
+    {
+      id: "servo",
+      pin: "O0",
+      type: "continuous"
+    },
+    {
+      id: "servo",
+      pin: "O0",
+      type: "continuous"
+    }
+  ]);
 
   slider.scale(0, 180).on("change", function() {
     servos.to(this.value);

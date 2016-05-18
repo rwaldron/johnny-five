@@ -1,47 +1,9 @@
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata,
-  five = require("../lib/johnny-five.js"),
-  events = require("events"),
-  sinon = require("sinon"),
-  Board = five.Board,
-  Motion = five.Motion;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("connect");
-  io.emit("ready");
-
-  return board;
-}
-
-function restore(target) {
-  for (var prop in target) {
-
-    if (Array.isArray(target[prop])) {
-      continue;
-    }
-
-    if (target[prop] != null && typeof target[prop].restore === "function") {
-      target[prop].restore();
-    }
-
-    if (typeof target[prop] === "object") {
-      restore(target[prop]);
-    }
-  }
-}
-
 exports["Motion"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
@@ -59,7 +21,7 @@ exports["Motion"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -76,7 +38,7 @@ exports["Motion"] = {
   emitter: function(test) {
     test.expect(1);
 
-    test.ok(this.motion instanceof events.EventEmitter);
+    test.ok(this.motion instanceof Emitter);
 
     test.done();
   }
@@ -84,9 +46,10 @@ exports["Motion"] = {
 
 exports["Motion - PIR"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.digitalRead = sinon.spy(MockFirmata.prototype, "digitalRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.motion = new Motion({
       pin: 7,
       calibrationDelay: 10,
@@ -98,13 +61,13 @@ exports["Motion - PIR"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
   calibrated: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -114,7 +77,7 @@ exports["Motion - PIR"] = {
 
   data: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -124,7 +87,7 @@ exports["Motion - PIR"] = {
 
   change: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.digitalRead.firstCall.args[1];
 
     this.motion.on("change", spy);
@@ -141,7 +104,7 @@ exports["Motion - PIR"] = {
 
   noChange: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.digitalRead.firstCall.args[1];
 
     this.motion.on("change", spy);
@@ -159,7 +122,7 @@ exports["Motion - PIR"] = {
   },
 
   motionstart: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.digitalRead.firstCall.args[1];
 
 
@@ -176,7 +139,7 @@ exports["Motion - PIR"] = {
   },
 
   motionend: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.digitalRead.firstCall.args[1];
 
     test.expect(1);
@@ -195,12 +158,13 @@ exports["Motion - PIR"] = {
 
 exports["Motion - GP2Y0D805Z0F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.i2cRead = sinon.spy(MockFirmata.prototype, "i2cRead");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg = sinon.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.motion = new Motion({
       controller: "GP2Y0D805Z0F",
       calibrationDelay: 10,
@@ -212,7 +176,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -254,7 +218,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
   },
 
   calibrated: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -263,7 +227,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -272,7 +236,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
   },
 
   change: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.i2cRead.firstCall.args[2];
     test.expect(1);
     this.motion.on("change", spy);
@@ -287,7 +251,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
 
   noChange: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.i2cRead.firstCall.args[2];
     this.motion.on("change", spy);
 
@@ -306,7 +270,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
   motionstart: function(test) {
 
     // this.clock.tick(250);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
@@ -323,7 +287,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
   motionend: function(test) {
 
     // this.clock.tick(250);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
@@ -341,10 +305,11 @@ exports["Motion - GP2Y0D805Z0F"] = {
 
 exports["Motion - GP2Y0D810Z0F"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.motion = new Motion({
       controller: "GP2Y0D810Z0F",
       pin: "A0",
@@ -356,7 +321,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -369,7 +334,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
   },
 
   calibrated: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -378,7 +343,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -387,7 +352,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
   },
 
   change: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
     test.expect(1);
     this.motion.on("change", spy);
@@ -404,7 +369,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
 
   noChange: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
     this.motion.on("change", spy);
 
@@ -422,7 +387,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
   },
 
   motionstart: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
@@ -440,7 +405,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
   motionend: function(test) {
 
     // this.clock.tick(250);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
@@ -458,10 +423,11 @@ exports["Motion - GP2Y0D810Z0F"] = {
 
 exports["Motion - GP2Y0A60SZLF"] = {
   setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.clock = sinon.useFakeTimers();
-    this.pinMode = sinon.spy(MockFirmata.prototype, "pinMode");
-    this.analogRead = sinon.spy(MockFirmata.prototype, "analogRead");
+    this.clock = this.sandbox.useFakeTimers();
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.motion = new Motion({
       controller: "GP2Y0A60SZLF",
       pin: "A0",
@@ -473,7 +439,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
 
   tearDown: function(done) {
     Board.purge();
-    restore(this);
+    this.sandbox.restore();
     done();
   },
 
@@ -486,7 +452,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
   },
 
   calibrated: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -495,7 +461,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -504,7 +470,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
   },
 
   change: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
     test.expect(1);
     this.motion.on("change", spy);
@@ -521,7 +487,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
 
   noChange: function(test) {
     test.expect(1);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
     this.motion.on("change", spy);
 
@@ -539,7 +505,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
   },
 
   motionstart: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
@@ -557,7 +523,7 @@ exports["Motion - GP2Y0A60SZLF"] = {
   motionend: function(test) {
 
     // this.clock.tick(250);
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     var callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);

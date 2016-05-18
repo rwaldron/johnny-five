@@ -1,18 +1,4 @@
-var sinon = require("sinon");
-var mocks = require("mock-firmata"),
-  MockFirmata = mocks.Firmata;
 var EVS = require("../lib/evshield");
-var five = require("../lib/johnny-five");
-var Board = five.Board;
-var Color = five.Color;
-
-var io = new MockFirmata();
-var board = new Board({
-  debug: false,
-  repl: false,
-  io: io,
-});
-
 var proto = [];
 
 var instance = [{
@@ -24,14 +10,16 @@ var instance = [{
 
 exports["Color: EVS_EV3"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([0, 0]);
     });
 
@@ -39,21 +27,15 @@ exports["Color: EVS_EV3"] = {
       controller: "EVS_EV3",
       pin: "BAS1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -72,7 +54,7 @@ exports["Color: EVS_EV3"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.color.on("data", spy);
@@ -84,7 +66,7 @@ exports["Color: EVS_EV3"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.color.on("change", spy);
 
@@ -98,14 +80,16 @@ exports["Color: EVS_EV3"] = {
 
 exports["Color: EVS_NXT"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([0]);
     });
 
@@ -113,21 +97,15 @@ exports["Color: EVS_NXT"] = {
       controller: "EVS_NXT",
       pin: "BAS1",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -146,7 +124,7 @@ exports["Color: EVS_NXT"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.color.on("data", spy);
@@ -158,7 +136,7 @@ exports["Color: EVS_NXT"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.color.on("change", spy);
 
@@ -172,35 +150,31 @@ exports["Color: EVS_NXT"] = {
 
 exports["Color: ISL29125"] = {
   setUp: function(done) {
-    this.clock = sinon.useFakeTimers();
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
 
-    this.evssetup = sinon.spy(EVS.prototype, "setup");
-    this.evsread = sinon.spy(EVS.prototype, "read");
+    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
+    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
-    this.i2cConfig = sinon.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = sinon.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = sinon.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
       callback([0]);
     });
 
     this.color = new Color({
       controller: "ISL29125",
       freq: 100,
-      board: board
+      board: this.board
     });
 
     done();
   },
 
   tearDown: function(done) {
-    this.evssetup.restore();
-    this.evsread.restore();
-
-    this.i2cConfig.restore();
-    this.i2cWrite.restore();
-    this.i2cRead.restore();
-
-    this.clock.restore();
+    Board.purge();
+    this.sandbox.restore();
     done();
   },
 
@@ -219,7 +193,7 @@ exports["Color: ISL29125"] = {
   },
 
   data: function(test) {
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
     test.expect(1);
 
     this.color.on("data", spy);
@@ -231,7 +205,7 @@ exports["Color: ISL29125"] = {
   change: function(test) {
     test.expect(1);
 
-    var spy = sinon.spy();
+    var spy = this.sandbox.spy();
 
     this.color.on("change", spy);
 
