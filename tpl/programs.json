@@ -1554,8 +1554,8 @@
     "examples": [
       {
         "file": "grove-accelerometer-adxl345-edison.js",
-        "title": "Intel Edison + Grove - Accelerometer (ADXL346)",
-        "description": "Using Johnny-Five with Grove's Accelerometer (ADXL346) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+        "title": "Intel Edison + Grove - Accelerometer (ADXL345)",
+        "description": "Using Johnny-Five with Grove's Accelerometer (ADXL345) component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
         "file": "grove-accelerometer-mma7660-edison.js",

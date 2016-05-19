@@ -456,7 +456,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Proximity - EVShield EV3 (Ultrasonic)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_US-alert.md)
 
 ### Intel Edison + Grove IoT Kit
-- [Intel Edison + Grove - Accelerometer (ADXL346)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-adxl345-edison.md)
+- [Intel Edison + Grove - Accelerometer (ADXL345)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-adxl345-edison.md)
 - [Intel Edison + Grove - Accelerometer (MMA7660)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-accelerometer-mma7660-edison.md)
 - [Intel Edison + Grove - Air quality sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-gas-tp401-edison.md)
 - [Intel Edison + Grove - Barometer (BMP180)](https://github.com/rwaldron/johnny-five/blob/master/docs/grove-barometer-edison.md)
