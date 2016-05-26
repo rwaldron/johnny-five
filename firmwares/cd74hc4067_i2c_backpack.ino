@@ -4,8 +4,8 @@
 #define DEBUG_MODE_RAW 0
 
 // Address Pins
-#define AD0 8
-#define AD1 9
+#define AD0 11
+#define AD1 12
 
 // Select Pins
 #define S0 2 // A

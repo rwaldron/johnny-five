@@ -3,8 +3,8 @@
 #define DEBUG_MODE 0
 
 // Address Pins
-#define AD0 8
-#define AD1 9
+#define AD0 11
+#define AD1 12
 
 // I2C Defaults
 #define I2C_DEFAULT_ADDRESS 0x0A
