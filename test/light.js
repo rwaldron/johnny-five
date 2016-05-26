@@ -189,8 +189,8 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 
     this.clock.tick(250);
 
-    this.light.within([10, 20], "level", function() {
-      test.equal(this.level, 15);
+    this.light.within([0.10, 0.20], "level", function() {
+      test.equal(this.level, 0.15);
       spy();
     });
 
@@ -296,8 +296,8 @@ exports["Light: EVS_EV3, Reflected"] = {
 
     this.clock.tick(250);
 
-    this.light.within([10, 20], "level", function() {
-      test.equal(this.level, 15);
+    this.light.within([0.10, 0.20], "level", function() {
+      test.equal(this.level, 0.15);
       spy();
     });
 
@@ -401,8 +401,8 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 
     this.clock.tick(250);
 
-    this.light.within([10, 20], "level", function() {
-      test.equal(this.level, 15);
+    this.light.within([0.10, 0.20], "level", function() {
+      test.equal(this.level, 0.15);
       spy();
     });
 
@@ -507,8 +507,8 @@ exports["Light: EVS_NXT, Reflected"] = {
 
     this.clock.tick(250);
 
-    this.light.within([10, 20], "level", function() {
-      test.equal(this.level, 15);
+    this.light.within([0.10, 0.20], "level", function() {
+      test.equal(this.level, 0.15);
       spy();
     });
 
