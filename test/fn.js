@@ -169,7 +169,17 @@ exports["Fn"] = {
     test.equal(Fn.bitsIn(8), 3);
 
     test.done();
-  }
+  },
+
+  toFixed: function(test) {
+    test.expect(4);
+
+    test.equal(typeof Fn.toFixed(0.123456789), "number");
+    test.equal(Fn.toFixed(0.123456789), 0);
+    test.equal(Fn.toFixed(0.123456789, 2), 0.12);
+    test.equal(Fn.toFixed(3 / 7, 1), 0.4);
+    test.done();
+  },
 };
 
 
