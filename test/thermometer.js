@@ -839,7 +839,6 @@ exports["Thermometer -- MPL115A2"] = {
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.temperature = new Thermometer({
@@ -899,10 +898,10 @@ exports["Thermometer -- MPL115A2"] = {
       test.equals(this.i2cWrite.firstCall.args[0], 0x60);
       test.deepEqual(this.i2cWrite.firstCall.args[1], [0x12, 0x00]);
 
-      test.ok(this.i2cRead.calledOnce);
-      test.equals(this.i2cRead.firstCall.args[0], 0x60);
-      test.deepEqual(this.i2cRead.firstCall.args[1], 0x00);
-      test.equals(this.i2cRead.firstCall.args[2], 4);
+      test.ok(this.i2cReadOnce.calledTwice);
+      test.equals(this.i2cReadOnce.lastCall.args[0], 0x60);
+      test.deepEqual(this.i2cReadOnce.lastCall.args[1], 0x00);
+      test.equals(this.i2cReadOnce.lastCall.args[2], 4);
 
       // read = this.i2cRead.args[0][3];
 

@@ -5,7 +5,6 @@ exports["Barometer -- MPL115A2"] = {
     this.board = newBoard();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.barometer = new Barometer({
@@ -69,10 +68,10 @@ exports["Barometer -- MPL115A2"] = {
       test.equals(this.i2cWrite.args[0][0], 0x60);
       test.deepEqual(this.i2cWrite.args[0][1], [0x12, 0x00]);
 
-      test.ok(this.i2cRead.calledOnce);
-      test.equals(this.i2cRead.args[0][0], 0x60);
-      test.deepEqual(this.i2cRead.args[0][1], 0x00);
-      test.equals(this.i2cRead.args[0][2], 4);
+      test.ok(this.i2cReadOnce.calledTwice);
+      test.equals(this.i2cReadOnce.lastCall.args[0], 0x60);
+      test.deepEqual(this.i2cReadOnce.lastCall.args[1], 0x00);
+      test.equals(this.i2cReadOnce.lastCall.args[2], 4);
 
       // In order to handle the Promise used for initialization,
       // there can be no fake timers in this test, which means we
