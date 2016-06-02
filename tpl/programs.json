@@ -1052,6 +1052,10 @@
         "title": "Accelerometer"
       },
       {
+        "file": "accelerometer-MMA8452.js",
+        "title": "Accelerometer - MMA8452"
+      },
+      {
         "file": "accelerometer-adxl345.js",
         "title": "Accelerometer - ADXL345"
       },

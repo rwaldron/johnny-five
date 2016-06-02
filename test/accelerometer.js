@@ -754,3 +754,123 @@ exports["Accelerometer -- ESPLORA"] = {
     test.done();
   }
 };
+
+exports["Accelerometer -- MMA8452"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.accel = new Accelerometer({
+      controller: "MMA8452",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "MMA8452",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  stopTX: function(test) {
+    test.expect(1);
+    var args = this.i2cConfig.lastCall.args[0];
+
+    test.deepEqual(args.settings, { stopTX: false });
+    test.done();
+  },
+
+  data: function(test) {
+    var read;
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    test.expect(14);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.equal(this.i2cWriteReg.callCount, 8);
+
+    test.deepEqual(this.i2cWriteReg.getCall(0).args, [29, 42, 8]);
+    test.deepEqual(this.i2cWriteReg.getCall(1).args, [29, 14, 0]);
+    test.deepEqual(this.i2cWriteReg.getCall(2).args, [29, 37, 8]);
+    test.deepEqual(this.i2cWriteReg.getCall(3).args, [29, 33, 112]);
+    test.deepEqual(this.i2cWriteReg.getCall(4).args, [29, 38, 48]);
+    test.deepEqual(this.i2cWriteReg.getCall(5).args, [29, 39, 160]);
+    test.deepEqual(this.i2cWriteReg.getCall(6).args, [29, 40, 255]);
+    test.deepEqual(this.i2cWriteReg.getCall(7).args, [29, 42, 9]);
+
+
+    test.ok(this.i2cRead.calledTwice);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [29, 0, 7]);
+
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    read = this.i2cRead.firstCall.args[3];
+    read([
+      // Derived from actual reading set.
+      255, 247, 128, 0, 208, 64, 240
+    ]);
+
+    test.ok(dataSpy.calledOnce);
+    test.ok(changeSpy.calledOnce);
+
+    test.done();
+  },
+
+  tap: function(test) {
+    test.expect(2);
+    var read;
+    var tap = this.sandbox.spy();
+
+    this.accel.on("tap", tap);
+    this.accel.on("tap:single", tap);
+    this.accel.on("tap:double", tap);
+
+    read = this.i2cRead.lastCall.args[3];
+    read([ 196 ]);
+
+    // 1 for tap
+    // 1 for tap:single
+    test.equal(tap.callCount, 2);
+
+    tap.reset();
+
+    read([ 204 ]);
+
+    // 1 for tap
+    // 1 for tap:single
+    // 1 for tap:double
+    test.equal(tap.callCount, 3);
+
+    test.done();
+  },
+};
