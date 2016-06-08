@@ -350,6 +350,20 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  intensity: function(test) {
+    test.expect(101);
+
+    this.brightness = this.sandbox.stub(Led.prototype, "brightness");
+
+
+    for (var i = 0; i <= 100; i++) {
+      this.led.intensity(i);
+      test.equal(this.brightness.lastCall.args[0], Fn.scale(i, 0, 100, 0, 255));
+    }
+
+    test.done();
+  },
+
   correctReturns: function(test) {
     test.expect(10);
 
