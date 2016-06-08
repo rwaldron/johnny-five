@@ -604,6 +604,23 @@ exports["Led.Collection"] = {
     test.equal(this.stop.callCount, 3);
 
     test.done();
+  },
+
+  callbacks: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.prototype, "blink");
+
+    var noop = function() {};
+    var leds = new Led.Collection([
+      this.a, this.b, this.c
+    ]);
+
+    leds.blink(1, noop);
+
+    test.equal(this.blink.callCount, 3);
+    test.notEqual(this.blink.lastCall.args[1], noop);
+    test.done();
   }
 };
 
@@ -1220,7 +1237,23 @@ exports["Led.RGB.Collection"] = {
     test.equal(this.stop.callCount, 2);
 
     test.done();
+  },
+
+  callbacks: function(test) {
+    test.expect(2);
+
+    this.blink = this.sandbox.stub(Led.RGB.prototype, "blink");
+
+    var noop = function() {};
+    var rgbs = new Led.RGB.Collection([this.a, this.b]);
+
+    rgbs.blink(1, noop);
+
+    test.equal(this.blink.callCount, 2);
+    test.notEqual(this.blink.lastCall.args[1], noop);
+    test.done();
   }
+
 };
 
 exports["Led.RGB - Common Anode"] = {
