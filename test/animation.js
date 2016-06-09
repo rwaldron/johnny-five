@@ -307,13 +307,52 @@ exports["Animation"] = {
     this.animation.enqueue(tempSegment);
 
     var indices = this.animation.findIndices(0.9);
-    var val = this.animation.tweenedValue(indices, 0.9);
+    var tweenedValue = this.animation.tweenedValue(indices, 0.9);
 
-    test.equal(val[0][0], 30);
-    test.equal(val[0][1], 70);
-    test.equal(val[0][2], 0);
+    test.equal(tweenedValue[0][0], 30);
+    test.equal(tweenedValue[0][1], 70);
+    test.equal(tweenedValue[0][2], 0);
+
+    test.done();
+  },
+
+  tweenFromProperties: function(test) {
+    test.expect(3);
+
+    this.mockChain[Animation.keys] = ["a", "b", "c"];
+    this.animation = new Animation(this.mockChain);
+
+    var segment = this.segment.multi;
+
+    segment.keyFrames = [{
+      value: {a: 0, b: 3, c: 5}
+    }, {
+      value: {a: 10, b: 6, c: 10}
+    }, {
+      value: {a: 20, b: 9, c: 15}
+    }];
+
+    segment.cuePoints = [0, 0.5, 1];
+
+    this.animation.enqueue(segment);
+
+    test.deepEqual(
+      this.animation.tweenedValue(this.animation.findIndices(0.1), 0.1),
+      [{ a: 2, b: 3.6, c: 6 }]
+    );
+
+    test.deepEqual(
+      this.animation.tweenedValue(this.animation.findIndices(0.5), 0.5),
+      [{ a: 10, b: 6, c: 10 }]
+    );
+
+    test.deepEqual(
+      this.animation.tweenedValue(this.animation.findIndices(1), 1),
+      [{ a: 20, b: 9, c: 15 }]
+    );
 
     test.done();
   }
+
 
 };
