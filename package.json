@@ -1,7 +1,7 @@
 {
   "name": "johnny-five",
   "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
-  "version": "0.9.54",
+  "version": "0.9.55",
   "homepage": "https://johnny-five.io",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
