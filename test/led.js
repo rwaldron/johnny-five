@@ -254,7 +254,7 @@ exports["Led - Digital"] = {
 
 };
 
-exports["Led - PWM (Analog)"] = {
+exports["Led - PWM"] = {
   setUp: function(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
@@ -364,6 +364,36 @@ exports["Led - PWM (Analog)"] = {
     test.done();
   },
 
+  "Animation.normalize": function(test) {
+    test.expect(1);
+
+    var normalized = this.led[Animation.normalize]([
+      null,
+      { value: 0 },
+      { value: 1 },
+      { intensity: 0 },
+      { intensity: 50 },
+      { intensity: 100 },
+      { brightness: 0 },
+      { brightness: 127 },
+      { brightness: 255 },
+    ]);
+
+    test.deepEqual(normalized, [
+      { value: 0, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 1, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 127, easing: "linear" },
+      { value: 255, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 127, easing: "linear" },
+      { value: 255, easing: "linear" },
+    ]);
+
+    test.done();
+  },
+
   correctReturns: function(test) {
     test.expect(10);
 
@@ -467,7 +497,7 @@ exports["Led - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
     this.led.on();
 
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 4096, 16, 0, 0]);
     test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
@@ -478,7 +508,7 @@ exports["Led - PCA9685 (I2C)"] = {
 
     this.i2cWrite.reset();
     this.led.off();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 0, 0, 4096, 16]);
     test.equal(this.i2cWrite.callCount, 1);
 
     test.done();
@@ -491,11 +521,11 @@ exports["Led - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     this.led.toggle();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 4096, 16, 0, 0]);
     test.ok(this.led.isOn);
 
     this.led.toggle();
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 0, 0, 4096, 16]);
     test.ok(!this.led.isOn);
 
     test.equal(this.i2cWrite.callCount, 2);
@@ -510,18 +540,64 @@ exports["Led - PCA9685 (I2C)"] = {
     this.i2cWrite.reset();
 
     this.led.brightness(255);
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 4096, 16, 0, 0]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 4096, 16, 0, 0]);
 
     this.led.brightness(100);
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4095 * 100 / 255, 6]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 0, 0, 4095 * 100 / 255, 6]);
 
     this.led.brightness(0);
-    test.ok(this.i2cWrite.lastCall.calledWith(64, [6, 0, 0, 4096, 16]));
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [6, 0, 0, 4096, 16]);
 
     test.equal(this.i2cWrite.callCount, 3);
 
     test.done();
-  }
+  },
+
+  intensity: function(test) {
+    test.expect(101);
+
+    this.brightness = this.sandbox.stub(Led.prototype, "brightness");
+
+
+    for (var i = 0; i <= 100; i++) {
+      this.led.intensity(i);
+      test.equal(this.brightness.lastCall.args[0], Fn.scale(i, 0, 100, 0, 255));
+    }
+
+    test.done();
+  },
+
+
+  "Animation.normalize": function(test) {
+    test.expect(1);
+
+    var normalized = this.led[Animation.normalize]([
+      null,
+      { value: 0 },
+      { value: 1 },
+      { intensity: 0 },
+      { intensity: 50 },
+      { intensity: 100 },
+      { brightness: 0 },
+      { brightness: 127 },
+      { brightness: 255 },
+    ]);
+
+    test.deepEqual(normalized, [
+      { value: 0, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 1, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 127, easing: "linear" },
+      { value: 255, easing: "linear" },
+      { value: 0, easing: "linear" },
+      { value: 127, easing: "linear" },
+      { value: 255, easing: "linear" },
+    ]);
+
+    test.done();
+  },
+
 };
 
 exports["Led.Collection"] = {
@@ -1130,7 +1206,36 @@ exports["Led.RGB"] = {
     this.write.reset();
 
     test.done();
-  }
+  },
+
+
+  "Animation.normalize": function(test) {
+    test.expect(1);
+
+    this.rgb.color("red");
+
+    var normalized = this.rgb[Animation.normalize]([
+      null,
+      {color: "red"},
+      [255, 99, 0],
+      {color: "ffff00"},
+      {color: { red: 0x00, green: 0xFF, blue: 0x00 } },
+      {color: "indigo"},
+      "#4B0082",
+    ]);
+
+    test.deepEqual(normalized, [
+      { easing: "linear", value: { red: 255, green: 0, blue: 0 } },
+      { easing: "linear", value: { red: 255, green: 0, blue: 0 } },
+      { easing: "linear", value: { red: 255, green: 99, blue: 0 } },
+      { easing: "linear", value: { red: 255, green: 255, blue: 0 } },
+      { easing: "linear", value: { red: 0, green: 255, blue: 0 } },
+      { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+      { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+    ]);
+
+    test.done();
+  },
 };
 
 exports["Led.RGB.Collection"] = {
