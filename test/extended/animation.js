@@ -63,6 +63,24 @@ exports["Animation"] = {
             step: 60
           }]
         ]
+      },
+      short: {
+        duration: 500,
+        fps: 10,
+        cuePoints: [0, 0.33, 0.66, 1.0],
+        keyFrames: [
+          [null, false, {
+            degrees: 45
+          }, 33],
+          [null, 46, {
+            degrees: 180
+          }, -120],
+          [null, {
+            degrees: 120
+          }, {
+            step: 60
+          }]
+        ]
       }
     };
 
@@ -129,6 +147,37 @@ exports["Animation"] = {
       this.animation.stop();
       test.done();
     }.bind(this), 6000);
+
+  },
+
+  /*
+   * IEEE 754-2008 spec limits the accuracy of pi (well I suppose all Number
+   * formats limit pi) but when using easing functions that have Math.Pi as a
+   * factor we may never reach 1 on the eased value. We need to make sure we
+   * are using the pre-eased linear value when testing for the endpoints of
+   * the animation.
+   */
+  roundedPi: function(test) {
+    this.animation = new Animation(this.servos);
+    test.expect(2);
+
+    var complete = false;
+    var tempSegment = this.segment.short;
+
+    tempSegment.easing = "inSine";
+    tempSegment.progress = 0.5;
+
+    tempSegment.oncomplete = function() {
+      complete = true;
+    };
+
+    this.animation.enqueue(tempSegment);
+
+    setTimeout(function() {
+      test.ok(this.animation.progress === 1);
+      test.ok(complete === true);
+      test.done();
+    }.bind(this), 300);
 
   }
 
