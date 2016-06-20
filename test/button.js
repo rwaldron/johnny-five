@@ -656,3 +656,88 @@ exports["Button.Collection"] = {
 
   },
 };
+
+exports["Button -- TINKERKIT"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
+
+    this.button = new Button({
+      controller: "TINKERKIT",
+      pin: "I0",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  pinTranslation: function(test) {
+    test.expect(1);
+    // translates through to an analog pin 0
+    test.equal(this.button.pin, 0);
+    test.done();
+  },
+
+  initialization: function(test) {
+    test.expect(2);
+    test.equal(this.pinMode.callCount, 1);
+    test.equal(this.analogRead.callCount, 1);
+    test.done();
+  },
+
+  down: function(test) {
+    test.expect(1);
+
+    var callback = this.analogRead.firstCall.args[1];
+
+    this.button.on("down", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    callback(513);
+  },
+
+  up: function(test) {
+
+    var callback = this.analogRead.firstCall.args[1];
+    test.expect(1);
+
+    this.button.on("up", function() {
+      test.ok(true);
+      test.done();
+    });
+    callback(513);
+    callback(511);
+  },
+
+  hold: function(test) {
+    test.expect(1);
+
+    this.clock = this.sandbox.useFakeTimers();
+    var callback = this.analogRead.firstCall.args[1];
+
+    //fake timers dont play nice with __.debounce
+    this.button.on("hold", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    this.button.holdtime = 10;
+    callback(513);
+    this.clock.tick(11);
+    callback(511);
+  },
+};
