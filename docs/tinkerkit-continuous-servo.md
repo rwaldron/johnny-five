@@ -19,8 +19,9 @@ node eg/tinkerkit-continuous-servo.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
+board.on("ready", function() {
   var servo = new five.Servo({
     pin: "O0",
     type: "continuous"

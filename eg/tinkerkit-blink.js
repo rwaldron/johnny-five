@@ -1,5 +1,6 @@
 var five = require("../lib/johnny-five.js");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
+board.on("ready", function() {
   new five.Led("O0").strobe(250);
 });

@@ -18,50 +18,19 @@ node eg/tinkerkit-joystick.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  Change = require("../eg/change");
+var five = require("johnny-five");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
-  // var servo = new five.Servo("O0");
+board.on("ready", function() {
+  var joystick = new five.Joystick({
+    pins: ["I0", "I1"],
+  });
 
-  var joystick = {
-    x: new five.Sensor({
-      pin: "I0"
-    }),
-    y: new five.Sensor({
-      pin: "I1"
-    })
-  };
-
-  var changes = {
-    x: new Change(),
-    y: new Change()
-  };
-
-  var dirs = {
-    x: {
-      1: "left",
-      3: "right"
-    },
-    y: {
-      1: "down",
-      3: "up"
-    }
-  };
-
-
-  ["x", "y"].forEach(function(axis) {
-    joystick[axis].scale(1, 3).on("change", function() {
-      var round = Math.round(this.value);
-
-      if (round !== 2 && changes[axis].isNoticeable(round)) {
-        console.log(
-          "%s changed noticeably (%d): %s", axis, round, dirs[axis][round]
-        );
-      } else {
-        changes[axis].last = round;
-      }
-    });
+  joystick.on("change", function() {
+    console.log("Joystick");
+    console.log("  x : ", this.x);
+    console.log("  y : ", this.y);
+    console.log("--------------------------------------");
   });
 });
 

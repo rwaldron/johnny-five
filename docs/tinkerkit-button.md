@@ -19,15 +19,16 @@ node eg/tinkerkit-button.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
-  // Attaching to an O* pin in a deviation from
-  // TinkerKit tutorials which instruct to attach
-  // the button to an I* pin.
-  var button = new five.Button("O5");
+board.on("ready", function() {
+  var touch = new five.Button({
+    controller: "TINKERKIT",
+    pin: "I0",
+  });
 
   ["down", "up", "hold"].forEach(function(type) {
-    button.on(type, function() {
+    touch.on(type, function() {
       console.log(type);
     });
   });

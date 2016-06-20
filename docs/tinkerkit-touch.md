@@ -19,15 +19,13 @@ node eg/tinkerkit-touch.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
-  // Attaching to an O* pin in a deviation from
-  // TinkerKit tutorials which instruct to attach
-  // the touch to an I* pin.
-  //
-  // For the "touch" module, simply use a Button
-  // instance, like this:
-  var touch = new five.Button("O5");
+board.on("ready", function() {
+  var touch = new five.Button({
+    controller: "TINKERKIT",
+    pin: "I0",
+  });
 
   ["down", "up", "hold"].forEach(function(type) {
     touch.on(type, function() {

@@ -19,8 +19,9 @@ node eg/tinkerkit-tilt.js
 
 ```javascript
 var five = require("johnny-five");
+var board = new five.Board()
 
-new five.Board().on("ready", function() {
+board.on("ready", function() {
   // var servo = new five.Servo("O0");
 
   new five.Sensor("I2").on("change", function() {
