@@ -136,6 +136,7 @@ exports["Animation"] = {
   },
 
   normalizeServoCollection: function(test) {
+
     this.animation = new Animation(this.servos);
     test.expect(12);
 
@@ -200,6 +201,7 @@ exports["Animation"] = {
   },
 
   reverse: function(test) {
+
     this.animation = new Animation(this.a);
     test.expect(2);
 
@@ -207,6 +209,7 @@ exports["Animation"] = {
       testContext = this;
 
     tempSegment.reverse = true;
+    tempSegment.progress = 0.9;
 
     this.animation.enqueue(tempSegment);
 
@@ -353,6 +356,5 @@ exports["Animation"] = {
 
     test.done();
   }
-
 
 };
