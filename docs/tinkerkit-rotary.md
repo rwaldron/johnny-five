@@ -19,7 +19,7 @@ node eg/tinkerkit-rotary.js
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board()
+var board = new five.Board();
 
 board.on("ready", function() {
   var servo = new five.Servo("O0");

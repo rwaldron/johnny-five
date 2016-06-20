@@ -19,7 +19,7 @@ node eg/tinkerkit-thermistor.js
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board()
+var board = new five.Board();
 
 board.on("ready", function() {
   new five.Thermometer({

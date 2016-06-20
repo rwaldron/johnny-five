@@ -19,7 +19,7 @@ node eg/tinkerkit-joystick.js
 
 ```javascript
 var five = require("johnny-five");
-var board = new five.Board()
+var board = new five.Board();
 
 board.on("ready", function() {
   var joystick = new five.Joystick({
