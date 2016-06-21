@@ -402,6 +402,23 @@ exports["Servo"] = {
     // Turns out `step` is broken and I"m not
     // sure how to fix it with Animation.
     test.done();
+  },
+
+  history: function(test) {
+    test.expect(1);
+
+    this.servo.to(0);
+    this.servo.to(1);
+    this.servo.to(2);
+    this.servo.to(3);
+    this.servo.to(4);
+    this.servo.to(5);
+    this.servo.to(6);
+    this.servo.to(7);
+    this.servo.to(8);
+    this.servo.to(9);
+    test.equal(this.servo.history.length, 5);
+    test.done();
   }
 };
 
