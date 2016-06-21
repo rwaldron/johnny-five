@@ -840,13 +840,6 @@
         "title": "LCD - Runner 16x2"
       },
       {
-        "file": "lcd-16x2-tessel-runner.js",
-        "title": "LCD - Tessel 2 16x2 Runner",
-        "breadboards": [
-          {"name": "lcd-16x2-tessel"}
-        ]
-      },
-      {
         "file": "lcd-i2c.js",
         "title": "LCD - I2C"
       },
@@ -857,6 +850,10 @@
       {
         "file": "lcd-i2c-runner.js",
         "title": "LCD - I2C Runner"
+      },
+      {
+        "file": "lcd-rgb-tessel-grove-JHD1313M1.js",
+        "title": "Tessel 2 + Grove - LCD RGB Display"
       }
     ]
   },

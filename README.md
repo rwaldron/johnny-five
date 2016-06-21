@@ -348,7 +348,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LCD - Runner 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner.md)
 - [LCD - Runner 20x4](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-runner-20x4.md)
 - [LCD - Tessel 2 16x2](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel.md)
-- [LCD - Tessel 2 16x2 Runner](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-16x2-tessel-runner.md)
+- [Tessel 2 + Grove - LCD RGB Display](https://github.com/rwaldron/johnny-five/blob/master/docs/lcd-rgb-tessel-grove-JHD1313M1.md)
 
 ### Compass/Magnetometer
 - [Compass - Find north](https://github.com/rwaldron/johnny-five/blob/master/docs/magnetometer-north.md)
