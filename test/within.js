@@ -224,18 +224,4 @@ exports["Within"] = {
     test.equal(spy.callCount, 1);
     test.done();
   },
-
-  rangeUpper: function(test) {
-    test.expect(1);
-
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
-
-    this.component.within(1023, "unit", spy);
-
-    analogRead(512);
-
-    test.equal(spy.callCount, 1);
-    test.done();
-  },
 };

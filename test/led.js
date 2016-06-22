@@ -436,8 +436,6 @@ exports["Led - PWM"] = {
   pulseDuration: function(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
-
     this.led.pulse(1010);
 
     test.equal(this.enqueue.callCount, 1);
@@ -489,10 +487,7 @@ exports["Led - PWM"] = {
   pulseObject: function(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
-
     this.led.pulse({});
-
     test.equal(this.enqueue.callCount, 1);
     test.done();
   },
@@ -1266,9 +1261,6 @@ exports["Led.RGB"] = {
     test.ok(this.rgb.isRunning);
     this.rgb.stop();
     test.ok(!this.rgb.isRunning);
-
-    this.rgb
-
     test.done();
   },
 
