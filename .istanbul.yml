@@ -1,2 +1,13 @@
 instrumentation:
     root: lib/
+    excludes: [
+      # To be removed.
+      "gripper.js",
+      # These are deprecated and no new tests will be written.
+      # See tests for proxitimty, motion
+      "distance.js",
+      "ir.js",
+      "ping.js",
+      "pir.js",
+      "sonar.js",
+    ]
