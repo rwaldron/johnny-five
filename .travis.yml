@@ -1,12 +1,12 @@
 os:
   - linux
-  - osx
+  # - osx
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
+  # - "0.10"
+  # - "0.12"
   - "4"
-  - "5"
+  # - "5"
 sudo: false
 compiler: clang
 before_install:
@@ -24,3 +24,6 @@ notifications:
     on_start: false     # default: false
 env:
   - NO_SERIALPORT_INSTALL=1
+
+after_success:
+  - npm run coveralls

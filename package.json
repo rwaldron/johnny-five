@@ -138,6 +138,7 @@
   "devDependencies": {
     "async": "~0.9.0",
     "copy-paste": "~0.3.0",
+    "coveralls": "^2.11.9",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-jshint": "~1.0.0",
@@ -154,7 +155,8 @@
   },
   "scripts": {
     "test": "grunt",
-    "test-cover": "./node_modules/istanbul/lib/cli.js cover grunt nodeunit"
+    "test-cover": "grunt jshint && ./node_modules/istanbul/lib/cli.js cover grunt nodeunit",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "browser": {
     "galileo-io": false
