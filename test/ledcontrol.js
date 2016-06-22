@@ -1,46 +1,3 @@
-exports["Led.Matrix => LedControl"] = {
-  setUp: function(done) {
-    this.board = newBoard();
-    this.sandbox = sinon.sandbox.create();
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
-    LedControl.reset();
-    done();
-  },
-
-  wrapper: function(test) {
-    test.expect(2);
-
-    var matrix = new Led.Matrix({
-      pins: {
-        data: 2,
-        clock: 3,
-        cs: 4
-      },
-      board: this.board
-    });
-
-    test.ok(matrix instanceof LedControl);
-    test.ok(matrix.isMatrix);
-    test.done();
-  },
-
-  statics: function(test) {
-    var keys = Object.keys(LedControl);
-
-    test.expect(keys.length);
-
-    keys.forEach(function(key) {
-      test.equal(Led.Matrix[key], LedControl[key]);
-    });
-
-    test.done();
-  }
-};
 
 exports["LedControl - I2C Matrix Initialization"] = {
   setUp: function(done) {
@@ -664,6 +621,9 @@ exports["LedControl - Matrix"] = {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
+
 
     this.lc = new LedControl({
       pins: {
@@ -674,9 +634,6 @@ exports["LedControl - Matrix"] = {
       isMatrix: true,
       board: this.board
     });
-
-    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
-    this.shiftOut = this.sandbox.spy(Board.prototype, "shiftOut");
 
     this.proto = [{
       name: "column",
@@ -732,6 +689,10 @@ exports["LedControl - Matrix"] = {
     this.led = this.sandbox.spy(this.lc, "led");
     this.initialize = this.sandbox.spy(this.lc, "initialize");
     this.send = this.sandbox.spy(this.lc, "send");
+
+
+    this.digitalWrite.reset();
+    this.shiftOut.reset();
 
     done();
   },
@@ -813,6 +774,108 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
+  dimensions: function(test) {
+    test.expect(8);
+
+    this.matrix = {};
+
+    this.matrix["16x8"] = new LedControl({
+      pins: {
+        data: 2,
+        clock: 3,
+        cs: 4
+      },
+      isMatrix: true,
+      dims: "16x8",
+      board: this.board
+    });
+
+    test.equal(this.matrix["16x8"].rows, 16);
+    test.equal(this.matrix["16x8"].columns, 8);
+
+
+    this.matrix["8x16"] = new LedControl({
+      pins: {
+        data: 5,
+        clock: 6,
+        cs: 7
+      },
+      isMatrix: true,
+      dims: "8x16",
+      board: this.board
+    });
+
+    test.equal(this.matrix["8x16"].rows, 8);
+    test.equal(this.matrix["8x16"].columns, 16);
+
+
+    this.matrix["8x8"] = new LedControl({
+      pins: {
+        data: 8,
+        clock: 9,
+        cs: 10
+      },
+      isMatrix: true,
+      dims: "8x8",
+      board: this.board
+    });
+
+    test.equal(this.matrix["8x8"].rows, 8);
+    test.equal(this.matrix["8x8"].columns, 8);
+
+
+    this.matrix.array = new LedControl({
+      pins: {
+        data: 8,
+        clock: 9,
+        cs: 10
+      },
+      isMatrix: true,
+      dims: [16, 8],
+      board: this.board
+    });
+
+    test.equal(this.matrix.array.rows, 16);
+    test.equal(this.matrix.array.columns, 8);
+
+
+    test.done();
+  },
+
+  "dimensions: invalid string": function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new LedControl({
+        pins: {
+          data: 2,
+          clock: 3,
+          cs: 4
+        },
+        isMatrix: true,
+        dims: "17x9",
+        board: this.board
+      });
+    }.bind(this));
+    test.done();
+  },
+
+  "dimensions: invalid array": function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new LedControl({
+        pins: {
+          data: 2,
+          clock: 3,
+          cs: 4
+        },
+        isMatrix: true,
+        dims: [ 19, 7 ],
+        board: this.board
+      });
+    }.bind(this));
+    test.done();
+  },
+
   on: function(test) {
     test.expect(1);
 
@@ -827,7 +890,6 @@ exports["LedControl - Matrix"] = {
 
   onAll: function(test) {
     test.expect(2);
-
 
     this.lc.on();
     test.deepEqual(this.shiftOut.args, [
@@ -1062,6 +1124,18 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
+  led: function(test) {
+    test.expect(1);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    test.done();
+  },
+
   drawSingleChar: function(test) {
     test.expect(2);
 
@@ -1147,6 +1221,7 @@ exports["LedControl - Matrix"] = {
     ];
 
     this.digitalWrite.reset();
+    this.shiftOut.reset();
 
     this.lc.send(0, LedControl.OP.BRIGHTNESS, 0);
     test.deepEqual(this.shiftOut.args, expected);
@@ -1186,6 +1261,49 @@ exports["LedControl - Matrix"] = {
   //  - MATRIX_CHARS
 };
 
+exports["Led.Matrix => LedControl"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    LedControl.reset();
+    done();
+  },
+
+  wrapper: function(test) {
+    test.expect(2);
+
+    var matrix = new Led.Matrix({
+      pins: {
+        data: 2,
+        clock: 3,
+        cs: 4
+      },
+      board: this.board
+    });
+
+    test.ok(matrix instanceof LedControl);
+    test.ok(matrix.isMatrix);
+    test.done();
+  },
+
+  statics: function(test) {
+    var keys = Object.keys(LedControl);
+
+    test.expect(keys.length);
+
+    keys.forEach(function(key) {
+      test.equal(Led.Matrix[key], LedControl[key]);
+    });
+
+    test.done();
+  }
+};
 
 exports["LedControl - Digits"] = {
   setUp: function(done) {
@@ -1193,7 +1311,7 @@ exports["LedControl - Digits"] = {
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
 
-    this.lc = new LedControl({
+    this.lc = new Led.Digits({
       pins: {
         data: 2,
         clock: 3,

@@ -7,6 +7,8 @@ global.Emitter = require("events").EventEmitter;
 global.Collection = require("../../lib/mixins/collection");
 global.within = require("../../lib/mixins/within");
 global.five = require("../../lib/johnny-five");
+global.EVS = require("../../lib/evshield");
+
 
 // Third Party (library)
 global.converter = require("color-convert");
@@ -47,6 +49,7 @@ global.Keypad = five.Keypad;
 global.LCD = five.LCD;
 global.Led = five.Led;
 global.LedControl = five.LedControl;
+global.LedDigits = five.Led.Digits;
 global.LedMatrix = five.Led.Matrix;
 global.Light = five.Light;
 global.Joystick = five.Joystick;

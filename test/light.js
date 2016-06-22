@@ -1,4 +1,3 @@
-var EVS = require("../lib/evshield");
 var proto = [{
   name: "within"
 }];

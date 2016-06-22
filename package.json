@@ -145,6 +145,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.10",
     "grunt-jscs": "~2.3.0",
+    "istanbul": "^0.4.4",
     "keypress": "latest",
     "mock-firmata": "latest",
     "optimist": "~0.6.1",
@@ -152,7 +153,8 @@
     "sinon": "~1.10.2"
   },
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "test-cover": "./node_modules/istanbul/lib/cli.js cover grunt nodeunit"
   },
   "browser": {
     "galileo-io": false

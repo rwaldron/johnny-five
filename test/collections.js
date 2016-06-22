@@ -206,6 +206,14 @@ exports["Collection"] = {
     test.done();
   },
 
+  byId: function(test) {
+    test.expect(1);
+
+    this.outputs[0].id = "test";
+    test.equal(this.outputs.byId("test"), this.outputs[0]);
+    test.done();
+  },
+
   forEach: function(test) {
     test.expect(6);
 
@@ -324,6 +332,31 @@ exports["Collection.Emitter"] = {
     test.equal(inputs[0].reference, reference);
     test.equal(inputs[1].reference, reference);
     test.equal(inputs[2].reference, reference);
+
+    test.done();
+  },
+
+  period: function(test) {
+    test.expect(3);
+
+    test.equal(this.inputs.period, 5);
+    this.inputs.period = 10;
+    test.equal(this.inputs.period, 10);
+    this.inputs.period = 5;
+    test.equal(this.inputs.period, 5);
+
+    test.done();
+  },
+
+  frequency: function(test) {
+    test.expect(1);
+
+    var inputs = new Inputs({
+      pins: [1, 2, 3],
+      frequency: 50,
+    });
+
+    test.equal(inputs.period, 20);
 
     test.done();
   },

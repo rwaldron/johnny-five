@@ -1,5 +1,3 @@
-var EVS = require("../lib/evshield");
-
 exports["Motor: Non-Directional"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

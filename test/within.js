@@ -79,19 +79,19 @@ exports["Within"] = {
 
     test.throws(function() {
       this.component.within(null);
-    }.bind(this), RangeError);
+    }.bind(this), Error);
 
     test.throws(function() {
       this.component.within(undefined);
-    }.bind(this), RangeError);
+    }.bind(this), Error);
 
     test.throws(function() {
       this.component.within("a string");
-    }.bind(this), RangeError);
+    }.bind(this), Error);
 
     test.throws(function() {
       this.component.within(true);
-    }.bind(this), RangeError);
+    }.bind(this), Error);
 
     test.done();
   },
@@ -208,6 +208,34 @@ exports["Within"] = {
     test.equal(this.component.tracking.value.get, 0);
     test.equal(this.component.tracking.unit.get, 101);
 
+    test.done();
+  },
+
+  rangeUpper: function(test) {
+    test.expect(1);
+
+    var spy = this.sandbox.spy();
+    var analogRead = this.analogRead.lastCall.args[1];
+
+    this.component.within(1023, "unit", spy);
+
+    analogRead(512);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  rangeUpper: function(test) {
+    test.expect(1);
+
+    var spy = this.sandbox.spy();
+    var analogRead = this.analogRead.lastCall.args[1];
+
+    this.component.within(1023, "unit", spy);
+
+    analogRead(512);
+
+    test.equal(spy.callCount, 1);
     test.done();
   },
 };

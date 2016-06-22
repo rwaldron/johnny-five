@@ -1,5 +1,3 @@
-var EVS = require("../lib/evshield");
-
 var proto = [];
 var instance = [{
   name: "pullup"

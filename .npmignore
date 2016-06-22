@@ -26,5 +26,6 @@ colors.js
 .jshintrc
 .jscsrc
 .gitignore
+.istanbul.yml
 appveyor.yml
 LICENSE-MIT
