@@ -447,8 +447,8 @@ module.exports = function(grunt) {
     var done = this.async();
     var temp = "";
     var previous = "";
-    var thisPatch;
-    var lastPatch;
+    var thisTag;
+    var lastTag;
 
     if (!version) {
       version = grunt.config("pkg.version");
@@ -472,10 +472,9 @@ module.exports = function(grunt) {
           grunt changelog:v0.8.73
 
        */
-      thisPatch = version.replace(/^v/, "").split(".").pop();
-      lastPatch = Number(thisPatch) - 1;
-      previous = version.replace(thisPatch, lastPatch);
-      version = "HEAD";
+      var tags = cp.execSync("git tag").toString().split("\n");
+      var index = tags.indexOf(version);
+      var previous = tags[index - 1];
     }
 
     cp.exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
@@ -497,6 +496,7 @@ module.exports = function(grunt) {
         return accum;
       }, "");
 
+      log.writeln("\n");
       log.writeln(templates.changelog({ rows: rows }));
 
       done();
