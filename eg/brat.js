@@ -105,7 +105,7 @@ function ED(opts) {
       left = this.degrees.left;
 
       if ((right.foot === 90 && right.hip === 90) &&
-        (left.foot === 90 && left.foot === 90)) {
+        (left.foot === 90 && left.hip === 90)) {
         return true;
       }
       return false;
