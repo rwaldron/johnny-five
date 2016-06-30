@@ -938,14 +938,16 @@ exports["Led.RGB"] = {
     // Non-PWM digital pin
     test.throws(function() {
       new Led.RGB({
-        pins: [2, 3, 4]
+        pins: [2, 3, 4],
+        debug: true,
       });
     }, /Pin Error: 2 is not a valid PWM pin \(Led\.RGB\)/);
 
     // Analog pin
     test.throws(function() {
       new Led.RGB({
-        pins: ["A0", "A1", "A2"]
+        pins: ["A0", "A1", "A2"],
+        debug: true,
       });
     }, /Pin Error: \d+ is not a valid PWM pin \(Led\.RGB\)/);
 
