@@ -177,7 +177,10 @@ exports["Piezo.Notes"] = {
 };
 
 exports["Piezo.defaultOctave"] = {
-
+  tearDown: function(done) {
+    Piezo.defaultOctave(4);
+    done();
+  },
   getDefault: function(test) {
     test.expect(1);
     test.equal(Piezo.defaultOctave(), 4);
@@ -189,6 +192,12 @@ exports["Piezo.defaultOctave"] = {
     test.equal(Piezo.defaultOctave(), 8);
     test.done();
   },
+  cannotBreakDefaultOctave: function(test) {
+    test.expect(1);
+    Piezo.defaultOctave(undefined);
+    test.equal(Piezo.defaultOctave(), 4);
+    test.done();
+  },
 };
 
 exports["Piezo"] = {
@@ -198,6 +207,7 @@ exports["Piezo"] = {
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
 
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     this.piezo = new Piezo({
@@ -231,6 +241,23 @@ exports["Piezo"] = {
     done();
   },
 
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Piezo({}) instanceof Piezo, true);
+    test.done();
+  },
+
+  controller: function(test) {
+    test.expect(1);
+
+    this.pinMode.reset();
+    this.piezo = new Piezo({
+      controller: "default",
+    });
+
+    test.equal(this.pinMode.callCount, 1);
+    test.done();
+  },
 
   shape: function(test) {
     test.expect(this.proto.length + this.instance.length);
@@ -379,8 +406,8 @@ exports["Piezo"] = {
   },
 
   playTune: function(test) {
+    test.expect(6);
     var tempo = 10000; // Make it really fast
-    // test.expect(6);
 
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
@@ -396,15 +423,15 @@ exports["Piezo"] = {
     }, function() {
       // frequency should get called 4x; not for the null notes
       test.equal(this.frequency.callCount, 4);
-      // test.ok(this.frequency.neverCalledWith(null));
-      // // First call should have been with frequency for "c4"
-      // test.ok(this.frequency.args[0][0] === Piezo.Notes["c4"]);
-      // // Default duration === tempo if not provided
-      // test.ok(this.frequency.calledWith(Piezo.Notes["e4"], 60000 / tempo));
-      // // Duration should change if different beat value given
-      // test.ok(this.frequency.calledWith(Piezo.Notes["d4"], (60000 / tempo) * 2));
-      // // OK to pass frequency directly...
-      // test.ok(this.frequency.calledWith(672, 60000 / tempo));
+      test.ok(this.frequency.neverCalledWith(null));
+      // First call should have been with frequency for "c4"
+      test.ok(this.frequency.args[0][0] === Piezo.Notes["c4"]);
+      // Default duration === tempo if not provided
+      test.ok(this.frequency.calledWith(Piezo.Notes["e4"], 60000 / tempo));
+      // Duration should change if different beat value given
+      test.ok(this.frequency.calledWith(Piezo.Notes["d4"], (60000 / tempo) * 2));
+      // OK to pass frequency directly...
+      test.ok(this.frequency.calledWith(672, 60000 / tempo));
       test.done();
     }.bind(this));
 
@@ -456,6 +483,123 @@ exports["Piezo"] = {
     }.bind(this));
 
     this.clock.tick(100);
+  },
+
+  playNormalizesSongNoteFromHz: function(test) {
+    test.expect(2);
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+    this.piezo.play({
+      song: 262,
+    }, function() {
+      test.equal(this.frequency.callCount, 1);
+      test.equal(this.frequency.lastCall.args[0], 262);
+      test.done();
+    }.bind(this));
+
+    this.clock.tick(250);
+  },
+
+  playWithoutCallback: function(test) {
+    test.expect(2);
+
+    var tempo = 10000; // Make it really fast
+    var beats = 0.125;
+
+    this.clock.restore();
+
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+    this.piezo.play({
+      song: "c",
+      beats: beats,
+      tempo: tempo // Make it real fast
+    });
+
+
+    var isPlaying = function() {
+      if (this.piezo.isPlaying) {
+        setTimeout(isPlaying, 10);
+      } else {
+        test.equal(this.frequency.callCount, 1);
+        test.equal(this.piezo.isPlaying, false);
+        test.done();
+      }
+    }.bind(this);
+
+    isPlaying();
+
+  },
+
+  playTuneSongMissing: function(test) {
+    test.expect(2);
+
+    this.clock.restore();
+    this.noTone = this.sandbox.spy(this.piezo, "noTone");
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+
+    this.piezo.play({
+      song: null
+    }, function() {
+      test.equal(this.noTone.callCount, 0);
+      test.equal(this.frequency.callCount, 0);
+      test.done();
+    }.bind(this));
+  },
+
+  playTuneSongHasFrequenciesNotNotes: function(test) {
+    test.expect(3);
+
+    this.clock.restore();
+    this.noTone = this.sandbox.spy(this.piezo, "noTone");
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+
+    this.piezo.play({
+      song: [
+        262
+      ]
+    }, function() {
+      test.equal(this.noTone.callCount, 0);
+      test.equal(this.frequency.callCount, 1);
+      test.equal(this.frequency.lastCall.args[0], 262);
+      test.done();
+    }.bind(this));
+  },
+
+  playANote: function(test) {
+    test.expect(3);
+
+    this.clock.restore();
+    this.noTone = this.sandbox.spy(this.piezo, "noTone");
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+
+    this.piezo.play("c", function() {
+      test.equal(this.noTone.callCount, 0);
+      test.equal(this.frequency.callCount, 1);
+      test.equal(this.frequency.lastCall.args[0], 262);
+      test.done();
+    }.bind(this));
+  },
+
+
+  stop: function(test) {
+    test.expect(2);
+
+    var tempo = 10000;
+    this.clearTimeout = this.sandbox.stub(global, "clearTimeout");
+
+    var tune = {
+      song: [
+        ["c4"],
+      ],
+      tempo: tempo
+    };
+    this.piezo.play(tune);
+    this.piezo.stop();
+    test.equal(this.clearTimeout.callCount, 1);
+
+    this.piezo.stop();
+    test.equal(this.clearTimeout.callCount, 1);
+
+    test.done();
   },
 };
 
@@ -559,6 +703,4 @@ exports["Piezo - Custom Controller"] = {
 
     test.done();
   },
-
-
 };
