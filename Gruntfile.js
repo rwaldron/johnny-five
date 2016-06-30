@@ -447,8 +447,6 @@ module.exports = function(grunt) {
     var done = this.async();
     var temp = "";
     var previous = "";
-    var thisTag;
-    var lastTag;
 
     if (!version) {
       version = grunt.config("pkg.version");
@@ -474,7 +472,7 @@ module.exports = function(grunt) {
        */
       var tags = cp.execSync("git tag").toString().split("\n");
       var index = tags.indexOf(version);
-      var previous = tags[index - 1];
+      previous = tags[index - 1];
     }
 
     cp.exec("git log --format='%H|%h|%an|%s' " + previous + ".." + version, function(error, result) {
