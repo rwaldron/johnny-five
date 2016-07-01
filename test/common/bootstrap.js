@@ -48,6 +48,7 @@ global.IR = five.IR;
 global.Keypad = five.Keypad;
 global.LCD = five.LCD;
 global.Led = five.Led;
+global.Leds = five.Leds;
 global.LedControl = five.LedControl;
 global.LedDigits = five.Led.Digits;
 global.LedMatrix = five.Led.Matrix;

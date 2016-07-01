@@ -821,6 +821,12 @@ exports["Led.Collection"] = {
     done();
   },
 
+  initCall: function(test) {
+    test.expect(1);
+    test.equal(Leds([3, 7, 9]) instanceof Leds, true);
+    test.done();
+  },
+
   initFromLedNumbers: function(test) {
     test.expect(1);
 

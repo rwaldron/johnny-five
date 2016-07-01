@@ -363,7 +363,7 @@ exports["LedControl - I2C Matrix"] = {
   },
 
   blink: function(test) {
-    test.expect(1);
+    test.expect(2);
     var expected = [
       // oscillator on
       [0x70, [0x21]],
@@ -388,6 +388,7 @@ exports["LedControl - I2C Matrix"] = {
     this.lc.blink(false);
     test.deepEqual(this.i2cWrite.args, expected);
 
+    test.equal(this.lc.blink(null), this.lc);
     test.done();
   },
 
@@ -764,6 +765,13 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
+  device: function(test) {
+    test.expect(1);
+
+    test.notEqual(this.lc.device(0), undefined);
+    test.done();
+  },
+
   returns: function(test) {
     test.expect(this.proto.length);
 
@@ -1125,14 +1133,35 @@ exports["LedControl - Matrix"] = {
   },
 
   led: function(test) {
-    test.expect(1);
+    test.expect(3);
 
     var before = this.lc.memory.slice();
 
     this.lc.led(0, 0, 0, 1);
 
     test.notDeepEqual(this.lc.memory, before);
+    test.equal(this.lc.led(0, -1, -1, 1), this.lc);
+    test.equal(this.lc.led(0, -1, 1000, 1), this.lc);
 
+    test.done();
+  },
+
+  ledRotation: function(test) {
+    test.expect(2);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.rotation = 2;
+    this.lc.led(0, 1, 1, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    before = this.lc.memory.slice();
+
+    this.lc.rotation = 3;
+    this.lc.led(0, 2, 2, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
     test.done();
   },
 
@@ -1252,6 +1281,17 @@ exports["LedControl - Matrix"] = {
 
     test.done();
   },
+
+  printThrows: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      this.lc.print("");
+    }.bind(this));
+
+    test.done();
+  },
+
 
   // TODO: digit, char
   // TODO: Statics
@@ -1470,7 +1510,15 @@ exports["LedControl - Digits"] = {
     ]);
 
     test.done();
-  }
+  },
+  columnThrows: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      this.lc.column();
+    }.bind(this));
+    test.done();
+  },
 };
 
 exports["LedControl - I2C Digits"] = {
@@ -1541,6 +1589,17 @@ exports["LedControl - I2C Digits"] = {
       [0x70, [0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
       [0x70, [0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
       [0x70, [0, 0x06, 0, 0x5B, 0, 0xFF, 0, 0x3F, 0, 0x3F, 0, 0, 0, 0, 0, 0, 0]]
+    ]);
+
+    test.done();
+  },
+  printNonString: function(test) {
+    test.expect(1);
+
+    this.i2cWrite.reset();
+    this.lc.print(1);
+    test.deepEqual(this.i2cWrite.args, [
+      [ 112, [ 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]
     ]);
 
     test.done();
