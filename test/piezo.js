@@ -704,3 +704,105 @@ exports["Piezo - Custom Controller"] = {
     test.done();
   },
 };
+
+
+exports["Piezo - I2C Backpack"] = {
+
+  setUp: function(done) {
+
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.i2cConfig = this.sandbox.stub(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.stub(MockFirmata.prototype, "i2cWrite");
+
+    this.piezo = new Piezo({
+      controller: "I2C_BACKPACK",
+      address: 0xff,
+      bus: "i2c-1",
+      pin: 3,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Piezo({
+      controller: "I2C_BACKPACK",
+      address: 0xff,
+      bus: "i2c-1",
+      pin: 2,
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  defaultI2CAddress: function(test) {
+    test.expect(2);
+
+    this.i2cConfig.reset();
+
+    new Piezo({
+      controller: "I2C_BACKPACK",
+      pin: 2,
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0x0A);
+
+    test.done();
+  },
+
+  tone: function(test) {
+    test.expect(3);
+
+    this.piezo.tone(262, 1000);
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cWrite.lastCall.args[0], 0xFF);
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 1, 3, 1, 6, 0, 0, 3, 232 ]);
+
+    // ...
+    test.done();
+  },
+
+  toneMissingToneAndDuration: function(test) {
+    test.expect(1);
+
+    test.throws(function() {
+      this.piezo.tone();
+    }.bind(this));
+
+    test.done();
+  },
+
+  noTone: function(test) {
+    // test.expect(2);
+
+    this.piezo.noTone();
+    test.equal(this.i2cWrite.callCount, 1);
+    test.equal(this.i2cWrite.lastCall.args[0], 0xFF);
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 0, 3 ]);
+
+    test.done();
+  },
+};
