@@ -785,6 +785,14 @@ exports["Piezo - I2C Backpack"] = {
     test.done();
   },
 
+  hasCustomFrequencyMethody: function(test) {
+    test.expect(1);
+    // I hope this is enough
+    test.notEqual(this.piezo.frequency, Piezo.prototype.frequency);
+
+    test.done();
+  },
+
   toneMissingToneAndDuration: function(test) {
     test.expect(1);
 
@@ -795,8 +803,18 @@ exports["Piezo - I2C Backpack"] = {
     test.done();
   },
 
+  frequencyArgsPersistToTone: function(test) {
+    test.expect(1);
+
+    var tone = this.sandbox.stub(this.piezo, "tone");
+    this.piezo.frequency(100, 100);
+    test.deepEqual(tone.lastCall.args, [100, 100]);
+
+    test.done();
+  },
+
   noTone: function(test) {
-    // test.expect(2);
+    test.expect(3);
 
     this.piezo.noTone();
     test.equal(this.i2cWrite.callCount, 1);
