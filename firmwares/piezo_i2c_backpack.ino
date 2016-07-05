@@ -94,5 +94,11 @@ void onReceive(int howMany) {
     } else {
       tone(pin, hz, ms);
     }
+  // delay between notes
+  int pauseBetweenNotes = ms * 1.3;
+  delay(pauseBetweenNotes);
+  // stop the tone ?
+  //noTone(pin);
   }
+
 }
