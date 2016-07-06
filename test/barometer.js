@@ -2,10 +2,35 @@ exports["Barometer -- MPL115A2"] = {
 
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
+    this.clock = sinon.useFakeTimers();
     this.board = newBoard();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    IMU.Drivers.clear();
+    this.sandbox.restore();
+    done();
+  },
+
+  data: function(test) {
+    test.expect(8);
+
+    var spies = {
+      data: sinon.spy(),
+      change: sinon.spy(),
+    };
+
+    // In order to handle the Promise used for initialization,
+    // there can be no fake timers in this test, which means we
+    // can't use the clock.tick to move the interval forward
+    // in time.
+    this.clock.restore();
 
     this.barometer = new Barometer({
       controller: "MPL115A2",
@@ -13,87 +38,56 @@ exports["Barometer -- MPL115A2"] = {
       freq: 10
     });
 
-    this.instance = [{
-      name: "pressure"
-    }];
+    this.barometer.on("data", spies.data);
+    this.barometer.on("change", spies.change);
 
-    done();
-  },
+    // Simulate receipt of coefficients
+    var pCoefficients = this.i2cReadOnce.firstCall.args[3];
 
-  tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
-    done();
-  },
-
-  fwdOptionsToi2cConfig: function(test) {
-    test.expect(3);
-
-    this.i2cConfig.reset();
-
-    new Barometer({
-      controller: "MPL115A2",
-      address: 0xff,
-      bus: "i2c-1",
-      board: this.board
-    });
-
-    var forwarded = this.i2cConfig.lastCall.args[0];
-
-    test.equal(this.i2cConfig.callCount, 1);
-    test.equal(forwarded.address, 0xff);
-    test.equal(forwarded.bus, "i2c-1");
-
-    test.done();
-  },
-
-  data: function(test) {
-    test.expect(8);
-
-    // var spy = this.sandbox.spy();
-    // this.barometer.on("data", spy);
-
-    var readOnce = this.i2cReadOnce.args[0][3];
-    readOnce([
-      67, 111, // A0
-      176, 56, // B1
+    pCoefficients([
+      67, 111,  // A0
+      176, 56,  // B1
       179, 101, // B2
-      56, 116 // C12
+      56, 116   // C12
     ]);
 
-    setImmediate(function() {
-      test.ok(this.i2cConfig.calledOnce);
-      test.ok(this.i2cWrite.calledOnce);
+    this.i2cWriteReg.reset();
+    this.i2cReadOnce.reset();
 
-      test.equals(this.i2cWrite.args[0][0], 0x60);
-      test.deepEqual(this.i2cWrite.args[0][1], [0x12, 0x00]);
+    var interval = setInterval(function() {
 
-      test.ok(this.i2cReadOnce.calledTwice);
-      test.equals(this.i2cReadOnce.lastCall.args[0], 0x60);
-      test.deepEqual(this.i2cReadOnce.lastCall.args[1], 0x00);
-      test.equals(this.i2cReadOnce.lastCall.args[2], 4);
+      if (this.i2cWriteReg.callCount === 1) {
 
-      // In order to handle the Promise used for initialization,
-      // there can be no fake timers in this test, which means we
-      // can't use the clock.tick to move the interval forward
-      // in time.
-      //
-      //
-      // read = this.i2cRead.args[0][3];
+        test.equal(this.i2cWriteReg.firstCall.args[0], 0x60);
+        test.equal(this.i2cWriteReg.firstCall.args[1], 0x12);
+        test.equal(this.i2cWriteReg.firstCall.args[2], 0x00);
 
-      // read([
-      //   0, 0, // barometer
-      //   129, 64, // temperature
-      // ]);
+        test.equal(this.i2cReadOnce.callCount, 1);
+        test.equal(this.i2cReadOnce.lastCall.args[0], 0x60);
+        test.equal(this.i2cReadOnce.lastCall.args[1], 0x00);
+        test.equal(this.i2cReadOnce.lastCall.args[2], 4);
 
-      // this.clock.tick(100);
-      // test.ok(spy.called);
-      // test.equals(Math.round(spy.args[0][0].barometer), 70);
+        var handler = this.i2cReadOnce.lastCall.args[3];
 
-      test.done();
-    }.bind(this));
+        handler([ 0, 0, 0, 0 ]);
+        handler([ 90, 64, 129, 64 ]);
+        handler([ 90, 64, 129, 0 ]);
+        handler([ 89, 192, 129, 0 ]);
+        handler([ 90, 64, 128, 192 ]);
+        handler([ 89, 192, 129, 0 ]);
+        handler([ 90, 64, 129, 0 ]);
+      }
+
+      if (spies.data.called && spies.change.called) {
+        clearInterval(interval);
+        test.equal(digits.fractional(this.barometer.pressure), 4);
+        test.done();
+      }
+
+    }.bind(this), 5);
   }
 };
+
 
 exports["Barometer -- BMP180"] = {
 
