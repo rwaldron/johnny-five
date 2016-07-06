@@ -198,7 +198,7 @@ module.exports = function(grunt) {
     grunt.task.run("jscs");
   });
 
-  grunt.registerTask("qc:examples", "Run JSHint checks on the examples in 'eg/'", function(file) {
+  grunt.registerTask("qc:examples", "Run JSHint checks on the examples in 'eg/'", function() {
     grunt.task.run("qc:eg/**/*.js");
   });
 
