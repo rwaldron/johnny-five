@@ -198,6 +198,10 @@ module.exports = function(grunt) {
     grunt.task.run("jscs");
   });
 
+  grunt.registerTask("qc:examples", "Run JSHint checks on the examples in 'eg/'", function(file) {
+    grunt.task.run("qc:eg/**/*.js");
+  });
+
   grunt.registerTask("beautify", "Cleanup a single or limited set of files; usage: 'grunt beautify:file.js' or 'grunt beautify:{file-a.js,file-b.js}' (extension optional)", function(input) {
 
     var config = [];
