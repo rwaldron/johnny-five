@@ -5,11 +5,11 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://edison.local:3000');
-      socket.on('news', function(data){
+      socket.on('news', function(data) {
         console.log(data)
       })
-      socket.on('color', function (data) {
-        value = data.value
+      socket.on('color', function(data) {
+        var value = data.value
         document.getElementById('arduino').style['-webkit-filter'] = 'hue-rotate('+value+'deg)';
       });
     </script>
