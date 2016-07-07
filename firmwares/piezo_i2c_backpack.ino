@@ -5,14 +5,15 @@
 
 #define DEBUG_MODE 0
 
-
 // Address Pins
 #define AD0 11
 #define AD1 12
 
 // I2C Configuration
 #define I2C_DEFAULT_ADDRESS 0x0A
-#define BUFFER_SIZE 8
+#define BUFFER_SIZE 6
+#define RING_SIZE 32
+
 
 // FUNCTION COMMANDS
 #define NO_TONE 0x00
@@ -22,10 +23,10 @@ struct frame {
   uint8_t command;
   uint8_t pin;
   uint16_t hz;
-  uint32_t ms;
+  uint16_t ms;
 };
 
-RingBuf *buffer = RingBuf_new(sizeof(struct frame), 8);
+RingBuf *buffer = RingBuf_new(sizeof(struct frame), RING_SIZE);
 
 int addressPins[] = { AD0, AD1 };
 int address = I2C_DEFAULT_ADDRESS;
@@ -59,6 +60,12 @@ void setup() {
 void loop() {
   uint8_t numElements = buffer->numElements(buffer);
 
+  #if DEBUG_MODE
+    Serial.println("--LOOP------------------");
+    Serial.print("  Pending Notes: ");
+    Serial.println(numElements);
+  #endif
+
   if (numElements > 0) {
     for (int i = 0; i < numElements; i++) {
       struct frame f;
@@ -67,6 +74,9 @@ void loop() {
 
       if (f.command == NO_TONE) {
         noTone(f.pin);
+        #if DEBUG_MODE
+          Serial.println("  NO_TONE");
+        #endif
       }
 
       if (f.command == TONE) {
@@ -74,9 +84,18 @@ void loop() {
           tone(f.pin, f.hz);
         } else {
           tone(f.pin, f.hz, f.ms);
-          delay((int)(f.ms * 1.5));
-          noTone(f.pin);
+          // delay((int)(f.ms * 1.5));
+          // noTone(f.pin);
         }
+        #if DEBUG_MODE
+          Serial.println("  TONE:");
+          // Serial.print("pin: ");
+          // Serial.println(f.pin);
+          Serial.print("    hz: ");
+          Serial.println(f.hz);
+          Serial.print("    ms: ");
+          Serial.println(f.ms);
+        #endif
       }
     }
   }
@@ -98,25 +117,8 @@ void onReceive(int howMany) {
 
   f.command = received[0];
   f.pin = received[1];
-  f.hz = (received[2] << 8) | received[3];
-
-  if (howMany == 8) {
-    f.ms = (received[4] << 24) | (received[5] << 16) | (received[6] << 8) | received[7];
-  }
+  f.hz = ((received[2] & 0xFF) << 8) | (received[3] & 0xFF);
+  f.ms = ((received[4] & 0xFF) << 8) | (received[5] & 0xFF);
 
   buffer->add(buffer, &f);
-
-  #if DEBUG_MODE
-    Serial.print("Bytes Received: ");
-    Serial.println(howMany);
-    Serial.print("command: ");
-    Serial.println(f.command);
-    Serial.print("pin: ");
-    Serial.println(f.pin);
-    Serial.print("hz: ");
-    Serial.println(f.hz);
-    Serial.print("ms: ");
-    Serial.println(f.ms);
-    Serial.println("--------------------");
-  #endif
 }
