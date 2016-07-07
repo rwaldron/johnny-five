@@ -454,7 +454,7 @@ exports["Proximity: GP2Y0A710K0F"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 33.85);
+      test.equal(this.inches, 33.93);
       spy();
     });
 
@@ -1399,6 +1399,238 @@ exports["Proximity: EVS_EV3_US"] = {
     test.ok(spy.calledOnce);
     test.done();
   }
+};
+
+exports["Proximity.Collection"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.board = newBoard();
+    this.pinMode = this.sandbox.stub(MockFirmata.prototype, "pinMode");
+    this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
+    this.digitalRead = this.sandbox.stub(MockFirmata.prototype, "digitalRead");
+    this.i2cConfig = this.sandbox.stub(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cWrite = this.sandbox.stub(MockFirmata.prototype, "i2cWrite");
+    this.pingRead = this.sandbox.stub(MockFirmata.prototype, "pingRead");
+
+    this.spy = this.sandbox.spy();
+    // var hcsr04sOnBackpack = new Proximity.Collection({
+    //   pins: [2, 3, 4],
+    //   controller: "HCSR04I2CBACKPACK",
+    //   board: this.board
+    // });
+
+    // var hcsr04sOnBoard = new Proximity.Collection({
+    //   pins: [2, 3, 4],
+    //   controller: "HCSR04",
+    //   board: this.board
+    // });
+
+    // var mixed = new Proximity.Collection([
+    //   { controller: "GP2Y0A710K0F", pin: "A0", board: this.board },
+    //   { controller: "HCSR04I2CBACKPACK", board: this.board },
+    //   { controller: "LIDARLITE", board: this.board },
+    //   { controller: "MB1003", pin: "A0", board: this.board },
+    //   { controller: "SRF10", board: this.board },
+    // ]);
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Proximity.purge();
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  "data: Collection of 3 HCSR04s On One Backpack": function(test) {
+    test.expect(7);
+
+
+    var collection = new Proximity.Collection({
+      pins: [2, 3, 4],
+      controller: "HCSR04I2CBACKPACK",
+      board: this.board
+    });
+
+    collection.on("data", this.spy);
+
+    test.equal(this.i2cConfig.callCount, 3);
+    test.equal(this.i2cReadOnce.callCount, 3);
+
+
+    // These should be .args[3] when firmware and controller updates land
+    this.i2cReadOnce.getCall(0).args[2]([ 0x00, 0x10 ]);
+    this.i2cReadOnce.getCall(1).args[2]([ 0x00, 0x20 ]);
+    this.i2cReadOnce.getCall(2).args[2]([ 0x00, 0x30 ]);
+
+    this.clock.tick(15);
+
+    test.equal(this.spy.callCount, 3);
+
+    test.equal(collection.length, 3);
+    test.equal(collection[0].cm, 0.275);
+    test.equal(collection[1].cm, 0.55);
+    test.equal(collection[2].cm, 0.825);
+
+    test.done();
+  },
+
+  "data: Collection of 3 HCSR04s On One Board": function(test) {
+    test.expect(6);
+
+    var collection = new Proximity.Collection({
+      pins: [2, 3, 4],
+      controller: "HCSR04",
+      board: this.board
+    });
+
+    collection.on("data", this.spy);
+
+    test.equal(this.pingRead.callCount, 3);
+
+    // These should be .args[3] when firmware and controller updates land
+    this.pingRead.getCall(0).args[1](100);
+    this.pingRead.getCall(1).args[1](200);
+    this.pingRead.getCall(2).args[1](300);
+
+    this.clock.tick(15);
+
+    test.equal(this.spy.callCount, 3);
+
+    test.equal(collection.length, 3);
+    test.equal(collection[0].cm, 1.718);
+    test.equal(collection[1].cm, 3.436);
+    test.equal(collection[2].cm, 5.155);
+
+    test.done();
+  },
+
+  "data: Collection of Mixed Proximity Sensors": function(test) {
+    test.expect(23);
+
+    var collection = new Proximity.Collection([
+      { controller: "GP2Y0A710K0F", pin: "A0", board: this.board },
+      { controller: "HCSR04I2CBACKPACK", board: this.board },
+      { controller: "LIDARLITE", board: this.board },
+      { controller: "MB1003", pin: "A1", board: this.board },
+      { controller: "SRF10", board: this.board },
+    ]);
+
+    collection.on("data", this.spy);
+
+    this.clock.tick(100);
+
+    // GP2Y0A710K0F, MB1003
+    test.equal(this.pinMode.callCount, 2);
+    test.equal(this.analogRead.callCount, 2);
+
+    test.equal(this.pinMode.getCall(0).args[0], 0);
+    test.equal(this.analogRead.getCall(0).args[0], 0);
+
+    test.equal(this.pinMode.getCall(1).args[0], 1);
+    test.equal(this.analogRead.getCall(1).args[0], 1);
+
+
+    this.analogRead.getCall(0).args[1](1021);
+    this.analogRead.getCall(1).args[1](512);
+
+
+    // HCSR04I2CBACKPACK, LIDARLITE, SRF10
+    test.equal(this.i2cConfig.callCount, 3);
+    test.equal(this.i2cReadOnce.callCount, 3);
+
+
+    // LIDARLITE, SRF10
+    test.equal(this.i2cWrite.callCount, 6);
+
+    // LIDARLITE: address, enable, measuremode
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 0x62, 0x00, 0x04 ]);
+
+    // SRF10: startup register writes
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 0x70, [0x01, 0x10] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 0x70, [0x02, 0xFF] ]);
+    // SRF10: Set to CM
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 0x70, [0x00, 0x51] ]);
+    // SRF10: Initiate Measurement
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 0x70, [0x02] ]);
+
+
+    // HCSR04I2CBACKPACK
+    test.equal(this.i2cReadOnce.getCall(0).args[0], 0x27);
+    // LIDARLITE
+    test.equal(this.i2cReadOnce.getCall(1).args[0], 0x62);
+    // SRF10
+    test.equal(this.i2cReadOnce.getCall(2).args[0], 0x70);
+
+    // HCSR04I2CBACKPACK
+    // These should be .args[3] when firmware and controller updates land
+    this.i2cReadOnce.getCall(0).args[2]([ 0x00, 0x10 ]);
+    // LIDARLITE
+    this.i2cReadOnce.getCall(1).args[3]([ 0x00, 0x20 ]);
+    // SRF10
+    this.i2cReadOnce.getCall(2).args[2]([ 0x00, 0x30 ]);
+
+
+    test.equal(collection.length, 5);
+
+    // GP2Y0A710K0F
+    test.equal(collection[0].cm, 15);
+    // HCSR04I2CBACKPACK
+    test.equal(collection[1].cm, 0.275);
+    // LIDARLITE
+    test.equal(collection[2].cm, 32);
+    // MB1003
+    test.equal(collection[3].cm, 256);
+    // SRF10
+    test.equal(collection[4].cm, 48);
+
+
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(10);
+
+
+    var collection = new Proximity.Collection({
+      pins: [2, 3, 4],
+      controller: "HCSR04I2CBACKPACK",
+      board: this.board
+    });
+
+    collection.on("change", this.spy);
+
+    test.equal(this.i2cConfig.callCount, 3);
+    test.equal(this.i2cReadOnce.callCount, 3);
+
+
+    // These should be .args[3] when firmware and controller updates land
+    this.i2cReadOnce.getCall(0).args[2]([ 0x00, 0x00 ]);
+    this.i2cReadOnce.getCall(0).args[2]([ 0x00, 0x10 ]);
+    this.i2cReadOnce.getCall(1).args[2]([ 0x00, 0x00 ]);
+    this.i2cReadOnce.getCall(1).args[2]([ 0x00, 0x20 ]);
+    this.i2cReadOnce.getCall(2).args[2]([ 0x00, 0x00 ]);
+    this.i2cReadOnce.getCall(2).args[2]([ 0x00, 0x30 ]);
+
+    this.clock.tick(100);
+
+    test.equal(this.spy.callCount, 3);
+
+    test.equal(collection.length, 3);
+    test.equal(collection[0].cm, 0.275);
+    test.equal(collection[1].cm, 0.55);
+    test.equal(collection[2].cm, 0.825);
+
+    test.equal(this.spy.getCall(0).args[0], collection[0]);
+    test.equal(this.spy.getCall(1).args[0], collection[1]);
+    test.equal(this.spy.getCall(2).args[0], collection[2]);
+
+    test.done();
+  },
 };
 
 // - GP2Y0A21YK
