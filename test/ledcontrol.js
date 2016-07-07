@@ -10,7 +10,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
 
@@ -262,7 +262,7 @@ exports["LedControl - I2C Matrix"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
   initialize: function(test) {
@@ -392,6 +392,87 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
+  ledNoDevice: function(test) {
+    test.expect(3);
+
+    var ledWithDevice = this.sandbox.spy(this.lc, "led");
+
+    this.lc.led(0, 0, 1);
+
+    test.equal(ledWithDevice.callCount, 2);
+    test.deepEqual(ledWithDevice.firstCall.args, [0, 0, 1]);
+    test.deepEqual(ledWithDevice.lastCall.args, [0, 0, 0, 1]);
+
+    test.done();
+  },
+
+  ledInvalidRow: function(test) {
+    test.expect(1);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, -1, 0, 1);
+    this.lc.led(0, 100, 0, 1);
+
+    test.deepEqual(this.lc.memory, before);
+
+    test.done();
+  },
+
+  ledInvalidCol: function(test) {
+    test.expect(1);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, -1, 1);
+    this.lc.led(0, 0, 100, 1);
+
+    test.deepEqual(this.lc.memory, before);
+
+    test.done();
+  },
+
+  ledRotation: function(test) {
+    test.expect(2);
+
+    var writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
+    var before = this.lc.memory.slice();
+
+    this.lc.rotation = 2;
+    this.lc.led(0, 0, 0, 1);
+
+    test.equal(writeDisplay.callCount, 1);
+
+    before = this.lc.memory.slice();
+
+    this.lc.rotation = 3;
+    this.lc.led(0, 0, 0, 0);
+
+    test.equal(writeDisplay.callCount, 2);
+    test.done();
+  },
+
+  ledIsBicolor: function(test) {
+    test.expect(1);
+
+    this.lc = new LedControl({
+      controller: "HT16K33",
+      isMatrix: true,
+      isBicolor: true,
+      board: this.board
+    });
+
+    var writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
+
+    this.lc.led(0, 0, 0, LedControl.COLORS.GREEN);
+    this.lc.led(0, 0, 0, LedControl.COLORS.YELLOW);
+    this.lc.led(0, 0, 0, LedControl.COLORS.RED);
+    this.lc.led(0, 0, 0, 0);
+    test.equal(writeDisplay.callCount, 4);
+    test.done();
+  },
+
+
   row: function(test) {
     test.expect(1);
 
@@ -421,6 +502,21 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
+
+  rowNoDevice: function(test) {
+    test.expect(3);
+
+    this.lc.row.reset();
+
+    this.lc.row(0, 1);
+
+    test.equal(this.lc.row.callCount, 2);
+    test.deepEqual(this.lc.row.firstCall.args, [0, 1]);
+    test.deepEqual(this.lc.row.lastCall.args, [0, 0, 1]);
+
+    test.done();
+  },
+
   column: function(test) {
     test.expect(1);
 
@@ -530,7 +626,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
   clearAll: function(test) {
@@ -701,7 +797,7 @@ exports["LedControl - Matrix"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
 
@@ -720,7 +816,7 @@ exports["LedControl - Matrix"] = {
   },
 
   initialization: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var expected = [
       // this.send(device, LedControl.OP.DECODING, 0);
@@ -762,6 +858,17 @@ exports["LedControl - Matrix"] = {
     test.ok(this.initialize.called);
     test.deepEqual(this.send.args, expected);
 
+    this.lc = new LedControl({
+      pins: {
+        data: 2,
+        clock: 3,
+        latch: 4
+      },
+      isMatrix: true,
+      board: this.board
+    });
+
+    test.equal(this.lc.pins.cs, 4);
     test.done();
   },
 
@@ -930,6 +1037,36 @@ exports["LedControl - Matrix"] = {
       [2, 3, 0]
     ]);
     test.equal(this.each.callCount, 1);
+
+    test.done();
+  },
+
+  led: function(test) {
+    test.expect(2);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 0);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    test.done();
+  },
+
+  ledNoDevice: function(test) {
+    test.expect(3);
+
+    this.lc.led(0, 0, 1);
+
+    test.equal(this.lc.led.callCount, 2);
+    test.deepEqual(this.lc.led.firstCall.args, [0, 0, 1]);
+    test.deepEqual(this.lc.led.lastCall.args, [0, 0, 0, 1]);
 
     test.done();
   },
@@ -1311,7 +1448,7 @@ exports["Led.Matrix => LedControl"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
 
@@ -1371,7 +1508,7 @@ exports["LedControl - Digits"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
 
@@ -1511,12 +1648,32 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
+
   columnThrows: function(test) {
     test.expect(1);
-
     test.throws(function() {
       this.lc.column();
     }.bind(this));
+    test.done();
+  },
+
+  rowIsNotMatrix: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      this.lc.row();
+    }.bind(this));
+    test.done();
+  },
+
+  led: function(test) {
+    test.expect(1);
+    this.lc.led(0, 0, 0, 0);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
     test.done();
   },
 };
@@ -1542,7 +1699,7 @@ exports["LedControl - I2C Digits"] = {
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
-    LedControl.reset();
+    LedControl.purge();
     done();
   },
   digit: function(test) {
@@ -1648,6 +1805,30 @@ exports["LedControl - I2C Digits"] = {
     ]);
 
     test.done();
-  }
+  },
+
+  rowIsNotMatrix: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      this.lc.row(0, 1, 255);
+    }.bind(this));
+    test.done();
+  },
+
+  scanLimit: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      this.lc.scanLimit();
+    }.bind(this));
+    test.done();
+  },
+
+  sendInvalidArguments: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      this.lc.send();
+    }.bind(this));
+    test.done();
+  },
 
 };
