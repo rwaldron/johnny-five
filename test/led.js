@@ -816,7 +816,7 @@ exports["Led.Collection"] = {
     done();
   },
 
-  initCall: function(test) {
+  instanceof: function(test) {
     test.expect(1);
     test.equal(Leds([3, 7, 9]) instanceof Leds, true);
     test.done();
@@ -1680,6 +1680,12 @@ exports["Led.RGB.Collection"] = {
     done();
   },
 
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Led.RGB.Collection([ {pins: [3, 4, 5]}, {pins: [9, 10, 11]} ]) instanceof Led.RGB.Collection, true);
+    test.done();
+  },
+
   initFromObject: function(test) {
     test.expect(1);
 
@@ -1797,6 +1803,106 @@ exports["Led.RGB.Collection"] = {
 
     test.equal(this.blink.callCount, 2);
     test.equal(spy.callCount, 2);
+    test.done();
+  },
+
+  "Animation.normalize": function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+
+    var normalized = rgbs[Animation.normalize]([
+      [
+        null,
+        {color: "red"},
+        null,
+        [255, 99, 0],
+        {color: "ffff00"},
+        {color: { red: 0x00, green: 0xFF, blue: 0x00 } },
+        {color: "indigo"},
+        "#4B0082",
+      ],
+      [
+        null,
+        {color: "red"},
+        null,
+        [255, 99, 0],
+        {color: "ffff00"},
+        {color: { red: 0x00, green: 0xFF, blue: 0x00 } },
+        {color: "indigo"},
+        "#4B0082",
+      ]
+    ]);
+
+    test.deepEqual(normalized, [
+      [
+        { easing: "linear", value: { red: 0, green: 0, blue: 0 } },
+        { easing: "linear", value: { red: 255, green: 0, blue: 0 } },
+        null,
+        { easing: "linear", value: { red: 255, green: 99, blue: 0 } },
+        { easing: "linear", value: { red: 255, green: 255, blue: 0 } },
+        { easing: "linear", value: { red: 0, green: 255, blue: 0 } },
+        { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+        { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+      ],
+      [
+        { easing: "linear", value: { red: 0, green: 0, blue: 0 } },
+        { easing: "linear", value: { red: 255, green: 0, blue: 0 } },
+        null,
+        { easing: "linear", value: { red: 255, green: 99, blue: 0 } },
+        { easing: "linear", value: { red: 255, green: 255, blue: 0 } },
+        { easing: "linear", value: { red: 0, green: 255, blue: 0 } },
+        { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+        { easing: "linear", value: { red: 75, green: 0, blue: 130 } },
+      ]
+    ]);
+
+    test.done();
+  },
+
+
+  "Animation.normalize: frame === null": function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+
+    var normalized = rgbs[Animation.normalize]([
+      [
+        {color: "red"},
+      ],
+      null,
+    ]);
+
+    test.deepEqual(normalized, [
+      [ { easing: "linear", value: { red: 255, green: 0, blue: 0 } } ],
+      null
+    ]);
+    test.done();
+  },
+
+
+  "Animation.render": function(test) {
+    test.expect(1);
+
+    var rgbs = new Led.RGB.Collection([
+      [1, 2, 3],
+      [4, 5, 6],
+    ]);
+
+    this.color = this.sandbox.spy(Led.RGB.prototype, "color");
+
+    rgbs[Animation.render]([
+      { red: 0, green: 0, blue: 0 },
+      { red: 0, green: 0, blue: 0 },
+    ]);
+
+    test.equal(this.color.callCount, 2);
     test.done();
   },
 };
