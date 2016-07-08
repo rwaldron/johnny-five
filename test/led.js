@@ -361,12 +361,61 @@ exports["Led - PWM"] = {
     test.done();
   },
 
+  onFromNull: function(test) {
+    test.expect(4);
+
+    this.mapget = this.sandbox.spy(Map.prototype, "get");
+
+    this.led = new Led({
+      pin: 11,
+      board: this.board
+    });
+
+    var state = this.mapget.lastCall.returnValue;
+
+    test.equal(state.value, null);
+
+    this.led.on();
+
+    test.equal(state.value, 255);
+    test.equal(this.analogWrite.callCount, 1);
+    test.ok(this.analogWrite.firstCall.calledWith(11, 255));
+    test.done();
+  },
+
   off: function(test) {
     test.expect(2);
 
     this.led.off();
     test.ok(this.analogWrite.firstCall.calledWith(11, 0));
     test.equal(this.analogWrite.callCount, 1);
+
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(2);
+    /*
+      This test is incredibly important!
+
+      What this is asserting is that blinking PWM LED will
+      analogWrite the correct value of 255 when there is an
+      ACTIVE interval and the last value was 0.
+    */
+    this.mapget = this.sandbox.spy(Map.prototype, "get");
+
+    this.led.off();
+    test.equal(this.led.isOn, false);
+
+    this.led.blink(1);
+
+    var state = this.mapget.lastCall.returnValue;
+
+    test.equal(state.value, 0);
+
+    this.clock.tick(1);
+    test.equal(this.led.isOn, true);
+    test.equal(state.value, 255);
 
     test.done();
   },
