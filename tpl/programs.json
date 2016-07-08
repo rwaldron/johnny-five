@@ -1049,6 +1049,10 @@
         "title": "Accelerometer"
       },
       {
+        "file": "accelerometer-LIS3DH.js",
+        "title": "Accelerometer - LIS3DH"
+      },
+      {
         "file": "accelerometer-MMA8452.js",
         "title": "Accelerometer - MMA8452"
       },
@@ -1388,6 +1392,11 @@
         "file": "expander-MCP23008.js",
         "title": "Expander - MCP23008",
         "description": "Using an MCP23008 Expander as a Virtual Board (8 Pin Digital IO)"
+      },
+      {
+        "file": "expander-LIS3DH.js",
+        "title": "Expander - LIS3DH",
+        "description": "Using an LIS3DH Expander as a Virtual Board (3 Pin Analog Input: 0.9V-1.8V)"
       },
       {
         "file": "expander-PCF8574.js",

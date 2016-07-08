@@ -381,6 +381,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Accelerometer](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer.md)
 - [Accelerometer - ADXL335](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl335.md)
 - [Accelerometer - ADXL345](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-adxl345.md)
+- [Accelerometer - LIS3DH](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-LIS3DH.md)
 - [Accelerometer - MMA7361](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mma7361.md)
 - [Accelerometer - MMA8452](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-MMA8452.md)
 - [Accelerometer - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/accelerometer-mpu6050.md)
@@ -429,6 +430,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Expander
 - [Expander - 74HC595](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-74HC595.md)
 - [Expander - CD74HC4067, 16 Channel Analog Input Breakout](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-CD74HC4067_NANO_BACKPACK.md)
+- [Expander - LIS3DH](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-LIS3DH.md)
 - [Expander - MCP23008](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MCP23008.md)
 - [Expander - MCP23017](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MCP23017.md)
 - [Expander - MUXSHIELD2, Analog Sensors](https://github.com/rwaldron/johnny-five/blob/master/docs/expander-MUXSHIELD2-analog-read.md)
