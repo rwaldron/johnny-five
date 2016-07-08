@@ -1041,36 +1041,6 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  led: function(test) {
-    test.expect(2);
-
-    var before = this.lc.memory.slice();
-
-    this.lc.led(0, 0, 0, 1);
-
-    test.notDeepEqual(this.lc.memory, before);
-
-    before = this.lc.memory.slice();
-
-    this.lc.led(0, 0, 0, 0);
-
-    test.notDeepEqual(this.lc.memory, before);
-
-    test.done();
-  },
-
-  ledNoDevice: function(test) {
-    test.expect(3);
-
-    this.lc.led(0, 0, 1);
-
-    test.equal(this.lc.led.callCount, 2);
-    test.deepEqual(this.lc.led.firstCall.args, [0, 0, 1]);
-    test.deepEqual(this.lc.led.lastCall.args, [0, 0, 0, 1]);
-
-    test.done();
-  },
-
   scanLimit: function(test) {
     test.expect(1);
 
@@ -1269,7 +1239,26 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
+
   led: function(test) {
+    test.expect(2);
+
+    var before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 1);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    before = this.lc.memory.slice();
+
+    this.lc.led(0, 0, 0, 0);
+
+    test.notDeepEqual(this.lc.memory, before);
+
+    test.done();
+  },
+
+  ledOutOfBounds: function(test) {
     test.expect(3);
 
     var before = this.lc.memory.slice();
@@ -1278,7 +1267,19 @@ exports["LedControl - Matrix"] = {
 
     test.notDeepEqual(this.lc.memory, before);
     test.equal(this.lc.led(0, -1, -1, 1), this.lc);
-    test.equal(this.lc.led(0, -1, 1000, 1), this.lc);
+    test.equal(this.lc.led(0, 0, 1000, 1), this.lc);
+
+    test.done();
+  },
+
+  ledNoDevice: function(test) {
+    test.expect(3);
+
+    this.lc.led(0, 0, 1);
+
+    test.equal(this.lc.led.callCount, 2);
+    test.deepEqual(this.lc.led.firstCall.args, [0, 0, 1]);
+    test.deepEqual(this.lc.led.lastCall.args, [0, 0, 0, 1]);
 
     test.done();
   },
