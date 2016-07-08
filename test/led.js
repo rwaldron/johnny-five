@@ -394,7 +394,7 @@ exports["Led - PWM"] = {
   },
 
   blink: function(test) {
-    test.expect(2);
+    test.expect(4);
     /*
       This test is incredibly important!
 
