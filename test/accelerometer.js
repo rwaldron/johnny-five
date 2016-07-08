@@ -42,6 +42,8 @@ exports["Accelerometer -- Analog"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -202,6 +204,8 @@ exports["Accelerometer -- distinctZeroV"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -243,6 +247,8 @@ exports["Accelerometer -- autoCalibrate"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -290,6 +296,8 @@ exports["Accelerometer -- ADXL335"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -339,6 +347,8 @@ exports["Accelerometer -- MPU-6050"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -430,6 +440,8 @@ exports["Accelerometer -- ADXL345"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -571,6 +583,8 @@ exports["Accelerometer -- MMA7361"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -641,6 +655,8 @@ exports["Accelerometer -- MMA7660"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -726,6 +742,8 @@ exports["Accelerometer -- ESPLORA"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -774,6 +792,8 @@ exports["Accelerometer -- MMA8452"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
     this.sandbox.restore();
     done();
   },
@@ -865,6 +885,149 @@ exports["Accelerometer -- MMA8452"] = {
     tap.reset();
 
     read([ 204 ]);
+
+    // 1 for tap
+    // 1 for tap:single
+    // 1 for tap:double
+    test.equal(tap.callCount, 3);
+
+    test.done();
+  },
+};
+
+exports["Accelerometer -- LIS3DH"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.sandbox.spy(Expander, "get");
+
+
+    this.accel = new Accelerometer({
+      controller: "LIS3DH",
+      board: this.board,
+      freq: 10,
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "LIS3DH",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  itGetsAnExpander: function(test) {
+    test.expect(2);
+    test.equal(Expander.get.callCount, 1);
+    test.deepEqual(Expander.get.lastCall.args[0], {
+      address: 24,
+      controller: "LIS3DH",
+      bus: undefined
+    });
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(8);
+
+
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+
+    test.equal(this.i2cWrite.callCount, 4);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 24, 32, 119 ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 24, 35, 136 ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 24, 34, 16 ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 24, 35, 152 ]);
+
+
+    var ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
+
+    ctrl4ReadOnce([0x00]);
+
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 24, 32, 96 ]);
+
+
+    var outXLRead = this.i2cRead.firstCall.args[3];
+
+
+    outXLRead([ 64, 1, 112, 0, 176, 30 ]);
+    this.clock.tick(5);
+
+    outXLRead([ 32, 1, 112, 0, 224, 30 ]);
+    this.clock.tick(5);
+
+    test.ok(dataSpy.callCount, 1);
+    test.ok(changeSpy.callCount, 1);
+
+    test.done();
+  },
+
+  tap: function(test) {
+    test.expect(2);
+
+    var tap = this.sandbox.spy();
+
+    this.accel.on("tap", tap);
+    this.accel.on("tap:single", tap);
+    this.accel.on("tap:double", tap);
+
+    var ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
+    ctrl4ReadOnce([0x00]);
+
+    var clickSrcRead = this.i2cRead.lastCall.args[3];
+
+    this.clock.tick(100);
+    clickSrcRead([ 0 ]);
+
+    this.clock.tick(100);
+    clickSrcRead([ 20 ]);
+
+
+    // 1 for tap
+    // 1 for tap:single
+    test.equal(tap.callCount, 2);
+
+    tap.reset();
+
+    this.clock.tick(100);
+    clickSrcRead([ 100 ]);
 
     // 1 for tap
     // 1 for tap:single
