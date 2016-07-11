@@ -2071,7 +2071,7 @@ exports["Expander - PCF8591"] = {
   },
 
   analogRead: function(test) {
-    test.expect(4);
+    test.expect(8);
 
     var spy = this.sandbox.spy();
 
@@ -2099,10 +2099,15 @@ exports["Expander - PCF8591"] = {
     test.equal(this.i2cRead.callCount, 1);
 
     var callback = this.i2cRead.lastCall.args[2];
+    var emitter = this.sandbox.spy(this.expander, "emit");
 
     callback([0x00, 0x0f, 0xf0, 0xff]);
 
     test.equal(spy.callCount, 4);
+
+    for (var k = 0; k < 4; k++) {
+      test.equal(emitter.getCall(k).args[0], "analog-read-" + k);
+    }
 
     test.deepEqual(
       spy.args.map(function(args) {
