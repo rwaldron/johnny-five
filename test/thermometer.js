@@ -872,76 +872,76 @@ exports["Thermometer -- MPL115A2"] = {
     test.done();
   },
 
-  data: function(test) {
-    test.expect(7);
+  // data: function(test) {
+  //   test.expect(7);
 
-    var spies = {
-      data: sinon.spy(),
-      change: sinon.spy(),
-    };
+  //   var spies = {
+  //     data: sinon.spy(),
+  //     change: sinon.spy(),
+  //   };
 
 
-    // In order to handle the Promise used for initialization,
-    // there can be no fake timers in this test, which means we
-    // can't use the clock.tick to move the interval forward
-    // in time.
-    this.clock.restore();
+  //   // In order to handle the Promise used for initialization,
+  //   // there can be no fake timers in this test, which means we
+  //   // can't use the clock.tick to move the interval forward
+  //   // in time.
+  //   this.clock.restore();
 
-    this.thermometer = new Thermometer({
-      controller: "MPL115A2",
-      board: this.board,
-      freq: 10
-    });
+  //   this.thermometer = new Thermometer({
+  //     controller: "MPL115A2",
+  //     board: this.board,
+  //     freq: 10
+  //   });
 
-    this.thermometer.on("data", spies.data);
-    this.thermometer.on("change", spies.change);
+  //   this.thermometer.on("data", spies.data);
+  //   this.thermometer.on("change", spies.change);
 
-    // Simulate receipt of coefficients
-    var pCoefficients = this.i2cReadOnce.firstCall.args[3];
+  //   // Simulate receipt of coefficients
+  //   var pCoefficients = this.i2cReadOnce.firstCall.args[3];
 
-    pCoefficients([
-      67, 111,  // A0
-      176, 56,  // B1
-      179, 101, // B2
-      56, 116   // C12
-    ]);
+  //   pCoefficients([
+  //     67, 111,  // A0
+  //     176, 56,  // B1
+  //     179, 101, // B2
+  //     56, 116   // C12
+  //   ]);
 
-    this.i2cWriteReg.reset();
-    this.i2cReadOnce.reset();
+  //   this.i2cWriteReg.reset();
+  //   this.i2cReadOnce.reset();
 
-    var interval = setInterval(function() {
+  //   var interval = setInterval(function() {
 
-      if (this.i2cWriteReg.callCount === 1) {
+  //     if (this.i2cWriteReg.callCount === 1) {
 
-        test.equal(this.i2cWriteReg.firstCall.args[0], 0x60);
-        test.equal(this.i2cWriteReg.firstCall.args[1], 0x12);
-        test.equal(this.i2cWriteReg.firstCall.args[2], 0x00);
+  //       test.equal(this.i2cWriteReg.firstCall.args[0], 0x60);
+  //       test.equal(this.i2cWriteReg.firstCall.args[1], 0x12);
+  //       test.equal(this.i2cWriteReg.firstCall.args[2], 0x00);
 
-        test.equal(this.i2cReadOnce.callCount, 1);
-        test.equal(this.i2cReadOnce.lastCall.args[0], 0x60);
-        test.equal(this.i2cReadOnce.lastCall.args[1], 0x00);
-        test.equal(this.i2cReadOnce.lastCall.args[2], 4);
+  //       test.equal(this.i2cReadOnce.callCount, 1);
+  //       test.equal(this.i2cReadOnce.lastCall.args[0], 0x60);
+  //       test.equal(this.i2cReadOnce.lastCall.args[1], 0x00);
+  //       test.equal(this.i2cReadOnce.lastCall.args[2], 4);
 
-        // var handler = this.i2cReadOnce.lastCall.args[3];
+  //       // var handler = this.i2cReadOnce.lastCall.args[3];
 
-        // handler([ 0, 0, 0, 0 ]);
-        // handler([ 90, 64, 129, 64 ]);
-        // handler([ 90, 64, 129, 0 ]);
-        // handler([ 89, 192, 129, 0 ]);
-        // handler([ 90, 64, 128, 192 ]);
-        // handler([ 89, 192, 129, 0 ]);
-        // handler([ 90, 64, 129, 0 ]);
-      }
+  //       // handler([ 0, 0, 0, 0 ]);
+  //       // handler([ 90, 64, 129, 64 ]);
+  //       // handler([ 90, 64, 129, 0 ]);
+  //       // handler([ 89, 192, 129, 0 ]);
+  //       // handler([ 90, 64, 128, 192 ]);
+  //       // handler([ 89, 192, 129, 0 ]);
+  //       // handler([ 90, 64, 129, 0 ]);
+  //     }
 
-      // if (spies.data.called && spies.change.called) {
-      //   clearInterval(interval);
-      //   test.equal(digits.fractional(this.thermometer.C), 0);
-      //   test.done();
-      // }
-      clearInterval(interval);
-      test.done();
-    }.bind(this), 1);
-  }
+  //     // if (spies.data.called && spies.change.called) {
+  //     //   clearInterval(interval);
+  //     //   test.equal(digits.fractional(this.thermometer.C), 0);
+  //     //   test.done();
+  //     // }
+  //     clearInterval(interval);
+  //     test.done();
+  //   }.bind(this), 1);
+  // }
 };
 
 exports["Thermometer -- SI7020"] = {
