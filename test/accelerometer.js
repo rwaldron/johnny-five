@@ -1,3 +1,36 @@
+exports["Accelerometer"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.sandbox.spy(Board, "Component");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Accelerometer.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Accelerometer({ board: this.board, pins: [2, 3, 4]}) instanceof Accelerometer, true);
+    test.done();
+  },
+
+  component: function(test) {
+    test.expect(1);
+
+    new Accelerometer({ board: this.board, pins: [2, 3, 4]});
+
+    test.equal(Board.Component.callCount, 1);
+    test.done();
+  },
+
+};
+
 exports["Accelerometer -- Analog"] = {
 
   setUp: function(done) {
@@ -182,7 +215,16 @@ exports["Accelerometer -- Analog"] = {
     test.ok(spy.calledTwice);
 
     test.done();
-  }
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+    test.equal(this.accel.hasAxis("z"), false);
+    test.equal(this.accel.z, 0);
+    test.equal(this.accel.orientation, 3);
+    test.equal(this.accel.roll, -90);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- distinctZeroV"] = {
@@ -226,7 +268,19 @@ exports["Accelerometer -- distinctZeroV"] = {
     test.equal(this.accel.z, -1);
 
     test.done();
-  }
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+
+    this.sandbox.stub(this.accel, "hasAxis").returns(true);
+
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- autoCalibrate"] = {
@@ -324,7 +378,16 @@ exports["Accelerometer -- ADXL335"] = {
     }]);
 
     test.done();
-  }
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- MPU-6050"] = {
@@ -418,7 +481,16 @@ exports["Accelerometer -- MPU-6050"] = {
     }]);
 
     test.done();
-  }
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- ADXL345"] = {
@@ -559,7 +631,16 @@ exports["Accelerometer -- ADXL345"] = {
     test.deepEqual(changeSpy.args[0], [{ x: 0.1, y: 0.16, z: 7.26 }]);
 
     test.done();
-  }
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- MMA7361"] = {
@@ -590,10 +671,36 @@ exports["Accelerometer -- MMA7361"] = {
   },
 
   sleepPinOn: function(test) {
-    test.expect(2);
+    test.expect(4);
 
-    test.deepEqual(this.pinMode.args[0], [13, 1]);
+    test.equal(this.pinMode.callCount, 4);
+    test.equal(this.digitalWrite.callCount, 1);
+
+    test.deepEqual(this.pinMode.args[0], [13, this.board.MODES.OUTPUT]);
     test.deepEqual(this.digitalWrite.args[0], [13, 1]);
+
+    test.done();
+  },
+
+  noSleepPin: function(test) {
+    test.expect(5);
+
+    this.pinMode.reset();
+    this.digitalWrite.reset();
+
+    this.accel = new Accelerometer({
+      controller: "MMA7361",
+      pins: ["A0", "A1", "A2"],
+      freq: 100,
+      board: this.board,
+    });
+
+
+    test.equal(this.pinMode.callCount, 3);
+    test.deepEqual(this.pinMode.getCall(0).args, [0, this.board.MODES.ANALOG]);
+    test.deepEqual(this.pinMode.getCall(1).args, [1, this.board.MODES.ANALOG]);
+    test.deepEqual(this.pinMode.getCall(2).args, [2, this.board.MODES.ANALOG]);
+    test.equal(this.digitalWrite.callCount, 0);
 
     test.done();
   },
@@ -632,6 +739,12 @@ exports["Accelerometer -- MMA7361"] = {
       z: -0.34
     }]);
 
+    test.done();
+  },
+
+  hasZ: function(test) {
+    test.expect(1);
+    test.notEqual(this.accel.z, undefined);
     test.done();
   }
 };
@@ -722,7 +835,15 @@ exports["Accelerometer -- MMA7660"] = {
     }]);
 
     test.done();
-  }
+  },
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
 };
 
 exports["Accelerometer -- ESPLORA"] = {
@@ -769,6 +890,12 @@ exports["Accelerometer -- ESPLORA"] = {
       z: -0.47
     }]);
 
+    test.done();
+  },
+
+  hasZ: function(test) {
+    test.expect(1);
+    test.notEqual(this.accel.z, undefined);
     test.done();
   }
 };
@@ -824,6 +951,72 @@ exports["Accelerometer -- MMA8452"] = {
     var args = this.i2cConfig.lastCall.args[0];
 
     test.deepEqual(args.settings, { stopTX: false });
+    test.done();
+  },
+
+  tapsOptionX: function(test) {
+    test.expect(1);
+
+    this.i2cWriteReg.reset();
+
+    new Accelerometer({
+      controller: "MMA8452",
+      board: this.board,
+      taps: {
+        x: true,
+      }
+    });
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args, [0x1D, 0x23, 0x08]);
+    test.done();
+  },
+
+  tapsOptionY: function(test) {
+    test.expect(1);
+
+    this.i2cWriteReg.reset();
+
+    new Accelerometer({
+      controller: "MMA8452",
+      board: this.board,
+      taps: {
+        y: true,
+      }
+    });
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args, [0x1D, 0x24, 0x08]);
+    test.done();
+  },
+
+  tapsOptionZ: function(test) {
+    test.expect(1);
+
+    this.i2cWriteReg.reset();
+
+    new Accelerometer({
+      controller: "MMA8452",
+      board: this.board,
+      taps: {
+        z: true,
+      }
+    });
+
+    test.deepEqual(this.i2cWriteReg.getCall(2).args, [0x1D, 0x25, 0x08]);
+    test.done();
+  },
+
+  invalidOdr: function(test) {
+    test.expect(1);
+
+    this.i2cWriteReg.reset();
+
+    test.throws(function() {
+      new Accelerometer({
+        controller: "MMA8452",
+        board: this.board,
+        odr: Infinity
+      });
+    }.bind(this));
     test.done();
   },
 
@@ -893,6 +1086,12 @@ exports["Accelerometer -- MMA8452"] = {
 
     test.done();
   },
+
+  hasZ: function(test) {
+    test.expect(1);
+    test.notEqual(this.accel.z, undefined);
+    test.done();
+  }
 };
 
 exports["Accelerometer -- LIS3DH"] = {
@@ -983,18 +1182,15 @@ exports["Accelerometer -- LIS3DH"] = {
 
     test.deepEqual(this.i2cWrite.getCall(4).args, [ 24, 32, 96 ]);
 
-
     var outXLRead = this.i2cRead.firstCall.args[3];
 
-
     outXLRead([ 64, 1, 112, 0, 176, 30 ]);
-    this.clock.tick(5);
-
     outXLRead([ 32, 1, 112, 0, 224, 30 ]);
-    this.clock.tick(5);
 
-    test.ok(dataSpy.callCount, 1);
-    test.ok(changeSpy.callCount, 1);
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 2);
+    test.equal(changeSpy.callCount, 2);
 
     test.done();
   },
@@ -1033,6 +1229,213 @@ exports["Accelerometer -- LIS3DH"] = {
     // 1 for tap:single
     // 1 for tap:double
     test.equal(tap.callCount, 3);
+
+    test.done();
+  },
+
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
+};
+
+exports["Accelerometer -- BNO055"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.accel = new Accelerometer({
+      controller: "BNO055",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Accelerometer.purge();
+    Expander.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Accelerometer({
+      controller: "BNO055",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(2);
+
+    var driver = IMU.Drivers.get(this.board, "BNO055");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    driver.emit("data", {
+      accelerometer: {
+        x: 1, y: 2, z: 3
+      }
+    });
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+    test.done();
+  },
+  hasZ: function(test) {
+    test.expect(4);
+    test.notEqual(this.accel.z, undefined);
+    test.notEqual(this.accel.pitch, undefined);
+    test.notEqual(this.accel.orientation, undefined);
+    test.notEqual(this.accel.roll, undefined);
+    test.done();
+  },
+};
+
+
+exports["Accelerometer -- User toGravity"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+
+    this.toGravity = this.sandbox.spy(function(value) {
+      return value;
+    });
+
+    this.accel = new Accelerometer({
+      controller: {
+        initialize: {
+          value: function(opts, dataHandler) {
+            setInterval(function() {
+              dataHandler({
+                x: 1, y: 2, z: 3
+              });
+            }, 5);
+          },
+        },
+        toGravity: {
+          value: this.toGravity,
+        },
+      },
+      board: this.board,
+      freq: 10,
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Accelerometer.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  data: function(test) {
+    test.expect(5);
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    this.clock.tick(5);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.accel.x, 1);
+    test.equal(this.accel.y, 2);
+    test.equal(this.accel.z, 3);
+
+    test.equal(this.toGravity.callCount, 3);
+    test.equal(this.toGravity.getCall(0).args[0], 1);
+    test.equal(this.toGravity.getCall(1).args[0], 2);
+    test.equal(this.toGravity.getCall(2).args[0], 3);
+    test.equal(this.toGravity.getCall(0).returnValue, 1);
+    test.equal(this.toGravity.getCall(1).returnValue, 2);
+    test.equal(this.toGravity.getCall(2).returnValue, 3);
+    test.done();
+  },
+};
+
+exports["Accelerometer -- User toGravity"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.accel = new Accelerometer({
+      controller: {
+        initialize: {
+          value: function(opts, dataHandler) {
+            setInterval(function() {
+              dataHandler({
+                x: 1, y: 2, z: 3
+              });
+            }, 5);
+          }
+        }
+      },
+      board: this.board,
+      freq: 10,
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Accelerometer.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  data: function(test) {
+    test.expect(5);
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    this.clock.tick(5);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.accel.x, 1);
+    test.equal(this.accel.y, 2);
+    test.equal(this.accel.z, 3);
 
     test.done();
   },
