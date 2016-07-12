@@ -12,6 +12,7 @@ exports["Pin.prototype[isType]"] = {
     done();
   },
   tearDown: function(done) {
+    Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
     done();
@@ -44,6 +45,7 @@ exports["Pin.prototype[isType] overrides"] = {
     done();
   },
   tearDown: function(done) {
+    Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
     done();
@@ -67,6 +69,7 @@ exports["Pin.prototype[isType] overrides"] = {
 
 exports["static"] = {
   tearDown: function(done) {
+    Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
 

@@ -9,6 +9,7 @@ exports["Board Connection"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },

@@ -11,8 +11,38 @@ exports["Board"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+
+    var sp = new MockSerialPort("/dev/foo", {
+      baudrate: 57600,
+      buffersize: 128
+    });
+
+    var board = Board({
+      port: sp,
+      debug: false,
+      repl: false
+    });
+
+    test.equal(board instanceof Board, true);
+    test.done();
+  },
+
+  noOpts: function(test) {
+    test.expect(1);
+
+    this.sandbox.stub(Serial, "detect", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    new Board();
   },
 
   explicitTransport: function(test) {
@@ -53,6 +83,7 @@ exports["Board"] = {
 
       Board.testMode(false);
       Board.purge();
+      Serial.purge();
 
       var sp = new MockSerialPort("/dev/foo", {
         baudrate: 57600,
@@ -100,6 +131,82 @@ exports["Board"] = {
       test.ok(true);
       test.done();
     });
+  },
+
+  ioPostponedOutOfOrder: function(test) {
+    test.expect(2);
+
+    var io = new MockFirmata();
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("connect", function() {
+      test.ok(true);
+    });
+
+    board.on("ready", function() {
+      test.ok(true);
+      test.done();
+    });
+
+    // Send IO events out of order
+    io.emit("ready");
+    io.emit("connect");
+  },
+
+  finalizeAndBroadcastPreemptiveError: function(test) {
+    test.expect(2);
+
+    this.sandbox.stub(Serial, "connect");
+
+    var log = this.sandbox.spy(Board.prototype, "error");
+    var spy = this.sandbox.spy();
+    var board = new Board({
+      port: "/dev/acm",
+      debug: false,
+      repl: false
+    });
+
+    var finalizeAndBroadcast = Serial.connect.lastCall.args[1];
+    var error = new Error("Busted");
+
+    board.on("error", spy);
+
+    finalizeAndBroadcast.call(board, error, "error");
+
+    test.equal(log.callCount, 1);
+    test.equal(spy.callCount, 1);
+
+    test.done();
+  },
+
+  readyClearsTimer: function(test) {
+    test.expect(2);
+
+    this.clock = this.sandbox.useFakeTimers();
+    this.clearTimeout = this.sandbox.spy(global, "clearTimeout");
+
+
+    var io = new MockFirmata();
+    var board = new Board({
+      timeout: 1,
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.timer = setTimeout(function() {}, 1);
+    io.emit("connect");
+    io.emit("ready");
+
+    test.equal(this.clearTimeout.callCount, 1);
+    test.equal(this.clearTimeout.lastCall.args[0], board.timer);
+
+    test.done();
   },
 
   // Disabling until @Resseguie can take a look at this
@@ -265,6 +372,7 @@ exports["Board"] = {
     test.expect(1);
 
     Board.purge();
+    Serial.purge();
 
     var io = new MockFirmata();
     var board = new Board({
@@ -298,6 +406,7 @@ exports["Virtual"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },
@@ -347,6 +456,7 @@ exports["samplingInterval"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },
@@ -372,6 +482,7 @@ exports["loop"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },
@@ -451,6 +562,7 @@ exports["Boards"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },
@@ -814,6 +926,7 @@ exports["instance"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     done();
   },
 
@@ -848,6 +961,88 @@ exports["instance"] = {
   },
 };
 
+exports["Board.prototye[passthrough]"] = {
+
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Serial.purge();
+    done();
+  },
+
+  all: function(test) {
+    test.expect(25);
+
+
+    [
+      "digitalWrite", "analogWrite",
+      "analogRead", "digitalRead",
+      "pinMode", "queryPinState",
+      "stepperConfig", "stepperStep",
+      "sendI2CConfig", "sendI2CWriteRequest", "sendI2CReadRequest",
+      "i2cConfig", "i2cWrite", "i2cWriteReg", "i2cRead", "i2cReadOnce",
+      "pwmWrite",
+      "servoConfig", "servoWrite",
+      "sysexCommand", "sysexResponse",
+      "serialConfig", "serialWrite", "serialRead", "serialStop", "serialClose", "serialFlush", "serialListen",
+    ].forEach(function(method) {
+      if (this.board.io[method]) {
+        this.sandbox.stub(this.board.io, method);
+        this.board[method]();
+        test.equal(this.board.io[method].callCount, 1);
+      }
+    }, this);
+
+    test.done();
+  },
+
+  instance: function(test) {
+    test.expect(1);
+    test.ok(this.board);
+    test.done();
+  },
+
+  io: function(test) {
+    test.expect(1);
+    test.ok(this.board.io instanceof MockFirmata);
+    test.done();
+  },
+
+  id: function(test) {
+    test.expect(1);
+    test.ok(this.board.id);
+    test.done();
+  },
+
+  pins: function(test) {
+    test.expect(1);
+    test.ok(this.board.pins);
+    test.done();
+  },
+};
+[
+  "digitalWrite", "analogWrite",
+  "analogRead", "digitalRead",
+  "pinMode", "queryPinState",
+  "stepperConfig", "stepperStep",
+  "sendI2CConfig", "sendI2CWriteRequest", "sendI2CReadRequest",
+  "i2cConfig", "i2cWrite", "i2cWriteReg", "i2cRead", "i2cReadOnce",
+  "pwmWrite",
+  "servoConfig", "servoWrite",
+  "sysexCommand", "sysexResponse",
+  "serialConfig", "serialWrite", "serialRead", "serialStop", "serialClose", "serialFlush", "serialListen",
+].forEach(function(method) {
+  Board.prototype[method] = function() {
+    this.io[method].apply(this.io, arguments);
+    return this;
+  };
+});
+
 
 
 exports["Board.mount"] = {
@@ -859,6 +1054,7 @@ exports["Board.mount"] = {
   },
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     done();
   },
   "Board.mount()": function(test) {
@@ -899,6 +1095,7 @@ exports["Events Forwarded By IO Plugin layer"] = {
   },
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     done();
   },
   string: function(test) {
@@ -1028,6 +1225,7 @@ exports["Repl controlled by IO Plugin layer"] = {
   },
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     done();
   },
   ioForcesReplFalse: function(test) {

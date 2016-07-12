@@ -73,6 +73,7 @@
     "Repl": true,
     "Sensor": true,
     "Sensors": true,
+    "Serial": true,
     "Servo": true,
     "Servos": true,
     "ShiftRegister": true,

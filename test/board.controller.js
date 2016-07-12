@@ -24,6 +24,7 @@ exports["Board.Controller"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     this.sandbox.restore();
     done();
   },

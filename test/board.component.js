@@ -7,6 +7,7 @@ exports["Board.Component"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Serial.purge();
     Expander.purge();
     this.sandbox.restore();
     done();

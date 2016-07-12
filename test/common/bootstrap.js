@@ -66,6 +66,7 @@ global.Proximity = five.Proximity;
 global.Relay = five.Relay;
 global.Repl = five.Repl;
 global.Sensor = five.Sensor;
+global.Serial = five.Board.Serial;
 global.Servo = five.Servo;
 global.ShiftRegister = five.ShiftRegister;
 global.Sonar = five.Sonar;
