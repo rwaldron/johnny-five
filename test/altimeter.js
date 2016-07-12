@@ -43,7 +43,7 @@ function testShape(test) {
   }, this);
 
   test.done();
-};
+}
 
 exports["Altimeter"] = {
   setUp: function(done) {
@@ -56,7 +56,7 @@ exports["Altimeter"] = {
 
   instanceof: function(test) {
     test.expect(1);
-    test.equal(Altimeter({board: this.board, controller: "MPL3115A2"}) instanceof Altimeter, true)
+    test.equal(Altimeter({board: this.board, controller: "MPL3115A2"}) instanceof Altimeter, true);
     test.done();
   },
 

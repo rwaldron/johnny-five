@@ -108,7 +108,7 @@ exports["Serial"] = {
 
     var error = new Error("Busted");
 
-    this.sandbox.stub(Firmata, "Board", function(port, callback) {
+    this.sandbox.stub(Firmata, "Board", function() {
       throw error;
     });
 
@@ -128,7 +128,7 @@ exports["Serial"] = {
 
     var error = "Busted";
 
-    this.sandbox.stub(Firmata, "Board", function(port, callback) {
+    this.sandbox.stub(Firmata, "Board", function() {
       throw error;
     });
 
