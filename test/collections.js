@@ -168,6 +168,18 @@ exports["Collection"] = {
     test.done();
   },
 
+  pinsIsArray: function(test) {
+    test.expect(2);
+
+    var outputs = new Outputs({
+      pins: [ [ 1, 2, 3 ], [ 4, 5, 6 ] ],
+    });
+    test.deepEqual(outputs[0].pins, [1, 2, 3]);
+    test.deepEqual(outputs[1].pins, [4, 5, 6]);
+
+    test.done();
+  },
+
   add: function(test) {
     test.expect(3);
 
@@ -252,6 +264,17 @@ exports["Collection"] = {
     test.equal(this.outputs.slice(0).includes(this.outputs[1]), true);
     test.equal(this.outputs.slice(0).includes(this.outputs[2]), true);
     test.equal(this.outputs.slice(0) instanceof Outputs, true);
+    test.done();
+  },
+
+  map: function(test) {
+    test.expect(1);
+
+    var mapped = this.outputs.map(function(output, index) {
+      return index;
+    });
+
+    test.deepEqual(mapped, [0, 1, 2]);
     test.done();
   },
 
@@ -412,8 +435,19 @@ exports["Collection.Emitter"] = {
     test.done();
   },
 
+  map: function(test) {
+    test.expect(1);
+
+    var mapped = this.inputs.map(function(output, index) {
+      return index;
+    });
+
+    test.deepEqual(mapped, [0, 1, 2]);
+    test.done();
+  },
+
   data: function(test) {
-    test.expect(5);
+    test.expect(6);
 
     var spy = this.sandbox.spy();
 
@@ -431,6 +465,7 @@ exports["Collection.Emitter"] = {
     this.inputs[0].emit("data", 2);
 
     test.equal(spy.callCount, 1);
+    test.equal(spy.lastCall.args[0], this.inputs);
 
     test.equal(this.inputs.length, 3);
     test.equal(this.inputs[0].value, 2);
