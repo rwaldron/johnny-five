@@ -16,6 +16,42 @@ var instance = [{
 }];
 
 
+exports["Button"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
+      return fn;
+    });
+    this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
+    this.button = new Button({
+      pin: 8,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Button.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Button(9) instanceof Button, true);
+    test.done();
+  },
+
+  pinValue: function(test) {
+    test.expect(1);
+    test.equal(Button({ pin: "XYZ"}).pin, "XYZ");
+    test.done();
+  },
+};
 
 exports["Button -- Digital Pin"] = {
   setUp: function(done) {
@@ -36,6 +72,7 @@ exports["Button -- Digital Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
@@ -152,6 +189,7 @@ exports["Button -- Analog Pin"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
@@ -234,6 +272,7 @@ exports["Button -- Value Inversion"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
@@ -354,6 +393,7 @@ exports["Button -- EVS_EV3"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
@@ -447,6 +487,7 @@ exports["Button -- EVS_NXT"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
@@ -530,6 +571,12 @@ exports["Button.Collection"] = {
     Board.purge();
     this.sandbox.restore();
     done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Buttons([9]) instanceof Buttons, true);
+    test.done();
   },
 
   data: function(test) {
@@ -677,6 +724,7 @@ exports["Button -- TINKERKIT"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Button.purge();
     this.sandbox.restore();
     done();
   },
