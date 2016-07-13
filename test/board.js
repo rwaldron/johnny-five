@@ -184,6 +184,31 @@ exports["Board"] = {
     test.done();
   },
 
+  finalizeAndBroadcastResolvesDebugFlagWithIOPlugin: function(test) {
+    test.expect(1);
+
+    this.sandbox.stub(Board.prototype, "log");
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false, // This shuts up logging for the test
+      repl: false
+    });
+
+    // ...override the default handling of `debug`
+    board.debug = true;
+
+    // ...which will THEN be overridden by the IO Plugin
+    board.io.debug = false;
+    board.io.emit("connect");
+    board.io.emit("ready");
+
+    // The IO Plugin wins!
+    test.equal(board.debug, false);
+    test.done();
+  },
+
   readyClearsTimer: function(test) {
     test.expect(2);
 
@@ -392,6 +417,52 @@ exports["Board"] = {
     io.emit("ready");
   },
 
+  serialize: function(test) {
+    test.expect(4);
+
+    new Led({
+      pin: 10,
+      board: this.board
+    });
+    new Servo({
+      pin: 11,
+      board: this.board
+    });
+
+    var serialized = this.board.serialize();
+
+    test.equal(typeof serialized, "string");
+
+    test.doesNotThrow(function() {
+      JSON.parse(serialized);
+    });
+
+    serialized = this.board.serialize(function(property) {
+      if (property === "value") {
+        return 0xFF;
+      }
+    });
+
+    test.equal(typeof serialized, "string");
+    test.deepEqual(JSON.parse(serialized), [{value: 0xFF},{value: 0xFF}]);
+
+    test.done();
+  },
+
+  serializeSpecial: function(test) {
+    test.expect(1);
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    test.equal(board.serialize.special.mode(null), "unknown");
+    test.done();
+  },
+
 };
 
 exports["Virtual"] = {
@@ -468,7 +539,142 @@ exports["samplingInterval"] = {
     test.ok(this.setSamplingInterval.calledOnce);
 
     test.done();
+  },
+
+  samplingIntervalNotImplementedThrows: function(test) {
+    test.expect(1);
+
+    this.board.io.setSamplingInterval = null;
+
+    test.throws(function() {
+      this.board.samplingInterval(100);
+    }.bind(this));
+
+    test.done();
   }
+};
+exports["shiftOut"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Serial.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  default: function(test) {
+    test.expect(2);
+
+    this.board.shiftOut(1, 2, 0xFF);
+    test.equal(this.digitalWrite.callCount, 24);
+    test.deepEqual(this.digitalWrite.args, [
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ]
+    ]);
+
+
+    test.done();
+  },
+
+  bigEndian: function(test) {
+    test.expect(2);
+
+    this.board.shiftOut(1, 2, true, 0x7F);
+
+    test.equal(this.digitalWrite.callCount, 24);
+    test.deepEqual(this.digitalWrite.args, [
+      [ 2, 0 ],
+      [ 1, 0 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ]
+    ]);
+
+    test.done();
+  },
+
+  littleEndian: function(test) {
+    test.expect(2);
+
+    this.board.shiftOut(1, 2, false, 0x7F);
+
+    test.equal(this.digitalWrite.callCount, 24);
+    test.deepEqual(this.digitalWrite.args, [
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 1 ],
+      [ 2, 1 ],
+      [ 2, 0 ],
+      [ 1, 0 ],
+      [ 2, 1 ]
+    ]);
+
+    test.done();
+  },
 };
 
 exports["loop"] = {
@@ -547,6 +753,21 @@ exports["static"] = {
 
     test.done();
   },
+  "Board.Event Missing Event Object throws": function(test) {
+    test.expect(1);
+    test.throws(Board.Event);
+    test.done();
+  },
+  "Board.Event Defaults to 'data' event": function(test) {
+    test.expect(1);
+    test.equal(new Board.Event({}).type, "data");
+    test.done();
+  },
+  "Board.Event Defaults to null target": function(test) {
+    test.expect(1);
+    test.equal(new Board.Event({}).target, null);
+    test.done();
+  },
 };
 
 exports["Boards"] = {
@@ -570,6 +791,68 @@ exports["Boards"] = {
   exists: function(test) {
     test.expect(1);
     test.equal(Boards, Board.Collection);
+    test.done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Boards([newBoard(), newBoard()]) instanceof Boards, true);
+    test.done();
+  },
+
+  invalidArgsThrows: function(test) {
+    test.expect(1);
+    test.throws(function() {
+      new Boards();
+    });
+    test.done();
+  },
+
+  noDebug: function(test) {
+    test.expect(1);
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      repl: true,
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: ioB
+    }]);
+
+    test.equal(boards.debug, false);
+    test.done();
+  },
+
+  portString: function(test) {
+    test.expect(3);
+
+    this.sandbox.stub(Serial, "connect");
+    this.sandbox.stub(Serial, "detect");
+    new Boards(["/dev/ttyacm0"]);
+
+    test.equal(Serial.detect.callCount, 0);
+    test.equal(Serial.connect.callCount, 1);
+    test.equal(Serial.connect.lastCall.args[0], "/dev/ttyacm0");
+    test.done();
+  },
+
+  idString: function(test) {
+    test.expect(2);
+
+    this.sandbox.stub(Serial, "connect");
+    this.sandbox.stub(Serial, "detect", function(callback) {
+      callback("/foo/bar");
+    });
+    var boards = new Boards(["a"]);
+    test.equal(boards[0].id, "a");
+    test.equal(boards.byId("a"), boards[0]);
     test.done();
   },
 
@@ -1081,10 +1364,23 @@ exports["Board.mount"] = {
     test.done();
   },
 
+  "Board.mount(index out of range)": function(test) {
+    test.expect(1);
+    test.deepEqual(Board.mount(-1), null, "Board.mount(-1)");
+    test.done();
+  },
+
   "Board.mount(/*none*/)": function(test) {
     test.expect(2);
     test.ok(Board.mount(), "Board.mount()");
     test.deepEqual(Board.mount(), this.board, "Board.mount() matches board instance");
+    test.done();
+  },
+
+  "Board.mount(/*none*/) & no boards": function(test) {
+    test.expect(1);
+    Board.purge();
+    test.deepEqual(Board.mount(), null);
     test.done();
   },
 };
