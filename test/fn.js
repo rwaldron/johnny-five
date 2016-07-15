@@ -159,14 +159,14 @@ exports["Fn"] = {
     test.done();
   },
 
-  bitsIn: function(test) {
+  bitSize: function(test) {
     test.expect(5);
 
-    test.equal(Fn.bitsIn(1000), 10);
-    test.equal(Fn.bitsIn(1024), 10);
-    test.equal(Fn.bitsIn(Number.MAX_SAFE_INTEGER), 53);
-    test.equal(Fn.bitsIn(Number.MAX_VALUE), 1024);
-    test.equal(Fn.bitsIn(8), 3);
+    test.equal(Fn.bitSize(1000), 10);
+    test.equal(Fn.bitSize(1024), 10);
+    test.equal(Fn.bitSize(Number.MAX_SAFE_INTEGER), 53);
+    test.equal(Fn.bitSize(Number.MAX_VALUE), 1024);
+    test.equal(Fn.bitSize(8), 3);
 
     test.done();
   },
@@ -253,7 +253,7 @@ exports["Fn.POW_2_*"] = {
   },
 
   maxSafeIntegerBits: function(test) {
-    var MAX = Fn.bitsIn(Number.MAX_SAFE_INTEGER);
+    var MAX = Fn.bitSize(Number.MAX_SAFE_INTEGER);
 
     test.expect(MAX);
 
