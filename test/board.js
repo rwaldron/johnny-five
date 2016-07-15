@@ -417,17 +417,101 @@ exports["Board"] = {
     io.emit("ready");
   },
 
-  serialize: function(test) {
-    test.expect(4);
+  snapshot: function(test) {
+    test.expect(68);
+
+    new Multi({
+      controller: "BME280",
+      board: this.board
+    });
+
+    new Sensor({
+      pin: "A0",
+      board: this.board
+    });
 
     new Led({
       pin: 10,
       board: this.board
     });
+
     new Servo({
       pin: 11,
       board: this.board
     });
+
+    var snapshot = this.board.snapshot();
+
+    /*
+      Length Explanation:
+
+      (1 Multi (contains...))
+        1 Altimeter
+        1 Barometer
+        1 Hygrometer
+        1 Thermometer
+      1 Analog Sensor
+      1 Led
+      1 Servo
+      ----------------------
+      7 Registered Components
+     */
+    test.equal(snapshot.length, 7);
+
+    // Change the value of every property on every component to 0xFF
+    var overwrittens = this.board.snapshot(function() {
+      return 0xFF;
+    });
+
+    overwrittens.forEach(function(overwritten) {
+      Object.keys(overwritten).forEach(function(key) {
+        test.equal(overwritten[key], 0xFF);
+      });
+    });
+
+    var filtered = this.board.snapshot(function(property) {
+      if (property === "id") {
+        return "only the id";
+      }
+    });
+
+    test.deepEqual(filtered, [
+      { id: "only the id" },
+      { id: "only the id" },
+      { id: "only the id" },
+      { id: "only the id" },
+      { id: "only the id" },
+      { id: "only the id" },
+      { id: "only the id" },
+    ]);
+
+    test.done();
+  },
+
+
+  serialize: function(test) {
+    test.expect(4);
+
+    new Multi({
+      controller: "BME280",
+      board: this.board
+    });
+
+    new Sensor({
+      pin: "A0",
+      board: this.board
+    });
+
+    new Led({
+      pin: 10,
+      board: this.board
+    });
+
+    new Servo({
+      pin: 11,
+      board: this.board
+    });
+
 
     var serialized = this.board.serialize();
 
@@ -437,19 +521,95 @@ exports["Board"] = {
       JSON.parse(serialized);
     });
 
-    serialized = this.board.serialize(function(property) {
-      if (property === "value") {
-        return 0xFF;
+    serialized = this.board.serialize(function(property, value) {
+      if (property !== "id") {
+        return value;
       }
     });
 
     test.equal(typeof serialized, "string");
-    test.deepEqual(JSON.parse(serialized), [{value: 0xFF},{value: 0xFF}]);
+    test.deepEqual(JSON.parse(serialized), [
+      {
+        feet: 0,
+        custom: {},
+        controller: "BME280",
+        m: 0,
+        ft: 0,
+        meters: 0
+      }, {
+        custom: {},
+        controller: "BME280",
+        pressure: 0
+      }, {
+        relativeHumidity: 0,
+        custom: {},
+        controller: "BME280",
+        RH: 0
+      }, {
+        K: 273.15,
+        C: 0,
+        fahrenheit: 32,
+        custom: {},
+        controller: "BME280",
+        F: 32,
+        celsius: 0,
+        kelvin: 273.15,
+        aref: 5
+      }, {
+        freq: 25,
+        constrained: 0,
+        custom: {},
+        value: null,
+        scaled: 0,
+        range: [0, 1023],
+        analog: 0,
+        limit: null,
+        threshold: 1,
+        boolean: false,
+        raw: null,
+        isScaled: false,
+        mode: 2,
+        pin: 0
+      }, {
+        isRunning: false,
+        custom: {},
+        value: null,
+        isOn: false,
+        mode: 3,
+        pin: 10
+      }, {
+        deadband: [90, 90],
+        startAt: 90,
+        value: null,
+        position: -1,
+        type: "standard",
+        history: [],
+        specs: {
+          speed: 0.17
+        },
+        offset: 0,
+        invert: false,
+        custom: {},
+        interval: null,
+        range: [0, 180],
+        fps: 100,
+        mode: 4,
+        pin: 11
+      }
+    ]);
 
     test.done();
   },
 
-  serializeSpecial: function(test) {
+  snapshotBlackList: function(test) {
+    test.expect(1);
+    test.deepEqual(Board.prototype.snapshot.blacklist, [
+      "board", "io", "_events", "_eventsCount", "state",
+    ]);
+    test.done();
+  },
+
+  snapshotSpecial: function(test) {
     test.expect(1);
 
     var io = new MockFirmata();
@@ -459,7 +619,7 @@ exports["Board"] = {
       repl: false
     });
 
-    test.equal(board.serialize.special.mode(null), "unknown");
+    test.equal(board.snapshot.special.mode(null), "unknown");
     test.done();
   },
 
