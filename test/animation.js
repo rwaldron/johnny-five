@@ -788,7 +788,7 @@ exports["Animation"] = {
     test.equal(this.tweenedValue.callCount, 10);
 
     this.animation.oncomplete = function() {
-      test.done()
+      test.done();
     };
 
     this.animation.loopFunction({ calledAt: 1 });
