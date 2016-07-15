@@ -193,6 +193,33 @@ exports["Fn"] = {
   },
 };
 
+exports["Fn.* Consts"] = {
+  setUp: function(done) {
+    done();
+  },
+
+  tearDown: function(done) {
+    done();
+  },
+
+  RAD_TO_DEG: function(test) {
+    test.expect(1);
+    test.equal(Fn.RAD_TO_DEG, 180 / Math.PI);
+    test.done();
+  },
+
+  DEG_TO_RAD: function(test) {
+    test.expect(1);
+    test.equal(Fn.DEG_TO_RAD, Math.PI / 180);
+    test.done();
+  },
+
+  TAU: function(test) {
+    test.expect(1);
+    test.equal(Fn.TAU, 2 * Math.PI);
+    test.done();
+  },
+};
 
 var bitSizes = [ 4, 8, 10, 12, 16, 20, 24, 32 ];
 
