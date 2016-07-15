@@ -212,7 +212,6 @@ exports["Altimeter -- MPL3115A2"] = {
   },
 
   data: function(test) {
-    // test.expect(16);
     test.expect(8);
 
     test.equal(this.i2cWrite.callCount, 2);
@@ -280,6 +279,28 @@ exports["Altimeter -- MPL3115A2"] = {
     test.done();
   },
 
+  resolution: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "MPL3115A2");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.altimeter.on("data", dataSpy);
+    this.altimeter.on("change", changeSpy);
+
+    driver.emit("data", {
+      altitude: 10.123456789
+    });
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.altimeter.meters, 10.1);
+    test.equal(this.altimeter.feet, 33.14);
+    test.done();
+  },
 };
 
 
@@ -344,6 +365,28 @@ exports["Altimeter -- MS5611"] = {
     test.done();
   },
 
+  resolution: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "MS5611");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.altimeter.on("data", dataSpy);
+    this.altimeter.on("change", changeSpy);
+
+    driver.emit("data", {
+      altitude: 10.123456789
+    });
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.altimeter.meters, 10.12);
+    test.equal(this.altimeter.feet, 33.2);
+    test.done();
+  },
 };
 
 exports["Altimeter -- BMP180"] = {
@@ -407,6 +450,28 @@ exports["Altimeter -- BMP180"] = {
     test.done();
   },
 
+  resolution: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "BMP180");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.altimeter.on("data", dataSpy);
+    this.altimeter.on("change", changeSpy);
+
+    driver.emit("data", {
+      altitude: 10.123456789
+    });
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.altimeter.meters, 10.12);
+    test.equal(this.altimeter.feet, 33.2);
+    test.done();
+  },
 };
 
 exports["Altimeter -- BMP280"] = {
@@ -470,6 +535,28 @@ exports["Altimeter -- BMP280"] = {
     test.done();
   },
 
+  resolution: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "BMP280");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.altimeter.on("data", dataSpy);
+    this.altimeter.on("change", changeSpy);
+
+    driver.emit("data", {
+      altitude: 10.123456789
+    });
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.altimeter.meters, 10.12);
+    test.equal(this.altimeter.feet, 33.2);
+    test.done();
+  },
 };
 
 exports["Altimeter -- BME280"] = {
@@ -533,4 +620,26 @@ exports["Altimeter -- BME280"] = {
     test.done();
   },
 
+  resolution: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "BME280");
+    var dataSpy = this.sandbox.spy();
+    var changeSpy = this.sandbox.spy();
+
+    this.altimeter.on("data", dataSpy);
+    this.altimeter.on("change", changeSpy);
+
+    driver.emit("data", {
+      altitude: 10.123456789
+    });
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.altimeter.meters, 10.12);
+    test.equal(this.altimeter.feet, 33.2);
+    test.done();
+  },
 };
