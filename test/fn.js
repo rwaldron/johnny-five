@@ -180,6 +180,17 @@ exports["Fn"] = {
     test.equal(Fn.toFixed(3 / 7, 1), 0.4);
     test.done();
   },
+  toFixedDoesNotThrow: function(test) {
+    test.expect(2);
+
+    test.doesNotThrow(function() {
+      Fn.toFixed(null);
+    });
+    test.doesNotThrow(function() {
+      Fn.toFixed(undefined);
+    });
+    test.done();
+  },
 };
 
 
