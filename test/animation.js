@@ -1,43 +1,3 @@
-exports["Animation"] = {
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.animation = new Animation({});
-    done();
-  },
-
-  tearDown: function(done) {
-    this.sandbox.restore();
-    done();
-  },
-
-  instanceof: function(test) {
-    test.expect(1);
-    test.equal(Animation({}) instanceof Animation, true);
-    test.done();
-  },
-
-  // enqueue: function(test) {
-  //   test.expect(3);
-
-
-  //   this.animation = new Animation({
-  //     "@@normalize": function() {}
-  //   });
-
-  //   this.next = this.sandbox.stub(this.animation, "next");
-  //   this.animation.paused = true;
-
-  //   test.equal(this.animation.enqueue({}), this.animation);
-
-  //   this.animation.paused = false;
-  //   test.equal(this.animation.enqueue({}), this.animation);
-  //   test.equal(this.next.callCount, 1);
-
-  //   this.next.restore();
-  //   test.done();
-  // },
-};
-
 exports["Animation -- Servo"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
@@ -60,7 +20,7 @@ exports["Animation -- Servo"] = {
       board: this.board
     });
 
-    this.mockChain = {
+    this.chain = {
       result: [],
       "@@render": function(args) {
         this.result = this.result.concat(args);
@@ -329,7 +289,7 @@ exports["Animation -- Servo"] = {
 
   tweenTuple: function(test) {
 
-    this.animation = new Animation(this.mockChain);
+    this.animation = new Animation(this.chain);
 
     test.expect(3);
 
@@ -362,8 +322,8 @@ exports["Animation -- Servo"] = {
   tweenFromProperties: function(test) {
     test.expect(3);
 
-    this.mockChain[Animation.keys] = ["a", "b", "c"];
-    this.animation = new Animation(this.mockChain);
+    this.chain[Animation.keys] = ["a", "b", "c"];
+    this.animation = new Animation(this.chain);
 
     var segment = this.segment.multi;
 
@@ -397,4 +357,483 @@ exports["Animation -- Servo"] = {
     test.done();
   }
 
+};
+
+exports["Animation"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+
+    this.play = this.sandbox.stub(Animation.prototype, "play");
+
+    this.animation = new Animation({});
+    this.chain = {
+      result: [],
+      "@@render": function(args) {
+        this.result = this.result.concat(args);
+      },
+      "@@normalize": function(keyFrames) {
+        var last = [50, 0, -20];
+
+        // If user passes null as the first element in keyFrames use current position
+        if (keyFrames[0] === null) {
+          keyFrames[0] = {
+            position: last
+          };
+        }
+
+        return keyFrames;
+      }
+    };
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.sandbox.restore();
+    done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Animation({}) instanceof Animation, true);
+    test.done();
+  },
+
+  enqueue: function(test) {
+    test.expect(5);
+
+    this.animation = new Animation(this.chain);
+
+    this.next = this.sandbox.stub(this.animation, "next");
+    this.animation.paused = true;
+
+    test.equal(this.animation.enqueue({}), this.animation);
+    test.equal(this.animation.segments.length, 1);
+
+    this.animation.paused = false;
+
+    test.equal(this.animation.enqueue({}), this.animation);
+    test.equal(this.animation.segments.length, 2);
+    test.equal(this.next.callCount, 1);
+
+    this.next.restore();
+    test.done();
+  },
+
+  enqueueNoOptionsArg: function(test) {
+    test.expect(2);
+
+    this.animation = new Animation(this.chain);
+    this.next = this.sandbox.stub(this.animation, "next");
+
+    this.animation.paused = true;
+    test.equal(this.animation.enqueue(), this.animation);
+    test.equal(this.animation.segments.length, 1);
+    test.done();
+  },
+  next: function(test) {
+    test.expect(12);
+
+    var onstart = this.sandbox.spy();
+    var stop = this.sandbox.spy();
+
+    this.animation = new Animation(this.chain);
+
+    this.animation.segments.push(new Animation.Segment());
+    this.animation.segments[0].segments.push(new Animation.Segment());
+    this.animation.segments[0].segments[0].segments.push(new Animation.Segment());
+
+    this.animation.segments[0].currentSpeed = 0;
+    this.animation.segments[0].onstart = onstart;
+    this.animation.segments[0].reverse = true;
+
+    this.animation.segments[0].segments[0].currentSpeed = 1;
+    this.animation.segments[0].segments[0].onstart = null;
+
+    this.animation.segments[0].segments[0].segments[0].currentSpeed = 1;
+    this.animation.segments[0].segments[0].segments[0].onstart = onstart;
+    this.animation.segments[0].segments[0].segments[0].playLoop = {
+      stop: stop,
+    };
+
+    this.normalizeKeyframes = this.sandbox.stub(this.animation, "normalizeKeyframes");
+
+    test.equal(this.animation.segments.length, 1);
+    test.equal(this.animation.next(), this.animation);
+    test.equal(onstart.callCount, 1);
+    test.equal(this.normalizeKeyframes.callCount, 1);
+    test.equal(this.animation.paused, true);
+    test.equal(this.animation.segments.length, 1);
+
+    this.animation.next();
+    test.equal(this.normalizeKeyframes.callCount, 2);
+    test.equal(this.animation.paused, false);
+    test.equal(this.animation.segments.length, 1);
+
+    this.animation.next();
+    test.equal(onstart.callCount, 2);
+    test.equal(this.animation.segments.length, 0);
+
+    // No segments left
+    this.animation.next();
+    test.equal(stop.callCount, 1);
+
+    test.done();
+  },
+
+  nextShiftsQueuedSegmentOntoSelf: function(test) {
+    test.expect(5);
+    var stop = this.sandbox.spy();
+
+    this.animation = new Animation(this.chain);
+    this.animation.paused = true;
+    this.animation.normalizeKeyframes = this.sandbox.stub(this.animation, "normalizeKeyframes");
+
+    test.equal(this.animation.BRAND, undefined);
+
+    this.animation.enqueue({ BRAND: 1 });
+
+    test.equal(this.animation.segments.length, 1);
+    test.equal(this.animation.BRAND, undefined);
+
+    this.animation.next();
+
+    test.equal(this.animation.BRAND, 1);
+
+    this.animation.enqueue({ BRAND: Infinity });
+
+    this.animation.playLoop = {
+      stop: stop,
+    };
+
+
+    this.animation.next();
+
+    test.equal(this.animation.BRAND, Infinity);
+
+    test.done();
+  },
+
+  pause: function(test) {
+    test.expect(6);
+
+    var stop = this.sandbox.spy();
+    var onpause = this.sandbox.spy();
+    var normalizeKeyframes = this.sandbox.stub();
+
+    this.animation = new Animation(this.chain);
+    this.animation.playLoop = {
+      stop: stop,
+    };
+    this.animation.onpause = onpause;
+    this.animation.normalizeKeyframes = normalizeKeyframes;
+
+
+    this.animation.on("animation:pause", function() {
+      test.ok(true);
+    });
+
+    this.animation.paused = false;
+    this.animation.pause();
+
+    test.equal(this.animation.paused, true);
+    test.equal(stop.callCount, 1);
+    test.equal(onpause.callCount, 1);
+
+
+    delete this.animation.playLoop;
+    delete this.animation.onpause;
+
+    this.animation.paused = false;
+
+    this.animation.pause();
+
+    test.equal(this.animation.paused, true);
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(9);
+
+    var stop = this.sandbox.spy();
+    var onstop = this.sandbox.spy();
+    var normalizeKeyframes = this.sandbox.stub();
+
+    this.animation = new Animation(this.chain);
+    this.animation.playLoop = {
+      stop: stop,
+    };
+    this.animation.onstop = onstop;
+    this.animation.normalizeKeyframes = normalizeKeyframes;
+
+    this.animation.segments.push(new Animation.Segment());
+
+
+    this.animation.on("animation:stop", function() {
+      test.ok(true);
+    });
+
+    test.equal(this.animation.segments.length, 1);
+
+    this.animation.stop();
+
+    test.equal(this.animation.segments.length, 0);
+    test.equal(stop.callCount, 1);
+    test.equal(onstop.callCount, 1);
+
+
+    delete this.animation.playLoop;
+    delete this.animation.onstop;
+
+    this.animation.stop();
+
+    test.equal(this.animation.segments.length, 0);
+    test.equal(stop.callCount, 1);
+    test.equal(onstop.callCount, 1);
+
+    test.done();
+  },
+
+  speed: function(test) {
+    test.expect(17);
+
+    test.equal(this.animation.currentSpeed, 1);
+    test.equal(this.animation.scaledDuration, undefined);
+    test.equal(this.animation.startTime, undefined);
+    test.equal(this.animation.endTime, undefined);
+
+    test.equal(this.animation.speed(2), this.animation);
+    test.equal(this.animation.currentSpeed, 2);
+    test.equal(this.animation.speed(), 2);
+
+    test.equal(this.animation.scaledDuration, 500);
+    test.notEqual(this.animation.startTime, undefined);
+    test.notEqual(this.animation.endTime, undefined);
+    test.equal(typeof this.animation.startTime, "number");
+    test.equal(typeof this.animation.endTime, "number");
+
+    test.equal(this.animation.play.callCount, 1);
+    this.animation.paused = false;
+    test.equal(this.animation.speed(3), this.animation);
+    test.equal(this.animation.play.callCount, 2);
+
+    this.animation.paused = true;
+    test.equal(this.animation.speed(3), this.animation);
+    test.equal(this.animation.play.callCount, 2);
+
+    test.done();
+  },
+
+  playWithPlayLoop: function(test) {
+    test.expect(2);
+
+    this.play.restore();
+    this.animation = new Animation(this.chain);
+    this.animation.playLoop = {
+      stop: function() {
+        test.ok(true);
+      },
+    };
+
+    this.animation.loopFunction = this.sandbox.spy(function(task) {
+      test.ok(true);
+      task.stop();
+      test.done();
+    });
+
+    this.animation.play();
+  },
+
+  playWithoutPlayLoop: function(test) {
+    test.expect(1);
+
+    this.play.restore();
+    this.animation = new Animation(this.chain);
+
+    this.animation.loopFunction = this.sandbox.spy(function(task) {
+      test.ok(true);
+
+      task.stop();
+      test.done();
+    });
+
+    this.animation.play();
+  },
+
+  loopFunction: function(test) {
+    test.expect(34);
+
+    this.animation = new Animation(this.chain);
+    this.animation.playLoop = {
+      stop: this.sandbox.spy(),
+    };
+    this.progress = 1;
+    this.clock = this.sandbox.useFakeTimers();
+    this.stop = this.sandbox.stub(this.animation, "stop");
+    this.next = this.sandbox.stub(this.animation, "next");
+    this.normalizeKeyframes = this.sandbox.stub(this.animation, "normalizeKeyframes");
+    this.calculateProgress = this.sandbox.stub(this.animation, "calculateProgress", function() {
+      this.animation.progress = this.progress;
+      this.animation.loopback = this.progress;
+      return 0.5;
+    }.bind(this));
+    this.findIndices = this.sandbox.stub(this.animation, "findIndices").returns({ left: 2, right: 3});
+    this.tweenedValue = this.sandbox.stub(this.animation, "tweenedValue").returns([145]);
+
+    this.animation.onloop = this.sandbox.spy();
+    this.animation.target = {};
+    this.animation.target["@@render"] = this.sandbox.spy();
+
+    this.animation.fallBackTime = 0;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 1);
+    test.equal(this.findIndices.callCount, 1);
+    test.equal(this.tweenedValue.callCount, 1);
+
+    this.animation.playLoop = null;
+    this.animation.fallBackTime = 0;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 2);
+    test.equal(this.findIndices.callCount, 2);
+    test.equal(this.tweenedValue.callCount, 2);
+
+    this.animation.playLoop = null;
+    this.animation.fallBackTime = 2;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 3);
+    test.equal(this.findIndices.callCount, 3);
+    test.equal(this.tweenedValue.callCount, 3);
+
+    this.animation.progress = 0.5;
+    this.animation.reverse = false;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 4);
+    test.equal(this.findIndices.callCount, 4);
+    test.equal(this.tweenedValue.callCount, 4);
+
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.reverse = true;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 5);
+    test.equal(this.findIndices.callCount, 5);
+    test.equal(this.tweenedValue.callCount, 5);
+
+
+    this.animation.loop = true;
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.metronomic = false;
+    this.animation.reverse = false;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 6);
+    test.equal(this.findIndices.callCount, 6);
+    test.equal(this.tweenedValue.callCount, 6);
+
+    this.animation.loop = true;
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.metronomic = true;
+    this.animation.reverse = false;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 7);
+    test.equal(this.findIndices.callCount, 7);
+    test.equal(this.tweenedValue.callCount, 7);
+
+    this.animation.onloop = null;
+    this.animation.loop = true;
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.metronomic = false;
+    this.animation.reverse = false;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.calculateProgress.callCount, 8);
+    test.equal(this.findIndices.callCount, 8);
+    test.equal(this.tweenedValue.callCount, 8);
+
+    this.stop.reset();
+    this.animation.loop = false;
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.metronomic = false;
+    this.animation.reverse = false;
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.stop.callCount, 1);
+    test.equal(this.calculateProgress.callCount, 9);
+    test.equal(this.findIndices.callCount, 9);
+    test.equal(this.tweenedValue.callCount, 9);
+
+    this.stop.reset();
+    this.animation.loop = false;
+    this.animation.progress = 1;
+    this.animation.loopback = 1;
+    this.animation.metronomic = false;
+    this.animation.reverse = false;
+    this.animation.segments.push(1, 2, 3);
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.stop.callCount, 1);
+    test.equal(this.next.callCount, 1);
+    test.equal(this.calculateProgress.callCount, 10);
+    test.equal(this.findIndices.callCount, 10);
+    test.equal(this.tweenedValue.callCount, 10);
+
+    this.animation.oncomplete = function() {
+      test.done()
+    };
+
+    this.animation.loopFunction({ calledAt: 1 });
+
+    test.equal(this.animation.target["@@render"].callCount, 11);
+  },
+
+};
+
+exports["Animation.Segment"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.segment = new Animation.Segment({});
+    done();
+  },
+
+  tearDown: function(done) {
+    this.sandbox.restore();
+    done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Animation({}) instanceof Animation, true);
+    test.done();
+  },
+
+  default: function(test) {
+    test.expect();
+
+    test.deepEqual(this.segment, new Animation.Segment({}));
+    test.done();
+  },
+
+  defaultWithSegments: function(test) {
+    test.expect();
+
+    var subsegments = [];
+    var options = {
+      segments: subsegments
+    };
+    var segment = new Animation.Segment(options);
+
+
+    test.notEqual(segment.segments, options.segments);
+    test.done();
+  },
 };
