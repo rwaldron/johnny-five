@@ -63,6 +63,7 @@
     "Joystick": true,
     "Motion": true,
     "Motor": true,
+    "Multi": true,
     "Nodebot": true,
     "Piezo": true,
     "Ping": true,
