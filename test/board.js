@@ -417,6 +417,30 @@ exports["Board"] = {
     io.emit("ready");
   },
 
+  wait: function(test) {
+    test.expect(1);
+
+    Board.purge();
+    Serial.purge();
+
+    var io = new MockFirmata();
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false
+    });
+
+    board.on("ready", function() {
+      board.wait(1, function() {
+        test.ok(true);
+        test.done();
+      });
+    }.bind(this));
+
+    io.emit("connect");
+    io.emit("ready");
+  },
+
   snapshot: function(test) {
     test.expect(68);
 
