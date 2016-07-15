@@ -1,6 +1,46 @@
 exports["Animation"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
+    this.animation = new Animation({});
+    done();
+  },
+
+  tearDown: function(done) {
+    this.sandbox.restore();
+    done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Animation({}) instanceof Animation, true);
+    test.done();
+  },
+
+  // enqueue: function(test) {
+  //   test.expect(3);
+
+
+  //   this.animation = new Animation({
+  //     "@@normalize": function() {}
+  //   });
+
+  //   this.next = this.sandbox.stub(this.animation, "next");
+  //   this.animation.paused = true;
+
+  //   test.equal(this.animation.enqueue({}), this.animation);
+
+  //   this.animation.paused = false;
+  //   test.equal(this.animation.enqueue({}), this.animation);
+  //   test.equal(this.next.callCount, 1);
+
+  //   this.next.restore();
+  //   test.done();
+  // },
+};
+
+exports["Animation -- Servo"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
