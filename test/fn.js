@@ -9,19 +9,16 @@ exports["Fn"] = {
 
   map: function(test) {
     test.expect(3);
-
     test.equal(Fn.map(1009, 300, 1009, 0, 255), 255);
     test.equal(Fn.map(300, 300, 1009, 0, 255), 0);
     test.equal(Fn.map(500, 0, 1000, 0, 255), 127);
-
     test.done();
   },
 
   fmap: function(test) {
-    test.expect(1);
-
+    test.expect(2);
     test.equal(Fn.fmap(500, 0, 1000, 0, 255), 127.5);
-
+    test.equal(Fn.fmap(512, 0, 1023, 0, 255), 127.6246337890625);
     test.done();
   },
 
