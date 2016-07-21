@@ -102,7 +102,7 @@ exports["ESC"] = {
     this.clock.tick(10);
     test.equal(this.servoWrite.callCount, 1);
     // (9 * 180 / 100) = 16.2
-    test.equal(this.servoWrite.lastCall.args[1], 16.2);
+    test.equal(this.servoWrite.lastCall.args[1], 16.200000762939453);
 
     this.servoWrite.reset();
 

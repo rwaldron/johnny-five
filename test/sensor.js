@@ -1073,7 +1073,7 @@ exports["Sensor - Analog"] = {
     // Ensure sensors may return float values
     this.sensor.scale([0, 102.3]);
     this.sensor.once("change", function() {
-      test.equal(this.value, 1.2);
+      test.equal(this.value, 1.2000000476837158);
     });
     callback(12);
     this.clock.tick(25);
@@ -1102,7 +1102,7 @@ exports["Sensor - Analog"] = {
     // Ensure sensors may return float values
     this.sensor.scale([0, 102.3]);
     this.sensor.once("change", function() {
-      test.equal(this.fscaleTo([0, 102.3]), 1.2);
+      test.equal(this.fscaleTo([0, 102.3]), 1.2000000476837158);
     });
     callback(12);
     this.clock.tick(25);
