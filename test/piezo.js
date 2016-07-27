@@ -406,19 +406,20 @@ exports["Piezo"] = {
   },
 
   playTune: function(test) {
-    test.expect(6);
+    test.expect(7);
     var tempo = 10000; // Make it really fast
+    var song = [
+      ["c", 1],
+      ["d", 2],
+      [null, 1],
+      672,
+      "e4",
+      null
+    ];
 
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
-      song: [
-        ["c", 1],
-        ["d", 2],
-        [null, 1],
-        672,
-        "e4",
-        null
-      ],
+      song: song,
       tempo: tempo // Make it real fast
     }, function() {
       // frequency should get called 4x; not for the null notes
@@ -432,6 +433,8 @@ exports["Piezo"] = {
       test.ok(this.frequency.calledWith(Piezo.Notes["d4"], (60000 / tempo) * 2));
       // OK to pass frequency directly...
       test.ok(this.frequency.calledWith(672, 60000 / tempo));
+      // Does not mutate input song array
+      test.deepEqual(song, [["c", 1], ["d", 2], [null, 1], 672, "e4", null]);
       test.done();
     }.bind(this));
 
