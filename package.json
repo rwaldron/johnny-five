@@ -156,8 +156,8 @@
   },
   "scripts": {
     "test": "grunt",
-    "test-cover": "grunt jshint && ./node_modules/istanbul/lib/cli.js cover grunt nodeunit",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "test-cover": "grunt jshint && istanbul cover node_modules/grunt-cli/bin/grunt nodeunit",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "browser": {
     "galileo-io": false
