@@ -8,7 +8,7 @@ board.on("ready", function() {
   // Create a new `button` hardware instance
   button = new five.Button({
     board: board,
-    pin: 7,
+    pin: 8,
     holdtime: 1000,
     invert: false // Default: "false".  Set to "true" if button is Active-Low
   });
