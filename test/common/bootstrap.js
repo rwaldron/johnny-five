@@ -65,6 +65,7 @@ global.Pin = five.Pin;
 global.Proximity = five.Proximity;
 global.Relay = five.Relay;
 global.RGB = five.Led.RGB;
+global.RGBs = five.Led.RGB.Collection;
 global.Repl = five.Repl;
 global.Sensor = five.Sensor;
 global.Serial = five.Board.Serial;
