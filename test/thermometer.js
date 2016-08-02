@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 // Global suite setUp
 exports.setUp = function(done) {
   // Base Shape for all Thermometer tests

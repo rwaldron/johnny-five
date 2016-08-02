@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 function getShape(sensor) {
   return {
     id: sensor.id,

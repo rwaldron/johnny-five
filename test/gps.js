@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["GPS"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

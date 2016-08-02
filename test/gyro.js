@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Gyro -- ANALOG"] = {
 
   setUp: function(done) {

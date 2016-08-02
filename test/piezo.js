@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var notes = {
   "c0": 16,
   "c#0": 17,

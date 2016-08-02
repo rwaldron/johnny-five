@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Fn"] = {
   setUp: function(done) {
     done();

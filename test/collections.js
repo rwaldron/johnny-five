@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 function Output(opts) {
   if (typeof opts === "number") {
     opts = {

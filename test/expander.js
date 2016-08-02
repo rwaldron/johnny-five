@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var controller = require("./util/mock-expander-controller");
 
 exports["Expander"] = {

@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Motor: Non-Directional"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

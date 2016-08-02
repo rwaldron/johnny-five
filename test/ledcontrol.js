@@ -1,3 +1,4 @@
+require("./common/bootstrap");
 
 exports["LedControl - I2C Matrix Initialization"] = {
   setUp: function(done) {

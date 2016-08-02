@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var mpr121 = require("../lib/definitions/mpr121");
 
 exports["Keypad: Analog"] = {

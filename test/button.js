@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var proto = [];
 var instance = [{
   name: "pullup"

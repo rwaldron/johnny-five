@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["ESC"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

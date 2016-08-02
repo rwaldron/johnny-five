@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Accelerometer"] = {
 
   setUp: function(done) {

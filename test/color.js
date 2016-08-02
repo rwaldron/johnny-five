@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var EVS = require("../lib/evshield");
 var proto = [];
 

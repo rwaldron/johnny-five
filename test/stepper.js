@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Stepper Firmware Requirement"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

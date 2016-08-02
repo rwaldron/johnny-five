@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Board.Component"] = {
   setUp: function(done) {
     this.board = newBoard();

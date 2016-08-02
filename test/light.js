@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var proto = [{
   name: "within"
 }];

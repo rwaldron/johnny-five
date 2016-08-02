@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["ShiftRegister - Common Cathode (default)"] = {
 
   setUp: function(done) {

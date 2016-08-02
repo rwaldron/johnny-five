@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var Pins = require("../lib/board.pins");
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 

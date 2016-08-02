@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var expecteds = {
   data: [25, 79],
   changes: [

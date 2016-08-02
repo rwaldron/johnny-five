@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var ReflectanceArray = five.IR.Reflect.Collection;
 
 function getEyes(options) {

@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["IMU -- MPU6050"] = {
 
   setUp: function(done) {

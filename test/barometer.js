@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Barometer -- MPL115A2"] = {
 
   setUp: function(done) {

@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 exports["Animation -- Servo"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

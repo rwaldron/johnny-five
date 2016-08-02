@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var lcdChars = require("../lib/lcd-chars.js");
 var util = require("util");
 

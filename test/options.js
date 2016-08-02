@@ -1,3 +1,5 @@
+require("./common/bootstrap");
+
 var Options = require("../lib/board.options.js");
 
 exports["static"] = {

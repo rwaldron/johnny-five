@@ -1,3 +1,4 @@
+require("./common/bootstrap");
 
 function Component(options) {
   Emitter.call(this);
