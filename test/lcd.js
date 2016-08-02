@@ -410,37 +410,85 @@ exports["LCD - I2C (JHD1313M1)"] = {
   },
 
   bgColor: function(test) {
-    test.expect(8);
+    test.expect(36);
 
     var lcd = new LCD({
       controller: "JHD1313M1",
       board: this.board
     });
 
-    this.hexRgb = this.sandbox.spy(converter.hex, "rgb");
-    this.keyRgb = this.sandbox.spy(converter.keyword, "rgb");
+    this.ToRGB = this.sandbox.spy(RGB, "ToRGB");
+    this.i2cWrite.reset();
 
     lcd.bgColor([0, 0, 0]);
 
-    test.equal(this.keyRgb.callCount, 0);
-    test.equal(this.hexRgb.callCount, 0);
+    test.equal(this.ToRGB.callCount, 1);
+    test.deepEqual(this.ToRGB.firstCall.args, [[0, 0, 0], undefined, undefined]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0, blue: 0});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
 
-    lcd.bgColor("blue");
+    this.ToRGB.reset();
+    this.i2cWrite.reset();
 
-    test.equal(this.keyRgb.callCount, 1);
-    test.equal(this.hexRgb.callCount, 0);
+    lcd.bgColor(0xff, 0xff, 0xff);
 
+    test.equal(this.ToRGB.callCount, 1);
+    test.deepEqual(this.ToRGB.firstCall.args, [0xff, 0xff, 0xff]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0xFF, blue: 0xFF});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0xFF ] ]);
+
+    this.ToRGB.reset();
+    this.i2cWrite.reset();
 
     lcd.bgColor("ff0000");
 
-    test.equal(this.keyRgb.callCount, 2);
-    test.equal(this.hexRgb.callCount, 1);
+    test.equal(this.ToRGB.callCount, 1);
+    test.deepEqual(this.ToRGB.firstCall.args, ["ff0000", undefined, undefined]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0, blue: 0});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+
+    this.ToRGB.reset();
+    this.i2cWrite.reset();
 
     lcd.bgColor("#ff0000");
 
-    test.equal(this.keyRgb.callCount, 3);
-    test.equal(this.hexRgb.callCount, 2);
+    test.equal(this.ToRGB.callCount, 1);
+    test.deepEqual(this.ToRGB.firstCall.args, ["#ff0000", undefined, undefined]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0, blue: 0});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
 
+    this.ToRGB.reset();
+    this.i2cWrite.reset();
+
+    lcd.bgColor({red: 0, green: 0xFF, blue: 0});
+
+    test.equal(this.ToRGB.callCount, 1);
+    test.deepEqual(this.ToRGB.firstCall.args, [{red: 0, green: 0xFF, blue: 0}, undefined, undefined]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0xFF, blue: 0});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+
+    this.ToRGB.reset();
+    this.i2cWrite.reset();
+
+    lcd.bgColor("blue");
+
+    // This path is taken twice for the keyword cases
+    test.equal(this.ToRGB.callCount, 2);
+    test.deepEqual(this.ToRGB.firstCall.args, ["blue", undefined, undefined]);
+    test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0, blue: 0xFF});
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0xFF ] ]);
 
     test.done();
   },
