@@ -70,6 +70,7 @@
     "Pir": true,
     "Pin": true,
     "Proximity": true,
+    "RGB": true,
     "Relay": true,
     "Repl": true,
     "Sensor": true,
