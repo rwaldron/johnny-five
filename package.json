@@ -136,7 +136,7 @@
   "optionalDependencies": {
     "browser-serialport": "latest",
     "firmata": "^0.12.0",
-    "serialport": "^3.0.0"
+    "serialport": "^4.0.0"
   },
   "devDependencies": {
     "async": "~0.9.0",
