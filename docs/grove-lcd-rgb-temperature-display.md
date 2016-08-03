@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Grove - LCD RGB temperature display
+# Grove - RGB LCD temperature display
 
 <!--remove-end-->
 
@@ -9,7 +9,7 @@
 
 
 
-##### Breadboard for "Grove - LCD RGB temperature display"
+##### Breadboard for "Grove - RGB LCD temperature display"
 
 
 

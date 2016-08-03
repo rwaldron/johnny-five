@@ -841,7 +841,10 @@
       },
       {
         "file": "lcd-i2c.js",
-        "title": "LCD - I2C"
+        "title": "LCD - I2C",
+        "breadboards": [
+          {"name": "lcd-JHD1313M1", "title": "Using a Grove RGB LCD with and without the Grove Shield"}
+        ]
       },
       {
         "file": "lcd-i2c-PCF8574.js",
@@ -853,7 +856,21 @@
       },
       {
         "file": "lcd-rgb-tessel-grove-JHD1313M1.js",
-        "title": "Tessel 2 + Grove - LCD RGB Display"
+        "title": "Tessel 2 + Grove - RGB LCD Display"
+      },
+      {
+        "file": "lcd-rgb-bgcolor-previewer.js",
+        "title": "Grove - RGB LCD Color Previewer",
+        "breadboards": [
+          {"name": "lcd-JHD1313M1", "title": "Using a Grove RGB LCD with and without the Grove Shield"}
+        ]
+      },
+      {
+        "file": "lcd-rgb-bgcolor-previewer-tessel.js",
+        "title": "Tessel 2 + Grove - RGB LCD Color Previewer",
+        "breadboards": [
+          {"name": "lcd-rgb-tessel-grove-JHD1313M1", "title": "Tessel 2 RGB LCD Color Previewer"}
+        ]
       }
     ]
   },
@@ -1648,8 +1665,13 @@
         "description": "Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
+        "file": "grove-lcd-rgb-bgcolor-previewer-edison.js",
+        "title": "Intel Edison + Grove - RGB LCD Color Previewer",
+        "description": "Using Johnny-Five with Grove's RGB LCD component on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
+      },
+      {
         "file": "grove-lcd-rgb-temperature-display-edison.js",
-        "title": "Intel Edison + Grove - LCD RGB temperature display",
+        "title": "Intel Edison + Grove - RGB LCD temperature display",
         "description": "Using Johnny-Five with Grove's RGB LCD and Thermometer components on the Intel Edison Arduino Breakout. This shield and component will work with any Arduino pin-out compatible hardware platform."
       },
       {
@@ -1718,7 +1740,7 @@
       },
       {
         "file": "grove-lcd-rgb-temperature-display.js",
-        "title": "Grove - LCD RGB temperature display"
+        "title": "Grove - RGB LCD temperature display"
       },
       {
         "file": "grove-servo.js",

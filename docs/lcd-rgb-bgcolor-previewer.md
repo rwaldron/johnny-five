@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# LCD - I2C
+# Grove - RGB LCD Color Previewer
 
 <!--remove-end-->
 
@@ -24,30 +24,44 @@ Fritzing diagram: [docs/breadboard/lcd-JHD1313M1.fzz](breadboard/lcd-JHD1313M1.f
 
 Run this example from the command line with:
 ```bash
-node eg/lcd-i2c.js
+node eg/lcd-rgb-bgcolor-previewer.js
 ```
 
 
 ```javascript
-var five = require("johnny-five");
+var five = require("../");
 var board = new five.Board();
+var colors = Object.keys(require("css-color-names"));
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   var lcd = new five.LCD({
     controller: "JHD1313M1"
   });
 
-  lcd.useChar("heart");
+  lcd.bgColor("yellow");
 
-  lcd.cursor(0, 0).print("hello :heart:");
+  var interval = null;
+  var index = 0;
 
-  lcd.blink();
+  board.repl.inject({
+    preview() {
 
-  lcd.cursor(1, 0).print("Blinking? ");
+      if (interval) {
+        clearInterval(interval);
+        index = 0;
+      }
+
+      interval = setInterval(() => {
+        if (index === colors.length) {
+          clearInterval(interval);
+          return;
+        }
+        var color = colors[index++];
+        lcd.bgColor(color).cursor(0, 0).clear().print(color);
+      }, 1000);
+    }
+  });
 });
-
-
 
 ```
 
@@ -57,10 +71,6 @@ board.on("ready", function() {
 
 
 
-
-## Additional Notes
-[Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/depot/grove-lcd-rgb-backlight-p-1643.html)
-![Grove LCD RGB](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
 &nbsp;
 
