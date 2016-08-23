@@ -1,6 +1,8 @@
 var five = require("johnny-five");
 var Edison = require("edison-io");
-var board = new five.Board({io: new Edison()});
+var board = new five.Board({
+  io: new Edison()
+});
 
 function Box(servo, red, green, yellow) {
   this.quietKnock = 10;
@@ -29,6 +31,7 @@ Box.prototype.lock = function() {
 
 Box.prototype.knock = function(value) {
   var self = this;
+
   function checkForKnock(value) {
     if (value > self.quietKnock && value < self.loudKnock) {
       self.yellow.on();
@@ -42,7 +45,7 @@ Box.prototype.knock = function(value) {
       return false;
     }
   }
-  if (this.numberOfKnocks >=3) {
+  if (this.numberOfKnocks >= 3) {
     this.locked = false;
     this.servo.to(0);
     this.green.on();
@@ -57,8 +60,11 @@ Box.prototype.knock = function(value) {
 };
 
 board.on("ready", function() {
-  var piezo = new five.Sensor({pin: "A0", threshold: 10});
-  piezo.on("change",function() {
+  var piezo = new five.Sensor({
+    pin: "A0",
+    threshold: 10
+  });
+  piezo.on("change", function() {
     box.knock(this.value);
   });
   var button = new five.Button(2);
@@ -70,7 +76,5 @@ board.on("ready", function() {
   var green = new five.Led(4);
   var red = new five.Led(5);
   var servo = new five.Servo(9);
-
   var box = new Box(servo, red, green, yellow);
-
 });

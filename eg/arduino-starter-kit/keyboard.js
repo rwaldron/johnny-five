@@ -1,11 +1,17 @@
 var five = require("johnny-five");
 var Edison = require("edison-io");
-var board = new five.Board({io: new Edison()});
+var board = new five.Board({
+  io: new Edison()
+});
 
 board.on("ready", function() {
-  var sensor = new five.Sensor({pin:"A0",freq: 100, threshold: 8});
+  var sensor = new five.Sensor({
+    pin: "A0",
+    freq: 100,
+    threshold: 8
+  });
   var piezo = new five.Piezo(8);
-  sensor.on("change",function() {
+  sensor.on("change", function() {
     console.log(this.value);
     if (five.Fn.inRange(this.value, 1020, 1023)) {
       piezo.frequency(five.Piezo.Notes["c4"], 50);

@@ -1,10 +1,12 @@
 var five = require("johnny-five");
 var Edison = require("edison-io");
-var board = new five.Board({io: new Edison()});
+var board = new five.Board({
+  io: new Edison()
+});
 
 board.on("ready", function() {
 
-  var leds = five.Leds([2,3,4]);
+  var leds = five.Leds([2, 3, 4]);
 
   var tmp = new five.Thermometer({
     controller: "TMP36",
@@ -16,7 +18,7 @@ board.on("ready", function() {
       leds[0].on();
     } else {
       leds[0].off();
-    } 
+    }
     if (this.celsius >= 24) {
       leds[1].on();
     } else {
