@@ -133,7 +133,6 @@ exports["Animation -- Servo"] = {
     test.equal(this.animation.normalizedKeyFrames[0][1].value, 90);
     test.equal(this.animation.normalizedKeyFrames[0][2].value, 45);
     test.equal(this.animation.normalizedKeyFrames[0][3].value, 78);
-
     test.done();
   },
 

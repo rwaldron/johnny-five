@@ -14,6 +14,7 @@ global.EVS = require("../../lib/evshield");
 global.converter = require("color-convert");
 global.SerialPort = require("serialport");
 global.Firmata = require("firmata");
+global.temporal = require("temporal");
 
 // Third Party (test)
 global.mocks = require("mock-firmata");
@@ -68,6 +69,7 @@ global.Repl = five.Repl;
 global.Sensor = five.Sensor;
 global.Serial = five.Board.Serial;
 global.Servo = five.Servo;
+global.Servos = five.Servos;
 global.ShiftRegister = five.ShiftRegister;
 global.Sonar = five.Sonar;
 global.Stepper = five.Stepper;
