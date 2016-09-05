@@ -8,6 +8,12 @@ exports["Servo"] = {
     this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
     this.servoConfig = this.sandbox.spy(MockFirmata.prototype, "servoConfig");
     this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.enqueue = this.sandbox.spy(Animation.prototype, "enqueue");
+    this.next = this.sandbox.spy(Animation.prototype, "next");
+    this.loop = this.sandbox.stub(temporal, "loop");
+
+
+
     this.servo = new Servo({
       pin: 11,
       board: this.board
@@ -66,8 +72,15 @@ exports["Servo"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Servo.purge();
     this.sandbox.restore();
     done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Servo({}) instanceof Servo, true);
+    test.done();
   },
 
   shape: function(test) {
@@ -90,18 +103,73 @@ exports["Servo"] = {
     test.done();
   },
 
-  startAt: function(test) {
+  debug: function(test) {
     test.expect(1);
 
+    this.sandbox.stub(this.board.pins, "isServo").returns(false);
+
+    test.throws(function() {
+      this.servo = new Servo({
+        board: this.board,
+        debug: true,
+        pin: 11,
+      });
+    }.bind(this));
+
+    test.done();
+  },
+
+  doesNotWriteSameLastDegrees: function(test) {
+    test.expect(2);
+
+    this.servoWrite.reset();
+
+    this.servo.to(100);
+    test.equal(this.servoWrite.callCount, 1);
+
+    this.servo.to(100);
+    test.equal(this.servoWrite.callCount, 1);
+    test.done();
+  },
+
+  startAt: function(test) {
+    test.expect(4);
+
     this.to = this.sandbox.spy(Servo.prototype, "to");
+    this.center = this.sandbox.spy(Servo.prototype, "center");
 
     this.servo = new Servo({
-      pin: 11,
       board: this.board,
-      startAt: 90
+      pin: 11,
+      startAt: 138,
+    });
+    test.equal(this.to.callCount, 1);
+    test.equal(this.to.lastCall.args[0], 138);
+    test.equal(this.center.callCount, 0);
+    test.equal(this.servo.startAt, 138);
+    test.done();
+  },
+
+  startAtOverriddenByCenter: function(test) {
+    test.expect(5);
+
+    this.to = this.sandbox.spy(Servo.prototype, "to");
+    this.center = this.sandbox.spy(Servo.prototype, "center");
+
+    this.servo = new Servo({
+      board: this.board,
+      center: true,
+      pin: 11,
+      startAt: 138,
     });
 
-    test.ok(this.to.called);
+    test.equal(this.center.callCount, 1);
+    // The startAt position will be overridden
+    // by the `center: true` option.
+    test.equal(this.to.callCount, 2);
+    test.equal(this.to.firstCall.args[0], 138);
+    test.equal(this.to.lastCall.args[0], 90);
+    test.equal(this.servo.startAt, 138);
     test.done();
   },
 
@@ -109,22 +177,36 @@ exports["Servo"] = {
     test.expect(3);
 
     this.servo = new Servo({
-      pin: 11,
       board: this.board,
-      invert: true
+      invert: true,
+      pin: 11,
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 0));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 45));
 
     this.servo.to(90);
-
     test.ok(this.servoWrite.calledWith(11, 90));
+
+    test.done();
+  },
+
+  isInvertedWarning: function(test) {
+    test.expect(2);
+
+    this.consoleWarn = this.sandbox.stub(console, "warn");
+
+    this.servo = new Servo({
+      board: this.board,
+      isInverted: true,
+      pin: 11,
+    });
+
+    test.equal(this.consoleWarn.callCount, 1);
+    test.equal(this.consoleWarn.firstCall.args[0], "The 'isInverted' property has been renamed 'invert'");
 
     test.done();
   },
@@ -135,19 +217,16 @@ exports["Servo"] = {
     this.servo = new Servo({
       pin: 11,
       board: this.board,
-      range: [20, 160]
+      range: [20, 160],
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 160));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 135));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 20));
 
     test.done();
@@ -164,15 +243,12 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 20));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 45));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 150));
 
     test.done();
@@ -188,11 +264,9 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 180));
 
     this.servo.home();
-
     test.ok(this.servoWrite.calledWith(11, 20));
 
     test.done();
@@ -207,11 +281,9 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 180));
 
     this.servo.home();
-
     test.ok(this.servoWrite.calledWith(11, 90));
 
     test.done();
@@ -227,15 +299,12 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 170));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 125));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 0));
 
     test.done();
@@ -252,15 +321,12 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 10));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 55));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 180));
 
     test.done();
@@ -277,15 +343,12 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 140));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 125));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 10));
 
     test.done();
@@ -303,15 +366,12 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-
     test.ok(this.servoWrite.calledWith(11, 40));
 
     this.servo.to(135);
-
     test.ok(this.servoWrite.calledWith(11, 55));
 
     this.servo.to(10);
-
     test.ok(this.servoWrite.calledWith(11, 170));
 
     test.done();
@@ -324,8 +384,26 @@ exports["Servo"] = {
 
   type: function(test) {
     test.expect(1);
-
     test.equal(this.servo.type, "standard");
+
+    test.done();
+  },
+
+  positionNoValue: function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+    test.equal(this.servo.position, -1);
+    test.done();
+  },
+
+  positionHasValue: function(test) {
+    test.expect(1);
+    this.servo.to(180);
+    test.equal(this.servo.position, 180);
 
     test.done();
   },
@@ -334,7 +412,6 @@ exports["Servo"] = {
     test.expect(1);
 
     this.servo.to(100);
-
     test.equal(this.servo.value, 100);
 
     test.done();
@@ -349,12 +426,11 @@ exports["Servo"] = {
 
     // Default behaviour
     this.servo.sweep();
-
     test.equal(this.to.callCount, 1);
 
     args = this.to.lastCall.args[0];
 
-    test.deepEqual(args.keyFrames, [ { degrees: 0 }, { degrees: 180 } ]);
+    test.deepEqual(args.keyFrames, [ { value: 0 }, { value: 180 } ]);
     test.equal(args.metronomic, true);
     test.equal(args.loop, true);
     test.equal(args.easing, "inOutSine");
@@ -364,7 +440,7 @@ exports["Servo"] = {
 
     args = this.to.lastCall.args[0];
 
-    test.deepEqual(args.keyFrames, [ { degrees: 35 }, { degrees: 145 } ]);
+    test.deepEqual(args.keyFrames, [ { value: 35 }, { value: 145 } ]);
     test.equal(args.metronomic, true);
     test.equal(args.loop, true);
     test.equal(args.easing, "inOutSine");
@@ -378,7 +454,7 @@ exports["Servo"] = {
 
     args = this.to.lastCall.args[0];
 
-    test.deepEqual(args.keyFrames, [ { degrees: 10 }, { degrees: 170 } ]);
+    test.deepEqual(args.keyFrames, [ { value: 10 }, { value: 170 } ]);
     test.equal(args.interval, 5000);
     test.equal(args.metronomic, true);
     test.equal(args.loop, true);
@@ -394,7 +470,7 @@ exports["Servo"] = {
 
     args = this.to.lastCall.args[0];
 
-    test.deepEqual(args.keyFrames, [ { degrees: 10 }, { degrees: 170 } ]);
+    test.deepEqual(args.keyFrames, [ { value: 10 }, { value: 170 } ]);
     test.equal(args.interval, 5000);
     test.equal(args.metronomic, true);
     test.equal(args.loop, true);
@@ -421,7 +497,583 @@ exports["Servo"] = {
     this.servo.to(9);
     test.equal(this.servo.history.length, 5);
     test.done();
-  }
+  },
+
+  move: function(test) {
+    test.expect(2);
+    this.consoleWarn = this.sandbox.stub(console, "warn");
+    this.to = this.sandbox.spy(this.servo, "to");
+
+    this.servo.move(138);
+
+    test.equal(this.to.callCount, 1);
+    test.equal(this.consoleWarn.callCount, 1);
+    test.done();
+  },
+
+  to: function(test) {
+    test.expect(4);
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+
+    this.servo.to(138);
+    test.equal(this.servoWrite.lastCall.args[0], 11);
+    test.equal(this.servoWrite.lastCall.args[1], 138);
+    test.equal(this.update.callCount, 1);
+    test.equal(this.update.lastCall.args[0], 138);
+    test.done();
+  },
+
+  toOptionsAnimation: function(test) {
+    test.expect(2);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(typeof state.animation, "undefined");
+    this.servo.to({});
+    test.equal(state.animation instanceof Animation, true);
+    test.done();
+  },
+
+  toOptionsDefaults: function(test) {
+    test.expect(26);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(Object.keys(state).length, 1);
+    test.equal(typeof state.isRunning, "undefined");
+
+    this.servo.to({});
+
+    test.notEqual(typeof state.isRunning, "undefined");
+
+    test.deepEqual(state.animation.cuePoints, [ 0, 1 ]);
+
+    test.equal(state.animation.duration, 1000);
+    test.equal(state.animation.easing, "linear");
+    test.equal(state.animation.loop, false);
+    test.equal(state.animation.loopback, 0);
+    test.equal(state.animation.metronomic, false);
+    test.equal(state.animation.currentSpeed, 1);
+    test.equal(state.animation.progress, 0);
+    test.equal(state.animation.fps, 60);
+    test.equal(Math.floor(state.animation.rate), 16);
+    test.equal(state.animation.paused, false);
+    test.equal(state.animation.onstart, null);
+    test.equal(state.animation.onpause, null);
+    test.equal(state.animation.onstop, null);
+    test.equal(state.animation.onloop, null);
+
+// console.log(state.animation);
+// console.log(enqueued);
+
+    test.equal(typeof state.animation.oncomplete, "function");
+    test.equal(state.animation.defaultTarget, this.servo);
+    test.equal(state.animation.target, this.servo);
+
+    // test.deepEqual(
+    //   state.animation.normalizedKeyFrames, [
+    //     [{
+    //       value: 90,
+    //       easing: "linear"
+    //     }, {
+    //       value: 90,
+    //       easing: "linear"
+    //     }]
+    //   ]
+    // );
+
+    test.equal(state.animation.scaledDuration, 1000);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1000);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    this.servo.on("move:complete", function() {
+      test.done();
+    });
+
+    state.animation.oncomplete();
+  },
+
+  toOptionsDuration: function(test) {
+    test.expect(28);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(Object.keys(state).length, 1);
+    test.equal(typeof state.isRunning, "undefined");
+
+    this.servo.to({
+      duration: 1500,
+    });
+
+    test.notEqual(typeof state.isRunning, "undefined");
+
+    test.deepEqual(state.animation.cuePoints, [ 0, 1 ]);
+    test.deepEqual(state.animation.segments, []);
+
+    test.equal(state.animation.duration, 1500);
+    test.equal(state.animation.easing, "linear");
+    test.equal(state.animation.loop, false);
+    test.equal(state.animation.loopback, 0);
+    test.equal(state.animation.metronomic, false);
+    test.equal(state.animation.currentSpeed, 1);
+    test.equal(state.animation.progress, 0);
+    test.equal(state.animation.fps, 60);
+    test.equal(state.animation.rate, 16);
+    test.equal(state.animation.paused, false);
+    test.equal(state.animation.onstart, null);
+    test.equal(state.animation.onpause, null);
+    test.equal(state.animation.onstop, null);
+    test.equal(state.animation.onloop, null);
+
+    test.equal(typeof state.animation.oncomplete, "function");
+    test.equal(state.animation.defaultTarget, this.servo);
+    test.equal(state.animation.target, this.servo);
+
+    test.deepEqual(
+      state.animation.normalizedKeyFrames, [
+        [{
+          value: 90,
+          easing: "linear"
+        }, {
+          value: 90,
+          easing: "linear"
+        }]
+      ]
+    );
+
+    test.equal(state.animation.scaledDuration, 1500);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1500);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    this.servo.on("move:complete", function() {
+      test.done();
+    });
+
+    state.animation.oncomplete();
+  },
+
+  toOptionsInterval: function(test) {
+    test.expect(28);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(Object.keys(state).length, 1);
+    test.equal(typeof state.isRunning, "undefined");
+
+    this.servo.to({
+      interval: 1500,
+    });
+
+    test.notEqual(typeof state.isRunning, "undefined");
+
+    test.deepEqual(state.animation.cuePoints, [ 0, 1 ]);
+    test.deepEqual(state.animation.segments, []);
+
+    test.equal(state.animation.duration, 1500);
+    test.equal(state.animation.easing, "linear");
+    test.equal(state.animation.loop, false);
+    test.equal(state.animation.loopback, 0);
+    test.equal(state.animation.metronomic, false);
+    test.equal(state.animation.currentSpeed, 1);
+    test.equal(state.animation.progress, 0);
+    test.equal(state.animation.fps, 60);
+    test.equal(state.animation.rate, 16);
+    test.equal(state.animation.paused, false);
+    test.equal(state.animation.onstart, null);
+    test.equal(state.animation.onpause, null);
+    test.equal(state.animation.onstop, null);
+    test.equal(state.animation.onloop, null);
+
+    test.equal(typeof state.animation.oncomplete, "function");
+    test.equal(state.animation.defaultTarget, this.servo);
+    test.equal(state.animation.target, this.servo);
+
+    test.deepEqual(
+      state.animation.normalizedKeyFrames, [
+        [{
+          value: 90,
+          easing: "linear"
+        }, {
+          value: 90,
+          easing: "linear"
+        }]
+      ]
+    );
+
+    test.equal(state.animation.scaledDuration, 1500);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1500);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    this.servo.on("move:complete", function() {
+      test.done();
+    });
+
+    state.animation.oncomplete();
+  },
+
+  toOptionsDegrees: function(test) {
+    test.expect(28);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(Object.keys(state).length, 1);
+    test.equal(typeof state.isRunning, "undefined");
+
+    this.servo.to({
+      degrees: 180,
+    });
+
+    test.notEqual(typeof state.isRunning, "undefined");
+
+    test.deepEqual(state.animation.cuePoints, [ 0, 1 ]);
+    test.deepEqual(state.animation.segments, []);
+
+    test.equal(state.animation.duration, 1000);
+    test.equal(state.animation.easing, "linear");
+    test.equal(state.animation.loop, false);
+    test.equal(state.animation.loopback, 0);
+    test.equal(state.animation.metronomic, false);
+    test.equal(state.animation.currentSpeed, 1);
+    test.equal(state.animation.progress, 0);
+    test.equal(state.animation.fps, 60);
+    test.equal(state.animation.rate, 16);
+    test.equal(state.animation.paused, false);
+    test.equal(state.animation.onstart, null);
+    test.equal(state.animation.onpause, null);
+    test.equal(state.animation.onstop, null);
+    test.equal(state.animation.onloop, null);
+
+    test.equal(typeof state.animation.oncomplete, "function");
+    test.equal(state.animation.defaultTarget, this.servo);
+    test.equal(state.animation.target, this.servo);
+
+    test.deepEqual(
+      state.animation.normalizedKeyFrames, [
+        [{
+          value: 90,
+          easing: "linear",
+        }, {
+          value: 180,
+          easing: "linear",
+        }]
+      ]
+    );
+
+    test.equal(state.animation.scaledDuration, 1000);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1000);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    this.servo.on("move:complete", function() {
+      test.done();
+    });
+
+    state.animation.oncomplete();
+  },
+
+  toOptionsOncomplete: function(test) {
+    test.expect(29);
+
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    test.equal(Object.keys(state).length, 1);
+    test.equal(typeof state.isRunning, "undefined");
+
+    this.servo.to({
+      oncomplete: function() {
+        test.ok(true);
+      },
+    });
+
+    test.notEqual(typeof state.isRunning, "undefined");
+
+    test.deepEqual(state.animation.cuePoints, [ 0, 1 ]);
+    test.deepEqual(state.animation.segments, []);
+
+    test.equal(state.animation.duration, 1000);
+    test.equal(state.animation.easing, "linear");
+    test.equal(state.animation.loop, false);
+    test.equal(state.animation.loopback, 0);
+    test.equal(state.animation.metronomic, false);
+    test.equal(state.animation.currentSpeed, 1);
+    test.equal(state.animation.progress, 0);
+    test.equal(state.animation.fps, 60);
+    test.equal(state.animation.rate, 16);
+    test.equal(state.animation.paused, false);
+    test.equal(state.animation.onstart, null);
+    test.equal(state.animation.onpause, null);
+    test.equal(state.animation.onstop, null);
+    test.equal(state.animation.onloop, null);
+
+    test.equal(typeof state.animation.oncomplete, "function");
+    test.equal(state.animation.defaultTarget, this.servo);
+    test.equal(state.animation.target, this.servo);
+
+    test.deepEqual(
+      state.animation.normalizedKeyFrames, [
+        [{
+          value: 90,
+          easing: "linear",
+        }, {
+          value: 90,
+          easing: "linear",
+        }]
+      ]
+    );
+
+    test.equal(state.animation.scaledDuration, 1000);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1000);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    this.servo.on("move:complete", function() {
+      test.done();
+    });
+
+    state.animation.oncomplete();
+  },
+
+  toDegreesAndTime: function(test) {
+    test.expect(6);
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    this.servo.to(180, 1500);
+
+    test.equal(state.animation.duration, 1500);
+    test.equal(state.animation.scaledDuration, 1500);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1500);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+
+    test.done();
+  },
+
+  step: function(test) {
+    test.expect(3);
+
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    state.history.push({
+      timestamp: Date.now(),
+      degrees: 0,
+      target: 0,
+    });
+
+    this.to = this.sandbox.stub(this.servo, "to");
+    this.servo.step(45, 0);
+
+    test.equal(this.to.callCount, 1);
+    test.equal(this.to.lastCall.args[0], 45);
+    test.equal(this.to.lastCall.args[1], 0);
+    test.done();
+  },
+
+  stop: function(test) {
+    test.expect(1);
+
+    this.clearInterval = this.sandbox.stub(global, "clearInterval");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    this.servo.to({});
+
+    var stop = this.sandbox.stub(state.animation, "stop");
+
+    this.servo.stop();
+
+    test.equal(stop.callCount, 1);
+    test.done();
+  },
+
+  min: function(test) {
+    test.expect(4);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.to = this.sandbox.stub(this.servo, "to");
+    this.servo.min(1000, 100);
+
+    test.equal(this.to.callCount, 1);
+    test.equal(this.to.lastCall.args[0], 0);
+    test.equal(this.to.lastCall.args[1], 1000);
+    test.equal(this.to.lastCall.args[2], 100);
+    test.done();
+  },
+
+  max: function(test) {
+    test.expect(4);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.to = this.sandbox.stub(this.servo, "to");
+    this.servo.max(1000, 100);
+
+    test.equal(this.to.callCount, 1);
+    test.equal(this.to.lastCall.args[0], 180);
+    test.equal(this.to.lastCall.args[1], 1000);
+    test.equal(this.to.lastCall.args[2], 100);
+    test.done();
+  },
+
+
+  "Animation.normalize (without last, uses startAt)": function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var normalized = this.servo[Animation.normalize]([
+      null,
+      {value: 0, copyDegrees: 0},
+    ]);
+
+    test.equal(normalized[0].value, 90);
+
+    test.done();
+  },
+
+  "Animation.normalize (with last)": function(test) {
+    test.expect(1);
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.servo.to(180);
+    var normalized = this.servo[Animation.normalize]([
+      null,
+      {value: 0, copyDegrees: 0},
+    ]);
+
+    test.equal(normalized[0].value, 180);
+    test.done();
+  },
+
+  "Animation.normalize (first keyframe not null)": function(test) {
+    test.expect(1);
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.servo.to(180);
+    var normalized = this.servo[Animation.normalize]([
+      {value: 0, copyDegrees: 0},
+    ]);
+
+    test.notEqual(normalized[0].value, 180);
+    test.done();
+  },
+
+  "Animation.render": function(test) {
+    test.expect(2);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.to = this.sandbox.stub(this.servo, "to");
+    this.servo[Animation.render]([180]);
+
+    test.equal(this.to.callCount, 1);
+    test.equal(this.to.lastCall.args[0], 180);
+    test.done();
+  },
 };
 
 
@@ -436,6 +1088,7 @@ exports["Servo mode and config"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Servo.purge();
     this.sandbox.restore();
     done();
   },
@@ -447,7 +1100,6 @@ exports["Servo mode and config"] = {
       pin: 11,
       board: this.board
     });
-
     test.equal(this.servoConfig.callCount, 0);
     test.equal(this.pinMode.callCount, 1);
     test.done();
@@ -461,7 +1113,6 @@ exports["Servo mode and config"] = {
       board: this.board,
       pwmRange: [1000, 2000]
     });
-
     test.equal(this.servoConfig.callCount, 1);
     test.equal(this.pinMode.callCount, 0);
     test.done();
@@ -491,23 +1142,52 @@ exports["Servo - Continuous"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Servo.purge();
     this.sandbox.restore();
     done();
   },
 
   type: function(test) {
     test.expect(2);
-
     test.equal(this.a.type, "continuous");
     test.equal(this.b.type, "continuous");
+    test.done();
+  },
 
+  pinAssignment: function(test) {
+    test.expect(2);
 
+    this.servo = new Servo.Continuous(9);
+    test.equal(this.servo.pin, 9);
+
+    this.servo = new Servo.Continuous({
+      pin: 11,
+    });
+
+    test.equal(this.servo.pin, 11);
     test.done();
   },
 
   stopped: function(test) {
     test.expect(1);
     test.ok(this.servoWrite.calledWith(11, 90));
+    test.done();
+  },
+
+  nonContinuousErrors: function(test) {
+    test.expect(4);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    ["clockWise", "cw", "counterClockwise", "ccw"].forEach(function(api) {
+      test.throws(function() {
+        this.servo[api]();
+      }.bind(this));
+    }, this);
+
     test.done();
   },
 
@@ -563,13 +1243,11 @@ exports["Servo - Continuous"] = {
     this.to = this.sandbox.stub(this.continuousServo, "to");
 
     this.continuousServo.stop();
-
     test.equal(this.to.lastCall.args[0], 90);
 
 
     this.continuousServo.deadband = [100, 105];
     this.continuousServo.stop();
-
     test.equal(this.to.lastCall.args[0], 103);
 
     test.done();
@@ -605,6 +1283,7 @@ exports["Servo - Allowed Pin Names"] = {
   },
   tearDown: function(done) {
     Board.purge();
+    Servo.purge();
     this.sandbox.restore();
     done();
   },
@@ -615,17 +1294,14 @@ exports["Servo - Allowed Pin Names"] = {
 
     test.equal(new Servo(2).pin, 2);
     test.equal(new Servo(12).pin, 12);
-
     test.equal(new Servo({
       pin: 2
     }).pin, 2);
     test.equal(new Servo({
       pin: 12
     }).pin, 12);
-
     test.equal(new Servo("A0").pin, 14);
     test.equal(new Servo(14).pin, 14);
-
     test.equal(new Servo({
       pin: "A0"
     }).pin, 14);
@@ -704,6 +1380,7 @@ exports["Servo - PCA9685"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Servo.purge();
     this.sandbox.restore();
     Expander.purge();
     done();
@@ -739,7 +1416,6 @@ exports["Servo - PCA9685"] = {
       controller: "PCA9685",
       address: 0x41
     });
-
     test.equal(Expander.byAddress(0x41).name, "PCA9685");
     test.done();
   },
@@ -757,7 +1433,6 @@ exports["Servo - PCA9685"] = {
       board: this.board,
       controller: "PCA9685"
     });
-
     test.equal(Expander.byAddress(0x40).name, "PCA9685");
 
     test.done();
@@ -778,7 +1453,6 @@ exports["Servo - PCA9685"] = {
       controller: "PCA9685",
       board: this.board
     });
-
     test.equal(this.servo.frequency, 60);
     test.done();
   },
@@ -794,7 +1468,6 @@ exports["Servo - PCA9685"] = {
     this.i2cWrite.reset();
 
     this.servo.to(20);
-
     test.equal(this.i2cWrite.args[0][0], 0x40);
     test.equal(this.i2cWrite.args[0][1][0], 6);
     test.equal(this.i2cWrite.args[0][1][1], 0);
@@ -804,137 +1477,7 @@ exports["Servo - PCA9685"] = {
 
     test.done();
 
-  }
+  },
 
 };
 
-exports["Servo.Collection"] = {
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.board = newBoard();
-
-    Servo.purge();
-
-    this.a = new Servo({
-      pin: 3,
-      board: this.board
-    });
-
-    this.b = new Servo({
-      pin: 6,
-      board: this.board
-    });
-
-    this.c = new Servo({
-      pin: 9,
-      board: this.board
-    });
-
-    this.spies = [
-      "to", "stop"
-    ];
-
-    this.spies.forEach(function(method) {
-      this[method] = this.sandbox.spy(Servo.prototype, method);
-    }.bind(this));
-
-    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
-
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
-    done();
-  },
-
-  initFromServoNumbers: function(test) {
-    test.expect(1);
-
-    var servos = new Servo.Collection([3, 6, 9]);
-
-    test.equal(servos.length, 3);
-    test.done();
-  },
-
-  initFromServos: function(test) {
-    test.expect(1);
-
-    var servos = new Servo.Collection([
-      this.a, this.b, this.c
-    ]);
-
-    test.equal(servos.length, 3);
-    test.done();
-  },
-
-  callForwarding: function(test) {
-    test.expect(3);
-
-    var servos = new Servo.Collection([3, 6, 9]);
-
-    servos.to(90);
-
-    test.equal(this.to.callCount, servos.length);
-    test.equal(this.to.getCall(0).args[0], 90);
-
-    servos.stop();
-
-    test.equal(this.stop.callCount, servos.length);
-
-    test.done();
-  },
-
-  home: function(test) {
-    test.expect(4);
-
-    this.servos = new Servo.Collection([{
-      pin: 9,
-      board: this.board,
-      startAt: 40
-    }, {
-      pin: 11,
-      board: this.board,
-      startAt: 20
-    }]);
-
-    this.servos.to(180);
-
-    test.ok(this.servoWrite.calledWith(9, 180));
-    test.ok(this.servoWrite.calledWith(11, 180));
-
-    this.servos.home();
-
-    test.ok(this.servoWrite.calledWith(9, 40));
-    test.ok(this.servoWrite.calledWith(11, 20));
-
-    test.done();
-  },
-
-  collectionFromArray: function(test) {
-    test.expect(9);
-
-    var servos = new Servo.Collection([this.a, this.b]);
-    var collectionFromArray = new Servo.Collection([servos, this.c]);
-
-    collectionFromArray.to(90);
-
-    test.equal(this.to.callCount, 3);
-    test.equal(this.to.getCall(0).args[0], 90);
-    test.equal(this.to.getCall(1).args[0], 90);
-    test.equal(this.to.getCall(2).args[0], 90);
-
-    test.equal(collectionFromArray.length, 2);
-    test.equal(collectionFromArray[0][0], this.a);
-    test.equal(collectionFromArray[0][1], this.b);
-    test.equal(collectionFromArray[1], this.c);
-
-    collectionFromArray.stop();
-
-    test.equal(this.stop.callCount, 3);
-
-    test.done();
-  }
-
-};

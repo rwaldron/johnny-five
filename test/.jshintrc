@@ -83,6 +83,7 @@
     "Sonar": true,
     "Stepper": true,
     "Switch": true,
+    "temporal": true,
     "Thermometer": true,
     "Virtual": true,
     "Wii": true,
