@@ -1154,6 +1154,121 @@ exports["Thermometer -- HTU21D"] = {
   }
 };
 
+exports["Thermometer -- HIH6130"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+
+    this.temperature = new Thermometer({
+      controller: "HIH6130",
+      board: this.board,
+      freq: 10
+    });
+
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Thermometer({
+      controller: "HIH6130",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  data: function(test) {
+    test.expect(12);
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.temperature.on("data", spy);
+
+    this.clock.tick(40);
+
+    test.equal(this.i2cWrite.callCount, 2);
+    test.equal(this.i2cWrite.lastCall.args[1], 0x80);
+    test.equal(this.i2cWrite.lastCall.args[2][0], 0x00);
+    test.equal(this.i2cWrite.lastCall.args[2][1], 0x00);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x27);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 4);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 38, 81, 96, 40 ]);
+    this.clock.tick(40);
+
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x27);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 4);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 102, 81, 96, 53 ]);
+    this.clock.tick(40);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 38, 81, 96, 12 ]);
+    this.clock.tick(40);
+
+    test.equal(spy.callCount, 12);
+    test.equal(Math.round(this.temperature.C), 25);
+    test.done();
+  },
+
+  change: function(test) {
+    test.expect(6);
+
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.temperature.on("change", spy);
+
+    this.clock.tick(40);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x27);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 4);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 38, 81, 96, 12 ]);
+    this.clock.tick(40);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 102, 81, 96, 21 ]);
+    this.clock.tick(40);
+
+    test.equal(Math.round(this.temperature.C), 25);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 38, 81, 102, 48 ]);
+    this.clock.tick(40);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([ 102, 81, 102, 53 ]);
+    this.clock.tick(40);
+
+    test.equal(spy.callCount, 2);
+    test.equal(Math.round(this.temperature.C), 26);
+
+    test.done();
+  }
+};
+
 function mpl3115aDataLoop(test, initialCount, data) {
   test.equal(this.i2cReadOnce.callCount, initialCount + 1);
   test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, 3), [

@@ -955,6 +955,18 @@
         ]
       },
       {
+        "file": "multi-BME280.js",
+        "title": "Multi - BME280",
+        "breadboards": [
+          {"name": "multi-BME280-tessel", "title": "BME280 (Sparkfun)"},
+          {"name": "multi-BME280-arduino", "title": "BME280 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "SparkFun Atmospheric Sensor Breakout - BME280", "href": "https://www.sparkfun.com/products/13676"},
+          { "title": "Adafruit BME280 I2C or SPI Temperature Humidity Pressure Sensor", "href": "https://www.adafruit.com/products/2652"}
+        ]
+      },
+      {
         "file": "multi-bmp180.js",
         "title": "Multi - BMP180",
         "breadboards": [
@@ -997,6 +1009,16 @@
         ],
         "externals": [
           { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
+        ]
+      },
+      {
+        "file": "multi-HIH6130.js",
+        "title": "Multi - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
         ]
       },
       {
@@ -1154,6 +1176,16 @@
         ]
       },
       {
+        "file": "temperature-HIH6130.js",
+        "title": "Thermometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+      {
         "file": "temperature-MCP9808.js",
         "title": "Thermometer - MCP9808",
         "breadboards": [
@@ -1266,6 +1298,17 @@
           { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
         ]
       },
+      {
+        "file": "hygrometer-HIH6130.js",
+        "title": "Hygrometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+
       {
         "file": "temperature-BMP180.js",
         "title": "Thermometer - BMP180",
