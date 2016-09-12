@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Multi - BMP085
+# Multi - BME280
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### BMP085
+##### BME280 (Sparkfun)
 
 
 
-![docs/breadboard/multi-bmp085-sfe.png](breadboard/multi-bmp085-sfe.png)<br>
+![docs/breadboard/multi-BME280-tessel.png](breadboard/multi-BME280-tessel.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-bmp085-sfe.fzz](breadboard/multi-bmp085-sfe.fzz)
+Fritzing diagram: [docs/breadboard/multi-BME280-tessel.fzz](breadboard/multi-BME280-tessel.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-bmp085-sfe.fzz](breadboard/multi-bmp085
 
 Run this example from the command line with:
 ```bash
-node eg/multi-bmp085.js
+node eg/multi-BME280.js
 ```
 
 
@@ -34,10 +34,10 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "BMP085"
+    controller: "BME280"
   });
 
-  multi.on("change", function() {
+  multi.on("data", function() {
     console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
@@ -46,6 +46,10 @@ board.on("ready", function() {
 
     console.log("Barometer");
     console.log("  pressure     : ", this.barometer.pressure);
+    console.log("--------------------------------------");
+
+    console.log("Hygrometer");
+    console.log("  humidity     : ", this.hygrometer.relativeHumidity);
     console.log("--------------------------------------");
 
     console.log("Altimeter");
@@ -61,13 +65,13 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-##### BMP085 (Adafruit)
+##### BME280 (Adafruit)
 
 
 
-![docs/breadboard/multi-bmp085.png](breadboard/multi-bmp085.png)<br>
+![docs/breadboard/multi-BME280-arduino.png](breadboard/multi-BME280-arduino.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-bmp085.fzz](breadboard/multi-bmp085.fzz)
+Fritzing diagram: [docs/breadboard/multi-BME280-arduino.fzz](breadboard/multi-BME280-arduino.fzz)
 
 &nbsp;
 
@@ -78,9 +82,9 @@ Fritzing diagram: [docs/breadboard/multi-bmp085.fzz](breadboard/multi-bmp085.fzz
 
 ## Learn More
 
-- [BMP085 Barometric Pressure/Temperature/Altitude Sensor](https://www.adafruit.com/products/391)
+- [SparkFun Atmospheric Sensor Breakout - BME280](https://www.sparkfun.com/products/13676)
 
-- [Grove - Barometer Sensor（BMP085)](http://www.seeedstudio.com/depot/grove-barometer-sensor-p-1199.html)
+- [Adafruit BME280 I2C or SPI Temperature Humidity Pressure Sensor](https://www.adafruit.com/products/2652)
 
 &nbsp;
 

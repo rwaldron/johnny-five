@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Multi - DHT11_I2C_NANO_BACKPACK
+# Multi - HIH6130
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### DHT11
+##### HIH6130
 
 
 
-![docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.png](breadboard/multi-DHT11_I2C_NANO_BACKPACK.png)<br>
+![docs/breadboard/multi-HIH6130.png](breadboard/multi-HIH6130.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz)
+Fritzing diagram: [docs/breadboard/multi-HIH6130.fzz](breadboard/multi-HIH6130.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard
 
 Run this example from the command line with:
 ```bash
-node eg/multi-DHT11_I2C_NANO_BACKPACK.js
+node eg/multi-HIH6130.js
 ```
 
 
@@ -34,7 +34,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "DHT11_I2C_NANO_BACKPACK"
+    controller: "HIH6130"
   });
 
   multi.on("change", function() {
@@ -62,7 +62,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino)
+- [HIH6130 Humidity/Temperature Sensor](https://www.sparkfun.com/products/11295)
 
 &nbsp;
 
