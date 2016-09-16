@@ -2,11 +2,11 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var temperature = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "HTU21D"
   });
 
-  temperature.on("change", function() {
+  thermometer.on("change", function() {
     console.log(this.celsius + "°C", this.fahrenheit + "°F");
   });
 });

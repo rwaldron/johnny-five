@@ -35,7 +35,7 @@ var board = new five.Board();
 board.on("ready", function() {
   // By including a base `elevation` property, the values
   // received will be absolute elevation (from sealevel)
-  var alt = new five.Altimeter({
+  var altimeter = new five.Altimeter({
     controller: "BMP180",
     // Change `elevation` with whatever is reported
     // on http://www.whatismyelevation.com/.
@@ -43,8 +43,8 @@ board.on("ready", function() {
     elevation: 12,
   });
 
-  alt.on("change", function() {
-    console.log("altimeter");
+  altimeter.on("change", function() {
+    console.log("Altimeter");
     console.log("  feet         : ", this.feet);
     console.log("  meters       : ", this.meters);
     console.log("--------------------------------------");
@@ -67,12 +67,12 @@ var board = new five.Board();
 board.on("ready", function() {
   // By omitting the base `elevation` property, the values
   // received will be relative to your present elevation
-  var alt = new five.Altimeter({
+  var altimeter = new five.Altimeter({
     controller: "BMP180",
   });
 
-  alt.on("change", function() {
-    console.log("altimeter");
+  altimeter.on("change", function() {
+    console.log("Altimeter");
     console.log("  feet         : ", this.feet);
     console.log("  meters       : ", this.meters);
     console.log("--------------------------------------");

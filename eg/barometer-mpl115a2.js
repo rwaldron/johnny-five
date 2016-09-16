@@ -7,7 +7,7 @@ board.on("ready", function() {
   });
 
   barometer.on("data", function() {
-    console.log("barometer");
+    console.log("Barometer");
     console.log("  pressure : ", this.pressure);
     console.log("--------------------------------------");
   });
