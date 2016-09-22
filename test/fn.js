@@ -171,12 +171,14 @@ exports["Fn"] = {
   },
 
   toFixed: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     test.equal(typeof Fn.toFixed(0.123456789), "number");
     test.equal(Fn.toFixed(0.123456789), 0);
     test.equal(Fn.toFixed(0.123456789, 2), 0.12);
     test.equal(Fn.toFixed(3 / 7, 1), 0.4);
+    test.equal(Fn.toFixed(1, 2), 1);
+    test.equal(Fn.toFixed(1.5, 2), 1.5);
     test.done();
   },
   toFixedDoesNotThrow: function(test) {
