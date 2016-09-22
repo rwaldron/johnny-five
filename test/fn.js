@@ -25,13 +25,14 @@ exports["Fn"] = {
   },
 
   constrain: function(test) {
-    test.expect(5);
+    test.expect(6);
 
     test.equal(Fn.constrain(100, 0, 255), 100);
     test.equal(Fn.constrain(-1, 0, 255), 0);
     test.equal(Fn.constrain(0, 0, 255), 0);
     test.equal(Fn.constrain(256, 0, 255), 255);
     test.equal(Fn.constrain(255, 0, 255), 255);
+    test.ok(isNaN(Fn.constrain("finger", 0, 255)));
 
     test.done();
   },
