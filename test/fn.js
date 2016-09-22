@@ -90,12 +90,14 @@ exports["Fn"] = {
   },
 
   prefixed: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     test.deepEqual(Fn.range.prefixed("A", 3), ["A0", "A1", "A2"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 3), ["A0", "A1", "A2", "A3"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 10, 2), ["A0", "A2", "A4", "A6", "A8", "A10"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 9, 3), ["A0", "A3", "A6", "A9"]);
+    test.deepEqual(Fn.range.prefixed(1, 3), [1, 2, 3]);
+    test.deepEqual(Fn.range.prefixed({foo: "bar"}, 2), ["[object Object]0", "[object Object]1"]);
 
     test.done();
   },
