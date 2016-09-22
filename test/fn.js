@@ -124,6 +124,16 @@ exports["Fn"] = {
     test.done();
   },
 
+  square: function(test) {
+    test.expect(3);
+
+    test.equal(Fn.square(2), 4);
+    test.equal(Fn.square(-2), 4);
+    test.ok(isNaN(Fn.square("finger")));
+
+    test.done();
+  },
+
   sum: function(test) {
     test.expect(4);
 
