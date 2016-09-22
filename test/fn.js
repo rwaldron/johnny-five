@@ -155,17 +155,19 @@ exports["Fn"] = {
   },
 
   bitValue: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     var a = Fn.bitValue(0);
     var b = Fn.bitValue(2);
     var c = Fn.bitValue(7);
     var d = Fn.bitValue(8);
+    var e = Fn.bitValue("finger");
 
     test.equal(a, 1);
     test.equal(b, 4);
     test.equal(c, 128);
     test.equal(d, 256);
+    test.equal(e, 1);
 
     test.done();
   },
