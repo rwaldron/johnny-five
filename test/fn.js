@@ -325,7 +325,7 @@ exports["Fn.s*"] = {
   },
 
   cast: function(test) {
-    test.expect(24);
+    test.expect(bitSizes.length * 3);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
@@ -349,11 +349,14 @@ exports["Fn.u*"] = {
   },
 
   cast: function(test) {
-    test.expect(bitSizes.length);
+    test.expect(bitSizes.length * 4);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
       test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
+      test.equal(Fn["u" + bits](-1), decimal - 1);
+      test.equal(Fn["u" + bits](decimal + 1), decimal);
+      test.equal(Fn["u" + bits](-1 * decimal), 0);
     });
 
     test.done();
