@@ -185,6 +185,69 @@ exports["Fn"] = {
     test.done();
   },
 
+  uint16fromtwobytes: function(test) {
+    test.expect(6);
+
+    test.equal(Fn.uint16(0, 0), 0);
+    test.equal(Fn.uint16(0, 1), 1);
+    test.equal(Fn.uint16(1, 4), 260);
+    test.equal(Fn.uint16(8, 0), 2048);
+    test.equal(Fn.uint16(255, 255), 65535);
+    test.equal(Fn.uint16(240, 240), 61680);
+
+    test.done();
+  },
+
+  int24fromthreebytes: function(test) {
+    test.expect(5);
+
+    test.equal(Fn.int24(0, 0, 0), 0);
+    test.equal(Fn.int24(0, 0, 1), 1);
+    test.equal(Fn.int24(255, 255, 255), -1);
+    test.equal(Fn.int24(127, 255, 255), 8388607);
+    test.equal(Fn.int24(0, 255, 255), 65535);
+
+    test.done();
+  },
+
+  uint24fromthreebytes: function(test) {
+    test.expect(5);
+
+    test.equal(Fn.uint24(0, 0, 0), 0);
+    test.equal(Fn.uint24(0, 0, 1), 1);
+    test.equal(Fn.uint24(255, 255, 255), 16777215);
+    test.equal(Fn.uint24(127, 255, 255), 8388607);
+    test.equal(Fn.uint24(0, 255, 255), 65535);
+
+    test.done();
+  },
+
+  int32fromfourbytes: function(test) {
+    test.expect(6);
+
+    test.equal(Fn.int32(0, 0, 0, 0), 0);
+    test.equal(Fn.int32(0, 0, 0, 1), 1);
+    test.equal(Fn.int32(255, 255, 255, 255), -1);
+    test.equal(Fn.int32(200, 255, 255, 255), -922746881);
+    test.equal(Fn.int32(127, 255, 255, 255), 2147483647);
+    test.equal(Fn.int32(0, 255, 255, 255), 16777215);
+
+    test.done();
+  },
+
+  uint32fromfourbytes: function(test) {
+    test.expect(6);
+
+    test.equal(Fn.uint32(0, 0, 0, 0), 0);
+    test.equal(Fn.uint32(0, 0, 0, 1), 1);
+    test.equal(Fn.uint32(255, 255, 255, 255), -1);
+    test.equal(Fn.uint32(200, 255, 255, 255), -922746881);
+    test.equal(Fn.uint32(127, 255, 255, 255), 2147483647);
+    test.equal(Fn.uint32(0, 255, 255, 255), 16777215);
+
+    test.done();
+  },
+
   bitSize: function(test) {
     test.expect(5);
 
