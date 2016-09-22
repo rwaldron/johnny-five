@@ -38,7 +38,7 @@ exports["Fn"] = {
   },
 
   inRange: function(test) {
-    test.expect(6);
+    test.expect(10);
 
     var a = Fn.inRange(5, 4, 6);
     var b = Fn.inRange(5, 4.5, 5.5);
@@ -46,6 +46,10 @@ exports["Fn"] = {
     var d = Fn.inRange(0, -9, -1);
     var e = Fn.inRange(0, -9, -3);
     var f = Fn.inRange(0, -10, -2);
+    var g = Fn.inRange(0, 5, 1);
+    var h = Fn.inRange("finger", 0, 5);
+    var i = Fn.inRange(1, "finger", 5);
+    var j = Fn.inRange(1, 0, "finger");
 
     test.equal(a, true);
     test.equal(b, true);
@@ -53,6 +57,10 @@ exports["Fn"] = {
     test.equal(d, false);
     test.equal(e, false);
     test.equal(f, false);
+    test.equal(g, false);
+    test.equal(h, false);
+    test.equal(i, false);
+    test.equal(j, false);
 
 
     test.done();
