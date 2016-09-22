@@ -135,17 +135,21 @@ exports["Fn"] = {
   },
 
   sum: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var a = 0,
       b = 1,
       c = [],
-      d = [0, 1];
+      d = [0, 1],
+      e = ["finger", 3, 4],
+      f = [{foo: "bar"}, 2, 3];
 
     test.equal(Fn.sum(a), 0);
     test.equal(Fn.sum(b), 1);
     test.equal(Fn.sum(c), 0);
     test.equal(Fn.sum(d), 1);
+    test.equal(Fn.sum(e), "0finger34");
+    test.equal(Fn.sum(f), "0[object Object]23");
 
     test.done();
   },
