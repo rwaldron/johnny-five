@@ -67,7 +67,7 @@ exports["Fn"] = {
   },
 
   range: function(test) {
-    test.expect(6);
+    test.expect(7);
 
     var a = Fn.range(5);
     var b = Fn.range(5, 10);
@@ -75,6 +75,7 @@ exports["Fn"] = {
     var d = Fn.range(0, -9, -1);
     var e = Fn.range(0, -9, -3);
     var f = Fn.range(0, -10, -2);
+    var g = Fn.range();
 
     test.deepEqual(a, [0, 1, 2, 3, 4]);
     test.deepEqual(b, [5, 6, 7, 8, 9, 10]);
@@ -84,6 +85,9 @@ exports["Fn"] = {
     test.deepEqual(d, [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]);
     test.deepEqual(e, [0, -3, -6, -9]);
     test.deepEqual(f, [0, -2, -4, -6, -8, -10]);
+
+    // Weird Range
+    test.deepEqual(g, [0]);
 
 
     test.done();
