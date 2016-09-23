@@ -227,10 +227,11 @@ exports["Fn"] = {
   },
 
   int32fromfourbytes: function(test) {
-    test.expect(6);
+    test.expect(7);
 
     test.equal(Fn.int32(0, 0, 0, 0), 0);
     test.equal(Fn.int32(0, 0, 0, 1), 1);
+    test.equal(Fn.int32(255, 0, 0, 0), -16777216);
     test.equal(Fn.int32(255, 255, 255, 255), -1);
     test.equal(Fn.int32(200, 255, 255, 255), -922746881);
     test.equal(Fn.int32(127, 255, 255, 255), 2147483647);
@@ -240,12 +241,13 @@ exports["Fn"] = {
   },
 
   uint32fromfourbytes: function(test) {
-    test.expect(6);
+    test.expect(7);
 
     test.equal(Fn.uint32(0, 0, 0, 0), 0);
     test.equal(Fn.uint32(0, 0, 0, 1), 1);
-    test.equal(Fn.uint32(255, 255, 255, 255), -1);
-    test.equal(Fn.uint32(200, 255, 255, 255), -922746881);
+    test.equal(Fn.uint32(255, 0, 0, 0), 4278190080);
+    test.equal(Fn.uint32(255, 255, 255, 255), 4294967295);
+    test.equal(Fn.uint32(200, 255, 255, 255), 3372220415);
     test.equal(Fn.uint32(127, 255, 255, 255), 2147483647);
     test.equal(Fn.uint32(0, 255, 255, 255), 16777215);
 
