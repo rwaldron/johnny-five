@@ -331,19 +331,21 @@ exports["Fn.s*"] = {
   },
 
   cast: function(test) {
-    test.expect(bitSizes.length * 3);
+    test.expect(bitSizes.length * 4);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
       var half = decimal / 2 >>> 0;
-      test.equal(Fn["s" + bits](decimal - 1), decimal - decimal - 1);
+      test.equal(Fn["s" + bits](decimal - 1), -1);
       test.equal(Fn["s" + bits](half), -half);
+      test.equal(Fn["s" + bits](half -1), half - 1);
       test.equal(Fn["s" + bits](half + 1), -half + 1);
     });
 
     test.done();
   },
 };
+
 
 exports["Fn.u*"] = {
   setUp: function(done) {
@@ -355,14 +357,17 @@ exports["Fn.u*"] = {
   },
 
   cast: function(test) {
-    test.expect(bitSizes.length * 4);
+    test.expect(bitSizes.length * 7);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
+      test.equal(Fn["u" + bits](decimal), decimal - 1);
       test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
       test.equal(Fn["u" + bits](-1), decimal - 1);
-      test.equal(Fn["u" + bits](decimal + 1), decimal);
+      test.equal(Fn["u" + bits](decimal + 1), decimal - 1);
       test.equal(Fn["u" + bits](-1 * decimal), 0);
+      test.equal(Fn["u" + bits](-1 * decimal + 1), 1);
+      test.equal(Fn["u" + bits](0), 0);
     });
 
     test.done();
