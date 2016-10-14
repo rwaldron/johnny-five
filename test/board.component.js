@@ -644,4 +644,16 @@ exports["Board.Component"] = {
     test.done();
   },
 
+  componentControllerWithDash: function(test) {
+    test.expect(1);
+
+    var d = {};
+    Board.Component.call(d, {
+      controller: "FOO-BAR-BAZ"
+    });
+
+    test.equal(d.controller, "FOOBARBAZ");
+    test.done();
+  },
+
 };
