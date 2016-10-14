@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Thermometer - DHT11_I2C_NANO_BACKPACK
+# Thermometer - DHT22_I2C_NANO_BACKPACK
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### Thermometer DHT11
+##### Thermometer DHT22
 
 
 
-![docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.png](breadboard/multi-DHT11_I2C_NANO_BACKPACK.png)<br>
+![docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.png](breadboard/multi-DHT22_I2C_NANO_BACKPACK.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz)
+Fritzing diagram: [docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard
 
 Run this example from the command line with:
 ```bash
-node eg/temperature-DHT11_I2C_NANO_BACKPACK.js
+node eg/temperature-DHT22_I2C_NANO_BACKPACK.js
 ```
 
 
@@ -34,7 +34,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var thermometer = new five.Thermometer({
-    controller: "DHT11_I2C_NANO_BACKPACK"
+    controller: "DHT22_I2C_NANO_BACKPACK"
   });
 
   thermometer.on("change", function() {

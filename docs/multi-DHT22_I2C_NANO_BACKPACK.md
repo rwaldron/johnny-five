@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Multi - DHT11_I2C_NANO_BACKPACK
+# Multi - DHT22_I2C_NANO_BACKPACK
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### DHT11
+##### DHT22
 
 
 
-![docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.png](breadboard/multi-DHT11_I2C_NANO_BACKPACK.png)<br>
+![docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.png](breadboard/multi-DHT22_I2C_NANO_BACKPACK.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz)
+Fritzing diagram: [docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard
 
 Run this example from the command line with:
 ```bash
-node eg/multi-DHT11_I2C_NANO_BACKPACK.js
+node eg/multi-DHT22_I2C_NANO_BACKPACK.js
 ```
 
 
@@ -34,7 +34,8 @@ var board = new five.Board();
 
 board.on("ready", function() {
   var multi = new five.Multi({
-    controller: "DHT11_I2C_NANO_BACKPACK"
+    controller: "DHT22_I2C_NANO_BACKPACK",
+    pin: 2,
   });
 
   multi.on("change", function() {

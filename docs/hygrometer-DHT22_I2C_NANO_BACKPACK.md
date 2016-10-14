@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Thermometer - DHT11_I2C_NANO_BACKPACK
+# Hygrometer - DHT22_I2C_NANO_BACKPACK
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### Thermometer DHT11
+##### Hygrometer DHT22
 
 
 
-![docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.png](breadboard/multi-DHT11_I2C_NANO_BACKPACK.png)<br>
+![docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.png](breadboard/multi-DHT22_I2C_NANO_BACKPACK.png)<br>
 
-Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz)
+Fritzing diagram: [docs/breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz](breadboard/multi-DHT22_I2C_NANO_BACKPACK.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/multi-DHT11_I2C_NANO_BACKPACK.fzz](breadboard
 
 Run this example from the command line with:
 ```bash
-node eg/temperature-DHT11_I2C_NANO_BACKPACK.js
+node eg/hygrometer-DHT22_I2C_NANO_BACKPACK.js
 ```
 
 
@@ -33,15 +33,13 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var thermometer = new five.Thermometer({
-    controller: "DHT11_I2C_NANO_BACKPACK"
+  var hygrometer = new five.Hygrometer({
+    controller: "DHT22_I2C_NANO_BACKPACK"
   });
 
-  thermometer.on("change", function() {
-    console.log("Thermometer");
-    console.log("  celsius           : ", this.celsius);
-    console.log("  fahrenheit        : ", this.fahrenheit);
-    console.log("  kelvin            : ", this.kelvin);
+  hygrometer.on("change", function() {
+    console.log("Hygrometer");
+    console.log("  relative humidity : ", this.relativeHumidity);
     console.log("--------------------------------------");
   });
 });

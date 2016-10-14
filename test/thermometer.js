@@ -1658,6 +1658,8 @@ exports["Thermometer -- MCP9808"] = {
 // BMP180
 // BMP280
 // DHT11
+// DHT21
+// DHT22
 // TH02
 // MS5611
 //
