@@ -44,7 +44,7 @@ board.on("ready", function() {
 
   var k = 0;
   var i = 0;
-  var keys = Object.keys(five.LCD.Characters);
+  var keys = Object.keys(five.LCD.Characters.DEFAULT);
   var length = keys.length;
   var eights = [];
 
