@@ -256,6 +256,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - LUDUS](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-LUDUS.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
 - [Motor - Sparkfun Dual H-bridge Edison Block](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-sparkfun-edison-hbridge.md)
+- [Motor - Sparkfun TB6612FNG](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-TB6612FNG.md)
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)

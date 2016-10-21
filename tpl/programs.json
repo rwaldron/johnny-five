@@ -424,6 +424,10 @@
         "title": "Motor - H-Bridge"
       },
       {
+        "file": "motor-TB6612FNG.js",
+        "title": "Motor - Sparkfun TB6612FNG"
+      },
+      {
         "file": "motor-PCA9685.js",
         "title": "Motor - PCA9685"
       },
