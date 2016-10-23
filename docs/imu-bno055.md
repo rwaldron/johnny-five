@@ -59,13 +59,13 @@ board.on("ready", function() {
 
 
   imu.on("change", function() {
-    console.log("temperature");
+    console.log("Thermometer");
     console.log("  celsius      : ", this.thermometer.celsius);
     console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
     console.log("  kelvin       : ", this.thermometer.kelvin);
     console.log("--------------------------------------");
 
-    console.log("accelerometer");
+    console.log("Accelerometer");
     console.log("  x            : ", this.accelerometer.x);
     console.log("  y            : ", this.accelerometer.y);
     console.log("  z            : ", this.accelerometer.z);
@@ -76,7 +76,7 @@ board.on("ready", function() {
     console.log("  orientation  : ", this.accelerometer.orientation);
     console.log("--------------------------------------");
 
-    console.log("gyro");
+    console.log("Gyroscope");
     console.log("  x            : ", this.gyro.x);
     console.log("  y            : ", this.gyro.y);
     console.log("  z            : ", this.gyro.z);

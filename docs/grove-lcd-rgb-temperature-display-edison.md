@@ -30,7 +30,7 @@ board.on("ready", function() {
 
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
-  var temperature = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "GROVE",
     pin: "A0"
   });
@@ -43,7 +43,7 @@ board.on("ready", function() {
 
   var f = 0;
 
-  temperature.on("data", function() {
+  thermometer.on("data", function() {
 
     // The LCD's background will change
     // color according to the temperature.

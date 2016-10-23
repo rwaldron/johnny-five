@@ -955,6 +955,18 @@
         ]
       },
       {
+        "file": "multi-BME280.js",
+        "title": "Multi - BME280",
+        "breadboards": [
+          {"name": "multi-BME280-tessel", "title": "BME280 (Sparkfun)"},
+          {"name": "multi-BME280-arduino", "title": "BME280 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "SparkFun Atmospheric Sensor Breakout - BME280", "href": "https://www.sparkfun.com/products/13676"},
+          { "title": "Adafruit BME280 I2C or SPI Temperature Humidity Pressure Sensor", "href": "https://www.adafruit.com/products/2652"}
+        ]
+      },
+      {
         "file": "multi-bmp180.js",
         "title": "Multi - BMP180",
         "breadboards": [
@@ -1000,13 +1012,43 @@
         ]
       },
       {
+        "file": "multi-HIH6130.js",
+        "title": "Multi - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+      {
         "file": "multi-DHT11_I2C_NANO_BACKPACK.js",
         "title": "Multi - DHT11_I2C_NANO_BACKPACK",
         "breadboards": [
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "multi-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Multi - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "multi-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Multi - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       },
       {
@@ -1154,6 +1196,16 @@
         ]
       },
       {
+        "file": "temperature-HIH6130.js",
+        "title": "Thermometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+      {
         "file": "temperature-MCP9808.js",
         "title": "Thermometer - MCP9808",
         "breadboards": [
@@ -1266,6 +1318,17 @@
           { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
         ]
       },
+      {
+        "file": "hygrometer-HIH6130.js",
+        "title": "Hygrometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+
       {
         "file": "temperature-BMP180.js",
         "title": "Thermometer - BMP180",
@@ -1381,7 +1444,7 @@
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Thermometer DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       },
       {
@@ -1391,7 +1454,47 @@
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Hygrometer DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "temperature-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Thermometer - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "Thermometer DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "hygrometer-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Hygrometer - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "Hygrometer DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "temperature-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Thermometer - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "Thermometer DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "hygrometer-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Hygrometer - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "Hygrometer DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       }
     ]

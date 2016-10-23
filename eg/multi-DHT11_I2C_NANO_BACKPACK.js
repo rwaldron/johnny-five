@@ -7,10 +7,10 @@ board.on("ready", function() {
   });
 
   multi.on("change", function() {
-    console.log("temperature");
-    console.log("  celsius           : ", this.temperature.celsius);
-    console.log("  fahrenheit        : ", this.temperature.fahrenheit);
-    console.log("  kelvin            : ", this.temperature.kelvin);
+    console.log("Thermometer");
+    console.log("  celsius           : ", this.thermometer.celsius);
+    console.log("  fahrenheit        : ", this.thermometer.fahrenheit);
+    console.log("  kelvin            : ", this.thermometer.kelvin);
     console.log("--------------------------------------");
 
     console.log("Hygrometer");

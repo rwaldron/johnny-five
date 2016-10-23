@@ -38,10 +38,10 @@ board.on("ready", function() {
   });
 
   temp.on("change", function() {
-    console.log("temperature");
-    console.log("  celsius      : ", this.temperature.celsius);
-    console.log("  fahrenheit   : ", this.temperature.fahrenheit);
-    console.log("  kelvin       : ", this.temperature.kelvin);
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.celsius);
+    console.log("  fahrenheit   : ", this.fahrenheit);
+    console.log("  kelvin       : ", this.kelvin);
     console.log("--------------------------------------");
   });
 });

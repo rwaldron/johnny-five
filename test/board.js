@@ -444,7 +444,7 @@ exports["Board"] = {
   },
 
   snapshot: function(test) {
-    test.expect(68);
+    test.expect(67);
 
     new Multi({
       controller: "BME280",
@@ -610,9 +610,6 @@ exports["Board"] = {
         position: -1,
         type: "standard",
         history: [],
-        specs: {
-          speed: 0.17
-        },
         offset: 0,
         invert: false,
         custom: {},

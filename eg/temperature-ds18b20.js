@@ -1,13 +1,14 @@
 var five = require("../lib/johnny-five");
+var board = new five.Board();
 
-five.Board().on("ready", function() {
+board.on("ready", function() {
   // This requires OneWire support using the ConfigurableFirmata
-  var temperature = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "DS18B20",
     pin: 2
   });
 
-  temperature.on("change", function() {
+  thermometer.on("change", function() {
     console.log(this.celsius + "°C");
     // console.log("0x" + this.address.toString(16));
   });

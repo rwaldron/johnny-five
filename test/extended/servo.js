@@ -65,8 +65,6 @@ exports["Servo"] = {
     }, {
       name: "type"
     }, {
-      name: "specs"
-    }, {
       name: "interval"
     }, {
       name: "value"

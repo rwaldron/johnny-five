@@ -38,10 +38,10 @@ board.on("ready", function() {
   });
 
   multi.on("change", function() {
-    console.log("temperature");
-    console.log("  celsius           : ", this.temperature.celsius);
-    console.log("  fahrenheit        : ", this.temperature.fahrenheit);
-    console.log("  kelvin            : ", this.temperature.kelvin);
+    console.log("Thermometer");
+    console.log("  celsius           : ", this.thermometer.celsius);
+    console.log("  fahrenheit        : ", this.thermometer.fahrenheit);
+    console.log("  kelvin            : ", this.thermometer.kelvin);
     console.log("--------------------------------------");
 
     console.log("Hygrometer");
@@ -62,7 +62,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino)
+- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino)
 
 &nbsp;
 
