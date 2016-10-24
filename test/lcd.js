@@ -245,6 +245,58 @@ exports["LCD"] = {
     test.done();
   },
 
+  useCharRestrictsTo8InMemory: function(test) {
+    test.expect(2);
+
+    var ccSpy = this.sandbox.spy(this.lcd, "createChar");
+    var characters = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "circle",
+      "cdot",
+      "donut",
+      "ball",
+    ];
+
+    characters.forEach(function(character) {
+      this.lcd.useChar(character);
+    }, this);
+
+    // Only the last 8 "used" characters
+    // are stored in memory
+    test.deepEqual(this.lcd.characters, {
+      "16": 7,
+      "17": 6,
+      "18": 5,
+      "19": 4,
+      circle: 3,
+      cdot: 2,
+      donut: 1,
+      ball: 0
+    });
+
+    test.equal(ccSpy.callCount, characters.length);
+    test.done();
+  },
+
   printRegularTexts: function(test) {
     // No test.expect() as these are a bit cumbersome/coupled to obtain
 
