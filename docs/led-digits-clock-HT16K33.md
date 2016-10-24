@@ -62,11 +62,8 @@ function time(showColon) {
 
 
 ## Additional Notes
-
 Learn More:
-
 - [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
-
 
 &nbsp;
 

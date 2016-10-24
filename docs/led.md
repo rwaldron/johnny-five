@@ -94,15 +94,13 @@ Fritzing diagram: [docs/breadboard/led-13-mega.fzz](breadboard/led-13-mega.fzz)
 ## Additional Notes
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
-
 ```js
 >> led.stop() // to stop blinking
-// then
+then
 >> led.off()  // to shut it off (stop doesn't mean "off")
-// then
+then
 >> led.on()   // to turn on, but not blink
 ```
-
 
 &nbsp;
 

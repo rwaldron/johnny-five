@@ -72,9 +72,7 @@ Fritzing diagram: [docs/breadboard/relay-closed.fzz](breadboard/relay-closed.fzz
 
 
 ## Additional Notes
-
 - [JavaScript: Relay Control with Johnny-Five on Node](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
-
 
 &nbsp;
 

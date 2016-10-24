@@ -120,12 +120,9 @@ board.on("ready", function() {
 
 
 ## Additional Notes
-
 - [Triple Axis Accelerometer, MMA7361](https://www.sparkfun.com/products/9652)
 - [Triple-Axis Accelerometer, ADXL326](http://www.adafruit.com/products/1018)
-
 - [Two or Three Axis Accelerometer, LIS344AL](http://www.st.ewi.tudelft.nl/~gemund/Courses/In4073/Resources/LIS344AL.pdf)
-
 
 &nbsp;
 

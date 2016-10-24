@@ -73,13 +73,9 @@ board.on("ready", function() {
 
 ## Additional Notes
 For this program, you'll need:
-
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-
 ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
-
 ![Grove - Rotary Angle Sensor](http://www.seeedstudio.com/depot/images/product/GroveRotaryP.jpg)
-
 
 &nbsp;
 

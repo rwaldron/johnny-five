@@ -73,12 +73,8 @@ board.on("ready", function() {
 
 ## Additional Notes
 For this program, you'll need:
-
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-
 [![Grove - Q Touch Sensor](http://www.seeedstudio.com/depot/images/product/Grove-Q%20Touch%20Sensor_02.jpg)](http://www.seeedstudio.com/depot/GroveQ-Touch-Sensor-p-1854.html)
-
-
 
 &nbsp;
 

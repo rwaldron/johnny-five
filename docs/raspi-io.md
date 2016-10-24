@@ -53,15 +53,11 @@ board.on("ready", function() {
 
 
 ## Additional Notes
-
 In order to use the Raspi-IO library, it is recommended that you use
 the Raspbian OS. Others may work, but are untested.
-
 ```sh
 npm install johnny-five raspi-io
 ```
-
-
 
 
 ## Learn More
