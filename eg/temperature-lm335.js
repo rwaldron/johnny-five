@@ -12,6 +12,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [LM335 - Temperature Sensor](http://www.ti.com/product/lm335)
-// @markdown
+/* @markdown
+- [LM335 - Temperature Sensor](http://www.ti.com/product/lm335)
+@markdown */

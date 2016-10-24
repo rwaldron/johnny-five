@@ -15,8 +15,8 @@ board.on("ready", function() {
     relay: relay
   });
 });
-// @markdown
-//
-// - [JavaScript: Relay Control with Johnny-Five on Node.js](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
-//
-// @markdown
+/* @markdown
+
+- [JavaScript: Relay Control with Johnny-Five on Node.js](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
+
+@markdown */

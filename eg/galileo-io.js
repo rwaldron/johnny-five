@@ -9,14 +9,14 @@ board.on("ready", function() {
   led.blink();
 });
 
-// @markdown
-//
-// In order to use the Galileo-IO library, you will need to flash the Intel IoTDevKit Image
-// on your Galileo Gen 2. Once the environment is created, install Johnny-Five and Galileo-IO.
-//
-// ```sh
-// npm install johnny-five galileo-io
-// ```
-//
-//
-// @markdown
+/* @markdown
+
+In order to use the Galileo-IO library, you will need to flash the Intel IoTDevKit Image
+on your Galileo Gen 2. Once the environment is created, install Johnny-Five and Galileo-IO.
+
+```sh
+npm install johnny-five galileo-io
+```
+
+
+@markdown */

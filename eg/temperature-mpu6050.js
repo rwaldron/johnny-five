@@ -15,6 +15,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [MPU6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
-// @markdown
+/* @markdown
+- [MPU6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
+@markdown */

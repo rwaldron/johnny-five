@@ -7,10 +7,10 @@ board.on("ready", function() {
   array.pulse();
 });
 
-// @markdown
-//
-// Control multiple LEDs at once by creating an LED collection (`Leds`).
-// All must be on PWM pins if you want to use methods such
-// as `pulse()` or `fade()`
-//
-// @markdown
+/* @markdown
+
+Control multiple LEDs at once by creating an LED collection (`Leds`).
+All must be on PWM pins if you want to use methods such
+as `pulse()` or `fade()`
+
+@markdown */

@@ -19,6 +19,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [SI7020 - Climate](http://start.tessel.io/modules/climate)
-// @markdown
+/* @markdown
+- [SI7020 - Climate](http://start.tessel.io/modules/climate)
+@markdown */

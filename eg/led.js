@@ -14,16 +14,16 @@ board.on("ready", function() {
   led.blink();
 });
 
-// @markdown
-// This script will make `led` available in the REPL, by default on pin 13.
-// Now you can try, e.g.:
-//
-// ```js
-// >> led.stop() // to stop blinking
-// // then
-// >> led.off()  // to shut it off (stop doesn't mean "off")
-// // then
-// >> led.on()   // to turn on, but not blink
-// ```
-//
-// @markdown
+/* @markdown
+This script will make `led` available in the REPL, by default on pin 13.
+Now you can try, e.g.:
+
+```js
+>> led.stop() // to stop blinking
+then
+>> led.off()  // to shut it off (stop doesn't mean "off")
+then
+>> led.on()   // to turn on, but not blink
+```
+
+@markdown */

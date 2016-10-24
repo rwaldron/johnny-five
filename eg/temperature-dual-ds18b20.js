@@ -25,6 +25,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
+/* @markdown
 // - [DS18B20 - Temperature Sensor](http://www.maximintegrated.com/en/products/analog/sensors-and-sensor-interface/DS18S20.html)
-// @markdown
+@markdown */

@@ -365,7 +365,8 @@ module.exports = function(grunt) {
     file.write("README.md",
       templates.readme({
         noedit: noedit,
-        eglinks: readme.join("")
+        egcount: readme.length,
+        eglinks: readme.join(""),
       })
     );
 

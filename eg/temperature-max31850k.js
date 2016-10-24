@@ -17,6 +17,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [MAX31850K - Thermocouple Amplifier](https://www.adafruit.com/products/1727)
-// @markdown
+/* @markdown
+- [MAX31850K - Thermocouple Amplifier](https://www.adafruit.com/products/1727)
+@markdown */

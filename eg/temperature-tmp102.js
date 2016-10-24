@@ -11,6 +11,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [TMP102 - Temperature Sensor](https://www.sparkfun.com/products/11931)
-// @markdown
+/* @markdown
+- [TMP102 - Temperature Sensor](https://www.sparkfun.com/products/11931)
+@markdown */

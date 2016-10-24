@@ -19,6 +19,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [HTU21D - Humidity Sensor](https://www.adafruit.com/products/1899)
-// @markdown
+/* @markdown
+- [HTU21D - Humidity Sensor](https://www.adafruit.com/products/1899)
+@markdown */
