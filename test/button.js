@@ -255,7 +255,7 @@ exports["Button -- Analog Pin"] = {
   },
 };
 
-exports["Button -- Value Inversion"] = {
+exports["Button -- Value Inversion & Explicit Pullup/Pulldown"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -263,6 +263,7 @@ exports["Button -- Value Inversion"] = {
       return fn;
     });
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.button = new Button({
       pin: 8,
       board: this.board
@@ -304,14 +305,18 @@ exports["Button -- Value Inversion"] = {
     test.done();
   },
 
-  pullupInversion: function(test) {
-    test.expect(6);
+  pullup: function(test) {
+    test.expect(9);
 
     this.button = new Button({
       pin: 8,
       pullup: true,
       board: this.board
     });
+
+    test.equal(this.digitalWrite.callCount, 1);
+    test.equal(this.digitalWrite.lastCall.args[0], 8);
+    test.equal(this.digitalWrite.lastCall.args[1], 1);
 
     test.equal(this.button.downValue, 0);
     test.equal(this.button.upValue, 1);
@@ -325,6 +330,35 @@ exports["Button -- Value Inversion"] = {
 
     test.equal(this.button.downValue, 0);
     test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  pulldown: function(test) {
+    test.expect(9);
+
+    this.button = new Button({
+      pin: 8,
+      pulldown: true,
+      board: this.board
+    });
+
+    test.equal(this.digitalWrite.callCount, 1);
+    test.equal(this.digitalWrite.lastCall.args[0], 8);
+    test.equal(this.digitalWrite.lastCall.args[1], 0);
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.downValue = 0;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.upValue = 0;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
 
     test.done();
   },
