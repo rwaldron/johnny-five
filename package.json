@@ -138,7 +138,7 @@
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "^0.14.0",
+    "firmata": "latest",
     "serialport": "^4.0.0"
   },
   "devDependencies": {
