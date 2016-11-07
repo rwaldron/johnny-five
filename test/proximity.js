@@ -1635,6 +1635,19 @@ exports["Proximity.Collection"] = {
   },
 };
 
+Object.keys(Proximity.Controllers).forEach(function(name) {
+
+  // These are duplicates
+  if (name.startsWith("EVS_") || name.includes("MaxSonar") || name.startsWith("LIDAR")) {
+    return;
+  }
+
+  exports["Proximity - Controller, " + name] = addControllerTest(Proximity, Proximity.Controllers[name], {
+    controller: name,
+    pin: 1
+  });
+});
+
 // - GP2Y0A21YK
 //     https://www.sparkfun.com/products/242
 // - GP2D120XJ00F
