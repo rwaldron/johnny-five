@@ -134,11 +134,7 @@ global.addControllerTest = function(Constructor, Controller, options) {
     setUp: function(done) {
       this.sandbox = sinon.sandbox.create();
       this.board = newBoard();
-      var initialize;
-      this.initialize = initialize = this.sandbox.spy();
-      this.Controller = this.sandbox.stub(Board, "Controller", function() {
-        this.initialize = initialize;
-      });
+      this.Controller = this.sandbox.spy(Board, "Controller");
       this.component = new Constructor(Object.assign({}, options, {
         board: this.board
       }));
@@ -152,8 +148,7 @@ global.addControllerTest = function(Constructor, Controller, options) {
     },
 
     controller: function(test) {
-      test.expect(3);
-      test.equal(this.initialize.callCount, 1);
+      test.expect(2);
       // Board.Controller may called more than once, for example: Servo -> Expander
       test.equal(this.Controller.called, true);
       // We can only test for the FIRST call to Board.Controller, since
