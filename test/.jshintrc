@@ -33,6 +33,7 @@
     "MockSerialPort": true,
     "five": true,
     "Accelerometer": true,
+    "addControllerTest": true,
     "Animation": true,
     "Altimeter": true,
     "Barometer": true,
