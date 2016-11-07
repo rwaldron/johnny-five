@@ -402,3 +402,9 @@ exports["Barometer -- MPL3115A2"] = {
     test.done();
   }
 };
+
+Object.keys(Barometer.Controllers).forEach(function(name) {
+  exports["Barometer - Controller, " + name] = addControllerTest(Barometer, Barometer.Controllers[name], {
+    controller: name,
+  });
+});
