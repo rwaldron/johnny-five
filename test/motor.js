@@ -2382,3 +2382,16 @@ exports["Motor: GROVE_I2C_MOTOR_DRIVER"] = {
     test.done();
   }
 };
+
+
+Object.keys(Motor.Controllers).forEach(function(name) {
+
+  // These are duplicates
+  if (name.startsWith("GROVE_") || name.startsWith("EVS_") || name.startsWith("Shift")) {
+    return;
+  }
+
+  exports["Motor - Controller, " + name] = addControllerTest(Motor, Motor.Controllers[name], {
+    controller: name,
+  });
+});
