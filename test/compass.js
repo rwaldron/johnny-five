@@ -362,25 +362,22 @@ exports["Compass - BNO055"] = {
 };
 
 
-exports["Invalid or missing controller"] = {
+exports["Missing controller"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   missing: function(test) {
     test.expect(1);
     test.throws(function() {
       new Compass({
-        board: newBoard()
+        board: this.board
       });
-    });
-
-    test.done();
-  },
-  invalid: function(test) {
-    test.expect(1);
-    test.throws(function() {
-      new Compass({
-        board: newBoard(),
-        controller: 1
-      });
-    });
+    }.bind(this));
 
     test.done();
   },
