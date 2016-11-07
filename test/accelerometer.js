@@ -1442,3 +1442,10 @@ exports["Accelerometer -- User toGravity"] = {
     test.done();
   },
 };
+
+Object.keys(Accelerometer.Controllers).forEach(function(name) {
+  exports["Accelerometer - Controller, " + name] = addControllerTest(Accelerometer, Accelerometer.Controllers[name], {
+    controller: name,
+    pins: []
+  });
+});
