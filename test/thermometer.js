@@ -1651,6 +1651,12 @@ exports["Thermometer -- MCP9808"] = {
   }
 };
 
+Object.keys(Thermometer.Controllers).forEach(function(name) {
+  exports["Thermometer - Controller, " + name] = addControllerTest(Thermometer, Thermometer.Controllers[name], {
+    controller: name
+  });
+});
+
 
 // TODO:
 // SHT31D
