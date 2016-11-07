@@ -157,6 +157,7 @@ exports["Compass - MAG3110"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Compass.purge();
     this.sandbox.restore();
     done();
   },
@@ -281,6 +282,7 @@ exports["Compass - BNO055"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Compass.purge();
     this.sandbox.restore();
     done();
   },
@@ -435,3 +437,9 @@ exports["Compass.Scale"] = {
     test.done();
   }
 };
+
+Object.keys(Compass.Controllers).forEach(function(name) {
+  exports["Compass - Controller, " + name] = addControllerTest(Compass, Compass.Controllers[name], {
+    controller: name,
+  });
+});
