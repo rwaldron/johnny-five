@@ -1259,3 +1259,10 @@ exports["RGB.ToScaledRGB"] = {
     test.done();
   },
 };
+
+Object.keys(RGB.Controllers).forEach(function(name) {
+  exports["RGB - Controller, " + name] = addControllerTest(RGB, RGB.Controllers[name], {
+    controller: name,
+    pins: [1, 2, 3]
+  });
+});
