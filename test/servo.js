@@ -1075,7 +1075,7 @@ exports["Servo"] = {
 };
 
 
-exports["Servo mode and config"] = {
+exports["Servo - mode & config"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -1479,3 +1479,8 @@ exports["Servo - PCA9685"] = {
 
 };
 
+Object.keys(Servo.Controllers).forEach(function(name) {
+  exports["Servo - Controller, " + name] = addControllerTest(Servo, Servo.Controllers[name], {
+    controller: name
+  });
+});
