@@ -518,3 +518,14 @@ exports["Light: EVS_NXT, Reflected"] = {
     test.done();
   }
 };
+
+Object.keys(Light.Controllers).forEach(function(name) {
+  // These are duplicates
+  if (name.startsWith("EVS_") || name.includes("MaxSonar") || name.startsWith("LIDAR")) {
+    return;
+  }
+
+  exports["Light - Controller, " + name] = addControllerTest(Light, Light.Controllers[name], {
+    controller: name,
+  });
+});
