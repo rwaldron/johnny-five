@@ -103,7 +103,7 @@ exports["Altimeter"] = {
 
 };
 
-exports["Altimeter -- User toMeters"] = {
+exports["Altimeter - User toMeters"] = {
 
   setUp: function(done) {
     this.altimeter = new Altimeter({
@@ -150,7 +150,7 @@ exports["Altimeter -- User toMeters"] = {
 };
 
 
-exports["Altimeter -- MPL3115A2"] = {
+exports["Altimeter - MPL3115A2"] = {
 
   setUp: function(done) {
     this.warn = this.sandbox.stub(this.board, "warn");
@@ -306,7 +306,7 @@ exports["Altimeter -- MPL3115A2"] = {
 };
 
 
-exports["Altimeter -- MS5611"] = {
+exports["Altimeter - MS5611"] = {
 
   setUp: function(done) {
     this.altimeter = new Altimeter({
@@ -391,7 +391,7 @@ exports["Altimeter -- MS5611"] = {
   },
 };
 
-exports["Altimeter -- BMP180"] = {
+exports["Altimeter - BMP180"] = {
 
   setUp: function(done) {
     this.altimeter = new Altimeter({
@@ -476,7 +476,7 @@ exports["Altimeter -- BMP180"] = {
   },
 };
 
-exports["Altimeter -- BMP280"] = {
+exports["Altimeter - BMP280"] = {
 
   setUp: function(done) {
     this.altimeter = new Altimeter({
@@ -561,7 +561,7 @@ exports["Altimeter -- BMP280"] = {
   },
 };
 
-exports["Altimeter -- BME280"] = {
+exports["Altimeter - BME280"] = {
 
   setUp: function(done) {
     this.altimeter = new Altimeter({
