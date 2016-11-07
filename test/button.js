@@ -55,7 +55,7 @@ exports["Button"] = {
   },
 };
 
-exports["Button -- Digital Pin"] = {
+exports["Button - Digital Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -173,7 +173,7 @@ exports["Button -- Digital Pin"] = {
   },
 };
 
-exports["Button -- Analog Pin"] = {
+exports["Button - Analog Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -255,7 +255,7 @@ exports["Button -- Analog Pin"] = {
   },
 };
 
-exports["Button -- Value Inversion & Explicit Pullup/Pulldown"] = {
+exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -404,7 +404,7 @@ exports["Button -- Value Inversion & Explicit Pullup/Pulldown"] = {
 };
 
 
-exports["Button -- EVS_EV3"] = {
+exports["Button - EVS_EV3"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -498,7 +498,7 @@ exports["Button -- EVS_EV3"] = {
   },
 };
 
-exports["Button -- EVS_NXT"] = {
+exports["Button - EVS_NXT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -738,7 +738,7 @@ exports["Button.Collection"] = {
   },
 };
 
-exports["Button -- TINKERKIT"] = {
+exports["Button - TINKERKIT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -823,3 +823,14 @@ exports["Button -- TINKERKIT"] = {
     callback(511);
   },
 };
+
+Object.keys(Button.Controllers).forEach(function(name) {
+
+  if (name.startsWith("EVS")) {
+    return;
+  }
+
+  exports["Button - Controller, " + name] = addControllerTest(Button, Button.Controllers[name], {
+    controller: name,
+  });
+});
