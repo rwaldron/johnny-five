@@ -127,3 +127,40 @@ var digits = {
 };
 
 global.digits = digits;
+
+
+global.addControllerTest = function(Constructor, Controller, options) {
+  return {
+    setUp: function(done) {
+      this.sandbox = sinon.sandbox.create();
+      this.board = newBoard();
+      var initialize;
+      this.initialize = initialize = this.sandbox.spy();
+      this.Controller = this.sandbox.stub(Board, "Controller", function() {
+        this.initialize = initialize;
+      });
+      this.component = new Constructor(Object.assign({}, options, {
+        board: this.board
+      }));
+      done();
+    },
+
+    tearDown: function(done) {
+      Board.purge();
+      this.sandbox.restore();
+      done();
+    },
+
+    controller: function(test) {
+      test.expect(3);
+      test.equal(this.initialize.callCount, 1);
+      // Board.Controller may called more than once, for example: Servo -> Expander
+      test.equal(this.Controller.called, true);
+      // We can only test for the FIRST call to Board.Controller, since
+      // we can't generically know which componant class controllers will
+      // instantiate an Expander
+      test.equal(this.Controller.firstCall.args[0], Controller);
+      test.done();
+    },
+  };
+};
