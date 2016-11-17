@@ -28,5 +28,6 @@ colors.js
 .jscsrc
 .gitignore
 .istanbul.yml
+.nyc_output
 appveyor.yml
 LICENSE-MIT
