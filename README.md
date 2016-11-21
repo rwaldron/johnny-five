@@ -171,7 +171,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 348 example programs with code and diagrams!**
+**There are presently 349 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -259,6 +259,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
 - [Motor - Sparkfun Dual H-bridge Edison Block](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-sparkfun-edison-hbridge.md)
 - [Motor - Sparkfun TB6612FNG](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-TB6612FNG.md)
+- [Motors - Dual H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge-dual.md)
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
