@@ -337,6 +337,14 @@
         "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board."
       },
       {
+        "file": "gps-GP-20U7.js",
+        "title": "GPS - Sparkfun GP-20U7",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",
+        "externals": [
+          { "title": "GPS Receiver - GP-20U7 (56 Channel)", "href": "https://www.sparkfun.com/products/13740"}
+        ]
+      },
+      {
         "file": "gps-adafruit.js",
         "title": "GPS - Adafruit Ultimate GPS Breakout",
         "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",
