@@ -171,7 +171,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 349 example programs with code and diagrams!**
+**There are presently 353 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -386,6 +386,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Multi - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-MS5611.md)
 - [Multi - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-sht31d.md)
 - [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
+- [Multi - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7021.md)
 - [Multi - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-TH02.md)
 
 ### Sensors
@@ -415,6 +416,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Hygrometer - HIH6130](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-HIH6130.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
 - [Hygrometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-sht31d.md)
+- [Hygrometer - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-SI7021.md)
 - [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
@@ -440,6 +442,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MS5611.md)
 - [Thermometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-sht31d.md)
 - [Thermometer - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
+- [Thermometer - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7021.md)
 - [Thermometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-TH02.md)
 - [Thermometer - TMP102](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp102.md)
 - [Thermometer - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)

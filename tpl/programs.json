@@ -1086,6 +1086,17 @@
         ]
       },
       {
+        "file": "multi-SI7021.js",
+        "title": "Multi - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "Tessel with SI7021"},
+          {"name": "multi-SI7021-uno", "title": "Arduino with SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
+        ]
+      },
+      {
         "file": "multi-MS5611.js",
         "title": "Multi - MS5611"
       }
@@ -1325,6 +1336,16 @@
         ]
       },
       {
+        "file": "hygrometer-SI7021.js",
+        "title": "Hygrometer - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
+        ]
+      },
+      {
         "file": "hygrometer-sht31d.js",
         "title": "Hygrometer - SHT31D",
         "breadboards": [
@@ -1379,6 +1400,17 @@
         ],
         "externals": [
           { "title": "SI7020 - I2C Temperature Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
+      },
+      {
+        "file": "temperature-SI7021.js",
+        "title": "Thermometer - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "Tessel with SI7021"},
+          {"name": "multi-SI7021-uno", "title": "Arduino with SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
         ]
       },
       {
