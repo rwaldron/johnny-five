@@ -461,8 +461,42 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.done();
   },
 
+  bgOn: function(test) {
+    test.expect(2);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    this.i2cWrite.reset();
+
+    lcd.bgOn();
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 98, [ 0x08, 0xAA ] ]);
+    test.done();
+  },
+
+  bgOff: function(test) {
+    test.expect(2);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    this.i2cWrite.reset();
+
+    lcd.bgOff();
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 98, [ 0x08, 0x00 ] ]);
+    test.done();
+  },
+
   bgColor: function(test) {
-    test.expect(36);
+    test.expect(38);
 
     var lcd = new LCD({
       controller: "JHD1313M1",
@@ -477,9 +511,13 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 1);
     test.deepEqual(this.ToRGB.firstCall.args, [[0, 0, 0], undefined, undefined]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0, blue: 0});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+
+
+    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 0, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 1, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0 ] ]);
 
     this.ToRGB.reset();
     this.i2cWrite.reset();
@@ -489,9 +527,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 1);
     test.deepEqual(this.ToRGB.firstCall.args, [0xff, 0xff, 0xff]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0xFF, blue: 0xFF});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0xFF ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0xFF ] ]);
 
     this.ToRGB.reset();
     this.i2cWrite.reset();
@@ -501,9 +539,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 1);
     test.deepEqual(this.ToRGB.firstCall.args, ["ff0000", undefined, undefined]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0, blue: 0});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0 ] ]);
 
     this.ToRGB.reset();
     this.i2cWrite.reset();
@@ -513,9 +551,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 1);
     test.deepEqual(this.ToRGB.firstCall.args, ["#ff0000", undefined, undefined]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0xFF, green: 0, blue: 0});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0xFF ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0 ] ]);
 
     this.ToRGB.reset();
     this.i2cWrite.reset();
@@ -525,9 +563,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 1);
     test.deepEqual(this.ToRGB.firstCall.args, [{red: 0, green: 0xFF, blue: 0}, undefined, undefined]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0xFF, blue: 0});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0xFF ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0 ] ]);
 
     this.ToRGB.reset();
     this.i2cWrite.reset();
@@ -538,9 +576,9 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.equal(this.ToRGB.callCount, 2);
     test.deepEqual(this.ToRGB.firstCall.args, ["blue", undefined, undefined]);
     test.deepEqual(this.ToRGB.lastCall.returnValue, {red: 0, green: 0, blue: 0xFF});
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 98, [ 4, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 98, [ 3, 0 ] ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 2, 0xFF ] ]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [ 98, [ 4, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [ 98, [ 3, 0 ] ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [ 98, [ 2, 0xFF ] ]);
 
     test.done();
   },
