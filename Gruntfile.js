@@ -223,6 +223,15 @@ module.exports = function(grunt) {
     grunt.task.run("nodeunit");
   });
 
+  grunt.registerTask("nodeunit:extended", function() {
+    grunt.config("nodeunit.tests", [
+      "test/extended/animation.js",
+      "test/extended/led.js",
+      "test/extended/piezo.js",
+      "test/extended/servo.js",
+    ]);
+    grunt.task.run("nodeunit");
+  });
 
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
