@@ -1,91 +1,30 @@
-var MockFirmata = mocks.Firmata;
-var five = require("../../lib/johnny-five.js");
-var sinon = require("sinon");
-var Board = five.Board;
-var Servo = five.Servo;
-
-function newBoard() {
-  var io = new MockFirmata();
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
-
-  io.emit("ready");
-
-  return board;
-}
+require("../common/bootstrap");
 
 exports["Servo"] = {
   setUp: function(done) {
-
     this.board = newBoard();
-
-    this.servoWrite = sinon.spy(this.board.io, "servoWrite");
-
-    this.proto = [{
-      name: "to"
-    }, {
-      name: "step"
-    }, {
-      name: "move"
-    }, {
-      name: "min"
-    }, {
-      name: "max"
-    }, {
-      name: "center"
-    }, {
-      name: "sweep"
-    }, {
-      name: "stop"
-    }, {
-      name: "clockWise"
-    }, {
-      name: "cw"
-    }, {
-      name: "counterClockwise"
-    }, {
-      name: "ccw"
-    }, {
-      name: "write"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "mode"
-    }, {
-      name: "range"
-    }, {
-      name: "invert"
-    }, {
-      name: "type"
-    }, {
-      name: "interval"
-    }, {
-      name: "value"
-    }];
+    this.sandbox = sinon.sandbox.create();
+    this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
     done();
   },
 
   tearDown: function(done) {
-    Board.purge();
-    if (this.servo.animation) {
+    if (this.servo && this.servo.animation) {
       this.servo.animation.stop();
     }
-    this.servoWrite.restore();
+
+    Board.purge();
+    Servo.purge();
+    this.sandbox.restore();
+
     done();
   },
 
   center: function(test) {
-    test.expect(5);
+    test.expect(4);
 
-    this.spy = sinon.spy(Servo.prototype, "center");
+    this.spy = this.sandbox.spy(Servo.prototype, "center");
 
     this.servo = new Servo({
       pin: 11,
@@ -96,10 +35,10 @@ exports["Servo"] = {
     // constructor called .center()
     test.ok(this.spy.called);
 
+
     // and servo is actually centered
     test.equal(this.servo.position, 90);
 
-    this.spy.restore();
 
     this.servo.to(180);
     this.servo.center(1000, 100);
@@ -111,10 +50,8 @@ exports["Servo"] = {
     // it fired a move:complete event when finished
     this.servo.on("move:complete", function() {
       test.equal(this.servo.position, 90);
-      test.ok(1, "event fired");
       test.done();
     }.bind(this));
-
   },
 
   min: function(test) {

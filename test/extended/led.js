@@ -1,3 +1,5 @@
+require("../common/bootstrap");
+
 exports["Led - PWM"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -10,63 +12,19 @@ exports["Led - PWM"] = {
       board: this.board
     });
 
-    this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
-      name: "toggle"
-    }, {
-      name: "brightness"
-    }, {
-      name: "pulse"
-    }, {
-      name: "fade"
-    }, {
-      name: "fadeIn"
-    }, {
-      name: "fadeOut"
-    }, {
-      name: "strobe"
-    }, {
-      name: "blink"
-    }, {
-      name: "stop"
-    }];
-
-    this.instance = [{
-      name: "id"
-    }, {
-      name: "pin"
-    }, {
-      name: "value"
-    }];
-
     done();
   },
 
   tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
-    if (this.led.animation) {
+    if (this.led && this.led.animation) {
       this.led.animation.stop();
     }
+    Board.purge();
+    Led.purge();
+    this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
-    test.expect(this.proto.length + this.instance.length);
-
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.led[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.led[property.name], "undefined");
-    }, this);
-
-    test.done();
-  },
 
   pulse: function(test) {
     var renderSpy = this.sandbox.spy(this.led, "@@render");
@@ -248,7 +206,7 @@ exports["Led - PWM"] = {
   },
 
   autoMode: function(test) {
-    test.expect(4);
+    test.expect(3);
 
     this.led.mode = 1;
     this.led.brightness(255);
@@ -260,9 +218,6 @@ exports["Led - PWM"] = {
 
     this.led.mode = 1;
     this.led.fade();
-    test.equal(this.led.mode, 3);
-
-    this.led.strobe();
     test.equal(this.led.mode, 3);
 
     test.done();

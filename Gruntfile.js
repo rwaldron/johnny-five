@@ -217,10 +217,7 @@ module.exports = function(grunt) {
   // Support running a complete set of tests with
   // extended (possibly-slow) tests included.
   grunt.registerTask("nodeunit:complete", function() {
-    var testConfig = grunt.config("nodeunit.tests");
-    testConfig.push("test/extended/*.js");
-    grunt.config("nodeunit.tests", testConfig);
-    grunt.task.run("nodeunit");
+    console.log("\nDid you mean? 'grunt nodeunit:extended' ?");
   });
 
   grunt.registerTask("nodeunit:extended", function() {
@@ -230,6 +227,7 @@ module.exports = function(grunt) {
       "test/extended/piezo.js",
       "test/extended/servo.js",
     ]);
+
     grunt.task.run("nodeunit");
   });
 
