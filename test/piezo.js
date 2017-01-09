@@ -436,7 +436,11 @@ exports["Piezo"] = {
       // OK to pass frequency directly...
       test.ok(this.frequency.calledWith(672, 60000 / tempo));
       // Does not mutate input song array
-      test.deepEqual(song, [["c", 1], ["d", 2], [null, 1], 672, "e4", null]);
+      test.deepEqual(song, [
+        ["c", 1],
+        ["d", 2],
+        [null, 1], 672, "e4", null
+      ]);
       test.done();
     }.bind(this));
 
@@ -584,6 +588,44 @@ exports["Piezo"] = {
     }.bind(this));
   },
 
+  notesEmitEvents: function(test) {
+    test.expect(15);
+
+    var eventSpy = this.sandbox.spy();
+
+    this.clock.restore();
+    this.noTone = this.sandbox.spy(this.piezo, "noTone");
+    this.frequency = this.sandbox.spy(this.piezo, "frequency");
+
+    this.piezo.on("note", eventSpy);
+
+    this.piezo.play("c d -", function() {
+      test.equal(this.noTone.callCount, 1);
+      test.equal(this.frequency.callCount, 2);
+
+      test.equal(eventSpy.callCount, 3);
+
+      // c
+      test.equal(eventSpy.args[0][0].note, "c");
+      test.equal(eventSpy.args[0][0].beat, 1);
+      test.equal(eventSpy.args[0][0].hz, 262);
+      test.equal(eventSpy.args[0][0].duration, 240);
+
+      // d
+      test.equal(eventSpy.args[1][0].note, "d");
+      test.equal(eventSpy.args[1][0].beat, 1);
+      test.equal(eventSpy.args[1][0].hz, 294);
+      test.equal(eventSpy.args[1][0].duration, 240);
+
+      // -
+      test.equal(eventSpy.args[2][0].note, "-");
+      test.equal(eventSpy.args[2][0].beat, 1);
+      test.equal(eventSpy.args[2][0].hz, null);
+      test.equal(eventSpy.args[2][0].duration, 240);
+
+      test.done();
+    }.bind(this));
+  },
 
   stop: function(test) {
     test.expect(2);
@@ -784,7 +826,7 @@ exports["Piezo - I2C Backpack"] = {
     this.piezo.tone(262, 1000);
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWrite.lastCall.args[0], 0xFF);
-    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 1, 3, 1, 6, 0, 0, 3, 232 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [1, 3, 1, 6, 0, 0, 3, 232]);
 
     // ...
     test.done();
@@ -806,7 +848,7 @@ exports["Piezo - I2C Backpack"] = {
     this.piezo.noTone();
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWrite.lastCall.args[0], 0xFF);
-    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 0, 3 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [0, 3]);
 
     test.done();
   },

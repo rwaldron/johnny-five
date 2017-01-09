@@ -48,4 +48,8 @@ board.on("ready", function() {
     tempo: 100
   });
 
+  piezo.on("note", function(data) {
+    console.log("Playing Note: ", data.note, data.beat, data.hz, data.duration);
+  });
+
 });
