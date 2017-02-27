@@ -1151,6 +1151,38 @@ exports["Thermometer -- HTU21D"] = {
     test.equal(Math.round(this.thermometer.C), 22);
 
     test.done();
+  },
+
+  oneHundredDegreesCelsius: function(test) {
+    test.expect(8);
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.thermometer.on("data", spy);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
+
+    // The two numbers in the array passed to readOnce represent the two bytes
+    // of unsigned 16 bit integer which should convert to approximately 100
+    // degrees celsius.
+    // See https://github.com/rwaldron/johnny-five/issues/1278
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 0xd5, 0xf0 ]);
+    this.clock.tick(10);
+
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE5);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 1);
+    test.equal(Math.round(this.thermometer.C), 100);
+    test.done();
   }
 };
 

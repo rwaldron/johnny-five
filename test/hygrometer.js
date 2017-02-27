@@ -189,8 +189,39 @@ exports["Hygrometer -- HTU21D"] = {
     test.equal(Math.round(this.hygrometer.relativeHumidity), 40);
 
     test.done();
-  }
+  },
 
+  oneHundredPercentHumidity: function(test) {
+    test.expect(8);
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.hygrometer.on("data", spy);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE3);
+
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 100, 76 ]);
+    this.clock.tick(10);
+
+    test.equal(this.i2cReadOnce.callCount, 2);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x40);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 0xE5);
+
+    // The two numbers in the array passed to readOnce represent the two bytes
+    // of unsigned 16 bit integer which should convert to approximately 100%
+    // relative humidity.
+    // See https://github.com/rwaldron/johnny-five/issues/1278
+    readOnce = this.i2cReadOnce.lastCall.args[3];
+    readOnce([ 0xd9, 0 ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 1);
+    test.equal(Math.round(this.hygrometer.relativeHumidity), 100);
+    test.done();
+  }
 };
 
 
