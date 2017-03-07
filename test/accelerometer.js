@@ -578,7 +578,7 @@ exports["Accelerometer -- ADXL345"] = {
     test.deepEqual(changeSpy.args[0], [{
       x: 0.01,
       y: 0.02,
-      z: 0.9
+      z: 0.99
     }]);
 
     test.done();
@@ -630,7 +630,7 @@ exports["Accelerometer -- ADXL345"] = {
     }]);
 
     test.ok(changeSpy.calledOnce);
-    test.deepEqual(changeSpy.args[0], [{ x: 0.1, y: 0.16, z: 7.26 }]);
+    test.deepEqual(changeSpy.args[0], [{ x: 0.09, y: 0.16, z: 7.94 }]);
 
     test.done();
   },
