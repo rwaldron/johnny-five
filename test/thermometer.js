@@ -289,6 +289,12 @@ exports["Thermometer -- ANALOG"] = {
       F: -371,
       K: 49,
     }),
+    maxRawValue1023: makeTestAnalogConversion({
+      raw: 763,
+      C: 100,
+      F: 212,
+      K: 373,
+    }),
     change: testAnalogChange,
     digits: function(test) {
       test.expect(1);
@@ -321,6 +327,12 @@ exports["Thermometer -- ANALOG"] = {
       C: 98,
       F: 208,
       K: 371
+    }),
+    maxRawValue1023: makeTestAnalogConversion({
+      raw: 214,
+      C: 105,
+      F: 221,
+      K: 378,
     }),
     change: testAnalogChange,
     digits: function(test) {
@@ -359,6 +371,14 @@ exports["Thermometer -- ANALOG"] = {
       F: 73,
       K: 296
     }),
+
+    maxRawValue1023: makeTestAnalogConversion({
+      raw: 306,
+      C: 100,
+      F: 212,
+      K: 373,
+    }),
+
     digits: function(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
