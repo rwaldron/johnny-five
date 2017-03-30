@@ -22,6 +22,54 @@ function getShape(sensor) {
   };
 }
 
+exports["Sensor - Resolution"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
+    // this.sensor = new Sensor({
+    //   pin: "A1",
+    //   board: this.board
+    // });
+
+    done();
+  }, // ./setUp: function(done)
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  }, // ./tearDown: function(done)
+
+  defaultBitResolution: function(test) {
+    test.expect(1);
+
+    this.sensor = new Sensor({
+      pin: "A1",
+      board: this.board
+    });
+
+    test.equal(this.sensor.resolution, 1023);
+    test.done();
+  }, // ./defaultBitResolution: function(test)
+
+  ioPluginProvidesBitResolution: function(test) {
+    test.expect(1);
+
+    this.board.io.RESOLUTION = {
+      ADC: 0xFFF,
+    };
+
+    this.sensor = new Sensor({
+      pin: "A1",
+      board: this.board
+    });
+
+    test.equal(this.sensor.resolution, 4095);
+    test.done();
+  }, // ./ioPluginProvidesBitResolution: function(test)
+};
 
 exports["Sensor - Analog"] = {
   setUp: function(done) {
