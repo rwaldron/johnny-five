@@ -7,6 +7,7 @@ function getShape(sensor) {
     mode: sensor.mode,
     freq: sensor.freq,
     range: sensor.range,
+    resolution: sensor.resolution,
     limit: sensor.limit,
     threshold: sensor.threshold,
     isScaled: sensor.isScaled,
@@ -41,6 +42,7 @@ exports["Sensor - Analog"] = {
       mode: this.sensor.io.MODES.ANALOG,
       freq: 25,
       range: [0, 1023],
+      resolution: 1023,
       limit: null,
       threshold: 1,
       isScaled: false,
@@ -85,6 +87,9 @@ exports["Sensor - Analog"] = {
       },
       range: {
         type: "object"
+      },
+      resolution: {
+        type: "number"
       },
       threshold: {
         type: "number"
