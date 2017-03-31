@@ -1075,7 +1075,8 @@ exports["Sensor - Analog"] = {
     // Ensure sensors may return float values
     this.sensor.scale([0, 102.3]);
     this.sensor.once("change", function() {
-      test.equal(this.value, 1.2000000476837158);
+      // Code.org: Scaled sensor values are rounded
+      test.equal(this.value, 1);
     });
     callback(12);
     this.clock.tick(25);
