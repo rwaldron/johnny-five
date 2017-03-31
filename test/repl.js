@@ -3,12 +3,18 @@ require("./common/bootstrap");
 exports["Repl"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
     done();
   },
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
     done();
+  },
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Repl({ board: this.board }) instanceof Repl, true);
+    test.done();
   },
   repl: function(test) {
     var io = new MockFirmata();

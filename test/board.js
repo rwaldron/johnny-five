@@ -302,9 +302,11 @@ exports["Board"] = {
   emitExitNoRepl: function(test) {
     test.expect(2);
 
+    var clock = this.sandbox.useFakeTimers();
     var io = new MockFirmata();
 
     io.name = "Foo";
+    io.pending = 0;
 
     var board = new Board({
       io: io,
@@ -324,6 +326,50 @@ exports["Board"] = {
         test.ok(true);
       });
       process.emit("SIGINT");
+      clock.tick(1);
+    });
+
+    io.emit("connect");
+    io.emit("ready");
+  },
+
+  exitAwaitsPending: function(test) {
+    test.expect(2);
+
+    var clock = this.sandbox.useFakeTimers();
+    var io = new MockFirmata();
+
+    io.name = "Foo";
+    io.pending = 5;
+
+    var board = new Board({
+      io: io,
+      debug: false,
+      repl: false,
+      sigint: true,
+    });
+
+    var reallyExit = this.sandbox.stub(process, "reallyExit", function() {
+      reallyExit.restore();
+      test.ok(true);
+      test.done();
+    });
+
+    board.on("ready", function() {
+      this.on("exit", function() {
+        test.ok(true);
+      });
+      process.emit("SIGINT");
+      clock.tick(1);
+      io.pending--;
+      clock.tick(1);
+      io.pending--;
+      clock.tick(1);
+      io.pending--;
+      clock.tick(1);
+      io.pending--;
+      clock.tick(1);
+      io.pending--;
     });
 
     io.emit("connect");
