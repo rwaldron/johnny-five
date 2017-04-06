@@ -284,17 +284,17 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.10",
     "grunt-jscs": "~2.3.0",
-    "istanbul": "^0.4.4",
     "keypress": "latest",
     "mock-firmata": "latest",
+    "nyc": "^10.2.0",
     "optimist": "~0.6.1",
     "shelljs": "^0.3.0",
     "sinon": "~1.10.2"
   },
   "scripts": {
     "test": "grunt",
-    "test-cover": "grunt jshint && istanbul cover node_modules/grunt-cli/bin/grunt nodeunit",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "test-cover": "nyc grunt nodeunit",
+    "coveralls": "nyc --reporter=lcov grunt nodeunit && cat ./coverage/lcov.info | coveralls"
   },
   "browser": {
     "galileo-io": false
