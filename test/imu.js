@@ -243,7 +243,7 @@ exports["Multi -- SHT31D"] = {
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
     this.imu = new IMU({
       controller: "SHT31D",
       freq: 100,
@@ -324,19 +324,22 @@ exports["Multi -- SHT31D"] = {
     test.ok(this.i2cWrite.calledTwice);
     test.deepEqual(this.i2cWrite.firstCall.args, [ 68, [ 48, 162 ] ]);
     test.deepEqual(this.i2cWrite.lastCall.args, [ 68, [ 36, 0 ] ]);
-    test.equal(this.i2cRead.callCount, 1);
-
-    var i2cRead = this.i2cRead.lastCall.args[2];
-
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    test.equal(this.i2cReadOnce.callCount, 1);
+
+    var i2cReadOnce = this.i2cReadOnce.lastCall.args[2];
+
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
+
+    this.clock.tick(100);
+
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 

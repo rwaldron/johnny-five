@@ -33,7 +33,7 @@ exports["Hygrometer -- SHT31D"] = {
 
   setUp: function(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
     this.hygrometer = new Hygrometer({
       controller: "SHT31D",
@@ -76,6 +76,33 @@ exports["Hygrometer -- SHT31D"] = {
 
     test.done();
   },
+
+  oneHundredPercentHumidity: function(test) {
+    test.expect(5);
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.hygrometer.on("data", spy);
+
+    this.clock.tick(20);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x44);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 6);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([
+      0, 0, // temperature
+      0, // crc
+      0xff, 0xff, // 100% humidity
+      0 // crc
+    ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 1);
+    test.equal(this.hygrometer.relativeHumidity, 100);
+    test.done();
+  }
 };
 
 exports["Hygrometer -- HTU21D"] = {
