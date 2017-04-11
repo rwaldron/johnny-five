@@ -130,7 +130,7 @@ exports["RGB"] = {
   color: function(test) {
     var rgb = this.rgb;
 
-    test.expect(44);
+    test.expect(46);
 
     // returns this
     test.equal(this.rgb.color("#000000"), this.rgb);
@@ -262,12 +262,23 @@ exports["RGB"] = {
     this.write.reset();
 
     // CSS4 functional notation with alpha (rgb and rgba become aliases)
-    this.rgb.color('rgb(255, 100, 50, 0.5)');
+    // Also testing with no spaces to make sure that's supported.
+    this.rgb.color('rgb(255,100,50,0.5)');
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 128,
       green: 50,
       blue: 25
+    }));
+    this.write.reset();
+
+    // CSS4 functional notation without commas
+    this.rgb.color('rgb(255 100 50)');
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
     }));
     this.write.reset();
 
