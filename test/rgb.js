@@ -130,7 +130,7 @@ exports["RGB"] = {
   color: function(test) {
     var rgb = this.rgb;
 
-    test.expect(36);
+    test.expect(44);
 
     // returns this
     test.equal(this.rgb.color("#000000"), this.rgb);
@@ -226,6 +226,48 @@ exports["RGB"] = {
       red: 255,
       green: 100,
       blue: 50
+    }));
+    this.write.reset();
+
+    // CSS functional notation
+    this.rgb.color('rgb(255, 100, 50)');
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
+    }));
+    this.write.reset();
+
+    // CSS functional notation with alpha
+    // Subtle bug: Alpha is translated to intensity using linear scaling
+    // when it should probably use logarithmic scaling.
+    this.rgb.color('rgba(255, 100, 50, 0.5)');
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({
+      red: 128,
+      green: 50,
+      blue: 25
+    }));
+    this.write.reset();
+
+    // CSS4 functional notation (rgb and rgba become aliases)
+    this.rgb.color('rgba(255, 100, 50)');
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({
+      red: 255,
+      green: 100,
+      blue: 50
+    }));
+    this.write.reset();
+
+    // CSS4 functional notation with alpha (rgb and rgba become aliases)
+    this.rgb.color('rgb(255, 100, 50, 0.5)');
+    test.ok(this.write.calledOnce);
+    test.ok(this.write.calledWith({
+      red: 128,
+      green: 50,
+      blue: 25
     }));
     this.write.reset();
 
