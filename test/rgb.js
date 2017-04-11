@@ -230,7 +230,7 @@ exports["RGB"] = {
     this.write.reset();
 
     // CSS functional notation
-    this.rgb.color('rgb(255, 100, 50)');
+    this.rgb.color("rgb(255, 100, 50)");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 255,
@@ -242,7 +242,7 @@ exports["RGB"] = {
     // CSS functional notation with alpha
     // Subtle bug: Alpha is translated to intensity using linear scaling
     // when it should probably use logarithmic scaling.
-    this.rgb.color('rgba(255, 100, 50, 0.5)');
+    this.rgb.color("rgba(255, 100, 50, 0.5)");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 128,
@@ -252,7 +252,7 @@ exports["RGB"] = {
     this.write.reset();
 
     // CSS4 functional notation (rgb and rgba become aliases)
-    this.rgb.color('rgba(255, 100, 50)');
+    this.rgb.color("rgba(255, 100, 50)");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 255,
@@ -263,7 +263,7 @@ exports["RGB"] = {
 
     // CSS4 functional notation with alpha (rgb and rgba become aliases)
     // Also testing with no spaces to make sure that's supported.
-    this.rgb.color('rgb(255,100,50,0.5)');
+    this.rgb.color("rgb(255,100,50,0.5)");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 128,
@@ -273,7 +273,7 @@ exports["RGB"] = {
     this.write.reset();
 
     // CSS4 functional notation without commas
-    this.rgb.color('rgb(255 100 50)');
+    this.rgb.color("rgb(255 100 50)");
     test.ok(this.write.calledOnce);
     test.ok(this.write.calledWith({
       red: 255,
