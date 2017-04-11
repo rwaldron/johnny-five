@@ -1,11 +1,11 @@
 if (!Array.from || !Object.assign || !Map) {
   require("es6-shim");
 }
-require("copy-paste");
 
 var cp = require("child_process");
 var fs = require("fs");
 var path = require("path");
+var ncp = require("copy-paste");
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -450,7 +450,7 @@ module.exports = function(grunt) {
           replacement = data.join(".").trim();
         }
 
-        copy(replacement);
+        ncp.copy(replacement);
 
         return "  \"version\": \"" + replacement + "\",";
       }

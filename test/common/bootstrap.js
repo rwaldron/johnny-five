@@ -79,6 +79,12 @@ global.Virtual = five.Board.Virtual;
 global.Wii = five.Wii;
 
 
+// Used for alias tests
+global.Analog = five.Analog;
+global.Digital = five.Digital;
+global.Luxmeter = five.Luxmeter;
+global.Magnetometer = five.Magnetometer;
+
 
 function newBoard(pins) {
 
