@@ -1225,50 +1225,35 @@ exports["RGB.ToRGB"] = {
 
   "ToRGB([Byte, Byte, Byte])": function(test) {
     test.expect(2);
-
-    var color = Led.RGB.ToRGB([0x00, 0x00, 0x00]);
-
-    test.deepEqual(color, { red: 0, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB([0x00, 0x00, 0x00]), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
   "ToRGB({ red, green, blue })": function(test) {
     test.expect(2);
-
-    var color = Led.RGB.ToRGB({ red: 0, green: 0, blue: 0 });
-
-    test.deepEqual(color, { red: 0, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB({ red: 0, green: 0, blue: 0 }), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
   "ToRGB('hex')": function(test) {
     test.expect(2);
-
-    var color = Led.RGB.ToRGB("000000");
-
-    test.deepEqual(color, { red: 0, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("000000"), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
   "ToRGB('#hex')": function(test) {
     test.expect(2);
-
-    var color = Led.RGB.ToRGB("#000000");
-
-    test.deepEqual(color, { red: 0, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("#000000"), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
   "ToRGB('name')": function(test) {
     test.expect(3);
-
-    var color = Led.RGB.ToRGB("red");
-
-    test.deepEqual(color, { red: 0xFF, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("red"), { red: 0xFF, green: 0, blue: 0 });
     // This is called TWICE because the name is
     // translated, and the resulting object is
     // passed as an argument to color(...)
@@ -1279,11 +1264,45 @@ exports["RGB.ToRGB"] = {
 
   "ToRGB(red, green, blue)": function(test) {
     test.expect(2);
-
-    var color = Led.RGB.ToRGB(0xFF, 0x00, 0x00);
-
-    test.deepEqual(color, { red: 0xFF, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB(0xFF, 0x00, 0x00), { red: 0xFF, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
+    test.done();
+  },
+
+  "ToRGB('rgb(r, g, b)')": function(test) {
+    test.expect(4);
+
+    test.deepEqual(Led.RGB.ToRGB("rgb(255,0,0)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(255, 0, 0)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(100%, 0%, 0%)"), { red: 255, green: 0, blue: 0 });
+    test.equal(this.ToRGB.callCount, 3);
+    test.done();
+  },
+
+  "ToRGB('rgba(r, g, b, a)')": function(test) {
+    test.expect(5);
+    test.deepEqual(Led.RGB.ToRGB("rgb(255,0,0,1)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(255, 0, 0, 1)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(255, 0, 0, 0.5)"), { red: 128, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(100%, 0%, 0%, 50%)"), { red: 128, green: 0, blue: 0 });
+    test.equal(this.ToRGB.callCount, 4);
+    test.done();
+  },
+
+  "ToRGB('rgb(r g b)')": function(test) {
+    test.expect(3);
+    test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(100% 0% 0%)"), { red: 255, green: 0, blue: 0 });
+    test.equal(this.ToRGB.callCount, 2);
+    test.done();
+  },
+
+  "ToRGB('rgba(r g b a)')": function(test) {
+    test.expect(4);
+    test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0 1)"), { red: 255, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0 0.5)"), { red: 128, green: 0, blue: 0 });
+    test.deepEqual(Led.RGB.ToRGB("rgb(100% 0% 0% 50%)"), { red: 128, green: 0, blue: 0 });
+    test.equal(this.ToRGB.callCount, 3);
     test.done();
   },
 
