@@ -276,18 +276,32 @@ exports["Piezo"] = {
   },
 
   note: function(test) {
-    test.expect(4);
+    test.expect(9);
 
-    // note delegates to tone;
+    // note delegates to frequncy, which delegates to tone;
     var toneSpy = this.sandbox.spy(this.piezo, "tone");
+    var frequencySpy = this.sandbox.spy(this.piezo, "frequency");
 
     // accepts octave.
-    test.equal(this.piezo.note("c4", 100), this.piezo);
-    test.ok(toneSpy.calledWith(262, 100));
+    // A4 = 440Hz = 1136μs duty cycle (half-period)
+    var returnValue = this.piezo.note("a4", 100);
+    test.deepEqual(frequencySpy.getCall(0).args, [440, 100]);
+    test.deepEqual(toneSpy.getCall(0).args, [1136, 100]);
+    test.equal(returnValue, this.piezo);
 
-    // or not.
-    test.equal(this.piezo.note("c#", 100), this.piezo);
-    test.ok(toneSpy.calledWith(277, 100));
+    // or not - which implies the default octave (4)
+    // A4 = 440Hz = 1136μs duty cycle (half-period)
+    returnValue = this.piezo.note("a", 100);
+    test.deepEqual(frequencySpy.getCall(1).args, [440, 100]);
+    test.deepEqual(toneSpy.getCall(1).args, [1136, 100]);
+    test.equal(returnValue, this.piezo);
+
+    // and plays correct note in another octave
+    // C2 = 65Hz = 7692μs duty
+    returnValue = this.piezo.note("c2", 100);
+    test.deepEqual(frequencySpy.getCall(2).args, [65, 100]);
+    test.deepEqual(toneSpy.getCall(2).args, [7692, 100]);
+    test.equal(returnValue, this.piezo);
 
     test.done();
   },
@@ -348,12 +362,24 @@ exports["Piezo"] = {
   },
 
   frequency: function(test) {
-    test.expect(2);
+    test.expect(6);
     var toneSpy = this.sandbox.spy(this.piezo, "tone");
 
-    var returned = this.piezo.frequency(440, 100);
-    test.ok(toneSpy.calledWith(1136, 100));
+    // C4 = 262Hz = 1908μs duty cycle (half-period)
+    var returned = this.piezo.frequency(262, 100);
+    test.deepEqual(toneSpy.getCall(0).args, [1908, 100]);
     test.equal(returned, this.piezo);
+
+    // A4 = 440Hz = 1136μs duty
+    var returned = this.piezo.frequency(440, 100);
+    test.deepEqual(toneSpy.getCall(1).args, [1136, 100]);
+    test.equal(returned, this.piezo);
+
+    // C2 = 65Hz = 7692μs duty
+    returned = this.piezo.frequency(65, 100);
+    test.deepEqual(toneSpy.getCall(2).args, [7692, 100]);
+    test.equal(returned, this.piezo);
+
     test.done();
   },
 
@@ -781,10 +807,11 @@ exports["Piezo - I2C Backpack"] = {
   tone: function(test) {
     test.expect(3);
 
-    this.piezo.tone(262, 1000);
+    // C4 = 262Hz = 1908μs duty cycle (half-period)
+    this.piezo.tone(1908, 1000);
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWrite.lastCall.args[0], 0xFF);
-    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 1, 3, 1, 6, 0, 0, 3, 232 ]);
+    test.deepEqual(this.i2cWrite.lastCall.args[1], [ 1, 3, 7, 116, 0, 0, 3, 232 ]);
 
     // ...
     test.done();
