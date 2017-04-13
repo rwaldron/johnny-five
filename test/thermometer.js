@@ -1051,6 +1051,70 @@ exports["Thermometer -- SI7020"] = {
   }
 };
 
+exports["Thermometer -- SHT31D"] = {
+
+  setUp: function(done) {
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.thermometer = new Thermometer({
+      controller: "SHT31D",
+      board: this.board,
+      freq: 10
+    });
+
+    done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Thermometer({
+      controller: "SHT31D",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  oneHundredDegreesCelsius: function(test) {
+    test.expect(5);
+    var readOnce;
+    var spy = this.sandbox.spy();
+
+    this.thermometer.on("data", spy);
+
+    this.clock.tick(20);
+
+    test.equal(this.i2cReadOnce.callCount, 1);
+    test.equal(this.i2cReadOnce.lastCall.args[0], 0x44);
+    test.equal(this.i2cReadOnce.lastCall.args[1], 6);
+
+    readOnce = this.i2cReadOnce.lastCall.args[2];
+    readOnce([
+      0xd4, 0x1d, // temperature (100 degrees celsius)
+      0, // crc
+      0, 0, // humidity
+      0 // crc
+    ]);
+    this.clock.tick(10);
+
+    test.equal(spy.callCount, 1);
+    test.equal(Math.round(this.thermometer.C), 100);
+    test.done();
+  }
+};
+
 exports["Thermometer -- HTU21D"] = {
 
   setUp: function(done) {
