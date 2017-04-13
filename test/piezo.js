@@ -371,7 +371,7 @@ exports["Piezo"] = {
     test.equal(returned, this.piezo);
 
     // A4 = 440Hz = 1136μs duty
-    var returned = this.piezo.frequency(440, 100);
+    returned = this.piezo.frequency(440, 100);
     test.deepEqual(toneSpy.getCall(1).args, [1136, 100]);
     test.equal(returned, this.piezo);
 
