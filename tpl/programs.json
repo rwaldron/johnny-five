@@ -1119,16 +1119,20 @@
         "title": "Sensor - Force sensitive resistor"
       },
       {
+        "file": "microphone.js",
+        "title": "Sensor - Microphone"
+      },
+      {
+        "file": "sensor-digital-microwave.js",
+        "title": "Sensor - Digital Microwave"
+      },
+      {
         "file": "photoresistor.js",
         "title": "Sensor - Photoresistor"
       },
       {
         "file": "potentiometer.js",
         "title": "Sensor - Potentiometer"
-      },
-      {
-        "file": "microphone.js",
-        "title": "Sensor - Microphone"
       },
       {
         "file": "accelerometer.js",
