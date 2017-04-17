@@ -55,7 +55,7 @@ board.on("ready", function() {
   // Fired when the joystick detects a change in
   // axis position.
   //
-  nunchuk.joystick.on("change", function(event) {
+  nunchuk.joystick.on("change", function(err, event) {
     console.log(
       "joystick " + event.axis,
       event.target[event.axis],
@@ -68,7 +68,7 @@ board.on("ready", function() {
   // Fired when the accelerometer detects a change in
   // axis position.
   //
-  nunchuk.accelerometer.on("change", function(event) {
+  nunchuk.accelerometer.on("change", function(err, event) {
     console.log(
       "accelerometer " + event.axis,
       event.target[event.axis],
@@ -100,7 +100,7 @@ board.on("ready", function() {
 
   ["down", "up", "hold"].forEach(function(type) {
 
-    nunchuk.on(type, function(event) {
+    nunchuk.on(type, function(err, event) {
       console.log(
         event.target.which + " is " + type,
 
