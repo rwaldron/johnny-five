@@ -276,32 +276,58 @@ exports["Piezo"] = {
   },
 
   note: function(test) {
-    test.expect(9);
+    test.expect(10);
 
-    // note delegates to frequncy, which delegates to tone;
+    // note delegates to frequency, which delegates to tone;
     var toneSpy = this.sandbox.spy(this.piezo, "tone");
     var frequencySpy = this.sandbox.spy(this.piezo, "frequency");
 
-    // accepts octave.
+    // Accepts an octave number as part of the note name (the "4" in "a4")
     // A4 = 440Hz = 1136μs duty cycle (half-period)
     var returnValue = this.piezo.note("a4", 100);
     test.deepEqual(frequencySpy.getCall(0).args, [440, 100]);
     test.deepEqual(toneSpy.getCall(0).args, [1136, 100]);
     test.equal(returnValue, this.piezo);
 
-    // or not - which implies the default octave (4)
-    // A4 = 440Hz = 1136μs duty cycle (half-period)
-    returnValue = this.piezo.note("a", 100);
-    test.deepEqual(frequencySpy.getCall(1).args, [440, 100]);
-    test.deepEqual(toneSpy.getCall(1).args, [1136, 100]);
-    test.equal(returnValue, this.piezo);
+    // Changing the note letter plays a different note
+    // C4 = 262Hz = 1908μs duty
+    this.piezo.note("c4", 100);
+    test.deepEqual(frequencySpy.getCall(1).args, [262, 100]);
+    test.deepEqual(toneSpy.getCall(1).args, [1908, 100]);
 
-    // and plays correct note in another octave
+    // Changing the octave number also plays a different note
     // C2 = 65Hz = 7692μs duty
-    returnValue = this.piezo.note("c2", 100);
+    this.piezo.note("c2", 100);
     test.deepEqual(frequencySpy.getCall(2).args, [65, 100]);
     test.deepEqual(toneSpy.getCall(2).args, [7692, 100]);
-    test.equal(returnValue, this.piezo);
+
+    // If no octave number is provided, the default octave will be
+    // assumed - and by default, the default octave is 4.
+    // A4 = 440Hz = 1136μs duty
+    this.piezo.note("a", 100);
+    test.equal(Piezo.defaultOctave(), 4);
+    test.deepEqual(frequencySpy.getCall(3).args, [440, 100]);
+    test.deepEqual(toneSpy.getCall(3).args, [1136, 100]);
+
+    test.done();
+  },
+
+  noteIsCaseInsensitive: function(test) {
+    var noteNames = Object.keys(Piezo.Notes);
+    test.expect(2 * noteNames.length);
+
+    var frequencySpy = this.sandbox.spy(this.piezo, "frequency");
+
+    // Test every supported note in lowercase (a4) and uppercase (A4)
+    noteNames.forEach(function(note) {
+      var expectedFrequency = Piezo.Notes[note];
+
+      this.piezo.note(note.toLowerCase(), 100);
+      test.equal(frequencySpy.getCall(frequencySpy.callCount-1).args[0], expectedFrequency);
+
+      this.piezo.note(note.toUpperCase(), 100);
+      test.equal(frequencySpy.getCall(frequencySpy.callCount-1).args[0], expectedFrequency);
+    }.bind(this));
 
     test.done();
   },
