@@ -25,13 +25,13 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// For this program, you'll need:
-//
-// ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-//
-// ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
-//
-// ![Grove - Touch Module](http://www.seeedstudio.com/wiki/images/0/01/Grove_-_touch_sensor_Photo.jpg)
-//
-// @markdown
+/* @markdown
+For this program, you'll need:
+
+![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
+
+![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED_02.jpg)
+
+![Grove - Touch Module](http://www.seeedstudio.com/wiki/images/0/01/Grove_-_touch_sensor_Photo.jpg)
+
+@markdown */

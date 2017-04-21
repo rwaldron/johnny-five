@@ -30,7 +30,7 @@ board.on("ready", function() {
 
   // Plug the Temperature sensor module
   // into the Grove Shield's A0 jack
-  var temperature = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "GROVE",
     pin: "A0"
   });
@@ -43,7 +43,7 @@ board.on("ready", function() {
 
   var f = 0;
 
-  temperature.on("data", function() {
+  thermometer.on("data", function() {
 
     // The LCD's background will change
     // color according to the temperature.
@@ -90,14 +90,9 @@ function linear(start, end, step, steps) {
 
 ## Additional Notes
 For this program, you'll need:
-
 ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
-
 ![Grove - Temperature Sensor](http://www.seeedstudio.com/wiki/images/thumb/b/b0/Temperature1.jpg/400px-Temperature1.jpg)
-
-
 
 &nbsp;
 

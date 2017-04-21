@@ -1,11 +1,11 @@
 if (!Array.from || !Object.assign || !Map) {
   require("es6-shim");
 }
-require("copy-paste");
 
 var cp = require("child_process");
 var fs = require("fs");
 var path = require("path");
+var ncp = require("copy-paste");
 var shell = require("shelljs");
 
 process.env.IS_TEST_MODE = true;
@@ -217,12 +217,19 @@ module.exports = function(grunt) {
   // Support running a complete set of tests with
   // extended (possibly-slow) tests included.
   grunt.registerTask("nodeunit:complete", function() {
-    var testConfig = grunt.config("nodeunit.tests");
-    testConfig.push("test/extended/*.js");
-    grunt.config("nodeunit.tests", testConfig);
-    grunt.task.run("nodeunit");
+    console.log("\nDid you mean? 'grunt nodeunit:extended' ?");
   });
 
+  grunt.registerTask("nodeunit:extended", function() {
+    grunt.config("nodeunit.tests", [
+      "test/extended/animation.js",
+      "test/extended/led.js",
+      "test/extended/piezo.js",
+      "test/extended/servo.js",
+    ]);
+
+    grunt.task.run("nodeunit");
+  });
 
   grunt.registerMultiTask("examples", "Generate examples", function() {
     // Concat specified files.
@@ -365,7 +372,8 @@ module.exports = function(grunt) {
     file.write("README.md",
       templates.readme({
         noedit: noedit,
-        eglinks: readme.join("")
+        egcount: readme.length,
+        eglinks: readme.join(""),
       })
     );
 
@@ -442,7 +450,7 @@ module.exports = function(grunt) {
           replacement = data.join(".").trim();
         }
 
-        copy(replacement);
+        ncp.copy(replacement);
 
         return "  \"version\": \"" + replacement + "\",";
       }

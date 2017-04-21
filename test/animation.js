@@ -133,7 +133,6 @@ exports["Animation -- Servo"] = {
     test.equal(this.animation.normalizedKeyFrames[0][1].value, 90);
     test.equal(this.animation.normalizedKeyFrames[0][2].value, 45);
     test.equal(this.animation.normalizedKeyFrames[0][3].value, 78);
-
     test.done();
   },
 
@@ -244,7 +243,10 @@ exports["Animation -- Servo"] = {
   },
 
   keyframeEasing: function(test) {
-
+    // Don't allow time to advance in this test.  Otherwise it's possible for
+    // the animation to progress between setup and the assertion, causing flaky
+    // failures.
+    this.sandbox.useFakeTimers();
     this.animation = new Animation(this.a);
     test.expect(1);
 
@@ -261,7 +263,8 @@ exports["Animation -- Servo"] = {
     var indices = this.animation.findIndices(progress);
     var val = this.animation.tweenedValue(indices, progress);
 
-    test.ok(Math.abs(val - 74.843 < 0.01));
+    test.ok(Math.abs(val - 74.843) < 0.01,
+      "Expected " + val + " to be within 0.01 of 74.843");
     test.done();
   },
 

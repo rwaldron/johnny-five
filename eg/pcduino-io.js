@@ -9,16 +9,16 @@ board.on("ready", function() {
   led.blink();
 });
 
-// @markdown
-//
-// In order to use the pcduino-io library, you will need to install node.js (0.10.x or better)
-// and npm on your pcduino. Once the environment is created, install Johnny-Five and pcDuino-IO.
-//
-// [Setup environment](https://github.com/rwaldron/pcduino-io#install-a-compatible-version-of-nodenpm)
-//
-// ```sh
-// npm install johnny-five pcduino-io
-// ```
-//
-//
-// @markdown
+/* @markdown
+
+In order to use the pcduino-io library, you will need to install node.js (0.10.x or better)
+and npm on your pcduino. Once the environment is created, install Johnny-Five and pcDuino-IO.
+
+[Setup environment](https://github.com/rwaldron/pcduino-io#install-a-compatible-version-of-nodenpm)
+
+```sh
+npm install johnny-five pcduino-io
+```
+
+
+@markdown */

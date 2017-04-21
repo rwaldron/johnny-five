@@ -18,7 +18,7 @@ board.on("ready", function() {
 
   lcd.blink().cursor(1, 0).print("Blinking? ");
 });
-// @markdown
+/* @markdown
 // For this program, you'll need:
 //
 // ![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
@@ -27,4 +27,4 @@ board.on("ready", function() {
 //
 // ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 //
-// @markdown
+@markdown */

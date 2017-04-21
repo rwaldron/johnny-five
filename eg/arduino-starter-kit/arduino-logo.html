@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Tweak The Arduino Logo</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io.connect('http://edison.local:3000');
+      socket.on('news', function(data) {
+        console.log(data)
+      })
+      socket.on('color', function(data) {
+        var value = data.value
+        document.getElementById('arduino').style['-webkit-filter'] = 'hue-rotate('+value+'deg)';
+      });
+    </script>
+    <body>
+      <img id="arduino" src='http://www.arduino.cc/arduino_logo.png'/>
+    </body>
+</head>

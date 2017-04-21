@@ -1,3 +1,5 @@
+require("../common/bootstrap");
+
 exports["Piezo"] = {
 
   setUp: function(done) {

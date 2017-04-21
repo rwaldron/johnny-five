@@ -2,6 +2,7 @@
 assets/
 docs/
 eg/
+node_modules/browser-serialport
 node_modules/es6-shim
 node_modules/firmata
 node_modules/optimist

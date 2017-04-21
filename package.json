@@ -1,7 +1,7 @@
 {
   "name": "@code-dot-org/johnny-five",
   "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
-  "version": "0.9.62-cdo.2",
+  "version": "0.10.10-cdo.0",
   "homepage": "https://johnny-five.io",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
@@ -106,7 +106,11 @@
     "Ashley Williams <ashley666ashley@gmail.com>",
     "kilida <kilidapatch@gmail.com>",
     "Rhys van der Waerden <rhys.vdw@gmail.com>",
-    "eiji.ienaga <e-ienaga@esm.co.jp>"
+    "eiji.ienaga <e-ienaga@esm.co.jp>",
+    "Doug Cone <nullvariable@users.noreply.github.com>",
+    "Andrew Nicolaou <me@andrewnicolaou.co.uk>",
+    "shimnex <shimdal@yahoo.ca>",
+    "Brad Buchanan <bradley.c.buchanan@gmail.com>"
   ],
   "keywords": [
     "arduino",
@@ -267,12 +271,12 @@
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "^0.12.0",
+    "firmata": "latest",
     "serialport": "^4.0.0"
   },
   "devDependencies": {
     "async": "~0.9.0",
-    "copy-paste": "~0.3.0",
+    "copy-paste": "^1.3.0",
     "coveralls": "^2.11.9",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
@@ -281,17 +285,17 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-jsbeautifier": "~0.2.10",
     "grunt-jscs": "~2.3.0",
-    "istanbul": "^0.4.4",
     "keypress": "latest",
     "mock-firmata": "latest",
+    "nyc": "^10.2.0",
     "optimist": "~0.6.1",
     "shelljs": "^0.3.0",
     "sinon": "~1.10.2"
   },
   "scripts": {
     "test": "grunt",
-    "test-cover": "grunt jshint && istanbul cover node_modules/grunt-cli/bin/grunt nodeunit",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
+    "test-cover": "nyc grunt nodeunit",
+    "coveralls": "nyc --reporter=lcov grunt nodeunit && cat ./coverage/lcov.info | coveralls"
   },
   "browser": {
     "galileo-io": false

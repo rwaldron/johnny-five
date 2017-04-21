@@ -60,17 +60,17 @@ board.on("ready", function() {
     return "Very High Pollution - Take Action Immediately";
   }
 });
-// @markdown
-// For this program, you'll need:
-//
-// ![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
-//
-// ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-//
-// ![Grove - Buzzer Module](http://www.seeedstudio.com/depot/images/107020000%201.jpg)
-//
-// ![Grove - Air quality sensor](http://www.seeedstudio.com/depot/images/101020021%201.jpg)
-//
-// - [Grove - Air quality sensor](http://www.seeedstudio.com/depot/Grove-Air-quality-sensor-p-1065.html
-//
-// @markdown
+/* @markdown
+For this program, you'll need:
+
+![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
+
+![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
+
+![Grove - Buzzer Module](http://www.seeedstudio.com/depot/images/107020000%201.jpg)
+
+![Grove - Air quality sensor](http://www.seeedstudio.com/depot/images/101020021%201.jpg)
+
+- [Grove - Air quality sensor](http://www.seeedstudio.com/depot/Grove-Air-quality-sensor-p-1065.html
+
+@markdown */

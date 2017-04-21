@@ -17,15 +17,15 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// For this program, you'll need:
-//
-// ![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
-// ![Grove - Relay Module](http://www.seeedstudio.com/depot/images/1030200051.jpg)
-//
-//
-// Learn More At:
-//
-// - [JavaScript: Relay Control with Johnny-Five on Node.js](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
-//
-// @markdown
+/* @markdown
+For this program, you'll need:
+
+![Grove Base Shield v2](http://www.seeedstudio.com/depot/images/product/base%20shield%20V2_01.jpg)
+![Grove - Relay Module](http://www.seeedstudio.com/depot/images/1030200051.jpg)
+
+
+Learn More At:
+
+- [JavaScript: Relay Control with Johnny-Five on Node.js](http://bocoup.com/weblog/javascript-relay-with-johnny-five/)
+
+@markdown */

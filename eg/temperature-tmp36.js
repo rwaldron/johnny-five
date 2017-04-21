@@ -11,6 +11,6 @@ five.Board().on("ready", function() {
   });
 });
 
-// @markdown
-// - [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
-// @markdown
+/* @markdown
+- [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
+@markdown */

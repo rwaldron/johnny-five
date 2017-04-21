@@ -1,3 +1,5 @@
+require("../common/bootstrap");
+
 exports["Animation"] = {
   setUp: function(done) {
     this.board = newBoard();

@@ -540,3 +540,9 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   }
 };
+
+Object.keys(Motion.Controllers).forEach(function(name) {
+  exports["Motion - Controller, " + name] = addControllerTest(Motion, Motion.Controllers[name], {
+    controller: name,
+  });
+});

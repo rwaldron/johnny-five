@@ -337,6 +337,14 @@
         "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board."
       },
       {
+        "file": "gps-GP-20U7.js",
+        "title": "GPS - Sparkfun GP-20U7",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",
+        "externals": [
+          { "title": "GPS Receiver - GP-20U7 (56 Channel)", "href": "https://www.sparkfun.com/products/13740"}
+        ]
+      },
+      {
         "file": "gps-adafruit.js",
         "title": "GPS - Adafruit Ultimate GPS Breakout",
         "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",
@@ -422,6 +430,14 @@
       {
         "file": "motor-hbridge.js",
         "title": "Motor - H-Bridge"
+      },
+      {
+        "file": "motor-TB6612FNG.js",
+        "title": "Motor - Sparkfun TB6612FNG"
+      },
+      {
+        "file": "motor-hbridge-dual.js",
+        "title": "Motors - Dual H-Bridge"
       },
       {
         "file": "motor-PCA9685.js",
@@ -955,6 +971,18 @@
         ]
       },
       {
+        "file": "multi-BME280.js",
+        "title": "Multi - BME280",
+        "breadboards": [
+          {"name": "multi-BME280-tessel", "title": "BME280 (Sparkfun)"},
+          {"name": "multi-BME280-arduino", "title": "BME280 (Adafruit)"}
+        ],
+        "externals": [
+          { "title": "SparkFun Atmospheric Sensor Breakout - BME280", "href": "https://www.sparkfun.com/products/13676"},
+          { "title": "Adafruit BME280 I2C or SPI Temperature Humidity Pressure Sensor", "href": "https://www.adafruit.com/products/2652"}
+        ]
+      },
+      {
         "file": "multi-bmp180.js",
         "title": "Multi - BMP180",
         "breadboards": [
@@ -1000,13 +1028,43 @@
         ]
       },
       {
+        "file": "multi-HIH6130.js",
+        "title": "Multi - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+      {
         "file": "multi-DHT11_I2C_NANO_BACKPACK.js",
         "title": "Multi - DHT11_I2C_NANO_BACKPACK",
         "breadboards": [
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "multi-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Multi - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "multi-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Multi - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       },
       {
@@ -1025,6 +1083,17 @@
         ],
         "externals": [
           { "title": "SI7020 - I2C Multi Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
+      },
+      {
+        "file": "multi-SI7021.js",
+        "title": "Multi - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "Tessel with SI7021"},
+          {"name": "multi-SI7021-uno", "title": "Arduino with SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
         ]
       },
       {
@@ -1050,16 +1119,20 @@
         "title": "Sensor - Force sensitive resistor"
       },
       {
+        "file": "microphone.js",
+        "title": "Sensor - Microphone"
+      },
+      {
+        "file": "sensor-digital-microwave.js",
+        "title": "Sensor - Digital Microwave"
+      },
+      {
         "file": "photoresistor.js",
         "title": "Sensor - Photoresistor"
       },
       {
         "file": "potentiometer.js",
         "title": "Sensor - Potentiometer"
-      },
-      {
-        "file": "microphone.js",
-        "title": "Sensor - Microphone"
       },
       {
         "file": "accelerometer.js",
@@ -1151,6 +1224,16 @@
         ],
         "externals": [
           { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
+        ]
+      },
+      {
+        "file": "temperature-HIH6130.js",
+        "title": "Thermometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
         ]
       },
       {
@@ -1257,6 +1340,16 @@
         ]
       },
       {
+        "file": "hygrometer-SI7021.js",
+        "title": "Hygrometer - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
+        ]
+      },
+      {
         "file": "hygrometer-sht31d.js",
         "title": "Hygrometer - SHT31D",
         "breadboards": [
@@ -1266,6 +1359,17 @@
           { "title": "SHT31D Humidity/Temperature Sensor", "href": "https://www.adafruit.com/products/2857"}
         ]
       },
+      {
+        "file": "hygrometer-HIH6130.js",
+        "title": "Hygrometer - HIH6130",
+        "breadboards": [
+          {"name": "multi-HIH6130", "title": "HIH6130"}
+        ],
+        "externals": [
+          { "title": "HIH6130 Humidity/Temperature Sensor", "href": "https://www.sparkfun.com/products/11295"}
+        ]
+      },
+
       {
         "file": "temperature-BMP180.js",
         "title": "Thermometer - BMP180",
@@ -1300,6 +1404,17 @@
         ],
         "externals": [
           { "title": "SI7020 - I2C Temperature Sensor", "href": "https://tessel.io/docs/climate"}
+        ]
+      },
+      {
+        "file": "temperature-SI7021.js",
+        "title": "Thermometer - SI7021",
+        "breadboards": [
+          {"name": "multi-SI7021", "title": "Tessel with SI7021"},
+          {"name": "multi-SI7021-uno", "title": "Arduino with SI7021"}
+        ],
+        "externals": [
+          { "title": "Si7021 Humidity and Temperature Sensor Hookup Guide", "href": "https://learn.sparkfun.com/tutorials/si7021-humidity-and-temperature-sensor-hookup-guide"}
         ]
       },
       {
@@ -1381,7 +1496,7 @@
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Thermometer DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       },
       {
@@ -1391,7 +1506,47 @@
           {"name": "multi-DHT11_I2C_NANO_BACKPACK", "title": "Hygrometer DHT11"}
         ],
         "externals": [
-          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino"}
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "temperature-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Thermometer - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "Thermometer DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "hygrometer-DHT21_I2C_NANO_BACKPACK.js",
+        "title": "Hygrometer - DHT21_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT21_I2C_NANO_BACKPACK", "title": "Hygrometer DHT21"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "temperature-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Thermometer - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "Thermometer DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
+        ]
+      },
+      {
+        "file": "hygrometer-DHT22_I2C_NANO_BACKPACK.js",
+        "title": "Hygrometer - DHT22_I2C_NANO_BACKPACK",
+        "breadboards": [
+          {"name": "multi-DHT22_I2C_NANO_BACKPACK", "title": "Hygrometer DHT22"}
+        ],
+        "externals": [
+          { "title": "I2C Backback Firmare", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino"}
         ]
       }
     ]

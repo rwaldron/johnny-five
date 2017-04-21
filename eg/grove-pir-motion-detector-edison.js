@@ -26,7 +26,7 @@ board.on("ready", function() {
     console.log("motionend");
   });
 });
-// @markdown
+/* @markdown
 // For this program, you'll need:
 //
 // ![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
@@ -37,4 +37,4 @@ board.on("ready", function() {
 //
 // - [Grove - PIR Motion Sensor](http://www.seeedstudio.com/depot/Grove-PIR-Motion-Sensor-p-802.html)
 //
-// @markdown
+@markdown */

@@ -11,6 +11,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [SHT31D - Humidity Sensor](https://www.adafruit.com/products/2857)
-// @markdown
+/* @markdown
+- [SHT31D - Humidity Sensor](https://www.adafruit.com/products/2857)
+@markdown */

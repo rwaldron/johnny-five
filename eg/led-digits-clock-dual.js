@@ -30,10 +30,10 @@ board.on("ready", function() {
     seconds.print("  " + now.format("ss.SSSS"));
   }, 200);
 });
-// @markdown
-//
-// Learn More:
-//
-// - [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
-//
-// @markdown
+/* @markdown
+
+Learn More:
+
+- [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
+
+@markdown */

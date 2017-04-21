@@ -33,12 +33,12 @@ var five = require("../");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var temp = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "DHT11_I2C_NANO_BACKPACK"
   });
 
-  temp.on("change", function() {
-    console.log("temperature");
+  thermometer.on("change", function() {
+    console.log("Thermometer");
     console.log("  celsius           : ", this.celsius);
     console.log("  fahrenheit        : ", this.fahrenheit);
     console.log("  kelvin            : ", this.kelvin);
@@ -59,7 +59,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino)
+- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino)
 
 &nbsp;
 

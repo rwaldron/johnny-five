@@ -20,10 +20,10 @@ function time(showColon) {
   );
   return display.slice(-5);
 }
-// @markdown
-//
-// Learn More:
-//
-// - [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
-//
-// @markdown
+/* @markdown
+
+Learn More:
+
+- [JavaScript: A Digital Clock with Johnny-Five](http://bocoup.com/weblog/javascript-arduino-digital-clock-johnny-five/)
+
+@markdown */

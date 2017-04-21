@@ -2905,6 +2905,32 @@ exports["Expander - 74HC595"] = {
     test.done();
   },
 
+  multipleInstancesOfNonAddressableExpanders: function(test) {
+    test.expect(1);
+
+    test.doesNotThrow(function() {
+      new five.Expander({
+        controller: "74HC595",
+        pins: {
+          data: 6,
+          clock: 7,
+          latch: 8,
+        }
+      });
+
+      new five.Expander({
+        controller: "74HC595",
+        pins: {
+          data: 9,
+          clock: 10,
+          latch: 11,
+        }
+      });
+    });
+
+    test.done();
+  },
+
   normalize: function(test) {
     test.expect(8);
 

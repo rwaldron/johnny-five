@@ -55,7 +55,7 @@ exports["Button"] = {
   },
 };
 
-exports["Button -- Digital Pin"] = {
+exports["Button - Digital Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -173,7 +173,7 @@ exports["Button -- Digital Pin"] = {
   },
 };
 
-exports["Button -- Analog Pin"] = {
+exports["Button - Analog Pin"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -255,7 +255,7 @@ exports["Button -- Analog Pin"] = {
   },
 };
 
-exports["Button -- Value Inversion"] = {
+exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -263,6 +263,7 @@ exports["Button -- Value Inversion"] = {
       return fn;
     });
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.button = new Button({
       pin: 8,
       board: this.board
@@ -304,14 +305,18 @@ exports["Button -- Value Inversion"] = {
     test.done();
   },
 
-  pullupInversion: function(test) {
-    test.expect(6);
+  pullup: function(test) {
+    test.expect(9);
 
     this.button = new Button({
       pin: 8,
       pullup: true,
       board: this.board
     });
+
+    test.equal(this.digitalWrite.callCount, 1);
+    test.equal(this.digitalWrite.lastCall.args[0], 8);
+    test.equal(this.digitalWrite.lastCall.args[1], 1);
 
     test.equal(this.button.downValue, 0);
     test.equal(this.button.upValue, 1);
@@ -325,6 +330,35 @@ exports["Button -- Value Inversion"] = {
 
     test.equal(this.button.downValue, 0);
     test.equal(this.button.upValue, 1);
+
+    test.done();
+  },
+
+  pulldown: function(test) {
+    test.expect(9);
+
+    this.button = new Button({
+      pin: 8,
+      pulldown: true,
+      board: this.board
+    });
+
+    test.equal(this.digitalWrite.callCount, 1);
+    test.equal(this.digitalWrite.lastCall.args[0], 8);
+    test.equal(this.digitalWrite.lastCall.args[1], 0);
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
+
+    this.button.downValue = 0;
+
+    test.equal(this.button.downValue, 0);
+    test.equal(this.button.upValue, 1);
+
+    this.button.upValue = 0;
+
+    test.equal(this.button.downValue, 1);
+    test.equal(this.button.upValue, 0);
 
     test.done();
   },
@@ -370,7 +404,7 @@ exports["Button -- Value Inversion"] = {
 };
 
 
-exports["Button -- EVS_EV3"] = {
+exports["Button - EVS_EV3"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -464,7 +498,7 @@ exports["Button -- EVS_EV3"] = {
   },
 };
 
-exports["Button -- EVS_NXT"] = {
+exports["Button - EVS_NXT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -704,7 +738,7 @@ exports["Button.Collection"] = {
   },
 };
 
-exports["Button -- TINKERKIT"] = {
+exports["Button - TINKERKIT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -789,3 +823,14 @@ exports["Button -- TINKERKIT"] = {
     callback(511);
   },
 };
+
+Object.keys(Button.Controllers).forEach(function(name) {
+
+  if (name.startsWith("EVS")) {
+    return;
+  }
+
+  exports["Button - Controller, " + name] = addControllerTest(Button, Button.Controllers[name], {
+    controller: name,
+  });
+});

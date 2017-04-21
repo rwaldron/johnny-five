@@ -2,12 +2,12 @@ var five = require("../lib/johnny-five.js");
 var board = new five.Board();
 
 board.on("ready", function() {
-  var temperature = new five.Thermometer({
+  var thermometer = new five.Thermometer({
     controller: "MPL115A2"
   });
 
-  temperature.on("change", function() {
-    console.log("temperature");
+  thermometer.on("change", function() {
+    console.log("Thermometer");
     console.log("  celsius      : ", this.celsius);
     console.log("  fahrenheit   : ", this.fahrenheit);
     console.log("  kelvin       : ", this.kelvin);
@@ -15,6 +15,6 @@ board.on("ready", function() {
   });
 });
 
-// @markdown
-// - [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)
-// @markdown
+/* @markdown
+- [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)
+@markdown */

@@ -171,6 +171,8 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
+**There are presently 354 example programs with code and diagrams!**
+
 <!--extract-start:examples-->
 
 ### Board
@@ -231,6 +233,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### GPS
 - [GPS - Adafruit Ultimate GPS Breakout](https://github.com/rwaldron/johnny-five/blob/master/docs/gps-adafruit.md)
 - [GPS - Default GPS](https://github.com/rwaldron/johnny-five/blob/master/docs/gps.md)
+- [GPS - Sparkfun GP-20U7](https://github.com/rwaldron/johnny-five/blob/master/docs/gps-GP-20U7.md)
 
 ### Servo Animation
 - [Servo - Animation](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-animation.md)
@@ -256,6 +259,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Motor - LUDUS](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-LUDUS.md)
 - [Motor - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-PCA9685.md)
 - [Motor - Sparkfun Dual H-bridge Edison Block](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-sparkfun-edison-hbridge.md)
+- [Motor - Sparkfun TB6612FNG](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-TB6612FNG.md)
+- [Motors - Dual H-Bridge](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-hbridge-dual.md)
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
@@ -368,15 +373,20 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [IMU - BNO055](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055.md)
 - [IMU - BNO055 (Orientation)](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055-orientation.md)
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
+- [Multi - BME280](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-BME280.md)
 - [Multi - BMP085](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp085.md)
 - [Multi - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp180.md)
 - [Multi - DHT11_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-DHT11_I2C_NANO_BACKPACK.md)
+- [Multi - DHT21_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-DHT21_I2C_NANO_BACKPACK.md)
+- [Multi - DHT22_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-DHT22_I2C_NANO_BACKPACK.md)
+- [Multi - HIH6130](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-HIH6130.md)
 - [Multi - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-htu21d.md)
 - [Multi - MPL115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl115a2.md)
 - [Multi - MPL3115A2](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-mpl3115a2.md)
 - [Multi - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-MS5611.md)
 - [Multi - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-sht31d.md)
 - [Multi - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7020.md)
+- [Multi - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-SI7021.md)
 - [Multi - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-TH02.md)
 
 ### Sensors
@@ -401,10 +411,15 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Gyro - Analog LPR5150AL](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-lpr5150l.md)
 - [Gyro - I2C MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/gyro-mpu6050.md)
 - [Hygrometer - DHT11_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-DHT11_I2C_NANO_BACKPACK.md)
+- [Hygrometer - DHT21_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-DHT21_I2C_NANO_BACKPACK.md)
+- [Hygrometer - DHT22_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-DHT22_I2C_NANO_BACKPACK.md)
+- [Hygrometer - HIH6130](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-HIH6130.md)
 - [Hygrometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-htu21d.md)
 - [Hygrometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-sht31d.md)
+- [Hygrometer - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-SI7021.md)
 - [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
+- [Sensor - Digital Microwave](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-digital-microwave.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
@@ -413,7 +428,10 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - BMP085](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-bmp085.md)
 - [Thermometer - BMP180](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-BMP180.md)
 - [Thermometer - DHT11_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-DHT11_I2C_NANO_BACKPACK.md)
+- [Thermometer - DHT21_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-DHT21_I2C_NANO_BACKPACK.md)
+- [Thermometer - DHT22_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-DHT22_I2C_NANO_BACKPACK.md)
 - [Thermometer - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
+- [Thermometer - HIH6130](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-HIH6130.md)
 - [Thermometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
 - [Thermometer - LM335](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm335.md)
 - [Thermometer - LM35](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm35.md)
@@ -425,6 +443,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - MS5611](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-MS5611.md)
 - [Thermometer - SHT31D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-sht31d.md)
 - [Thermometer - SI7020](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7020.md)
+- [Thermometer - SI7021](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-SI7021.md)
 - [Thermometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-TH02.md)
 - [Thermometer - TMP102](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp102.md)
 - [Thermometer - TMP36](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-tmp36.md)

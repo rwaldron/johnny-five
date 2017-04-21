@@ -56,7 +56,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht11_i2c_nano_backpack.ino)
+- [I2C Backback Firmare](https://github.com/rwaldron/johnny-five/blob/master/firmwares/dht_i2c_nano_backpack.ino)
 
 &nbsp;
 
