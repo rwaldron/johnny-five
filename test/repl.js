@@ -44,9 +44,16 @@ exports["Repl"] = {
       debug: false
     });
 
+    // Extra-careful guard against calling test.done() twice here.
+    // This was causing "Cannot read property 'setUp' of undefined" errors
+    // See https://github.com/caolan/nodeunit/issues/234
+    var calledTestDone = false;
     var reallyExit = this.sandbox.stub(process, "reallyExit", function() {
       reallyExit.restore();
-      test.done();
+      if (!calledTestDone) {
+        calledTestDone = true;
+        test.done();
+      }
     });
 
     board.on("ready", function() {
