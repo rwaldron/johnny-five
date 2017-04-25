@@ -7,6 +7,7 @@ function getShape(sensor) {
     mode: sensor.mode,
     freq: sensor.freq,
     range: sensor.range,
+    resolution: sensor.resolution,
     limit: sensor.limit,
     threshold: sensor.threshold,
     isScaled: sensor.isScaled,
@@ -21,6 +22,54 @@ function getShape(sensor) {
   };
 }
 
+exports["Sensor - Resolution"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
+    // this.sensor = new Sensor({
+    //   pin: "A1",
+    //   board: this.board
+    // });
+
+    done();
+  }, // ./setUp: function(done)
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  }, // ./tearDown: function(done)
+
+  defaultBitResolution: function(test) {
+    test.expect(1);
+
+    this.sensor = new Sensor({
+      pin: "A1",
+      board: this.board
+    });
+
+    test.equal(this.sensor.resolution, 1023);
+    test.done();
+  }, // ./defaultBitResolution: function(test)
+
+  ioPluginProvidesBitResolution: function(test) {
+    test.expect(1);
+
+    this.board.io.RESOLUTION = {
+      ADC: 0xFFF,
+    };
+
+    this.sensor = new Sensor({
+      pin: "A1",
+      board: this.board
+    });
+
+    test.equal(this.sensor.resolution, 4095);
+    test.done();
+  }, // ./ioPluginProvidesBitResolution: function(test)
+};
 
 exports["Sensor - Analog"] = {
   setUp: function(done) {
@@ -41,6 +90,7 @@ exports["Sensor - Analog"] = {
       mode: this.sensor.io.MODES.ANALOG,
       freq: 25,
       range: [0, 1023],
+      resolution: 1023,
       limit: null,
       threshold: 1,
       isScaled: false,
@@ -85,6 +135,9 @@ exports["Sensor - Analog"] = {
       },
       range: {
         type: "object"
+      },
+      resolution: {
+        type: "number"
       },
       threshold: {
         type: "number"
@@ -133,6 +186,12 @@ exports["Sensor - Analog"] = {
     this.sandbox.restore();
     done();
   }, // ./tearDown: function(done)
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Sensor({}) instanceof Sensor, true);
+    test.done();
+  },
 
   shape: function(test) {
     var propsActual, propsExpected, methodsActual;
@@ -710,6 +769,20 @@ exports["Sensor - Analog"] = {
     test.done();
   }, // ./threshold: function(test)
 
+
+  thresholdExplicit: function(test) {
+    this.sensor = new Sensor({
+      pin: "A2",
+      board: this.board,
+      threshold: 5,
+    });
+
+    test.expect(1);
+    test.strictEqual(this.sensor.threshold, 5);
+    test.done();
+  }, // ./thresholdExplicit: function(test)
+
+
   id: function(test) {
     var newShape, newId;
     test.expect(3);
@@ -1088,10 +1161,10 @@ exports["Sensor - Analog"] = {
   scaleTo: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(3);
+    test.expect(4);
 
     this.sensor.once("change", function() {
-      test.equal(this.scaleTo(50, 100), 100);
+      test.equal(this.scaleTo([50, 100]), 100);
     });
     callback(1023);
     this.clock.tick(25);
@@ -1106,6 +1179,7 @@ exports["Sensor - Analog"] = {
     this.sensor.scale([0, 102.3]);
     this.sensor.once("change", function() {
       test.equal(this.fscaleTo([0, 102.3]), 1.2000000476837158);
+      test.equal(this.fscaleTo(0, 102.3), 1.2000000476837158);
     });
     callback(12);
     this.clock.tick(25);
@@ -1269,6 +1343,31 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.equal(spy.callCount, 0);
+
+    this.sensor.enable();
+
+    callback(1023);
+    this.clock.tick(25);
+
+    test.equal(spy.callCount, 2);
+    test.done();
+  },
+
+  enableFalse: function(test) {
+
+    this.sensor = new Sensor({
+      pin: "A2",
+      board: this.board,
+      enabled: false,
+    });
+
+    var callback = this.analogRead.args[0][1];
+    var spy = this.sandbox.spy();
+
+    test.expect(1);
+
+    this.sensor.on("data", spy);
+    this.sensor.on("change", spy);
 
     this.sensor.enable();
 
@@ -1480,6 +1579,12 @@ exports["Sensor.Collection"] = {
     Board.purge();
     this.sandbox.restore();
     done();
+  },
+
+  instanceof: function(test) {
+    test.expect(1);
+    test.equal(Sensor.Collection({}) instanceof Sensor.Collection, true);
+    test.done();
   },
 
   data: function(test) {

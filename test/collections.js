@@ -1,5 +1,7 @@
 require("./common/bootstrap");
 
+var util = require("util");
+
 function Output(opts) {
   if (typeof opts === "number") {
     opts = {
@@ -25,11 +27,7 @@ function Outputs(numsOrObjects) {
   Collection.call(this, numsOrObjects);
 }
 
-Outputs.prototype = Object.create(Collection.prototype, {
-  constructor: {
-    value: Outputs
-  }
-});
+util.inherits(Outputs, Collection);
 
 Collection.installMethodForwarding(
   Outputs.prototype, Output.prototype
@@ -81,12 +79,7 @@ function Inputs(numsOrObjects) {
   Collection.Emitter.call(this, numsOrObjects);
 }
 
-Inputs.prototype = Object.create(Collection.Emitter.prototype, {
-  constructor: {
-    value: Inputs
-  }
-});
-
+util.inherits(Inputs, Collection.Emitter);
 
 Collection.installMethodForwarding(
   Inputs.prototype, Input.prototype

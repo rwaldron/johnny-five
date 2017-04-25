@@ -14,6 +14,7 @@ global.EVS = require("../../lib/evshield");
 global.converter = require("color-convert");
 global.SerialPort = require("serialport");
 global.Firmata = require("firmata");
+global.temporal = require("temporal");
 
 // Third Party (test)
 global.mocks = require("mock-firmata");
@@ -33,7 +34,6 @@ global.Button = five.Button;
 global.Buttons = five.Buttons;
 global.Color = five.Color;
 global.Compass = five.Compass;
-global.Distance = five.Distance;
 global.ESC = five.ESC;
 global.ESCs = five.ESCs;
 global.Expander = five.Expander;
@@ -60,7 +60,6 @@ global.Motors = five.Motors;
 global.Nodebot = five.Nodebot;
 global.Piezo = five.Piezo;
 global.Ping = five.Ping;
-global.Pir = five.Pir;
 global.Pin = five.Pin;
 global.Proximity = five.Proximity;
 global.Relay = five.Relay;
@@ -70,6 +69,7 @@ global.Repl = five.Repl;
 global.Sensor = five.Sensor;
 global.Serial = five.Board.Serial;
 global.Servo = five.Servo;
+global.Servos = five.Servos;
 global.ShiftRegister = five.ShiftRegister;
 global.Sonar = five.Sonar;
 global.Stepper = five.Stepper;
@@ -78,6 +78,12 @@ global.Thermometer = five.Thermometer;
 global.Virtual = five.Board.Virtual;
 global.Wii = five.Wii;
 
+
+// Used for alias tests
+global.Analog = five.Analog;
+global.Digital = five.Digital;
+global.Luxmeter = five.Luxmeter;
+global.Magnetometer = five.Magnetometer;
 
 
 function newBoard(pins) {
@@ -127,3 +133,35 @@ var digits = {
 };
 
 global.digits = digits;
+
+
+global.addControllerTest = function(Constructor, Controller, options) {
+  return {
+    setUp: function(done) {
+      this.sandbox = sinon.sandbox.create();
+      this.board = newBoard();
+      this.Controller = this.sandbox.spy(Board, "Controller");
+      this.component = new Constructor(Object.assign({}, options, {
+        board: this.board
+      }));
+      done();
+    },
+
+    tearDown: function(done) {
+      Board.purge();
+      this.sandbox.restore();
+      done();
+    },
+
+    controller: function(test) {
+      test.expect(2);
+      // Board.Controller may called more than once, for example: Servo -> Expander
+      test.equal(this.Controller.called, true);
+      // We can only test for the FIRST call to Board.Controller, since
+      // we can't generically know which componant class controllers will
+      // instantiate an Expander
+      test.equal(this.Controller.firstCall.args[0], Controller);
+      test.done();
+    },
+  };
+};

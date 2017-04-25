@@ -25,19 +25,20 @@ exports["Fn"] = {
   },
 
   constrain: function(test) {
-    test.expect(5);
+    test.expect(6);
 
     test.equal(Fn.constrain(100, 0, 255), 100);
     test.equal(Fn.constrain(-1, 0, 255), 0);
     test.equal(Fn.constrain(0, 0, 255), 0);
     test.equal(Fn.constrain(256, 0, 255), 255);
     test.equal(Fn.constrain(255, 0, 255), 255);
+    test.ok(isNaN(Fn.constrain("finger", 0, 255)));
 
     test.done();
   },
 
   inRange: function(test) {
-    test.expect(6);
+    test.expect(10);
 
     var a = Fn.inRange(5, 4, 6);
     var b = Fn.inRange(5, 4.5, 5.5);
@@ -45,6 +46,10 @@ exports["Fn"] = {
     var d = Fn.inRange(0, -9, -1);
     var e = Fn.inRange(0, -9, -3);
     var f = Fn.inRange(0, -10, -2);
+    var g = Fn.inRange(0, 5, 1);
+    var h = Fn.inRange("finger", 0, 5);
+    var i = Fn.inRange(1, "finger", 5);
+    var j = Fn.inRange(1, 0, "finger");
 
     test.equal(a, true);
     test.equal(b, true);
@@ -52,13 +57,17 @@ exports["Fn"] = {
     test.equal(d, false);
     test.equal(e, false);
     test.equal(f, false);
+    test.equal(g, false);
+    test.equal(h, false);
+    test.equal(i, false);
+    test.equal(j, false);
 
 
     test.done();
   },
 
   range: function(test) {
-    test.expect(6);
+    test.expect(7);
 
     var a = Fn.range(5);
     var b = Fn.range(5, 10);
@@ -66,6 +75,7 @@ exports["Fn"] = {
     var d = Fn.range(0, -9, -1);
     var e = Fn.range(0, -9, -3);
     var f = Fn.range(0, -10, -2);
+    var g = Fn.range();
 
     test.deepEqual(a, [0, 1, 2, 3, 4]);
     test.deepEqual(b, [5, 6, 7, 8, 9, 10]);
@@ -76,17 +86,22 @@ exports["Fn"] = {
     test.deepEqual(e, [0, -3, -6, -9]);
     test.deepEqual(f, [0, -2, -4, -6, -8, -10]);
 
+    // Weird Range
+    test.deepEqual(g, [0]);
+
 
     test.done();
   },
 
   prefixed: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     test.deepEqual(Fn.range.prefixed("A", 3), ["A0", "A1", "A2"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 3), ["A0", "A1", "A2", "A3"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 10, 2), ["A0", "A2", "A4", "A6", "A8", "A10"]);
     test.deepEqual(Fn.range.prefixed("A", 0, 9, 3), ["A0", "A3", "A6", "A9"]);
+    test.deepEqual(Fn.range.prefixed(1, 3), [1, 2, 3]);
+    test.deepEqual(Fn.range.prefixed({foo: "bar"}, 2), ["[object Object]0", "[object Object]1"]);
 
     test.done();
   },
@@ -113,34 +128,50 @@ exports["Fn"] = {
     test.done();
   },
 
+  square: function(test) {
+    test.expect(3);
+
+    test.equal(Fn.square(2), 4);
+    test.equal(Fn.square(-2), 4);
+    test.ok(isNaN(Fn.square("finger")));
+
+    test.done();
+  },
+
   sum: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var a = 0,
       b = 1,
       c = [],
-      d = [0, 1];
+      d = [0, 1],
+      e = ["finger", 3, 4],
+      f = [{foo: "bar"}, 2, 3];
 
     test.equal(Fn.sum(a), 0);
     test.equal(Fn.sum(b), 1);
     test.equal(Fn.sum(c), 0);
     test.equal(Fn.sum(d), 1);
+    test.equal(Fn.sum(e), "0finger34");
+    test.equal(Fn.sum(f), "0[object Object]23");
 
     test.done();
   },
 
   bitValue: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     var a = Fn.bitValue(0);
     var b = Fn.bitValue(2);
     var c = Fn.bitValue(7);
     var d = Fn.bitValue(8);
+    var e = Fn.bitValue("finger");
 
     test.equal(a, 1);
     test.equal(b, 4);
     test.equal(c, 128);
     test.equal(d, 256);
+    test.equal(e, 1);
 
     test.done();
   },
@@ -158,6 +189,71 @@ exports["Fn"] = {
     test.done();
   },
 
+  uint16fromtwobytes: function(test) {
+    test.expect(6);
+
+    test.equal(Fn.uint16(0, 0), 0);
+    test.equal(Fn.uint16(0, 1), 1);
+    test.equal(Fn.uint16(1, 4), 260);
+    test.equal(Fn.uint16(8, 0), 2048);
+    test.equal(Fn.uint16(255, 255), 65535);
+    test.equal(Fn.uint16(240, 240), 61680);
+
+    test.done();
+  },
+
+  int24fromthreebytes: function(test) {
+    test.expect(5);
+
+    test.equal(Fn.int24(0, 0, 0), 0);
+    test.equal(Fn.int24(0, 0, 1), 1);
+    test.equal(Fn.int24(255, 255, 255), -1);
+    test.equal(Fn.int24(127, 255, 255), 8388607);
+    test.equal(Fn.int24(0, 255, 255), 65535);
+
+    test.done();
+  },
+
+  uint24fromthreebytes: function(test) {
+    test.expect(5);
+
+    test.equal(Fn.uint24(0, 0, 0), 0);
+    test.equal(Fn.uint24(0, 0, 1), 1);
+    test.equal(Fn.uint24(255, 255, 255), 16777215);
+    test.equal(Fn.uint24(127, 255, 255), 8388607);
+    test.equal(Fn.uint24(0, 255, 255), 65535);
+
+    test.done();
+  },
+
+  int32fromfourbytes: function(test) {
+    test.expect(7);
+
+    test.equal(Fn.int32(0, 0, 0, 0), 0);
+    test.equal(Fn.int32(0, 0, 0, 1), 1);
+    test.equal(Fn.int32(255, 0, 0, 0), -16777216);
+    test.equal(Fn.int32(255, 255, 255, 255), -1);
+    test.equal(Fn.int32(200, 255, 255, 255), -922746881);
+    test.equal(Fn.int32(127, 255, 255, 255), 2147483647);
+    test.equal(Fn.int32(0, 255, 255, 255), 16777215);
+
+    test.done();
+  },
+
+  uint32fromfourbytes: function(test) {
+    test.expect(7);
+
+    test.equal(Fn.uint32(0, 0, 0, 0), 0);
+    test.equal(Fn.uint32(0, 0, 0, 1), 1);
+    test.equal(Fn.uint32(255, 0, 0, 0), 4278190080);
+    test.equal(Fn.uint32(255, 255, 255, 255), 4294967295);
+    test.equal(Fn.uint32(200, 255, 255, 255), 3372220415);
+    test.equal(Fn.uint32(127, 255, 255, 255), 2147483647);
+    test.equal(Fn.uint32(0, 255, 255, 255), 16777215);
+
+    test.done();
+  },
+
   bitSize: function(test) {
     test.expect(5);
 
@@ -171,12 +267,14 @@ exports["Fn"] = {
   },
 
   toFixed: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     test.equal(typeof Fn.toFixed(0.123456789), "number");
     test.equal(Fn.toFixed(0.123456789), 0);
     test.equal(Fn.toFixed(0.123456789, 2), 0.12);
     test.equal(Fn.toFixed(3 / 7, 1), 0.4);
+    test.equal(Fn.toFixed(1, 2), 1);
+    test.equal(Fn.toFixed(1.5, 2), 1.5);
     test.done();
   },
   toFixedDoesNotThrow: function(test) {
@@ -233,19 +331,21 @@ exports["Fn.s*"] = {
   },
 
   cast: function(test) {
-    test.expect(24);
+    test.expect(bitSizes.length * 4);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
       var half = decimal / 2 >>> 0;
-      test.equal(Fn["s" + bits](decimal - 1), decimal - decimal - 1);
+      test.equal(Fn["s" + bits](decimal - 1), -1);
       test.equal(Fn["s" + bits](half), -half);
+      test.equal(Fn["s" + bits](half -1), half - 1);
       test.equal(Fn["s" + bits](half + 1), -half + 1);
     });
 
     test.done();
   },
 };
+
 
 exports["Fn.u*"] = {
   setUp: function(done) {
@@ -257,11 +357,17 @@ exports["Fn.u*"] = {
   },
 
   cast: function(test) {
-    test.expect(bitSizes.length);
+    test.expect(bitSizes.length * 7);
 
     bitSizes.forEach(function(bits) {
       var decimal = Fn["POW_2_" + bits];
+      test.equal(Fn["u" + bits](decimal), decimal - 1);
       test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
+      test.equal(Fn["u" + bits](-1), decimal - 1);
+      test.equal(Fn["u" + bits](decimal + 1), decimal - 1);
+      test.equal(Fn["u" + bits](-1 * decimal), 0);
+      test.equal(Fn["u" + bits](-1 * decimal + 1), 1);
+      test.equal(Fn["u" + bits](0), 0);
     });
 
     test.done();

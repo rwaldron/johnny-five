@@ -61,15 +61,11 @@ board.on("ready", function() {
 
 
 ## Additional Notes
-
 In order to use the Edison-IO library, you will need to flash the Intel IoTDevKit Image
 on your Edison. Once the environment is created, install Johnny-Five and Edison-IO.
-
 ```sh
 npm install johnny-five edison-io
 ```
-
-
 
 
 ## Learn More

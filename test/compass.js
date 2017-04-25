@@ -157,6 +157,7 @@ exports["Compass - MAG3110"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Compass.purge();
     this.sandbox.restore();
     done();
   },
@@ -250,26 +251,192 @@ exports["Compass - MAG3110"] = {
   },
 };
 
-exports["Invalid or missing controller"] = {
+exports["Compass - BNO055"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.board = newBoard();
+
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+    this.compass = new Compass({
+      board: this.board,
+      controller: "BNO055",
+      offsets: {
+        x: [-819, -335],
+        y: [702, 1182],
+        z: [-293, -13],
+      },
+    });
+
+    this.properties = [{
+      name: "bearing"
+    }, {
+      name: "heading"
+    }];
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    Compass.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  shape: function(test) {
+    test.expect(this.properties.length);
+
+    this.properties.forEach(function(property) {
+      test.notEqual(typeof this.compass[property.name], "undefined");
+    }, this);
+    test.done();
+  },
+
+  fwdOptionsToi2cConfig: function(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Compass({
+      controller: "BNO055",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    var forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  dataAndChange: function(test) {
+    test.expect(4);
+
+    var driver = IMU.Drivers.get(this.board, "BNO055");
+    var data = this.sandbox.spy();
+    var change = this.sandbox.spy();
+
+    this.compass.on("data", data);
+    this.compass.on("change", change);
+
+    driver.emit("data", {
+      magnetometer: {
+        x: -52,
+        y: -417,
+        z: -200,
+      },
+    });
+    this.clock.tick(20);
+
+    driver.emit("data", {
+      magnetometer: {
+        x: -52,
+        y: -0,
+        z: -200,
+      },
+    });
+    this.clock.tick(20);
+
+    test.equal(data.callCount, 1);
+    test.equal(change.callCount, 1);
+
+    test.equal(this.compass.heading, 180);
+    test.deepEqual(this.compass.bearing, {
+      name: "South",
+      abbr: "S",
+      low: 174.38,
+      high: 185.62,
+      heading: 180,
+    });
+    test.done();
+  },
+
+};
+
+
+exports["Missing controller"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown: function(done) {
+    Board.purge();
+    done();
+  },
   missing: function(test) {
     test.expect(1);
     test.throws(function() {
       new Compass({
-        board: newBoard()
+        board: this.board
       });
-    });
-
-    test.done();
-  },
-  invalid: function(test) {
-    test.expect(1);
-    test.throws(function() {
-      new Compass({
-        board: newBoard(),
-        controller: 1
-      });
-    });
+    }.bind(this));
 
     test.done();
   },
 };
+
+exports["Compass.Scale"] = {
+  expectedRegistersAndScales: function(test) {
+    var expects = [{
+      gauss: 0.88,
+      register: 0x00 << 5,
+      scale: 0.73,
+    }, {
+      gauss: 1.3,
+      register: 0x01 << 5,
+      scale: 0.92,
+    }, {
+      gauss: 1.9,
+      register: 0x02 << 5,
+      scale: 1.22,
+    }, {
+      gauss: 2.5,
+      register: 0x03 << 5,
+      scale: 1.52,
+    }, {
+      gauss: 4.0,
+      register: 0x04 << 5,
+      scale: 2.27,
+    }, {
+      gauss: 4.7,
+      register: 0x05 << 5,
+      scale: 2.56,
+    }, {
+      gauss: 5.6,
+      register: 0x06 << 5,
+      scale: 3.03,
+    }, {
+      gauss: 8.1,
+      register: 0x07 << 5,
+      scale: 4.35,
+    }, {
+      gauss: undefined,
+      register: 0x00 << 5,
+      scale: 1,
+    }];
+
+    test.expect(expects.length * 2);
+
+    expects.forEach(function(expect) {
+      var cs = new Compass.Scale(expect.gauss);
+
+      test.equal(cs.register, expect.register);
+      test.equal(cs.scale, expect.scale);
+    });
+    test.done();
+  }
+};
+
+Object.keys(Compass.Controllers).forEach(function(name) {
+  exports["Compass - Controller, " + name] = addControllerTest(Compass, Compass.Controllers[name], {
+    controller: name,
+  });
+});

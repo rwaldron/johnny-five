@@ -10,7 +10,7 @@ var instance = [{
 }];
 
 
-exports["Color: EVS_EV3"] = {
+exports["Color - EVS_EV3"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -28,7 +28,7 @@ exports["Color: EVS_EV3"] = {
     this.color = new Color({
       controller: "EVS_EV3",
       pin: "BAS1",
-      freq: 100,
+      freq: 10,
       board: this.board
     });
 
@@ -37,6 +37,7 @@ exports["Color: EVS_EV3"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Color.purge();
     this.sandbox.restore();
     done();
   },
@@ -60,7 +61,7 @@ exports["Color: EVS_EV3"] = {
     test.expect(1);
 
     this.color.on("data", spy);
-    this.clock.tick(100);
+    this.clock.tick(10);
     test.equal(spy.callCount, 1);
     test.done();
   },
@@ -72,7 +73,7 @@ exports["Color: EVS_EV3"] = {
 
     this.color.on("change", spy);
 
-    this.clock.tick(100);
+    this.clock.tick(10);
 
     test.ok(spy.called);
     test.done();
@@ -80,7 +81,7 @@ exports["Color: EVS_EV3"] = {
 
 };
 
-exports["Color: EVS_NXT"] = {
+exports["Color - EVS_NXT"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -98,7 +99,7 @@ exports["Color: EVS_NXT"] = {
     this.color = new Color({
       controller: "EVS_NXT",
       pin: "BAS1",
-      freq: 100,
+      freq: 10,
       board: this.board
     });
 
@@ -107,6 +108,7 @@ exports["Color: EVS_NXT"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Color.purge();
     this.sandbox.restore();
     done();
   },
@@ -130,7 +132,7 @@ exports["Color: EVS_NXT"] = {
     test.expect(1);
 
     this.color.on("data", spy);
-    this.clock.tick(100);
+    this.clock.tick(10);
     test.equal(spy.callCount, 1);
     test.done();
   },
@@ -142,7 +144,7 @@ exports["Color: EVS_NXT"] = {
 
     this.color.on("change", spy);
 
-    this.clock.tick(100);
+    this.clock.tick(10);
 
     test.ok(spy.called);
     test.done();
@@ -150,14 +152,11 @@ exports["Color: EVS_NXT"] = {
 
 };
 
-exports["Color: ISL29125"] = {
+exports["Color - ISL29125"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
-
-    this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
-    this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -167,7 +166,7 @@ exports["Color: ISL29125"] = {
 
     this.color = new Color({
       controller: "ISL29125",
-      freq: 100,
+      freq: 10,
       board: this.board
     });
 
@@ -176,6 +175,7 @@ exports["Color: ISL29125"] = {
 
   tearDown: function(done) {
     Board.purge();
+    Color.purge();
     this.sandbox.restore();
     done();
   },
@@ -199,7 +199,7 @@ exports["Color: ISL29125"] = {
     test.expect(1);
 
     this.color.on("data", spy);
-    this.clock.tick(100);
+    this.clock.tick(10);
     test.equal(spy.callCount, 1);
     test.done();
   },
@@ -211,10 +211,17 @@ exports["Color: ISL29125"] = {
 
     this.color.on("change", spy);
 
-    this.clock.tick(100);
+    this.clock.tick(10);
 
     test.ok(spy.called);
     test.done();
   },
 
 };
+
+Object.keys(Color.Controllers).forEach(function(name) {
+  exports["Color - Controller, " + name] = addControllerTest(Color, Color.Controllers[name], {
+    controller: name,
+    pin: "BAS1"
+  });
+});

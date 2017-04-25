@@ -25,8 +25,8 @@ board.on("ready", function() {
     }
   });
 });
-// @markdown
-// For this program, you'll need:
+/* @markdown
+For this program, you'll need:
 //
 // ![Intel Edison Arduino Breakout](https://cdn.sparkfun.com//assets/parts/1/0/1/3/9/13097-06.jpg)
 //
@@ -37,4 +37,4 @@ board.on("ready", function() {
 // ![Grove - LED Module](http://www.seeedstudio.com/depot/images/product/Red%20LED.jpg)
 //
 //
-// @markdown
+@markdown */

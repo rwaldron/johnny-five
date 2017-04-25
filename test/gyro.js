@@ -234,3 +234,10 @@ exports["Gyro -- MPU6050"] = {
     test.done();
   }
 };
+
+Object.keys(Gyro.Controllers).forEach(function(name) {
+  exports["Gyro - Controller, " + name] = addControllerTest(Gyro, Gyro.Controllers[name], {
+    controller: name,
+    sensitivity: 1
+  });
+});

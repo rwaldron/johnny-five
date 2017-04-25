@@ -11,26 +11,26 @@ board.on("ready", function() {
   });
 
   multi.on("change", function() {
-    console.log("temperature");
-    console.log("  celsius      : ", this.temperature.celsius);
-    console.log("  fahrenheit   : ", this.temperature.fahrenheit);
-    console.log("  kelvin       : ", this.temperature.kelvin);
+    console.log("Thermometer");
+    console.log("  celsius      : ", this.thermometer.celsius);
+    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
+    console.log("  kelvin       : ", this.thermometer.kelvin);
     console.log("--------------------------------------");
 
-    console.log("barometer");
+    console.log("Barometer");
     console.log("  pressure     : ", this.barometer.pressure);
     console.log("--------------------------------------");
 
-    console.log("altimeter");
+    console.log("Altimeter");
     console.log("  feet         : ", this.altimeter.feet);
     console.log("  meters       : ", this.altimeter.meters);
     console.log("--------------------------------------");
   });
 });
 
-// @markdown
-// - [MPL3115A2 - I2C Barometric Pressure/Altimiter/Temperature Sensor](https://www.adafruit.com/products/1893)
-// - [SparkFun Altitude/Pressure Sensor Breakout - MPL3115A2](https://www.sparkfun.com/products/11084)
-// - [SparkFun Weather Shield](https://www.sparkfun.com/products/12081)
-// - [SparkFun Photon Weather Shield](https://www.sparkfun.com/products/13630)
-// @markdown
+/* @markdown
+- [MPL3115A2 - I2C Barometric Pressure/Altimiter/Temperature Sensor](https://www.adafruit.com/products/1893)
+- [SparkFun Altitude/Pressure Sensor Breakout - MPL3115A2](https://www.sparkfun.com/products/11084)
+- [SparkFun Weather Shield](https://www.sparkfun.com/products/12081)
+- [SparkFun Photon Weather Shield](https://www.sparkfun.com/products/13630)
+@markdown */

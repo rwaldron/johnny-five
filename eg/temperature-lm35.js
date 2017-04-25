@@ -11,6 +11,6 @@ five.Board().on("ready", function() {
   });
 });
 
-// @markdown
-// - [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
-// @markdown
+/* @markdown
+- [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
+@markdown */

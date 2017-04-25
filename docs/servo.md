@@ -46,9 +46,6 @@ board.on("ready", function() {
     invert: false,     // Invert all specified positions
     startAt: 90,       // Immediately move to a degree
     center: true,      // overrides startAt if true and moves the servo to the center of the range
-    specs: {           // Is it running at 5V or 3.3V?
-      speed: five.Servo.Continuous.speeds["@5.0V"]
-    }
   });
   */
 

@@ -22,7 +22,7 @@ exports["IMU -- MPU6050"] = {
     }, {
       name: "accelerometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }, {
       name: "gyro"
     }];
@@ -75,7 +75,7 @@ exports["IMU -- MPU6050"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["accelerometer", "thermometer", "gyro"]);
+    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "thermometer"]);
 
     test.done();
   },
@@ -116,7 +116,7 @@ exports["IMU -- MPU6050"] = {
     test.equals(spy.args[0][0].accelerometer.x, 0.27);
     test.equals(spy.args[0][0].accelerometer.y, 0.53);
     test.equals(spy.args[0][0].accelerometer.z, 0.8);
-    test.equals(Math.round(spy.args[0][0].temperature.celsius), 49);
+    test.equals(Math.round(spy.args[0][0].thermometer.celsius), 49);
     test.equals(spy.args[0][0].gyro.x, 127);
     test.equals(spy.args[0][0].gyro.y, 128);
     test.equals(spy.args[0][0].gyro.z, 129);
@@ -178,7 +178,7 @@ exports["Multi -- MPL115A2"] = {
     }, {
       name: "barometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -243,7 +243,7 @@ exports["Multi -- SHT31D"] = {
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
     this.imu = new IMU({
       controller: "SHT31D",
       freq: 100,
@@ -257,7 +257,7 @@ exports["Multi -- SHT31D"] = {
     }, {
       name: "hygrometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -324,19 +324,22 @@ exports["Multi -- SHT31D"] = {
     test.ok(this.i2cWrite.calledTwice);
     test.deepEqual(this.i2cWrite.firstCall.args, [ 68, [ 48, 162 ] ]);
     test.deepEqual(this.i2cWrite.lastCall.args, [ 68, [ 36, 0 ] ]);
-    test.equal(this.i2cRead.callCount, 1);
-
-    var i2cRead = this.i2cRead.lastCall.args[2];
-
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    test.equal(this.i2cReadOnce.callCount, 1);
+
+    var i2cReadOnce = this.i2cReadOnce.lastCall.args[2];
+
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 
-    i2cRead([ 100, 200, 169, 93, 90, 131 ]);
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
+
+    this.clock.tick(100);
+
+    i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
 
     this.clock.tick(100);
 
@@ -368,7 +371,7 @@ exports["Multi -- HTU21D"] = {
     }, {
       name: "hygrometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -449,7 +452,7 @@ exports["Multi -- MPL3115A2"] = {
     }, {
       name: "altimeter"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -501,7 +504,7 @@ exports["Multi -- MPL3115A2"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["barometer", "altimeter", "thermometer"]);
+    test.deepEqual(this.imu.components, ["altimeter", "barometer", "thermometer"]);
 
     test.done();
   },
@@ -600,7 +603,7 @@ exports["IMU -- BNO055"] = {
   components: function(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "magnetometer", "thermometer", "orientation"]);
+    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "magnetometer", "orientation", "thermometer"]);
 
     test.done();
   },
@@ -741,7 +744,7 @@ exports["IMU -- BNO055"] = {
         test.equal(this.imu.orientation.quarternion.x, iarg.orientation.quarternion.x);
         test.equal(this.imu.orientation.quarternion.y, iarg.orientation.quarternion.y);
         test.equal(this.imu.orientation.quarternion.z, iarg.orientation.quarternion.z);
-        test.equal(this.imu.temperature, iarg.temperature);
+        test.equal(this.imu.thermometer, iarg.thermometer);
         test.equal(this.imu.calibration, iarg.calibration);
 
         test.done();
@@ -793,7 +796,7 @@ exports["Multi -- TH02"] = {
     }, {
       name: "thermometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -931,7 +934,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     }, {
       name: "hygrometer"
     }, {
-      name: "temperature"
+      name: "thermometer"
     }];
 
     done();
@@ -1103,8 +1106,6 @@ exports["Multi -- BME280"] = {
       name: "hygrometer"
     }, {
       name: "thermometer"
-    }, {
-      name: "temperature"
     }];
 
     done();

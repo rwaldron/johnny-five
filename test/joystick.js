@@ -653,3 +653,10 @@ exports["Joystick -- ESPLORA"] = {
     test.done();
   }
 };
+
+Object.keys(Joystick.Controllers).forEach(function(name) {
+  exports["Joystick - Controller, " + name] = addControllerTest(Joystick, Joystick.Controllers[name], {
+    controller: name,
+    pins: []
+  });
+});
