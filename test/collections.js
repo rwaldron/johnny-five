@@ -133,7 +133,7 @@ exports["Collection"] = {
   },
 
   "Symbol.iterator": function(test) {
-    if (Symbol && Symbol.iterator) {
+    if (typeof Symbol !== "undefined" && Symbol.iterator) {
       test.expect(1);
       test.equal(Collection.prototype[Symbol.iterator], Array.prototype[Symbol.iterator]);
     }
