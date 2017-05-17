@@ -146,6 +146,44 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
+  inferType2WireEnabled: function(test) {
+    test.expect(2);
+    var pins = {
+      motor1: 3,
+      motor2: 4,
+      enable: 5
+    };
+    var stepper = new Stepper({
+      board: this.board,
+      stepsPerRev: 200,
+      pins: pins
+    });
+    test.equal(stepper.type, Stepper.TYPE.TWO_WIRE);
+    test.deepEqual(stepper.pins, pins);
+
+    test.done();
+  },
+
+  inferType4WireEnabled: function(test) {
+    test.expect(2);
+    var pins = {
+      motor1: 2,
+      motor2: 3,
+      motor3: 4,
+      motor4: 5,
+      enable: 6
+    };
+    var stepper = new Stepper({
+      board: this.board,
+      stepsPerRev: 200,
+      pins: pins
+    });
+    test.equal(stepper.type, Stepper.TYPE.FOUR_WIRE);
+    test.deepEqual(stepper.pins, pins);
+
+    test.done();
+  },
+
   typeDriver: function(test) {
     test.expect(4);
     var pins = {
@@ -756,5 +794,115 @@ exports["Stepper - rpm / speed"] = {
     this.stepper.speed(1885);
     test.equal(this.stepper.rpm(), 180);
     test.done();
+  }
+};
+
+exports["Stepper - step with enable"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = new Board({
+      io: new MockFirmata({
+        pins: [{
+          supportedModes: [8]
+        }]
+      }),
+      debug: false,
+      repl: false
+    });
+
+    this.stepper = new Stepper({
+      board: this.board,
+      type: Stepper.TYPE.DRIVER,
+      stepsPerRev: 200,
+      pins: [2, 3, 4]
+    });
+
+    this.step = this.sandbox.spy(MockFirmata.prototype, "stepperStep");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.step.restore();
+    this.digitalWrite.restore();
+    done();
+  },
+
+  step: function(test) {
+
+    test.expect(10);
+
+    this.stepper.cw().step(1, function() {
+      test.equal(this.step.getCall(0).args[0], 0);
+      test.equal(this.step.getCall(0).args[1], 1);
+      test.equal(this.step.getCall(0).args[2], 1);
+      test.equal(this.step.getCall(0).args[3], 1885);
+      test.equal(this.step.getCall(0).args[4], 0);
+      test.equal(this.step.getCall(0).args[5], 0);
+      test.equal(this.digitalWrite.getCall(0).args[0], 4);
+      test.equal(this.digitalWrite.getCall(0).args[1], 1);
+      test.equal(this.digitalWrite.getCall(1).args[0], 4);
+      test.equal(this.digitalWrite.getCall(1).args[1], 0);
+      test.done();
+    }.bind(this));
+
+    // simulate successful callback from board.io
+    this.step.getCall(0).args[6]();
+  }
+};
+
+exports["4 Wire Stepper - step with enable"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = new Board({
+      io: new MockFirmata({
+        pins: [{
+          supportedModes: [8]
+        }]
+      }),
+      debug: false,
+      repl: false
+    });
+
+    this.stepper = new Stepper({
+      board: this.board,
+      type: Stepper.TYPE.DRIVER,
+      stepsPerRev: 200,
+      pins: [2, 3, 4, 5, 6]
+    });
+
+    this.step = this.sandbox.spy(MockFirmata.prototype, "stepperStep");
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    this.step.restore();
+    this.digitalWrite.restore();
+    done();
+  },
+
+  step: function(test) {
+
+    test.expect(10);
+
+    this.stepper.cw().step(1, function() {
+      test.equal(this.step.getCall(0).args[0], 0);
+      test.equal(this.step.getCall(0).args[1], 1);
+      test.equal(this.step.getCall(0).args[2], 1);
+      test.equal(this.step.getCall(0).args[3], 1885);
+      test.equal(this.step.getCall(0).args[4], 0);
+      test.equal(this.step.getCall(0).args[5], 0);
+      test.equal(this.digitalWrite.getCall(0).args[0], 6);
+      test.equal(this.digitalWrite.getCall(0).args[1], 1);
+      test.equal(this.digitalWrite.getCall(1).args[0], 6);
+      test.equal(this.digitalWrite.getCall(1).args[1], 0);
+      test.done();
+    }.bind(this));
+
+    // simulate successful callback from board.io
+    this.step.getCall(0).args[6]();
   }
 };
