@@ -490,7 +490,7 @@ exports["Board"] = {
   },
 
   snapshot: function(test) {
-    test.expect(68);
+    test.expect(69);
 
     new Multi({
       controller: "BME280",
@@ -626,7 +626,8 @@ exports["Board"] = {
         F: 32,
         celsius: 0,
         kelvin: 273.15,
-        aref: 5
+        aref: 5,
+        freq: 25
       }, {
         freq: 25,
         constrained: 0,
