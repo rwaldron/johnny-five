@@ -7,7 +7,6 @@ node_js:
   - 0.12
   - 4
   - 6
-  - 8
 sudo: false
 compiler: clang
 notifications:
@@ -29,7 +28,7 @@ install: npm install
 before_script:
   - grunt test-examples
 
-script: npm run test-cover && npm run coveralls
+script: npm run test-cover
 
-# after_success:
-#  - npm run test-cover && npm run coveralls
+after_success:
+ - npm run coveralls
