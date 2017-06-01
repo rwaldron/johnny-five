@@ -109,6 +109,88 @@ function testAnalogChange(test) {
   test.done();
 }
 
+function testConstructDisabled(test) {
+  this.thermometer = new Thermometer({
+    controller: this.thermometer.controller,
+    pin: this.thermometer.pin,
+    freq: this.thermometer.freq,
+    board: this.board,
+    enabled: false,
+  });
+
+  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  var spy = this.sandbox.spy();
+
+  test.expect(2);
+
+  this.thermometer.on("change", spy);
+
+  raw(100);
+  this.clock.tick(this.freq);
+  raw(200);
+  this.clock.tick(this.freq);
+
+  test.equal(spy.callCount, 0);
+
+  this.thermometer.enable();
+
+  raw(100);
+  this.clock.tick(this.freq);
+  raw(200);
+  this.clock.tick(this.freq);
+
+  test.equal(spy.callCount, 1);
+  test.done();
+}
+
+function testEnable(test) {
+  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  var spy = this.sandbox.spy();
+
+  test.expect(2);
+
+  this.thermometer.disable();
+
+  this.thermometer.on("change", spy);
+
+  raw(100);
+  this.clock.tick(this.freq);
+  raw(200);
+  this.clock.tick(this.freq);
+
+  test.equal(spy.callCount, 0);
+
+  this.thermometer.enable();
+
+  raw(100);
+  this.clock.tick(this.freq);
+  raw(200);
+  this.clock.tick(this.freq);
+
+  test.equal(spy.callCount, 2);
+  test.done();
+}
+
+function testDisable(test) {
+  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  var spy = this.sandbox.spy();
+
+  test.expect(1);
+
+  this.thermometer.disable();
+
+  this.thermometer.on("change", spy);
+
+  raw(100);
+  this.clock.tick(this.freq);
+  raw(200);
+  this.clock.tick(this.freq);
+
+  test.equal(spy.callCount, 0);
+
+  test.done();
+}
+
 function testShape(test) {
   test.expect(this.proto.length + this.instance.length);
 
@@ -219,6 +301,9 @@ exports["Thermometer -- ANALOG"] = {
 
     shape: testShape,
     change: testAnalogChange,
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
 
     rawData: makeTestAnalogConversion({
       raw: 50,
@@ -296,6 +381,9 @@ exports["Thermometer -- ANALOG"] = {
       K: 373,
     }),
     change: testAnalogChange,
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
     digits: function(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
@@ -335,6 +423,9 @@ exports["Thermometer -- ANALOG"] = {
       K: 378,
     }),
     change: testAnalogChange,
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
     digits: function(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
@@ -356,6 +447,9 @@ exports["Thermometer -- ANALOG"] = {
 
     shape: testShape,
     change: testAnalogChange,
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
 
     aref: makeTestAnalogConversion({
       aref: 3.3,
@@ -416,7 +510,10 @@ exports["Thermometer -- ANALOG"] = {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
-    }
+    },
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
   },
 
   TINKERKIT: {
@@ -450,7 +547,10 @@ exports["Thermometer -- ANALOG"] = {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
-    }
+    },
+    enable: testEnable,
+    disable: testDisable,
+    constructDisabled: testConstructDisabled,
   },
 };
 

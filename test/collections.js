@@ -131,6 +131,15 @@ exports["Collection"] = {
     Collection.purge();
     done();
   },
+
+  "Symbol.iterator": function(test) {
+    if (typeof Symbol !== "undefined" && Symbol.iterator) {
+      test.expect(1);
+      test.equal(Collection.prototype[Symbol.iterator], Array.prototype[Symbol.iterator]);
+    }
+    test.done();
+  },
+
   nested: function(test) {
     test.expect(9);
 
@@ -320,6 +329,14 @@ exports["Collection.Emitter"] = {
     this.sandbox.restore();
     Collection.purge();
     done();
+  },
+
+  "Symbol.iterator": function(test) {
+    if (typeof Symbol !== "undefined" && Symbol.iterator) {
+      test.expect(1);
+      test.equal(Collection.prototype[Symbol.iterator], Array.prototype[Symbol.iterator]);
+    }
+    test.done();
   },
 
   nested: function(test) {
