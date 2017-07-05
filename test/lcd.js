@@ -461,6 +461,23 @@ exports["LCD - I2C (JHD1313M1)"] = {
     test.done();
   },
 
+  autoscroll: function(test) {
+    test.expect(2);
+
+    var lcd = new LCD({
+      controller: "JHD1313M1",
+      board: this.board
+    });
+
+    this.i2cWrite.reset();
+
+    lcd.autoscroll();
+
+    test.equal(this.i2cWrite.callCount, 1);
+    test.deepEqual(this.i2cWrite.lastCall.args, [ 62, [ 0x80, 0x07 ] ]);
+    test.done();
+  },
+
   bgOn: function(test) {
     test.expect(2);
 
