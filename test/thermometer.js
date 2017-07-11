@@ -881,6 +881,32 @@ exports["Thermometer -- DS18B20"] = {
     test.equals(failedToCreate, true);
 
     test.done();
+  },
+
+  twoDriversOnDifferentPins: function(test) {
+    var spy = this.sandbox.spy(Thermometer.Drivers, "get");
+    createDS18B20(1);
+    createDS18B20(2);
+    var drv1 = spy.getCall(0).returnValue;
+    var drv2 = spy.getCall(1).returnValue;
+    test.ok(drv1 !== drv2);
+    test.done();
+  },
+
+  multipleAddressedDriversOnDifferentPins: function(test) {
+    var device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    var device2 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00];
+    var device3 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xF0];
+    var spy = this.sandbox.spy(Thermometer.Drivers, "get");
+    createDS18B20(1, device1);
+    createDS18B20(2, device2);
+    createDS18B20(1, device3);
+    var drv1 = spy.getCall(0).returnValue;
+    var drv2 = spy.getCall(1).returnValue;
+    var drv3 = spy.getCall(2).returnValue;
+    test.ok(drv1 !== drv2);
+    test.ok(drv1 === drv3);
+    test.done();
   }
 };
 
