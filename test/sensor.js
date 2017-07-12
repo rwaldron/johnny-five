@@ -359,7 +359,7 @@ exports["Sensor - Analog"] = {
     // Check that no event is emitted before the end of the next interval
     test.ok(dataSpy.calledOnce, "tick " + tickAccum + ": data event handler should not be called again until tick " + this.defShape.freq * 2);
     test.ok(chgSpy.calledOnce, "tick " + tickAccum + ": change event handler should not be called again until tick " + this.defShape.freq * 2);
-    filtered = 202.5; // Round median of values sent through callback (last === 102) (avg(102,103))
+    filtered = 203; // Round median of values sent through callback (last === 102) (avg(102,103))
 
     // Check that events are emitted at the end of the second interval
     tickDelta = 1;
@@ -622,7 +622,7 @@ exports["Sensor - Analog"] = {
     tickAccum += tickDelta;
     raw = 522;
     // last emitted value = 511
-    filtered = 511.5;
+    filtered = 512;
     callback(raw);
 
     // Check that a change event is emitted with a filtered value on the new upper threshold boundary
@@ -657,7 +657,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(tickDelta);
     tickAccum += tickDelta;
     raw = 522;
-    // last emitted value = 511.5
+    // last emitted value = 512
     filtered = 521;
     callback(raw);
 
@@ -683,7 +683,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(tickDelta);
     tickAccum += tickDelta;
     raw = 507;
-    // last emitted value = 511.5
+    // last emitted value = 512
     filtered = 502;
     callback(raw);
 
@@ -709,8 +709,8 @@ exports["Sensor - Analog"] = {
     this.clock.tick(tickDelta);
     tickAccum += tickDelta;
     raw = 527;
-    // last emitted value = 511.5
-    filtered = 523.5;
+    // last emitted value = 512
+    filtered = 524;
     callback(raw);
 
     // Check that changes above the (upper) threshold emit a change event
@@ -733,7 +733,7 @@ exports["Sensor - Analog"] = {
     // do a new read at the end of the current interval, after the event has been emitted.
     raw = 515;
     callback(raw);
-    // last emitted value = 523.5
+    // last emitted value = 524
     filtered = 515;
 
     // Check that a downward change of less than the current threshold does not emit a change event
@@ -898,7 +898,7 @@ exports["Sensor - Analog"] = {
     // elapsed time is now 1 tick before the end of the third event throttling interval
     tickAccum += tickDelta;
     raw = 451;
-    filtered = 450.5;
+    filtered = 451;
     callback(raw);
 
     tickDelta = 1;
@@ -920,7 +920,7 @@ exports["Sensor - Analog"] = {
     // elapsed time is now 1 tick before the end of the fourth event throttling interval
     tickAccum += tickDelta;
     raw = 549;
-    filtered = 549.5;
+    filtered = 550;
     callback(raw);
 
     tickDelta = 1;
