@@ -12,7 +12,7 @@ var board = new five.Board({
 board.on("ready", function() {
   this.pinMode(13, this.MODES.OUTPUT);
 
-  this.loop(500, function() {
+  this.loop(500, () => {
     // Whatever the last value was, write the opposite
     this.digitalWrite(13, this.pins[13].value ? 0 : 1);
   });
