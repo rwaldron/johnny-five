@@ -448,6 +448,10 @@
         "title": "Motor - GROVE_I2C_MOTOR_DRIVER"
       },
       {
+        "file": "motor-l298-breakout.js",
+        "title": "Motor - l298 Breakout"
+      },
+      {
         "file": "motor-LUDUS.js",
         "title": "Motor - LUDUS"
       },
