@@ -1057,6 +1057,20 @@ exports["Servo"] = {
     test.done();
   },
 
+  "Animation.normalize (first keyframe is step)": function(test) {
+    test.expect(1);
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    this.servo.to(45);
+    var normalized = this.servo[Animation.normalize]([45, 45, -90, 11]);
+
+    test.equal(normalized[0].value, 90);
+    test.done();
+  },
+
   "Animation.render": function(test) {
     test.expect(2);
 

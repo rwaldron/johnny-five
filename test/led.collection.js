@@ -104,7 +104,7 @@ exports["Led.Collection"] = {
 
 
   "Animation.normalize": function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var leds = new Led.Collection([
       this.a, this.b, this.c
@@ -157,6 +157,36 @@ exports["Led.Collection"] = {
       [
         { value: 0, easing: "linear" },
         { value: 255, easing: "linear" },
+      ],
+      [
+        { value: 0, easing: "linear" },
+        { value: 255, easing: "linear" },
+      ],
+    ]);
+
+    normalized = leds[Animation.normalize]([
+      [
+        0,
+        128
+      ],
+      [
+        10,
+        220,
+      ],
+      [
+        0,
+        255,
+      ],
+    ]);
+
+    test.deepEqual(normalized, [
+      [
+        { value: 0, easing: "linear" },
+        { value: 128, easing: "linear" }
+      ],
+      [
+        { value: 10, easing: "linear" },
+        { value: 220, easing: "linear" },
       ],
       [
         { value: 0, easing: "linear" },

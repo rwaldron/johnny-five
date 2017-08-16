@@ -543,6 +543,21 @@ exports["Led - PWM"] = {
     test.done();
   },
 
+  "Animation.normalize (first keyframe is number)": function(test) {
+    test.expect(1);
+    
+    this.led.brightness(45);
+    
+    var normalized = this.led[Animation.normalize]([
+      10,
+      255,
+      { value: 0 }
+    ]);
+
+    test.equal(normalized[0].value, 10);
+    test.done();
+  },
+
   "Animation.render": function(test) {
     test.expect(1);
     this.update = this.sandbox.stub(this.led, "update");
