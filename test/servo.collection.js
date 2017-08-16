@@ -128,7 +128,7 @@ exports["Servo.Collection"] = {
   },
 
   "Animation.normalize": function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var servos = new Servo.Collection([
       this.a, this.b, this.c
@@ -184,6 +184,36 @@ exports["Servo.Collection"] = {
       ],
       [
         { value: servos[1].startAt, easing: "linear" },
+        { step: 10, easing: "linear" },
+      ],
+    ]);
+
+    normalized = servos[Animation.normalize]([
+      [
+        20,
+        40
+      ],
+      [
+        null,
+        10,
+      ],
+      [
+        30,
+        10,
+      ],
+    ]);
+
+    test.deepEqual(normalized, [
+      [
+        { value: servos[0].startAt + 20, easing: "linear" },
+        { step: 40, easing: "linear" },
+      ],
+      [
+        { value: servos[1].startAt, easing: "linear" },
+        { step: 10, easing: "linear" },
+      ],
+      [
+        { value: servos[2].startAt + 30, easing: "linear" },
         { step: 10, easing: "linear" },
       ],
     ]);
