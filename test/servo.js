@@ -919,6 +919,33 @@ exports["Servo"] = {
     test.done();
   },
 
+  toDegreesAndTimeWithInvert: function(test) {
+    test.expect(7);
+    this.servoWrite.reset();
+    this.update = this.sandbox.spy(this.servo, "update");
+    this.mapSet = this.sandbox.spy(Map.prototype, "set");
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+      invert: true
+    });
+
+    var state = this.mapSet.lastCall.args[1];
+
+    this.servo.to(30, 1500);
+
+    test.equal(state.animation.duration, 1500);
+    test.equal(state.animation.scaledDuration, 1500);
+    test.equal(state.animation.startTime, 0);
+    test.equal(state.animation.endTime, 1500);
+    test.equal(state.animation.fallBackTime, 5000);
+    test.equal(state.animation.frameCount, 0);
+    test.equal(state.animation.normalizedKeyFrames[0][1].value, 30);
+    
+    test.done();
+  },
+
   step: function(test) {
     test.expect(3);
 
