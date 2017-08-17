@@ -152,6 +152,30 @@ exports["Animation"] = {
 
   },
 
+  synchronousSegments: function(test) {
+    
+    this.animation = new Animation(this.servos);
+
+    test.expect(3);
+
+    this.animation.enqueue(this.segment.long);
+    this.animation.enqueue(this.segment.short);
+    
+    setTimeout(function() {
+      test.ok(Math.abs(this.animation.progress - 0.5) < 0.05);
+    }.bind(this), 3500);
+
+    setTimeout(function() {
+      test.ok(Math.abs(this.animation.progress - 0.5) < 0.51);
+    }.bind(this), 7350);
+
+    setTimeout(function() {
+      test.ok(Math.abs(this.animation.progress) === 1);
+      test.done();
+    }.bind(this), 7700);
+
+  },
+
   /*
    * IEEE 754-2008 spec limits the accuracy of pi (well I suppose all Number
    * formats limit pi) but when using easing functions that have Math.Pi as a
@@ -186,7 +210,7 @@ exports["Animation"] = {
 };
 
 
-exports["Animation"] = {
+exports["Animation - Looping"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();
 
