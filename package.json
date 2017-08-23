@@ -261,7 +261,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "chalk": "latest",
+    "chalk": "1.1.3",
     "color-convert": "~1.2.2",
     "ease-component": "latest",
     "es6-shim": "latest",
