@@ -9,7 +9,7 @@
 
 
 
-##### BME280 (Sparkfun)
+##### BME280 (Tessel 2)
 
 
 
@@ -65,7 +65,7 @@ board.on("ready", function() {
 ## Illustrations / Photos
 
 
-##### BME280 (Adafruit)
+##### BME280 (Arduino)
 
 
 

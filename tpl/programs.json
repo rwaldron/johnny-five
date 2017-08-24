@@ -978,8 +978,8 @@
         "file": "multi-BME280.js",
         "title": "Multi - BME280",
         "breadboards": [
-          {"name": "multi-BME280-tessel", "title": "BME280 (Sparkfun)"},
-          {"name": "multi-BME280-arduino", "title": "BME280 (Adafruit)"}
+          {"name": "multi-BME280-tessel", "title": "BME280 (Tessel 2)"},
+          {"name": "multi-BME280-arduino", "title": "BME280 (Arduino)"}
         ],
         "externals": [
           { "title": "SparkFun Atmospheric Sensor Breakout - BME280", "href": "https://www.sparkfun.com/products/13676"},
@@ -1699,6 +1699,21 @@
       {
         "file": "light-reflected-EVS_NXT.js",
         "title": "Light - EVShield NXT (Reflected)"
+      },
+      {
+        "file": "light-ambient-BH1750.js",
+        "title": "Light - BH1750",
+        "breadboards": [
+          {"name": "light-ambient-BH1750-arduino", "title": "BH1750 (Arduino)"},
+          {"name": "light-ambient-BH1750-tessel", "title": "BH1750 (Tessel 2)"}
+        ]
+      },
+      {
+        "file": "light-ambient-TSL2561.js",
+        "title": "Light - TSL2561",
+        "breadboards": [
+          {"name": "light-ambient-TSL2561", "title": "TSL2561"}
+        ]
       },
       {
         "file": "motor-EVS_EV3.js",

@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 355 example programs with code and diagrams!**
+**There are presently 357 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -472,10 +472,12 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Color - EVShield EV3 (Code)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-EVS_EV3.md)
 - [Color - EVShield EV3 (Raw)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-raw-EVS_EV3.md)
 - [Color - EVShield NXT (Code)](https://github.com/rwaldron/johnny-five/blob/master/docs/color-EVS_NXT.md)
+- [Light - BH1750](https://github.com/rwaldron/johnny-five/blob/master/docs/light-ambient-BH1750.md)
 - [Light - EVShield EV3 (Ambient)](https://github.com/rwaldron/johnny-five/blob/master/docs/light-ambient-EVS_EV3.md)
 - [Light - EVShield EV3 (Reflected)](https://github.com/rwaldron/johnny-five/blob/master/docs/light-reflected-EVS_EV3.md)
 - [Light - EVShield NXT (Ambient)](https://github.com/rwaldron/johnny-five/blob/master/docs/light-ambient-EVS_NXT.md)
 - [Light - EVShield NXT (Reflected)](https://github.com/rwaldron/johnny-five/blob/master/docs/light-reflected-EVS_NXT.md)
+- [Light - TSL2561](https://github.com/rwaldron/johnny-five/blob/master/docs/light-ambient-TSL2561.md)
 - [Motor - EVShield EV3](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_EV3.md)
 - [Motor - EVShield NXT](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-EVS_NXT.md)
 - [Proximity - EVShield EV3 (IR)](https://github.com/rwaldron/johnny-five/blob/master/docs/proximity-EVS_EV3_IR-alert.md)
