@@ -95,12 +95,12 @@ exports["Servo.Collection"] = {
     }]);
 
     this.servos.to(180);
-    test.ok(this.servoWrite.calledWith(9, 180));
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(9, 2400));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     this.servos.home();
-    test.ok(this.servoWrite.calledWith(9, 40));
-    test.ok(this.servoWrite.calledWith(11, 20));
+    test.ok(this.servoWrite.calledWith(9, 956));
+    test.ok(this.servoWrite.calledWith(11, 750));
 
     test.done();
   },
