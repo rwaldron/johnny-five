@@ -41,7 +41,8 @@ board.on("ready", function() {
     board: board,
     pin: 8,
     holdtime: 1000,
-    invert: false // Default: "false".  Set to "true" if button is Active-Low
+    invert: false, // Default: "false".  Set to "true" if button is Active-Low
+    longPress: 1500 // Default: "false".  Set to "true" to wait 1000 ms to trigger
   });
 
   // Inject the `button` hardware into
@@ -68,6 +69,12 @@ board.on("ready", function() {
   // "up" the button is released
   button.on("up", function() {
     console.log("up");
+  });
+
+  // "longPress" the button is pressed for specified time (once trigger).
+  //        defaults to 1000ms (1 second)
+  button.on("longPress", function() {
+    console.log("longPress");
   });
 });
 
