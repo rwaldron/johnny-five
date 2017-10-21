@@ -10,7 +10,8 @@ board.on("ready", function() {
     board: board,
     pin: 8,
     holdtime: 1000,
-    invert: false // Default: "false".  Set to "true" if button is Active-Low
+    invert: false, // Default: "false".  Set to "true" if button is Active-Low
+    nTaps: 3 // Default: "0".  Set > 0 to trigger
   });
 
   // Inject the `button` hardware into
@@ -37,5 +38,10 @@ board.on("ready", function() {
   // "up" the button is released
   button.on("up", function() {
     console.log("up");
+  });
+
+  // "nTabs" the button reaches a quantity N of releases
+  button.on("nTaps", function() {
+    console.log("nTaps");
   });
 });
