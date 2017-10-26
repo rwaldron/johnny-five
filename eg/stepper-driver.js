@@ -17,7 +17,7 @@ board.on("ready", function() {
     stepsPerRev: 200,
     pins: {
       step: 11,
-      dir: 13
+      dir: 12
     }
   });
 
