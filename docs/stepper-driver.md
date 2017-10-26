@@ -47,8 +47,8 @@ board.on("ready", function() {
     type: five.Stepper.TYPE.DRIVER,
     stepsPerRev: 200,
     pins: {
-      step: 11,
-      dir: 12
+      step: 12,
+      dir: 11
     }
   });
 
