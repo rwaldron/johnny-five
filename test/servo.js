@@ -602,7 +602,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1000);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1000);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     this.servo.on("move:complete", function() {
@@ -672,7 +673,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1500);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1500);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     this.servo.on("move:complete", function() {
@@ -742,7 +744,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1500);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1500);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     this.servo.on("move:complete", function() {
@@ -812,7 +815,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1000);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1000);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     this.servo.on("move:complete", function() {
@@ -884,7 +888,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1000);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1000);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     this.servo.on("move:complete", function() {
@@ -913,7 +918,8 @@ exports["Servo"] = {
     test.equal(state.animation.scaledDuration, 1500);
     test.equal(state.animation.startTime, 0);
     test.equal(state.animation.endTime, 1500);
-    test.equal(state.animation.fallBackTime, 5000);
+    // Code.org: Use animation fallback immediately
+    test.equal(state.animation.fallBackTime, 0);
     test.equal(state.animation.frameCount, 0);
 
     test.done();
