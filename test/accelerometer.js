@@ -443,7 +443,7 @@ exports["Accelerometer -- MPU-6050"] = {
     var read, dataSpy = this.sandbox.spy(),
       changeSpy = this.sandbox.spy();
 
-    test.expect(12);
+    test.expect(13);
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
 
@@ -481,6 +481,14 @@ exports["Accelerometer -- MPU-6050"] = {
       y: 0.53,
       z: 0.8
     }]);
+    // Here I would expect this test to pass, but `digits.fractional` returns `2`.
+    // I suspect that the fact the numer is less than 1 has something to do with it.
+    // I would have tested `this.accel.x`, `this.accel.y`, `this.accel.z`
+    // but they all return a fixed value of 2 digits for the fractional part, because
+    // the Accelerometer constructor defines x,y,z properties using the `toFixed` function
+    // with a value of 2 (lines 1094-1109 in lib/accelerometer.js).
+    // Not sure what to do.
+    test.equal(3, digits.fractional(this.accel.toGravity(4369)));
 
     test.done();
   },
