@@ -443,7 +443,7 @@ exports["Accelerometer -- MPU-6050"] = {
     var read, dataSpy = this.sandbox.spy(),
       changeSpy = this.sandbox.spy();
 
-    test.expect(13);
+    test.expect(15);
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
 
@@ -477,18 +477,17 @@ exports["Accelerometer -- MPU-6050"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.27,
-      y: 0.53,
+      x: 0.267,
+      y: 0.533,
       z: 0.8
     }]);
-    // Here I would expect this test to pass, but `digits.fractional` returns `2`.
-    // I suspect that the fact the numer is less than 1 has something to do with it.
-    // I would have tested `this.accel.x`, `this.accel.y`, `this.accel.z`
-    // but they all return a fixed value of 2 digits for the fractional part, because
-    // the Accelerometer constructor defines x,y,z properties using the `toFixed` function
-    // with a value of 2 (lines 1094-1109 in lib/accelerometer.js).
-    // Not sure what to do.
-    test.equal(3, digits.fractional(this.accel.toGravity(4369)));
+    // Here I would expect this tests to pass, but `digits.fractional` returns the
+    // expected number of fractional digits less 1.
+    // I suspect that the fact the number is less than 1 has something to do with it,
+    // or I am missing how `digits.fractional` should work.
+    test.equal(3, digits.fractional(this.accel.x));
+    test.equal(3, digits.fractional(this.accel.y));
+    test.equal(1, digits.fractional(this.accel.z));
 
     test.done();
   },
