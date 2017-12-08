@@ -361,32 +361,31 @@ exports["Animation -- Servo"] = {
 
     test.done();
   },
-  
-    enqueueOnSameTick: function(test) {
-      
-      test.expect(7);
-  
-      this.animation = new Animation(this.a);
-  
-      this.normalizeKeyframes = this.sandbox.spy(this.animation, "normalizeKeyframes");
-      
-      test.equal(this.animation.isRunning, false);
-      test.equal(this.animation.segments.length, 0);
-      
-      // This is the first segment so it should be immediately shifted off the queue
-      test.equal(this.animation.enqueue(this.segment.single), this.animation);
-      test.equal(this.animation.segments.length, 0);
-      test.equal(this.animation.isRunning, true);
-      
-      // This is the second segment so it should stay in the queue
-      test.equal(this.animation.enqueue(this.segment.single), this.animation);
-      test.equal(this.animation.segments.length, 1);
-      
-      this.normalizeKeyframes.restore();
-      test.done();
 
-    }
+  enqueueOnSameTick: function(test) {
 
+    test.expect(7);
+
+    this.animation = new Animation(this.a);
+
+    this.normalizeKeyframes = this.sandbox.spy(this.animation, "normalizeKeyframes");
+
+    test.equal(this.animation.isRunning, false);
+    test.equal(this.animation.segments.length, 0);
+
+    // This is the first segment so it should be immediately shifted off the queue
+    test.equal(this.animation.enqueue(this.segment.single), this.animation);
+    test.equal(this.animation.segments.length, 0);
+    test.equal(this.animation.isRunning, true);
+
+    // This is the second segment so it should stay in the queue
+    test.equal(this.animation.enqueue(this.segment.single), this.animation);
+    test.equal(this.animation.segments.length, 1);
+
+    this.normalizeKeyframes.restore();
+    test.done();
+
+  }
 };
 
 exports["Animation"] = {
