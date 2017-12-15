@@ -141,10 +141,12 @@ exports["Animation"] = {
     this.animation.enqueue(this.segment.long);
 
     setTimeout(function() {
+      // calledAt is a property on temporal tasks
       test.ok(this.animation.playLoop.calledAt);
     }.bind(this), 3000);
 
     setTimeout(function() {
+      // interval is the timer on our fallback
       test.ok(this.animation.playLoop.interval);
       this.animation.stop();
       test.done();
@@ -152,28 +154,48 @@ exports["Animation"] = {
 
   },
 
-  synchronousSegments: function(test) {
+  synchronousNextOnTemporal: function(test) {
     
+    var startTime = Date.now();
     this.animation = new Animation(this.servos);
+    test.expect(2);
 
-    test.expect(3);
-
-    this.animation.enqueue(this.segment.long);
-    this.animation.enqueue(this.segment.short);
+    var segment = Object.assign({}, this.segment.short);
+    segment.fps = 200;
+    segment.oncomplete = () => { 
+      test.equal(Math.abs(Date.now() - startTime - 500) <= 10, true);
+    };
+    this.animation.enqueue(segment);  
     
-    setTimeout(function() {
-      test.ok(Math.abs(this.animation.progress - 0.5) < 0.05);
-    }.bind(this), 3500);
-
-    setTimeout(function() {
-      test.ok(Math.abs(this.animation.progress - 0.5) < 0.51);
-    }.bind(this), 7350);
-
-    setTimeout(function() {
-      test.ok(Math.abs(this.animation.progress) === 1);
+    segment.oncomplete = () => { 
+      test.equal(Math.abs(Date.now() - startTime - 1000) <= 10, true);
       test.done();
-    }.bind(this), 7700);
+    };
+    this.animation.enqueue(segment);
 
+  },
+      
+  synchronousNextOnFallback: function(test) {
+
+    var startTime = Date.now();
+    this.animation = new Animation(this.servos);
+    test.expect(2);
+
+    var segment = Object.assign({}, this.segment.long);
+    segment.fps = 200;
+    segment.oncomplete = () => { 
+      test.equal(Math.abs(Date.now() - startTime - 7000) <= 10, true);
+    };
+    this.animation.enqueue(segment);
+    
+    segment = Object.assign({}, this.segment.short);
+    segment.fps = 200;
+    segment.oncomplete = () => { 
+      test.equal(Math.abs(Date.now() - startTime - 7500) <= 10, true);
+      test.done();
+    };
+    this.animation.enqueue(segment);
+      
   },
 
   /*
@@ -185,71 +207,29 @@ exports["Animation"] = {
    */
   roundedPi: function(test) {
     this.animation = new Animation(this.servos);
-    test.expect(2);
+    test.expect(1);
 
-    var complete = false;
     var tempSegment = this.segment.short;
 
     tempSegment.easing = "inSine";
     tempSegment.progress = 0.5;
 
-    tempSegment.oncomplete = function() {
-      complete = true;
+    tempSegment.oncomplete = () => {
+      test.ok(this.animation.progress === 1);
+      test.done();
     };
 
     this.animation.enqueue(tempSegment);
 
-    setTimeout(function() {
-      test.ok(this.animation.progress === 1);
-      test.ok(complete === true);
-      test.done();
-    }.bind(this), 300);
-
-  }
-
-};
-
-
-exports["Animation - Looping"] = {
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-
-    this.play = this.sandbox.stub(Animation.prototype, "play");
-
-    this.animation = new Animation({});
-    this.chain = {
-      result: [],
-      "@@render": function(args) {
-        this.result = this.result.concat(args);
-      },
-      "@@normalize": function(keyFrames) {
-        var last = [50, 0, -20];
-
-        // If user passes null as the first element in keyFrames use current position
-        if (keyFrames[0] === null) {
-          keyFrames[0] = {
-            position: last
-          };
-        }
-
-        return keyFrames;
-      }
-    };
-
-    done();
-  },
-
-  tearDown: function(done) {
-    this.sandbox.restore();
-    done();
   },
 
   loopFunction: function(test) {
-    test.expect(34);
+    test.expect(33);
 
-    this.animation = new Animation(this.chain);
+    this.animation = new Animation(this.servos);
+    
     this.animation.playLoop = {
-      stop: this.sandbox.spy(),
+      stop: this.sandbox.spy()
     };
     this.progress = 1;
     this.clock = this.sandbox.useFakeTimers();
@@ -259,6 +239,7 @@ exports["Animation - Looping"] = {
     this.calculateProgress = this.sandbox.stub(this.animation, "calculateProgress", function() {
       this.animation.progress = this.progress;
       this.animation.loopback = this.progress;
+      this.animation.normalizedKeyFrames = [[0,1]];
       return this.progress;
     }.bind(this));
     this.findIndices = this.sandbox.stub(this.animation, "findIndices").returns({ left: 2, right: 3});
@@ -307,7 +288,6 @@ exports["Animation - Looping"] = {
     test.equal(this.calculateProgress.callCount, 5);
     test.equal(this.findIndices.callCount, 5);
     test.equal(this.tweenedValue.callCount, 5);
-
 
     this.animation.loop = true;
     this.animation.progress = 1;
@@ -362,22 +342,18 @@ exports["Animation - Looping"] = {
     this.animation.loopback = 1;
     this.animation.metronomic = false;
     this.animation.reverse = false;
-    this.animation.segments.push(1, 2, 3);
     this.animation.loopFunction({ calledAt: 1 });
 
     test.equal(this.stop.callCount, 1);
-    test.equal(this.next.callCount, 1);
     test.equal(this.calculateProgress.callCount, 10);
     test.equal(this.findIndices.callCount, 10);
     test.equal(this.tweenedValue.callCount, 10);
 
-    this.animation.oncomplete = function() {
-      test.done();
-    };
-
     this.animation.loopFunction({ calledAt: 1 });
 
     test.equal(this.animation.target["@@render"].callCount, 11);
-  },
+
+    test.done();
+  }
 
 };

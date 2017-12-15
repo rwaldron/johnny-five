@@ -79,6 +79,20 @@ exports["Switch - NO"] = {
     callback(this.switch.openValue);
   },
 
+  defaultsToNO: function (test) {
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");   
+    this.switch = new Switch(7);
+    test.ok(this.digitalWrite.calledWith(this.switch.pin, this.switch.io.HIGH));
+    test.done();
+  },
+
+  setToNC: function (test) {
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");   
+    this.switch = new Switch({pin: 7, type: "NC"});
+    test.ok(this.digitalWrite.notCalled);
+    test.done();
+  }
+
 };
 
 
