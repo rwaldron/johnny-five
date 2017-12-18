@@ -273,7 +273,7 @@
   "optionalDependencies": {
     "browser-serialport": "latest",
     "firmata": "latest",
-    "serialport": "^6.0.4"
+    "serialport": "~6.0.4"
   },
   "devDependencies": {
     "async": "^2.4.1",
