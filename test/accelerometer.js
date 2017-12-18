@@ -18,14 +18,20 @@ exports["Accelerometer"] = {
 
   instanceof: function(test) {
     test.expect(1);
-    test.equal(Accelerometer({ board: this.board, pins: [2, 3, 4]}) instanceof Accelerometer, true);
+    test.equal(Accelerometer({
+      board: this.board,
+      pins: [2, 3, 4]
+    }) instanceof Accelerometer, true);
     test.done();
   },
 
   component: function(test) {
     test.expect(1);
 
-    new Accelerometer({ board: this.board, pins: [2, 3, 4]});
+    new Accelerometer({
+      board: this.board,
+      pins: [2, 3, 4]
+    });
 
     test.equal(Board.Component.callCount, 1);
     test.done();
@@ -364,7 +370,7 @@ exports["Accelerometer -- ADXL335"] = {
     var z = this.analogRead.args[2][1];
     var changeSpy = this.sandbox.spy();
 
-    test.expect(2);
+    test.expect(5);
     this.accel.on("change", changeSpy);
 
     x(330);
@@ -375,10 +381,13 @@ exports["Accelerometer -- ADXL335"] = {
     test.ok(changeSpy.calledThrice);
     test.deepEqual(changeSpy.args[2], [{
       x: 0,
-      y: 0.45,
-      z: -0.45
+      y: 0.451,
+      z: -0.451
     }]);
 
+    test.equal(digits.fractional(this.accel.x), 0);
+    test.equal(digits.fractional(this.accel.y), 3);
+    test.equal(digits.fractional(this.accel.z), 3);
     test.done();
   },
 
@@ -443,7 +452,7 @@ exports["Accelerometer -- MPU-6050"] = {
     var read, dataSpy = this.sandbox.spy(),
       changeSpy = this.sandbox.spy();
 
-    test.expect(12);
+    test.expect(15);
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
 
@@ -477,10 +486,17 @@ exports["Accelerometer -- MPU-6050"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.27,
-      y: 0.53,
+      x: 0.267,
+      y: 0.533,
       z: 0.8
     }]);
+    // Here I would expect this tests to pass, but `digits.fractional` returns the
+    // expected number of fractional digits less 1.
+    // I suspect that the fact the number is less than 1 has something to do with it,
+    // or I am missing how `digits.fractional` should work.
+    test.equal(3, digits.fractional(this.accel.x));
+    test.equal(3, digits.fractional(this.accel.y));
+    test.equal(1, digits.fractional(this.accel.z));
 
     test.done();
   },
@@ -576,10 +592,14 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.01,
+      x: 0.012,
       y: 0.02,
-      z: 0.99
+      z: 0.992
     }]);
+
+    test.equal(digits.fractional(this.accel.x), 3);
+    test.equal(digits.fractional(this.accel.y), 3);
+    test.equal(digits.fractional(this.accel.z), 3);
 
     test.done();
   },
@@ -630,7 +650,11 @@ exports["Accelerometer -- ADXL345"] = {
     }]);
 
     test.ok(changeSpy.calledOnce);
-    test.deepEqual(changeSpy.args[0], [{ x: 0.09, y: 0.16, z: 7.94 }]);
+    test.deepEqual(changeSpy.args[0], [{
+      x: 0.094,
+      y: 0.156,
+      z: 7.938
+    }]);
 
     test.done();
   },
@@ -726,7 +750,7 @@ exports["Accelerometer -- MMA7361"] = {
     var z = this.analogRead.args[2][1];
     var changeSpy = this.sandbox.spy();
 
-    test.expect(2);
+    test.expect(5);
     this.accel.on("change", changeSpy);
 
     x(336);
@@ -737,9 +761,13 @@ exports["Accelerometer -- MMA7361"] = {
     test.ok(changeSpy.calledThrice);
     test.deepEqual(changeSpy.args[2], [{
       x: 0,
-      y: 0.28,
-      z: -0.34
+      y: 0.282,
+      z: -0.335
     }]);
+
+    test.equal(digits.fractional(this.accel.x), 0);
+    test.equal(digits.fractional(this.accel.x), 3);
+    test.equal(digits.fractional(this.accel.x), 3);
 
     test.done();
   },
@@ -952,7 +980,9 @@ exports["Accelerometer -- MMA8452"] = {
     test.expect(1);
     var args = this.i2cConfig.lastCall.args[0];
 
-    test.deepEqual(args.settings, { stopTX: false });
+    test.deepEqual(args.settings, {
+      stopTX: false
+    });
     test.done();
   },
 
@@ -1027,7 +1057,7 @@ exports["Accelerometer -- MMA8452"] = {
     var dataSpy = this.sandbox.spy();
     var changeSpy = this.sandbox.spy();
 
-    test.expect(14);
+    test.expect(17);
 
     test.ok(this.i2cConfig.calledOnce);
 
@@ -1058,6 +1088,10 @@ exports["Accelerometer -- MMA8452"] = {
     test.ok(dataSpy.calledOnce);
     test.ok(changeSpy.calledOnce);
 
+    test.equal(digits.fractional(this.accel.x), 4);
+    test.equal(digits.fractional(this.accel.y), 4);
+    test.equal(digits.fractional(this.accel.y), 4);
+
     test.done();
   },
 
@@ -1071,7 +1105,7 @@ exports["Accelerometer -- MMA8452"] = {
     this.accel.on("tap:double", tap);
 
     read = this.i2cRead.lastCall.args[3];
-    read([ 196 ]);
+    read([196]);
 
     // 1 for tap
     // 1 for tap:single
@@ -1079,7 +1113,7 @@ exports["Accelerometer -- MMA8452"] = {
 
     tap.reset();
 
-    read([ 204 ]);
+    read([204]);
 
     // 1 for tap
     // 1 for tap:single
@@ -1172,22 +1206,22 @@ exports["Accelerometer -- LIS3DH"] = {
 
 
     test.equal(this.i2cWrite.callCount, 4);
-    test.deepEqual(this.i2cWrite.getCall(0).args, [ 24, 32, 119 ]);
-    test.deepEqual(this.i2cWrite.getCall(1).args, [ 24, 35, 136 ]);
-    test.deepEqual(this.i2cWrite.getCall(2).args, [ 24, 34, 16 ]);
-    test.deepEqual(this.i2cWrite.getCall(3).args, [ 24, 35, 152 ]);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [24, 32, 119]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [24, 35, 136]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [24, 34, 16]);
+    test.deepEqual(this.i2cWrite.getCall(3).args, [24, 35, 152]);
 
 
     var ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
 
     ctrl4ReadOnce([0x00]);
 
-    test.deepEqual(this.i2cWrite.getCall(4).args, [ 24, 32, 96 ]);
+    test.deepEqual(this.i2cWrite.getCall(4).args, [24, 32, 96]);
 
     var outXLRead = this.i2cRead.firstCall.args[3];
 
-    outXLRead([ 64, 1, 112, 0, 176, 30 ]);
-    outXLRead([ 32, 1, 112, 0, 224, 30 ]);
+    outXLRead([64, 1, 112, 0, 176, 30]);
+    outXLRead([32, 1, 112, 0, 224, 30]);
 
     this.clock.tick(10);
 
@@ -1212,10 +1246,10 @@ exports["Accelerometer -- LIS3DH"] = {
     var clickSrcRead = this.i2cRead.lastCall.args[3];
 
     this.clock.tick(100);
-    clickSrcRead([ 0 ]);
+    clickSrcRead([0]);
 
     this.clock.tick(100);
-    clickSrcRead([ 20 ]);
+    clickSrcRead([20]);
 
 
     // 1 for tap
@@ -1225,7 +1259,7 @@ exports["Accelerometer -- LIS3DH"] = {
     tap.reset();
 
     this.clock.tick(100);
-    clickSrcRead([ 100 ]);
+    clickSrcRead([100]);
 
     // 1 for tap
     // 1 for tap:single
@@ -1292,7 +1326,7 @@ exports["Accelerometer -- BNO055"] = {
   },
 
   data: function(test) {
-    test.expect(2);
+    test.expect(5);
 
     var driver = IMU.Drivers.get(this.board, "BNO055");
     var dataSpy = this.sandbox.spy();
@@ -1303,12 +1337,17 @@ exports["Accelerometer -- BNO055"] = {
 
     driver.emit("data", {
       accelerometer: {
-        x: 1, y: 2, z: 3
+        x: 1,
+        y: 2,
+        z: 3
       }
     });
 
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
+    test.equal(digits.fractional(this.accel.x), 2);
+    test.equal(digits.fractional(this.accel.y), 2);
+    test.equal(digits.fractional(this.accel.z), 2);
     test.done();
   },
   hasZ: function(test) {
@@ -1339,7 +1378,9 @@ exports["Accelerometer -- User toGravity"] = {
           value: function(opts, dataHandler) {
             setInterval(function() {
               dataHandler({
-                x: 1, y: 2, z: 3
+                x: 1,
+                y: 2,
+                z: 3
               });
             }, 5);
           },
@@ -1402,7 +1443,9 @@ exports["Accelerometer -- User toGravity"] = {
           value: function(opts, dataHandler) {
             setInterval(function() {
               dataHandler({
-                x: 1, y: 2, z: 3
+                x: 1,
+                y: 2,
+                z: 3
               });
             }, 5);
           }
