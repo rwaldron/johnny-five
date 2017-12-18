@@ -122,13 +122,14 @@ global.newBoard = newBoard;
 
 var digits = {
   all: function(x) {
-    return this.integral(Number(String(x).replace(/\./g, "")));
+    return String(x).replace(/\./g, "").length;
   },
   integral: function(x) {
-    return Math.max(Math.floor(Math.log10(Math.abs(x))), 0) + 1;
+    return String(x).split(".")[0].length;
   },
   fractional: function(x) {
-    return this.all(x) - this.integral(x);
+    let parts = String(x).split(".");
+    return parts.length < 2 ? 0 : parts[1].length;
   },
 };
 

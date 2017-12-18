@@ -490,13 +490,10 @@ exports["Accelerometer -- MPU-6050"] = {
       y: 0.533,
       z: 0.8
     }]);
-    // Here I would expect this tests to pass, but `digits.fractional` returns the
-    // expected number of fractional digits less 1.
-    // I suspect that the fact the number is less than 1 has something to do with it,
-    // or I am missing how `digits.fractional` should work.
-    test.equal(3, digits.fractional(this.accel.x));
-    test.equal(3, digits.fractional(this.accel.y));
-    test.equal(1, digits.fractional(this.accel.z));
+
+    test.equal(digits.fractional(this.accel.x), 3);
+    test.equal(digits.fractional(this.accel.y), 3);
+    test.equal(digits.fractional(this.accel.z), 1);
 
     test.done();
   },
@@ -592,19 +589,21 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.012,
-      y: 0.02,
-      z: 0.992
+      x: 0.01171875,
+      y: 0.01953125,
+      // When this is converted back into a number,
+      // the trailing 0 is discarded.
+      z: 0.9921875,
     }]);
 
-    test.equal(digits.fractional(this.accel.x), 3);
-    test.equal(digits.fractional(this.accel.y), 3);
-    test.equal(digits.fractional(this.accel.z), 3);
+    test.equal(digits.fractional(this.accel.x), 8);
+    test.equal(digits.fractional(this.accel.y), 8);
+    test.equal(digits.fractional(this.accel.z), 7);
 
     test.done();
   },
 
-  dataAltRange: function(test) {
+  dataRange16: function(test) {
 
     this.i2cConfig.reset();
     this.i2cWrite.reset();
@@ -651,9 +650,68 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.094,
-      y: 0.156,
-      z: 7.938
+      x: 0.09375,
+      y: 0.15625,
+      // When this is converted back into a number,
+      // the trailing 0 is discarded.
+      z: 7.9375
+    }]);
+
+    test.done();
+  },
+
+  dataRange8: function(test) {
+
+    this.i2cConfig.reset();
+    this.i2cWrite.reset();
+    this.i2cRead.reset();
+
+    this.accel = new Accelerometer({
+      controller: "ADXL345",
+      range: 8,
+      board: this.board,
+    });
+
+
+    var read, dataSpy = this.sandbox.spy(),
+      changeSpy = this.sandbox.spy();
+
+    // test.expect(12);
+    this.accel.on("data", dataSpy);
+    this.accel.on("change", changeSpy);
+
+    read = this.i2cRead.args[0][3];
+    read([
+      // Derived from actual reading set.
+      0x03, 0x00, 0x05, 0x00, 0xFE, 0x00
+    ]);
+
+    test.ok(this.i2cConfig.calledOnce);
+
+    test.ok(this.i2cWrite.calledThrice);
+    test.deepEqual(this.i2cWrite.getCall(0).args, [83, 45, 0]);
+    test.deepEqual(this.i2cWrite.getCall(1).args, [83, 45, 8]);
+    test.deepEqual(this.i2cWrite.getCall(2).args, [83, 49, 10]);
+
+    test.ok(this.i2cRead.calledOnce);
+    test.deepEqual(this.i2cRead.getCall(0).args.slice(0, 3), [83, 50, 6]);
+
+    this.clock.tick(100);
+
+    test.ok(dataSpy.calledOnce);
+    test.deepEqual(dataSpy.args[0], [{
+      x: 3,
+      y: 5,
+      z: 254
+    }]);
+
+    test.ok(changeSpy.calledOnce);
+    test.deepEqual(changeSpy.args[0], [{
+      x: 0.046875,
+      y: 0.078125,
+      // When this is converted back into a number,
+      // the trailing 0 is discarded.
+      z: 3.96875
     }]);
 
     test.done();
@@ -753,19 +811,19 @@ exports["Accelerometer -- MMA7361"] = {
     test.expect(5);
     this.accel.on("change", changeSpy);
 
-    x(336);
-    y(420);
-    z(230);
+    x(539);
+    y(539);
+    z(417);
 
     this.clock.tick(100);
     test.ok(changeSpy.calledThrice);
     test.deepEqual(changeSpy.args[2], [{
-      x: 0,
-      y: 0.282,
-      z: -0.335
+      x: 0.982,
+      y: 0.982,
+      z: 0.765
     }]);
 
-    test.equal(digits.fractional(this.accel.x), 0);
+    test.equal(digits.fractional(this.accel.x), 3);
     test.equal(digits.fractional(this.accel.x), 3);
     test.equal(digits.fractional(this.accel.x), 3);
 
@@ -859,9 +917,9 @@ exports["Accelerometer -- MMA7660"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.05,
-      y: 0.05,
-      z: 0.05
+      x: 0.047,
+      y: 0.047,
+      z: 0.047,
     }]);
 
     test.done();
