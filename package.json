@@ -264,7 +264,6 @@
     "chalk": "2.1.0",
     "color-convert": "~1.2.2",
     "ease-component": "latest",
-    "es6-shim": "latest",
     "lodash.clonedeep": "^4.3.0",
     "lodash.debounce": "^4.0.3",
     "nanotimer": "0.3.10",
@@ -272,8 +271,8 @@
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "latest",
-    "serialport": "~6.0.4"
+    "firmata": "^0.18.0",
+    "serialport": "^6.0.4"
   },
   "devDependencies": {
     "async": "^2.4.1",

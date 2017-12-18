@@ -1,7 +1,3 @@
-if (!Array.from || !Object.assign || !Map) {
-  require("es6-shim");
-}
-
 var cp = require("child_process");
 var fs = require("fs");
 var path = require("path");
