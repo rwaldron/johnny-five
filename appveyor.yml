@@ -1,6 +1,6 @@
 version: "{build}"
 
-clone_depth: 10
+clone_depth: 1
 
 environment:
   matrix:
@@ -10,7 +10,6 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm cache clean
   - npm install
 
 build: off
