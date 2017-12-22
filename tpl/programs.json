@@ -294,6 +294,10 @@
         ]
       },
       {
+        "file": "servo-multi-turn.js",
+        "title": "Servo - Multi-Turn"
+      },
+      {
         "file": "servo-slider.js",
         "title": "Servo - Slider control"
       },

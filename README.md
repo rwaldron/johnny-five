@@ -224,6 +224,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Servo](https://github.com/rwaldron/johnny-five/blob/master/docs/servo.md)
 - [Servo - Continuous](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-continuous.md)
 - [Servo - Drive](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-drive.md)
+- [Servo - Multi-Turn](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-multi-turn.md)
 - [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
