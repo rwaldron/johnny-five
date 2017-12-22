@@ -1253,7 +1253,7 @@ exports["Accelerometer -- LIS3DH"] = {
   },
 
   data: function(test) {
-    test.expect(8);
+    test.expect(12);
 
 
     var dataSpy = this.sandbox.spy();
@@ -1285,6 +1285,16 @@ exports["Accelerometer -- LIS3DH"] = {
 
     test.equal(dataSpy.callCount, 2);
     test.equal(changeSpy.callCount, 2);
+
+    test.deepEqual(changeSpy.args[1], [{
+      x: 0.038,
+      y: 0.014,
+      z: 0.96
+    }]);
+
+    test.equal(digits.fractional(this.accel.x), 3);
+    test.equal(digits.fractional(this.accel.y), 3);
+    test.equal(digits.fractional(this.accel.z), 2);
 
     test.done();
   },
