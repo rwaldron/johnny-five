@@ -544,7 +544,7 @@ exports["Altimeter - BMP280"] = {
   },
 
   resolution: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var driver = IMU.Drivers.get(this.board, "BMP280");
     var dataSpy = this.sandbox.spy();
@@ -561,8 +561,11 @@ exports["Altimeter - BMP280"] = {
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
 
-    test.equal(this.altimeter.meters, 10.12);
-    test.equal(this.altimeter.feet, 33.2);
+    test.equal(this.altimeter.meters, 10.123);
+    test.equal(this.altimeter.feet, 33.21);
+    test.equal(digits.fractional(this.altimeter.meters), 3);
+    test.equal(digits.fractional(this.altimeter.feet), 2);
+
     test.done();
   },
 };
