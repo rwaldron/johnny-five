@@ -332,8 +332,8 @@ exports["Barometer -- MPL3115A2"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(175.50402, spy.args[0][0].pressure);
-    test.equals(5, digits.fractional(this.barometer.pressure));
+    test.equals(175.5040, spy.args[0][0].pressure);
+    test.equals(3, digits.fractional(this.barometer.pressure));
 
     test.done();
   },
