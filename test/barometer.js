@@ -82,7 +82,7 @@ exports["Barometer -- MPL115A2"] = {
 
       if (spies.data.called && spies.change.called) {
         clearInterval(interval);
-        test.equal(digits.fractional(this.barometer.pressure), 4);
+        test.equal(digits.fractional(this.barometer.pressure), 2);
         test.done();
       }
 
@@ -269,7 +269,7 @@ exports["Barometer -- MPL3115A2"] = {
   },
 
   data: function(test) {
-    test.expect(17);
+    test.expect(18);
 
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWriteReg.callCount, 4);
@@ -332,7 +332,8 @@ exports["Barometer -- MPL3115A2"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][0].pressure), 176);
+    test.equals(175.50402, spy.args[0][0].pressure);
+    test.equals(5, digits.fractional(this.barometer.pressure));
 
     test.done();
   },
