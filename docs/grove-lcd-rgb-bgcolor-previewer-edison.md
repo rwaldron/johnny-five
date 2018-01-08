@@ -73,7 +73,7 @@ board.on("ready", () => {
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2017 The Johnny-Five Contributors
+Copyright (c) 2018 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->
