@@ -99,7 +99,7 @@ Ensure your host computer (where you're running your Node application) and the S
 ## License
 Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2017 The Johnny-Five Contributors
+Copyright (c) 2018 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -13,6 +13,8 @@ var rgbProtoProperties = [{
 }, {
   name: "blink"
 }, {
+  name: "pulse"
+}, {
   name: "stop"
 }];
 
@@ -39,6 +41,7 @@ exports["RGB"] = {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
 
     this.rgb = new RGB({
       pins: {
@@ -550,6 +553,76 @@ exports["RGB"] = {
     test.done();
   },
 
+
+
+  pulse: function(test) {
+    test.expect(1);
+
+    this.rgb.pulse();
+
+    test.equal(this.enqueue.callCount, 1);
+    test.done();
+  },
+
+  pulseDuration: function(test) {
+    test.expect(2);
+
+    this.rgb.pulse(1010);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    var duration = this.enqueue.lastCall.args[0].duration;
+
+    test.equal(duration, 1010);
+    test.done();
+  },
+
+
+  pulseCallback: function(test) {
+    test.expect(2);
+
+    var spy = this.sandbox.spy();
+
+    this.rgb.pulse(spy);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    var onloop = this.enqueue.lastCall.args[0].onloop;
+
+    onloop();
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  pulseDurationCallback: function(test) {
+    test.expect(3);
+
+    var spy = this.sandbox.spy();
+
+    this.rgb.pulse(1010, spy);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    var duration = this.enqueue.lastCall.args[0].duration;
+    var onloop = this.enqueue.lastCall.args[0].onloop;
+
+    onloop();
+
+
+    test.equal(duration, 1010);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  pulseObject: function(test) {
+    test.expect(1);
+
+    this.rgb.pulse({});
+    test.equal(this.enqueue.callCount, 1);
+    test.done();
+  },
+
   intensity: function(test) {
     test.expect(24);
 
@@ -754,10 +827,11 @@ exports["RGB"] = {
   },
 
   "Animation.render": function(test) {
-    test.expect(1);
-    this.color = this.sandbox.stub(this.rgb, "color");
-    this.rgb[Animation.render]([0]);
-    test.equal(this.color.callCount, 1);
+    test.expect(2);
+    // rgb.write() is already wrapped
+    this.rgb[Animation.render]([{red: 0, green: 0, blue: 0}]);
+    test.equal(this.rgb.write.callCount, 1);
+    test.deepEqual(this.rgb.write.firstCall.args[0], {red: 0, green: 0, blue: 0});
     test.done();
   },
 
@@ -786,11 +860,14 @@ exports["RGB - Cycling Operations"] = {
   },
 
   rgbCallsStopBeforeNextCyclingOperation: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.rgb.blink();
+    this.rgb.pulse();
 
-    test.equal(this.stop.callCount, 1);
+    test.equal(this.stop.callCount, 2);
+    // pulse is an animation
+    test.equal(this.enqueue.callCount, 1);
 
     // Ensure that the interval is cleared.
     this.rgb.stop();
