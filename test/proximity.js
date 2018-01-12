@@ -491,15 +491,16 @@ exports["Proximity: MB1000"] = {
   MB1000: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(4);
+    test.expect(5);
 
-    // (500 / 2) * 2.54 = 635cm
-    callback(500);
+    // (500 / 2) * 2.54 = 648,97cm
+    callback(511);
 
-    test.equals(Math.round(this.proximity.centimeters), 635);
-    test.equals(Math.round(this.proximity.cm), 635);
-    test.equals(Math.round(this.proximity.inches), 248);
-    test.equals(Math.round(this.proximity.in), 248);
+    test.equals(Math.round(this.proximity.centimeters), 649);
+    test.equals(Math.round(this.proximity.cm), 649);
+    test.equals(Math.round(this.proximity.inches), 253);
+    test.equals(Math.round(this.proximity.in), 253);
+    test.equals(digits.fractional(this.proximity.centimeters), 2);
 
     test.done();
   },
