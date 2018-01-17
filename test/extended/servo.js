@@ -205,7 +205,7 @@ exports["Servo"] = {
   },
 
   toDegreesAndTimeWithOffset: function(test) {
-    test.expect(1);
+    test.expect(2);
     
     this.servo = new Servo({
       board: this.board,
@@ -216,14 +216,15 @@ exports["Servo"] = {
     this.servo.to(80, 100);
 
     this.servo.on("move:complete", function() {
-      test.equal(this.servo.value, 70);
+      test.equal(this.servo.value, 80);
+      test.equal(this.servoWrite.lastCall.args[1], 70);
       test.done();
     }.bind(this));
     
   },
 
   toDegreesAndTimeWithOffsetAndInvert: function(test) {
-    test.expect(1);
+    test.expect(2);
     
     this.servo = new Servo({
       board: this.board,
@@ -235,7 +236,8 @@ exports["Servo"] = {
     this.servo.to(80, 100);
 
     this.servo.on("move:complete", function() {
-      test.equal(this.servo.value, 110);
+      test.equal(this.servo.value, 80);
+      test.equal(this.servoWrite.lastCall.args[1], 110);
       test.done();
     }.bind(this));
     
