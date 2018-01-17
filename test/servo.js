@@ -231,7 +231,7 @@ exports["Servo"] = {
   },
 
   rangeWithInvert: function(test) {
-    test.expect(3);
+    test.expect(6);
 
     this.servo = new Servo({
       pin: 11,
@@ -242,12 +242,15 @@ exports["Servo"] = {
 
     this.servo.to(180);
     test.ok(this.servoWrite.calledWith(11, 20));
+    test.equal(this.servo.value, 160);
 
     this.servo.to(135);
     test.ok(this.servoWrite.calledWith(11, 45));
+    test.equal(this.servo.value, 135);
 
     this.servo.to(10);
     test.ok(this.servoWrite.calledWith(11, 150));
+    test.equal(this.servo.value, 30);
 
     test.done();
   },
@@ -288,7 +291,7 @@ exports["Servo"] = {
   },
 
   offset: function(test) {
-    test.expect(3);
+    test.expect(5);
 
     this.servo = new Servo({
       pin: 11,
@@ -305,11 +308,16 @@ exports["Servo"] = {
     this.servo.to(10);
     test.ok(this.servoWrite.calledWith(11, 0));
 
+    this.servo.to(185);
+    test.ok(this.servoWrite.calledWith(11, 175));
+
+    test.equal(this.servo.value, 185);
+
     test.done();
   },
 
   offsetWithInvert: function(test) {
-    test.expect(3);
+    test.expect(7);
 
     this.servo = new Servo({
       pin: 11,
@@ -320,18 +328,23 @@ exports["Servo"] = {
 
     this.servo.to(180);
     test.ok(this.servoWrite.calledWith(11, 10));
+    test.equal(this.servo.value, 180);
 
     this.servo.to(135);
     test.ok(this.servoWrite.calledWith(11, 55));
+    test.equal(this.servo.value, 135);
 
     this.servo.to(10);
     test.ok(this.servoWrite.calledWith(11, 180));
+    test.equal(this.servo.value, 10);
 
+    test.equal(this.servo.value, 10);
+    
     test.done();
   },
 
   offsetWithRange: function(test) {
-    test.expect(3);
+    test.expect(6);
 
     this.servo = new Servo({
       pin: 11,
@@ -342,18 +355,21 @@ exports["Servo"] = {
 
     this.servo.to(180);
     test.ok(this.servoWrite.calledWith(11, 140));
+    test.equal(this.servo.value, 150);
 
     this.servo.to(135);
     test.ok(this.servoWrite.calledWith(11, 125));
+    test.equal(this.servo.value, 135);
 
     this.servo.to(10);
     test.ok(this.servoWrite.calledWith(11, 10));
+    test.equal(this.servo.value, 20);
 
     test.done();
   },
 
   offsetWithRangeAndInvert: function(test) {
-    test.expect(3);
+    test.expect(6);
 
     this.servo = new Servo({
       pin: 11,
@@ -365,12 +381,15 @@ exports["Servo"] = {
 
     this.servo.to(180);
     test.ok(this.servoWrite.calledWith(11, 40));
+    test.equal(this.servo.value, 150);
 
     this.servo.to(135);
     test.ok(this.servoWrite.calledWith(11, 55));
+    test.equal(this.servo.value, 135);
 
     this.servo.to(10);
     test.ok(this.servoWrite.calledWith(11, 170));
+    test.equal(this.servo.value, 20);
 
     test.done();
   },
