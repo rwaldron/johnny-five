@@ -1202,11 +1202,14 @@ exports["Proximity: LIDARLITE"] = {
 
   data: function(test) {
     var spy = this.sandbox.spy();
-    test.expect(1);
+    test.expect(2);
 
     this.proximity.on("data", spy);
     this.clock.tick(100);
     test.equal(spy.callCount, 1);
+
+    test.equal(digits.fractional(this.proximity.centimeters), 0);
+
     test.done();
   },
 
