@@ -739,7 +739,7 @@ exports["Proximity: MB1230"] = {
   MB1230: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(4);
+    test.expect(5);
 
     callback(250);
 
@@ -747,6 +747,7 @@ exports["Proximity: MB1230"] = {
     test.equals(Math.round(this.proximity.cm), 250);
     test.equals(Math.round(this.proximity.inches), 98);
     test.equals(Math.round(this.proximity.in), 98);
+    test.equals(digits.fractional(this.proximity.centimeters), 0);
 
     test.done();
   },
