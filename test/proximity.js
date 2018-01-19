@@ -1021,7 +1021,7 @@ exports["Proximity: HCSR04"] = {
 
   data: function(test) {
     var spy = this.sandbox.spy();
-    test.expect(1);
+    test.expect(2);
 
     // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
@@ -1029,6 +1029,8 @@ exports["Proximity: HCSR04"] = {
     this.proximity.on("data", spy);
     this.clock.tick(100);
     test.ok(spy.calledOnce);
+    test.equals(digits.fractional(this.proximity.centimeters), 1);
+
     test.done();
   },
 
@@ -1059,8 +1061,8 @@ exports["Proximity: HCSR04"] = {
 
     this.proximity.within([0, 120], "inches", function() {
       // The fake microseconds value is 1000, which
-      // calculates to 6.76 inches.
-      test.equal(this.inches, 6.7);
+      // calculates to 6.71 inches.
+      test.equal(this.inches, 6.71);
       spy();
     });
 
@@ -1507,9 +1509,9 @@ exports["Proximity.Collection"] = {
     test.equal(this.spy.callCount, 3);
 
     test.equal(collection.length, 3);
-    test.equal(collection[0].cm, 1.718);
-    test.equal(collection[1].cm, 3.436);
-    test.equal(collection[2].cm, 5.155);
+    test.equal(collection[0].cm, 1.7);
+    test.equal(collection[1].cm, 3.4);
+    test.equal(collection[2].cm, 5.2);
 
     test.done();
   },
