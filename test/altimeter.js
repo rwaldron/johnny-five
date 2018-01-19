@@ -368,7 +368,7 @@ exports["Altimeter - MS5611"] = {
   },
 
   resolution: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var driver = IMU.Drivers.get(this.board, "MS5611");
     var dataSpy = this.sandbox.spy();
@@ -387,6 +387,9 @@ exports["Altimeter - MS5611"] = {
 
     test.equal(this.altimeter.meters, 10.12);
     test.equal(this.altimeter.feet, 33.2);
+    test.equal(digits.fractional(this.altimeter.meters), 2);
+    test.equal(digits.fractional(this.altimeter.feet), 1);
+
     test.done();
   },
 };
@@ -453,7 +456,7 @@ exports["Altimeter - BMP180"] = {
   },
 
   resolution: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var driver = IMU.Drivers.get(this.board, "BMP180");
     var dataSpy = this.sandbox.spy();
@@ -472,6 +475,9 @@ exports["Altimeter - BMP180"] = {
 
     test.equal(this.altimeter.meters, 10.12);
     test.equal(this.altimeter.feet, 33.2);
+    test.equal(digits.fractional(this.altimeter.meters), 2);
+    test.equal(digits.fractional(this.altimeter.feet), 1);
+
     test.done();
   },
 };
@@ -538,7 +544,7 @@ exports["Altimeter - BMP280"] = {
   },
 
   resolution: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var driver = IMU.Drivers.get(this.board, "BMP280");
     var dataSpy = this.sandbox.spy();
@@ -555,8 +561,11 @@ exports["Altimeter - BMP280"] = {
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
 
-    test.equal(this.altimeter.meters, 10.12);
-    test.equal(this.altimeter.feet, 33.2);
+    test.equal(this.altimeter.meters, 10.123);
+    test.equal(this.altimeter.feet, 33.21);
+    test.equal(digits.fractional(this.altimeter.meters), 3);
+    test.equal(digits.fractional(this.altimeter.feet), 2);
+
     test.done();
   },
 };
@@ -623,7 +632,7 @@ exports["Altimeter - BME280"] = {
   },
 
   resolution: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var driver = IMU.Drivers.get(this.board, "BME280");
     var dataSpy = this.sandbox.spy();
@@ -640,8 +649,11 @@ exports["Altimeter - BME280"] = {
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
 
-    test.equal(this.altimeter.meters, 10.12);
-    test.equal(this.altimeter.feet, 33.2);
+    test.equal(this.altimeter.meters, 10.123);
+    test.equal(this.altimeter.feet, 33.21);
+    test.equal(digits.fractional(this.altimeter.meters), 3);
+    test.equal(digits.fractional(this.altimeter.feet), 2);
+
     test.done();
   },
 };

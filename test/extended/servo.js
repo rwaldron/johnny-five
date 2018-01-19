@@ -204,6 +204,43 @@ exports["Servo"] = {
 
   },
 
+  toDegreesAndTimeWithOffset: function(test) {
+    test.expect(1);
+    
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+      offset: -10
+    });
+
+    this.servo.to(80, 100);
+
+    this.servo.on("move:complete", function() {
+      test.equal(this.servo.value, 70);
+      test.done();
+    }.bind(this));
+    
+  },
+
+  toDegreesAndTimeWithOffsetAndInvert: function(test) {
+    test.expect(1);
+    
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+      offset: -10,
+      invert: true
+    });
+
+    this.servo.to(80, 100);
+
+    this.servo.on("move:complete", function() {
+      test.equal(this.servo.value, 110);
+      test.done();
+    }.bind(this));
+    
+  },
+
   /* These tests are commented out while we figure out Issue #829
   degreeChange: function(test) {
     test.expect(1);
