@@ -417,7 +417,7 @@ exports["Hygrometer -- HIH6130"] = {
   },
 
   data: function(test) {
-    test.expect(12);
+    test.expect(13);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -451,7 +451,8 @@ exports["Hygrometer -- HIH6130"] = {
     this.clock.tick(40);
 
     test.equal(spy.callCount, 12);
-    test.equal(Math.round(this.hygrometer.relativeHumidity), 60);
+    test.equal(this.hygrometer.relativeHumidity, 59.87);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   },
 
