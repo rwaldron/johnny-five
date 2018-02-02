@@ -155,7 +155,7 @@ exports["Hygrometer -- HTU21D"] = {
   },
 
   data: function(test) {
-    test.expect(8);
+    test.expect(9);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -179,7 +179,8 @@ exports["Hygrometer -- HTU21D"] = {
     this.clock.tick(10);
 
     test.equal(spy.callCount, 1);
-    test.equal(Math.round(this.hygrometer.relativeHumidity), 40);
+    test.equal(this.hygrometer.relativeHumidity, 39.91);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   },
 
