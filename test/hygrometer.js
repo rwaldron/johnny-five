@@ -78,7 +78,7 @@ exports["Hygrometer -- SHT31D"] = {
   },
 
   oneHundredPercentHumidity: function(test) {
-    test.expect(5);
+    test.expect(6);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -94,13 +94,14 @@ exports["Hygrometer -- SHT31D"] = {
     readOnce([
       0, 0, // temperature
       0, // crc
-      0xff, 0xff, // 100% humidity
+      0xdf, 0xdf, // 87.45% humidity
       0 // crc
     ]);
     this.clock.tick(10);
 
     test.equal(spy.callCount, 1);
-    test.equal(this.hygrometer.relativeHumidity, 100);
+    test.equal(this.hygrometer.relativeHumidity, 87.45);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   }
 };
