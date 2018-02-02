@@ -303,7 +303,7 @@ exports["Hygrometer -- SI7020"] = {
   },
 
   data: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     test.equal(this.i2cRead.callCount, 2);
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
@@ -323,7 +323,8 @@ exports["Hygrometer -- SI7020"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equal(Math.round(spy.args[0][0].relativeHumidity), 49);
+    test.equal(spy.args[0][0].relativeHumidity, 48.69);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
 
     test.done();
   },
