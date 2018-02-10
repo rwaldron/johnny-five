@@ -1292,3 +1292,119 @@ exports["Multi -- BMP280"] = {
     }.bind(this));
   },
 };
+
+
+
+exports["IMU -- LSM303C"] = {
+  
+    setUp: function(done) {
+      this.sandbox = sinon.sandbox.create();
+      this.board = newBoard();
+      this.clock = this.sandbox.useFakeTimers();
+      this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+      this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+      this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
+        process.nextTick(function() {
+          switch (address) {
+            case 0x1D:
+            case 0x1E:
+            return handler([ 255, 172, 38, 10, 216, 206 ].slice(0, length));            
+            default:
+            return handler([]);
+          }
+        });
+      }.bind(this));
+      this.imu = new IMU({
+        controller: "LSM303C",
+        freq: 100,
+        board: this.board
+      });
+  
+      this.proto = [];
+  
+      this.instance = [{
+        name: "components"
+      }, {
+        name: "magnetometer"
+      }, {
+        name: "thermometer"
+      }, {
+        name: "accelerometer"
+      }];
+  
+      done();
+    },
+  
+    tearDown: function(done) {
+      Board.purge();
+      this.sandbox.restore();
+      IMU.Drivers.clear();
+      done();
+    },
+  
+    shape: function(test) {
+      test.expect(this.proto.length + this.instance.length);
+  
+      this.proto.forEach(function(method) {
+        test.equal(typeof this.imu[method.name], "function");
+      }, this);
+  
+      this.instance.forEach(function(property) {
+        test.notEqual(typeof this.imu[property.name], "undefined");
+      }, this);
+  
+      test.done();
+    },
+  
+    components: function(test) {
+      test.expect(1);
+  
+      test.deepEqual(this.imu.components, ["magnetometer", "thermometer", "accelerometer"]);
+  
+      test.done();
+    },
+    
+    data: function(test) {
+      test.expect(11);
+
+      this.imu.components.forEach(function(component) {
+        this[component].emit("change");
+      }, this.imu);
+
+      test.ok(this.i2cConfig.calledTwice);
+
+      test.equal(this.i2cConfig.firstCall.args[0].address, 0x1D);
+      test.equal(this.i2cConfig.secondCall.args[0].address, 0x1E);
+
+      test.equal(this.i2cWrite.callCount, 10);
+
+      var accSetup = this.i2cWrite.args.slice(0,4);
+      test.deepEqual(accSetup, [
+          [0x1D, 0x23, 0x4], 
+          [0x1D, 0x20, 0x3F], 
+          [0x1D, 0x20, 0x3F], 
+          [0x1D, 0x20, 0x3F]
+      ]); // (3x same byte to same register, go figure)
+
+      var magSetup = this.i2cWrite.args.slice(4.6);
+      test.deepEqual(magSetup, [
+          [0x1E, 0x20, 0xD8], 
+          [0x1E, 0x21, 0x60], 
+          [0x1E, 0x24, 0x40], 
+          [0x1E, 0x20, 0xD8], 
+          [0x1E, 0x23, 0x8], 
+          [0x1E, 0x22, 0x00]
+      ]); 
+
+      test.ok(this.i2cReadOnce.calledThrice);
+
+      test.deepEqual(this.i2cReadOnce.firstCall.args.slice(0, 3), [ 0x1D, 0x28, 6 ]); 
+      test.deepEqual(this.i2cReadOnce.secondCall.args.slice(0, 3), [ 0x1E, 0x28, 6 ]); 
+      test.deepEqual(this.i2cReadOnce.thirdCall.args.slice(0, 3), [ 0x1E, 0x2E, 2 ]);
+
+      IMU.Drivers.get(this.board, "LSM303C").on("data", function() {
+        test.ok(true);
+        test.done();
+      }.bind(this));
+    },
+  };
