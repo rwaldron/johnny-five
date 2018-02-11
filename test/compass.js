@@ -6,6 +6,7 @@ var expecteds = {
     [25, 0],
     [45, 0]
   ],
+  x: [25, 258],
   bearings: [{
     name: "North",
     abbr: "N",
@@ -42,6 +43,8 @@ var expecteds = {
         name: "bearing"
       }, {
         name: "heading"
+      }, {
+        name: "raw"
       }];
 
       done();
@@ -84,7 +87,7 @@ var expecteds = {
     },
 
     data: function(test) {
-      test.expect(2);
+      test.expect(3);
 
       var handler = this.i2cRead.getCall(0).args[3];
       var spy = sinon.spy();
@@ -96,6 +99,7 @@ var expecteds = {
 
       test.equal(spy.callCount, 1);
       test.equal(Math.round(spy.args[0][0].heading), expecteds.data[index]);
+      test.equal(this.compass.raw.x, expecteds.x[index]);
 
       test.done();
     },
@@ -150,6 +154,8 @@ exports["Compass - MAG3110"] = {
       name: "bearing"
     }, {
       name: "heading"
+    }, {
+      name: "raw"
     }];
 
     done();
@@ -194,7 +200,7 @@ exports["Compass - MAG3110"] = {
   },
 
   data: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     var status = this.i2cReadOnce.getCall(0).args[3];
     var spy = sinon.spy();
@@ -215,12 +221,13 @@ exports["Compass - MAG3110"] = {
     test.equal(spy.callCount, 1);
     test.equal(spy.lastCall.args[0].heading, 3);
     test.equal(this.compass.heading, 3);
+    test.deepEqual(this.compass.raw, { x: 153, y: -9, z: 102 });
 
     test.done();
   },
 
   change: function(test) {
-    test.expect(7);
+    test.expect(8);
 
 
     var status = this.i2cReadOnce.getCall(0).args[3];
@@ -246,6 +253,7 @@ exports["Compass - MAG3110"] = {
     test.equal(this.compass.bearing.abbr, Compass.Points[1].abbr);
     test.equal(this.compass.bearing.low, Compass.Points[1].low);
     test.equal(this.compass.bearing.high, Compass.Points[1].high);
+    test.deepEqual(this.compass.raw, { x: 155, y: -14, z: 93 });
 
     test.done();
   },
@@ -275,6 +283,8 @@ exports["Compass - BNO055"] = {
       name: "bearing"
     }, {
       name: "heading"
+    }, {
+      name: "raw"
     }];
 
     done();
@@ -318,7 +328,7 @@ exports["Compass - BNO055"] = {
   },
 
   dataAndChange: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     var driver = IMU.Drivers.get(this.board, "BNO055");
     var data = this.sandbox.spy();
@@ -356,6 +366,7 @@ exports["Compass - BNO055"] = {
       high: 185.62,
       heading: 180,
     });
+    test.deepEqual(this.compass.raw, { x: -52, y: -0, z: -200 });
     test.done();
   },
 
