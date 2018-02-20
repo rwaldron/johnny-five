@@ -634,7 +634,7 @@ exports["Expander - MCP23017"] = {
   },
 
   digitalRead: function(test) {
-    test.expect(1);
+    test.expect(2);
 
     var spy = this.sandbox.spy();
 
@@ -667,6 +667,9 @@ exports["Expander - MCP23017"] = {
       [32, 19, 1]
     ];
 
+    var numOfEvents = this.expander.eventNames().filter(event => event.startsWith("digital-read")).length;
+
+    test.equal(numOfEvents, 16);
     test.deepEqual(
       this.i2cRead.args.map(function(args) {
         return args.slice(0, -1);
