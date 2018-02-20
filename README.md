@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 357 example programs with code and diagrams!**
+**There are presently 358 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -302,6 +302,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Relay
 - [Relay](https://github.com/rwaldron/johnny-five/blob/master/docs/relay.md)
 - [Relay - Collection](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-collection.md)
+- [Relay On Analog Pin](https://github.com/rwaldron/johnny-five/blob/master/docs/relay-on-analog-pin.md)
 
 ### Shift Register
 - [Shift Register](https://github.com/rwaldron/johnny-five/blob/master/docs/shift-register.md)

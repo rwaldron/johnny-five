@@ -627,6 +627,10 @@
         ]
       },
       {
+        "file": "relay-on-analog-pin.js",
+        "title": "Relay On Analog Pin"
+      },
+      {
         "file": "relay-collection.js",
         "title": "Relay - Collection"
       }
