@@ -947,6 +947,10 @@
     "classes": ["IMU", "Multi"],
     "examples": [
       {
+        "file": "imu-lsm303c.js",
+        "title": "IMU - LSM303C"
+      },
+      {
         "file": "imu-mpu6050.js",
         "title": "IMU - MPU6050"
       },

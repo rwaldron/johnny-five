@@ -67,7 +67,9 @@ board.on("ready", function() {
 
   imu.on("change", function() {
 
-    if (Math.random() > 0.05) return;
+    if (Math.random() > 0.05) {
+      return;
+    }
 
     if (this.accelerometer) {
       console.log("Accelerometer");
@@ -104,8 +106,8 @@ board.on("ready", function() {
   });
 });
 
-
 ```
+
 
 
 

@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 358 example programs with code and diagrams!**
+**There are presently 359 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -375,6 +375,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### IMU/Multi
 - [IMU - BNO055](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055.md)
 - [IMU - BNO055 (Orientation)](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-bno055-orientation.md)
+- [IMU - LSM303C](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-lsm303c.md)
 - [IMU - MPU6050](https://github.com/rwaldron/johnny-five/blob/master/docs/imu-mpu6050.md)
 - [Multi - BME280](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-BME280.md)
 - [Multi - BMP085](https://github.com/rwaldron/johnny-five/blob/master/docs/multi-bmp085.md)
