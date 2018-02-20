@@ -491,15 +491,16 @@ exports["Proximity: MB1000"] = {
   MB1000: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(4);
+    test.expect(5);
 
-    // (500 / 2) * 2.54 = 635cm
-    callback(500);
+    // (500 / 2) * 2.54 = 648,97cm
+    callback(511);
 
-    test.equals(Math.round(this.proximity.centimeters), 635);
-    test.equals(Math.round(this.proximity.cm), 635);
-    test.equals(Math.round(this.proximity.inches), 248);
-    test.equals(Math.round(this.proximity.in), 248);
+    test.equals(Math.round(this.proximity.centimeters), 649);
+    test.equals(Math.round(this.proximity.cm), 649);
+    test.equals(Math.round(this.proximity.inches), 253);
+    test.equals(Math.round(this.proximity.in), 253);
+    test.equals(digits.fractional(this.proximity.centimeters), 2);
 
     test.done();
   },
@@ -655,15 +656,16 @@ exports["Proximity: MB1003"] = {
   MB1003: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(4);
+    test.expect(5);
 
     // 500 is an actual reading at ~250cm
-    callback(500);
+    callback(507);
 
-    test.equals(Math.round(this.proximity.centimeters), 250);
-    test.equals(Math.round(this.proximity.cm), 250);
-    test.equals(Math.round(this.proximity.inches), 98);
-    test.equals(Math.round(this.proximity.in), 98);
+    test.equals(Math.round(this.proximity.centimeters), 254);
+    test.equals(Math.round(this.proximity.cm), 254);
+    test.equals(Math.round(this.proximity.inches), 99);
+    test.equals(Math.round(this.proximity.in), 99);
+    test.equals(digits.fractional(this.proximity.centimeters), 1);
 
     test.done();
   },
@@ -737,7 +739,7 @@ exports["Proximity: MB1230"] = {
   MB1230: function(test) {
     var callback = this.analogRead.args[0][1];
 
-    test.expect(4);
+    test.expect(5);
 
     callback(250);
 
@@ -745,6 +747,7 @@ exports["Proximity: MB1230"] = {
     test.equals(Math.round(this.proximity.cm), 250);
     test.equals(Math.round(this.proximity.inches), 98);
     test.equals(Math.round(this.proximity.in), 98);
+    test.equals(digits.fractional(this.proximity.centimeters), 0);
 
     test.done();
   },
@@ -1018,7 +1021,7 @@ exports["Proximity: HCSR04"] = {
 
   data: function(test) {
     var spy = this.sandbox.spy();
-    test.expect(1);
+    test.expect(2);
 
     // tick the clock forward to trigger the pingRead handler
     this.clock.tick(250);
@@ -1026,6 +1029,8 @@ exports["Proximity: HCSR04"] = {
     this.proximity.on("data", spy);
     this.clock.tick(100);
     test.ok(spy.calledOnce);
+    test.equals(digits.fractional(this.proximity.centimeters), 1);
+
     test.done();
   },
 
@@ -1056,8 +1061,8 @@ exports["Proximity: HCSR04"] = {
 
     this.proximity.within([0, 120], "inches", function() {
       // The fake microseconds value is 1000, which
-      // calculates to 6.76 inches.
-      test.equal(this.inches, 6.7);
+      // calculates to 6.71 inches.
+      test.equal(this.inches, 6.71);
       spy();
     });
 
@@ -1110,11 +1115,13 @@ exports["Proximity: HCSR04I2C"] = {
 
   data: function(test) {
     var spy = this.sandbox.spy();
-    test.expect(1);
+    test.expect(2);
 
     this.proximity.on("data", spy);
     this.clock.tick(100);
     test.equal(spy.callCount, 1);
+    test.equal(digits.fractional(this.proximity.centimeters), 1);
+
     test.done();
   },
 
@@ -1138,7 +1145,7 @@ exports["Proximity: HCSR04I2C"] = {
     this.clock.tick(250);
 
     this.proximity.within([0, 120], "inches", function() {
-      test.equal(this.inches, 6.7);
+      test.equal(this.inches, 6.71);
       spy();
     });
 
@@ -1195,11 +1202,14 @@ exports["Proximity: LIDARLITE"] = {
 
   data: function(test) {
     var spy = this.sandbox.spy();
-    test.expect(1);
+    test.expect(2);
 
     this.proximity.on("data", spy);
     this.clock.tick(100);
     test.equal(spy.callCount, 1);
+
+    test.equal(digits.fractional(this.proximity.centimeters), 0);
+
     test.done();
   },
 
@@ -1474,9 +1484,9 @@ exports["Proximity.Collection"] = {
     test.equal(this.spy.callCount, 3);
 
     test.equal(collection.length, 3);
-    test.equal(collection[0].cm, 0.275);
-    test.equal(collection[1].cm, 0.55);
-    test.equal(collection[2].cm, 0.825);
+    test.equal(collection[0].cm, 0.3);
+    test.equal(collection[1].cm, 0.5);
+    test.equal(collection[2].cm, 0.8);
 
     test.done();
   },
@@ -1504,9 +1514,9 @@ exports["Proximity.Collection"] = {
     test.equal(this.spy.callCount, 3);
 
     test.equal(collection.length, 3);
-    test.equal(collection[0].cm, 1.718);
-    test.equal(collection[1].cm, 3.436);
-    test.equal(collection[2].cm, 5.155);
+    test.equal(collection[0].cm, 1.7);
+    test.equal(collection[1].cm, 3.4);
+    test.equal(collection[2].cm, 5.2);
 
     test.done();
   },
@@ -1582,7 +1592,7 @@ exports["Proximity.Collection"] = {
     // GP2Y0A710K0F
     test.equal(collection[0].cm, 15);
     // HCSR04I2CBACKPACK
-    test.equal(collection[1].cm, 0.275);
+    test.equal(collection[1].cm, 0.3);
     // LIDARLITE
     test.equal(collection[2].cm, 32);
     // MB1003
@@ -1623,9 +1633,9 @@ exports["Proximity.Collection"] = {
     test.equal(this.spy.callCount, 3);
 
     test.equal(collection.length, 3);
-    test.equal(collection[0].cm, 0.275);
-    test.equal(collection[1].cm, 0.55);
-    test.equal(collection[2].cm, 0.825);
+    test.equal(collection[0].cm, 0.3);
+    test.equal(collection[1].cm, 0.5);
+    test.equal(collection[2].cm, 0.8);
 
     test.equal(this.spy.getCall(0).args[0], collection[0]);
     test.equal(this.spy.getCall(1).args[0], collection[1]);
