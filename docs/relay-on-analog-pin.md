@@ -29,10 +29,10 @@ node eg/relay-on-analog-pin.js
 
 
 ```javascript
-var five = require('../');
+var five = require("../");
 var board = new five.Board();
 
-board.on('ready', function() {
+board.on("ready", function() {
 
   var relay = new five.Relay({
     pin: "A2"
