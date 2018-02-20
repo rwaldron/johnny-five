@@ -650,11 +650,11 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.09375,
-      y: 0.15625,
+      x: 0.01171875,
+      y: 0.01953125,
       // When this is converted back into a number,
       // the trailing 0 is discarded.
-      z: 7.9375
+      z: 0.9921875
     }]);
 
     test.done();
@@ -707,11 +707,11 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.046875,
-      y: 0.078125,
+      x: 0.01171875,
+      y: 0.01953125,
       // When this is converted back into a number,
       // the trailing 0 is discarded.
-      z: 3.96875
+      z: 0.9921875
     }]);
 
     test.done();
