@@ -199,7 +199,7 @@ exports["Gyro -- MPU6050"] = {
   data: function(test) {
     var read, spy = this.sandbox.spy();
 
-    test.expect(10);
+    test.expect(13);
     this.gyro.isCalibrated = true;
     this.gyro.on("data", spy);
 
@@ -221,6 +221,10 @@ exports["Gyro -- MPU6050"] = {
     test.equals(this.i2cRead.args[0][0], 0x68);
     test.deepEqual(this.i2cRead.args[0][1], 0x3B);
     test.equals(this.i2cRead.args[0][2], 14);
+
+    test.equal(digits.fractional(this.gyro.rate.x), 4);
+    test.equal(digits.fractional(this.gyro.rate.y), 4);
+    test.equal(digits.fractional(this.gyro.rate.z), 4);
 
     this.clock.tick(100);
 

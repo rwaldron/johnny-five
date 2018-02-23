@@ -650,11 +650,11 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.09375,
-      y: 0.15625,
+      x: 0.01171875,
+      y: 0.01953125,
       // When this is converted back into a number,
       // the trailing 0 is discarded.
-      z: 7.9375
+      z: 0.9921875
     }]);
 
     test.done();
@@ -707,11 +707,11 @@ exports["Accelerometer -- ADXL345"] = {
 
     test.ok(changeSpy.calledOnce);
     test.deepEqual(changeSpy.args[0], [{
-      x: 0.046875,
-      y: 0.078125,
+      x: 0.01171875,
+      y: 0.01953125,
       // When this is converted back into a number,
       // the trailing 0 is discarded.
-      z: 3.96875
+      z: 0.9921875
     }]);
 
     test.done();
@@ -1253,7 +1253,7 @@ exports["Accelerometer -- LIS3DH"] = {
   },
 
   data: function(test) {
-    test.expect(8);
+    test.expect(12);
 
 
     var dataSpy = this.sandbox.spy();
@@ -1285,6 +1285,16 @@ exports["Accelerometer -- LIS3DH"] = {
 
     test.equal(dataSpy.callCount, 2);
     test.equal(changeSpy.callCount, 2);
+
+    test.deepEqual(changeSpy.args[1], [{
+      x: 0.038,
+      y: 0.014,
+      z: 0.96
+    }]);
+
+    test.equal(digits.fractional(this.accel.x), 3);
+    test.equal(digits.fractional(this.accel.y), 3);
+    test.equal(digits.fractional(this.accel.z), 2);
 
     test.done();
   },

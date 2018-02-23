@@ -78,7 +78,7 @@ exports["Hygrometer -- SHT31D"] = {
   },
 
   oneHundredPercentHumidity: function(test) {
-    test.expect(5);
+    test.expect(6);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -94,13 +94,14 @@ exports["Hygrometer -- SHT31D"] = {
     readOnce([
       0, 0, // temperature
       0, // crc
-      0xff, 0xff, // 100% humidity
+      0xdf, 0xdf, // 87.45% humidity
       0 // crc
     ]);
     this.clock.tick(10);
 
     test.equal(spy.callCount, 1);
-    test.equal(this.hygrometer.relativeHumidity, 100);
+    test.equal(this.hygrometer.relativeHumidity, 87.45);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   }
 };
@@ -154,7 +155,7 @@ exports["Hygrometer -- HTU21D"] = {
   },
 
   data: function(test) {
-    test.expect(8);
+    test.expect(9);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -178,7 +179,8 @@ exports["Hygrometer -- HTU21D"] = {
     this.clock.tick(10);
 
     test.equal(spy.callCount, 1);
-    test.equal(Math.round(this.hygrometer.relativeHumidity), 40);
+    test.equal(this.hygrometer.relativeHumidity, 39.91);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   },
 
@@ -301,7 +303,7 @@ exports["Hygrometer -- SI7020"] = {
   },
 
   data: function(test) {
-    test.expect(4);
+    test.expect(5);
 
     test.equal(this.i2cRead.callCount, 2);
     test.deepEqual(this.i2cRead.lastCall.args.slice(0, 3), [
@@ -321,7 +323,8 @@ exports["Hygrometer -- SI7020"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equal(Math.round(spy.args[0][0].relativeHumidity), 49);
+    test.equal(spy.args[0][0].relativeHumidity, 48.69);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
 
     test.done();
   },
@@ -415,7 +418,7 @@ exports["Hygrometer -- HIH6130"] = {
   },
 
   data: function(test) {
-    test.expect(12);
+    test.expect(13);
     var readOnce;
     var spy = this.sandbox.spy();
 
@@ -449,7 +452,8 @@ exports["Hygrometer -- HIH6130"] = {
     this.clock.tick(40);
 
     test.equal(spy.callCount, 12);
-    test.equal(Math.round(this.hygrometer.relativeHumidity), 60);
+    test.equal(this.hygrometer.relativeHumidity, 59.87);
+    test.equal(digits.fractional(this.hygrometer.relativeHumidity), 2);
     test.done();
   },
 
