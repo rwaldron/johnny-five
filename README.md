@@ -425,6 +425,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Digital Microwave](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-digital-microwave.md)
+- [Sensor - Flex sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/flex.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)
