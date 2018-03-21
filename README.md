@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 359 example programs with code and diagrams!**
+**There are presently 360 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -424,6 +424,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Hygrometer - TH02](https://github.com/rwaldron/johnny-five/blob/master/docs/hygrometer-TH02.md)
 - [Sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor.md)
 - [Sensor - Digital Microwave](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-digital-microwave.md)
+- [Sensor - Flex sensor](https://github.com/rwaldron/johnny-five/blob/master/docs/flex.md)
 - [Sensor - Force sensitive resistor](https://github.com/rwaldron/johnny-five/blob/master/docs/sensor-fsr.md)
 - [Sensor - Microphone](https://github.com/rwaldron/johnny-five/blob/master/docs/microphone.md)
 - [Sensor - Photoresistor](https://github.com/rwaldron/johnny-five/blob/master/docs/photoresistor.md)

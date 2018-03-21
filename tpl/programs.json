@@ -1147,6 +1147,10 @@
         "title": "Sensor - Potentiometer"
       },
       {
+        "file": "flex.js",
+        "title": "Sensor - Flex sensor"
+      },
+      {
         "file": "accelerometer.js",
         "title": "Accelerometer"
       },
