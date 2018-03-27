@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 359 example programs with code and diagrams!**
+**There are presently 360 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -290,6 +290,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Keypad
 - [Keypad - 3x4 I2C Nano Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-3X4_I2C_NANO_BACKPACK.md)
+- [Keypad - 4x4 I2C Nano Backpack](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-4X4_I2C_NANO_BACKPACK.md)
 - [Keypad - VKEY](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-vkey.md)
 - [Keypad - Waveshare AD](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-analog-ad.md)
 - [Touchpad - Grove QTouch](https://github.com/rwaldron/johnny-five/blob/master/docs/keypad-QTOUCH.md)
