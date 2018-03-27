@@ -611,6 +611,13 @@
         "externals": [
           { "title": "I2C Backback Firmware", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino"}
         ]
+      },
+      {
+        "file": "keypad-4X4_I2C_NANO_BACKPACK.js",
+        "title": "Keypad - 4x4 I2C Nano Backpack",
+        "externals": [
+          { "title": "I2C Backback Firmware", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_4x4_i2c_nano_backpack.ino"}
+        ]
       }
     ]
   },

@@ -29,7 +29,7 @@ node eg/keypad-4X4_I2C_NANO_BACKPACK.js
 
 
 ```javascript
-var five = require("../lib/johnny-five");
+var five = require("johnny-five");
 var board = new five.Board();
 
 board.on("ready", function() {
@@ -60,8 +60,9 @@ board.on("ready", function() {
   });
 });
 
-
 ```
+
+
 
 
 
@@ -71,7 +72,7 @@ board.on("ready", function() {
 
 ## Learn More
 
-- [4X4 I2C Backback Firmware](https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_4x4_i2c_nano_backpack.ino)
+- [I2C Backback Firmware](https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_4x4_i2c_nano_backpack.ino)
 
 &nbsp;
 
