@@ -176,8 +176,8 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask("nodeunit:files", "Run a subset of tests by specifying a file name, bracket list of file names, or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", function(file) {
-    grunt.task.run("nodeunit:file:" + file);
+  grunt.registerTask("nodeunit:files", "Run a subset of tests by specifying a file name, bracket list of file names, or glob expression. Usage: 'grunt nodeunit:file:<file.ext>' or 'grunt nodeunit:file:<expr>'", function(files) {
+    grunt.task.run("nodeunit:file:" + files);
   });
 
   grunt.registerTask("qc", "Run JSHint & JSCS checks on a file or files by specifying a file name or glob expression. Usage: 'grunt qc' or 'grunt qc:<file.ext>' or 'grunt qc:<expr>'", function(input) {

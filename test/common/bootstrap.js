@@ -60,6 +60,7 @@ global.Motion = five.Motion;
 global.Motor = five.Motor;
 global.Motors = five.Motors;
 global.Nodebot = five.Nodebot;
+global.Orientation = five.Orientation;
 global.Piezo = five.Piezo;
 global.Ping = five.Ping;
 global.Pin = five.Pin;
@@ -168,3 +169,5 @@ global.addControllerTest = function(Constructor, Controller, options) {
     },
   };
 };
+
+global.CardinalPointsToIndex = require("./cardinal-points.json");

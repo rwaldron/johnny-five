@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports.setUp = function(done) {
-  // Base Shape for all Temperature tests
+  // Base Shape for all Altimeter tests
   this.proto = [];
   this.instance = [{
     name: "m"

@@ -446,6 +446,49 @@ exports["Compass.Scale"] = {
   }
 };
 
+
+exports["Compass.Points"] = {
+  setUp(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown(done) {
+    Board.purge();
+    done();
+  },
+  bearingWithCardinalPointAndHeading(test) {
+    test.expect(144004);
+    // 36001 gives us a final heading of 360
+    var degrees = Array.from({ length: 36001 }, (empty, index) => +(index * 0.01).toFixed(2));
+    var raw = 0;
+    var compass = new Compass({
+      board: this.board,
+      controller: {
+        initialize: {
+          value() {
+            Compass.Scale.call(this, null);
+          }
+        },
+        toScaledHeading: {
+          value() {
+            return raw;
+          }
+        }
+      }
+    });
+
+    for (let degree of degrees) {
+      raw = degree;
+      let index = CardinalPointsToIndex[degree];
+      test.equal(compass.bearing.name, Compass.Points[index].name);
+      test.equal(compass.bearing.abbr, Compass.Points[index].abbr);
+      test.equal(compass.bearing.low, Compass.Points[index].low);
+      test.equal(compass.bearing.high, Compass.Points[index].high);
+    }
+    test.done();
+  }
+};
+
 Object.keys(Compass.Controllers).forEach(function(name) {
   exports["Compass - Controller, " + name] = addControllerTest(Compass, Compass.Controllers[name], {
     controller: name,

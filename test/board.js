@@ -1061,6 +1061,32 @@ exports["Boards"] = {
     test.done();
   },
 
+  onfail: function(test) {
+    test.expect(1);
+
+    var ioA = new MockFirmata();
+    var ioB = new MockFirmata();
+
+    var boards = new Boards([{
+      id: "A",
+      repl: true,
+      debug: false,
+      io: ioA
+    }, {
+      id: "B",
+      repl: false,
+      debug: false,
+      io: ioB
+    }]);
+
+    var expected = 1;
+    boards.on("fail", function(actual) {
+      test.equal(actual, expected);
+      test.done();
+    }.bind(this));
+    boards[0].emit("fail", expected);
+  },
+
   portString: function(test) {
     test.expect(3);
 

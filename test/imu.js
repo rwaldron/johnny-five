@@ -746,7 +746,6 @@ exports["IMU -- BNO055"] = {
         test.equal(this.imu.orientation.quarternion.z, iarg.orientation.quarternion.z);
         test.equal(this.imu.thermometer, iarg.thermometer);
         test.equal(this.imu.calibration, iarg.calibration);
-
         test.done();
       }
     }.bind(this), 10);
@@ -1296,7 +1295,7 @@ exports["Multi -- BMP280"] = {
 
 
 exports["IMU -- LSM303C"] = {
-  
+
     setUp: function(done) {
       this.sandbox = sinon.sandbox.create();
       this.board = newBoard();
@@ -1308,7 +1307,7 @@ exports["IMU -- LSM303C"] = {
           switch (address) {
             case 0x1D:
             case 0x1E:
-            return handler([ 255, 172, 38, 10, 216, 206 ].slice(0, length));            
+            return handler([ 255, 172, 38, 10, 216, 206 ].slice(0, length));
             default:
             return handler([]);
           }
@@ -1319,9 +1318,9 @@ exports["IMU -- LSM303C"] = {
         freq: 100,
         board: this.board
       });
-  
+
       this.proto = [];
-  
+
       this.instance = [{
         name: "components"
       }, {
@@ -1331,39 +1330,39 @@ exports["IMU -- LSM303C"] = {
       }, {
         name: "accelerometer"
       }];
-  
+
       done();
     },
-  
+
     tearDown: function(done) {
       Board.purge();
       this.sandbox.restore();
       IMU.Drivers.clear();
       done();
     },
-  
+
     shape: function(test) {
       test.expect(this.proto.length + this.instance.length);
-  
+
       this.proto.forEach(function(method) {
         test.equal(typeof this.imu[method.name], "function");
       }, this);
-  
+
       this.instance.forEach(function(property) {
         test.notEqual(typeof this.imu[property.name], "undefined");
       }, this);
-  
+
       test.done();
     },
-  
+
     components: function(test) {
       test.expect(1);
-  
+
       test.deepEqual(this.imu.components, ["magnetometer", "thermometer", "accelerometer"]);
-  
+
       test.done();
     },
-    
+
     data: function(test) {
       test.expect(11);
 
@@ -1380,26 +1379,26 @@ exports["IMU -- LSM303C"] = {
 
       var accSetup = this.i2cWrite.args.slice(0,4);
       test.deepEqual(accSetup, [
-          [0x1D, 0x23, 0x4], 
-          [0x1D, 0x20, 0x3F], 
-          [0x1D, 0x20, 0x3F], 
+          [0x1D, 0x23, 0x4],
+          [0x1D, 0x20, 0x3F],
+          [0x1D, 0x20, 0x3F],
           [0x1D, 0x20, 0x3F]
       ]); // (3x same byte to same register, go figure)
 
       var magSetup = this.i2cWrite.args.slice(4.6);
       test.deepEqual(magSetup, [
-          [0x1E, 0x20, 0xD8], 
-          [0x1E, 0x21, 0x60], 
-          [0x1E, 0x24, 0x40], 
-          [0x1E, 0x20, 0xD8], 
-          [0x1E, 0x23, 0x8], 
+          [0x1E, 0x20, 0xD8],
+          [0x1E, 0x21, 0x60],
+          [0x1E, 0x24, 0x40],
+          [0x1E, 0x20, 0xD8],
+          [0x1E, 0x23, 0x8],
           [0x1E, 0x22, 0x00]
-      ]); 
+      ]);
 
       test.ok(this.i2cReadOnce.calledThrice);
 
-      test.deepEqual(this.i2cReadOnce.firstCall.args.slice(0, 3), [ 0x1D, 0x28, 6 ]); 
-      test.deepEqual(this.i2cReadOnce.secondCall.args.slice(0, 3), [ 0x1E, 0x28, 6 ]); 
+      test.deepEqual(this.i2cReadOnce.firstCall.args.slice(0, 3), [ 0x1D, 0x28, 6 ]);
+      test.deepEqual(this.i2cReadOnce.secondCall.args.slice(0, 3), [ 0x1E, 0x28, 6 ]);
       test.deepEqual(this.i2cReadOnce.thirdCall.args.slice(0, 3), [ 0x1E, 0x2E, 2 ]);
 
       IMU.Drivers.get(this.board, "LSM303C").on("data", function() {

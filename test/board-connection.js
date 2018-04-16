@@ -13,6 +13,7 @@ exports["Board Connection"] = {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
+    Board.Serial.attempts.length = 0;
     done();
   },
 
@@ -53,5 +54,64 @@ exports["Board Connection"] = {
       test.equal(this.MockFirmata.lastCall.args[0], "/dev/usb");
       test.done();
     }.bind(this));
-  }
+  },
+
+  maxOutAttempts: function(test) {
+    test.expect(2);
+
+    var calls = 0;
+    Board.Serial.used.length = 0;
+    Board.Serial.attempts[0] = 11;
+
+    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+      calls++;
+      process.nextTick(function() {
+        callback(null, calls === 2 ? [{
+          comName: "/dev/usb"
+        }] : []);
+      });
+    });
+
+    this.fail = this.sandbox.stub(Board.prototype, "fail", function(klass, message) {
+      test.equal(klass, "Board");
+      test.equal(message, "No connected device found");
+      test.done();
+    });
+
+    var board = new Board({
+      debug: false,
+      repl: false
+    });
+  },
+
+  inUse: function(test) {
+    test.expect(3);
+    var calls = 0;
+    Board.Serial.used.push("/dev/ttyUSB0");
+
+    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+      calls++;
+      process.nextTick(function() {
+        callback(null, calls === 2 ? [
+          {comName: "/dev/ttyUSB0"},
+          {comName: "/dev/ttyUSB1"},
+          {comName: "/dev/ttyUSB2"},
+        ] : []);
+      });
+    });
+
+    this.info = this.sandbox.spy(Board.prototype, "info");
+
+    var board = new Board({
+      debug: false,
+      repl: false
+    });
+
+    board.on("connect", function() {
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB0"), false);
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB1"), true);
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB2"), true);
+      test.done();
+    }.bind(this));
+  },
 };
