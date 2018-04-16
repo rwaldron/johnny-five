@@ -219,7 +219,7 @@ exports["Animation -- Servo"] = {
 
     this.animation.target["@@render"](val);
     test.equal(testContext.servoWrite.args[1][0], 3);
-    test.equal(testContext.servoWrite.args[1][1], 80);
+    test.equal(testContext.servoWrite.args[1][1], 1404);
 
     test.done();
   },
