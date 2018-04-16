@@ -181,13 +181,13 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 0));
+    test.ok(this.servoWrite.calledWith(11, 600));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 45));
+    test.ok(this.servoWrite.calledWith(11, 1050));
 
     this.servo.to(90);
-    test.ok(this.servoWrite.calledWith(11, 90));
+    test.ok(this.servoWrite.calledWith(11, 1500));
 
     test.done();
   },
@@ -219,19 +219,19 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 160));
+    test.ok(this.servoWrite.calledWith(11, 2200));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 135));
+    test.ok(this.servoWrite.calledWith(11, 1950));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 20));
+    test.ok(this.servoWrite.calledWith(11, 800));
 
     test.done();
   },
 
   rangeWithInvert: function(test) {
-    test.expect(6);
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
@@ -241,16 +241,13 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 20));
-    test.equal(this.servo.value, 160);
+    test.ok(this.servoWrite.calledWith(11, 800));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 45));
-    test.equal(this.servo.value, 135);
+    test.ok(this.servoWrite.calledWith(11, 1050));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 150));
-    test.equal(this.servo.value, 30);
+    test.ok(this.servoWrite.calledWith(11, 2100));
 
     test.done();
   },
@@ -265,10 +262,10 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     this.servo.home();
-    test.ok(this.servoWrite.calledWith(11, 20));
+    test.ok(this.servoWrite.calledWith(11, 800));
 
     test.done();
   },
@@ -282,10 +279,10 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     this.servo.home();
-    test.ok(this.servoWrite.calledWith(11, 90));
+    test.ok(this.servoWrite.calledWith(11, 1500));
 
     test.done();
   },
@@ -300,16 +297,16 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 170));
+    test.ok(this.servoWrite.calledWith(11, 2300));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 125));
+    test.ok(this.servoWrite.calledWith(11, 1850));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 0));
+    test.ok(this.servoWrite.calledWith(11, 600));
 
     this.servo.to(185);
-    test.ok(this.servoWrite.calledWith(11, 175));
+    test.ok(this.servoWrite.calledWith(11, 2350));
 
     test.equal(this.servo.value, 185);
 
@@ -317,7 +314,7 @@ exports["Servo"] = {
   },
 
   offsetWithInvert: function(test) {
-    test.expect(7);
+    test.expect(4);
 
     this.servo = new Servo({
       pin: 11,
@@ -327,16 +324,13 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 10));
-    test.equal(this.servo.value, 180);
+    test.ok(this.servoWrite.calledWith(11, 700));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 55));
-    test.equal(this.servo.value, 135);
+    test.ok(this.servoWrite.calledWith(11, 1150));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 180));
-    test.equal(this.servo.value, 10);
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     test.equal(this.servo.value, 10);
     
@@ -344,7 +338,7 @@ exports["Servo"] = {
   },
 
   offsetWithRange: function(test) {
-    test.expect(6);
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
@@ -354,22 +348,19 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 140));
-    test.equal(this.servo.value, 150);
+    test.ok(this.servoWrite.calledWith(11, 2000));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 125));
-    test.equal(this.servo.value, 135);
+    test.ok(this.servoWrite.calledWith(11, 1850));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 10));
-    test.equal(this.servo.value, 20);
+    test.ok(this.servoWrite.calledWith(11, 700));
 
     test.done();
   },
 
   offsetWithRangeAndInvert: function(test) {
-    test.expect(6);
+    test.expect(3);
 
     this.servo = new Servo({
       pin: 11,
@@ -380,16 +371,13 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    test.ok(this.servoWrite.calledWith(11, 40));
-    test.equal(this.servo.value, 150);
+    test.ok(this.servoWrite.calledWith(11, 1000));
 
     this.servo.to(135);
-    test.ok(this.servoWrite.calledWith(11, 55));
-    test.equal(this.servo.value, 135);
+    test.ok(this.servoWrite.calledWith(11, 1150));
 
     this.servo.to(10);
-    test.ok(this.servoWrite.calledWith(11, 170));
-    test.equal(this.servo.value, 20);
+    test.ok(this.servoWrite.calledWith(11, 2300));
 
     test.done();
   },
@@ -535,7 +523,7 @@ exports["Servo"] = {
 
     this.servo.to(138);
     test.equal(this.servoWrite.lastCall.args[0], 11);
-    test.equal(this.servoWrite.lastCall.args[1], 138);
+    test.equal(this.servoWrite.lastCall.args[1], 1980);
     test.equal(this.update.callCount, 1);
     test.equal(this.update.lastCall.args[0], 138);
     test.done();
@@ -1228,7 +1216,7 @@ exports["Servo - Continuous"] = {
 
   stopped: function(test) {
     test.expect(1);
-    test.ok(this.servoWrite.calledWith(11, 90));
+    test.ok(this.servoWrite.calledWith(11, 1500));
     test.done();
   },
 
@@ -1253,12 +1241,12 @@ exports["Servo - Continuous"] = {
     test.expect(2);
 
     this.a.cw();
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     this.servoWrite.restore();
 
     this.b.cw();
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
 
     test.done();
@@ -1268,12 +1256,12 @@ exports["Servo - Continuous"] = {
     test.expect(2);
 
     this.a.ccw();
-    test.ok(this.servoWrite.calledWith(11, 0));
+    test.ok(this.servoWrite.calledWith(11, 600));
 
     this.servoWrite.restore();
 
     this.b.ccw();
-    test.ok(this.servoWrite.calledWith(11, 0));
+    test.ok(this.servoWrite.calledWith(11, 600));
 
 
     test.done();
@@ -1322,12 +1310,12 @@ exports["Servo - Continuous"] = {
     });
 
     this.continuousServo.cw();
-    test.ok(this.servoWrite.calledWith(5, 160));
+    test.ok(this.servoWrite.calledWith(5, 2200));
 
     this.servoWrite.reset();
 
     this.continuousServo.cw(0.5);
-    test.ok(this.servoWrite.calledWith(5, 128));
+    test.ok(this.servoWrite.calledWith(5, 1880));
 
     test.done();
   }

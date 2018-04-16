@@ -96,7 +96,7 @@ exports["ESC"] = {
     this.clock.tick(120);
     test.equal(this.servoWrite.callCount, 10);
     // (10 * 180 / 100) | 0 = 18
-    test.equal(this.servoWrite.lastCall.args[1], 18);
+    test.equal(this.servoWrite.lastCall.args[1], 729);
 
     this.servoWrite.reset();
 
@@ -104,15 +104,14 @@ exports["ESC"] = {
     this.clock.tick(10);
     test.equal(this.servoWrite.callCount, 1);
     // (9 * 180 / 100) = 16.2
-    test.equal(this.servoWrite.lastCall.args[1], 16.200000762939453);
+    test.equal(this.servoWrite.lastCall.args[1], 711);
 
     this.servoWrite.reset();
 
     this.esc.speed(12);
     this.clock.tick(30);
     test.equal(this.servoWrite.callCount, 3);
-    // (12 * 180 / 100) = 21.6
-    test.equal(this.servoWrite.lastCall.args[1], 21.6);
+    test.equal(this.servoWrite.lastCall.args[1], 766);
 
     test.done();
   },
@@ -463,7 +462,7 @@ exports["ESC - FORWARD_REVERSE"] = {
 
     test.ok(spy.calledOnce);
     test.equal(spy.getCall(0).args[0], 11);
-    test.equal(spy.getCall(0).args[1], 90);
+    test.equal(spy.getCall(0).args[1], 1472);
 
     spy.restore();
     test.done();

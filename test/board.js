@@ -490,7 +490,7 @@ exports["Board"] = {
   },
 
   snapshot: function(test) {
-    test.expect(69);
+    test.expect(71);
 
     new Multi({
       controller: "BME280",
@@ -653,6 +653,8 @@ exports["Board"] = {
         pin: 10
       }, {
         deadband: [90, 90],
+        degreeRange: [ 0, 180 ],
+        pwmRange: [ 600, 2400 ],
         startAt: 90,
         value: null,
         position: -1,
