@@ -491,7 +491,7 @@ exports["Compass.Points"] = {
 
       if (compass.bearing.abbr !== Compass.Points[index].abbr) {
         pass = false;
-        message = `compass.bearing.abbr: ${compass.bearing.abbr} !== ${ompass.Points[index].abbr}`;
+        message = `compass.bearing.abbr: ${compass.bearing.abbr} !== ${Compass.Points[index].abbr}`;
         break failure;
       }
 
