@@ -78,7 +78,7 @@ exports["Board Connection"] = {
       test.done();
     });
 
-    var board = new Board({
+    new Board({
       debug: false,
       repl: false
     });

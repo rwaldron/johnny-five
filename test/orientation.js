@@ -4,13 +4,9 @@ exports.setUp = function(done) {
   // Base Shape for all Temperature tests
   this.proto = [];
   this.instance = [{
-    name: "m"
+    name: "euler",
   }, {
-    name: "ft"
-  }, {
-    name: "meters"
-  }, {
-    name: "feet"
+    name: "quarternion",
   }];
 
   this.board = newBoard();
@@ -31,12 +27,6 @@ exports.tearDown = function(done) {
   this.sandbox.restore();
   done();
 };
-
-var instance = [{
-  name: "euler",
-}, {
-  name: "quarternion",
-}];
 
 exports["Orientation - BNO055"] = {
 
@@ -121,7 +111,7 @@ exports["Orientation - BNO055"] = {
 
   defaulttoScaledQuarternion: function(test) {
     test.expect(2);
-    var toScaledQuarternion = undefined;
+    var toScaledQuarternion;
     var orientation = new Orientation({
       controller: {},
       toScaledQuarternion,
@@ -136,7 +126,7 @@ exports["Orientation - BNO055"] = {
 
   defaulttoScaledEuler: function(test) {
     test.expect(2);
-    var toScaledEuler = undefined;
+    var toScaledEuler;
     var orientation = new Orientation({
       controller: {},
       toScaledEuler,

@@ -252,7 +252,7 @@ exports["Barometer -- BMP280"] = {
 
   defaulttoPressure: function(test) {
     test.expect(2);
-    var toPressure = undefined;
+    var toPressure;
     var barometer = new Barometer({
       controller: {},
       toPressure,
@@ -362,7 +362,7 @@ exports["Barometer -- BME280"] = {
 
   defaulttoPressure: function(test) {
     test.expect(2);
-    var toPressure = undefined;
+    var toPressure;
     var barometer = new Barometer({
       controller: {},
       toPressure,
@@ -473,7 +473,7 @@ exports["Barometer -- MS5611"] = {
 
   defaulttoPressure: function(test) {
     test.expect(2);
-    var toPressure = undefined;
+    var toPressure;
     var barometer = new Barometer({
       controller: {},
       toPressure,
