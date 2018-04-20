@@ -9,12 +9,13 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
+  - npm install -g grunt-cli
   - npm install
 
 build: off
 
 test_script:
-  - npm test
+  - grunt jshint jscs nodeunit
 
 cache:
   - node_modules
