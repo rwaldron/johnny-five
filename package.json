@@ -257,9 +257,6 @@
   },
   "license": "MIT",
   "main": "lib/johnny-five",
-  "engines": {
-    "node": ">=0.10.0"
-  },
   "dependencies": {
     "chalk": "2.1.0",
     "color-convert": "~1.2.2",
