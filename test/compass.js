@@ -457,7 +457,7 @@ exports["Compass.Points"] = {
     done();
   },
   bearingWithCardinalPointAndHeading(test) {
-    test.expect(144004);
+    test.expect(1);
     // 36001 gives us a final heading of 360
     var degrees = Array.from({ length: 36001 }, (empty, index) => +(index * 0.01).toFixed(2));
     var raw = 0;
@@ -477,14 +477,38 @@ exports["Compass.Points"] = {
       }
     });
 
-    for (let degree of degrees) {
+    var pass = true;
+    var message = "";
+
+    failure: for (let degree of degrees) {
       raw = degree;
       let index = CardinalPointsToIndex[degree];
-      test.equal(compass.bearing.name, Compass.Points[index].name);
-      test.equal(compass.bearing.abbr, Compass.Points[index].abbr);
-      test.equal(compass.bearing.low, Compass.Points[index].low);
-      test.equal(compass.bearing.high, Compass.Points[index].high);
+      if (compass.bearing.name !== Compass.Points[index].name) {
+        pass = false;
+        message = `compass.bearing.name: ${compass.bearing.name} !== ${Compass.Points[index].name}`;
+        break failure;
+      }
+
+      if (compass.bearing.abbr !== Compass.Points[index].abbr) {
+        pass = false;
+        message = `compass.bearing.abbr: ${compass.bearing.abbr} !== ${ompass.Points[index].abbr}`;
+        break failure;
+      }
+
+      if (compass.bearing.low !== Compass.Points[index].low) {
+        pass = false;
+        message = `compass.bearing.low: ${compass.bearing.low} !== ${Compass.Points[index].low}`;
+        break failure;
+      }
+
+      if (compass.bearing.high !== Compass.Points[index].high) {
+        pass = false;
+        message = `compass.bearing.high: ${compass.bearing.high} !== ${Compass.Points[index].high}`;
+        break failure;
+      }
     }
+
+    test.ok(pass, message);
     test.done();
   }
 };
