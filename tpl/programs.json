@@ -466,6 +466,10 @@
       {
         "file": "motor-EVS_NXT.js",
         "title": "Motor - EVShield NXT"
+      },
+      {
+        "file": "motor-drv8871.js",
+        "title": "Motor - Adafruit DRV8871 DC Motor Driver Breakout"
       }
     ]
   },
