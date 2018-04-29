@@ -172,7 +172,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 361 example programs with code and diagrams!**
+**There are presently 362 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -249,6 +249,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 ### Motor
 - [Motor](https://github.com/rwaldron/johnny-five/blob/master/docs/motor.md)
 - [Motor - 3 pin](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-3-pin.md)
+- [Motor - Adafruit DRV8871 DC Motor Driver Breakout](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-drv8871.md)
 - [Motor - Brake](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-brake.md)
 - [Motor - Current](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-current.md)
 - [Motor - Directional](https://github.com/rwaldron/johnny-five/blob/master/docs/motor-directional.md)
