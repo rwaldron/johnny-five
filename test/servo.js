@@ -333,7 +333,7 @@ exports["Servo"] = {
     test.ok(this.servoWrite.calledWith(11, 2400));
 
     test.equal(this.servo.value, 10);
-    
+
     test.done();
   },
 
@@ -949,7 +949,7 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
     test.equal(state.animation.normalizedKeyFrames[0][1].value, 30);
-    
+
     test.done();
   },
 
