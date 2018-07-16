@@ -35,15 +35,17 @@ exports["ESC"] = {
     }, {
       name: "interval"
     }, {
-      name: "startAt"
+      name: "neutral"
     }];
 
+    process.noDeprecation = true;
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
     this.sandbox.restore();
+    process.noDeprecation = false;
     done();
   },
 
@@ -69,156 +71,6 @@ exports["ESC"] = {
     test.done();
   },
 
-  startAt: function(test) {
-    test.expect(2);
-
-    this.spy = this.sandbox.spy(ESC.prototype, "speed");
-    this.servoWrite.reset();
-
-    this.esc = new ESC({
-      pin: 12,
-      board: this.board,
-      startAt: 1
-    });
-
-    test.ok(this.spy.called);
-    this.clock.tick(10);
-
-    test.equal(this.servoWrite.callCount, 1);
-    test.done();
-  },
-
-  speed: function(test) {
-    test.expect(6);
-
-    this.esc.speed(1);
-    this.esc.speed(10);
-    this.clock.tick(120);
-    test.equal(this.servoWrite.callCount, 10);
-    // (10 * 180 / 100) | 0 = 18
-    test.equal(this.servoWrite.lastCall.args[1], 729);
-
-    this.servoWrite.reset();
-
-    this.esc.speed(9);
-    this.clock.tick(10);
-    test.equal(this.servoWrite.callCount, 1);
-    // (9 * 180 / 100) = 16.2
-    test.equal(this.servoWrite.lastCall.args[1], 711);
-
-    this.servoWrite.reset();
-
-    this.esc.speed(12);
-    this.clock.tick(30);
-    test.equal(this.servoWrite.callCount, 3);
-    test.equal(this.servoWrite.lastCall.args[1], 766);
-
-    test.done();
-  },
-  constrainSpeed: function(test) {
-    test.expect(2);
-
-    this.esc.speed(1);
-    this.esc.speed(1000);
-    this.clock.tick(1000);
-
-    // 100 steps, not 1000
-    test.equal(this.servoWrite.callCount, 100);
-    test.equal(this.esc.value, 100);
-
-    test.done();
-  },
-
-  speedIgnoresDupCommand: function(test) {
-    test.expect(1);
-
-    var intervalId;
-
-    this.esc.speed(1);
-    this.esc.speed(50);
-    this.clock.tick(10);
-    intervalId = this.esc.interval;
-
-    this.esc.speed(50);
-    this.clock.tick(10);
-
-    // When receiving a duplicate, the in-progress
-    // interval will not be interrupted.
-    test.equal(intervalId, this.esc.interval);
-
-    test.done();
-  },
-
-  speedInterruptsInterval: function(test) {
-    test.expect(1);
-
-    var intervalId;
-
-    this.esc.speed(1);
-    this.esc.speed(50);
-    this.clock.tick(10);
-    intervalId = this.esc.interval;
-
-    this.esc.speed(60);
-    this.clock.tick(10);
-
-    // When receiving a unique speed, the in-progress
-    // interval will be interrupted.
-    test.notEqual(intervalId, this.esc.interval);
-
-    test.done();
-  },
-
-  range: function(test) {
-    test.expect(2);
-
-    this.esc.range[0] = 50;
-    this.esc.range[1] = 60;
-
-    this.esc.speed(40);
-    // constrained to the lower range boundary
-    test.equal(this.esc.value, 50);
-
-    this.esc.speed(70);
-    // constrained to the upper range boundary
-    test.equal(this.esc.value, 60);
-
-    test.done();
-  },
-
-  bailout: function(test) {
-    test.expect(4);
-
-    this.esc.speed(1);
-    this.esc.speed(10);
-    this.clock.tick(10);
-    test.equal(this.esc.last.speed, 10);
-    test.equal(this.servoWrite.args.length, 10);
-
-    this.esc.speed(0);
-    this.clock.tick(10);
-    test.equal(this.esc.last.speed, 0);
-    test.equal(this.servoWrite.args.length, 20);
-
-    test.done();
-  },
-
-  accelerateDecelerate: function(test) {
-    test.expect(4);
-
-    this.esc.speed(1);
-    this.esc.speed(10);
-    this.clock.tick(100);
-    test.equal(this.esc.last.speed, 10);
-    test.equal(this.servoWrite.args.length, 10);
-
-    this.esc.speed(0);
-    this.clock.tick(100);
-    test.equal(this.esc.last.speed, 0);
-    test.equal(this.servoWrite.args.length, 20);
-
-    test.done();
-  },
 };
 
 
@@ -238,13 +90,16 @@ exports["ESC - PCA9685"] = {
       address: 0x40
     });
 
+    process.noDeprecation = true;
     done();
   },
 
   tearDown: function(done) {
     Board.purge();
-    this.sandbox.restore();
     Expander.purge();
+    this.sandbox.restore();
+
+    process.noDeprecation = false;
     done();
   },
 
@@ -339,8 +194,8 @@ exports["ESC - PCA9685"] = {
     test.equal(this.i2cWrite.args[0][1][0], 6);
     test.equal(this.i2cWrite.args[0][1][1], 0);
     test.equal(this.i2cWrite.args[0][1][2], 0);
-    test.equal(this.i2cWrite.args[0][1][3], 182);
-    test.equal(this.i2cWrite.args[0][1][4], 0);
+    test.equal(this.i2cWrite.args[0][1][3], 275);
+    test.equal(this.i2cWrite.args[0][1][4], 1);
 
     test.done();
   }
@@ -352,6 +207,8 @@ exports["ESC - FORWARD_REVERSE"] = {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
+    this.throttle = this.sandbox.spy(ESC.prototype, "throttle");
+    this.speed = this.sandbox.spy(ESC.prototype, "speed");
     done();
   },
 
@@ -374,10 +231,9 @@ exports["ESC - FORWARD_REVERSE"] = {
 
     test.done();
   },
-  neutralStartAt: function(test) {
+  neutralStartAtOldRangeToPWMRange: function(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -385,17 +241,13 @@ exports["ESC - FORWARD_REVERSE"] = {
       board: this.board,
     });
 
-    test.ok(spy.calledOnce);
-    test.equal(esc.startAt, 50);
-
-    spy.restore();
-
+    test.ok(this.throttle.calledOnce);
+    test.equal(esc.neutral, 1500);
     test.done();
   },
   forward: function(test) {
     test.expect(4);
 
-    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -403,25 +255,22 @@ exports["ESC - FORWARD_REVERSE"] = {
       board: this.board,
     });
 
-    spy.reset();
-
+    this.speed.reset();
     esc.forward(100);
 
-    test.ok(spy.calledOnce);
-    test.equal(spy.getCall(0).args[0], 100);
+    test.ok(this.speed.calledOnce);
+    test.equal(this.speed.getCall(0).args[0], 100);
 
     esc.forward(0);
 
-    test.ok(spy.calledTwice);
-    test.equal(spy.getCall(1).args[0], 50);
+    test.ok(this.speed.calledTwice);
+    test.equal(this.speed.getCall(1).args[0], 1500);
 
-    spy.restore();
     test.done();
   },
   reverse: function(test) {
     test.expect(4);
 
-    var spy = this.sandbox.spy(ESC.prototype, "speed");
     var esc = new ESC({
       device: "FORWARD_REVERSE",
       neutral: 50,
@@ -429,21 +278,20 @@ exports["ESC - FORWARD_REVERSE"] = {
       board: this.board,
     });
 
-    spy.reset();
-
+    this.speed.reset();
     esc.reverse(100);
 
-    test.ok(spy.calledOnce);
-    test.equal(spy.getCall(0).args[0], 0);
+    test.ok(this.speed.calledOnce);
+    test.equal(this.speed.getCall(0).args[0], 0);
 
     esc.reverse(0);
 
-    test.ok(spy.calledTwice);
-    test.equal(spy.getCall(1).args[0], 50);
+    test.ok(this.speed.calledTwice);
+    test.equal(this.speed.getCall(1).args[0], 1500);
 
-    spy.restore();
     test.done();
   },
+
   brake: function(test) {
     test.expect(3);
 
@@ -453,7 +301,7 @@ exports["ESC - FORWARD_REVERSE"] = {
       pin: 11,
       board: this.board,
     });
-
+    // write is internal and only exposed on instances
     var spy = this.sandbox.spy(esc, "write");
 
     esc.forward(1);
@@ -462,9 +310,8 @@ exports["ESC - FORWARD_REVERSE"] = {
 
     test.ok(spy.calledOnce);
     test.equal(spy.getCall(0).args[0], 11);
-    test.equal(spy.getCall(0).args[1], 1472);
+    test.equal(spy.getCall(0).args[1], 1500);
 
-    spy.restore();
     test.done();
   },
 };
