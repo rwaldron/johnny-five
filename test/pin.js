@@ -312,6 +312,80 @@ exports["Pin"] = {
   }
 };
 
+exports["10 Bit Pin"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.spies = [
+      "analogWrite", "digitalWrite",
+      "analogRead", "digitalRead",
+      "queryPinState"
+    ];
+
+    this.spies.forEach(function(method) {
+      this[method] = this.sandbox.spy(MockFirmata.prototype, method);
+    }.bind(this));
+
+    this.board = newBoard();
+
+    // Override board resolution
+    this.board.RESOLUTION.PWM = 1023;
+
+    this.analog = new Pin({
+      pin: "A1",
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  analog: function(test) {
+    test.expect(2);
+
+    test.equal(this.analog.type, "analog");
+    test.equal(this.analog.mode, 2);
+
+    test.done();
+  },
+
+  high: function(test) {
+    test.expect(1);
+
+    this.analog.high();
+    test.ok(this.analogWrite.calledWith(1, 1023));
+
+    test.done();
+  },
+
+  low: function(test) {
+    test.expect(1);
+
+    this.analog.low();
+    test.ok(this.analogWrite.calledWith(1, 0));
+
+    test.done();
+  },
+
+  write: function(test) {
+    test.expect(4);
+
+    this.analog.write(1023);
+    test.ok(this.analogWrite.calledWith(1, 1023));
+    test.equal(this.analog.value, 1023);
+
+    this.analog.write(0);
+    test.ok(this.analogWrite.calledWith(1, 0));
+    test.equal(this.analog.value, 0);
+
+    test.done();
+  }
+};
+
 exports["Pin.Collection"] = {
   setUp: function(done) {
     this.sandbox = sinon.sandbox.create();

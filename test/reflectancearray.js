@@ -376,3 +376,43 @@ exports["ReflectanceArray"] = {
     test.done();
   }
 };
+
+exports["10-Bit ReflectanceArray"] = {
+  setUp: function(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.board.RESOLUTION.PWM = 1023;
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+
+    this.sendAnalogValue = function(index, value) {
+      this.analogRead.args[index][1](value);
+    }.bind(this);
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+
+  enable: function(test) {
+    this.eyes = getEyes({
+      board: this.board
+    });
+    test.expect(4);
+
+    this.eyes.enable();
+    test.ok(this.analogWrite.calledWith(11, 1023));
+    test.equal(this.eyes.isOn, true);
+
+    this.eyes.disable();
+    test.ok(this.analogWrite.calledWith(11, 0));
+    test.equal(this.eyes.isOn, false);
+
+    test.done();
+  },
+
+};
