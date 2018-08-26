@@ -47,6 +47,12 @@ exports["Board"] = {
     new Board();
   },
 
+  defaultResolution: function(test) {
+    test.expect(1);
+    test.deepEqual(this.board.RESOLUTION, {PWM: 255, DAC: null, ADC: 1023});
+    test.done();
+  },
+
   explicitTransport: function(test) {
     test.expect(1);
 

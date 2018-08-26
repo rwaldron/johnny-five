@@ -33,7 +33,6 @@ function testLedRgbShape(test) {
   test.done();
 }
 
-
 exports["RGB"] = {
   setUp: function(done) {
     this.board = newBoard();
@@ -763,6 +762,102 @@ exports["RGB"] = {
 
 };
 
+exports["10-bit RGB"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+
+    // Override PWM Resolution
+    this.board.RESOLUTION.PWM = 1023;
+
+    this.rgb = new RGB({
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      },
+      board: this.board
+    });
+
+    this.write = this.sandbox.spy(this.rgb, "write");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  write: function(test) {
+    test.expect(4);
+
+    this.rgb.write({
+      red: 0xbb, // 750 or 0x2ee
+      green: 0xcc, // 819 or 0x333
+      blue: 0xaa // 682 or 0x2aa
+    });
+
+    test.ok(this.analogWrite.callCount, 3);
+    test.deepEqual(this.analogWrite.getCall(3).args, [9, 0x2ee]);
+    test.deepEqual(this.analogWrite.getCall(4).args, [10, 0x332]);
+    test.deepEqual(this.analogWrite.getCall(5).args, [11, 0x2aa]);
+
+    test.done();
+  }
+};
+
+exports["10-bit RGB Common Anode"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+
+    // Override PWM Resolution
+    this.board.RESOLUTION.PWM = 1023;
+
+    this.rgb = new RGB({
+      pins: {
+        red: 9,
+        green: 10,
+        blue: 11,
+      },
+      isAnode: true,
+      board: this.board
+    });
+
+    this.write = this.sandbox.spy(this.rgb, "write");
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  write: function(test) {
+    test.expect(4);
+
+    this.analogWrite.reset();
+
+    this.rgb.write({
+      red: 0xbb, // 187 -> 68 -> 273 -> 0x111
+      green: 0xcc, // 204 -> 51 -> 204 -> 0xCC
+      blue: 0xaa // 170 -> 85 -> 341 -> 0x155
+    });
+
+    test.ok(this.analogWrite.callCount, 3);
+    test.deepEqual(this.analogWrite.getCall(0).args, [9, 0x110]);
+    test.deepEqual(this.analogWrite.getCall(1).args, [10, 0xCC]);
+    test.deepEqual(this.analogWrite.getCall(2).args, [11, 0x155]);
+
+    test.done();
+  }
+};
 
 exports["RGB - Cycling Operations"] = {
   setUp: function(done) {

@@ -584,6 +584,151 @@ exports["Led - PWM"] = {
   },
 };
 
+exports["Led - 10-bit PWM"] = {
+  setUp: function(done) {
+    this.board = newBoard();
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
+
+    // Override PWM Resolution
+    this.board.RESOLUTION.PWM = 1023;
+    
+    this.led = new Led({
+      pin: 11,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown: function(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  shape: testLedShape,
+
+  on: function(test) {
+    test.expect(2);
+
+    this.led.on();
+    test.ok(this.analogWrite.firstCall.calledWith(11, 1023));
+    test.equal(this.analogWrite.callCount, 1);
+    test.done();
+  },
+
+  onFromNull: function(test) {
+    test.expect(4);
+
+    this.mapget = this.sandbox.spy(Map.prototype, "get");
+
+    this.led = new Led({
+      pin: 11,
+      board: this.board
+    });
+
+    var state = this.mapget.lastCall.returnValue;
+
+    test.equal(state.value, null);
+
+    this.led.on();
+
+    test.equal(state.value, 255);
+    test.equal(this.analogWrite.callCount, 1);
+    test.ok(this.analogWrite.firstCall.calledWith(11, 1023));
+    test.done();
+  },
+
+  off: function(test) {
+    test.expect(2);
+
+    this.led.off();
+    test.ok(this.analogWrite.firstCall.calledWith(11, 0));
+    test.equal(this.analogWrite.callCount, 1);
+
+    test.done();
+  },
+
+  blink: function(test) {
+    test.expect(4);
+    /*
+      This test is incredibly important!
+
+      What this is asserting is that blinking PWM LED will
+      analogWrite the correct value of 255 when there is an
+      ACTIVE interval and the last value was 0.
+    */
+    this.mapget = this.sandbox.spy(Map.prototype, "get");
+
+    this.led.off();
+    test.equal(this.led.isOn, false);
+
+    this.led.blink(1);
+
+    var state = this.mapget.lastCall.returnValue;
+
+    test.equal(state.value, 0);
+
+    this.clock.tick(1);
+    test.equal(this.led.isOn, true);
+    test.ok(this.analogWrite.lastCall.calledWith(11, 1023));
+
+    test.done();
+  },
+
+  toggle: function(test) {
+    test.expect(5);
+
+    this.led.off();
+    this.analogWrite.reset();
+
+    this.led.toggle();
+    test.ok(this.analogWrite.lastCall.calledWith(11, 1023));
+    test.ok(this.led.isOn);
+
+    this.led.toggle();
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
+    test.ok(!this.led.isOn);
+
+    test.equal(this.analogWrite.callCount, 2);
+
+    test.done();
+  },
+
+  brightness: function(test) {
+    test.expect(4);
+
+    this.led.off();
+    this.analogWrite.reset();
+
+    this.led.brightness(255);
+    test.ok(this.analogWrite.lastCall.calledWith(11, 1023));
+
+    this.led.brightness(100);
+    test.ok(this.analogWrite.lastCall.calledWith(11, 401));
+
+    this.led.brightness(0);
+    test.ok(this.analogWrite.lastCall.calledWith(11, 0));
+
+    test.equal(this.analogWrite.callCount, 3);
+
+    test.done();
+  },
+
+  pulse: function(test) {
+    test.expect(1);
+
+    this.led.pulse();
+
+    test.equal(this.enqueue.callCount, 1);
+    test.done();
+  }
+};
+
 exports["Led - PCA9685 (I2C)"] = {
   setUp: function(done) {
     this.board = newBoard();
