@@ -21,6 +21,11 @@ exports["Servo.Collection"] = {
       pin: 9,
       board: this.board
     });
+    
+    this.d = new Servo({
+      pin: 11,
+      board: this.board
+    });
 
     this.spies = [
       "to", "stop"
@@ -127,6 +132,54 @@ exports["Servo.Collection"] = {
     test.done();
   },
 
+  "Animation.normalize-nested": function(test) {
+    test.expect(1);
+
+    var group1 = new Servos([
+      this.a, this.b
+    ]);
+
+    var group2 = new Servos([
+      this.c, this.d
+    ]);
+
+    var bothGroups = new Servos([
+      group1, group2
+    ]);
+
+    var normalized = bothGroups[Animation.normalize]([
+      [
+        [
+          null,
+          10,
+        ]
+      ],
+      [
+        [
+          null,
+          20,
+        ]
+      ]
+    ]);
+
+    test.deepEqual(normalized, [
+      [ 
+        [ 
+          { value: 90, easing: "linear" }, 
+          { step: 10, easing: "linear" }
+        ]
+      ],
+      [ 
+        [ 
+          { value: 90, easing: "linear" },
+          { step: 20, easing: "linear" }
+        ]
+      ]
+    ]);
+
+    test.done();
+  },
+  
   "Animation.normalize": function(test) {
     test.expect(3);
 
