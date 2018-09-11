@@ -1105,6 +1105,54 @@ exports["Servo"] = {
     test.done();
   },
 
+  "Animation.normalize (degrees instead of value)": function(test) {
+    test.expect(1);
+
+    this.servo = new Servo({
+      board: this.board,
+      pin: 11,
+    });
+
+    var normalized = this.servo[Animation.normalize]([
+      null,
+      {degrees: 0},
+    ]);
+
+    test.equal(normalized[1].value, 0);
+
+    test.done();
+  },
+
+  "Animation.normalize (nested degrees instead of value)": function(test) {
+    test.expect(2);
+
+    this.servos = new Servos([
+      {
+        board: this.board,
+        pin: 11,
+      }, {
+        board: this.board,
+        pin: 12,
+      }
+    ]);
+
+    var normalized = this.servos[Animation.normalize]([
+      [
+        null,
+        {degrees: 0}
+      ],
+      [
+        null,
+        {degrees: 180}
+      ],
+    ]);
+
+    test.equal(normalized[0][1].value, 0);
+    test.equal(normalized[1][1].value, 180);
+
+    test.done();
+  },
+
   "Animation.render": function(test) {
     test.expect(2);
 

@@ -67,7 +67,7 @@ exports["Servo"] = {
 
     this.servo.on("move:complete", function() {
       test.equal(this.servo.position, 0);
-      test.ok(this.servoWrite.callCount === 101);
+      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
       test.done();
     }.bind(this));
   },
@@ -144,7 +144,7 @@ exports["Servo"] = {
 
     this.servo.on("move:complete", function() {
       test.equal(this.servo.position, 0);
-      test.ok(this.servoWrite.callCount === 101);
+      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
       test.done();
     }.bind(this));
   },
@@ -163,7 +163,7 @@ exports["Servo"] = {
 
     this.servo.on("move:complete", function() {
       test.equal(this.servo.position, 180);
-      test.ok(this.servoWrite.callCount === 101);
+      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
       test.done();
     }.bind(this));
   },
@@ -217,7 +217,7 @@ exports["Servo"] = {
 
     this.servo.on("move:complete", function() {
       test.equal(this.servo.value, 80);
-      test.equal(this.servoWrite.lastCall.args[1], 70);
+      test.equal(this.servoWrite.lastCall.args[1], 1300);
       test.done();
     }.bind(this));
     
@@ -237,7 +237,7 @@ exports["Servo"] = {
 
     this.servo.on("move:complete", function() {
       test.equal(this.servo.value, 80);
-      test.equal(this.servoWrite.lastCall.args[1], 110);
+      test.equal(this.servoWrite.lastCall.args[1], 1700);
       test.done();
     }.bind(this));
     
