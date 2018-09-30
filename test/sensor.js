@@ -1511,6 +1511,23 @@ exports["Sensor - Digital"] = {
     test.done();
   },
 
+  scaleBackward: function(test) {
+    var callback = this.digitalRead.args[0][1];
+
+    test.expect(1);
+
+    // Scale the expected 0-1 to a value between 50-100 (~75)
+    this.sensor.scale(100, 50);
+
+    this.sensor.once("change", function() {
+      test.equal(this.value, 100);
+    });
+    callback(1);
+    this.clock.tick(25);
+
+    test.done();
+  },
+
   booleanAt: function(test) {
     var callback = this.digitalRead.args[0][1],
       expected = false;
