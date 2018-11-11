@@ -38,7 +38,7 @@ board.on("ready", function() {
 
   // Create a new `potentiometer` hardware instance.
   potentiometer = new five.Sensor({
-    pin: "A2",
+    pin: "A3",
     freq: 250
   });
 
