@@ -179,11 +179,13 @@
     "mock-firmata": "latest",
     "nyc": "^12.0.2",
     "optimist": "^0.6.1",
+    "pre-commit": "^1.2.2",
     "sinon": "~1.10.2"
   },
   "scripts": {
     "test": "grunt",
     "test-cover": "nyc grunt nodeunit",
     "coveralls": "nyc --reporter=lcov grunt nodeunit && cat ./coverage/lcov.info | coveralls"
-  }
+  },
+  "pre-commit": ["test"]
 }
