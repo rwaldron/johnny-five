@@ -160,8 +160,8 @@
   },
   "optionalDependencies": {
     "browser-serialport": "latest",
-    "firmata": "^0.19.0",
-    "serialport": "^6.0.4"
+    "firmata": "^2.0.0",
+    "serialport": "^7.1.5"
   },
   "devDependencies": {
     "async": "^2.6.1",
