@@ -1,5 +1,5 @@
 var five = require("../lib/johnny-five.js");
-var Raspi = require("raspi-io");
+var Raspi = require("raspi-io").RaspiIO;
 var board = new five.Board({
   io: new Raspi()
 });
