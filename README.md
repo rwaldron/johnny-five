@@ -173,7 +173,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 363 example programs with code and diagrams!**
+**There are presently 360 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -273,11 +273,8 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### ESC & Brushless Motor
 - [ESC - Bidirectional](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional.md)
-- [ESC - Bidirectional Forward-Reverse](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-bidirectional-forward-reverse.md)
-- [ESC - Dualshock controlled ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-dualshock.md)
 - [ESC - Keypress controlled ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-keypress.md)
 - [ESC - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-PCA9685.md)
-- [ESCs - An array of ESCs](https://github.com/rwaldron/johnny-five/blob/master/docs/esc-array.md)
 
 ### Button / Switch
 - [Button](https://github.com/rwaldron/johnny-five/blob/master/docs/button.md)

@@ -1,39 +1,14 @@
-<!--remove-start-->
-
-# ESC - Keypress controlled ESCs
-
-<!--remove-end-->
-
-
-
-
-
-
-##### Breadboard for "ESC - Keypress controlled ESCs"
-
-
-
-![docs/breadboard/esc-keypress.png](breadboard/esc-keypress.png)<br>
-
-Fritzing diagram: [docs/breadboard/esc-keypress.fzz](breadboard/esc-keypress.fzz)
-
-&nbsp;
-
-
-
-
-Run this example from the command line with:
-```bash
-node eg/esc-keypress.js
-```
-
-
-```javascript
-const {Board, ESC, Fn, Led} = require("johnny-five");
+const {Board, ESC, Fn, Led} = require("../lib/johnny-five.js");
 const keypress = require("keypress");
+
 const board = new Board();
 
-board.on("ready", function() {
+board.on("error", error => {
+  console.error(error);
+  process.exit(1);
+});
+
+board.on("ready", () => {
   const led = new Led(13);
   const esc = new ESC({
     device: "FORWARD_REVERSE",
@@ -80,24 +55,3 @@ board.on("ready", function() {
   process.stdin.setRawMode(true);
   process.stdin.resume();
 });
-
-```
-
-
-
-
-
-
-
-
-&nbsp;
-
-<!--remove-start-->
-
-## License
-Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
-Licensed under the MIT license.
-Copyright (c) 2015-2019 The Johnny-Five Contributors
-Licensed under the MIT license.
-
-<!--remove-end-->
