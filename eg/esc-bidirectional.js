@@ -1,28 +1,19 @@
-var five = require("../");
-var board = new five.Board();
+const {Board, Button, ESC, Sensor} = require("../");
+const board = new Board();
 
 board.on("ready", function() {
-  var start = Date.now();
-  var esc = new five.ESC({
+  const esc = new ESC({
     device: "FORWARD_REVERSE",
-    neutral: 50,
     pin: 11
   });
-  var throttle = new five.Sensor("A0");
-  var brake = new five.Button(4);
+  const throttle = new Sensor("A0");
+  const brake = new Button(4);
 
-  brake.on("press", function() {
+  brake.on("press", () => {
     esc.brake();
   });
 
-  throttle.scale(0, 100).on("change", function() {
-    // 2 Seconds for arming.
-    if (Date.now() - start < 2e3) {
-      return;
-    }
-
-    if (esc.value !== this.value) {
-      esc.speed(this.value);
-    }
+  throttle.on("change", () => {
+    esc.throttle(throttle.scaleTo(esc.pwmRange));
   });
 });

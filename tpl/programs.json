@@ -500,24 +500,12 @@
         "title": "ESC - Keypress controlled ESCs"
       },
       {
-        "file": "esc-dualshock.js",
-        "title": "ESC - Dualshock controlled ESCs"
-      },
-      {
         "file": "esc-PCA9685.js",
         "title": "ESC - PCA9685"
       },
       {
         "file": "esc-bidirectional.js",
         "title": "ESC - Bidirectional"
-      },
-      {
-        "file": "esc-bidirectional-forward-reverse.js",
-        "title": "ESC - Bidirectional Forward-Reverse"
-      },
-      {
-        "file": "esc-array.js",
-        "title": "ESCs - An array of ESCs"
       }
     ]
   },

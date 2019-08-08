@@ -29,20 +29,21 @@ node eg/esc-PCA9685.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, ESC, Sensor} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
 
-  var esc = new five.ESC({
+  const esc = new ESC({
     controller: "PCA9685",
+    device: "FORWARD",
     pin: 1
   });
 
-  var pot = new five.Sensor("A0");
+  const pot = new Sensor("A0");
 
-  pot.scale(0, 100).on("change", function() {
-    esc.speed(this.value);
+  pot.on("change", () => {
+    esc.throttle(pot.scaleTo(esc.pwmRange));
   });
 });
 
