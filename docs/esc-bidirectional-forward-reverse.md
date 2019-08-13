@@ -52,16 +52,7 @@ board.on("ready", function() {
       return;
     }
 
-    var isForward = this.value > esc.neutral;
-    var value = isForward ?
-      // Scale 50-100 to 0-100
-      five.Fn.scale(this.value, esc.neutral, esc.range[1], 0, 100) :
-      // Scale 0-50 to 100-0
-      five.Fn.scale(this.value, esc.range[0], esc.neutral, 100, 0);
-
-    if (esc.value !== value) {
-      esc[isForward ? "forward" : "reverse"](value);
-    }
+    esc.throttle(this.value);
   });
 });
 

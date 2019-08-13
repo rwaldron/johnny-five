@@ -7,41 +7,48 @@ var controller = dualShock({
   analogStickSmoothing: false
 });
 
-function scale(x, fromLow, fromHigh, toLow, toHigh) {
-  return (x - fromLow) * (toHigh - toLow) /
-    (fromHigh - fromLow) + toLow;
-}
-
 board.on("ready", function() {
 
   var esc = new five.ESC(9);
+  var speed = 0;
+  var last = null;
 
   controller.on("connected", function() {
     controller.isConnected = true;
   });
 
   controller.on("dpadUp:press", function() {
-    var speed = esc.last ? esc.speed : 0;
-    speed += 0.01;
-    esc.to(speed);
+    if (last !== "up") {
+      speed = 0;
+    } else {
+      speed += 1;
+    }
+    esc.throttle(esc.neutral + speed);
+    last = "up"
   });
 
   controller.on("dpadDown:press", function() {
-    var speed = esc.last ? esc.speed : 0;
-    speed -= 0.01;
-    esc.to(speed);
+    if (last !== "down") {
+      speed = 0;
+    } else {
+      speed += 1;
+    }
+    esc.throttle(esc.neutral - speed);
+    last = "down"
   });
 
   controller.on("circle:press", function() {
-    esc.stop();
+    last = null;
+    speed = 0;
+    esc.brake();
   });
 
   controller.on("right:move", function(position) {
-    var y = scale(position.y, 255, 0, 0, 180) | 0;
+    var y = five.Fn.scale(position.y, 255, 0, 0, 180) | 0;
 
     if (y > 100) {
       // from the deadzone and up
-      esc.to(scale(y, 100, 180, 0, 1));
+      esc.throttle(scale(y, 100, 180, 0, 100));
     }
   });
 
