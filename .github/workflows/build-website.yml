@@ -1,0 +1,45 @@
+name: Build Website
+
+on:
+  push:
+    branches:
+      - master
+  gollum: []
+
+jobs:
+  build:
+    name: Build Website
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚀 Installing Node 8
+      uses: actions/setup-node@v1
+      with:
+        node-version: '8.x'
+    - name: 💎 Installing Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6'
+    - name: ⚡️ Install SASS
+      run: gem install sass
+    - name: 🤖⚡️🤖 Clone Johnny-Five.io Repo
+      run: git clone https://github.com/nodebots/johnny-five.io.git ${GITHUB_WORKSPACE}
+    - name: 📓 Install
+      run: |
+        npm ci
+    - name: 🛠 Build
+      run: |
+        npm run build
+    - name: 🚄 Push to gh-pages
+      env:
+        DEPLOY_BRANCH: gh-pages
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        cd public
+        echo -n 'Files to Commit:' && find . -type f | wc -l
+        git init
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git add .
+        git commit -m 'website build'
+        git push --force https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git master:$DEPLOY_BRANCH
+        echo '👍 GREAT SUCCESS!'
