@@ -29,53 +29,52 @@ node eg/esc-dualshock.js
 
 
 ```javascript
-var five = require("../lib/johnny-five.js");
-var dualShock = require("dualshock-controller");
+const {Board, ESC, Fn} = require('johnny-five');
+const dualShock = require('dualshock-controller');
 
-var board = new five.Board();
-var controller = dualShock({
-  config: "dualShock3",
-  analogStickSmoothing: false
+const board = new Board();
+const controller = dualShock({
+  config: 'dualShock3',
+  analogStickSmoothing: false,
 });
 
-board.on("ready", function() {
+board.on('ready', () => {
+  const esc = new ESC(9);
+  let speed = 0;
+  let last = null;
 
-  var esc = new five.ESC(9);
-  var speed = 0;
-  var last = null;
-
-  controller.on("connected", function() {
+  controller.on('connected', () => {
     controller.isConnected = true;
   });
 
-  controller.on("dpadUp:press", function() {
-    if (last !== "up") {
+  controller.on('dpadUp:press', () => {
+    if (last !== 'up') {
       speed = 0;
     } else {
       speed += 1;
     }
     esc.throttle(esc.neutral + speed);
-    last = "up"
+    last = 'up';
   });
 
-  controller.on("dpadDown:press", function() {
-    if (last !== "down") {
+  controller.on('dpadDown:press', () => {
+    if (last !== 'down') {
       speed = 0;
     } else {
       speed += 1;
     }
     esc.throttle(esc.neutral - speed);
-    last = "down"
+    last = 'down';
   });
 
-  controller.on("circle:press", function() {
+  controller.on('circle:press', () => {
     last = null;
     speed = 0;
     esc.brake();
   });
 
-  controller.on("right:move", function(position) {
-    var y = five.Fn.scale(position.y, 255, 0, 0, 180) | 0;
+  controller.on('right:move', position => {
+    const y = Fn.scale(position.y, 255, 0, 0, 180) | 0;
 
     if (y > 100) {
       // from the deadzone and up
@@ -85,7 +84,6 @@ board.on("ready", function() {
 
   controller.connect();
 });
-
 
 // Brushless motor breadboard diagram originally published here:
 // http://robotic-controls.com/learn/projects/dji-esc-and-brushless-motor

@@ -29,15 +29,15 @@ node eg/esc-keypress.js
 
 
 ```javascript
-const {Board, ESC, Fn, Led} = require("johnny-five");
+const { Board, ESC, Fn, Led } = require("johnny-five");
 const keypress = require("keypress");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   const led = new Led(13);
   const esc = new ESC({
     device: "FORWARD_REVERSE",
-    pin: 11,
+    pin: 11
   });
   let speed = 0;
   let last = null;
@@ -60,9 +60,8 @@ board.on("ready", function() {
           } else {
             speed += 1;
 
-            change = key.name === "up" ?
-              esc.neutral + speed :
-              esc.neutral - speed;
+            change =
+              key.name === "up" ? esc.neutral + speed : esc.neutral - speed;
           }
           last = key.name;
         }

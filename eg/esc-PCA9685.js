@@ -1,8 +1,7 @@
-const {Board, ESC, Sensor} = require("../lib/johnny-five.js");
+const { Board, ESC, Sensor } = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   const esc = new ESC({
     controller: "PCA9685",
     device: "FORWARD",
