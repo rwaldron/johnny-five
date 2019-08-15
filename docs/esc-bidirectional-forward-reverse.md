@@ -29,26 +29,24 @@ node eg/esc-bidirectional-forward-reverse.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const {Board, Button, ESC, Sensor} = require('johnny-five');
+const board = new Board();
 
-board.on("ready", function() {
-  var start = Date.now();
-  var esc = new five.ESC({
-    device: "FORWARD_REVERSE",
+board.on('ready', () => {
+  const start = Date.now();
+  const esc = new ESC({
+    device: 'FORWARD_REVERSE',
     neutral: 50,
-    pin: 11
+    pin: 11,
   });
-  var throttle = new five.Sensor("A0");
-  var brake = new five.Button(4);
+  const throttle = new Sensor('A0');
+  const brake = new Button(4);
 
-  brake.on("press", function() {
-    esc.brake();
-  });
+  brake.on('press', esc.brake);
 
-  throttle.scale(0, 100).on("change", function() {
+  throttle.scale(0, 100).on('change', () => {
     // 2 Seconds for arming.
-    if (Date.now() - start < 2e3) {
+    if (Date.now() - start < 2000) {
       return;
     }
 

@@ -29,11 +29,10 @@ node eg/esc-PCA9685.js
 
 
 ```javascript
-const {Board, ESC, Sensor} = require("johnny-five");
+const { Board, ESC, Sensor } = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   const esc = new ESC({
     controller: "PCA9685",
     device: "FORWARD",

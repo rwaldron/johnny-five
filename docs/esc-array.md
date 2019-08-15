@@ -29,22 +29,17 @@ node eg/esc-array.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, ESC} = require('johnny-five');
+const board = new Board();
 
-board.on("ready", function() {
-
-  var escs = new five.ESCs([9, 10]);
+board.on('ready', () => {
+  const escs = new ESC.Collection([9, 10]);
 
   // Set the motors to their max speed
-  // This could be dangerous
+  // This might be dangerous ¯\_(ツ)_/¯
   escs.throttle(100);
 
-  board.wait(2000, function() {
-    // Set the motors to the min speed (stopped)
-    escs.brake();
-  });
-
+  board.wait(2000, esc.brake);
 });
 
 ```
