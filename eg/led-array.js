@@ -1,12 +1,11 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Leds} = require("../lib/johnny-five.js");
+const board = new Board();
 
 board.on("ready", function() {
-  var array = new five.Leds([3, 5, 6]);
+  const array = new Leds([3, 5, 6]);
 
   array.pulse();
 });
-
 /* @markdown
 
 Control multiple LEDs at once by creating an LED collection (`Leds`).
