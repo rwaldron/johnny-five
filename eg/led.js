@@ -1,19 +1,18 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Led} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var led = new five.Led(13);
+board.on("ready", function () {
+  const led = new Led(13);
 
   // This will grant access to the led instance
   // from within the REPL that's created when
   // running this program.
   this.repl.inject({
-    led: led
+    led
   });
 
   led.blink();
 });
-
 /* @markdown
 This script will make `led` available in the REPL, by default on pin 13.
 Now you can try, e.g.:
