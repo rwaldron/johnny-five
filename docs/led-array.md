@@ -31,15 +31,14 @@ node eg/led-array.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Leds} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
-  var array = new five.Leds([3, 5, 6]);
+  const array = new Leds([3, 5, 6]);
 
   array.pulse();
 });
-
 
 ```
 
