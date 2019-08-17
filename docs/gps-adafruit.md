@@ -33,16 +33,16 @@ node eg/gps-adafruit.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, GPS} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   /*
    * This is the simplest initialization
    * We assume SW_SERIAL0 for the port
    */
-  var gps = new five.GPS({
+  const gps = new GPS({
     breakout: "ADAFRUIT_ULTIMATE_GPS",
     pins: {
       rx: 11,
@@ -51,10 +51,10 @@ board.on("ready", function() {
   });
 
   // If latitude, longitude, course or speed change log it
-  gps.on("change", function() {
+  gps.on("change", position => {
     console.log("position");
-    console.log("  latitude   : ", this.latitude);
-    console.log("  longitude  : ", this.longitude);
+    console.log("  latitude   : ", position.latitude);
+    console.log("  longitude  : ", position.longitude);
     console.log("--------------------------------------");
   });
 });
