@@ -31,10 +31,11 @@ node eg/led-PCA9685.js
 
 
 ```javascript
-var five = require("johnny-five");
+const {Board, Led} = require("johnny-five");
+const board = new Board();
 
-five.Board().on("ready", function() {
-  var led = new five.Led({
+board.on("ready", function() {
+  const led = new Led({
     pin: process.argv[2] || 0,
     address: 0x40,
     controller: "PCA9685"
@@ -48,9 +49,7 @@ five.Board().on("ready", function() {
   //   Defaults to "standard".
 
   // Add LED to REPL (optional)
-  this.repl.inject({
-    led: led
-  });
+  this.repl.inject({ led });
 
   led.pulse();
 });

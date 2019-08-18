@@ -18,15 +18,15 @@ node eg/led-tessel-servo-module.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Tessel = require("tessel-io");
+const {Board, Led} = require("johnny-five");
+const Tessel = require("tessel-io");
 
-var board = new five.Board({
+const board = new Board({
   io: new Tessel()
 });
 
 board.on("ready", function() {
-  var led = new five.Led({
+  const led = new Led({
     pin: process.argv[2] || 1,
     address: 0x73,
     port: "A",
