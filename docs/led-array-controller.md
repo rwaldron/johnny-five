@@ -31,20 +31,20 @@ node eg/led-array-controller.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Leds, Sensor} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
-  var leds = new five.Leds([2, 3, 4, 5, 6]);
-  var pot = new five.Sensor("A0");
+  const leds = new Leds([2, 3, 4, 5, 6]);
+  const pot = new Sensor("A0");
 
-  pot.scale([-1, 4]).on("change", function() {
-    var lastIndex = Math.round(this.value);
+  pot.scale([-1, 4]).on("change", () => {
+    const lastIndex = Math.round(pot.value);
 
     if (lastIndex === -1) {
       leds.off();
     } else {
-      leds.each(function(led, index) {
+      leds.each((led, index) => {
         if (index <= lastIndex) {
           led.on();
         } else {
