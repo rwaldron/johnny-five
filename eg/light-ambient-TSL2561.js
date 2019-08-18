@@ -1,12 +1,12 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Light } = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var light = new five.Light({
+board.on("ready", () => {
+  const light = new Light({
     controller: "TSL2561",
   });
 
-  light.on("data", function() {
-    console.log("Lux: ", this.lux);
+  light.on("data", (data) => {
+    console.log("Lux: ", data.lux);
   });
 });

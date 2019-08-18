@@ -29,16 +29,16 @@ node eg/light-ambient-BH1750.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Light } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var light = new five.Light({
+board.on("ready", () => {
+  const light = new Light({
     controller: "BH1750",
   });
 
-  light.on("data", function() {
-    console.log("Lux: ", this.lux);
+  light.on("data", (data) => {
+    console.log("Lux: ", data.lux);
   });
 });
 

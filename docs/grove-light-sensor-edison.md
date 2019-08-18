@@ -20,17 +20,17 @@ node eg/grove-light-sensor-edison.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Edison = require("edison-io");
-var board = new five.Board({
+const five = require("johnny-five");
+const Edison = require("edison-io");
+const board = new five.Board({
   io: new Edison()
 });
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   // Plug the Grove TSL2561 Light sensor module
   // into an I2C jack
-  var light = new five.Light({
+  const light = new five.Light({
     controller: "TSL2561"
   });
 
