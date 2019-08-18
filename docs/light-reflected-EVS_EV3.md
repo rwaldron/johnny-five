@@ -18,18 +18,18 @@ node eg/light-reflected-EVS_EV3.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Light } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var reflect = new five.Light({
+board.on("ready", () => {
+  const reflect = new Light({
     controller: "EVS_EV3",
     pin: "BAS1",
     mode: "reflected"
   });
 
-  reflect.on("change", function() {
-    console.log("Light Reflection Level: ", this.level);
+  reflect.on("change", (data) => {
+    console.log("Light Reflection Level: ", data.level);
   });
 });
 
