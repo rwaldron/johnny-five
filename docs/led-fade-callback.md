@@ -31,8 +31,8 @@ node eg/led-fade-callback.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Leds} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
   // Set up the following PWM pins as LEDs.
@@ -40,15 +40,14 @@ board.on("ready", function() {
   // fading the next LED in sequence out, and so on.
   // If randomFade is true, then fading will happen in random
   // order instead of sequentially.
-  var leds = new five.Leds([11, 10, 9, 6, 5, 3]);
-  var timing = 250;
-  var randomFade = true;
-  var fadeIndex = 0;
-  var ledCount = leds.length;
-  var i;
+  const leds = new Leds([11, 10, 9, 6, 5, 3]);
+  const timing = 250;
+  const randomFade = true;
+  const ledCount = leds.length;
+  let fadeIndex = 0;
 
   function fadeNext() {
-    var candidateIndex = fadeIndex;
+    let candidateIndex = fadeIndex;
     leds[fadeIndex].fadeIn(timing);
 
     // Determine the next LED to fade
