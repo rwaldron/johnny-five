@@ -31,17 +31,16 @@ node eg/led-slider.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Led, Sensor} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
-
-  var slider = new five.Sensor("A0");
-  var led = new five.Led(11);
+  const slider = new Sensor("A0");
+  const led = new Led(11);
 
   // Scale the sensor's value to the LED's brightness range
-  slider.scale([0, 255]).on("data", function() {
-    led.brightness(this.value);
+  slider.scale([0, 255]).on("data", () => {
+    led.brightness(slider.value);
   });
 });
 
