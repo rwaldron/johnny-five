@@ -10,12 +10,10 @@ board.on("ready", function() {
     pin: "BBM1"
   }, ]);
 
-  this.wait(2000, function() {
+  board.wait(2000, () => {
     motors.rev();
 
-    this.wait(2000, function() {
-      motors.stop();
-    });
+    board.wait(2000, motors.stop);
   });
 
   motors.fwd();
