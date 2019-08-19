@@ -1,8 +1,8 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, GPS} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var gps = new five.GPS({
+board.on("ready", () => {
+  const gps = new GPS({
     pins: {
       rx: 11,
       tx: 10,
@@ -12,11 +12,11 @@ board.on("ready", function() {
   // If latitude, longitude data log it.
   // This will output zero until a valid
   // GPS position is detected.
-  gps.on("data", function() {
+  gps.on("data", position => {
     console.log("position");
-    console.log("  latitude   : ", this.latitude);
-    console.log("  longitude  : ", this.longitude);
-    console.log("  altitude   : ", this.altitude);
+    console.log("  latitude   : ", position.latitude);
+    console.log("  longitude  : ", position.longitude);
+    console.log("  altitude   : ", position.altitude);
     console.log("--------------------------------------");
   });
 });

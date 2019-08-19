@@ -349,6 +349,11 @@
         ]
       },
       {
+        "file": "gps-hardware-serial.js",
+        "title": "GPS - Hardware Serial",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board."
+      },
+      {
         "file": "gps-adafruit.js",
         "title": "GPS - Adafruit Ultimate GPS Breakout",
         "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board.",

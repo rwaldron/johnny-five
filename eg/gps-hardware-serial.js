@@ -1,20 +1,20 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, GPS} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   /*
    * Explicitly setting HW_SERIAL1 for the port
    */
-  var gps = new five.GPS({
-    port: this.io.SERIAL_PORT_IDs.HW_SERIAL1
+  const gps = new GPS({
+    port: board.io.SERIAL_PORT_IDs.HW_SERIAL1
   });
 
   // If latitude, longitude, course or speed change log it
-  gps.on("change", function() {
+  gps.on("change", position => {
     console.log("position");
-    console.log("  latitude   : ", this.latitude);
-    console.log("  longitude  : ", this.longitude);
+    console.log("  latitude   : ", position.latitude);
+    console.log("  longitude  : ", position.longitude);
     console.log("--------------------------------------");
   });
 });
