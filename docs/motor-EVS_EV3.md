@@ -18,24 +18,22 @@ node eg/motor-EVS_EV3.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Motor} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var motor = new five.Motor({
+board.on("ready", () => {
+  const motor = new Motor({
     controller: "EVS_EV3",
     pin: "BBM2",
   });
 
-  board.wait(2000, function() {
+  board.wait(2000, () => {
     console.log("REVERSE");
 
     motor.rev();
 
     // Demonstrate motor stop in 2 seconds
-    board.wait(2000, function() {
-      motor.stop();
-    });
+    board.wait(2000, motor.stop);
   });
 
   console.log("FORWARD");

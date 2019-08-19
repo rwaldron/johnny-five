@@ -18,38 +18,36 @@ node eg/motor-GROVE_I2C.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Motor} = require("johnny-five");
+const board = new Board();
+const controller = "GROVE_I2C_MOTOR_DRIVER";
 
-board.on("ready", function() {
-  var a = new five.Motor({
-    controller: "GROVE_I2C_MOTOR_DRIVER",
+board.on("ready", () => {
+  const a = new Motor({
+    controller,
     pin: "A",
   });
 
-  var b = new five.Motor({
-    controller: "GROVE_I2C_MOTOR_DRIVER",
+  const b = new Motor({
+    controller,
     pin: "B",
   });
 
-
-  this.wait(3000, function() {
+  this.wait(3000, () => {
     console.log("REVERSE");
 
     a.rev(127);
     b.rev(127);
 
     // Demonstrate motor stop in 2 seconds
-    this.wait(3000, function() {
+    this.wait(3000, () => {
       console.log("STOP");
       a.stop();
       b.stop();
 
-      this.wait(1000, function() {
-        process.emit("SIGINT");
-      });
-    }.bind(this));
-  }.bind(this));
+      board.wait(1000, () => process.emit("SIGINT"));
+    });
+  });
 
   console.log("FORWARD");
   a.fwd(127);

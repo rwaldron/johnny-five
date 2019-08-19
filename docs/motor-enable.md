@@ -31,11 +31,10 @@ node eg/motor-enable.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board();
+const {Board, Motor} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var motor;
+board.on("ready", () => {
   /*
     // Motors with an enable pin must be initialized with a pins object
 
@@ -49,8 +48,7 @@ board.on("ready", function() {
 
    */
 
-
-  motor = new five.Motor({
+  const motor = new Motor({
     pins: {
       pwm: 3,
       dir: 12,
@@ -60,35 +58,30 @@ board.on("ready", function() {
   });
 
   board.repl.inject({
-    motor: motor
+    motor
   });
 
-  motor.on("stop", function() {
-    console.log("automated stop on timer", Date.now());
+  motor.on("stop", () => {
+    console.log(`automated stop on timer: ${Date.now()}`);
   });
 
-  motor.on("forward", function() {
-    console.log("forward", Date.now());
+  motor.on("forward", () => {
+    console.log(`forward: ${Date.now()}`);
 
     // enable the motor after 2 seconds
-    board.wait(2000, function() {
-      motor.enable();
-    });
+    board.wait(2000, motor.enable);
   });
 
-  motor.on("enable", function() {
-    console.log("motor enabled", Date.now());
+  motor.on("enable", () => {
+    console.log(`motor enabled: ${Date.now()}`);
 
     // enable the motor after 2 seconds
-    board.wait(2000, function() {
-      motor.stop();
-    });
+    board.wait(2000, motor.stop);
   });
 
-  motor.on("disable", function() {
-    console.log("motor disabled", Date.now());
+  motor.on("disable", () => {
+    console.log(`motor disabled: ${Date.now()}`);
   });
-
 
   // disable the motor
   motor.disable();

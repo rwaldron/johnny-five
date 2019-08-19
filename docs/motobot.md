@@ -18,23 +18,20 @@ node eg/motobot.js
 
 
 ```javascript
-var five = require("johnny-five");
-var keypress = require("keypress");
-var board = new five.Board();
+const {Board, Motor, Fn} = require("johnny-five");
+const keypress = require("keypress");
+const board = new Board();
 
-
-board.on("ready", function() {
-  var speed, commands, motors;
-
-  speed = 100;
-  commands = null;
-  motors = {
-    a: new five.Motor([3, 12]),
-    b: new five.Motor([11, 13])
+board.on("ready", () => {
+  let speed = 100;
+  let commands = null;
+  const motors = {
+    a: new Motor([3, 12]),
+    b: new Motor([11, 13])
   };
 
-  this.repl.inject({
-    motors: motors
+  board.repl.inject({
+    motors
   });
 
   function controller(ch, key) {
@@ -63,7 +60,7 @@ board.on("ready", function() {
       commands = [].slice.call(arguments);
     } else {
       if (ch >= 1 && ch <= 9) {
-        speed = five.Fn.scale(ch, 1, 9, 0, 255);
+        speed = Fn.scale(ch, 1, 9, 0, 255);
         controller.apply(null, commands);
       }
     }

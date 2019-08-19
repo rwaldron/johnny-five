@@ -1,10 +1,10 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Motor} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   
   // You can configure with explicit pins settings
-  var m1 = new five.Motor({
+  const m1 = new Motor({
     pins: {
       pwm: 9,
       dir: 2,
@@ -14,14 +14,14 @@ board.on("ready", function() {
   });
 
   // Or you can configure using the built in configs
-  var m2 = new five.Motor(five.Motor.SHIELD_CONFIGS.POLOLU_VNH5019_SHIELD.M2);
+  const m2 = new Motor(Motor.SHIELD_CONFIGS.POLOLU_VNH5019_SHIELD.M2);
 
   // Inject the `motor` hardware into
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    m1: m1,
-    m2: m2
+    m1,
+    m2
   });
 
   // "start" events fire when the motor is started.
@@ -30,18 +30,14 @@ board.on("ready", function() {
       console.log("start motor " + (index+1));
 
       // Demonstrate motor stop in 2 seconds
-      this.wait(2000, function() {
-        motor.stop();
-      });
+      this.wait(2000, motor.stop);
     });
   });
 
-  [m1, m2].forEach( (motor, index) => {
+  [m1, m2].forEach( motor => {
     
     // "stop" events fire when the motor is stopped.
-    motor.on("stop", function() {
-      console.log("stop");
-    });
+    motor.on("stop", () => console.log("stop"));
   });
 
   // Motor API
