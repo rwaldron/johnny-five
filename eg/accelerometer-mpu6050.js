@@ -1,21 +1,21 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Accelerometer, Board} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var accelerometer = new five.Accelerometer({
+board.on("ready", () => {
+  const accelerometer = new Accelerometer({
     controller: "MPU6050"
   });
 
-  accelerometer.on("change", function() {
+  accelerometer.on("change", () => {
     console.log("accelerometer");
-    console.log("  x            : ", this.x);
-    console.log("  y            : ", this.y);
-    console.log("  z            : ", this.z);
-    console.log("  pitch        : ", this.pitch);
-    console.log("  roll         : ", this.roll);
-    console.log("  acceleration : ", this.acceleration);
-    console.log("  inclination  : ", this.inclination);
-    console.log("  orientation  : ", this.orientation);
+    console.log("  x            : ", accelerometer.x);
+    console.log("  y            : ", accelerometer.y);
+    console.log("  z            : ", accelerometer.z);
+    console.log("  pitch        : ", accelerometer.pitch);
+    console.log("  roll         : ", accelerometer.roll);
+    console.log("  acceleration : ", accelerometer.acceleration);
+    console.log("  inclination  : ", accelerometer.inclination);
+    console.log("  orientation  : ", accelerometer.orientation);
     console.log("--------------------------------------");
   });
 });

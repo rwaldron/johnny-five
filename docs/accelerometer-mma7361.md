@@ -29,10 +29,10 @@ node eg/accelerometer-mma7361.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Accelerometer, Board} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // --- Sleep Pin
   // The sleepPin is used to enable/disable the device and put it into sleep mode
   // You can also tie the sleep pin to high with a 10k resistor and omit
@@ -45,23 +45,23 @@ board.on("ready", function() {
   // initializations, you can omit the autoCalibrate and set the zeroV array
   // in the options instead
 
-  var accelerometer = new five.Accelerometer({
+  const accelerometer = new Accelerometer({
     controller: "MMA7361",
     pins: ["A0", "A1", "A2"],
     sleepPin: 13,
     autoCalibrate: true
   });
 
-  accelerometer.on("change", function() {
+  accelerometer.on("change", () => {
     console.log("accelerometer");
-    console.log("  x            : ", this.x);
-    console.log("  y            : ", this.y);
-    console.log("  z            : ", this.z);
-    console.log("  pitch        : ", this.pitch);
-    console.log("  roll         : ", this.roll);
-    console.log("  acceleration : ", this.acceleration);
-    console.log("  inclination  : ", this.inclination);
-    console.log("  orientation  : ", this.orientation);
+    console.log("  x            : ", accelerometer.x);
+    console.log("  y            : ", accelerometer.y);
+    console.log("  z            : ", accelerometer.z);
+    console.log("  pitch        : ", accelerometer.pitch);
+    console.log("  roll         : ", accelerometer.roll);
+    console.log("  acceleration : ", accelerometer.acceleration);
+    console.log("  inclination  : ", accelerometer.inclination);
+    console.log("  orientation  : ", accelerometer.orientation);
     console.log("--------------------------------------");
   });
 });
