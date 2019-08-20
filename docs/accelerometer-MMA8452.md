@@ -29,16 +29,15 @@ node eg/accelerometer-MMA8452.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Accelerometer, Board} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var accelerometer = new five.Accelerometer({
+board.on("ready", () => {
+  const accelerometer = new Accelerometer({
     controller: "MMA8452"
   });
 
-  // accelerometer.on("change", function() {
+  // accelerometer.on("change", () => {
   //   console.log("accelerometer");
   //   console.log("  x            : ", this.x);
   //   console.log("  y            : ", this.y);
@@ -51,10 +50,8 @@ board.on("ready", function() {
   //   console.log("--------------------------------------");
   // });
 
-  ["tap", "tap:single", "tap:double"].forEach(function(event) {
-    accelerometer.on(event, function() {
-      console.log(event);
-    });
+  ["tap", "tap:single", "tap:double"].forEach((event) => {
+    accelerometer.on(event, () => console.log(event));
   });
 });
 
