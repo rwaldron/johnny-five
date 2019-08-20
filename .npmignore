@@ -3,6 +3,7 @@
 *.h
 *.ino
 *.py
+.github/*
 .gitignore
 .istanbul.yml
 .jscsrc
@@ -25,6 +26,8 @@ eg/
 egs-markdown.js
 egs.js
 Gruntfile.js
+lib/datasheets.md
+lib/johnny-five.sublime-*
 LICENSE-MIT
 node_modules/
 parts.md
@@ -34,4 +37,3 @@ test/
 tpl/
 util/
 wip/
-lib/datasheets.md
