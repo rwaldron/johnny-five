@@ -1,4 +1,24 @@
-const {Board, Motor} = require("../lib/johnny-five.js");
+<!--remove-start-->
+
+# Motor - Pololu VNH5019 Dual Motor Driver Breakout
+
+<!--remove-end-->
+
+
+
+
+
+
+
+
+Run this example from the command line with:
+```bash
+node eg/motor-vnh5019.js
+```
+
+
+```javascript
+const {Board, Motor} = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
@@ -53,3 +73,24 @@ board.on("ready", () => {
   // stop()
   // Stop the motor. `isOn` property set to |false|
 });
+
+```
+
+
+
+
+
+
+
+
+&nbsp;
+
+<!--remove-start-->
+
+## License
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
+Copyright (c) 2015-2019 The Johnny-Five Contributors
+Licensed under the MIT license.
+
+<!--remove-end-->

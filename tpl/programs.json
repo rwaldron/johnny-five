@@ -479,6 +479,10 @@
       {
         "file": "motor-drv8871.js",
         "title": "Motor - Adafruit DRV8871 DC Motor Driver Breakout"
+      },
+      {
+        "file": "motor-vnh5019.js",
+        "title": "Motor - Pololu VNH5019 Dual Motor Driver Breakout"
       }
     ]
   },
