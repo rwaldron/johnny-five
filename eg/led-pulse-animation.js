@@ -1,7 +1,7 @@
 const {Board, Led} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Create a standard `led` component
   // on a valid pwm pin
   const led = new Led(11);
@@ -14,14 +14,14 @@ board.on("ready", function() {
     duration: 3000,
     cuePoints: [0, 0.2, 0.4, 0.6, 0.8, 1],
     keyFrames: [0, 10, 0, 50, 0, 255],
-    onstop: () => {
+    onstop() {
       console.log("Animation stopped");
     }
   });
 
   // Stop and turn off the led pulse loop after
   // 12 seconds (shown in ms)
-  this.wait(12000, () => {
+  board.wait(12000, () => {
 
     // stop() terminates the interval
     // off() shuts the led off

@@ -1,7 +1,7 @@
 const {Board, Leds} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Set up the following PWM pins as LEDs.
   // Fade an LED out, and the complete callback will start
   // fading the next LED in sequence out, and so on.
