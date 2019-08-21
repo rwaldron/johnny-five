@@ -1,4 +1,4 @@
-const {Board, Servo, Servos} = require("../lib/johnny-five.js");
+// const {Board, Servo, Servos} = require("../lib/johnny-five.js");
 
 /**
  * This program is useful for manual servo administration.
@@ -18,32 +18,17 @@ const {Board, Servo, Servos} = require("../lib/johnny-five.js");
  */
 
 const args = process.argv.slice(2);
-let pins = [];
-let ranges = [];
-
-args.forEach(val => {
-  const vals = val.split(":").map(Number);
-
-  pins.push(vals[0]);
-
-  ranges.push(
-    vals.length === 3 ?
-    vals.slice(1) : [0, 180]
-  );
+const configs = args.map(val => {
+  const [pin, min = 0, max = 180] = val.split(":").map(Number);
+  const range = [min, max];
+  return {pin, range};
 });
 
 const board = new Board();
 
 board.on("ready", () => {
   // With each provided pin number, create a servo instance
-  pins.forEach((pin, k) => {
-    new Servo({
-      pin,
-      range: ranges[k]
-    });
-  });
-
-  const servos = new Servos();
+  const servos = new Servos(configs);
 
   servos.center();
 
