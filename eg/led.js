@@ -1,13 +1,13 @@
 const {Board, Led} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function () {
+board.on("ready", () => {
   const led = new Led(13);
 
   // This will grant access to the led instance
   // from within the REPL that's created when
   // running this program.
-  this.repl.inject({
+  board.repl.inject({
     led
   });
 
