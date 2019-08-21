@@ -560,6 +560,10 @@
       {
         "file": "switch-tilt-SW_200D.js",
         "title": "Switch - Tilt SW-200D"
+      },
+      {
+        "file": "switch.js",
+        "title": "Switch"
       }
     ]
   },

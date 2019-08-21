@@ -173,7 +173,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 361 example programs with code and diagrams!**
+**There are presently 362 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -285,6 +285,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Button - Options](https://github.com/rwaldron/johnny-five/blob/master/docs/button-options.md)
 - [Button - Pullup](https://github.com/rwaldron/johnny-five/blob/master/docs/button-pullup.md)
 - [Buttons - Collection w/ AT42QT1070](https://github.com/rwaldron/johnny-five/blob/master/docs/button-collection-AT42QT1070.md)
+- [Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/switch.md)
 - [Switch - Magnetic Door](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-magnetic-door.md)
 - [Switch - Tilt SW-200D](https://github.com/rwaldron/johnny-five/blob/master/docs/switch-tilt-SW_200D.md)
 - [Toggle Switch](https://github.com/rwaldron/johnny-five/blob/master/docs/toggle-switch.md)
