@@ -36,7 +36,7 @@ node eg/led-fade-animation.js
 const {Board, Led} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   const led = new Led(11);
 
   led.fade({
@@ -44,13 +44,13 @@ board.on("ready", function() {
     duration: 1000,
     cuePoints: [0, 0.2, 0.4, 0.6, 0.8, 1],
     keyFrames: [0, 250, 25, 150, 100, 125],
-    onstop: () => {
+    onstop() {
       console.log("Animation stopped");
     }
   });
 
   // Toggle the led after 2 seconds (shown in ms)
-  this.wait(2000, () => {
+  board.wait(2000, () => {
     led.fadeOut();
   });
 });

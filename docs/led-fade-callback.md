@@ -34,7 +34,7 @@ node eg/led-fade-callback.js
 const {Board, Leds} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Set up the following PWM pins as LEDs.
   // Fade an LED out, and the complete callback will start
   // fading the next LED in sequence out, and so on.

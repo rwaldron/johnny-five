@@ -34,7 +34,7 @@ node eg/led-array.js
 const {Board, Leds} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   const array = new Leds([3, 5, 6]);
 
   array.pulse();
