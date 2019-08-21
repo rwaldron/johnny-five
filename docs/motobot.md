@@ -57,11 +57,11 @@ board.on("ready", () => {
         motors.b.rev(speed * 0.75);
       }
 
-      commands = [].slice.call(arguments);
+      commands = Array.from(arguments);
     } else {
       if (ch >= 1 && ch <= 9) {
         speed = Fn.scale(ch, 1, 9, 0, 255);
-        controller.apply(null, commands);
+        controller(...commands);
       }
     }
   }

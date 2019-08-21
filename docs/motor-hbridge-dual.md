@@ -38,6 +38,7 @@ node eg/motor-hbridge-dual.js
 
 const {Board, Motors} = require("johnny-five");
 const board = new Board();
+const invertPWM = true;
 
 board.on("ready", () => {
   /**
@@ -45,8 +46,8 @@ board.on("ready", () => {
    * Motor B: PWM 5, dir 4
    */
    const motors = new Motors([
-     { pins: { dir: 12, pwm: 11 }, invertPWM: true },
-     { pins: { dir: 4, pwm: 5}, invertPWM: true }
+     { pins: { dir: 12, pwm: 11 }, invertPWM },
+     { pins: { dir: 4, pwm: 5}, invertPWM }
    ]);
 
   board.repl.inject({

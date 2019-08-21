@@ -30,7 +30,7 @@ node eg/motor-sparkfun-edison-hbridge.js
 
 ```javascript
 const {Board, Motor} = require("johnny-five");
-var Edison = require("galileo-io");
+const Edison = require("galileo-io");
 const board = new Board({
   io: new Edison()
 });

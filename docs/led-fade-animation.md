@@ -50,9 +50,7 @@ board.on("ready", () => {
   });
 
   // Toggle the led after 2 seconds (shown in ms)
-  board.wait(2000, () => {
-    led.fadeOut();
-  });
+  board.wait(2000, () => led.fadeOut());
 });
 
 ```
