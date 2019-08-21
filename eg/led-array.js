@@ -2,9 +2,9 @@ const {Board, Leds} = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {
-  const array = new Leds([3, 5, 6]);
+  const leds = new Leds([3, 5, 6]);
 
-  array.pulse();
+  leds.pulse();
 });
 /* @markdown
 

@@ -1,5 +1,5 @@
 const {Board, Motor} = require("../lib/johnny-five.js");
-var Edison = require("galileo-io");
+const Edison = require("galileo-io");
 const board = new Board({
   io: new Edison()
 });

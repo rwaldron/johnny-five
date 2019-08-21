@@ -2,7 +2,7 @@ const { Board, ESC, Fn } = require("../lib/johnny-five.js");
 const dualShock = require("dualshock-controller");
 
 const board = new Board();
-const controller = dualShock({
+const gamepad = dualShock({
   config: "dualShock3",
   analogStickSmoothing: false
 });
@@ -12,11 +12,11 @@ board.on("ready", () => {
   let speed = 0;
   let last = null;
 
-  controller.on("connected", () => {
-    controller.isConnected = true;
+  gamepad.on("connected", () => {
+    gamepad.isConnected = true;
   });
 
-  controller.on("dpadUp:press", () => {
+  gamepad.on("dpadUp:press", () => {
     if (last !== "up") {
       speed = 0;
     } else {
@@ -26,7 +26,7 @@ board.on("ready", () => {
     last = "up";
   });
 
-  controller.on("dpadDown:press", () => {
+  gamepad.on("dpadDown:press", () => {
     if (last !== "down") {
       speed = 0;
     } else {
@@ -36,13 +36,13 @@ board.on("ready", () => {
     last = "down";
   });
 
-  controller.on("circle:press", () => {
+  gamepad.on("circle:press", () => {
     last = null;
     speed = 0;
     esc.brake();
   });
 
-  controller.on("right:move", position => {
+  gamepad.on("right:move", position => {
     const y = Fn.scale(position.y, 255, 0, 0, 180) | 0;
 
     if (y > 100) {

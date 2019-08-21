@@ -2,7 +2,7 @@ const {Board, Motor} = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {
-  
+
   // You can configure with explicit pins settings
   const m1 = new Motor({
     pins: {
@@ -25,9 +25,9 @@ board.on("ready", () => {
   });
 
   // "start" events fire when the motor is started.
-  [m1, m2].forEach( (motor, index) => {
+  [m1, m2].forEach((motor, index) => {
     motor.on("start", () => {
-      console.log("start motor " + (index+1));
+      console.log(`start motor ${index+1}`);
 
       // Demonstrate motor stop in 2 seconds
       this.wait(2000, motor.stop);
@@ -35,7 +35,7 @@ board.on("ready", () => {
   });
 
   [m1, m2].forEach( motor => {
-    
+
     // "stop" events fire when the motor is stopped.
     motor.on("stop", () => console.log("stop"));
   });
