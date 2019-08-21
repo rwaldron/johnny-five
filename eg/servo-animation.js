@@ -1,13 +1,13 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Animation, Board, Servo} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   // Create a new `servo` hardware instance.
-  var servo = new five.Servo(10);
+  const servo = new Servo(10);
 
   // Create a new `animation` instance.
-  var animation = new five.Animation(servo);
+  const animation = new Animation(servo);
 
   // Enqueue an animation segment with options param
   // See Animation example and docs for details
@@ -21,7 +21,7 @@ board.on("ready", function() {
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    servo: servo,
-    animation: animation
+    servo,
+    animation
   });
 });

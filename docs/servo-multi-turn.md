@@ -18,11 +18,11 @@ node eg/servo-multi-turn.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var servo = new five.Servo({
+board.on("ready", () => {
+  const servo = new Servo({
     pin: 10,
     // Cheapo servo has limited PWM range
     pwmRange: [600, 2370],
@@ -31,8 +31,8 @@ board.on("ready", function() {
   });
 
   // Add servo to REPL (optional)
-  this.repl.inject({
-    servo: servo
+  board.repl.inject({
+    servo
   });
 
 
