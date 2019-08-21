@@ -111,7 +111,7 @@ function execute(step) {
   });
 }
 
-board.on("ready", function () {
+board.on("ready", () => {
   // Defaults to pin 11 (must be PWM)
   led = new Led(process.argv[2] || 11);
 

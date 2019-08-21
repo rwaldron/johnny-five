@@ -36,7 +36,7 @@ node eg/led-pulse.js
 const {Board, Led} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Create a standard `led` component
   // on a valid pwm pin
   const led = new Led(11);
@@ -45,7 +45,7 @@ board.on("ready", function() {
 
   // Stop and turn off the led pulse loop after
   // 10 seconds (shown in ms)
-  this.wait(10000, () => {
+  board.wait(10000, () => {
     
     // stop() terminates the interval
     // off() shuts the led off
