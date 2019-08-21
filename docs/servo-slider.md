@@ -29,18 +29,16 @@ node eg/servo-slider.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Sensor, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
-  var slider = new five.Sensor("A0");
-  var tilt = new five.Servo(9);
+  const slider = new Sensor("A0");
+  const tilt = new Servo(9);
 
-  slider.scale([0, 180]).on("slide", function() {
-
-    // The slider's value will be scaled to match the tilt servo range
-    tilt.to(this.value);
+  slider.on("slide", () => {
+    tilt.to(slider.scaleTo(0, 180));
   });
 });
 

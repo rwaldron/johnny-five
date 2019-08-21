@@ -29,30 +29,28 @@ node eg/servo-PCA9685.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Servo} = require("johnny-five");
+const board = new Board();
+const controller = "PCA9685";
 
-board.on("ready", function() {
+board.on("ready", () => {
   console.log("Connected");
 
   // Initialize the servo instance
-  var a = new five.Servo({
-    address: 0x40,
-    controller: "PCA9685",
+  const a = new Servo({
+    controller,
     pin: 0,
   });
 
-  var b = new five.Servo({
-    address: 0x40,
-    controller: "PCA9685",
+  const b = new Servo({
+    controller,
     range: [0, 180],
     pin: 1,
   });
 
-  var degrees = 0;
-
-  a.to(degrees);
-  b.to(degrees);
+  a.to(0);
+  b.to(0);
+  
 });
 
 ```
