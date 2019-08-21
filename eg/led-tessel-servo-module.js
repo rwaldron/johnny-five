@@ -5,7 +5,7 @@ const board = new Board({
   io: new Tessel()
 });
 
-board.on("ready", function() {
+board.on("ready", () => {
   const led = new Led({
     pin: process.argv[2] || 1,
     address: 0x73,
@@ -22,9 +22,7 @@ board.on("ready", function() {
   // port: The Tessel port being used "A" or "B"
 
   // Add LED to REPL (optional)
-  this.repl.inject({
-    led: led
-  });
+  board.repl.inject({ led });
 
   led.pulse();
 });

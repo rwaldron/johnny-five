@@ -1,7 +1,7 @@
 const {Board, Led} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   const led = new Led({
     pin: process.argv[2] || 0,
     address: 0x40,
@@ -16,7 +16,7 @@ board.on("ready", function() {
   //   Defaults to "standard".
 
   // Add LED to REPL (optional)
-  this.repl.inject({ led });
+  board.repl.inject({ led });
 
   led.pulse();
 });
