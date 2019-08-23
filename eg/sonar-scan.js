@@ -1,64 +1,61 @@
-var five = require("../lib/johnny-five.js"),
-  board;
+const {Board, Servo, Servos, Sonar} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board = new five.Board();
-
-board.on("ready", function() {
-  var center, collision, degrees, step, facing,
-    range, redirect, look, isScanning, scanner, sonar, servos;
-
+board.on("ready", () => {
+  
   // Collision distance (inches)
-  collision = 6;
-
-  // Starting scanner scanning position (degrees)
-  degrees = 90;
-
-  // Servo scanning steps (degrees)
-  step = 10;
-
-  // Current facing direction
-  facing = "";
+  const collision = 6;
 
   // Scanning range (degrees)
-  range = [0, 170];
+  const range = [0, 170];
 
   // Servo center point (degrees)
-  center = range[1] / 2;
+  const center = range[1] / 2;
 
   // Redirection map
-  redirect = {
+  const redirect = {
     left: "right",
     right: "left"
   };
 
   // Direction to look after releasing scanner lock (degrees)
-  look = {
+  const look = {
     forward: center,
     left: 130,
     right: 40
   };
 
-  // Scanning state
-  isScanning = true;
-
   // Sonar instance (distance detection)
-  sonar = new five.Sonar("A2");
+  const sonar = new Sonar("A2");
+  
   // Servo instance (panning)
-  scanner = new five.Servo({
+  const scanner = new Servo({
     pin: 12,
-    range: range
+    range
   });
 
-  servos = {
-    right: new five.Servo({
+  const servos = {
+    right: new Servo({
       pin: 10,
       type: "continuous"
     }),
-    left: new five.Servo({
+    left: new Servo({
       pin: 11,
       type: "continuous"
     })
   };
+  
+  // Starting scanner scanning position (degrees)
+  let degrees = 90;
+
+  // Servo scanning steps (degrees)
+  let step = 10;
+
+  // Current facing direction
+  let facing = "";
+
+  // Scanning state
+  let isScanning = true;
 
   // Initialize the scanner at it's center point
   // Will be exactly half way between the range's
@@ -69,8 +66,8 @@ board.on("ready", function() {
   servos.left.to(90);
 
   // Scanner/Panning loop
-  this.loop(100, function() {
-    var bounds;
+  board.loop(100, () => {
+    let bounds;
 
     bounds = {
       left: center + 10,
@@ -110,30 +107,28 @@ board.on("ready", function() {
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", function() {
-    var turnTo;
+  sonar.on("change", () => {
+    let turnTo;
 
     // Detect collision
-    if (Math.abs(this.inches) < collision && isScanning) {
+    if (Math.abs(sonar.inches) < collision && isScanning) {
+      
       // Scanning lock will prevent multiple collision detections
       // of the same obstacle
       isScanning = false;
       turnTo = redirect[facing] || Object.keys(redirect)[Date.now() % 2];
 
       // Log collision detection to REPL
-      console.log(
-        [Date.now(),
-          "Collision detected " + this.inches + " inches away.",
-          "Turning " + turnTo.toUpperCase() + " to avoid"
-        ].join("\n")
-      );
-
+      console.log(`${Date.now()} 
+Collision detected ${sonar.inches} inches away.
+Turning ${turnTo.toUpperCase()} to avoid`);
+    
       // Override the next scan position (degrees)
       // degrees = look[ turnTo ];
 
       // [1] Allow 1000ms to pass and release the scanning lock
       // by setting isScanning state to true.
-      board.wait(1500, function() {
+      board.wait(1500, () => {
         console.log("Release Scanner Lock");
         isScanning = true;
       });
