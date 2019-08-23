@@ -1,9 +1,10 @@
-var moment = require("moment");
-var five = require("../lib/johnny-five");
-var board = new five.Board();
+const moment = require("moment");
+const {Board, Led} = require("../lib/johnny-five");
 
-board.on("ready", function() {
-  var digits = new five.Led.Digits({
+const board = new Board();
+
+board.on("ready", () => {
+  const digits = new Led.Digits({
     pins: {
       data: 2,
       cs: 3,
@@ -11,9 +12,7 @@ board.on("ready", function() {
     }
   });
 
-  setInterval(function() {
-    digits.print(time());
-  }, 1000);
+  setInterval(() => digits.print(time()), 1000);
 });
 
 function time() {
