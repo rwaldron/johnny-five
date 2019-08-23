@@ -1,9 +1,9 @@
-const {Board, Servo, Servos, Sonar} = require("../lib/johnny-five.js");
+const {Board, Servo, Servos, Proximity} = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {
-  
-  // Collision distance (inches)
+
+  // Collision distance (in)
   const collision = 6;
 
   // Scanning range (degrees)
@@ -26,8 +26,11 @@ board.on("ready", () => {
   };
 
   // Sonar instance (distance detection)
-  const sonar = new Sonar("A2");
-  
+  const proximity = new Proximity({
+    controller: "MB1230",
+    pin: "A0"
+  });
+
   // Servo instance (panning)
   const scanner = new Servo({
     pin: 12,
@@ -44,7 +47,7 @@ board.on("ready", () => {
       type: "continuous"
     })
   };
-  
+
   // Starting scanner scanning position (degrees)
   let degrees = 90;
 
@@ -87,7 +90,7 @@ board.on("ready", () => {
 
       // The following three conditions will help determine
       // which way the bot should turn if a potential collision
-      // may occur in the sonar "change" event handler[2]
+      // may occur in the proximity "change" event handler[2]
       if (degrees > bounds.left) {
         facing = "left";
       }
@@ -107,22 +110,22 @@ board.on("ready", () => {
   // [2] Sonar "change" events are emitted when the value of a
   // distance reading has changed since the previous reading
   //
-  sonar.on("change", () => {
+  proximity.on("change", () => {
     let turnTo;
 
     // Detect collision
-    if (Math.abs(sonar.inches) < collision && isScanning) {
-      
+    if (Math.abs(proximity.in) < collision && isScanning) {
+
       // Scanning lock will prevent multiple collision detections
       // of the same obstacle
       isScanning = false;
       turnTo = redirect[facing] || Object.keys(redirect)[Date.now() % 2];
 
       // Log collision detection to REPL
-      console.log(`${Date.now()} 
-Collision detected ${sonar.inches} inches away.
+      console.log(`${Date.now()}
+Collision detected ${proximity.in} in away.
 Turning ${turnTo.toUpperCase()} to avoid`);
-    
+
       // Override the next scan position (degrees)
       // degrees = look[ turnTo ];
 
