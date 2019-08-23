@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Thermometer - DS18B20
+# Thermometer - Dual DS18B20
 
 <!--remove-end-->
 
@@ -9,22 +9,11 @@
 
 
 
-##### Breadboard for "Thermometer - DS18B20"
-
-
-
-![docs/breadboard/temperature-ds18b20.png](breadboard/temperature-ds18b20.png)<br>
-
-Fritzing diagram: [docs/breadboard/temperature-ds18b20.fzz](breadboard/temperature-ds18b20.fzz)
-
-&nbsp;
-
-
 
 
 Run this example from the command line with:
 ```bash
-node eg/temperature-ds18b20.js
+node eg/temperature-dual-ds18b20.js
 ```
 
 
@@ -32,16 +21,29 @@ node eg/temperature-ds18b20.js
 const {Board, Thermometer} = require("johnny-five");
 const board = new Board();
 
+const controller = "DS18B20";
+
 board.on("ready", () => {
-  // This requires OneWire support using ConfigurableFirmata
-  const thermometer = new Thermometer({
-    controller: "DS18B20",
-    pin: 2
+  // This requires OneWire support using the ConfigurableFirmata
+  const thermometerA = new Thermometer({
+    controller,
+    pin: 2,
+    address: 0x687f1fe
   });
 
-  thermometer.on("change", () => {
-    console.log(`${thermometer.celsius}°C`);
-    // console.log("0x" + this.address.toString(16));
+  const thermometerB = new Thermometer({
+    controller,
+    pin: 2,
+    address: 0x6893a41
+  });
+
+
+  thermometerA.on("change", () => {
+    console.log(`A ${thermometerA.celsius}°C`);
+  });
+
+  thermometerB.on("change", () => {
+    console.log(`B ${thermometerB.celsius}°C`);
   });
 });
 

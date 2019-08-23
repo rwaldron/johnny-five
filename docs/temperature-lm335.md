@@ -29,17 +29,17 @@ node eg/temperature-lm335.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Thermometer} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var thermometer = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "LM335",
     pin: "A0"
   });
 
-  thermometer.on("change", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+  thermometer.on("change", () => {
+    console.log(`${thermometer.celsius}°C ${thermometer.fahrenheit}°F`);
   });
 });
 

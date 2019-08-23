@@ -29,20 +29,21 @@ node eg/temperature-SI7020.js
 
 
 ```javascript
-var five = require("../");
-var Tessel = require("tessel-io");
-var board = new five.Board({
+const {Board, Thermometer} = require("johnny-five");
+const Tessel = require("tessel-io");
+
+const board = new Board({
   io: new Tessel()
 });
 
-board.on("ready", function() {
-  var temp = new five.Thermometer({
+board.on("ready", () => {
+  const temp = new Thermometer({
     controller: "SI7020",
     port: "A"
   });
 
-  temp.on("change", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+  temp.on("change", () => {
+    console.log(`${temp.celsius}°C ${temp.fahrenheit}°F`);
   });
 });
 
