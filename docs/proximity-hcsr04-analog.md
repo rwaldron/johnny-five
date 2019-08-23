@@ -31,24 +31,20 @@ node eg/proximity-hcsr04-analog.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Proximity} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var proximity = new five.Proximity({
+board.on("ready", () => {
+  const proximity = new Proximity({
     controller: "HCSR04",
     pin: "A0"
   });
 
-  proximity.on("data", function() {
+  proximity.on("change", () => {
     console.log("Proximity: ");
-    console.log("  cm  : ", this.cm);
-    console.log("  in  : ", this.in);
+    console.log("  cm  : ", proximity.cm);
+    console.log("  in  : ", proximity.in);
     console.log("-----------------");
-  });
-
-  proximity.on("change", function() {
-    console.log("The obstruction has moved.");
   });
 });
 
