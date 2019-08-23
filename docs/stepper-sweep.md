@@ -18,10 +18,10 @@ node eg/stepper-sweep.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Stepper} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   /**
    * In order to use the Stepper class, your board must be flashed with
    * either of the following:
@@ -31,16 +31,13 @@ board.on("ready", function() {
    *
    */
 
-  var k = 0;
-  var stepper = new five.Stepper({
-    type: five.Stepper.TYPE.DRIVER,
+  const stepper = new Stepper({
+    type: Stepper.TYPE.DRIVER,
     stepsPerRev: 200,
     pins: [11, 12]
   });
 
-  stepper.rpm(180).ccw().step(2000, function() {
-    console.log("done");
-  });
+  stepper.rpm(180).ccw().step(2000, () => console.log("done"));
 });
 
 ```

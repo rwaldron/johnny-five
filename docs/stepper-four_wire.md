@@ -1,6 +1,6 @@
 <!--remove-start-->
 
-# Stepper - Driver
+# Stepper - Four Wire
 
 <!--remove-end-->
 
@@ -9,13 +9,13 @@
 
 
 
-##### Breadboard for "Stepper - Driver"
+##### Breadboard for "Stepper - Four Wire"
 
 
 
-![docs/breadboard/stepper-driver.png](breadboard/stepper-driver.png)<br>
+![docs/breadboard/stepper-four_wire.png](breadboard/stepper-four_wire.png)<br>
 
-Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver.fzz)
+Fritzing diagram: [docs/breadboard/stepper-four_wire.fzz](breadboard/stepper-four_wire.fzz)
 
 &nbsp;
 
@@ -24,7 +24,7 @@ Fritzing diagram: [docs/breadboard/stepper-driver.fzz](breadboard/stepper-driver
 
 Run this example from the command line with:
 ```bash
-node eg/stepper-driver.js
+node eg/stepper-four_wire.js
 ```
 
 
@@ -33,7 +33,6 @@ const {Board, Stepper} = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
-
   /**
    * In order to use the Stepper class, your board must be flashed with
    * either of the following:
@@ -44,31 +43,31 @@ board.on("ready", () => {
    */
 
   const stepper = new Stepper({
-    type: Stepper.TYPE.DRIVER,
+    type: Stepper.TYPE.FOUR_WIRE,
     stepsPerRev: 200,
     pins: {
-      step: 12,
-      dir: 11
+      motor1: 10,
+      motor2: 11,
+      motor3: 12,
+      motor4: 13
     }
   });
 
-  // Set stepper to 180 RPM, counter-clockwise with acceleration and deceleration
-  stepper.rpm(180).ccw().accel(1600).decel(1600);
+  // set stepp[er to 180 rpm, CCW, with acceleration and deceleration
+  stepper.rpm(180).direction(Stepper.DIRECTION.CCW).accel(1600).decel(1600);
   
-  // Make 10 full revolutions
+  // make 10 full revolutions 
   stepper.step(2000, () => {
-
-    console.log("Done moving CCW");
+    console.log("done moving CCW");
 
     // once first movement is done, make 10 revolutions clockwise at previously
     //      defined speed, accel, and decel by passing an object into stepper.step
     stepper.step({
       steps: 2000,
       direction: Stepper.DIRECTION.CW
-    }, () => console.log("Done moving CW"));
+    }, () => console.log("done moving CW"));
   });
 });
-
 
 ```
 
@@ -78,12 +77,6 @@ board.on("ready", () => {
 
 
 
-
-## Additional Notes
-- [A4988 Stepper Motor Driver Carrier](http://www.pololu.com/catalog/product/1182)
-- [100uf 35v electrolytic cap](http://www.amazon.com/100uF-Radial-Mini-Electrolytic-Capacitor/dp/B0002ZP530)
-- [Stepper Motor (4 wire, bipolar)](https://www.sparkfun.com/products/9238)
-![docs/breadboard/stepper-driver-A4988.png](breadboard/stepper-driver-A4988.png)
 
 &nbsp;
 

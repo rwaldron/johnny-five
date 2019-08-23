@@ -491,6 +491,10 @@
         "title": "Stepper - Driver"
       },
       {
+        "file": "stepper-four_wire.js",
+        "title": "Stepper - Four Wire"
+      },
+      {
         "file": "stepper-sweep.js",
         "title": "Stepper - Sweep"
       }

@@ -173,7 +173,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 361 example programs with code and diagrams!**
+**There are presently 362 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -270,6 +270,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
+- [Stepper - Four Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-four_wire.md)
 - [Stepper - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-sweep.md)
 
 ### ESC & Brushless Motor
