@@ -1,14 +1,14 @@
-var moment = require("moment");
-var five = require("../lib/johnny-five");
-var board = new five.Board();
+const moment = require("moment");
+const {Board, Led} = require("../lib/johnny-five");
+var board = new Board();
 
-board.on("ready", function() {
-  var digits = new five.Led.Digits({
+board.on("ready", () => {
+  const digits = new Led.Digits({
     controller: "HT16K33",
   });
-  var toggle = 0;
+  let toggle = 0;
 
-  setInterval(function() {
+  setInterval(() => {
     // Toggle the colon part: on for a second, off for a second.
     digits.print(time(toggle ^= 1));
   }, 1000);
