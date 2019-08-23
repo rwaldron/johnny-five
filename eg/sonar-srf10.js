@@ -1,21 +1,16 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Sonar} = require("../lib/johnny-five.js");
+var board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
-  var sonar = new five.Sonar({
+  var sonar = new Sonar({
     device: "SRF10"
   });
 
   function display(type, value, unit) {
-    console.log("%s event: object is %d %s away", type, value, unit);
+    console.log(`${type} event: object is ${value} ${unit} away`);
   }
 
-  sonar.on("data", function() {
-    display("data", this.inches, "inches");
-  });
-
-  sonar.on("change", function() {
-    display("data", this.inches, "inches");
-  });
+  sonar.on("data", () => display("data", sonar.inches, "inches"));
+  sonar.on("change", () => display("data", sonar.inches, "inches"));
 });
