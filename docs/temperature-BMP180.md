@@ -29,21 +29,21 @@ node eg/temperature-BMP180.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const {Board, Thermometer} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var thermometer = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "BMP180",
     freq: 250
   });
 
-  thermometer.on("change", function() {
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
-    console.log("--------------------------------------");
+  thermometer.on("change", () => {
+    console.log(`Thermometer
+  celsius      : ${thermometer.celsius}
+  fahrenheit   : ${thermometer.fahrenheit}
+  kelvin       : ${thermometer.kelvin}
+--------------------------------------`);
   });
 });
 

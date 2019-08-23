@@ -29,22 +29,22 @@ node eg/temperature-max31850k.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Thermometer} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // This requires OneWire support using the ConfigurableFirmata
-  var temperature = new five.Temperature({
+  const temperature = new Thermometer({
     controller: "MAX31850K",
     pin: 2
   });
 
-  temperature.on("change", function() {
-    console.log("temperature at address: 0x" + this.address.toString(16));
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
-    console.log("--------------------------------------");
+  temperature.on("change", () => {
+    console.log(`temperature at address: 0x${temperature.address.toString(16)}
+  celsius      : ${temperature.celsius}
+  fahrenheit   : ${temperature.fahrenheit}
+  kelvin       : ${temperature.kelvin}
+--------------------------------------`);
   });
 });
 

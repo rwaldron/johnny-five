@@ -29,16 +29,17 @@ node eg/temperature-tmp36.js
 
 
 ```javascript
-var five = require("johnny-five");
+const {Board, Thermometer} = require("johnny-five");
+const board = new Board();
 
-five.Board().on("ready", function() {
-  var temperature = new five.Thermometer({
+board.on("ready", () => {
+  const temperature = new Thermometer({
     controller: "TMP36",
     pin: "A0"
   });
 
-  temperature.on("change", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+  temperature.on("change", () => {
+    console.log(`${temperature.celsius}°C ${temperature.fahrenheit}°F`);
   });
 });
 

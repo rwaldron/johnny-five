@@ -29,20 +29,20 @@ node eg/temperature-mpl115a2.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Thermometer} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var thermometer = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "MPL115A2"
   });
 
-  thermometer.on("change", function() {
-    console.log("Thermometer");
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
-    console.log("--------------------------------------");
+  thermometer.on("change", () => {
+    console.log(`Thermometer
+  celsius      : ${thermometer.celsius}
+  fahrenheit   : ${thermometer.fahrenheit}
+  kelvin       : ${thermometer.kelvin}
+--------------------------------------`);
   });
 });
 

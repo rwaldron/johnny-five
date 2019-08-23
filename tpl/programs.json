@@ -1235,6 +1235,10 @@
         "title": "Thermometer - DS18B20"
       },
       {
+        "file": "temperature-dual-ds18b20.js",
+        "title": "Thermometer - Dual DS18B20"
+      },
+      {
         "file": "temperature-max31850k.js",
         "title": "Thermometer - MAX31850"
       },

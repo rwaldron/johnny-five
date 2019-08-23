@@ -441,6 +441,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Thermometer - DHT21_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-DHT21_I2C_NANO_BACKPACK.md)
 - [Thermometer - DHT22_I2C_NANO_BACKPACK](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-DHT22_I2C_NANO_BACKPACK.md)
 - [Thermometer - DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-ds18b20.md)
+- [Thermometer - Dual DS18B20](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-dual-ds18b20.md)
 - [Thermometer - HIH6130](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-HIH6130.md)
 - [Thermometer - HTU21D](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-htu21d.md)
 - [Thermometer - LM335](https://github.com/rwaldron/johnny-five/blob/master/docs/temperature-lm335.md)
