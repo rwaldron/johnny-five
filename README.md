@@ -271,6 +271,7 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 
 ### Stepper Motor
 - [Stepper - Driver](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-driver.md)
+- [Stepper - Four Wire](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-four_wire.md)
 - [Stepper - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/stepper-sweep.md)
 
 ### ESC & Brushless Motor

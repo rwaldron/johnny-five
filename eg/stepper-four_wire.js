@@ -1,8 +1,7 @@
-var five = require("../lib/johnny-five");
-var board = new five.Board();
-var Stepper = five.Stepper;
+const {Board, Stepper} = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   /**
    * In order to use the Stepper class, your board must be flashed with
    * either of the following:
@@ -12,7 +11,7 @@ board.on("ready", function() {
    *
    */
 
-  var stepper = new Stepper({
+  const stepper = new Stepper({
     type: Stepper.TYPE.FOUR_WIRE,
     stepsPerRev: 200,
     pins: {
@@ -23,8 +22,11 @@ board.on("ready", function() {
     }
   });
 
-  // make 10 full revolutions counter-clockwise at 180 rpm with acceleration and deceleration
-  stepper.rpm(180).direction(Stepper.DIRECTION.CCW).accel(1600).decel(1600).step(2000, function() {
+  // set stepp[er to 180 rpm, CCW, with acceleration and deceleration
+  stepper.rpm(180).direction(Stepper.DIRECTION.CCW).accel(1600).decel(1600);
+  
+  // make 10 full revolutions 
+  stepper.step(2000, () => {
     console.log("done moving CCW");
 
     // once first movement is done, make 10 revolutions clockwise at previously
@@ -32,8 +34,6 @@ board.on("ready", function() {
     stepper.step({
       steps: 2000,
       direction: Stepper.DIRECTION.CW
-    }, function() {
-      console.log("done moving CW");
-    });
+    }, () => console.log("done moving CW"));
   });
 });
