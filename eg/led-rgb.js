@@ -1,10 +1,9 @@
-var five = require("../lib/johnny-five.js");
+const {Board, Led} = require("../lib/johnny-five.js");
+const board = new Board();
 
-
-five.Board().on("ready", function() {
-
+board.on("ready", () => {
   // Initialize the RGB LED
-  var led = new five.Led.RGB({
+  const led = new Led.RGB({
     pins: {
       red: 6,
       green: 5,
@@ -20,17 +19,14 @@ five.Board().on("ready", function() {
   //   green: g,
   //   blue: b
   // }
-  //var led = new five.Led.RGB([3,5,6]);
+  // const led = new Led.RGB([3,5,6]);
 
   // Add led to REPL (optional)
-  this.repl.inject({
-    led: led
-  });
+  board.repl.inject({ led });
 
   // Turn it on and set the initial color
   led.on();
   led.color("#FF0000");
 
   led.blink(1000);
-
 });

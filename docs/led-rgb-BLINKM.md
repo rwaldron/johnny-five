@@ -31,18 +31,18 @@ node eg/led-rgb-BLINKM.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Led} = require("johnny-five");
+const board = new Board();
 
 board.on("ready", function() {
   // Initialize the RGB LED
-  var rgb = new five.Led.RGB({
+  const rgb = new Led.RGB({
     controller: "BLINKM"
   });
-  var index = 0;
-  var rainbow = ["FF0000", "FF7F00", "FFFF00", "00FF00", "0000FF", "4B0082", "8F00FF"];
+  let index = 0;
+  const rainbow = ["FF0000", "FF7F00", "FFFF00", "00FF00", "0000FF", "4B0082", "8F00FF"];
 
-  this.loop(1000, function() {
+  board.loop(1000, () => {
     if (index + 1 === rainbow.length) {
       index = 0;
     }
