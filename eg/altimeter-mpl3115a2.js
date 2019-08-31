@@ -1,19 +1,19 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Altimeter, Board } = require("../");
+const board = new Board();
 
-board.on("ready", function() {
-  var altitude = new five.Altimeter({
+board.on("ready", () => {
+  const altitude = new Altimeter({
     controller: "MPL3115A2",
     // Change `elevation` with whatever is reported
     // on http://www.whatismyelevation.com/.
     // `12` is the elevation (meters) for where I live in Brooklyn
-    elevation: 12,
+    elevation: 12
   });
 
-  altitude.on("data", function() {
+  altitude.on("data", () => {
     console.log("Altitude");
-    console.log("  feet   : ", this.feet);
-    console.log("  meters : ", this.meters);
+    console.log("  feet   : ", altitude.feet);
+    console.log("  meters : ", altitude.meters);
     console.log("--------------------------------------");
   });
 });
