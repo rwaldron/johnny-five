@@ -1,7 +1,7 @@
 const {Board, Led} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Initialize the RGB LED
   const rgb = new Led.RGB({
     controller: "BLINKM"
