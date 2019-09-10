@@ -33,12 +33,14 @@ const { Board, Light } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
-  const light = new Light({
+  const ambient = new Light({
     controller: "BH1750",
   });
 
-  light.on("data", (data) => {
-    console.log("Lux: ", data.lux);
+  ambient.on("change", () => {
+    console.log("Ambient Light Level: ");
+    console.log("  level  : ", ambient.level);
+    console.log("-----------------");
   });
 });
 

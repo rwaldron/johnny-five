@@ -37,13 +37,22 @@ board.on("ready", () => {
     address: 0x6893a41
   });
 
-
   thermometerA.on("change", () => {
-    console.log(`A ${thermometerA.celsius}°C`);
+    const {address, celsius, fahrenheit, kelvin} = thermometerA;
+    console.log(`Thermometer A at address: 0x${address.toString(16)}`);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 
   thermometerB.on("change", () => {
-    console.log(`B ${thermometerB.celsius}°C`);
+    const {address, celsius, fahrenheit, kelvin} = thermometerB;
+    console.log(`Thermometer B at address: 0x${address.toString(16)}`);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
 

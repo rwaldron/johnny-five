@@ -52,9 +52,10 @@ board.on("ready", () => {
 
   // If latitude, longitude, course or speed change log it
   gps.on("change", position => {
-    console.log("position");
-    console.log("  latitude   : ", position.latitude);
-    console.log("  longitude  : ", position.longitude);
+    const {latitude, longitude} = position;
+    console.log("GPS Position:");
+    console.log("  latitude   : ", latitude);
+    console.log("  longitude  : ", longitude);
     console.log("--------------------------------------");
   });
 });

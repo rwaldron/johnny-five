@@ -46,13 +46,15 @@ board.on("ready", () => {
   // This will output zero until a valid
   // GPS position is detected.
   gps.on("data", position => {
-    console.log("position");
-    console.log("  latitude   : ", position.latitude);
-    console.log("  longitude  : ", position.longitude);
-    console.log("  altitude   : ", position.altitude);
+    const {altitude, latitude, longitude} = position;
+    console.log("GPS Position:");
+    console.log("  altitude   : ", altitude);
+    console.log("  latitude   : ", latitude);
+    console.log("  longitude  : ", longitude);
     console.log("--------------------------------------");
   });
 });
+
 ```
 
 

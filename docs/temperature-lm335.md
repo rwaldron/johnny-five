@@ -39,7 +39,12 @@ board.on("ready", () => {
   });
 
   thermometer.on("change", () => {
-    console.log(`${thermometer.celsius}°C ${thermometer.fahrenheit}°F`);
+    const {celsius, fahrenheit, kelvin} = thermometer;
+    console.log("Thermometer");
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
 

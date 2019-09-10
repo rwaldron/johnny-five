@@ -33,16 +33,17 @@ const {Board, Thermometer} = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
-  const temp = new Thermometer({
+  const thermometer = new Thermometer({
     controller: "BMP085"
   });
 
-  temp.on("change", () => {
-    console.log(`Thermometer
-  celsius      : ${temp.celsius}
-  fahrenheit   : ${temp.fahrenheit}
-  kelvin       : ${temp.kelvin}
---------------------------------------`);
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
+    console.log("Thermometer");
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
 

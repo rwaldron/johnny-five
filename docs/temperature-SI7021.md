@@ -37,15 +37,21 @@ const board = new Board({
 });
 
 board.on("ready", () => {
-  const temp = new Thermometer({
+  const thermometer = new Thermometer({
     controller: "SI7021",
     port: "A"
   });
 
-  temp.on("change", () => {
-    console.log(`${temp.celsius}°C ${temp.fahrenheit}°F`);
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
+    console.log("Thermometer");
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
+
 
 ```
 

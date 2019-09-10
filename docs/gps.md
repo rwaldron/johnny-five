@@ -49,7 +49,8 @@ board.on("ready", () => {
 
   // If latitude, longitude change log it
    gps.on("change", position => {
-    console.log("position");
+    const {altitude, latitude, longitude} = position;
+    console.log("GPS Position:");
     console.log("  latitude   : ", position.latitude);
     console.log("  longitude  : ", position.longitude);
     console.log("  altitude   : ", position.altitude);
@@ -58,9 +59,10 @@ board.on("ready", () => {
 
   // If speed, course change log it
   gps.on("navigation", velocity => {
-    console.log("navigation");
-    console.log("  speed   : ", velocity.speed);
-    console.log("  course  : ", velocity.course);
+    const {course, speed} = velocity;
+    console.log("GPS Navigation:");
+    console.log("  course  : ", course);
+    console.log("  speed   : ", speed);
     console.log("--------------------------------------");
   });
 });

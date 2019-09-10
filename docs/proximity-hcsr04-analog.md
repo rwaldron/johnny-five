@@ -41,9 +41,10 @@ board.on("ready", () => {
   });
 
   proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
     console.log("Proximity: ");
-    console.log("  cm  : ", proximity.cm);
-    console.log("  in  : ", proximity.in);
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
     console.log("-----------------");
   });
 });
