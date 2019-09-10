@@ -14,15 +14,16 @@ board.on("ready", () => {
   });
 
   accelerometer.on("change", () => {
-    console.log("accelerometer");
-    console.log("  x            : ", accelerometer.x);
-    console.log("  y            : ", accelerometer.y);
-    console.log("  z            : ", accelerometer.z);
-    console.log("  pitch        : ", accelerometer.pitch);
-    console.log("  roll         : ", accelerometer.roll);
-    console.log("  acceleration : ", accelerometer.acceleration);
-    console.log("  inclination  : ", accelerometer.inclination);
-    console.log("  orientation  : ", accelerometer.orientation);
+    const {acceleration, inclination, orientation, pitch, roll, x, y, z} = accelerometer;
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
     console.log("--------------------------------------");
   });
 });
