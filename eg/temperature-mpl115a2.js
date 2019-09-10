@@ -7,13 +7,15 @@ board.on("ready", () => {
   });
 
   thermometer.on("change", () => {
-    console.log(`Thermometer
-  celsius      : ${thermometer.celsius}
-  fahrenheit   : ${thermometer.fahrenheit}
-  kelvin       : ${thermometer.kelvin}
---------------------------------------`);
+    const {celsius, fahrenheit, kelvin} = thermometer;
+    console.log("Thermometer");
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
+
 
 /* @markdown
 - [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)

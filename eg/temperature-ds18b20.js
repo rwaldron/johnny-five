@@ -9,8 +9,12 @@ board.on("ready", () => {
   });
 
   thermometer.on("change", () => {
-    console.log(`${thermometer.celsius}°C`);
-    // console.log("0x" + this.address.toString(16));
+    const {address, celsius, fahrenheit, kelvin} = thermometer;
+    console.log(`Thermometer at address: 0x${address.toString(16)}`);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
 
