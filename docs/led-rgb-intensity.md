@@ -37,7 +37,7 @@ const temporal = require("temporal");
 const {Board, Led} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Initialize the RGB LED
   const led = new Led.RGB([6, 5, 3]);
 

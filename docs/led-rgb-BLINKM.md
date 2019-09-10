@@ -34,7 +34,7 @@ node eg/led-rgb-BLINKM.js
 const {Board, Led} = require("johnny-five");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Initialize the RGB LED
   const rgb = new Led.RGB({
     controller: "BLINKM"
