@@ -29,15 +29,14 @@ node eg/compass-MAG3110-tessel.js
 
 
 ```javascript
-var Tessel = require("tessel-io");
-var five = require("../");
-var board = new five.Board({
+const Tessel = require("tessel-io");
+const {Board, Compass} = require("johnny-five");
+const board = new Board({
   io: new Tessel()
 });
 
-board.on("ready", function() {
-
-  var compass = new five.Compass({
+board.on("ready", () => {
+  const compass = new Compass({
     controller: "MAG3110",
     // Optionally pre-load the offsets
     offsets: {
@@ -47,19 +46,19 @@ board.on("ready", function() {
     },
   });
 
-  compass.on("calibrated", function(offsets) {
+  compass.on("calibrated", offsets => {
     // Use this data with the optional "offsets" property above
-    console.log("calibrated:", offsets);
+    // console.log("calibrated:", offsets);
   });
 
-  compass.on("change", function() {
-    console.log("change");
-    console.log("  heading : ", Math.floor(this.heading));
-    console.log("  bearing : ", this.bearing.name);
+  compass.on("change", () => {
+    const {bearing, heading} = compass;
+    console.log("Compass:");
+    console.log("  bearing     : ", bearing);
+    console.log("  heading     : ", heading);
     console.log("--------------------------------------");
   });
 });
-
 
 ```
 

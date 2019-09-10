@@ -18,17 +18,19 @@ node eg/color-EVS_NXT.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Color} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var color = new five.Color({
+board.on("ready", () => {
+  const color = new Color({
     controller: "EVS_NXT",
     pin: "BBS2"
   });
 
-  color.on("change", function() {
-    console.log("Color: ", five.Color.hexCode(this.rgb));
+  color.on("change", () => {
+    console.log("Color:");
+    console.log("  rgb     : ", color.rgb);
+    console.log("--------------------------------------");
   });
 });
 

@@ -29,17 +29,17 @@ node eg/barometer-mpl3115a2.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Barometer, Board} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var barometer = new five.Barometer({
+board.on("ready", () => {
+  const barometer = new Barometer({
     controller: "MPL3115A2"
   });
 
-  barometer.on("data", function() {
-    console.log("Barometer");
-    console.log("  pressure : ", this.pressure);
+  barometer.on("change", () => {
+    console.log("Barometer:");
+    console.log("  pressure     : ", barometer.pressure);
     console.log("--------------------------------------");
   });
 });
