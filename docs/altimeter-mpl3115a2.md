@@ -41,13 +41,15 @@ board.on("ready", () => {
     elevation: 12
   });
 
-  altitude.on("data", () => {
-    console.log("Altitude");
-    console.log("  feet   : ", altitude.feet);
-    console.log("  meters : ", altitude.meters);
+  altimeter.on("change", () => {
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
+
 
 
 ```

@@ -44,12 +44,14 @@ board.on("ready", () => {
   });
 
   altimeter.on("change", () => {
-    console.log("Altimeter");
-    console.log("  feet         : ", altimeter.feet);
-    console.log("  meters       : ", altimeter.meters);
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
+
 
 ```
 
@@ -72,12 +74,14 @@ board.on("ready", () => {
   });
 
   altimeter.on("change", () => {
-    console.log("Altimeter");
-    console.log("  feet         : ", altimeter.feet);
-    console.log("  meters       : ", altimeter.meters);
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
+
 
 ```
 
