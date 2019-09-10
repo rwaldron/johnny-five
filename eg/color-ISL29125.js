@@ -1,16 +1,14 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Color} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var rgb = new five.Led.RGB([9, 10, 11]);
-  var color = new five.Color({
-    controller: "ISL29125"
+board.on("ready", () => {
+  const color = new Color({
+    controller: "ISL29125",
   });
 
-  color.on("change", function() {
-    console.log("Color: ", five.Color.hexCode(this.rgb));
+  color.on("change", () => {
+    console.log("Color:");
+    console.log("  rgb     : ", color.rgb);
+    console.log("--------------------------------------");
   });
 });
-
-
-// TODO: need Fritzing for this
