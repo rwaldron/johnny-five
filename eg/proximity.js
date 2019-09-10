@@ -9,8 +9,8 @@ board.on("ready", function() {
 
   proximity.on("change", function() {
     console.log("Proximity: ");
-    console.log("  cm  : ", proximity.cm);
-    console.log("  in  : ", proximity.in);
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
     console.log("-----------------");
   });
 });
