@@ -2,7 +2,7 @@ const { Altimeter, Board } = require("../");
 const board = new Board();
 
 board.on("ready", () => {
-  const altitude = new Altimeter({
+  const altimeter = new Altimeter({
     controller: "MPL3115A2",
     // Change `elevation` with whatever is reported
     // on http://www.whatismyelevation.com/.
