@@ -1,13 +1,14 @@
 const {Board, Proximity} = require("../lib/johnny-five.js");
 const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   const proximity = new Proximity({
     controller: "GP2Y0A21YK",
     pin: "A0"
   });
 
-  proximity.on("change", function() {
+  proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
     console.log("Proximity: ");
     console.log("  cm  : ", centimeters);
     console.log("  in  : ", inches);
