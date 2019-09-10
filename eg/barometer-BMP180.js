@@ -1,14 +1,14 @@
-var five = require("../");
-var board = new five.Board();
+const {Barometer, Board} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var barometer = new five.Barometer({
+board.on("ready", () => {
+  const barometer = new Barometer({
     controller: "BMP180"
   });
 
-  barometer.on("change", function() {
-    console.log("Barometer");
-    console.log("  pressure     : ", this.pressure);
+  barometer.on("change", () => {
+    console.log("Barometer:");
+    console.log("  pressure     : ", barometer.pressure);
     console.log("--------------------------------------");
   });
 });
