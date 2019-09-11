@@ -1,15 +1,14 @@
-var five = require("../lib/johnny-five.js");
-var async = require("async");
-var _ = require("lodash");
-var board = new five.Board();
+const {Board, Button, ShiftRegister} = require("../lib/johnny-five.js");
+const {eachSeries} = require("async");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   /**
    * While we may have multiple ShiftRegisters,
    * we only need one to control them both.
    */
-  var register = new five.ShiftRegister({
+  const register = new ShiftRegister({
     isAnode: true,
     size: 2,
     pins: {
@@ -23,7 +22,7 @@ board.on("ready", function() {
   /**
    * Pressing this button will trigger the die roll.
    */
-  var button = new five.Button(8);
+  const button = new Button(8);
 
   /**
    * Sends a random number to the shift register.
@@ -38,22 +37,24 @@ board.on("ready", function() {
    * we'll iterate over this array and display a random number after the
    * delay.  This simulates a die bouncing on a table.
    */
-  var delays = new Array(10).fill(16)
-    .concat(new Array(8).fill(32))
-    .concat(new Array(6).fill(64))
-    .concat(new Array(4).fill(128))
-    .concat(new Array(2).fill(256))
-    .concat(512);
+  const delays = [
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    32, 32, 32, 32, 32, 32, 32, 32,
+    64, 64, 64, 64, 64, 64,
+    128, 128, 128, 128,
+    256, 256,
+    512,
+  ];
 
   register.reset();
   register.clear();
 
-  button.on("press", function() {
+  button.on("press", () => {
     console.log("Rolling...");
     register.clear();
-    async.eachSeries(delays, function(delay, done) {
+    eachSeries(delays, (delay, done) => {
       randomNumber();
-      setTimeout(function() {
+      setTimeout(() => {
         register.clear();
         done();
       }, delay);
