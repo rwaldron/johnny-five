@@ -29,18 +29,17 @@ node eg/shift-register-daisy-chain-anode.js
 
 
 ```javascript
-var five = require("johnny-five");
-var async = require("async");
-var _ = require("lodash");
-var board = new five.Board();
+const {Board, Button, ShiftRegister} = require("johnny-five");
+const {eachSeries} = require("async");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   /**
    * While we may have multiple ShiftRegisters,
    * we only need one to control them both.
    */
-  var register = new five.ShiftRegister({
+  const register = new ShiftRegister({
     isAnode: true,
     size: 2,
     pins: {
@@ -54,7 +53,7 @@ board.on("ready", function() {
   /**
    * Pressing this button will trigger the die roll.
    */
-  var button = new five.Button(8);
+  var button = new Button(8);
 
   /**
    * Sends a random number to the shift register.
@@ -79,12 +78,12 @@ board.on("ready", function() {
   register.reset();
   register.clear();
 
-  button.on("press", function() {
+  button.on("press", () => {
     console.log("Rolling...");
     register.clear();
-    async.eachSeries(delays, function(delay, done) {
+    eachSeries(delays, (delay, done) => {
       randomNumber();
-      setTimeout(function() {
+      setTimeout(() => {
         register.clear();
         done();
       }, delay);
