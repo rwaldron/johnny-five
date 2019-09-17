@@ -57,7 +57,7 @@ board.on("ready", () => {
       number++;
     }
 
-    if (number > 9) {
+    if (number === 10) {
       number = 0;
     }
 

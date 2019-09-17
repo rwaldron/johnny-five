@@ -43,12 +43,16 @@ board.on("ready", () => {
     }
   });
 
-  let value = 0;
+  let value = 0b00000000;
+  let upper = 0b10001000;
+  let lower = 0b00010001;
 
-  setInterval(() => {
-    value = value > 0x11 ? value >> 1 : 0x88;
-    register.send(value);
-  }, 200);
+  function next() {
+    register.send(value = value > lower ? value >> 1 : upper);
+    setTimeout(next, 200);
+  }
+
+  next();
 });
 
 ```

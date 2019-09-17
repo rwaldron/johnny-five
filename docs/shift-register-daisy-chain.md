@@ -68,12 +68,14 @@ board.on("ready", () => {
    * we'll iterate over this array and display a random number after the
    * delay.  This simulates a die bouncing on a table.
    */
-  const delays = new Array(10).fill(16)
-    .concat(new Array(8).fill(32))
-    .concat(new Array(6).fill(64))
-    .concat(new Array(4).fill(128))
-    .concat(new Array(2).fill(256))
-    .concat(512);
+  const delays = [
+    16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+    32, 32, 32, 32, 32, 32, 32, 32,
+    64, 64, 64, 64, 64, 64,
+    128, 128, 128, 128,
+    256, 256,
+    512,
+  ];
 
   register.reset();
   register.clear();
