@@ -1,4 +1,4 @@
-const {Accelerometer, Board, Servo, Servos} = require("../lib/johnny-five.js");
+const { Accelerometer, Board, Servo, Servos } = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {

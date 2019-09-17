@@ -1,11 +1,11 @@
-var five = require("../lib/johnny-five.js");
-var Edison = require("edison-io");
-var board = new five.Board({
+const { Board, Led } = require("../lib/johnny-five.js");
+const Edison = require("edison-io");
+const board = new five.Board({
   io: new Edison()
 });
 
-board.on("ready", function() {
-  var led = new five.Led(13);
+board.on("ready", () => {
+  const led = new Led(13);
   led.blink();
 });
 

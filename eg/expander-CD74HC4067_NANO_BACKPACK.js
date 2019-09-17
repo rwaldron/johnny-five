@@ -1,6 +1,6 @@
-var Barcli = require("barcli");
-var five = require("../lib/johnny-five.js");
-var board = new five.Board({
+const Barcli = require("barcli");
+const { Board, Expander, Sensor } = require("../lib/johnny-five.js");
+const board = new Board({
   repl: false,
   debug: false,
 });
@@ -9,27 +9,30 @@ board.on("ready", function() {
 
   // Use an Expander instance to create
   // a virtual Board.
-  var virtual = new five.Board.Virtual(
-    new five.Expander("CD74HC4067")
+  const virtual = new Board.Virtual(
+    new Expander("CD74HC4067")
   );
 
-  var inputs = ["A0", "A7", "A15"];
+  const inputs = ["A0", "A7", "A15"];
 
-  inputs.forEach(function(input) {
+  inputs.forEach(pin => {
 
-    var bar = new Barcli({ label: input, range: [0, 1023] });
+    const bar = new Barcli({
+      label: pin,
+      range: [0, 1023]
+    });
 
     // Initialize a Sensor instance with
     // the virtual board created above
-    var sensor = new five.Sensor({
-      pin: input,
-      board: virtual
+    const sensor = new Sensor({
+      board: virtual,
+      pin,
     });
 
     // Display all changes in the terminal
     // as a Barcli chart graph
-    sensor.on("change", function() {
-      bar.update(this.value);
+    sensor.on("change", () => {
+      bar.update(sensor.value);
     });
   });
 });

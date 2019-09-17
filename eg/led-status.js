@@ -3,7 +3,7 @@
 // Led.isOn, and Led.isRunning following a variety
 // of Led method calls.
 //
-const {Board, Led} = require("../lib/johnny-five.js");
+const { Board, Led } = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {

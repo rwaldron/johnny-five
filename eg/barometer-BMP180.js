@@ -1,4 +1,4 @@
-const {Barometer, Board} = require("../lib/johnny-five.js");
+const { Barometer, Board } = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {

@@ -1,5 +1,5 @@
 const temporal = require("temporal");
-const {Board, Led} = require("../lib/johnny-five.js");
+const { Board, Led } = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {

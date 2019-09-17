@@ -1,4 +1,4 @@
-const {Board, Led} = require("../lib/johnny-five.js");
+const { Board, Led } = require("../lib/johnny-five.js");
 const Tessel = require("tessel-io");
 
 const board = new Board({

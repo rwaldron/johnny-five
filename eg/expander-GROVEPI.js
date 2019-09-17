@@ -1,70 +1,81 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {
+  Board,
+  Button,
+  Expander,
+  Led,
+  Proximity,
+  Sensor
+} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var virtual = new five.Board.Virtual(
-    new five.Expander("GROVEPI")
+board.on("ready", () => {
+  const virtual = new Board.Virtual(
+    new Expander("GROVEPI")
   );
 
-  var prox = new five.Proximity({
+  const proximity = new Proximity({
     board: virtual,
     controller: "ULTRASONIC_PING",
     pin: "D7"
   });
 
-  prox.on("change", function() {
-    console.log(`${this.cm}cm`);
+  proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
+    console.log("Proximity: ");
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
+    console.log("-----------------");
   });
 
-  var led = new five.Led({
+  const led = new Led({
     board: virtual,
     pin: "D3"
   });
 
   led.on();
 
-  var a0 = new five.Sensor({
+  const a0 = new Sensor({
     pin: "A0",
     board: virtual
   });
 
-  a0.on("change", function() {
-    console.log(`a0: ${this.value}`);
-    led.brightness(this.value >> 2);
+  a0.on("change", () => {
+    console.log(`a0: ${a0.value}`);
+    led.brightness(a0.value >> 2);
   });
 
-  var a2 = new five.Sensor({
+  const a2 = new Sensor({
     pin: "A2",
     board: virtual
   });
 
-  a2.on("change", function() {
-    console.log(`a2: ${this.value}`);
+  a2.on("change", () => {
+    console.log(`a2: ${a2.value}`);
   });
 
-  var d6 = new five.Button({
+  const d6 = new Button({
     pin: "D6",
     board: virtual
   });
 
-  d6.on("press", function() {
+  d6.on("press", () => {
     console.log(`d6: press`);
   });
 
-  d6.on("release", function() {
+  d6.on("release", () => {
     console.log(`d6: release`);
   });
 
-  var d2 = new five.Button({
+  const d2 = new Button({
     pin: "D2",
     board: virtual
   });
 
-  d2.on("press", function() {
+  d2.on("press", () => {
     console.log(`d2: press`);
   });
 
-  d2.on("release", function() {
+  d2.on("release", () => {
     console.log(`d2: release`);
   });
 });

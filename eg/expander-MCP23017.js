@@ -1,20 +1,20 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Expander, Leds } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var virtual = new five.Board.Virtual(
-    new five.Expander("MCP23017")
+board.on("ready", () => {
+  const virtual = new Board.Virtual(
+    new Expander("MCP23017")
   );
 
-  var leds = new five.Leds(
-    Array.from({ length: 8 }, function(_, i) {
-      return new five.Led({ pin: i * 2, board: virtual });
-    })
+  const leds = new Leds(
+    Array.from(Array(8), (_, pin) =>
+      ({ pin: i * 2, board: virtual })
+    )
   );
 
-  leds.on();
+  leds.blink(500);
 
-  this.repl.inject({
-    leds: leds
+  board.repl.inject({
+    leds
   });
 });

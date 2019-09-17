@@ -1,8 +1,8 @@
-var five = require("../lib/johnny-five");
-var board = new five.Board();
+const { Board, Expander, Leds } = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var expander = new five.Expander({
+board.on("ready", () => {
+  const expander = new Expander({
     controller: "74HC595",
     pins: {
       data: 2,
@@ -11,11 +11,16 @@ board.on("ready", function() {
     }
   });
 
-  var virtual = new five.Board.Virtual(expander);
-  var leds = new five.Leds({
-    pins: [0, 1, 2, 3, 4, 5, 6, 7],
-    board: virtual
-  });
+  const virtual = new Board.Virtual(expander);
+  const leds = new Leds(
+    Array.from(Array(8), (_, pin) =>
+      ({ pin, board: virtual })
+    )
+  );
 
   leds.blink(500);
+
+  board.repl.inject({
+    leds
+  });
 });

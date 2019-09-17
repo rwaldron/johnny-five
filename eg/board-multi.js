@@ -1,5 +1,5 @@
-var five = require("../lib/johnny-five.js");
-var boards = new five.Boards(["A", "B"]);
+const { Boards, Led } = require("../lib/johnny-five.js");
+const boards = new Boards(["A", "B"]);
 
 // Create 2 board instances with IDs "A" & "B"
 boards.on("ready", function() {
@@ -8,22 +8,22 @@ boards.on("ready", function() {
   // (connected and available for communication)
 
   // Access them by their ID:
-  var led = new five.Led({
+  const led = new Led({
+    board: board.byId("A"),
     pin: 13,
-    board: this.byId("A")
   });
 
   led.blink();
 
   // |this| is an array-like object containing references
   // to each initialized board.
-  this.each(function(board) {
+  boards.each(board => {
     if (board.id === "B") {
       // Initialize an Led instance on pin 13 of
       // each initialized board and strobe it.
-      var led = new five.Led({
+      const led = new Led({
         pin: 13,
-        board: board
+        board
       });
 
       led.blink();

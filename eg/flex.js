@@ -1,25 +1,20 @@
-var five = require("../lib/johnny-five.js"),
-  board, flex;
-
-board = new five.Board();
+const {Board, Sensor} = require("../lib/johnny-five.js");
+const board = new Board();
 
 board.on("ready", function() {
 
-  // Create a new `flex sensor` hardware instance.
-  flex = new five.Sensor({
-    pin: "A2",
-    freq: 250
+  const flex = new Sensor({
+    pin: "A2"
   });
 
-  // Inject the `sensor` hardware into
+  // Inject the `flex` hardware into
   // the Repl instance's context;
   // allows direct command line access
-  board.repl.inject({
-    pot: flex
-  });
+  board.repl.inject({ flex });
 
-  // "data" get the current reading from the flex sensor
-  flex.on("data", function() {
-    console.log(this.value);
+  flex.on("change", value => {
+    console.log("Flex: ");
+    console.log("  value  : ", flex.value);
+    console.log("-----------------");
   });
 });

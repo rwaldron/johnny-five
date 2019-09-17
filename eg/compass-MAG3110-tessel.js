@@ -1,5 +1,5 @@
 const Tessel = require("tessel-io");
-const {Board, Compass} = require("../lib/johnny-five.js");
+const { Board, Compass } = require("../lib/johnny-five.js");
 const board = new Board({
   io: new Tessel()
 });

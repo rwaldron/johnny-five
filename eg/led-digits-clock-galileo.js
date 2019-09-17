@@ -1,5 +1,5 @@
 const moment = require("moment");
-const {Board, Led} = require("../lib/johnny-five");
+const { Board, Led } = require("../lib/johnny-five");
 const Galileo = require("galileo-io");
 
 const board = new Board({
