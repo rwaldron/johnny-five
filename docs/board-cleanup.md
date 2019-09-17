@@ -29,15 +29,15 @@ node eg/board-cleanup.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var led = new five.Led(13);
+board.on("ready", () => {
+  const led = new Led(13);
   led.on();
 
 
-  this.on("exit", function() {
+  board.on("exit", () => {
     led.off();
   });
 });

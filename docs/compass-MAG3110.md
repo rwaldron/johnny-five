@@ -29,7 +29,7 @@ node eg/compass-MAG3110.js
 
 
 ```javascript
-const {Board, Compass} = require("johnny-five");
+const { Board, Compass } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

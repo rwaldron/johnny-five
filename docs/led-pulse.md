@@ -33,7 +33,7 @@ node eg/led-pulse.js
 
 
 ```javascript
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
@@ -46,7 +46,7 @@ board.on("ready", () => {
   // Stop and turn off the led pulse loop after
   // 10 seconds (shown in ms)
   board.wait(10000, () => {
-    
+
     // stop() terminates the interval
     // off() shuts the led off
     led.stop().off();

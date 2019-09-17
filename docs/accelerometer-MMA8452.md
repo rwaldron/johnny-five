@@ -29,7 +29,7 @@ node eg/accelerometer-MMA8452.js
 
 
 ```javascript
-const {Accelerometer, Board} = require("johnny-five");
+const { Accelerometer, Board } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

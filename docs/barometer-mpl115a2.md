@@ -29,7 +29,7 @@ node eg/barometer-mpl115a2.js
 
 
 ```javascript
-const {Barometer, Board} = require("johnny-five");
+const { Barometer, Board } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

@@ -31,14 +31,14 @@ node eg/edison-io-miniboard.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Edison = require("edison-io");
-var board = new five.Board({
+const { Board, Led } = require("johnny-five");
+const Edison = require("edison-io");
+const board = new five.Board({
   io: new Edison()
 });
 
-board.on("ready", function() {
-  var led = new five.Led(1);
+board.on("ready", () => {
+  const led = new Led(1);
   led.blink();
 });
 

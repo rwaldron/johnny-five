@@ -31,14 +31,14 @@ node eg/galileo-io.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Galileo = require("galileo-io");
-var board = new five.Board({
+const { Board, Led } = require("johnny-five");
+const Galileo = require("galileo-io");
+const board = new five.Board({
   io: new Galileo()
 });
 
-board.on("ready", function() {
-  var led = new five.Led(13);
+board.on("ready", () => {
+  const led = new Led(13);
   led.blink();
 });
 

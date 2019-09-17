@@ -33,7 +33,7 @@ node eg/led-demo-sequence.js
 
 
 ```javascript
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 const board = new Board();
 let led;
 

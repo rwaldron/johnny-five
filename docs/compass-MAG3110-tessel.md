@@ -30,7 +30,7 @@ node eg/compass-MAG3110-tessel.js
 
 ```javascript
 const Tessel = require("tessel-io");
-const {Board, Compass} = require("johnny-five");
+const { Board, Compass } = require("johnny-five");
 const board = new Board({
   io: new Tessel()
 });

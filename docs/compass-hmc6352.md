@@ -29,7 +29,7 @@ node eg/compass-hmc6352.js
 
 
 ```javascript
-const {Board, Compass} = require("johnny-five");
+const { Board, Compass } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

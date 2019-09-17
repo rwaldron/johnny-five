@@ -32,7 +32,7 @@ node eg/led-digits-clock-dual.js
 
 ```javascript
 const moment = require("moment");
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 
 const board = new Board();
 

@@ -18,7 +18,7 @@ node eg/accelerometer-pan-tilt.js
 
 
 ```javascript
-const {Accelerometer, Board, Servo, Servos} = require("johnny-five");
+const { Accelerometer, Board, Servo, Servos } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

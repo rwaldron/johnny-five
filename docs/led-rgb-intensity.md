@@ -34,7 +34,7 @@ node eg/led-rgb-intensity.js
 
 ```javascript
 const temporal = require("temporal");
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

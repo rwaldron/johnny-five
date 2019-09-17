@@ -18,18 +18,19 @@ node eg/sensor.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Proximity} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   // Create a new generic sensor instance for
   // a sensor connected to an analog (ADC) pin
-  var sensor = new five.Sensor("A0");
+  const sensor = new Sensor("A0");
 
   // When the sensor value changes, log the value
-  sensor.on("change", function(value) {
-    console.log(value);
+  sensor.on("change", value => {
+    console.log("Sensor: ");
+    console.log("  value  : ", sensor.value);
+    console.log("-----------------");
   });
 });
 

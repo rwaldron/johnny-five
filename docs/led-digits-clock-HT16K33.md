@@ -30,7 +30,7 @@ node eg/led-digits-clock-HT16K33.js
 
 ```javascript
 const moment = require("moment");
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 var board = new Board();
 
 board.on("ready", () => {

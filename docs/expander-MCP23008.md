@@ -31,24 +31,24 @@ node eg/expander-MCP23008.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Expander, Leds } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var virtual = new five.Board.Virtual(
-    new five.Expander("MCP23008")
+board.on("ready", () => {
+  const virtual = new Board.Virtual(
+    new Expander("MCP23008")
   );
 
-  var leds = new five.Leds(
-    Array.from({ length: 8 }, function(_, i) {
-      return new five.Led({ pin: i, board: virtual });
-    })
+  const leds = new Leds(
+    Array.from(Array(8), (_, pin) =>
+      ({ pin, board: virtual })
+    )
   );
 
-  leds.on();
+  leds.blink(500);
 
-  this.repl.inject({
-    leds: leds
+  board.repl.inject({
+    leds
   });
 });
 

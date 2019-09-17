@@ -31,39 +31,40 @@ node eg/expander-MUXSHIELD2-analog-read.js
 
 
 ```javascript
-var Barcli = require("barcli");
-var five = require("johnny-five");
-var board = new five.Board({
+const Barcli = require("barcli");
+const { Board, Expander, Sensor } = require("johnny-five");
+const board = new Board({
   repl: false,
   debug: false
 });
 
-board.on("ready", function() {
-  var bars = {
-    a: new Barcli({ label: "IO1-15", range: [0, 1023] }),
-    b: new Barcli({ label: "IO2-15", range: [0, 1023] }),
+board.on("ready", () => {
+  const range = [0, 1023];
+  const bars = {
+    a: new Barcli({ label: "IO1-15", range }),
+    b: new Barcli({ label: "IO2-15", range }),
   };
 
-  var virtual = new five.Board.Virtual(
-    new five.Expander("MUXSHIELD2")
+  const virtual = new Board.Virtual(
+    new Expander("MUXSHIELD2")
   );
 
-  var a = new five.Sensor({
+  const a = new Sensor({
     pin: "IO1-15",
     board: virtual
   });
 
-  a.on("change", function() {
-    bars.a.update(this.value);
+  a.on("change", () => {
+    bars.a.update(a.value);
   });
 
-  var b = new five.Sensor({
+  const b = new Sensor({
     pin: "IO2-15",
     board: virtual
   });
 
-  b.on("change", function() {
-    bars.b.update(this.value);
+  b.on("change", () => {
+    bars.b.update(b.value);
   });
 });
 

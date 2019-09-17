@@ -18,7 +18,7 @@ node eg/led-tessel-servo-module.js
 
 
 ```javascript
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 const Tessel = require("tessel-io");
 
 const board = new Board({

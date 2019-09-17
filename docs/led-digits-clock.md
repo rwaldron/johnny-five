@@ -32,7 +32,7 @@ node eg/led-digits-clock-galileo.js
 
 ```javascript
 const moment = require("moment");
-const {Board, Led} = require("johnny-five");
+const { Board, Led } = require("johnny-five");
 const Galileo = require("galileo-io");
 
 const board = new Board({

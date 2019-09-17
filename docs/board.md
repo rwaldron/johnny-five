@@ -31,15 +31,15 @@ node eg/board.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
 // The board's pins will not be accessible until
 // the board has reported that it is ready
-board.on("ready", function() {
+board.on("ready", () => {
   console.log("Ready!");
 
-  var led = new five.Led(13);
+  const led = new five.Led(13);
   led.blink(500);
 });
 
