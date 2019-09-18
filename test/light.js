@@ -38,20 +38,20 @@ exports["Light"] = {
       board: this.board
     });
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },
 
   instanceof(test) {
     test.expect(1);
-    test.equal(Light({ board: this.board }) instanceof Light, true);
+    test.equal(new Light({ board: this.board }) instanceof Light, true);
     test.done();
   },
 
@@ -132,13 +132,13 @@ exports["Light: ALSPT19"] = {
   shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },
@@ -348,13 +348,13 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
   shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },
@@ -456,13 +456,13 @@ exports["Light: EVS_EV3, Reflected"] = {
   shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },
@@ -563,13 +563,13 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
   shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },
@@ -670,13 +670,13 @@ exports["Light: EVS_NXT, Reflected"] = {
   shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
+    proto.forEach(({name}) => {
+      test.equal(typeof this.light[name], "function");
+    });
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    instance.forEach(({name}) => {
+      test.notEqual(typeof this.light[name], 0);
+    });
 
     test.done();
   },

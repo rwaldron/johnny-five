@@ -170,7 +170,7 @@
     "coveralls": "^3.0.2",
     "grunt": "^1.0.4",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-nodeunit": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-jsbeautifier": "^0.2.13",
