@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Animation -- Servo"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
@@ -28,7 +28,7 @@ exports["Animation -- Servo"] = {
         this.result = this.result.concat(args);
       },
       "@@normalize": function(keyFrames) {
-        var last = [50, 0, -20];
+        const last = [50, 0, -20];
 
         // If user passes null as the first element in keyFrames use current position
         if (keyFrames[0] === null) {
@@ -97,32 +97,32 @@ exports["Animation -- Servo"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
     this.animation = new Animation(this.a);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.animation[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.animation[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.animation[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.animation[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  normalizeServo: function(test) {
+  normalizeServo(test) {
     test.expect(4);
 
-    var segment = this.segment.single;
+    const segment = this.segment.single;
 
     this.animation = new Animation(this.a);
     this.animation.enqueue(segment);
@@ -136,12 +136,12 @@ exports["Animation -- Servo"] = {
     test.done();
   },
 
-  normalizeServoCollection: function(test) {
+  normalizeServoCollection(test) {
 
     this.animation = new Animation(this.servos);
     test.expect(12);
 
-    var segment = this.segment.multi;
+    const segment = this.segment.multi;
 
     this.animation.enqueue(segment);
 
@@ -164,11 +164,11 @@ exports["Animation -- Servo"] = {
 
   },
 
-  rightPadKeyframes: function(test) {
+  rightPadKeyframes(test) {
     this.animation = new Animation(this.servos);
     test.expect(6);
 
-    var segment = this.segment.multi;
+    const segment = this.segment.multi;
     segment.keyFrames = [this.segment.multi.keyFrames[0]];
 
     this.animation.enqueue(segment);
@@ -185,11 +185,11 @@ exports["Animation -- Servo"] = {
     test.done();
   },
 
-  progress: function(test) {
+  progress(test) {
     this.animation = new Animation(this.a);
     test.expect(2);
 
-    var segment = this.segment.single;
+    const segment = this.segment.single;
 
     segment.progress = 0.4;
 
@@ -201,21 +201,20 @@ exports["Animation -- Servo"] = {
 
   },
 
-  reverse: function(test) {
-
+  reverse(test) {
     this.animation = new Animation(this.a);
     test.expect(2);
 
-    var segment = this.segment.single,
-      testContext = this;
+    const segment = this.segment.single;
+    const testContext = this;
 
     segment.reverse = true;
     segment.progress = 0.9;
 
     this.animation.enqueue(segment);
 
-    var indices = this.animation.findIndices(0.4);
-    var val = this.animation.tweenedValue(indices, 0.4);
+    const indices = this.animation.findIndices(0.4);
+    const val = this.animation.tweenedValue(indices, 0.4);
 
     this.animation.target["@@render"](val);
     test.equal(testContext.servoWrite.args[1][0], 3);
@@ -224,25 +223,25 @@ exports["Animation -- Servo"] = {
     test.done();
   },
 
-  timelineEasing: function(test) {
+  timelineEasing(test) {
 
     this.animation = new Animation(this.a);
     test.expect(1);
 
-    var segment = this.segment.single;
+    const segment = this.segment.single;
 
     segment.easing = "inOutCirc";
     segment.progress = 0.8;
     this.animation.enqueue(segment);
 
-    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    const progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
 
     test.ok(Math.abs(progress - 0.958 < 0.01));
     test.done();
 
   },
 
-  keyframeEasing: function(test) {
+  keyframeEasing(test) {
     // Don't allow time to advance in this test.  Otherwise it's possible for
     // the animation to progress between setup and the assertion, causing flaky
     // failures.
@@ -250,7 +249,7 @@ exports["Animation -- Servo"] = {
     this.animation = new Animation(this.a);
     test.expect(1);
 
-    var segment = this.segment.single;
+    const segment = this.segment.single;
 
     segment.keyFrames[3] = {
       step: 33,
@@ -259,21 +258,21 @@ exports["Animation -- Servo"] = {
     segment.progress = 0.9;
     this.animation.enqueue(segment);
 
-    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
-    var indices = this.animation.findIndices(progress);
-    var val = this.animation.tweenedValue(indices, progress);
+    const progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    const indices = this.animation.findIndices(progress);
+    const val = this.animation.tweenedValue(indices, progress);
 
     test.ok(Math.abs(val - 74.843) < 0.01,
-      "Expected " + val + " to be within 0.01 of 74.843");
+      `Expected ${val} to be within 0.01 of 74.843`);
     test.done();
   },
 
-  additiveEasing: function(test) {
+  additiveEasing(test) {
 
     this.animation = new Animation(this.a);
     test.expect(1);
 
-    var segment = this.segment.single;
+    const segment = this.segment.single;
 
     segment.easing = "inOutCirc";
     segment.keyFrames[3] = {
@@ -283,22 +282,22 @@ exports["Animation -- Servo"] = {
     segment.progress = 0.9;
     this.animation.enqueue(segment);
 
-    var progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
-    var indices = this.animation.findIndices(progress);
-    var val = this.animation.tweenedValue(indices, progress);
+    const progress = this.animation.calculateProgress(this.animation.playLoop.calledAt);
+    const indices = this.animation.findIndices(progress);
+    const val = this.animation.tweenedValue(indices, progress);
 
     test.ok(Math.abs(val - 77.970 < 0.01));
     test.done();
 
   },
 
-  tweenTuple: function(test) {
+  tweenTuple(test) {
 
     this.animation = new Animation(this.chain);
 
     test.expect(3);
 
-    var segment = this.segment.multi;
+    const segment = this.segment.multi;
 
     segment.keyFrames = [null, {
       position: [60, 10, 10]
@@ -314,8 +313,8 @@ exports["Animation -- Servo"] = {
     segment.progress = 0.9;
     this.animation.enqueue(segment);
 
-    var indices = this.animation.findIndices(0.9);
-    var tweenedValue = this.animation.tweenedValue(indices, 0.9);
+    const indices = this.animation.findIndices(0.9);
+    const tweenedValue = this.animation.tweenedValue(indices, 0.9);
 
     test.equal(tweenedValue[0][0], 30);
     test.equal(tweenedValue[0][1], 70);
@@ -324,13 +323,13 @@ exports["Animation -- Servo"] = {
     test.done();
   },
 
-  tweenFromProperties: function(test) {
+  tweenFromProperties(test) {
     test.expect(3);
 
     this.chain[Animation.keys] = ["a", "b", "c"];
     this.animation = new Animation(this.chain);
 
-    var segment = this.segment.multi;
+    const segment = this.segment.multi;
 
     segment.keyFrames = [{
       value: {a: 0, b: 3, c: 5}
@@ -362,7 +361,7 @@ exports["Animation -- Servo"] = {
     test.done();
   },
 
-  enqueueOnSameTick: function(test) {
+  enqueueOnSameTick(test) {
 
     test.expect(7);
 
@@ -389,7 +388,7 @@ exports["Animation -- Servo"] = {
 };
 
 exports["Animation"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.play = this.sandbox.stub(Animation.prototype, "play");
@@ -401,7 +400,7 @@ exports["Animation"] = {
         this.result = this.result.concat(args);
       },
       "@@normalize": function(keyFrames) {
-        var last = [50, 0, -20];
+        const last = [50, 0, -20];
 
         // If user passes null as the first element in keyFrames use current position
         if (keyFrames[0] === null) {
@@ -417,18 +416,18 @@ exports["Animation"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Animation({}) instanceof Animation, true);
+    test.equal(new Animation({}) instanceof Animation, true);
     test.done();
   },
 
-  enqueue: function(test) {
+  enqueue(test) {
     test.expect(5);
 
     this.animation = new Animation(this.chain);
@@ -449,7 +448,7 @@ exports["Animation"] = {
     test.done();
   },
 
-  enqueueNoOptionsArg: function(test) {
+  enqueueNoOptionsArg(test) {
     test.expect(2);
 
     this.animation = new Animation(this.chain);
@@ -461,11 +460,11 @@ exports["Animation"] = {
     test.done();
   },
 
-  next: function(test) {
+  next(test) {
     test.expect(12);
 
-    var onstart = this.sandbox.spy();
-    var stop = this.sandbox.spy();
+    const onstart = this.sandbox.spy();
+    const stop = this.sandbox.spy();
 
     this.animation = new Animation(this.chain);
 
@@ -483,7 +482,7 @@ exports["Animation"] = {
     this.animation.segments[0].segments[0].segments[0].currentSpeed = 1;
     this.animation.segments[0].segments[0].segments[0].onstart = onstart;
     this.animation.segments[0].segments[0].segments[0].playLoop = {
-      stop: stop,
+      stop,
     };
 
     this.normalizeKeyframes = this.sandbox.stub(this.animation, "normalizeKeyframes");
@@ -511,9 +510,9 @@ exports["Animation"] = {
     test.done();
   },
 
-  nextShiftsQueuedSegmentOntoSelf: function(test) {
+  nextShiftsQueuedSegmentOntoSelf(test) {
     test.expect(5);
-    var stop = this.sandbox.spy();
+    const stop = this.sandbox.spy();
 
     this.animation = new Animation(this.chain);
     this.animation.paused = true;
@@ -533,7 +532,7 @@ exports["Animation"] = {
     this.animation.enqueue({ BRAND: Infinity });
 
     this.animation.playLoop = {
-      stop: stop,
+      stop,
     };
 
 
@@ -544,22 +543,22 @@ exports["Animation"] = {
     test.done();
   },
 
-  pause: function(test) {
+  pause(test) {
     test.expect(6);
 
-    var stop = this.sandbox.spy();
-    var onpause = this.sandbox.spy();
-    var normalizeKeyframes = this.sandbox.stub();
+    const stop = this.sandbox.spy();
+    const onpause = this.sandbox.spy();
+    const normalizeKeyframes = this.sandbox.stub();
 
     this.animation = new Animation(this.chain);
     this.animation.playLoop = {
-      stop: stop,
+      stop,
     };
     this.animation.onpause = onpause;
     this.animation.normalizeKeyframes = normalizeKeyframes;
 
 
-    this.animation.on("animation:pause", function() {
+    this.animation.on("animation:pause", () => {
       test.ok(true);
     });
 
@@ -582,16 +581,16 @@ exports["Animation"] = {
     test.done();
   },
 
-  stop: function(test) {
+  stop(test) {
     test.expect(9);
 
-    var stop = this.sandbox.spy();
-    var onstop = this.sandbox.spy();
-    var normalizeKeyframes = this.sandbox.stub();
+    const stop = this.sandbox.spy();
+    const onstop = this.sandbox.spy();
+    const normalizeKeyframes = this.sandbox.stub();
 
     this.animation = new Animation(this.chain);
     this.animation.playLoop = {
-      stop: stop,
+      stop,
     };
     this.animation.onstop = onstop;
     this.animation.normalizeKeyframes = normalizeKeyframes;
@@ -599,7 +598,7 @@ exports["Animation"] = {
     this.animation.segments.push(new Animation.Segment());
 
 
-    this.animation.on("animation:stop", function() {
+    this.animation.on("animation:stop", () => {
       test.ok(true);
     });
 
@@ -624,7 +623,7 @@ exports["Animation"] = {
     test.done();
   },
 
-  speed: function(test) {
+  speed(test) {
     test.expect(17);
 
     test.equal(this.animation.currentSpeed, 1);
@@ -654,23 +653,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithonLoopFalseMetronomicTrueReverseFalse: function(test) {
+  loopFunctionWithonLoopFalseMetronomicTrueReverseFalse(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = true;
@@ -683,15 +682,15 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionfallBackTimeNoPlayLoop: function(test) {
+  loopFunctionfallBackTimeNoPlayLoop(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.tfb = this.sandbox.stub(Animation, "TemporalFallback", function() {});
+    this.tfb = this.sandbox.stub(Animation, "TemporalFallback", () => {});
     this.stop = this.sandbox.stub(Animation.prototype, "stop");
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
@@ -702,7 +701,7 @@ exports["Animation"] = {
 
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
 
     this.animation.playLoop = null;
     this.animation.loopFunction(loop);
@@ -712,14 +711,14 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionfallBackTimeWithPlayLoop: function(test) {
+  loopFunctionfallBackTimeWithPlayLoop(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.tfb = this.sandbox.stub(Animation, "TemporalFallback", function() {});
+    this.tfb = this.sandbox.stub(Animation, "TemporalFallback", () => {});
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
@@ -733,7 +732,7 @@ exports["Animation"] = {
 
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
 
     this.sandbox.stub(Animation.prototype, "stop");
 
@@ -743,11 +742,11 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithonloop: function(test) {
+  loopFunctionWithonloop(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.animation.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.animation.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.animation.loopback = 1;
       this.animation.normalizedKeyFrames = [[
         { value: 90, easing: "linear" },
@@ -755,16 +754,16 @@ exports["Animation"] = {
         { value: 45, easing: "linear" },
         { step: 33, easing: "linear", value: 78 }
       ]];
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = true;
@@ -780,23 +779,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithmetronomicAndReverseTrueInvertsReverse: function(test) {
+  loopFunctionWithmetronomicAndReverseTrueInvertsReverse(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = true;
@@ -809,23 +808,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithmetronomicAndReverseFalseInvertsReverse: function(test) {
+  loopFunctionWithmetronomicAndReverseFalseInvertsReverse(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = true;
@@ -838,23 +837,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithoutonloop: function(test) {
+  loopFunctionWithoutonloop(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = false;
@@ -869,23 +868,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithmetronomic: function(test) {
+  loopFunctionWithmetronomic(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.metronomic = true;
@@ -899,23 +898,23 @@ exports["Animation"] = {
     test.done();
   },
 
-  loopFunctionWithmetronomicAndreversetrue: function(test) {
+  loopFunctionWithmetronomicAndreversetrue(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", function() {
+    this.normalizeKeyframes = this.sandbox.stub(Animation.prototype, "normalizeKeyframes", () => {
       this.loopback = 1;
-    }.bind(this));
+    });
 
-    var startTime = Date.now();
-    var loop = {
+    const startTime = Date.now();
+    const loop = {
       calledAt: startTime + 1000
     };
 
     this.animation.startTime = startTime;
     this.animation.normalizedKeyFrames = [];
     this.animation.target = {};
-    this.animation.target[Animation.render] = function() {};
+    this.animation.target[Animation.render] = () => {};
     this.animation.speed(1);
 
     this.animation.loop = false;
@@ -931,18 +930,18 @@ exports["Animation"] = {
     test.done();
   },
 
-  playWithPlayLoop: function(test) {
+  playWithPlayLoop(test) {
     test.expect(2);
 
     this.play.restore();
     this.animation = new Animation(this.chain);
     this.animation.playLoop = {
-      stop: function() {
+      stop() {
         test.ok(true);
       },
     };
 
-    this.animation.loopFunction = this.sandbox.spy(function(task) {
+    this.animation.loopFunction = this.sandbox.spy(task => {
       test.ok(true);
       task.stop();
       test.done();
@@ -951,13 +950,13 @@ exports["Animation"] = {
     this.animation.play();
   },
 
-  playWithoutPlayLoop: function(test) {
+  playWithoutPlayLoop(test) {
     test.expect(1);
 
     this.play.restore();
     this.animation = new Animation(this.chain);
 
-    this.animation.loopFunction = this.sandbox.spy(function(task) {
+    this.animation.loopFunction = this.sandbox.spy(task => {
       test.ok(true);
 
       task.stop();
@@ -970,39 +969,39 @@ exports["Animation"] = {
 };
 
 exports["Animation.Segment"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.segment = new Animation.Segment({});
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(2);
-    test.equal(Animation({}) instanceof Animation, true);
-    test.equal(Animation() instanceof Animation, true);
+    test.equal(new Animation({}) instanceof Animation, true);
+    test.equal(new Animation() instanceof Animation, true);
     test.done();
   },
 
-  default: function(test) {
+  default(test) {
     test.expect(1);
 
     test.deepEqual(this.segment, new Animation.Segment({}));
     test.done();
   },
 
-  defaultWithSegments: function(test) {
+  defaultWithSegments(test) {
     test.expect(1);
 
-    var subsegments = [];
-    var options = {
+    const subsegments = [];
+    const options = {
       segments: subsegments
     };
-    var segment = new Animation.Segment(options);
+    const segment = new Animation.Segment(options);
 
 
     test.notEqual(segment.segments, options.segments);
@@ -1011,7 +1010,7 @@ exports["Animation.Segment"] = {
 };
 
 exports["Animation.TemporalFallback"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -1027,17 +1026,17 @@ exports["Animation.TemporalFallback"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  interval: function(test) {
+  interval(test) {
     test.expect(4);
 
-    var fallback = new Animation.TemporalFallback(this.animation);
-    var callback = this.setInterval.firstCall.args[0];
+    const fallback = new Animation.TemporalFallback(this.animation);
+    const callback = this.setInterval.firstCall.args[0];
 
     callback();
 
@@ -1048,9 +1047,9 @@ exports["Animation.TemporalFallback"] = {
     test.done();
   },
 
-  stop: function(test) {
+  stop(test) {
     test.expect(2);
-    var fallback = new Animation.TemporalFallback(this.animation);
+    const fallback = new Animation.TemporalFallback(this.animation);
 
     fallback.stop();
 
@@ -1059,9 +1058,9 @@ exports["Animation.TemporalFallback"] = {
     test.done();
   },
 
-  stopMissingInterval: function(test) {
+  stopMissingInterval(test) {
     test.expect(1);
-    var fallback = new Animation.TemporalFallback(this.animation);
+    const fallback = new Animation.TemporalFallback(this.animation);
 
     fallback.interval = null;
 
