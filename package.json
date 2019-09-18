@@ -152,7 +152,6 @@
   "dependencies": {
     "chalk": "2.1.0",
     "color-convert": "~1.2.2",
-    "ease-component": "latest",
     "lodash.clonedeep": "^4.3.0",
     "lodash.debounce": "^4.0.3",
     "nanotimer": "0.3.10",

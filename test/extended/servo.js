@@ -1,7 +1,7 @@
 require("../common/bootstrap");
 
 exports["Servo"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
@@ -9,7 +9,7 @@ exports["Servo"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     if (this.servo && this.servo.animation) {
       this.servo.animation.stop();
     }
@@ -21,7 +21,7 @@ exports["Servo"] = {
     done();
   },
 
-  center: function(test) {
+  center(test) {
     test.expect(4);
 
     this.spy = this.sandbox.spy(Servo.prototype, "center");
@@ -43,18 +43,18 @@ exports["Servo"] = {
     this.servo.to(180);
     this.servo.center(1000, 100);
 
-    setTimeout(function() {
+    setTimeout(() => {
       test.ok(this.servo.position > 90);
-    }.bind(this), 900);
+    }, 900);
 
     // it fired a move:complete event when finished
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 90);
       test.done();
-    }.bind(this));
+    });
   },
 
-  min: function(test) {
+  min(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -65,16 +65,16 @@ exports["Servo"] = {
     this.servo.to(180);
     this.servo.min(1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 0);
-      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
+      test.ok(this.servoWrite.callCount === 101, `Expected 101 calls to servoWrite. Saw ${this.servoWrite.callCount}`);
       test.done();
-    }.bind(this));
+    });
   },
 
 
 
-  min2: function(test) {
+  min2(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -85,14 +85,14 @@ exports["Servo"] = {
     this.servo.to(180);
     this.servo.min(1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 0);
       test.ok(this.servoWrite.callCount === 101);
       test.done();
-    }.bind(this));
+    });
   },
 
-  rate: function(test) {
+  rate(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -103,17 +103,17 @@ exports["Servo"] = {
     this.servo.to(0);
     this.servo.to(180, 1000, 100);
 
-    setTimeout(function() {
+    setTimeout(() => {
       test.equal(this.servo.position, 180);
       test.equal(this.servoWrite.callCount, 101);
 
       test.done();
-    }.bind(this), 1010);
+    }, 1010);
 
 
   },
 
-  min3: function(test) {
+  min3(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -124,14 +124,14 @@ exports["Servo"] = {
     this.servo.to(180);
     this.servo.min(1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 0);
       test.ok(this.servoWrite.callCount === 101);
       test.done();
-    }.bind(this));
+    });
   },
 
-  min4: function(test) {
+  min4(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -142,14 +142,14 @@ exports["Servo"] = {
     this.servo.to(180);
     this.servo.min(1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 0);
-      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
+      test.ok(this.servoWrite.callCount === 101, `Expected 101 calls to servoWrite. Saw ${this.servoWrite.callCount}`);
       test.done();
-    }.bind(this));
+    });
   },
 
-  max: function(test) {
+  max(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -161,14 +161,14 @@ exports["Servo"] = {
     this.servo.max(1000, 100);
     //this.servo.to(180, 1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.position, 180);
-      test.ok(this.servoWrite.callCount === 101, "Expected 101 calls to servoWrite. Saw " + this.servoWrite.callCount);
+      test.ok(this.servoWrite.callCount === 101, `Expected 101 calls to servoWrite. Saw ${this.servoWrite.callCount}`);
       test.done();
-    }.bind(this));
+    });
   },
 
-  completeMoveEmitted: function(test) {
+  completeMoveEmitted(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -179,13 +179,13 @@ exports["Servo"] = {
     this.servo.to(0);
     this.servo.to(180, 1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.ok(this.servoWrite.callCount, 1);
       test.done();
-    }.bind(this));
+    });
   },
 
-  fps: function(test) {
+  fps(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -197,16 +197,16 @@ exports["Servo"] = {
     this.servo.to(0);
     this.servo.to(180, 1000);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.ok(this.servoWrite.callCount === 51);
       test.done();
-    }.bind(this));
+    });
 
   },
 
-  toDegreesAndTimeWithOffset: function(test) {
+  toDegreesAndTimeWithOffset(test) {
     test.expect(2);
-    
+
     this.servo = new Servo({
       board: this.board,
       pin: 11,
@@ -215,17 +215,17 @@ exports["Servo"] = {
 
     this.servo.to(80, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.value, 80);
       test.equal(this.servoWrite.lastCall.args[1], 1300);
       test.done();
-    }.bind(this));
-    
+    });
+
   },
 
-  toDegreesAndTimeWithOffsetAndInvert: function(test) {
+  toDegreesAndTimeWithOffsetAndInvert(test) {
     test.expect(2);
-    
+
     this.servo = new Servo({
       board: this.board,
       pin: 11,
@@ -235,12 +235,12 @@ exports["Servo"] = {
 
     this.servo.to(80, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.equal(this.servo.value, 80);
       test.equal(this.servoWrite.lastCall.args[1], 1700);
       test.done();
-    }.bind(this));
-    
+    });
+
   },
 
   /* These tests are commented out while we figure out Issue #829
