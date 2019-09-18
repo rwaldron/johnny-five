@@ -1,4 +1,4 @@
-const {Board, Thermometer} = require("../lib/johnny-five.js");
+const { Board, Thermometer } = require("../lib/johnny-five.js");
 const board = new Board();
 
 const controller = "DS18B20";

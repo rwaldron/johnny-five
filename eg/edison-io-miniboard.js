@@ -1,6 +1,6 @@
 const { Board, Led } = require("../lib/johnny-five.js");
 const Edison = require("edison-io");
-const board = new five.Board({
+const board = new Board({
   io: new Edison()
 });
 

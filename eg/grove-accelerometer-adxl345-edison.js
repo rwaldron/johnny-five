@@ -8,7 +8,7 @@ board.on("ready", function() {
 
   // Plug the ADXL345 Accelerometer module
   // into an I2C jack
-  const acceleration = new Accelerometer({
+  const accelerometer = new Accelerometer({
     controller: "ADXL345"
   });
 

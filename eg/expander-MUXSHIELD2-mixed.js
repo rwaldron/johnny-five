@@ -1,5 +1,5 @@
 const Barcli = require("barcli");
-const {Board, Button, Expander, Leds } = require("../lib/johnny-five.js");
+const {Board, Button, Expander, Led, Leds, Sensor } = require("../lib/johnny-five.js");
 const board = new Board({
   repl: false,
   debug: false

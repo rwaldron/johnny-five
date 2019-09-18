@@ -1,4 +1,4 @@
-const {Board, Thermometer} = require("../lib/johnny-five");
+const { Board, Thermometer } = require("../lib/johnny-five");
 const board = new Board();
 
 board().on("ready", () => {

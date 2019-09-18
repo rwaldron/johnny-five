@@ -51,7 +51,7 @@ board.on("ready", () => {
     }
   });
 
-  controller.connect();
+  gamepad.connect();
 });
 
 // Brushless motor breadboard diagram originally published here:

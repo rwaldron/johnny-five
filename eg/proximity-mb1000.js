@@ -1,4 +1,4 @@
-const {Board, Proximity} = require("../lib/johnny-five.js");
+const { Board, Proximity } = require("../lib/johnny-five.js");
 const board = new Board();
 
 board.on("ready", () => {

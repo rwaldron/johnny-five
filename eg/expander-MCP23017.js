@@ -7,7 +7,7 @@ board.on("ready", () => {
   );
 
   const leds = new Leds(
-    Array.from(Array(8), (_, pin) =>
+    Array.from(Array(8), (_, i) =>
       ({ pin: i * 2, board: virtual })
     )
   );

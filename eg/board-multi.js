@@ -2,14 +2,14 @@ const { Boards, Led } = require("../lib/johnny-five.js");
 const boards = new Boards(["A", "B"]);
 
 // Create 2 board instances with IDs "A" & "B"
-boards.on("ready", function() {
+boards.on("ready", () => {
 
   // Both "A" and "B" are initialized
   // (connected and available for communication)
 
   // Access them by their ID:
   const led = new Led({
-    board: board.byId("A"),
+    board: boards.byId("A"),
     pin: 13,
   });
 

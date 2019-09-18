@@ -6,6 +6,6 @@ const board = new Board();
 board.on("ready", () => {
   console.log("Ready!");
 
-  const led = new five.Led(13);
+  const led = new Led(13);
   led.blink(500);
 });

@@ -1,4 +1,4 @@
-// const {Board, Servo, Servos} = require("../lib/johnny-five.js");
+const {Board, Servo, Servos} = require("../lib/johnny-five.js");
 
 /**
  * This program is useful for manual servo administration.
