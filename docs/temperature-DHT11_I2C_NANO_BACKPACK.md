@@ -29,7 +29,7 @@ node eg/temperature-DHT11_I2C_NANO_BACKPACK.js
 
 
 ```javascript
-const {Board, Thermometer} = require("johnny-five");
+const { Board, Thermometer } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

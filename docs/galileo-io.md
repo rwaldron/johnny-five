@@ -33,7 +33,7 @@ node eg/galileo-io.js
 ```javascript
 const { Board, Led } = require("johnny-five");
 const Galileo = require("galileo-io");
-const board = new five.Board({
+const board = new Board({
   io: new Galileo()
 });
 

@@ -32,7 +32,7 @@ node eg/expander-MUXSHIELD2-mixed.js
 
 ```javascript
 const Barcli = require("barcli");
-const {Board, Button, Expander, Leds } = require("johnny-five");
+const {Board, Button, Expander, Led, Leds, Sensor } = require("johnny-five");
 const board = new Board({
   repl: false,
   debug: false

@@ -29,7 +29,7 @@ node eg/temperature-SI7021.js
 
 
 ```javascript
-const {Board, Thermometer} = require("johnny-five");
+const { Board, Thermometer } = require("johnny-five");
 const Tessel = require("tessel-io");
 
 const board = new Board({

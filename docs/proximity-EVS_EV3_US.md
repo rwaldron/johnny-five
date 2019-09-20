@@ -18,7 +18,7 @@ node eg/proximity-EVS_EV3_US.js
 
 
 ```javascript
-const {Board, Proximity} = require("johnny-five");
+const { Board, Proximity } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
