@@ -1,15 +1,15 @@
 require("./common/bootstrap");
 
 exports["Fn"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  map: function(test) {
+  map(test) {
     test.expect(3);
     test.equal(Fn.map(1009, 300, 1009, 0, 255), 255);
     test.equal(Fn.map(300, 300, 1009, 0, 255), 0);
@@ -17,14 +17,14 @@ exports["Fn"] = {
     test.done();
   },
 
-  fmap: function(test) {
+  fmap(test) {
     test.expect(2);
     test.equal(Fn.fmap(500, 0, 1000, 0, 255), 127.5);
     test.equal(Fn.fmap(512, 0, 1023, 0, 255), 127.6246337890625);
     test.done();
   },
 
-  constrain: function(test) {
+  constrain(test) {
     test.expect(6);
 
     test.equal(Fn.constrain(100, 0, 255), 100);
@@ -37,19 +37,19 @@ exports["Fn"] = {
     test.done();
   },
 
-  inRange: function(test) {
+  inRange(test) {
     test.expect(10);
 
-    var a = Fn.inRange(5, 4, 6);
-    var b = Fn.inRange(5, 4.5, 5.5);
-    var c = Fn.inRange(5, -1, 5);
-    var d = Fn.inRange(0, -9, -1);
-    var e = Fn.inRange(0, -9, -3);
-    var f = Fn.inRange(0, -10, -2);
-    var g = Fn.inRange(0, 5, 1);
-    var h = Fn.inRange("finger", 0, 5);
-    var i = Fn.inRange(1, "finger", 5);
-    var j = Fn.inRange(1, 0, "finger");
+    const a = Fn.inRange(5, 4, 6);
+    const b = Fn.inRange(5, 4.5, 5.5);
+    const c = Fn.inRange(5, -1, 5);
+    const d = Fn.inRange(0, -9, -1);
+    const e = Fn.inRange(0, -9, -3);
+    const f = Fn.inRange(0, -10, -2);
+    const g = Fn.inRange(0, 5, 1);
+    const h = Fn.inRange("finger", 0, 5);
+    const i = Fn.inRange(1, "finger", 5);
+    const j = Fn.inRange(1, 0, "finger");
 
     test.equal(a, true);
     test.equal(b, true);
@@ -66,16 +66,16 @@ exports["Fn"] = {
     test.done();
   },
 
-  range: function(test) {
+  range(test) {
     test.expect(7);
 
-    var a = Fn.range(5);
-    var b = Fn.range(5, 10);
-    var c = Fn.range(3, 27, 3);
-    var d = Fn.range(0, -9, -1);
-    var e = Fn.range(0, -9, -3);
-    var f = Fn.range(0, -10, -2);
-    var g = Fn.range();
+    const a = Fn.range(5);
+    const b = Fn.range(5, 10);
+    const c = Fn.range(3, 27, 3);
+    const d = Fn.range(0, -9, -1);
+    const e = Fn.range(0, -9, -3);
+    const f = Fn.range(0, -10, -2);
+    const g = Fn.range();
 
     test.deepEqual(a, [0, 1, 2, 3, 4]);
     test.deepEqual(b, [5, 6, 7, 8, 9, 10]);
@@ -93,30 +93,17 @@ exports["Fn"] = {
     test.done();
   },
 
-  prefixed: function(test) {
-    test.expect(6);
-
-    test.deepEqual(Fn.range.prefixed("A", 3), ["A0", "A1", "A2"]);
-    test.deepEqual(Fn.range.prefixed("A", 0, 3), ["A0", "A1", "A2", "A3"]);
-    test.deepEqual(Fn.range.prefixed("A", 0, 10, 2), ["A0", "A2", "A4", "A6", "A8", "A10"]);
-    test.deepEqual(Fn.range.prefixed("A", 0, 9, 3), ["A0", "A3", "A6", "A9"]);
-    test.deepEqual(Fn.range.prefixed(1, 3), [1, 2, 3]);
-    test.deepEqual(Fn.range.prefixed({foo: "bar"}, 2), ["[object Object]0", "[object Object]1"]);
-
-    test.done();
-  },
-
-  uid: function(test) {
+  uid(test) {
     test.expect(2);
 
-    var unique = 0;
-    var uids = [];
-    var uid;
+    let unique = 0;
+    const uids = [];
+    let uid;
 
-    for (var i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000; i++) {
       uid = Fn.uid();
 
-      if (uids.indexOf(uid) === -1) {
+      if (!uids.includes(uid)) {
         unique++;
       }
 
@@ -128,7 +115,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  square: function(test) {
+  square(test) {
     test.expect(3);
 
     test.equal(Fn.square(2), 4);
@@ -138,15 +125,15 @@ exports["Fn"] = {
     test.done();
   },
 
-  sum: function(test) {
+  sum(test) {
     test.expect(6);
 
-    var a = 0,
-      b = 1,
-      c = [],
-      d = [0, 1],
-      e = ["finger", 3, 4],
-      f = [{foo: "bar"}, 2, 3];
+    const a = 0;
+    const b = 1;
+    const c = [];
+    const d = [0, 1];
+    const e = ["finger", 3, 4];
+    const f = [{foo: "bar"}, 2, 3];
 
     test.equal(Fn.sum(a), 0);
     test.equal(Fn.sum(b), 1);
@@ -158,14 +145,14 @@ exports["Fn"] = {
     test.done();
   },
 
-  bitValue: function(test) {
+  bitValue(test) {
     test.expect(5);
 
-    var a = Fn.bitValue(0);
-    var b = Fn.bitValue(2);
-    var c = Fn.bitValue(7);
-    var d = Fn.bitValue(8);
-    var e = Fn.bitValue("finger");
+    const a = Fn.bitValue(0);
+    const b = Fn.bitValue(2);
+    const c = Fn.bitValue(7);
+    const d = Fn.bitValue(8);
+    const e = Fn.bitValue("finger");
 
     test.equal(a, 1);
     test.equal(b, 4);
@@ -176,7 +163,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  int16fromtwobytes: function(test) {
+  int16fromtwobytes(test) {
     test.expect(6);
 
     test.equal(Fn.int16(0, 0), 0);
@@ -189,7 +176,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  uint16fromtwobytes: function(test) {
+  uint16fromtwobytes(test) {
     test.expect(6);
 
     test.equal(Fn.uint16(0, 0), 0);
@@ -202,7 +189,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  int24fromthreebytes: function(test) {
+  int24fromthreebytes(test) {
     test.expect(5);
 
     test.equal(Fn.int24(0, 0, 0), 0);
@@ -214,7 +201,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  uint24fromthreebytes: function(test) {
+  uint24fromthreebytes(test) {
     test.expect(5);
 
     test.equal(Fn.uint24(0, 0, 0), 0);
@@ -226,7 +213,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  int32fromfourbytes: function(test) {
+  int32fromfourbytes(test) {
     test.expect(7);
 
     test.equal(Fn.int32(0, 0, 0, 0), 0);
@@ -240,7 +227,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  uint32fromfourbytes: function(test) {
+  uint32fromfourbytes(test) {
     test.expect(7);
 
     test.equal(Fn.uint32(0, 0, 0, 0), 0);
@@ -254,7 +241,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  bitSize: function(test) {
+  bitSize(test) {
     test.expect(5);
 
     test.equal(Fn.bitSize(1000), 10);
@@ -266,7 +253,7 @@ exports["Fn"] = {
     test.done();
   },
 
-  toFixed: function(test) {
+  toFixed(test) {
     test.expect(6);
 
     test.equal(typeof Fn.toFixed(0.123456789), "number");
@@ -277,13 +264,13 @@ exports["Fn"] = {
     test.equal(Fn.toFixed(1.5, 2), 1.5);
     test.done();
   },
-  toFixedDoesNotThrow: function(test) {
+  toFixedDoesNotThrow(test) {
     test.expect(2);
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       Fn.toFixed(null);
     });
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       Fn.toFixed(undefined);
     });
     test.done();
@@ -291,55 +278,55 @@ exports["Fn"] = {
 };
 
 exports["Fn.* Consts"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  RAD_TO_DEG: function(test) {
+  RAD_TO_DEG(test) {
     test.expect(1);
     test.equal(Fn.RAD_TO_DEG, 180 / Math.PI);
     test.done();
   },
 
-  DEG_TO_RAD: function(test) {
+  DEG_TO_RAD(test) {
     test.expect(1);
     test.equal(Fn.DEG_TO_RAD, Math.PI / 180);
     test.done();
   },
 
-  TAU: function(test) {
+  TAU(test) {
     test.expect(1);
     test.equal(Fn.TAU, 2 * Math.PI);
     test.done();
   },
 };
 
-var bitSizes = [ 4, 8, 10, 12, 16, 20, 24, 32 ];
+const bitSizes = [ 4, 8, 10, 12, 16, 20, 24, 32 ];
 
 
 exports["Fn.s*"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  cast: function(test) {
+  cast(test) {
     test.expect(bitSizes.length * 4);
 
-    bitSizes.forEach(function(bits) {
-      var decimal = Fn["POW_2_" + bits];
-      var half = decimal / 2 >>> 0;
-      test.equal(Fn["s" + bits](decimal - 1), -1);
-      test.equal(Fn["s" + bits](half), -half);
-      test.equal(Fn["s" + bits](half -1), half - 1);
-      test.equal(Fn["s" + bits](half + 1), -half + 1);
+    bitSizes.forEach(bits => {
+      const decimal = Fn[`POW_2_${bits}`];
+      const half = decimal / 2 >>> 0;
+      test.equal(Fn[`s${bits}`](decimal - 1), -1);
+      test.equal(Fn[`s${bits}`](half), -half);
+      test.equal(Fn[`s${bits}`](half -1), half - 1);
+      test.equal(Fn[`s${bits}`](half + 1), -half + 1);
     });
 
     test.done();
@@ -348,26 +335,26 @@ exports["Fn.s*"] = {
 
 
 exports["Fn.u*"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  cast: function(test) {
+  cast(test) {
     test.expect(bitSizes.length * 7);
 
-    bitSizes.forEach(function(bits) {
-      var decimal = Fn["POW_2_" + bits];
-      test.equal(Fn["u" + bits](decimal), decimal - 1);
-      test.equal(Fn["u" + bits](decimal - 1), decimal - 1);
-      test.equal(Fn["u" + bits](-1), decimal - 1);
-      test.equal(Fn["u" + bits](decimal + 1), decimal - 1);
-      test.equal(Fn["u" + bits](-1 * decimal), 0);
-      test.equal(Fn["u" + bits](-1 * decimal + 1), 1);
-      test.equal(Fn["u" + bits](0), 0);
+    bitSizes.forEach(bits => {
+      const decimal = Fn[`POW_2_${bits}`];
+      test.equal(Fn[`u${bits}`](decimal), decimal - 1);
+      test.equal(Fn[`u${bits}`](decimal - 1), decimal - 1);
+      test.equal(Fn[`u${bits}`](-1), decimal - 1);
+      test.equal(Fn[`u${bits}`](decimal + 1), decimal - 1);
+      test.equal(Fn[`u${bits}`](-1 * decimal), 0);
+      test.equal(Fn[`u${bits}`](-1 * decimal + 1), 1);
+      test.equal(Fn[`u${bits}`](0), 0);
     });
 
     test.done();
@@ -375,22 +362,22 @@ exports["Fn.u*"] = {
 };
 
 exports["Fn.POW_2_*"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
 
     done();
   },
 
-  maxSafeIntegerBits: function(test) {
-    var MAX = Fn.bitSize(Number.MAX_SAFE_INTEGER);
+  maxSafeIntegerBits(test) {
+    const MAX = Fn.bitSize(Number.MAX_SAFE_INTEGER);
 
     test.expect(MAX);
 
-    for (var i = 0; i < MAX; i++) {
-      test.equal(Fn["POW_2_" + i], Math.pow(2, i));
+    for (let i = 0; i < MAX; i++) {
+      test.equal(Fn[`POW_2_${i}`], 2 ** i);
     }
 
     test.done();

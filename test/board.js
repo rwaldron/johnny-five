@@ -1,32 +1,32 @@
 require("./common/bootstrap");
 
 exports["Board"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.replInit = this.sandbox.stub(Repl.prototype, "initialize", function(callback) {
+    this.replInit = this.sandbox.stub(Repl.prototype, "initialize", callback => {
       callback();
     });
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
 
-    var sp = new MockSerialPort("/dev/foo", {
+    const sp = new MockSerialPort("/dev/foo", {
       baudrate: 57600,
       buffersize: 128
     });
 
-    var board = Board({
+    const board = Board({
       port: sp,
       debug: false,
       repl: false
@@ -36,10 +36,10 @@ exports["Board"] = {
     test.done();
   },
 
-  noOpts: function(test) {
+  noOpts(test) {
     test.expect(1);
 
-    this.sandbox.stub(Serial, "detect", function() {
+    this.sandbox.stub(Serial, "detect", () => {
       test.ok(true);
       test.done();
     });
@@ -47,16 +47,16 @@ exports["Board"] = {
     new Board();
   },
 
-  defaultResolution: function(test) {
+  defaultResolution(test) {
     test.expect(1);
     test.deepEqual(this.board.RESOLUTION, {PWM: 255, DAC: null, ADC: 1023});
     test.done();
   },
 
-  explicitTransport: function(test) {
+  explicitTransport(test) {
     test.expect(1);
 
-    var sp = new MockSerialPort("/dev/foo", {
+    const sp = new MockSerialPort("/dev/foo", {
       baudrate: 57600,
       buffersize: 128
     });
@@ -71,12 +71,12 @@ exports["Board"] = {
 
     this.board.abort = true;
 
-    setImmediate(function() {
+    setImmediate(() => {
       test.done();
     });
   },
 
-  timeoutTransport: function(test) {
+  timeoutTransport(test) {
 
     if (process.env.NO_SERIALPORT_INSTALL) {
       test.done();
@@ -93,7 +93,7 @@ exports["Board"] = {
       Board.purge();
       Serial.purge();
 
-      var sp = new MockSerialPort("/dev/foo", {
+      const sp = new MockSerialPort("/dev/foo", {
         baudrate: 57600,
         buffersize: 128
       });
@@ -114,10 +114,10 @@ exports["Board"] = {
     }
   },
 
-  ioIsReady: function(test) {
+  ioIsReady(test) {
     test.expect(2);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
 
     // Emit connection and ready BEFORE
     // using the instance to initialize
@@ -125,38 +125,38 @@ exports["Board"] = {
     io.emit("connect");
     io.emit("ready");
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("connect", function() {
+    board.on("connect", () => {
       test.ok(true);
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       test.ok(true);
       test.done();
     });
   },
 
-  ioPostponedOutOfOrder: function(test) {
+  ioPostponedOutOfOrder(test) {
     test.expect(2);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("connect", function() {
+    board.on("connect", () => {
       test.ok(true);
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       test.ok(true);
       test.done();
     });
@@ -166,21 +166,21 @@ exports["Board"] = {
     io.emit("connect");
   },
 
-  finalizeAndBroadcastPreemptiveError: function(test) {
+  finalizeAndBroadcastPreemptiveError(test) {
     test.expect(2);
 
     this.sandbox.stub(Serial, "connect");
 
-    var log = this.sandbox.spy(Board.prototype, "error");
-    var spy = this.sandbox.spy();
-    var board = new Board({
+    const log = this.sandbox.spy(Board.prototype, "error");
+    const spy = this.sandbox.spy();
+    const board = new Board({
       port: "/dev/acm",
       debug: false,
       repl: false
     });
 
-    var finalizeAndBroadcast = Serial.connect.lastCall.args[1];
-    var error = new Error("Busted");
+    const finalizeAndBroadcast = Serial.connect.lastCall.args[1];
+    const error = new Error("Busted");
 
     board.on("error", spy);
 
@@ -192,14 +192,14 @@ exports["Board"] = {
     test.done();
   },
 
-  finalizeAndBroadcastResolvesDebugFlagWithIOPlugin: function(test) {
+  finalizeAndBroadcastResolvesDebugFlagWithIOPlugin(test) {
     test.expect(1);
 
     this.sandbox.stub(Board.prototype, "log");
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false, // This shuts up logging for the test
       repl: false
     });
@@ -217,22 +217,22 @@ exports["Board"] = {
     test.done();
   },
 
-  readyClearsTimer: function(test) {
+  readyClearsTimer(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
     this.clearTimeout = this.sandbox.spy(global, "clearTimeout");
 
 
-    var io = new MockFirmata();
-    var board = new Board({
+    const io = new MockFirmata();
+    const board = new Board({
       timeout: 1,
-      io: io,
+      io,
       debug: false,
       repl: false
     });
 
-    board.timer = setTimeout(function() {}, 1);
+    board.timer = setTimeout(() => {}, 1);
     io.emit("connect");
     io.emit("ready");
 
@@ -265,70 +265,70 @@ exports["Board"] = {
   //   sp.emit("error", "ioHasError");
   // },
 
-  readyWithNoRepl: function(test) {
+  readyWithNoRepl(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       test.equal(this.replInit.called, false);
       test.done();
-    }.bind(this));
+    });
 
     io.emit("connect");
     io.emit("ready");
   },
 
-  readyWithRepl: function(test) {
+  readyWithRepl(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: true
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       test.equal(this.replInit.called, true);
       test.done();
-    }.bind(this));
+    });
 
     io.emit("connect");
     io.emit("ready");
   },
 
-  emitExitNoRepl: function(test) {
+  emitExitNoRepl(test) {
     test.expect(2);
 
-    var clock = this.sandbox.useFakeTimers();
-    var io = new MockFirmata();
+    const clock = this.sandbox.useFakeTimers();
+    const io = new MockFirmata();
 
     io.name = "Foo";
     io.pending = 0;
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false,
       sigint: true,
     });
 
-    var reallyExit = this.sandbox.stub(process, "reallyExit", function() {
+    const reallyExit = this.sandbox.stub(process, "reallyExit", () => {
       reallyExit.restore();
       test.ok(true);
       test.done();
     });
 
     board.on("ready", function() {
-      this.on("exit", function() {
+      this.on("exit", () => {
         test.ok(true);
       });
       process.emit("SIGINT");
@@ -339,30 +339,30 @@ exports["Board"] = {
     io.emit("ready");
   },
 
-  exitAwaitsPending: function(test) {
+  exitAwaitsPending(test) {
     test.expect(2);
 
-    var clock = this.sandbox.useFakeTimers();
-    var io = new MockFirmata();
+    const clock = this.sandbox.useFakeTimers();
+    const io = new MockFirmata();
 
     io.name = "Foo";
     io.pending = 5;
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false,
       sigint: true,
     });
 
-    var reallyExit = this.sandbox.stub(process, "reallyExit", function() {
+    const reallyExit = this.sandbox.stub(process, "reallyExit", () => {
       reallyExit.restore();
       test.ok(true);
       test.done();
     });
 
     board.on("ready", function() {
-      this.on("exit", function() {
+      this.on("exit", () => {
         test.ok(true);
       });
       process.emit("SIGINT");
@@ -382,13 +382,13 @@ exports["Board"] = {
     io.emit("ready");
   },
 
-  emitsLogsAsEvents: function(test) {
+  emitsLogsAsEvents(test) {
     test.expect(19);
 
-    var spy = this.sandbox.spy(Board.prototype, "log");
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const spy = this.sandbox.spy(Board.prototype, "log");
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
@@ -397,7 +397,7 @@ exports["Board"] = {
 
       spy.reset();
 
-      this.on("info", function(event) {
+      this.on("info", event => {
         test.equal(event.class, "Board");
         test.equal(event.message, "message 1");
         test.deepEqual(event.data, {
@@ -405,29 +405,29 @@ exports["Board"] = {
         });
       });
 
-      this.on("fail", function(event) {
+      this.on("fail", event => {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
         test.deepEqual(event.data, null);
       });
 
-      this.on("warn", function(event) {
+      this.on("warn", event => {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
         test.deepEqual(event.data, [1, 2, 3]);
       });
 
-      this.on("log", function(event) {
+      this.on("log", event => {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
       });
 
-      this.on("error", function(event) {
+      this.on("error", event => {
         test.equal(event.class, "Board");
         test.equal(event.message, "message");
       });
 
-      this.on("message", function() {
+      this.on("message", () => {
         test.ok(true);
       });
 
@@ -447,22 +447,22 @@ exports["Board"] = {
     io.emit("ready");
   },
 
-  millisFromReady: function(test) {
+  millisFromReady(test) {
     test.expect(1);
 
     Board.purge();
     Serial.purge();
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
-      var a = board.millis();
-      var b = board.millis();
+    board.on("ready", () => {
+      const a = board.millis();
+      const b = board.millis();
       test.notEqual(a, b);
       test.done();
     });
@@ -471,32 +471,32 @@ exports["Board"] = {
     io.emit("ready");
   },
 
-  wait: function(test) {
+  wait(test) {
     test.expect(1);
 
     Board.purge();
     Serial.purge();
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
-      board.wait(1, function() {
+    board.on("ready", () => {
+      board.wait(1, () => {
         test.ok(true);
         test.done();
       });
-    }.bind(this));
+    });
 
     io.emit("connect");
     io.emit("ready");
   },
 
-  snapshot: function(test) {
-    test.expect(71);
+  snapshot(test) {
+    test.expect(83);
 
     new Multi({
       controller: "BME280",
@@ -518,7 +518,7 @@ exports["Board"] = {
       board: this.board
     });
 
-    var snapshot = this.board.snapshot();
+    const snapshot = this.board.snapshot();
 
     /*
       Length Explanation:
@@ -537,17 +537,15 @@ exports["Board"] = {
     test.equal(snapshot.length, 7);
 
     // Change the value of every property on every component to 0xFF
-    var overwrittens = this.board.snapshot(function() {
-      return 0xFF;
-    });
+    const overwrittens = this.board.snapshot(() => 0xFF);
 
-    overwrittens.forEach(function(overwritten) {
-      Object.keys(overwritten).forEach(function(key) {
+    overwrittens.forEach(overwritten => {
+      Object.keys(overwritten).forEach(key => {
         test.equal(overwritten[key], 0xFF);
       });
     });
 
-    var filtered = this.board.snapshot(function(property) {
+    const filtered = this.board.snapshot(property => {
       if (property === "id") {
         return "only the id";
       }
@@ -567,7 +565,7 @@ exports["Board"] = {
   },
 
 
-  serialize: function(test) {
+  serialize(test) {
     test.expect(4);
 
     new Multi({
@@ -591,96 +589,109 @@ exports["Board"] = {
     });
 
 
-    var serialized = this.board.serialize();
+    let serialized = this.board.serialize();
 
     test.equal(typeof serialized, "string");
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       JSON.parse(serialized);
     });
 
-    serialized = this.board.serialize(function(property, value) {
+    serialized = this.board.serialize((property, value) => {
       if (property !== "id") {
         return value;
       }
     });
 
     test.equal(typeof serialized, "string");
+
     test.deepEqual(JSON.parse(serialized), [
       {
-        feet: 0,
+        domain: null,
         custom: {},
         controller: "BME280",
+        meters: 0,
+        feet: 0,
         m: 0,
-        ft: 0,
-        meters: 0
-      }, {
+        ft: 0
+      },
+      {
+        domain: null,
         custom: {},
         controller: "BME280",
         pressure: 0
-      }, {
+      },
+      {
+        domain: null,
+        custom: {},
+        controller: "BME280",
         relativeHumidity: 0,
-        custom: {},
-        controller: "BME280",
         RH: 0
-      }, {
-        K: 273.15,
-        C: 0,
-        fahrenheit: 32,
+      },
+      {
+        domain: null,
         custom: {},
         controller: "BME280",
-        F: 32,
-        celsius: 0,
-        kelvin: 273.15,
         aref: 5,
-        freq: 25
-      }, {
+        celsius: 0,
+        fahrenheit: 32,
+        kelvin: 273.15,
         freq: 25,
-        constrained: 0,
+        C: 0,
+        F: 32,
+        K: 273.15
+      },
+      {
+        domain: null,
         custom: {},
-        value: null,
-        scaled: 0,
-        range: [0, 1023],
-        resolution: 1023,
-        analog: 0,
+        pin: 0,
+        mode: 2,
+        range: [ 0, 1023 ],
         limit: null,
         threshold: 1,
-        boolean: false,
-        raw: null,
         isScaled: false,
-        mode: 2,
-        pin: 0
-      }, {
-        isRunning: false,
-        custom: {},
+        raw: null,
+        analog: 0,
+        constrained: 0,
+        boolean: false,
+        scaled: 0,
+        freq: 25,
         value: null,
-        isOn: false,
+        resolution: 1023
+      },
+      {
+        custom: {},
+        pin: 10,
+        value: null,
         mode: 3,
-        pin: 10
-      }, {
-        deadband: [90, 90],
+        isOn: false,
+        isRunning: false
+      },
+      {
+        domain: null,
+        custom: {},
+        pin: 11,
         degreeRange: [ 0, 180 ],
         pwmRange: [ 600, 2400 ],
-        startAt: 90,
-        value: null,
-        position: -1,
-        type: "standard",
-        history: [],
-        offset: 0,
-        invert: false,
-        custom: {},
-        interval: null,
-        range: [0, 180],
+        range: [ 0, 180 ],
+        deadband: [ 90, 90 ],
         fps: 100,
+        offset: 0,
         mode: 4,
-        pin: 11
+        interval: null,
+        value: null,
+        type: "standard",
+        invert: false,
+        history: [],
+        position: -1,
+        startAt: 90
       }
     ]);
 
     test.done();
   },
 
-  snapshotBlackList: function(test) {
+  snapshotBlackList(test) {
     test.expect(1);
     test.deepEqual(Board.prototype.snapshot.blacklist, [
       "board", "io", "_events", "_eventsCount", "state",
@@ -688,12 +699,12 @@ exports["Board"] = {
     test.done();
   },
 
-  snapshotSpecial: function(test) {
+  snapshotSpecial(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
@@ -705,26 +716,26 @@ exports["Board"] = {
 };
 
 exports["Virtual"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
-    this.Board = this.sandbox.stub(five, "Board", function() {});
+    this.Board = this.sandbox.stub(five, "Board", () => {});
     this.Expander = this.sandbox.stub(five, "Expander", function() {
       this.name = "MCP23017";
     });
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  ioExpanderAsArg: function(test) {
+  ioExpanderAsArg(test) {
     test.expect(5);
 
-    var expander = new this.Expander();
+    const expander = new this.Expander();
 
     new Virtual(expander);
 
@@ -737,10 +748,10 @@ exports["Virtual"] = {
     test.done();
   },
 
-  ioExpanderAsPropertyOfArg: function(test) {
+  ioExpanderAsPropertyOfArg(test) {
     test.expect(5);
 
-    var expander = new this.Expander();
+    const expander = new this.Expander();
 
     new Virtual({
       io: expander
@@ -757,21 +768,21 @@ exports["Virtual"] = {
 };
 
 exports["samplingInterval"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.setSamplingInterval = this.sandbox.spy(MockFirmata.prototype, "setSamplingInterval");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  samplingInterval: function(test) {
+  samplingInterval(test) {
     test.expect(1);
 
     this.board.samplingInterval(100);
@@ -780,34 +791,34 @@ exports["samplingInterval"] = {
     test.done();
   },
 
-  samplingIntervalNotImplementedThrows: function(test) {
+  samplingIntervalNotImplementedThrows(test) {
     test.expect(1);
 
     this.board.io.setSamplingInterval = null;
 
-    test.throws(function() {
+    test.throws(() => {
       this.board.samplingInterval(100);
-    }.bind(this));
+    });
 
     test.done();
   }
 };
 exports["shiftOut"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  default: function(test) {
+  default(test) {
     test.expect(2);
 
     this.board.shiftOut(1, 2, 0xFF);
@@ -843,7 +854,7 @@ exports["shiftOut"] = {
     test.done();
   },
 
-  bigEndian: function(test) {
+  bigEndian(test) {
     test.expect(2);
 
     this.board.shiftOut(1, 2, true, 0x7F);
@@ -879,7 +890,7 @@ exports["shiftOut"] = {
     test.done();
   },
 
-  littleEndian: function(test) {
+  littleEndian(test) {
     test.expect(2);
 
     this.board.shiftOut(1, 2, false, 0x7F);
@@ -918,32 +929,32 @@ exports["shiftOut"] = {
 
 exports["loop"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  exists: function(test) {
+  exists(test) {
     test.expect(2);
     test.equal(typeof Board.prototype.loop, "function");
     test.equal(typeof this.board.loop, "function");
     test.done();
   },
 
-  stoppable: function(test) {
+  stoppable(test) {
     test.expect(4);
-    var iterations = 0;
+    let iterations = 0;
 
-    this.board.loop(10, function(stop) {
+    this.board.loop(10, stop => {
       iterations++;
       stop();
     });
@@ -981,11 +992,12 @@ exports["static"] = {
 
   "Board.Event": function(test) {
     test.expect(2);
-    var serial = {},
-      boardEvent = new Board.Event({
-        type: "read",
-        target: serial
-      });
+    const serial = {};
+
+    const boardEvent = new Board.Event({
+      type: "read",
+      target: serial
+    });
 
     test.ok(boardEvent.type === "read");
     test.ok(boardEvent.target === serial);
@@ -1009,500 +1021,46 @@ exports["static"] = {
   },
 };
 
-exports["Boards"] = {
-
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.replInit = this.sandbox.stub(Repl.prototype, "initialize", function(callback) {
-      callback();
-    });
-
-    done();
-  },
-
-  tearDown: function(done) {
-    Board.purge();
-    Serial.purge();
-    this.sandbox.restore();
-    done();
-  },
-
-  exists: function(test) {
-    test.expect(1);
-    test.equal(Boards, Board.Collection);
-    test.done();
-  },
-
-  instanceof: function(test) {
-    test.expect(1);
-    test.equal(Boards([newBoard(), newBoard()]) instanceof Boards, true);
-    test.done();
-  },
-
-  invalidArgsThrows: function(test) {
-    test.expect(1);
-    test.throws(function() {
-      new Boards();
-    });
-    test.done();
-  },
-
-  noDebug: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      repl: true,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    test.equal(boards.debug, false);
-    test.done();
-  },
-
-  onfail: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      repl: true,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    var expected = 1;
-    boards.on("fail", function(actual) {
-      test.equal(actual, expected);
-      test.done();
-    }.bind(this));
-    boards[0].emit("fail", expected);
-  },
-
-  portString: function(test) {
-    test.expect(3);
-
-    this.sandbox.stub(Serial, "connect");
-    this.sandbox.stub(Serial, "detect");
-    new Boards(["/dev/ttyacm0"]);
-
-    test.equal(Serial.detect.callCount, 0);
-    test.equal(Serial.connect.callCount, 1);
-    test.equal(Serial.connect.lastCall.args[0], "/dev/ttyacm0");
-    test.done();
-  },
-
-  idString: function(test) {
-    test.expect(2);
-
-    this.sandbox.stub(Serial, "connect");
-    this.sandbox.stub(Serial, "detect", function(callback) {
-      callback("/foo/bar");
-    });
-    var boards = new Boards(["a"]);
-    test.equal(boards[0].id, "a");
-    test.equal(boards.byId("a"), boards[0]);
-    test.done();
-  },
-
-  methods: function(test) {
-    test.expect(8);
-
-    test.ok(Boards.prototype.log);
-    test.ok(Boards.prototype.info);
-    test.ok(Boards.prototype.warn);
-    test.ok(Boards.prototype.error);
-    test.ok(Boards.prototype.fail);
-    test.ok(Boards.prototype.each);
-    test.ok(Boards.prototype.add);
-    test.ok(Boards.prototype.byId);
-
-    test.done();
-  },
-
-  connectReadyAfter: function(test) {
-    test.expect(2);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      repl: false,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    test.equals(2, boards.length);
-
-    boards.on("ready", function() {
-      test.ok(true);
-      test.done();
-    });
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  connectReadyBefore: function(test) {
-    test.expect(2);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-
-    var boards = new Boards([{
-      id: "A",
-      repl: false,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    test.equals(2, boards.length);
-
-    boards.on("ready", function() {
-      test.ok(true);
-      test.done();
-    });
-  },
-
-  readyInitReplArray: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      debug: false,
-      io: ioB
-    }]);
-
-    boards.on("ready", function() {
-      test.equal(this.replInit.callCount, 1);
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  readyInitReplObject: function(test) {
-    test.expect(1);
-
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards({
-      repl: true,
-      debug: false,
-      ports: [{
-        id: "A",
-        debug: false,
-        io: ioA
-      }, {
-        id: "B",
-        debug: false,
-        io: ioB
-      }]
-    });
-
-    boards.on("ready", function() {
-      test.equal(this.replInit.called, true);
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  readyNoReplArray1: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      repl: false,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      debug: false,
-      io: ioB
-    }]);
-
-    boards.on("ready", function() {
-      // Repl.prototype.initialize IS NOT CALLED
-      test.equal(this.replInit.called, false);
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  readyNoReplArray2: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    boards.on("ready", function() {
-      // Repl.prototype.initialize IS NOT CALLED
-      test.equal(this.replInit.called, false);
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  readyNoReplObject: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards({
-      repl: false,
-      ports: [{
-        id: "A",
-        debug: false,
-        io: ioA
-      }, {
-        id: "B",
-        debug: false,
-        io: ioB
-      }]
-    });
-
-    boards.on("ready", function() {
-      // Repl.prototype.initialize IS NOT CALLED
-      test.equal(this.replInit.called, false);
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  readyNoReplNoDebugObject: function(test) {
-    test.expect(2);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards({
-      repl: false,
-      debug: false,
-      ports: [{
-        id: "A",
-        debug: false,
-        io: ioA
-      }, {
-        id: "B",
-        debug: false,
-        io: ioB
-      }]
-    });
-
-    var clog = this.sandbox.spy(console, "log");
-
-    boards.on("ready", function() {
-      // Repl.prototype.initialize IS NOT CALLED
-      test.equal(this.replInit.called, false);
-      test.equal(clog.called, false);
-      clog.restore();
-      test.done();
-    }.bind(this));
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  errorBubbling: function(test) {
-    test.expect(1);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards({
-      repl: false,
-      debug: false,
-      ports: [{
-        id: "A",
-        debug: false,
-        io: ioA
-      }, {
-        id: "B",
-        debug: false,
-        io: ioB
-      }]
-    });
-
-    var spy = this.sandbox.spy();
-
-    boards.on("error", spy);
-
-    boards.on("ready", function() {
-      this[0].emit("error");
-      this[1].emit("error");
-
-      test.equal(spy.callCount, 2);
-
-      test.done();
-    });
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-
-  byId: function(test) {
-    test.expect(3);
-
-    var ioA = new MockFirmata();
-    var ioB = new MockFirmata();
-
-    var boards = new Boards([{
-      id: "A",
-      repl: false,
-      debug: false,
-      io: ioA
-    }, {
-      id: "B",
-      repl: false,
-      debug: false,
-      io: ioB
-    }]);
-
-    boards.on("ready", function() {
-      test.equal(this.byId("A"), boards[0]);
-      test.equal(this.byId("B"), boards[1]);
-      test.equal(this.byId("C"), null);
-      test.done();
-    });
-
-    ioA.emit("connect");
-    ioB.emit("connect");
-
-    ioA.emit("ready");
-    ioB.emit("ready");
-  },
-};
-
 
 exports["instance"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     done();
   },
 
-  cache: function(test) {
+  cache(test) {
     test.expect(1);
     test.ok(Board.cache.includes(this.board));
     test.done();
   },
 
-  instance: function(test) {
+  instance(test) {
     test.expect(1);
     test.ok(this.board);
     test.done();
   },
 
-  io: function(test) {
+  io(test) {
     test.expect(1);
     test.ok(this.board.io instanceof MockFirmata);
     test.done();
   },
 
-  id: function(test) {
+  id(test) {
     test.expect(1);
     test.ok(this.board.id);
     test.done();
   },
 
-  pins: function(test) {
+  pins(test) {
     test.expect(1);
     test.ok(this.board.pins);
     test.done();
@@ -1511,19 +1069,19 @@ exports["instance"] = {
 
 exports["Board.prototye[passthrough]"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     done();
   },
 
-  all: function(test) {
+  all(test) {
     test.expect(25);
 
 
@@ -1549,25 +1107,25 @@ exports["Board.prototye[passthrough]"] = {
     test.done();
   },
 
-  instance: function(test) {
+  instance(test) {
     test.expect(1);
     test.ok(this.board);
     test.done();
   },
 
-  io: function(test) {
+  io(test) {
     test.expect(1);
     test.ok(this.board.io instanceof MockFirmata);
     test.done();
   },
 
-  id: function(test) {
+  id(test) {
     test.expect(1);
     test.ok(this.board.id);
     test.done();
   },
 
-  pins: function(test) {
+  pins(test) {
     test.expect(1);
     test.ok(this.board.pins);
     test.done();
@@ -1584,9 +1142,9 @@ exports["Board.prototye[passthrough]"] = {
   "servoConfig", "servoWrite",
   "sysexCommand", "sysexResponse",
   "serialConfig", "serialWrite", "serialRead", "serialStop", "serialClose", "serialFlush", "serialListen",
-].forEach(function(method) {
-  Board.prototype[method] = function() {
-    this.io[method].apply(this.io, arguments);
+].forEach(method => {
+  Board.prototype[method] = function(...args) {
+    this.io[method].apply(this.io, args);
     return this;
   };
 });
@@ -1594,13 +1152,13 @@ exports["Board.prototye[passthrough]"] = {
 
 
 exports["Board.mount"] = {
-  setUp: function(done) {
+  setUp(done) {
 
     this.board = newBoard();
 
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     done();
@@ -1651,26 +1209,26 @@ exports["Board.mount"] = {
 };
 
 exports["Events Forwarded By IO Plugin layer"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     done();
   },
-  string: function(test) {
+  string(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
-      board.on("string", function(data) {
+    board.on("ready", () => {
+      board.on("string", data => {
         test.equal(data, 1);
         test.done();
       });
@@ -1679,21 +1237,21 @@ exports["Events Forwarded By IO Plugin layer"] = {
 
     board.emit("ready");
   },
-  closeBySelf: function(test) {
+  closeBySelf(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       io.emit("close");
     });
 
-    board.on("close", function() {
+    board.on("close", () => {
       test.ok(true);
       test.done();
     });
@@ -1701,49 +1259,49 @@ exports["Events Forwarded By IO Plugin layer"] = {
     board.emit("ready");
   },
 
-  closeByIO: function(test) {
+  closeByIO(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
     io.isReady = false;
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       io.emit("close");
     });
 
-    board.on("close", function() {
+    board.on("close", () => {
       test.ok(true);
       test.done();
     });
 
-    process.nextTick(function() {
+    process.nextTick(() => {
       io.isReady = true;
       io.emit("connect");
       io.emit("ready");
     });
   },
 
-  disconnectBySelf: function(test) {
+  disconnectBySelf(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       io.emit("disconnect");
     });
 
-    board.on("disconnect", function() {
+    board.on("disconnect", () => {
       test.ok(true);
       test.done();
     });
@@ -1751,28 +1309,28 @@ exports["Events Forwarded By IO Plugin layer"] = {
     board.emit("ready");
   },
 
-  disconnectByIO: function(test) {
+  disconnectByIO(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
     io.isReady = false;
 
-    var board = new Board({
-      io: io,
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       io.emit("disconnect");
     });
 
-    board.on("disconnect", function() {
+    board.on("disconnect", () => {
       test.ok(true);
       test.done();
     });
 
-    process.nextTick(function() {
+    process.nextTick(() => {
       io.isReady = true;
       io.emit("connect");
       io.emit("ready");
@@ -1781,20 +1339,20 @@ exports["Events Forwarded By IO Plugin layer"] = {
 };
 
 exports["Repl controlled by IO Plugin layer"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     done();
   },
-  ioForcesReplFalse: function(test) {
+  ioForcesReplFalse(test) {
     test.expect(1);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
     });
 
@@ -1814,7 +1372,7 @@ exports["Repl controlled by IO Plugin layer"] = {
 };
 
 exports["fn"] = {
-  cache: function(test) {
+  cache(test) {
     test.expect(6);
 
     test.equal(Fn.scale(10, 0, 20, 0, 100), 50, "scale up");
@@ -1830,20 +1388,3 @@ exports["fn"] = {
   }
 };
 
-// TODO: need tests for board.shiftOut
-
-// TODO: need mock io object
-// exports["modules"] = {
-//   "optional-new": function( test ) {
-//     var modules = Object.keys(five);
-
-//     // test.expect(modules * 2);
-
-//     modules.forEach(function( module ) {
-
-//       var instance = new five[ module ]({});
-
-//       console.log( instance );
-//     });
-//   }
-// };

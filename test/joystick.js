@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-var instance = [{
+const instance = [{
   name: "x"
 }, {
   name: "y"
@@ -9,7 +9,7 @@ var instance = [{
 
 exports["Joystick -- Analog"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -22,26 +22,26 @@ exports["Joystick -- Analog"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(instance.length);
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.stick[property.name], "undefined");
+    instance.forEach(function({name}) {
+      test.notEqual(typeof this.stick[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  data: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var spy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
 
     test.expect(2);
 
@@ -61,12 +61,12 @@ exports["Joystick -- Analog"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(10);
 
-    var spy = this.sandbox.spy();
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
     this.stick.on("change", spy);
 
@@ -136,12 +136,12 @@ exports["Joystick -- Analog"] = {
     test.done();
   },
 
-  nochange: function(test) {
+  nochange(test) {
     test.expect(5);
 
-    var spy = this.sandbox.spy();
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
     this.stick.on("change", spy);
 
@@ -180,7 +180,7 @@ exports["Joystick -- Analog"] = {
     test.done();
   },
 
-  invertX: function(test) {
+  invertX(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -191,8 +191,8 @@ exports["Joystick -- Analog"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
     x(512);
     y(512);
@@ -211,7 +211,7 @@ exports["Joystick -- Analog"] = {
 
     test.done();
   },
-  invertY: function(test) {
+  invertY(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -222,8 +222,8 @@ exports["Joystick -- Analog"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
 
     x(512);
@@ -243,7 +243,7 @@ exports["Joystick -- Analog"] = {
 
     test.done();
   },
-  invert: function(test) {
+  invert(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -254,8 +254,8 @@ exports["Joystick -- Analog"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
 
     x(512);
@@ -279,7 +279,7 @@ exports["Joystick -- Analog"] = {
 
 exports["Joystick -- ESPLORA"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -292,37 +292,37 @@ exports["Joystick -- ESPLORA"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(instance.length);
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.stick[property.name], "undefined");
+    instance.forEach(function({name}) {
+      test.notEqual(typeof this.stick[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.stick.on("data", spy);
 
-    var x = this.analogRead.args[0][1];
+    const x = this.analogRead.args[0][1];
 
     // This is REQUIRED for y to exist
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    const y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -338,24 +338,24 @@ exports["Joystick -- ESPLORA"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(10);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.stick.on("change", spy);
 
 
     // FIRST -----------------------------------
 
-    var x = this.analogRead.args[0][1];
+    let x = this.analogRead.args[0][1];
 
     // This is REQUIRED for y to exist
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    let y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -436,21 +436,21 @@ exports["Joystick -- ESPLORA"] = {
     test.done();
   },
 
-  nochange: function(test) {
+  nochange(test) {
     test.expect(5);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.stick.on("change", spy);
 
-    var x = this.analogRead.args[0][1];
+    let x = this.analogRead.args[0][1];
 
     // This is REQUIRED for y to exist
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    let y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -497,7 +497,7 @@ exports["Joystick -- ESPLORA"] = {
     test.done();
   },
 
-  invertX: function(test) {
+  invertX(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -508,13 +508,13 @@ exports["Joystick -- ESPLORA"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
+    let x = this.analogRead.args[0][1];
 
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    let y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -549,7 +549,7 @@ exports["Joystick -- ESPLORA"] = {
 
     test.done();
   },
-  invertY: function(test) {
+  invertY(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -560,13 +560,13 @@ exports["Joystick -- ESPLORA"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
+    let x = this.analogRead.args[0][1];
 
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    let y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -601,7 +601,7 @@ exports["Joystick -- ESPLORA"] = {
 
     test.done();
   },
-  invert: function(test) {
+  invert(test) {
     test.expect(4);
 
     this.analogRead.reset();
@@ -612,13 +612,13 @@ exports["Joystick -- ESPLORA"] = {
       board: this.board
     });
 
-    var x = this.analogRead.args[0][1];
+    let x = this.analogRead.args[0][1];
 
     x(512);
 
     this.clock.tick(10);
 
-    var y = this.analogRead.args[1][1];
+    let y = this.analogRead.args[1][1];
 
     y(512);
 
@@ -654,8 +654,8 @@ exports["Joystick -- ESPLORA"] = {
   }
 };
 
-Object.keys(Joystick.Controllers).forEach(function(name) {
-  exports["Joystick - Controller, " + name] = addControllerTest(Joystick, Joystick.Controllers[name], {
+Object.keys(Joystick.Controllers).forEach(name => {
+  exports[`Joystick - Controller, ${name}`] = addControllerTest(Joystick, Joystick.Controllers[name], {
     controller: name,
     pins: []
   });

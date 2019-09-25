@@ -37,7 +37,7 @@ exports.tearDown = function(done) {
 function createAnalog(toCelsius) {
   return new Thermometer({
     pins: ["A0"],
-    toCelsius: toCelsius,
+    toCelsius,
     freq: this.freq,
     board: this.board
   });
@@ -45,7 +45,7 @@ function createAnalog(toCelsius) {
 
 function makeTestAnalogConversion(opts) {
   return function testAnalogConversion(test) {
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     test.expect(15);
     if (opts.aref) {
       this.thermometer.aref = opts.aref;
@@ -65,7 +65,7 @@ function makeTestAnalogConversion(opts) {
 
     test.equal(spy.callCount, 1);
 
-    var data = spy.firstCall.args[0];
+    const data = spy.firstCall.args[0];
     test.equal(Math.round(data.C), opts.C, "data.C");
     test.equal(Math.round(data.celsius), opts.C, "data.celsius");
     test.equal(Math.round(data.K), opts.K, "data.K");
@@ -81,8 +81,8 @@ function makeTestAnalogConversion(opts) {
 }
 
 function testAnalogChange(test) {
-  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall),
-    spy = this.sandbox.spy();
+  const raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  const spy = this.sandbox.spy();
 
   test.expect(1);
   this.thermometer.on("change", spy);
@@ -118,8 +118,8 @@ function testConstructDisabled(test) {
     enabled: false,
   });
 
-  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
-  var spy = this.sandbox.spy();
+  const raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  const spy = this.sandbox.spy();
 
   test.expect(2);
 
@@ -144,8 +144,8 @@ function testConstructDisabled(test) {
 }
 
 function testEnable(test) {
-  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
-  var spy = this.sandbox.spy();
+  const raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  const spy = this.sandbox.spy();
 
   test.expect(2);
 
@@ -172,8 +172,8 @@ function testEnable(test) {
 }
 
 function testDisable(test) {
-  var raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
-  var spy = this.sandbox.spy();
+  const raw = this.analogRead.firstCall.yield.bind(this.analogRead.firstCall);
+  const spy = this.sandbox.spy();
 
   test.expect(1);
 
@@ -205,36 +205,28 @@ function testShape(test) {
   test.done();
 }
 
-exports["Thermometer -- Temperature alias"] = {
-  alias: function(test) {
-    test.expect(1);
-    test.equal(five.Temperature, five.Thermometer);
-    test.done();
-  }
-};
-
 exports["Thermometer -- ANY"] = {
-  neverEmitNullOrUndefined: function(test) {
+  neverEmitNullOrUndefined(test) {
     test.expect(4);
 
-    var spy = this.sandbox.spy();
-    var controller = {
+    const spy = this.sandbox.spy();
+    const controller = {
       initialize: {
-        value: function(opts, dataHandler) {
-          setTimeout(function() {
+        value(opts, dataHandler) {
+          setTimeout(() => {
             dataHandler(25);
           }, 2);
         }
       },
       toCelsius: {
-        value: function(raw) {
+        value(raw) {
           return raw;
         }
       }
     };
 
     this.thermometer = new Thermometer({
-      controller: controller,
+      controller,
       board: this.board,
       freq: 1
     });
@@ -260,7 +252,7 @@ exports["Thermometer -- ANY"] = {
 
 
 exports["Thermometer -- ANALOG"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead");
     this.analogRead.yields(0);
     this.proto.push({
@@ -294,7 +286,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   "no controller": {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = createAnalog.call(this);
       done();
     },
@@ -314,7 +306,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   "custom toCelsius": {
-    setUp: function(done) {
+    setUp(done) {
       this.toCelsius = this.sandbox.stub().returns(22);
       this.thermometer = createAnalog.call(this, this.toCelsius);
       done();
@@ -350,7 +342,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   LM335: {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = new Thermometer({
         controller: "LM335",
         pins: ["A0"],
@@ -384,14 +376,14 @@ exports["Thermometer -- ANALOG"] = {
     enable: testEnable,
     disable: testDisable,
     constructDisabled: testConstructDisabled,
-    digits: function(test) {
+    digits(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
     }
   },
   LM35: {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = new Thermometer({
         controller: "LM35",
         pins: ["A0"],
@@ -426,7 +418,7 @@ exports["Thermometer -- ANALOG"] = {
     enable: testEnable,
     disable: testDisable,
     constructDisabled: testConstructDisabled,
-    digits: function(test) {
+    digits(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
@@ -435,7 +427,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   TMP36: {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = new Thermometer({
         controller: "TMP36",
         pins: ["A0"],
@@ -473,7 +465,7 @@ exports["Thermometer -- ANALOG"] = {
       K: 373,
     }),
 
-    digits: function(test) {
+    digits(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
@@ -481,7 +473,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   GROVE: {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = new Thermometer({
         controller: "GROVE",
         pin: "A0",
@@ -506,7 +498,7 @@ exports["Thermometer -- ANALOG"] = {
       F: 102,
       K: 312,
     }),
-    digits: function(test) {
+    digits(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
@@ -517,7 +509,7 @@ exports["Thermometer -- ANALOG"] = {
   },
 
   TINKERKIT: {
-    setUp: function(done) {
+    setUp(done) {
       this.thermometer = new Thermometer({
         controller: "TINKERKIT",
         pin: "A0",
@@ -543,7 +535,7 @@ exports["Thermometer -- ANALOG"] = {
       K: 312,
     }),
 
-    digits: function(test) {
+    digits(test) {
       test.expect(1);
       test.equal(digits.fractional(this.thermometer.C), 0);
       test.done();
@@ -557,8 +549,8 @@ exports["Thermometer -- ANALOG"] = {
 function createMAX31850K(pin, address) {
   return new Thermometer({
     controller: "MAX31850K",
-    pin: pin,
-    address: address,
+    pin,
+    address,
     freq: 100,
     board: this.board
   });
@@ -566,7 +558,7 @@ function createMAX31850K(pin, address) {
 
 exports["Thermometer -- MAX31850K"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.pin = 2;
     this.sendOneWireConfig = this.sandbox.spy(MockFirmata.prototype, "sendOneWireConfig");
     this.sendOneWireSearch = this.sandbox.spy(MockFirmata.prototype, "sendOneWireSearch");
@@ -578,14 +570,14 @@ exports["Thermometer -- MAX31850K"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Thermometer.Drivers.clear();
     done();
   },
 
-  initialize: function(test) {
-    var device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var search;
+  initialize(test) {
+    const device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    let search;
 
     test.expect(5);
 
@@ -605,10 +597,11 @@ exports["Thermometer -- MAX31850K"] = {
     test.done();
   },
 
-  data: function(test) {
-    var device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var search, data;
-    var spy = this.sandbox.spy();
+  data(test) {
+    const device = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    let search;
+    let data;
+    const spy = this.sandbox.spy();
 
     test.expect(14);
 
@@ -646,10 +639,10 @@ exports["Thermometer -- MAX31850K"] = {
     test.done();
   },
 
-  address: function(test) {
-    var device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var device2 = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
-    var search;
+  address(test) {
+    const device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    const device2 = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    let search;
 
     test.expect(3);
 
@@ -664,12 +657,13 @@ exports["Thermometer -- MAX31850K"] = {
     test.done();
   },
 
-  twoAddressedUnits: function(test) {
-    var spyA = this.sandbox.spy();
-    var spyB = this.sandbox.spy();
-    var deviceA = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var deviceB = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
-    var search, data;
+  twoAddressedUnits(test) {
+    const spyA = this.sandbox.spy();
+    const spyB = this.sandbox.spy();
+    const deviceA = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    const deviceB = [0x3B, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    let search;
+    let data;
 
     test.expect(3);
 
@@ -700,8 +694,8 @@ exports["Thermometer -- MAX31850K"] = {
     test.done();
   },
 
-  twoAddresslessUnitsThrowsError: function(test) {
-    var failedToCreate = false;
+  twoAddresslessUnitsThrowsError(test) {
+    let failedToCreate = false;
 
     test.expect(1);
 
@@ -722,8 +716,8 @@ exports["Thermometer -- MAX31850K"] = {
 function createDS18B20(pin, address) {
   return new Thermometer({
     controller: "DS18B20",
-    pin: pin,
-    address: address,
+    pin,
+    address,
     freq: 100,
     board: this.board
   });
@@ -731,7 +725,7 @@ function createDS18B20(pin, address) {
 
 exports["Thermometer -- DS18B20"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.pin = 2;
     this.sendOneWireConfig = this.sandbox.spy(MockFirmata.prototype, "sendOneWireConfig");
     this.sendOneWireSearch = this.sandbox.spy(MockFirmata.prototype, "sendOneWireSearch");
@@ -743,14 +737,14 @@ exports["Thermometer -- DS18B20"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Thermometer.Drivers.clear();
     done();
   },
 
-  initialize: function(test) {
-    var device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var search;
+  initialize(test) {
+    const device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    let search;
 
     test.expect(5);
 
@@ -770,10 +764,11 @@ exports["Thermometer -- DS18B20"] = {
     test.done();
   },
 
-  data: function(test) {
-    var device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var search, data;
-    var spy = this.sandbox.spy();
+  data(test) {
+    const device = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    let search;
+    let data;
+    const spy = this.sandbox.spy();
 
     test.expect(19);
 
@@ -817,10 +812,10 @@ exports["Thermometer -- DS18B20"] = {
     test.done();
   },
 
-  address: function(test) {
-    var device1 = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var device2 = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
-    var search;
+  address(test) {
+    const device1 = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    const device2 = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    let search;
 
     test.expect(3);
 
@@ -835,12 +830,13 @@ exports["Thermometer -- DS18B20"] = {
     test.done();
   },
 
-  twoAddressedUnits: function(test) {
-    var spyA = this.sandbox.spy();
-    var spyB = this.sandbox.spy();
-    var deviceA = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var deviceB = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
-    var search, data;
+  twoAddressedUnits(test) {
+    const spyA = this.sandbox.spy();
+    const spyB = this.sandbox.spy();
+    const deviceA = [0x28, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    const deviceB = [0x28, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0xFF];
+    let search;
+    let data;
 
     test.expect(2);
 
@@ -865,8 +861,8 @@ exports["Thermometer -- DS18B20"] = {
     test.done();
   },
 
-  twoAddresslessUnitsThrowsError: function(test) {
-    var failedToCreate = false;
+  twoAddresslessUnitsThrowsError(test) {
+    let failedToCreate = false;
 
     test.expect(1);
 
@@ -883,27 +879,27 @@ exports["Thermometer -- DS18B20"] = {
     test.done();
   },
 
-  twoDriversOnDifferentPins: function(test) {
-    var spy = this.sandbox.spy(Thermometer.Drivers, "get");
+  twoDriversOnDifferentPins(test) {
+    const spy = this.sandbox.spy(Thermometer.Drivers, "get");
     createDS18B20(1);
     createDS18B20(2);
-    var drv1 = spy.getCall(0).returnValue;
-    var drv2 = spy.getCall(1).returnValue;
+    const drv1 = spy.getCall(0).returnValue;
+    const drv2 = spy.getCall(1).returnValue;
     test.ok(drv1 !== drv2);
     test.done();
   },
 
-  multipleAddressedDriversOnDifferentPins: function(test) {
-    var device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
-    var device2 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00];
-    var device3 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xF0];
-    var spy = this.sandbox.spy(Thermometer.Drivers, "get");
+  multipleAddressedDriversOnDifferentPins(test) {
+    const device1 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xFF];
+    const device2 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x00];
+    const device3 = [0x3B, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0xF0];
+    const spy = this.sandbox.spy(Thermometer.Drivers, "get");
     createDS18B20(1, device1);
     createDS18B20(2, device2);
     createDS18B20(1, device3);
-    var drv1 = spy.getCall(0).returnValue;
-    var drv2 = spy.getCall(1).returnValue;
-    var drv3 = spy.getCall(2).returnValue;
+    const drv1 = spy.getCall(0).returnValue;
+    const drv2 = spy.getCall(1).returnValue;
+    const drv3 = spy.getCall(2).returnValue;
     test.ok(drv1 !== drv2);
     test.ok(drv1 === drv3);
     test.done();
@@ -912,7 +908,7 @@ exports["Thermometer -- DS18B20"] = {
 
 exports["Thermometer -- MPU6050"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
@@ -925,7 +921,7 @@ exports["Thermometer -- MPU6050"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -937,7 +933,7 @@ exports["Thermometer -- MPU6050"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -945,8 +941,9 @@ exports["Thermometer -- MPU6050"] = {
 
     test.done();
   },
-  data: function(test) {
-    var read, spy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const spy = this.sandbox.spy();
 
     test.expect(13);
     this.thermometer.on("data", spy);
@@ -985,7 +982,7 @@ exports["Thermometer -- MPU6050"] = {
 
 exports["Thermometer -- MPL115A2"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
@@ -999,7 +996,7 @@ exports["Thermometer -- MPL115A2"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1011,7 +1008,7 @@ exports["Thermometer -- MPL115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1094,7 +1091,7 @@ exports["Thermometer -- MPL115A2"] = {
 
 exports["Thermometer -- SI7020"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
@@ -1107,7 +1104,7 @@ exports["Thermometer -- SI7020"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1119,7 +1116,7 @@ exports["Thermometer -- SI7020"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1128,7 +1125,7 @@ exports["Thermometer -- SI7020"] = {
     test.done();
   },
 
-  enforceExplicitReadDelay: function(test) {
+  enforceExplicitReadDelay(test) {
     test.expect(1);
 
     this.i2cConfig.reset();
@@ -1140,13 +1137,13 @@ exports["Thermometer -- SI7020"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(forwarded.delay, 50000);
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(9);
 
     test.equal(this.i2cRead.callCount, 2);
@@ -1157,8 +1154,8 @@ exports["Thermometer -- SI7020"] = {
     // byte count
     test.equal(this.i2cRead.firstCall.args[2], 2);
 
-    var spy = this.sandbox.spy();
-    var read = this.i2cRead.firstCall.args[3];
+    const spy = this.sandbox.spy();
+    const read = this.i2cRead.firstCall.args[3];
 
     this.thermometer.on("data", spy);
 
@@ -1179,7 +1176,7 @@ exports["Thermometer -- SI7020"] = {
 
 exports["Thermometer -- SHT31D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
@@ -1192,7 +1189,7 @@ exports["Thermometer -- SHT31D"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1204,7 +1201,7 @@ exports["Thermometer -- SHT31D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1213,10 +1210,10 @@ exports["Thermometer -- SHT31D"] = {
     test.done();
   },
 
-  oneHundredDegreesCelsius: function(test) {
+  oneHundredDegreesCelsius(test) {
     test.expect(5);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("data", spy);
 
@@ -1243,7 +1240,7 @@ exports["Thermometer -- SHT31D"] = {
 
 exports["Thermometer -- HTU21D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
@@ -1256,7 +1253,7 @@ exports["Thermometer -- HTU21D"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1268,7 +1265,7 @@ exports["Thermometer -- HTU21D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1277,7 +1274,7 @@ exports["Thermometer -- HTU21D"] = {
     test.done();
   },
 
-  enforceExplicitReadDelay: function(test) {
+  enforceExplicitReadDelay(test) {
     test.expect(1);
 
     this.i2cConfig.reset();
@@ -1289,16 +1286,16 @@ exports["Thermometer -- HTU21D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(forwarded.delay, 50000);
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(8);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("data", spy);
 
@@ -1327,11 +1324,11 @@ exports["Thermometer -- HTU21D"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(5);
 
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("change", spy);
 
@@ -1363,10 +1360,10 @@ exports["Thermometer -- HTU21D"] = {
     test.done();
   },
 
-  oneHundredDegreesCelsius: function(test) {
+  oneHundredDegreesCelsius(test) {
     test.expect(8);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("data", spy);
 
@@ -1398,7 +1395,7 @@ exports["Thermometer -- HTU21D"] = {
 
 exports["Thermometer -- HIH6130"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -1412,7 +1409,7 @@ exports["Thermometer -- HIH6130"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1424,7 +1421,7 @@ exports["Thermometer -- HIH6130"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1433,10 +1430,10 @@ exports["Thermometer -- HIH6130"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(12);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("data", spy);
 
@@ -1472,11 +1469,11 @@ exports["Thermometer -- HIH6130"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(6);
 
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.thermometer.on("change", spy);
 
@@ -1519,7 +1516,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
     1,    // data length
   ]);
 
-  var read = this.i2cReadOnce.lastCall.args[3];
+  let read = this.i2cReadOnce.lastCall.args[3];
   read([0x04]); // write status bit
 
   test.equal(this.i2cReadOnce.callCount, initialCount + 2);
@@ -1535,7 +1532,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
 
 exports["Thermometer -- MPL3115A2"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
@@ -1550,7 +1547,7 @@ exports["Thermometer -- MPL3115A2"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1562,7 +1559,7 @@ exports["Thermometer -- MPL3115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1571,7 +1568,7 @@ exports["Thermometer -- MPL3115A2"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(20);
 
     test.equal(this.i2cWrite.callCount, 1);
@@ -1613,7 +1610,7 @@ exports["Thermometer -- MPL3115A2"] = {
     //   0xB9, // config value
     // ]);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     this.thermometer.on("data", spy);
 
     // Altitude Loop
@@ -1642,10 +1639,10 @@ exports["Thermometer -- MPL3115A2"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(39);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     this.thermometer.on("change", spy);
 
     // First Pass -- initial
@@ -1714,7 +1711,7 @@ exports["Thermometer -- MPL3115A2"] = {
 
 exports["Thermometer -- TMP102"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
     this.thermometer = new Thermometer({
@@ -1726,13 +1723,13 @@ exports["Thermometer -- TMP102"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1744,7 +1741,7 @@ exports["Thermometer -- TMP102"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1754,8 +1751,8 @@ exports["Thermometer -- TMP102"] = {
   },
 
 
-  value: function(test) {
-    var raw = this.i2cRead.args[0][3];
+  value(test) {
+    const raw = this.i2cRead.args[0][3];
     test.expect(2);
 
     raw([100, 102]);
@@ -1766,8 +1763,8 @@ exports["Thermometer -- TMP102"] = {
     test.done();
   },
 
-  negative: function(test) {
-    var raw = this.i2cRead.args[0][3];
+  negative(test) {
+    const raw = this.i2cRead.args[0][3];
     test.expect(2);
 
     raw([0xFF, 0x00]);
@@ -1779,9 +1776,9 @@ exports["Thermometer -- TMP102"] = {
     test.done();
   },
 
-  change: function(test) {
-    var changeHandler = this.sandbox.spy();
-    var raw = this.i2cRead.args[0][3];
+  change(test) {
+    const changeHandler = this.sandbox.spy();
+    const raw = this.i2cRead.args[0][3];
 
     test.expect(1);
     this.thermometer.on("change", changeHandler);
@@ -1810,7 +1807,7 @@ exports["Thermometer -- TMP102"] = {
 };
 
 exports["Thermometer -- MCP9808"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
@@ -1823,13 +1820,13 @@ exports["Thermometer -- MCP9808"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1841,7 +1838,7 @@ exports["Thermometer -- MCP9808"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1851,8 +1848,8 @@ exports["Thermometer -- MCP9808"] = {
   },
 
 
-  value: function(test) {
-    var raw = this.i2cRead.args[0][3];
+  value(test) {
+    const raw = this.i2cRead.args[0][3];
     test.expect(2);
 
     raw([193, 119]);
@@ -1863,9 +1860,9 @@ exports["Thermometer -- MCP9808"] = {
     test.done();
   },
 
-  change: function(test) {
-    var changeHandler = this.sandbox.spy();
-    var raw = this.i2cRead.args[0][3];
+  change(test) {
+    const changeHandler = this.sandbox.spy();
+    const raw = this.i2cRead.args[0][3];
 
     test.expect(1);
     this.thermometer.on("change", changeHandler);
@@ -1893,8 +1890,8 @@ exports["Thermometer -- MCP9808"] = {
   }
 };
 
-Object.keys(Thermometer.Controllers).forEach(function(name) {
-  exports["Thermometer - Controller, " + name] = addControllerTest(Thermometer, Thermometer.Controllers[name], {
+Object.keys(Thermometer.Controllers).forEach(name => {
+  exports[`Thermometer - Controller, ${name}`] = addControllerTest(Thermometer, Thermometer.Controllers[name], {
     controller: name
   });
 });

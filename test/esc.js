@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["ESC"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
@@ -35,22 +35,22 @@ exports["ESC"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     process.noDeprecation = false;
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.esc[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.esc[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.esc[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.esc[name], "undefined");
     }, this);
 
     test.done();
@@ -102,7 +102,7 @@ exports["ESC"] = {
 
 
 exports["ESC - PCA9685"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.normalize = this.sandbox.spy(Board.Pins, "normalize");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -121,7 +121,7 @@ exports["ESC - PCA9685"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Expander.purge();
     this.sandbox.restore();
@@ -130,7 +130,7 @@ exports["ESC - PCA9685"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -142,7 +142,7 @@ exports["ESC - PCA9685"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -151,7 +151,7 @@ exports["ESC - PCA9685"] = {
     test.done();
   },
 
-  withAddress: function(test) {
+  withAddress(test) {
     test.expect(1);
 
     new ESC({
@@ -165,7 +165,7 @@ exports["ESC - PCA9685"] = {
     test.done();
   },
 
-  withoutAddress: function(test) {
+  withoutAddress(test) {
     test.expect(2);
 
     Expander.purge();
@@ -184,13 +184,13 @@ exports["ESC - PCA9685"] = {
     test.done();
   },
 
-  defaultFrequency: function(test) {
+  defaultFrequency(test) {
     test.expect(1);
     test.equal(this.esc.frequency, 50);
     test.done();
   },
 
-  customFrequency: function(test) {
+  customFrequency(test) {
     test.expect(1);
 
     this.esc = new ESC({
@@ -204,7 +204,7 @@ exports["ESC - PCA9685"] = {
     test.done();
   },
 
-  noNormalization: function(test) {
+  noNormalization(test) {
     test.expect(1);
     test.equal(this.normalize.callCount, 0);
     test.done();
@@ -213,23 +213,23 @@ exports["ESC - PCA9685"] = {
 
 
 exports["ESC - FORWARD_REVERSE"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.throttle = this.sandbox.spy(ESC.prototype, "throttle");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  neutralComputedByDefault: function(test) {
+  neutralComputedByDefault(test) {
     test.expect(1);
 
-    var esc = new ESC({
+    const esc = new ESC({
       device: "FORWARD_REVERSE",
       pin: 11,
       board: this.board
@@ -239,32 +239,32 @@ exports["ESC - FORWARD_REVERSE"] = {
     test.done();
   },
 
-  neutralSameAsRangeLowInvalid: function(test) {
+  neutralSameAsRangeLowInvalid(test) {
     test.expect(1);
 
-    test.throws(function() {
+    test.throws(() => {
       new ESC({
         neutral: 1000,
         device: "FORWARD_REVERSE",
         pin: 11,
         board: this.board
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  neutralSameAsRangeLowInvalidFor: function(test) {
+  neutralSameAsRangeLowInvalidFor(test) {
     test.expect(1);
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new ESC({
         neutral: 1000,
         device: "FORWARD",
         pin: 11,
         board: this.board
       });
-    }.bind(this));
+    });
 
     test.done();
   },
@@ -272,23 +272,23 @@ exports["ESC - FORWARD_REVERSE"] = {
 };
 
 exports["ESC - FORWARD"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.throttle = this.sandbox.spy(ESC.prototype, "throttle");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  neutralComputedByDefault: function(test) {
+  neutralComputedByDefault(test) {
     test.expect(1);
 
-    var esc = new ESC({
+    const esc = new ESC({
       device: "FORWARD",
       pin: 11,
       board: this.board
@@ -298,24 +298,24 @@ exports["ESC - FORWARD"] = {
     test.done();
   },
 
-  neutralSameAsRangeLow: function(test) {
+  neutralSameAsRangeLow(test) {
     test.expect(1);
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new ESC({
         neutral: 1000,
         device: "FORWARD",
         pin: 11,
         board: this.board
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 };
 
 exports["ESC.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -348,25 +348,25 @@ exports["ESC.Collection"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  initFromESCNumbers: function(test) {
+  initFromESCNumbers(test) {
     test.expect(1);
 
-    var escs = new ESC.Collection([3, 6, 9]);
+    const escs = new ESC.Collection([3, 6, 9]);
 
     test.equal(escs.length, 3);
     test.done();
   },
 
-  initFromESCs: function(test) {
+  initFromESCs(test) {
     test.expect(1);
 
-    var escs = new ESC.Collection([
+    const escs = new ESC.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -374,11 +374,11 @@ exports["ESC.Collection"] = {
     test.done();
   },
 
-  callForwarding: function(test) {
+  callForwarding(test) {
     test.expect(2);
 
-    var escs = new ESC.Collection([3, 6, 9]);
-    var calls = escs.length * 2;
+    const escs = new ESC.Collection([3, 6, 9]);
+    const calls = escs.length * 2;
 
     // 1 call each in the constructor
     // 1 call each per ESC

@@ -2,30 +2,30 @@ require("./common/bootstrap");
 
 exports["Accelerometer"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.sandbox.spy(Board, "Component");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Accelerometer({
+    test.equal(new Accelerometer({
       board: this.board,
       pins: [2, 3, 4]
     }) instanceof Accelerometer, true);
     test.done();
   },
 
-  component: function(test) {
+  component(test) {
     test.expect(1);
 
     new Accelerometer({
@@ -41,7 +41,7 @@ exports["Accelerometer"] = {
 
 exports["Accelerometer -- Analog"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -81,7 +81,7 @@ exports["Accelerometer -- Analog"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -89,25 +89,24 @@ exports["Accelerometer -- Analog"] = {
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.accel[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.accel[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.accel[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.accel[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  data: function(test) {
-
-    var x = this.analogRead.args[0][1],
-      y = this.analogRead.args[1][1],
-      spy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("data", spy);
@@ -128,11 +127,10 @@ exports["Accelerometer -- Analog"] = {
     test.done();
   },
 
-  change: function(test) {
-
-    var x = this.analogRead.args[0][1],
-      y = this.analogRead.args[1][1],
-      spy = this.sandbox.spy();
+  change(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
 
     test.expect(1);
     this.accel.on("change", spy);
@@ -156,12 +154,12 @@ exports["Accelerometer -- Analog"] = {
     test.equal(spy.callCount, 4);
     test.done();
   },
-  orientation: function(test) {
+  orientation(test) {
 
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var spy = this.sandbox.spy();
-    var i;
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
+    let i;
 
     test.expect(6);
 
@@ -202,9 +200,9 @@ exports["Accelerometer -- Analog"] = {
     test.done();
   },
 
-  disableAndEnable: function(test) {
-    var x = this.analogRead.args[0][1],
-      spy = this.sandbox.spy();
+  disableAndEnable(test) {
+    const x = this.analogRead.args[0][1];
+    const spy = this.sandbox.spy();
 
     test.expect(3);
     this.accel.on("change", spy);
@@ -225,7 +223,7 @@ exports["Accelerometer -- Analog"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.equal(this.accel.hasAxis("z"), false);
     test.equal(this.accel.z, 0);
@@ -236,7 +234,7 @@ exports["Accelerometer -- Analog"] = {
 };
 
 exports["Accelerometer -- distinctZeroV"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -252,7 +250,7 @@ exports["Accelerometer -- distinctZeroV"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -260,10 +258,10 @@ exports["Accelerometer -- distinctZeroV"] = {
     done();
   },
 
-  change: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var z = this.analogRead.args[2][1];
+  change(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const z = this.analogRead.args[2][1];
 
     test.expect(3);
 
@@ -278,7 +276,7 @@ exports["Accelerometer -- distinctZeroV"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
 
     this.sandbox.stub(this.accel, "hasAxis").returns(true);
@@ -292,7 +290,7 @@ exports["Accelerometer -- distinctZeroV"] = {
 };
 
 exports["Accelerometer -- autoCalibrate"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -307,7 +305,7 @@ exports["Accelerometer -- autoCalibrate"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -315,11 +313,12 @@ exports["Accelerometer -- autoCalibrate"] = {
     done();
   },
 
-  calibrates: function(test) {
-    var i, value = 300;
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var z = this.analogRead.args[2][1];
+  calibrates(test) {
+    let i;
+    const value = 300;
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const z = this.analogRead.args[2][1];
 
     test.expect(1);
 
@@ -341,7 +340,7 @@ exports["Accelerometer -- autoCalibrate"] = {
 
 exports["Accelerometer -- ADXL335"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -356,7 +355,7 @@ exports["Accelerometer -- ADXL335"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -364,11 +363,11 @@ exports["Accelerometer -- ADXL335"] = {
     done();
   },
 
-  data: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var z = this.analogRead.args[2][1];
-    var changeSpy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const z = this.analogRead.args[2][1];
+    const changeSpy = this.sandbox.spy();
 
     test.expect(5);
     this.accel.on("change", changeSpy);
@@ -391,7 +390,7 @@ exports["Accelerometer -- ADXL335"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -403,7 +402,7 @@ exports["Accelerometer -- ADXL335"] = {
 
 exports["Accelerometer -- MPU-6050"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -419,7 +418,7 @@ exports["Accelerometer -- MPU-6050"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -427,7 +426,7 @@ exports["Accelerometer -- MPU-6050"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -439,7 +438,7 @@ exports["Accelerometer -- MPU-6050"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -448,9 +447,10 @@ exports["Accelerometer -- MPU-6050"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, dataSpy = this.sandbox.spy(),
-      changeSpy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     test.expect(15);
     this.accel.on("data", dataSpy);
@@ -498,7 +498,7 @@ exports["Accelerometer -- MPU-6050"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -510,7 +510,7 @@ exports["Accelerometer -- MPU-6050"] = {
 
 exports["Accelerometer -- ADXL345"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -525,7 +525,7 @@ exports["Accelerometer -- ADXL345"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -533,7 +533,7 @@ exports["Accelerometer -- ADXL345"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -545,7 +545,7 @@ exports["Accelerometer -- ADXL345"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -554,9 +554,10 @@ exports["Accelerometer -- ADXL345"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, dataSpy = this.sandbox.spy(),
-      changeSpy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -603,8 +604,7 @@ exports["Accelerometer -- ADXL345"] = {
     test.done();
   },
 
-  dataRange16: function(test) {
-
+  dataRange16(test) {
     this.i2cConfig.reset();
     this.i2cWrite.reset();
     this.i2cRead.reset();
@@ -616,8 +616,9 @@ exports["Accelerometer -- ADXL345"] = {
     });
 
 
-    var read, dataSpy = this.sandbox.spy(),
-      changeSpy = this.sandbox.spy();
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -660,8 +661,7 @@ exports["Accelerometer -- ADXL345"] = {
     test.done();
   },
 
-  dataRange8: function(test) {
-
+  dataRange8(test) {
     this.i2cConfig.reset();
     this.i2cWrite.reset();
     this.i2cRead.reset();
@@ -673,8 +673,9 @@ exports["Accelerometer -- ADXL345"] = {
     });
 
 
-    var read, dataSpy = this.sandbox.spy(),
-      changeSpy = this.sandbox.spy();
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -717,7 +718,7 @@ exports["Accelerometer -- ADXL345"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -728,7 +729,7 @@ exports["Accelerometer -- ADXL345"] = {
 };
 
 exports["Accelerometer -- MMA7361"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -746,7 +747,7 @@ exports["Accelerometer -- MMA7361"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -754,7 +755,7 @@ exports["Accelerometer -- MMA7361"] = {
     done();
   },
 
-  sleepPinOn: function(test) {
+  sleepPinOn(test) {
     test.expect(4);
 
     test.equal(this.pinMode.callCount, 4);
@@ -766,7 +767,7 @@ exports["Accelerometer -- MMA7361"] = {
     test.done();
   },
 
-  noSleepPin: function(test) {
+  noSleepPin(test) {
     test.expect(5);
 
     this.pinMode.reset();
@@ -789,7 +790,7 @@ exports["Accelerometer -- MMA7361"] = {
     test.done();
   },
 
-  disableEnable: function(test) {
+  disableEnable(test) {
     test.expect(2);
 
     this.accel.disable();
@@ -802,11 +803,11 @@ exports["Accelerometer -- MMA7361"] = {
     test.done();
   },
 
-  data: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var z = this.analogRead.args[2][1];
-    var changeSpy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const z = this.analogRead.args[2][1];
+    const changeSpy = this.sandbox.spy();
 
     test.expect(5);
     this.accel.on("change", changeSpy);
@@ -830,7 +831,7 @@ exports["Accelerometer -- MMA7361"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(1);
     test.notEqual(this.accel.z, undefined);
     test.done();
@@ -839,7 +840,7 @@ exports["Accelerometer -- MMA7361"] = {
 
 exports["Accelerometer -- MMA7660"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -854,7 +855,7 @@ exports["Accelerometer -- MMA7660"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -862,7 +863,7 @@ exports["Accelerometer -- MMA7660"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -874,7 +875,7 @@ exports["Accelerometer -- MMA7660"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -883,9 +884,10 @@ exports["Accelerometer -- MMA7660"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, dataSpy = this.sandbox.spy(),
-      changeSpy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     // test.expect(12);
     this.accel.on("data", dataSpy);
@@ -924,7 +926,7 @@ exports["Accelerometer -- MMA7660"] = {
 
     test.done();
   },
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -935,7 +937,7 @@ exports["Accelerometer -- MMA7660"] = {
 };
 
 exports["Accelerometer -- ESPLORA"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -949,7 +951,7 @@ exports["Accelerometer -- ESPLORA"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -957,11 +959,11 @@ exports["Accelerometer -- ESPLORA"] = {
     done();
   },
 
-  data: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var z = this.analogRead.args[2][1];
-    var changeSpy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const z = this.analogRead.args[2][1];
+    const changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.accel.on("change", changeSpy);
@@ -981,7 +983,7 @@ exports["Accelerometer -- ESPLORA"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(1);
     test.notEqual(this.accel.z, undefined);
     test.done();
@@ -990,7 +992,7 @@ exports["Accelerometer -- ESPLORA"] = {
 
 exports["Accelerometer -- MMA8452"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1005,7 +1007,7 @@ exports["Accelerometer -- MMA8452"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -1013,7 +1015,7 @@ exports["Accelerometer -- MMA8452"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1025,7 +1027,7 @@ exports["Accelerometer -- MMA8452"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1034,9 +1036,9 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  stopTX: function(test) {
+  stopTX(test) {
     test.expect(1);
-    var args = this.i2cConfig.lastCall.args[0];
+    const args = this.i2cConfig.lastCall.args[0];
 
     test.deepEqual(args.settings, {
       stopTX: false
@@ -1044,7 +1046,7 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  tapsOptionX: function(test) {
+  tapsOptionX(test) {
     test.expect(1);
 
     this.i2cWriteReg.reset();
@@ -1061,7 +1063,7 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  tapsOptionY: function(test) {
+  tapsOptionY(test) {
     test.expect(1);
 
     this.i2cWriteReg.reset();
@@ -1078,7 +1080,7 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  tapsOptionZ: function(test) {
+  tapsOptionZ(test) {
     test.expect(1);
 
     this.i2cWriteReg.reset();
@@ -1095,25 +1097,25 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  invalidOdr: function(test) {
+  invalidOdr(test) {
     test.expect(1);
 
     this.i2cWriteReg.reset();
 
-    test.throws(function() {
+    test.throws(() => {
       new Accelerometer({
         controller: "MMA8452",
         board: this.board,
         odr: Infinity
       });
-    }.bind(this));
+    });
     test.done();
   },
 
-  data: function(test) {
-    var read;
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     test.expect(17);
 
@@ -1153,10 +1155,10 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  tap: function(test) {
+  tap(test) {
     test.expect(2);
-    var read;
-    var tap = this.sandbox.spy();
+    let read;
+    const tap = this.sandbox.spy();
 
     this.accel.on("tap", tap);
     this.accel.on("tap:single", tap);
@@ -1181,7 +1183,7 @@ exports["Accelerometer -- MMA8452"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(1);
     test.notEqual(this.accel.z, undefined);
     test.done();
@@ -1190,7 +1192,7 @@ exports["Accelerometer -- MMA8452"] = {
 
 exports["Accelerometer -- LIS3DH"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1212,7 +1214,7 @@ exports["Accelerometer -- LIS3DH"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -1220,7 +1222,7 @@ exports["Accelerometer -- LIS3DH"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1232,7 +1234,7 @@ exports["Accelerometer -- LIS3DH"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1241,7 +1243,7 @@ exports["Accelerometer -- LIS3DH"] = {
     test.done();
   },
 
-  itGetsAnExpander: function(test) {
+  itGetsAnExpander(test) {
     test.expect(2);
     test.equal(Expander.get.callCount, 1);
     test.deepEqual(Expander.get.lastCall.args[0], {
@@ -1252,12 +1254,12 @@ exports["Accelerometer -- LIS3DH"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(12);
 
 
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
@@ -1270,13 +1272,13 @@ exports["Accelerometer -- LIS3DH"] = {
     test.deepEqual(this.i2cWrite.getCall(3).args, [24, 35, 152]);
 
 
-    var ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
+    const ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
 
     ctrl4ReadOnce([0x00]);
 
     test.deepEqual(this.i2cWrite.getCall(4).args, [24, 32, 96]);
 
-    var outXLRead = this.i2cRead.firstCall.args[3];
+    const outXLRead = this.i2cRead.firstCall.args[3];
 
     outXLRead([64, 1, 112, 0, 176, 30]);
     outXLRead([32, 1, 112, 0, 224, 30]);
@@ -1299,19 +1301,19 @@ exports["Accelerometer -- LIS3DH"] = {
     test.done();
   },
 
-  tap: function(test) {
+  tap(test) {
     test.expect(2);
 
-    var tap = this.sandbox.spy();
+    const tap = this.sandbox.spy();
 
     this.accel.on("tap", tap);
     this.accel.on("tap:single", tap);
     this.accel.on("tap:double", tap);
 
-    var ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
+    const ctrl4ReadOnce = this.i2cReadOnce.lastCall.args[3];
     ctrl4ReadOnce([0x00]);
 
-    var clickSrcRead = this.i2cRead.lastCall.args[3];
+    const clickSrcRead = this.i2cRead.lastCall.args[3];
 
     this.clock.tick(100);
     clickSrcRead([0]);
@@ -1337,7 +1339,7 @@ exports["Accelerometer -- LIS3DH"] = {
     test.done();
   },
 
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -1349,7 +1351,7 @@ exports["Accelerometer -- LIS3DH"] = {
 
 exports["Accelerometer -- BNO055"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1364,7 +1366,7 @@ exports["Accelerometer -- BNO055"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     Expander.purge();
@@ -1372,7 +1374,7 @@ exports["Accelerometer -- BNO055"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1384,7 +1386,7 @@ exports["Accelerometer -- BNO055"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1393,12 +1395,12 @@ exports["Accelerometer -- BNO055"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(5);
 
-    var driver = IMU.Drivers.get(this.board, "BNO055");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BNO055");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
@@ -1418,7 +1420,7 @@ exports["Accelerometer -- BNO055"] = {
     test.equal(digits.fractional(this.accel.z), 2);
     test.done();
   },
-  hasZ: function(test) {
+  hasZ(test) {
     test.expect(4);
     test.notEqual(this.accel.z, undefined);
     test.notEqual(this.accel.pitch, undefined);
@@ -1431,20 +1433,18 @@ exports["Accelerometer -- BNO055"] = {
 
 exports["Accelerometer -- User toGravity"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
 
-    this.toGravity = this.sandbox.spy(function(value) {
-      return value;
-    });
+    this.toGravity = this.sandbox.spy(value => value);
 
     this.accel = new Accelerometer({
       controller: {
         initialize: {
-          value: function(opts, dataHandler) {
-            setInterval(function() {
+          value(opts, dataHandler) {
+            setInterval(() => {
               dataHandler({
                 x: 1,
                 y: 2,
@@ -1464,17 +1464,17 @@ exports["Accelerometer -- User toGravity"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     this.sandbox.restore();
     done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(5);
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
@@ -1501,15 +1501,15 @@ exports["Accelerometer -- User toGravity"] = {
 
 exports["Accelerometer -- User toGravity"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
     this.accel = new Accelerometer({
       controller: {
         initialize: {
-          value: function(opts, dataHandler) {
-            setInterval(function() {
+          value(opts, dataHandler) {
+            setInterval(() => {
               dataHandler({
                 x: 1,
                 y: 2,
@@ -1526,17 +1526,17 @@ exports["Accelerometer -- User toGravity"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Accelerometer.purge();
     this.sandbox.restore();
     done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(5);
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.accel.on("data", dataSpy);
     this.accel.on("change", changeSpy);
@@ -1554,9 +1554,11 @@ exports["Accelerometer -- User toGravity"] = {
   },
 };
 
-Object.keys(Accelerometer.Controllers).forEach(function(name) {
-  exports["Accelerometer - Controller, " + name] = addControllerTest(Accelerometer, Accelerometer.Controllers[name], {
-    controller: name,
-    pins: []
-  });
+Object.keys(Accelerometer.Controllers).forEach(name => {
+  exports[`Accelerometer - Controller, ${name}`] = addControllerTest(
+    Accelerometer, Accelerometer.Controllers[name], {
+      controller: name,
+      pins: []
+    }
+  );
 });

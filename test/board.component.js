@@ -1,13 +1,13 @@
 require("./common/bootstrap");
 
 exports["Board.Component"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     Expander.purge();
@@ -15,16 +15,16 @@ exports["Board.Component"] = {
     done();
   },
 
-  callThroughs: function(test) {
+  callThroughs(test) {
     test.expect(5);
 
-    var a = this.sandbox.spy(Board, "mount");
-    var b = this.sandbox.spy(Board.Pins, "normalize");
-    var opts = {};
+    const a = this.sandbox.spy(Board, "mount");
+    const b = this.sandbox.spy(Board.Pins, "normalize");
+    const opts = {};
 
     Board.purge();
 
-    var board = newBoard();
+    const board = newBoard();
 
     Board.Component.call({}, opts);
 
@@ -42,10 +42,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  emptyOptsInitialization: function(test) {
+  emptyOptsInitialization(test) {
     test.expect(3);
 
-    var component = new Board.Component();
+    const component = new Board.Component();
 
     test.equal(typeof component.id, "string");
     test.equal(component.board, this.board);
@@ -54,10 +54,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  callEmptyOptsInitialization: function(test) {
+  callEmptyOptsInitialization(test) {
     test.expect(3);
 
-    var component = {};
+    const component = {};
 
     Board.Component.call(component);
 
@@ -68,10 +68,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  explicitIdInitialization: function(test) {
+  explicitIdInitialization(test) {
     test.expect(1);
 
-    var component = new Board.Component({
+    const component = new Board.Component({
       id: "foo"
     });
 
@@ -80,10 +80,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  callExplicitIdInitialization: function(test) {
+  callExplicitIdInitialization(test) {
     test.expect(1);
 
-    var component = {};
+    const component = {};
 
     Board.Component.call(component, {
       id: "foo"
@@ -94,10 +94,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  singlePinInitialization: function(test) {
+  singlePinInitialization(test) {
     test.expect(1);
 
-    var component = new Board.Component({
+    const component = new Board.Component({
       pin: 1
     });
 
@@ -106,10 +106,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  multiPinInitialization: function(test) {
+  multiPinInitialization(test) {
     test.expect(1);
 
-    var component = new Board.Component({
+    const component = new Board.Component({
       pins: [1, 2, 3]
     });
 
@@ -118,16 +118,14 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  noPinNormalization: function(test) {
+  noPinNormalization(test) {
     test.expect(3);
 
-    var hasController = this.sandbox.stub(Expander, "hasController", function() {
-      return true;
-    });
+    const hasController = this.sandbox.stub(Expander, "hasController", () => true);
 
-    var normalize = this.sandbox.spy(Board.Pins, "normalize");
+    const normalize = this.sandbox.spy(Board.Pins, "normalize");
 
-    var component = new Board.Component({
+    const component = new Board.Component({
       pin: 2,
       controller: "FOO"
     });
@@ -139,15 +137,13 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  explicitPinNormalized: function(test) {
+  explicitPinNormalized(test) {
     test.expect(1);
 
     this.board.io.name = "Foo";
-    this.board.io.normalize = function(pin) {
-      return Math.pow(pin, 2);
-    };
+    this.board.io.normalize = pin => pin ** 2;
 
-    var component = new Board.Component({
+    const component = new Board.Component({
       pin: 2
     });
 
@@ -156,7 +152,7 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  componentRegistered: function(test) {
+  componentRegistered(test) {
     test.expect(2);
 
     test.equal(this.board.register.length, 0);
@@ -170,10 +166,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  componentOptionsForInitialization: function(test) {
+  componentOptionsForInitialization(test) {
     test.expect(1);
 
-    var component = Board.Component.initialization({});
+    const component = Board.Component.initialization({});
 
     test.deepEqual(component, {
       requestPin: true,
@@ -583,10 +579,10 @@ exports["Board.Component"] = {
   //   test.done();
   // },
 
-  componentCustomReservedSpace: function(test) {
+  componentCustomReservedSpace(test) {
     test.expect(8);
 
-    var a = {};
+    const a = {};
 
     Board.Component.call(a, {
       controller: "FOO",
@@ -600,7 +596,7 @@ exports["Board.Component"] = {
     test.equal(a.custom.x, 1);
     test.equal(a.custom.y, 2);
 
-    var b = {};
+    const b = {};
 
     Board.Component.call(b, {
       pin: 2,
@@ -614,7 +610,7 @@ exports["Board.Component"] = {
     test.equal(b.custom.y, 2);
 
 
-    var c = {};
+    const c = {};
 
     Board.Component.call(c, {
       pins: [3, 4, 5],
@@ -628,7 +624,7 @@ exports["Board.Component"] = {
     test.equal(c.custom.y, 2);
 
 
-    var d = {};
+    const d = {};
 
     Board.Component.call(d, {
       pins: { mosi: 11, miso: 12, ss: 10 },
@@ -644,10 +640,10 @@ exports["Board.Component"] = {
     test.done();
   },
 
-  componentControllerWithDash: function(test) {
+  componentControllerWithDash(test) {
     test.expect(1);
 
-    var d = {};
+    const d = {};
     Board.Component.call(d, {
       controller: "FOO-BAR-BAZ"
     });

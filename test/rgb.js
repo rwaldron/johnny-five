@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-var rgbProtoProperties = [{
+const rgbProtoProperties = [{
   name: "on"
 }, {
   name: "off"
@@ -16,25 +16,20 @@ var rgbProtoProperties = [{
   name: "stop"
 }];
 
-var rgbInstanceProperties = [];
+const rgbInstanceProperties = [];
 
 
-function testLedRgbShape(test) {
+function shape(test) {
   test.expect(rgbProtoProperties.length + rgbInstanceProperties.length);
 
-  rgbProtoProperties.forEach(function(method) {
-    test.equal(typeof this.rgb[method.name], "function");
-  }, this);
-
-  rgbInstanceProperties.forEach(function(property) {
-    test.notEqual(typeof this.rgb[property.name], "undefined");
-  }, this);
+  rgbProtoProperties.forEach(({name}) => test.equal(typeof this.rgb[name], "function"));
+  rgbInstanceProperties.forEach(({name}) => test.notEqual(typeof this.rgb[name], "undefined"));
 
   test.done();
 }
 
 exports["RGB"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
@@ -53,21 +48,21 @@ exports["RGB"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedRgbShape,
+  shape,
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(RGB({ pins: [ 3, 5, 6 ] }) instanceof RGB, true);
+    test.equal(new RGB({ pins: [ 3, 5, 6 ] }) instanceof RGB, true);
     test.done();
   },
-  params: function(test) {
-    var led;
+  params(test) {
+    let led;
 
     test.expect(5);
 
@@ -92,7 +87,7 @@ exports["RGB"] = {
     test.deepEqual(led.pins, [9, 10, 11]);
 
     // Non-PWM digital pin
-    test.throws(function() {
+    test.throws(() => {
       new RGB({
         pins: [2, 3, 4],
         debug: true,
@@ -100,7 +95,7 @@ exports["RGB"] = {
     }, /Pin Error: 2 is not a valid PWM pin \(Led\.RGB\)/);
 
     // Analog pin
-    test.throws(function() {
+    test.throws(() => {
       new RGB({
         pins: ["A0", "A1", "A2"],
         debug: true,
@@ -110,7 +105,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(4);
 
     this.rgb.write({
@@ -126,8 +121,8 @@ exports["RGB"] = {
     test.done();
   },
 
-  color: function(test) {
-    var rgb = this.rgb;
+  color(test) {
+    const rgb = this.rgb;
 
     test.expect(46);
 
@@ -282,71 +277,71 @@ exports["RGB"] = {
     this.write.reset();
 
     // bad values
-    test.throws(function() {
+    test.throws(() => {
       rgb.color(null);
     });
 
     // shorthand not supported
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("#fff");
     });
 
     // bad hex
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("#ggffff");
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("#ggffffff");
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("#ffffffff");
     });
 
     // bad color names
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("not a real color");
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color("#papayawhip");
     });
 
     // missing/null/undefined param
-    test.throws(function() {
+    test.throws(() => {
       rgb.color(10, 20);
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color(10, 20, null);
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color(10, undefined, 30);
     });
 
     // missing/null/undefined value in array
-    test.throws(function() {
+    test.throws(() => {
       rgb.color([10, 20]);
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color([10, null, 30]);
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color([10, undefined, 30]);
     });
 
     // missing/null/undefined value in object
-    test.throws(function() {
+    test.throws(() => {
       rgb.color({
         red: 255,
         green: 100
       });
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color({
         red: 255,
         green: 100,
         blue: null
       });
     });
-    test.throws(function() {
+    test.throws(() => {
       rgb.color({
         red: 255,
         green: 100,
@@ -365,8 +360,8 @@ exports["RGB"] = {
     test.done();
   },
 
-  on: function(test) {
-    var color;
+  on(test) {
+    let color;
 
     test.expect(23);
 
@@ -413,7 +408,7 @@ exports["RGB"] = {
     test.equal(color.blue, 0xaa);
 
     // And that those values are actually live
-    var values = this.rgb.values;
+    let values = this.rgb.values;
     test.equal(values.red, 0xbb);
     test.equal(values.green, 0xcc);
     test.equal(values.blue, 0xaa);
@@ -433,7 +428,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(8);
 
     this.rgb.color("#bbccaa");
@@ -450,13 +445,13 @@ exports["RGB"] = {
     this.write.reset();
 
     // Test saved state
-    var color = this.rgb.color();
+    const color = this.rgb.color();
     test.equal(color.red, 0xbb);
     test.equal(color.green, 0xcc);
     test.equal(color.blue, 0xaa);
 
     // Test live values
-    var values = this.rgb.values;
+    const values = this.rgb.values;
     test.equal(values.red, 0);
     test.equal(values.green, 0);
     test.equal(values.blue, 0);
@@ -464,7 +459,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  stop: function(test) {
+  stop(test) {
     test.expect(2);
 
     this.rgb.strobe();
@@ -474,11 +469,11 @@ exports["RGB"] = {
     test.done();
   },
 
-  toggle: function(test) {
+  toggle(test) {
     test.expect(7);
 
-    var on = this.sandbox.spy(this.rgb, "on");
-    var off = this.sandbox.spy(this.rgb, "off");
+    const on = this.sandbox.spy(this.rgb, "on");
+    const off = this.sandbox.spy(this.rgb, "off");
 
     // Should default to off
     test.ok(!this.rgb.isOn);
@@ -500,13 +495,13 @@ exports["RGB"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(1);
     test.equal(this.rgb.blink, this.rgb.strobe);
     test.done();
   },
 
-  blinkDuration: function(test) {
+  blinkDuration(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
@@ -519,7 +514,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  blinkCallback: function(test) {
+  blinkCallback(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
@@ -534,7 +529,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  blinkDurationCallback: function(test) {
+  blinkDurationCallback(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
@@ -549,7 +544,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  intensity: function(test) {
+  intensity(test) {
     test.expect(24);
 
     this.rgb.color("#33aa00");
@@ -644,12 +639,12 @@ exports["RGB"] = {
   },
 
 
-  "Animation.normalize": function(test) {
+  "Animation.normalize"(test) {
     test.expect(1);
 
     this.rgb.color("red");
 
-    var normalized = this.rgb[Animation.normalize]([
+    const normalized = this.rgb[Animation.normalize]([
       null,
       {color: "red"},
       [255, 99, 0],
@@ -672,10 +667,10 @@ exports["RGB"] = {
     test.done();
   },
 
-  "Animation.normalize: frame === null": function(test) {
+  "Animation.normalize: frame === null"(test) {
     test.expect(1);
 
-    var normalized = this.rgb[Animation.normalize]([
+    const normalized = this.rgb[Animation.normalize]([
       null,
       {color: "red"},
       null,
@@ -690,10 +685,10 @@ exports["RGB"] = {
     test.done();
   },
 
-  "Animation.normalize: no existing values": function(test) {
+  "Animation.normalize: no existing values"(test) {
     test.expect(1);
 
-    var normalized = this.rgb[Animation.normalize]([
+    const normalized = this.rgb[Animation.normalize]([
       null,
     ]);
 
@@ -704,7 +699,7 @@ exports["RGB"] = {
     test.done();
   },
 
-  "Animation.normalize: intensity": function(test) {
+  "Animation.normalize: intensity"(test) {
     test.expect(3);
 
     this.ToRGB = this.sandbox.spy(RGB, "ToRGB");
@@ -712,7 +707,7 @@ exports["RGB"] = {
 
     this.rgb.color("red");
 
-    var normalized = this.rgb[Animation.normalize]([
+    const normalized = this.rgb[Animation.normalize]([
       { intensity: 100, color: { red: 0, green: 0, blue: 0 } }
     ]);
 
@@ -726,10 +721,10 @@ exports["RGB"] = {
     test.done();
   },
 
-  "Animation.normalize: easing": function(test) {
+  "Animation.normalize: easing"(test) {
     test.expect(1);
 
-    var normalized = this.rgb[Animation.normalize]([
+    const normalized = this.rgb[Animation.normalize]([
       { easing: "foo", intensity: 100, color: { red: 0, green: 0, blue: 0 } }
     ]);
 
@@ -740,19 +735,19 @@ exports["RGB"] = {
     test.done();
   },
 
-  "Animation.normalize: invalid to send just a number to RGB animation": function(test) {
+  "Animation.normalize: invalid to send just a number to RGB animation"(test) {
     test.expect(1);
 
-    test.throws(function() {
+    test.throws(() => {
       this.rgb[Animation.normalize]([
         0,
       ]);
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  "Animation.render": function(test) {
+  "Animation.render"(test) {
     test.expect(1);
     this.color = this.sandbox.stub(this.rgb, "color");
     this.rgb[Animation.render]([0]);
@@ -763,7 +758,7 @@ exports["RGB"] = {
 };
 
 exports["10-bit RGB"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
@@ -785,13 +780,13 @@ exports["10-bit RGB"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(4);
 
     this.rgb.write({
@@ -810,7 +805,7 @@ exports["10-bit RGB"] = {
 };
 
 exports["10-bit RGB Common Anode"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
@@ -833,13 +828,13 @@ exports["10-bit RGB Common Anode"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(4);
 
     this.analogWrite.reset();
@@ -860,7 +855,7 @@ exports["10-bit RGB Common Anode"] = {
 };
 
 exports["RGB - Cycling Operations"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.stop = this.sandbox.spy(RGB.prototype, "stop");
@@ -874,13 +869,13 @@ exports["RGB - Cycling Operations"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  rgbCallsStopBeforeNextCyclingOperation: function(test) {
+  rgbCallsStopBeforeNextCyclingOperation(test) {
     test.expect(1);
 
     this.rgb.blink();
@@ -895,7 +890,7 @@ exports["RGB - Cycling Operations"] = {
 };
 
 exports["RGB - Common Anode"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -914,13 +909,13 @@ exports["RGB - Common Anode"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  isAnode: function(test) {
+  isAnode(test) {
     test.expect(1);
 
     test.equal(this.rgb.isAnode, true);
@@ -928,7 +923,7 @@ exports["RGB - Common Anode"] = {
     test.done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(4);
 
     this.rgb.write({
@@ -946,7 +941,7 @@ exports["RGB - Common Anode"] = {
 };
 
 exports["RGB - PCA9685 (I2C)"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -965,22 +960,22 @@ exports["RGB - PCA9685 (I2C)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     Expander.purge();
     done();
   },
 
-  shape: testLedRgbShape,
+  shape,
 
-  defaultFrequency: function(test) {
+  defaultFrequency(test) {
     test.expect(1);
     test.equal(this.rgb.frequency, 200);
     test.done();
   },
 
-  customFrequency: function(test) {
+  customFrequency(test) {
     test.expect(1);
 
     this.rgb = new RGB({
@@ -998,7 +993,7 @@ exports["RGB - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  normalization: function(test) {
+  normalization(test) {
     test.expect(1);
 
     this.a = new RGB({
@@ -1016,7 +1011,7 @@ exports["RGB - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(12);
 
     // Fully off
@@ -1060,7 +1055,7 @@ exports["RGB - PCA9685 (I2C)"] = {
 };
 
 exports["RGB - PCA9685 (I2C) Common Anode"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -1080,16 +1075,16 @@ exports["RGB - PCA9685 (I2C) Common Anode"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     Expander.purge();
     done();
   },
 
-  shape: testLedRgbShape,
+  shape,
 
-  write: function(test) {
+  write(test) {
     test.expect(12);
 
     // Fully off
@@ -1134,7 +1129,7 @@ exports["RGB - PCA9685 (I2C) Common Anode"] = {
 };
 
 exports["RGB - BlinkM (I2C)"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -1149,15 +1144,15 @@ exports["RGB - BlinkM (I2C)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedRgbShape,
+  shape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1169,7 +1164,7 @@ exports["RGB - BlinkM (I2C)"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1178,7 +1173,7 @@ exports["RGB - BlinkM (I2C)"] = {
     test.done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(6);
 
     // Fully off
@@ -1216,7 +1211,7 @@ exports["RGB - BlinkM (I2C)"] = {
 };
 
 exports["RGB - Esplora"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
@@ -1230,15 +1225,15 @@ exports["RGB - Esplora"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedRgbShape,
+  shape,
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(1);
 
     test.deepEqual(this.rgb.pins, [5, 10, 9]);
@@ -1246,7 +1241,7 @@ exports["RGB - Esplora"] = {
     test.done();
   },
 
-  write: function(test) {
+  write(test) {
     test.expect(12);
 
     // Fully off
@@ -1290,63 +1285,63 @@ exports["RGB - Esplora"] = {
 };
 
 exports["RGB.ToRGB"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.ToRGB = this.sandbox.spy(Led.RGB, "ToRGB");
     this.keywordRgb = this.sandbox.spy(converter.keyword, "rgb");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.sandbox.restore();
     done();
   },
 
-  "ToRGB(null)": function(test) {
+  "ToRGB(null)"(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       Led.RGB.ToRGB(null);
     });
     test.done();
   },
 
-  "ToRGB(undefined)": function(test) {
+  "ToRGB(undefined)"(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       Led.RGB.ToRGB(undefined);
     });
     test.done();
   },
 
-  "ToRGB([Byte, Byte, Byte])": function(test) {
+  "ToRGB([Byte, Byte, Byte])"(test) {
     test.expect(2);
     test.deepEqual(Led.RGB.ToRGB([0x00, 0x00, 0x00]), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
-  "ToRGB({ red, green, blue })": function(test) {
+  "ToRGB({ red, green, blue })"(test) {
     test.expect(2);
     test.deepEqual(Led.RGB.ToRGB({ red: 0, green: 0, blue: 0 }), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
-  "ToRGB('hex')": function(test) {
+  "ToRGB('hex')"(test) {
     test.expect(2);
     test.deepEqual(Led.RGB.ToRGB("000000"), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
-  "ToRGB('#hex')": function(test) {
+  "ToRGB('#hex')"(test) {
     test.expect(2);
     test.deepEqual(Led.RGB.ToRGB("#000000"), { red: 0, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
-  "ToRGB('name')": function(test) {
+  "ToRGB('name')"(test) {
     test.expect(3);
     test.deepEqual(Led.RGB.ToRGB("red"), { red: 0xFF, green: 0, blue: 0 });
     // This is called TWICE because the name is
@@ -1357,14 +1352,14 @@ exports["RGB.ToRGB"] = {
     test.done();
   },
 
-  "ToRGB(red, green, blue)": function(test) {
+  "ToRGB(red, green, blue)"(test) {
     test.expect(2);
     test.deepEqual(Led.RGB.ToRGB(0xFF, 0x00, 0x00), { red: 0xFF, green: 0, blue: 0 });
     test.equal(this.ToRGB.callCount, 1);
     test.done();
   },
 
-  "ToRGB('rgb(r, g, b)')": function(test) {
+  "ToRGB('rgb(r, g, b)')"(test) {
     test.expect(4);
 
     test.deepEqual(Led.RGB.ToRGB("rgb(255,0,0)"), { red: 255, green: 0, blue: 0 });
@@ -1374,7 +1369,7 @@ exports["RGB.ToRGB"] = {
     test.done();
   },
 
-  "ToRGB('rgba(r, g, b, a)')": function(test) {
+  "ToRGB('rgba(r, g, b, a)')"(test) {
     test.expect(5);
     test.deepEqual(Led.RGB.ToRGB("rgb(255,0,0,1)"), { red: 255, green: 0, blue: 0 });
     test.deepEqual(Led.RGB.ToRGB("rgb(255, 0, 0, 1)"), { red: 255, green: 0, blue: 0 });
@@ -1384,7 +1379,7 @@ exports["RGB.ToRGB"] = {
     test.done();
   },
 
-  "ToRGB('rgb(r g b)')": function(test) {
+  "ToRGB('rgb(r g b)')"(test) {
     test.expect(3);
     test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0)"), { red: 255, green: 0, blue: 0 });
     test.deepEqual(Led.RGB.ToRGB("rgb(100% 0% 0%)"), { red: 255, green: 0, blue: 0 });
@@ -1392,7 +1387,7 @@ exports["RGB.ToRGB"] = {
     test.done();
   },
 
-  "ToRGB('rgba(r g b a)')": function(test) {
+  "ToRGB('rgba(r g b a)')"(test) {
     test.expect(4);
     test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0 1)"), { red: 255, green: 0, blue: 0 });
     test.deepEqual(Led.RGB.ToRGB("rgb(255 0 0 0.5)"), { red: 128, green: 0, blue: 0 });
@@ -1404,31 +1399,31 @@ exports["RGB.ToRGB"] = {
 };
 
 exports["RGB.ToScaledRGB"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.ToScaledRGB = this.sandbox.spy(Led.RGB, "ToScaledRGB");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.sandbox.restore();
     done();
   },
 
-  "ToScaledRGB(intensity, colors)": function(test) {
+  "ToScaledRGB(intensity, colors)"(test) {
     test.expect(101);
 
-    var colors = Led.RGB.ToRGB(0xFF, 0x00, 0x00);
+    const colors = Led.RGB.ToRGB(0xFF, 0x00, 0x00);
 
-    for (var i = 0; i <= 100; i++) {
+    for (let i = 0; i <= 100; i++) {
       test.equal(Led.RGB.ToScaledRGB(i, colors).red, Math.round(0xFF * (i / 100)));
     }
     test.done();
   },
 };
 
-Object.keys(RGB.Controllers).forEach(function(name) {
-  exports["RGB - Controller, " + name] = addControllerTest(RGB, RGB.Controllers[name], {
+Object.keys(RGB.Controllers).forEach(name => {
+  exports[`RGB - Controller, ${name}`] = addControllerTest(RGB, RGB.Controllers[name], {
     controller: name,
     pins: [1, 2, 3]
   });
