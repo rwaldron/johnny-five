@@ -1,13 +1,13 @@
 require("./common/bootstrap");
 
-var Options = require("../lib/board.options.js");
+const Options = require("../lib/board.options.js");
 
 exports["static"] = {
 
   // Transform string, number and array args into
   // options objects with pin or pins property.
   "Options": function(test) {
-    var tests = [{
+    const tests = [{
       opt: 0,
       result: {
         pin: 0
@@ -71,8 +71,8 @@ exports["static"] = {
 
     test.expect(tests.length);
 
-    tests.forEach(function(set) {
-      test.deepEqual(new Options(set.opt), set.result);
+    tests.forEach(({opt, result}) => {
+      test.deepEqual(new Options(opt), result);
     });
 
     test.done();

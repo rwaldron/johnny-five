@@ -9,32 +9,34 @@ module.exports = {
     }
   },
   initialize: {
-    value: function() {}
+    value() {}
   },
   normalize: {
-    value: function(pin) {
+    value(pin) {
       return pin;
     }
   },
   pinMode: {
-    value: function() {}
+    value() {}
   },
   digitalWrite: {
-    value: function() {}
+    value() {}
   },
   pullUp: {
-    value: function() {}
+    value() {}
   },
   digitalRead: {
-    value: function() {}
+    value() {}
   },
   analogWrite: {
-    value: function() {}
+    value() {}
   },
   analogRead: {
-    value: function() {}
+    value() {}
   },
   servoWrite: {
-    value: function() {}
+    value() {}
   }
 };
+
+module.exports.DEFAULT = module.exports.REGISTER;

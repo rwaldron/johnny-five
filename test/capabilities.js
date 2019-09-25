@@ -36,15 +36,15 @@ PIN_TO_ANALOG(p)        ((p) - 54)
 
 
 exports["UNO Pin Capabilities"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     done();
   },
-  isDigital: function(test) {
+  isDigital(test) {
     test.expect(7);
 
     // RX/TX: false
@@ -63,7 +63,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  isAnalog: function(test) {
+  isAnalog(test) {
     test.expect(7);
 
     // RX/TX: false
@@ -82,7 +82,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  isPWM: function(test) {
+  isPWM(test) {
     test.expect(7);
 
     // RX/TX: false
@@ -101,7 +101,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  isServo: function(test) {
+  isServo(test) {
     test.expect(7);
 
     // RX/TX: false
@@ -120,7 +120,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  isInput: function(test) {
+  isInput(test) {
     test.expect(6);
 
     // RX/TX: false
@@ -138,7 +138,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  isOutput: function(test) {
+  isOutput(test) {
     test.expect(6);
 
     // RX/TX: false
@@ -156,7 +156,7 @@ exports["UNO Pin Capabilities"] = {
     test.done();
   },
 
-  translate: function(test) {
+  translate(test) {
     test.expect(6);
 
     test.equal(five.Board.Pins.translate("I0", "UNO"), "A0");

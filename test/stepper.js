@@ -1,16 +1,16 @@
 require("./common/bootstrap");
 
 exports["Stepper Firmware Requirement"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
-  valid: function(test) {
+  valid(test) {
     test.expect(1);
 
     this.board = newBoard([{
@@ -23,19 +23,19 @@ exports["Stepper Firmware Requirement"] = {
       supportedModes: [0, 1, 3, 4, 8],
     }]);
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Stepper({
         board: this.board,
         type: Stepper.TYPE.DRIVER,
         stepsPerRev: 200,
         pins: [2, 3]
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  invalid: function(test) {
+  invalid(test) {
     test.expect(1);
 
     this.board = newBoard([{
@@ -64,7 +64,7 @@ exports["Stepper Firmware Requirement"] = {
 };
 
 exports["Stepper - constructor"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.board = newBoard();
@@ -72,12 +72,12 @@ exports["Stepper - constructor"] = {
 
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
-  inferTypeAmbiguous: function(test) {
+  inferTypeAmbiguous(test) {
     test.expect(1);
 
     try {
@@ -93,16 +93,16 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  inferTypeDriver: function(test) {
+  inferTypeDriver(test) {
     test.expect(2);
-    var pins = {
+    const pins = {
       step: 2,
       dir: 3
     };
-    var stepper = new Stepper({
+    const stepper = new Stepper({
       board: this.board,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
     test.equal(stepper.type, Stepper.TYPE.DRIVER);
     test.deepEqual(stepper.pins, pins);
@@ -110,16 +110,16 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  inferType2Wire: function(test) {
+  inferType2Wire(test) {
     test.expect(2);
-    var pins = {
+    const pins = {
       motor1: 3,
       motor2: 4
     };
-    var stepper = new Stepper({
+    const stepper = new Stepper({
       board: this.board,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
     test.equal(stepper.type, Stepper.TYPE.TWO_WIRE);
     test.deepEqual(stepper.pins, pins);
@@ -127,18 +127,18 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  inferType4Wire: function(test) {
+  inferType4Wire(test) {
     test.expect(2);
-    var pins = {
+    const pins = {
       motor1: 2,
       motor2: 3,
       motor3: 4,
       motor4: 5
     };
-    var stepper = new Stepper({
+    const stepper = new Stepper({
       board: this.board,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
     test.equal(stepper.type, Stepper.TYPE.FOUR_WIRE);
     test.deepEqual(stepper.pins, pins);
@@ -146,17 +146,17 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  typeDriver: function(test) {
+  typeDriver(test) {
     test.expect(4);
-    var pins = {
+    let pins = {
       step: 2,
       dir: 3
     };
-    var stepper = new Stepper({
+    let stepper = new Stepper({
       board: this.board,
       type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.DRIVER);
@@ -167,7 +167,7 @@ exports["Stepper - constructor"] = {
       board: this.board,
       type: Stepper.TYPE.DRIVER,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.DRIVER);
@@ -181,7 +181,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalidDriverEmpty: function(test) {
+  invalidDriverEmpty(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -194,7 +194,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalidDriverStep: function(test) {
+  invalidDriverStep(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -209,7 +209,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalidDriverDir: function(test) {
+  invalidDriverDir(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -224,7 +224,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  validDriver: function(test) {
+  validDriver(test) {
     test.expect(1);
     test.doesNotThrow(function() {
       new Stepper({
@@ -240,17 +240,17 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  type2Wire: function(test) {
+  type2Wire(test) {
     test.expect(4);
-    var pins = {
+    let pins = {
       motor1: 2,
       motor2: 3
     };
-    var stepper = new Stepper({
+    let stepper = new Stepper({
       board: this.board,
       type: Stepper.TYPE.TWO_WIRE,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.TWO_WIRE);
@@ -261,7 +261,7 @@ exports["Stepper - constructor"] = {
       board: this.board,
       type: Stepper.TYPE.TWO_WIRE,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.TWO_WIRE);
@@ -275,7 +275,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid2wireEmpty: function(test) {
+  invalid2wireEmpty(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -288,7 +288,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid2wire1: function(test) {
+  invalid2wire1(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -303,7 +303,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid2wire2: function(test) {
+  invalid2wire2(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -318,7 +318,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  valid2wire: function(test) {
+  valid2wire(test) {
     test.expect(1);
     test.doesNotThrow(function() {
       new Stepper({
@@ -334,19 +334,19 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  type4Wire: function(test) {
+  type4Wire(test) {
     test.expect(4);
-    var pins = {
+    let pins = {
       motor1: 2,
       motor2: 3,
       motor3: 4,
       motor4: 5
     };
-    var stepper = new Stepper({
+    let stepper = new Stepper({
       board: this.board,
       type: Stepper.TYPE.FOUR_WIRE,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.FOUR_WIRE);
@@ -357,7 +357,7 @@ exports["Stepper - constructor"] = {
       board: this.board,
       type: Stepper.TYPE.FOUR_WIRE,
       stepsPerRev: 200,
-      pins: pins
+      pins
     });
 
     test.equal(stepper.type, Stepper.TYPE.FOUR_WIRE);
@@ -373,7 +373,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid4wireEmpty: function(test) {
+  invalid4wireEmpty(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -386,7 +386,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid4wire1: function(test) {
+  invalid4wire1(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -403,7 +403,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid4wire2: function(test) {
+  invalid4wire2(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -420,7 +420,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid4wire3: function(test) {
+  invalid4wire3(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -437,7 +437,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  invalid4wire4: function(test) {
+  invalid4wire4(test) {
     test.expect(1);
     test.throws(function() {
       new Stepper({
@@ -454,7 +454,7 @@ exports["Stepper - constructor"] = {
     test.done();
   },
 
-  valid4wire: function(test) {
+  valid4wire(test) {
     test.expect(1);
     test.doesNotThrow(function() {
       new Stepper({
@@ -474,7 +474,7 @@ exports["Stepper - constructor"] = {
 };
 
 exports["Stepper - max steppers"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.maxSteppers = 6;
@@ -502,42 +502,42 @@ exports["Stepper - max steppers"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  singleBoard: function(test) {
+  singleBoard(test) {
     test.expect(2);
 
-    test.doesNotThrow(function() {
-      for (var i = 0; i < this.maxSteppers; i++) {
+    test.doesNotThrow(() => {
+      for (let i = 0; i < this.maxSteppers; i++) {
         new Stepper({
           board: this.board1,
           stepsPerRev: 200,
           pins: [3, 4, 5, 6]
         });
       }
-    }.bind(this));
+    });
 
-    test.throws(function() {
+    test.throws(() => {
       new Stepper({
         board: this.board1,
         stepsPerRev: 200,
         pins: [3, 4, 5, 6]
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  multipleBoards: function(test) {
+  multipleBoards(test) {
     test.expect(3);
 
     // should be able to add max on two boards
-    test.doesNotThrow(function() {
-      for (var i = 0; i < this.maxSteppers; i++) {
+    test.doesNotThrow(() => {
+      for (let i = 0; i < this.maxSteppers; i++) {
         new Stepper({
           board: this.board1,
           stepsPerRev: 200,
@@ -549,31 +549,31 @@ exports["Stepper - max steppers"] = {
           pins: [2, 3, 4, 5]
         });
       }
-    }.bind(this));
+    });
 
     // but can't add any more to either board
-    test.throws(function() {
+    test.throws(() => {
       new Stepper({
         board: this.board1,
         stepsPerRev: 200,
         pins: [2, 3, 4, 5]
       });
-    }.bind(this));
+    });
 
-    test.throws(function() {
+    test.throws(() => {
       new Stepper({
         board: this.board2,
         stepsPerRev: 200,
         pins: [2, 3, 4, 5]
       });
-    }.bind(this));
+    });
 
     test.done();
   }
 };
 
 exports["Stepper - step callback"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = new Board({
       io: new MockFirmata({
@@ -597,13 +597,13 @@ exports["Stepper - step callback"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.step.restore();
     done();
   },
 
-  step: function(test) {
-    var spy = this.sandbox.spy();
+  step(test) {
+    const spy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -618,7 +618,7 @@ exports["Stepper - step callback"] = {
 };
 
 exports["Stepper - set direction required before step"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
@@ -643,13 +643,13 @@ exports["Stepper - set direction required before step"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.stepperStep.restore();
     done();
   },
 
-  directionSet: function(test) {
-    var spy = this.sandbox.spy();
+  directionSet(test) {
+    const spy = this.sandbox.spy();
 
     test.expect(2);
 
@@ -671,7 +671,7 @@ exports["Stepper - set direction required before step"] = {
 };
 
 exports["Stepper - chainable direction"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
@@ -694,11 +694,11 @@ exports["Stepper - chainable direction"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  chainable: function(test) {
+  chainable(test) {
     test.expect(2);
 
     // .cw() and .ccw() return `this`
@@ -710,7 +710,7 @@ exports["Stepper - chainable direction"] = {
 };
 
 exports["Stepper - rpm / speed"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
 
     this.board = new Board({
@@ -733,12 +733,12 @@ exports["Stepper - rpm / speed"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     this.pinMode.restore();
     done();
   },
 
-  pinMode: function(test) {
+  pinMode(test) {
     test.expect(1);
     test.equal(this.pinMode.callCount, 2);
     test.done();

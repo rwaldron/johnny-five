@@ -1,61 +1,55 @@
 require("./common/bootstrap");
 
-function Component(options) {
-  Emitter.call(this);
 
-  var value = null;
+class Component extends Withinable {
+  constructor(options) {
+    super();
 
-  this.board = options.board;
-  this.io = options.board.io;
-  this.pin = options.pin;
+    var value = null;
 
-  this.io.analogRead(this.pin, function(data) {
-    value = data;
+    this.board = options.board;
+    this.io = options.board.io;
+    this.pin = options.pin;
 
-    this.emit("data", value);
-  }.bind(this));
+    this.io.analogRead(this.pin, (data) => {
+      value = data;
+      this.emit("data", value);
+    });
 
 
-  this.tracking = {
-    value: {
-      get: 0,
-      set: 0,
-    },
-    unit: {
-      get: 0,
-    },
-  };
-
-  Object.defineProperties(this, {
-    value: {
-      get: function() {
-        this.tracking.value.get++;
-        return value;
+    this.tracking = {
+      value: {
+        get: 0,
+        set: 0,
       },
-      set: function(input) {
-        this.tracking.value.set++;
-        value = input;
+      unit: {
+        get: 0,
       },
-    },
-    unit: {
-      get: function() {
-        this.tracking.unit.get++;
-        return value;
+    };
+
+    Object.defineProperties(this, {
+      value: {
+        get: function() {
+          this.tracking.value.get++;
+          return value;
+        },
+        set: function(input) {
+          this.tracking.value.set++;
+          value = input;
+        },
       },
-    },
-  });
+      unit: {
+        get: function() {
+          this.tracking.unit.get++;
+          return value;
+        },
+      },
+    });
+  }
 }
 
-Component.prototype = Object.create(Emitter.prototype, {
-  constructor: {
-    value: Component
-  }
-});
-
-Object.assign(Component.prototype, within);
-
-exports["Within"] = {
-  setUp: function(done) {
+exports["Withinable"] = {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -69,45 +63,45 @@ exports["Within"] = {
 
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  invalidRange: function(test) {
+  invalidRange(test) {
     test.expect(4);
 
-    test.throws(function() {
+    test.throws(() => {
       this.component.within(null);
-    }.bind(this), Error);
+    }, Error);
 
-    test.throws(function() {
+    test.throws(() => {
       this.component.within(undefined);
-    }.bind(this), Error);
+    }, Error);
 
-    test.throws(function() {
+    test.throws(() => {
       this.component.within("a string");
-    }.bind(this), Error);
+    }, Error);
 
-    test.throws(function() {
+    test.throws(() => {
       this.component.within(true);
-    }.bind(this), Error);
+    }, Error);
 
     test.done();
   },
 
-  noMatchingUnitOrValue: function(test) {
+  noMatchingUnitOrValue(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
+    const spy = this.sandbox.spy();
+    const analogRead = this.analogRead.lastCall.args[1];
 
     this.component.within([0, 10], "smoots", spy);
 
     // If there was actually a "smoots" unit,
     // this would result in 11 calls to the spy
-    for (var i = 0; i < 11; i++) {
+    for (let i = 0; i < 11; i++) {
       analogRead(i);
     }
 
@@ -116,15 +110,15 @@ exports["Within"] = {
     test.done();
   },
 
-  withinIntegerRangeDefaultsToValue: function(test) {
+  withinIntegerRangeDefaultsToValue(test) {
     test.expect(203);
 
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
+    const spy = this.sandbox.spy();
+    const analogRead = this.analogRead.lastCall.args[1];
 
     this.component.within([0, 10], spy);
 
-    for (var i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
       analogRead(i);
 
       test.equal(spy.lastCall.args[0], null);
@@ -144,15 +138,15 @@ exports["Within"] = {
     test.done();
   },
 
-  withinIntegerRangeExplicitUnit: function(test) {
+  withinIntegerRangeExplicitUnit(test) {
     test.expect(203);
 
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
+    const spy = this.sandbox.spy();
+    const analogRead = this.analogRead.lastCall.args[1];
 
     this.component.within([0, 10], "unit", spy);
 
-    for (var i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
       analogRead(i);
 
       test.equal(spy.lastCall.args[0], null);
@@ -172,15 +166,15 @@ exports["Within"] = {
     test.done();
   },
 
-  withinFloatRange: function(test) {
+  withinFloatRange(test) {
     test.expect(202);
 
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
+    const spy = this.sandbox.spy();
+    const analogRead = this.analogRead.lastCall.args[1];
 
     this.component.within([0, 1], "unit", spy);
 
-    for (var i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
       analogRead(i / 10);
 
       test.equal(spy.lastCall.args[0], null);
@@ -212,11 +206,11 @@ exports["Within"] = {
     test.done();
   },
 
-  rangeUpper: function(test) {
+  rangeUpper(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
-    var analogRead = this.analogRead.lastCall.args[1];
+    const spy = this.sandbox.spy();
+    const analogRead = this.analogRead.lastCall.args[1];
 
     this.component.within(1023, "unit", spy);
 

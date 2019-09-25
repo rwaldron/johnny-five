@@ -31,7 +31,7 @@ function testShape(test) {
 
 exports["Hygrometer -- SHT31D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
@@ -48,15 +48,15 @@ exports["Hygrometer -- SHT31D"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  testShape: testShape,
+  testShape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -68,7 +68,7 @@ exports["Hygrometer -- SHT31D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -77,10 +77,10 @@ exports["Hygrometer -- SHT31D"] = {
     test.done();
   },
 
-  oneHundredPercentHumidity: function(test) {
+  oneHundredPercentHumidity(test) {
     test.expect(6);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("data", spy);
 
@@ -108,7 +108,7 @@ exports["Hygrometer -- SHT31D"] = {
 
 exports["Hygrometer -- HTU21D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
 
@@ -125,15 +125,15 @@ exports["Hygrometer -- HTU21D"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  testShape: testShape,
+  testShape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -145,7 +145,7 @@ exports["Hygrometer -- HTU21D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -154,10 +154,10 @@ exports["Hygrometer -- HTU21D"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(9);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("data", spy);
 
@@ -184,11 +184,11 @@ exports["Hygrometer -- HTU21D"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(5);
 
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("change", spy);
 
@@ -220,10 +220,10 @@ exports["Hygrometer -- HTU21D"] = {
     test.done();
   },
 
-  oneHundredPercentHumidity: function(test) {
+  oneHundredPercentHumidity(test) {
     test.expect(8);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("data", spy);
 
@@ -256,7 +256,7 @@ exports["Hygrometer -- HTU21D"] = {
 
 exports["Hygrometer -- SI7020"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
 
@@ -273,15 +273,15 @@ exports["Hygrometer -- SI7020"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  testShape: testShape,
+  testShape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -293,7 +293,7 @@ exports["Hygrometer -- SI7020"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -302,7 +302,7 @@ exports["Hygrometer -- SI7020"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(5);
 
     test.equal(this.i2cRead.callCount, 2);
@@ -313,8 +313,8 @@ exports["Hygrometer -- SI7020"] = {
     ]);
 
 
-    var spy = this.sandbox.spy();
-    var read = this.i2cRead.lastCall.args[3];
+    const spy = this.sandbox.spy();
+    const read = this.i2cRead.lastCall.args[3];
 
     this.hygrometer.on("data", spy);
 
@@ -329,7 +329,7 @@ exports["Hygrometer -- SI7020"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(4);
 
     test.equal(this.i2cRead.callCount, 2);
@@ -340,8 +340,8 @@ exports["Hygrometer -- SI7020"] = {
     ]);
 
 
-    var spy = this.sandbox.spy();
-    var read = this.i2cRead.lastCall.args[3];
+    const spy = this.sandbox.spy();
+    let read = this.i2cRead.lastCall.args[3];
 
     this.hygrometer.on("change", spy);
 
@@ -370,7 +370,7 @@ exports["Hygrometer -- SI7020"] = {
 
 exports["Hygrometer -- HIH6130"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -388,15 +388,15 @@ exports["Hygrometer -- HIH6130"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  testShape: testShape,
+  testShape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -408,7 +408,7 @@ exports["Hygrometer -- HIH6130"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -417,10 +417,10 @@ exports["Hygrometer -- HIH6130"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(13);
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("data", spy);
 
@@ -457,11 +457,11 @@ exports["Hygrometer -- HIH6130"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(6);
 
-    var readOnce;
-    var spy = this.sandbox.spy();
+    let readOnce;
+    const spy = this.sandbox.spy();
 
     this.hygrometer.on("change", spy);
 

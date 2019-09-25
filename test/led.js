@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-var protoProperties = [{
+const protoProperties = [{
   name: "on"
 }, {
   name: "off"
@@ -24,7 +24,7 @@ var protoProperties = [{
   name: "stop"
 }];
 
-var instanceProperties = [{
+const instanceProperties = [{
   name: "id"
 }, {
   name: "pin"
@@ -32,22 +32,17 @@ var instanceProperties = [{
   name: "value"
 }];
 
-function testLedShape(test) {
+function shape(test) {
   test.expect(protoProperties.length + instanceProperties.length);
 
-  protoProperties.forEach(function(method) {
-    test.equal(typeof this.led[method.name], "function");
-  }, this);
-
-  instanceProperties.forEach(function(property) {
-    test.notEqual(typeof this.led[property.name], "undefined");
-  }, this);
+  protoProperties.forEach(({name}) => test.equal(typeof this.led[name], "function"));
+  instanceProperties.forEach(({name}) => test.notEqual(typeof this.led[name], "undefined"));
 
   test.done();
 }
 
 exports["Led - Digital"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -63,34 +58,34 @@ exports["Led - Digital"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedShape,
+  shape,
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.ok(Led.call({}) instanceof Led);
+    test.ok(new Led({}) instanceof Led);
     test.done();
   },
 
-  pinMode: function(test) {
+  pinMode(test) {
     test.expect(2);
     test.ok(this.pinMode.firstCall.calledWith(13, this.board.io.MODES.OUTPUT));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
-  defaultMode: function(test) {
+  defaultMode(test) {
     test.expect(1);
     test.equal(this.led.mode, this.board.io.MODES.OUTPUT);
     test.done();
   },
 
-  on: function(test) {
+  on(test) {
     test.expect(2);
 
     this.led.on();
@@ -100,7 +95,7 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(2);
 
     this.led.off();
@@ -110,7 +105,7 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  isOn: function(test) {
+  isOn(test) {
     // https://github.com/rwaldron/johnny-five/issues/351
     test.expect(6);
 
@@ -141,7 +136,7 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  toggle: function(test) {
+  toggle(test) {
     test.expect(5);
 
     this.led.off();
@@ -160,10 +155,10 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  strobe: function(test) {
+  strobe(test) {
     test.expect(7);
 
-    var spy;
+    let spy;
 
     this.led.off();
     this.digitalWrite.reset();
@@ -198,13 +193,13 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(1);
     test.equal(this.led.blink, this.led.strobe);
     test.done();
   },
 
-  stop: function(test) {
+  stop(test) {
     test.expect(2);
 
     this.led.strobe();
@@ -215,7 +210,7 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  animation: function(test) {
+  animation(test) {
     test.expect(1);
 
     this.led.pulse();
@@ -223,7 +218,7 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  correctReturns: function(test) {
+  correctReturns(test) {
     test.expect(5);
 
     test.equal(this.led.blink(), this.led);
@@ -235,10 +230,10 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  updateInput: function(test) {
+  updateInput(test) {
     test.expect(1);
 
-    var led2 = new Led({
+    const led2 = new Led({
       pin: 5,
       board: this.board
     });
@@ -251,10 +246,10 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  updateInputAnode: function(test) {
+  updateInputAnode(test) {
     test.expect(1);
 
-    var led2 = new Led({
+    const led2 = new Led({
       pin: 5,
       isAnode: true,
       board: this.board
@@ -267,16 +262,16 @@ exports["Led - Digital"] = {
     test.done();
   },
 
-  throws: function(test) {
+  throws(test) {
     test.expect(1);
 
-    var led2 = new Led({
+    const led2 = new Led({
       pin: 13,
       board: this.board
     });
 
 
-    test.throws(function() {
+    test.throws(() => {
       led2.update(255);
     });
     test.done();
@@ -285,7 +280,7 @@ exports["Led - Digital"] = {
 };
 
 exports["Led - PWM"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -301,28 +296,28 @@ exports["Led - PWM"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedShape,
+  shape,
 
-  pinMode: function(test) {
+  pinMode(test) {
     test.expect(2);
     test.ok(this.pinMode.firstCall.calledWith(11, this.board.io.MODES.PWM));
     test.equal(this.pinMode.callCount, 1);
     test.done();
   },
 
-  defaultMode: function(test) {
+  defaultMode(test) {
     test.expect(1);
     test.equal(this.led.mode, this.board.io.MODES.PWM);
     test.done();
   },
 
-  on: function(test) {
+  on(test) {
     test.expect(2);
 
     this.led.on();
@@ -331,7 +326,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  onFromNull: function(test) {
+  onFromNull(test) {
     test.expect(4);
 
     this.mapget = this.sandbox.spy(Map.prototype, "get");
@@ -341,7 +336,7 @@ exports["Led - PWM"] = {
       board: this.board
     });
 
-    var state = this.mapget.lastCall.returnValue;
+    const state = this.mapget.lastCall.returnValue;
 
     test.equal(state.value, null);
 
@@ -353,7 +348,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(2);
 
     this.led.off();
@@ -363,7 +358,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(4);
     /*
       This test is incredibly important!
@@ -379,7 +374,7 @@ exports["Led - PWM"] = {
 
     this.led.blink(1);
 
-    var state = this.mapget.lastCall.returnValue;
+    const state = this.mapget.lastCall.returnValue;
 
     test.equal(state.value, 0);
 
@@ -390,7 +385,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  toggle: function(test) {
+  toggle(test) {
     test.expect(5);
 
     this.led.off();
@@ -409,7 +404,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  brightness: function(test) {
+  brightness(test) {
     test.expect(4);
 
     this.led.off();
@@ -429,13 +424,13 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  intensity: function(test) {
+  intensity(test) {
     test.expect(101);
 
     this.brightness = this.sandbox.stub(Led.prototype, "brightness");
 
 
-    for (var i = 0; i <= 100; i++) {
+    for (let i = 0; i <= 100; i++) {
       this.led.intensity(i);
       test.equal(this.brightness.lastCall.args[0], Fn.scale(i, 0, 100, 0, 255));
     }
@@ -443,7 +438,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  pulse: function(test) {
+  pulse(test) {
     test.expect(1);
 
     this.led.pulse();
@@ -452,30 +447,30 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  pulseDuration: function(test) {
+  pulseDuration(test) {
     test.expect(2);
 
     this.led.pulse(1010);
 
     test.equal(this.enqueue.callCount, 1);
 
-    var duration = this.enqueue.lastCall.args[0].duration;
+    const duration = this.enqueue.lastCall.args[0].duration;
 
     test.equal(duration, 1010);
     test.done();
   },
 
 
-  pulseCallback: function(test) {
+  pulseCallback(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.led.pulse(spy);
 
     test.equal(this.enqueue.callCount, 1);
 
-    var onloop = this.enqueue.lastCall.args[0].onloop;
+    const onloop = this.enqueue.lastCall.args[0].onloop;
 
     onloop();
 
@@ -483,17 +478,17 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  pulseDurationCallback: function(test) {
+  pulseDurationCallback(test) {
     test.expect(3);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.led.pulse(1010, spy);
 
     test.equal(this.enqueue.callCount, 1);
 
-    var duration = this.enqueue.lastCall.args[0].duration;
-    var onloop = this.enqueue.lastCall.args[0].onloop;
+    const duration = this.enqueue.lastCall.args[0].duration;
+    const onloop = this.enqueue.lastCall.args[0].onloop;
 
     onloop();
 
@@ -503,7 +498,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  pulseObject: function(test) {
+  pulseObject(test) {
     test.expect(1);
 
     this.led.pulse({});
@@ -514,7 +509,7 @@ exports["Led - PWM"] = {
   "Animation.normalize": function(test) {
     test.expect(1);
 
-    var normalized = this.led[Animation.normalize]([
+    const normalized = this.led[Animation.normalize]([
       null,
       255,
       { value: 0 },
@@ -545,10 +540,10 @@ exports["Led - PWM"] = {
 
   "Animation.normalize (first keyframe is number)": function(test) {
     test.expect(1);
-    
+
     this.led.brightness(45);
-    
-    var normalized = this.led[Animation.normalize]([
+
+    const normalized = this.led[Animation.normalize]([
       10,
       255,
       { value: 0 }
@@ -566,7 +561,7 @@ exports["Led - PWM"] = {
     test.done();
   },
 
-  correctReturns: function(test) {
+  correctReturns(test) {
     test.expect(10);
 
     test.equal(this.led.blink(), this.led);
@@ -585,7 +580,7 @@ exports["Led - PWM"] = {
 };
 
 exports["Led - 10-bit PWM"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -595,7 +590,7 @@ exports["Led - 10-bit PWM"] = {
 
     // Override PWM Resolution
     this.board.RESOLUTION.PWM = 1023;
-    
+
     this.led = new Led({
       pin: 11,
       board: this.board
@@ -604,15 +599,15 @@ exports["Led - 10-bit PWM"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: testLedShape,
+  shape,
 
-  on: function(test) {
+  on(test) {
     test.expect(2);
 
     this.led.on();
@@ -621,7 +616,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  onFromNull: function(test) {
+  onFromNull(test) {
     test.expect(4);
 
     this.mapget = this.sandbox.spy(Map.prototype, "get");
@@ -631,7 +626,7 @@ exports["Led - 10-bit PWM"] = {
       board: this.board
     });
 
-    var state = this.mapget.lastCall.returnValue;
+    const state = this.mapget.lastCall.returnValue;
 
     test.equal(state.value, null);
 
@@ -643,7 +638,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(2);
 
     this.led.off();
@@ -653,7 +648,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(4);
     /*
       This test is incredibly important!
@@ -669,7 +664,7 @@ exports["Led - 10-bit PWM"] = {
 
     this.led.blink(1);
 
-    var state = this.mapget.lastCall.returnValue;
+    const state = this.mapget.lastCall.returnValue;
 
     test.equal(state.value, 0);
 
@@ -680,7 +675,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  toggle: function(test) {
+  toggle(test) {
     test.expect(5);
 
     this.led.off();
@@ -699,7 +694,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  brightness: function(test) {
+  brightness(test) {
     test.expect(4);
 
     this.led.off();
@@ -719,7 +714,7 @@ exports["Led - 10-bit PWM"] = {
     test.done();
   },
 
-  pulse: function(test) {
+  pulse(test) {
     test.expect(1);
 
     this.led.pulse();
@@ -730,7 +725,7 @@ exports["Led - 10-bit PWM"] = {
 };
 
 exports["Led - PCA9685 (I2C)"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -747,16 +742,16 @@ exports["Led - PCA9685 (I2C)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     Expander.purge();
     done();
   },
 
-  shape: testLedShape,
+  shape,
 
-  defaultFrequency: function(test) {
+  defaultFrequency(test) {
     test.expect(1);
     test.equal(this.led.frequency, 200);
     test.done();
@@ -775,7 +770,7 @@ exports["Led - PCA9685 (I2C)"] = {
   //   test.done();
   // },
 
-  customFrequency: function(test) {
+  customFrequency(test) {
     test.expect(1);
 
     this.led = new Led({
@@ -789,16 +784,16 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  noNormalization: function(test) {
+  noNormalization(test) {
     test.expect(1);
     test.equal(this.normalize.callCount, 0);
     test.done();
   },
 
-  defaultMode: function(test) {
+  defaultMode(test) {
     test.expect(2);
 
-    var led2 = new Led({
+    const led2 = new Led({
       pin: 5,
       controller: "PCA9685",
       board: this.board
@@ -810,7 +805,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  pinMode: function(test) {
+  pinMode(test) {
     test.expect(1);
 
     // I2C device: no need to call pinMode!
@@ -819,7 +814,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  on: function(test) {
+  on(test) {
     test.expect(2);
 
     this.i2cWrite.reset();
@@ -831,7 +826,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(2);
 
     this.i2cWrite.reset();
@@ -842,7 +837,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  toggle: function(test) {
+  toggle(test) {
     test.expect(5);
 
     this.led.off();
@@ -861,7 +856,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  brightness: function(test) {
+  brightness(test) {
     test.expect(4);
 
     this.led.off();
@@ -881,13 +876,13 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  intensity: function(test) {
+  intensity(test) {
     test.expect(102);
 
     this.brightness = this.sandbox.stub(Led.prototype, "brightness");
 
 
-    for (var i = 0; i <= 100; i++) {
+    for (let i = 0; i <= 100; i++) {
       this.led.intensity(i);
       test.equal(this.brightness.lastCall.args[0], Fn.scale(i, 0, 100, 0, 255));
     }
@@ -897,7 +892,7 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  updateInput: function(test) {
+  updateInput(test) {
     test.expect(1);
 
     this.write = this.sandbox.stub(this.led, "write");
@@ -907,10 +902,10 @@ exports["Led - PCA9685 (I2C)"] = {
     test.done();
   },
 
-  updateInputAnode: function(test) {
+  updateInputAnode(test) {
     test.expect(1);
 
-    var led2 = new Led({
+    const led2 = new Led({
       pin: 5,
       controller: "PCA9685",
       isAnode: true,
@@ -927,7 +922,7 @@ exports["Led - PCA9685 (I2C)"] = {
   "Animation.normalize": function(test) {
     test.expect(1);
 
-    var normalized = this.led[Animation.normalize]([
+    const normalized = this.led[Animation.normalize]([
       null,
       { value: 0 },
       { value: 1 },
@@ -957,25 +952,25 @@ exports["Led - PCA9685 (I2C)"] = {
 };
 
 exports["Led - Default Pin w/ Firmata"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(7);
 
     Board.purge();
 
-    var io = new MockFirmata();
+    const io = new MockFirmata();
     new Board({
-      io: io,
+      io,
       debug: false,
       repl: false
     });
@@ -1001,7 +996,7 @@ exports["Led - Default Pin w/ Firmata"] = {
 };
 
 exports["Led - Cycling Operations"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.stop = this.sandbox.spy(Led.prototype, "stop");
@@ -1015,13 +1010,13 @@ exports["Led - Cycling Operations"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  ledCallsStopBeforeNextCyclingOperation: function(test) {
+  ledCallsStopBeforeNextCyclingOperation(test) {
     test.expect(2);
 
     this.led.blink();
@@ -1039,7 +1034,7 @@ exports["Led - Cycling Operations"] = {
 };
 
 exports["Led - Fading"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
@@ -1053,22 +1048,22 @@ exports["Led - Fading"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
 
-  fadeCallback: function(test) {
+  fadeCallback(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.led.fade(spy);
 
     test.equal(this.enqueue.callCount, 1);
-    var oncomplete = this.enqueue.lastCall.args[0].oncomplete;
+    const oncomplete = this.enqueue.lastCall.args[0].oncomplete;
 
     oncomplete();
 
@@ -1076,15 +1071,15 @@ exports["Led - Fading"] = {
     test.done();
   },
 
-  fadeValCallback: function(test) {
+  fadeValCallback(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.led.fade(255, spy);
 
     test.equal(this.enqueue.callCount, 1);
-    var oncomplete = this.enqueue.lastCall.args[0].oncomplete;
+    const oncomplete = this.enqueue.lastCall.args[0].oncomplete;
 
     oncomplete();
 
@@ -1092,15 +1087,15 @@ exports["Led - Fading"] = {
     test.done();
   },
 
-  fadeValDurationCallback: function(test) {
+  fadeValDurationCallback(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     this.led.fade(1, 1, spy);
 
     test.equal(this.enqueue.callCount, 1);
 
-    var oncomplete = this.enqueue.lastCall.args[0].oncomplete;
+    const oncomplete = this.enqueue.lastCall.args[0].oncomplete;
 
     oncomplete();
 
@@ -1108,7 +1103,7 @@ exports["Led - Fading"] = {
     test.done();
   },
 
-  fadeObject: function(test) {
+  fadeObject(test) {
     test.expect(1);
 
     this.led.fade({});
@@ -1117,7 +1112,7 @@ exports["Led - Fading"] = {
     test.done();
   },
 
-  fadeValObject: function(test) {
+  fadeValObject(test) {
     test.expect(1);
 
     this.led.fade(255, {});

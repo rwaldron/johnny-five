@@ -3,11 +3,11 @@
 global.IS_TEST_MODE = true;
 
 // Built-ins
-global.Emitter = require("events").EventEmitter;
+global.Emitter = require("events");
 
 // Internal
 global.Collection = require("../../lib/mixins/collection");
-global.within = require("../../lib/mixins/within");
+global.Withinable = require("../../lib/mixins/within");
 global.five = require("../../lib/johnny-five");
 global.EVS = require("../../lib/evshield");
 
@@ -46,7 +46,6 @@ global.Gyro = five.Gyro;
 global.Hygrometer = five.Hygrometer;
 global.IMU = five.IMU;
 global.Multi = five.Multi;
-global.IR = five.IR;
 global.Keypad = five.Keypad;
 global.LCD = five.LCD;
 global.Led = five.Led;
@@ -65,6 +64,7 @@ global.Piezo = five.Piezo;
 global.Ping = five.Ping;
 global.Pin = five.Pin;
 global.Proximity = five.Proximity;
+global.ReflectanceArray = five.ReflectanceArray;
 global.Relay = five.Relay;
 global.RGB = five.Led.RGB;
 global.RGBs = five.Led.RGB.Collection;
@@ -81,10 +81,9 @@ global.Thermometer = five.Thermometer;
 global.Virtual = five.Board.Virtual;
 global.Wii = five.Wii;
 
-
 // Used for alias tests
-global.Analog = five.Analog;
-global.Digital = five.Digital;
+global.Analog = five.Sensor.Analog;
+global.Digital = five.Sensor.Digital;
 global.Luxmeter = five.Luxmeter;
 global.Magnetometer = five.Magnetometer;
 
@@ -92,7 +91,7 @@ global.Magnetometer = five.Magnetometer;
 function newBoard(pins) {
 
   if (pins) {
-    pins.forEach(function(pin) {
+    pins.forEach(pin => {
       Object.assign(pin, {
         mode: 1,
         value: 0,
@@ -102,17 +101,13 @@ function newBoard(pins) {
     });
   }
 
-  var io = new MockFirmata({
-    pins: pins
-  });
+  const io = new MockFirmata({ pins });
+  const debug = false;
+  const repl = false;
 
   io.SERIAL_PORT_IDs.DEFAULT = 0x08;
 
-  var board = new Board({
-    io: io,
-    debug: false,
-    repl: false
-  });
+  const board = new Board({ debug, io, repl });
 
   io.emit("connect");
   io.emit("ready");
@@ -123,14 +118,14 @@ function newBoard(pins) {
 global.newBoard = newBoard;
 
 
-var digits = {
-  all: function(x) {
+const digits = {
+  all(x) {
     return String(x).replace(/\./g, "").length;
   },
-  integral: function(x) {
+  integral(x) {
     return String(x).split(".")[0].length;
   },
-  fractional: function(x) {
+  fractional(x) {
     let parts = String(x).split(".");
     return parts.length < 2 ? 0 : parts[1].length;
   },
@@ -139,35 +134,33 @@ var digits = {
 global.digits = digits;
 
 
-global.addControllerTest = function(Constructor, Controller, options) {
-  return {
-    setUp: function(done) {
-      this.sandbox = sinon.sandbox.create();
-      this.board = newBoard();
-      this.Controller = this.sandbox.spy(Board, "Controller");
-      this.component = new Constructor(Object.assign({}, options, {
-        board: this.board
-      }));
-      done();
-    },
+global.addControllerTest = (Constructor, Controller, options) => ({
+  setUp(done) {
+    this.sandbox = sinon.sandbox.create();
+    const board = newBoard();
+    this.Controller = this.sandbox.spy(Board, "Controller");
+    this.component = new Constructor(Object.assign({}, options, { board }));
+    done();
+  },
 
-    tearDown: function(done) {
-      Board.purge();
-      this.sandbox.restore();
-      done();
-    },
+  tearDown(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
 
-    controller: function(test) {
-      test.expect(2);
-      // Board.Controller may called more than once, for example: Servo -> Expander
-      test.equal(this.Controller.called, true);
-      // We can only test for the FIRST call to Board.Controller, since
-      // we can't generically know which componant class controllers will
-      // instantiate an Expander
-      test.equal(this.Controller.firstCall.args[0], Controller);
-      test.done();
-    },
-  };
-};
+  controller(test) {
+    // test.expect(2);
+    // Board.Controller may called more than once, for example: Servo -> Expander
+    test.equal(this.Controller.called, true);
+    // We can only test for the FIRST call to Board.Controller, since
+    // we can't generically know which componant class controllers will
+    // instantiate an Expander
+    test.notEqual(this.Controller.firstCall.args[0], null);
+    test.notEqual(this.Controller.firstCall.args[0], undefined);
+    test.notEqual(typeof this.Controller.firstCall.args[0], "string");
+    test.done();
+  }
+});
 
 global.CardinalPointsToIndex = require("./cardinal-points.json");

@@ -78,6 +78,7 @@
     "Pin": true,
     "Proximity": true,
     "RGB": true,
+    "ReflectanceArray": true,
     "Relay": true,
     "Repl": true,
     "Sensor": true,
@@ -96,6 +97,6 @@
     "Wii": true,
     "Collection": true,
     "Emitter": true,
-    "within": true
+    "Withinable": true
   }
 }

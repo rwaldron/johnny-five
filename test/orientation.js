@@ -57,7 +57,7 @@ exports["Orientation - BNO055"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -66,22 +66,22 @@ exports["Orientation - BNO055"] = {
     test.done();
   },
 
-  noController: function(test) {
+  noController(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       new Orientation({
         controller: null,
         board: this.board,
         freq: 10
       });
-    }.bind(this));
+    });
     test.done();
   },
 
-  sharedtoScaledQuarternion: function(test) {
+  sharedtoScaledQuarternion(test) {
     test.expect(2);
-    var toScaledQuarternion = x => x;
-    var orientation = new Orientation({
+    const toScaledQuarternion = x => x;
+    const orientation = new Orientation({
       controller: {},
       toScaledQuarternion,
       board: this.board,
@@ -93,10 +93,10 @@ exports["Orientation - BNO055"] = {
     test.done();
   },
 
-  sharedtoScaledEuler: function(test) {
+  sharedtoScaledEuler(test) {
     test.expect(2);
-    var toScaledEuler = x => x;
-    var orientation = new Orientation({
+    const toScaledEuler = x => x;
+    const orientation = new Orientation({
       controller: {},
       toScaledEuler,
       board: this.board,
@@ -109,10 +109,10 @@ exports["Orientation - BNO055"] = {
     test.done();
   },
 
-  defaulttoScaledQuarternion: function(test) {
+  defaulttoScaledQuarternion(test) {
     test.expect(2);
-    var toScaledQuarternion;
-    var orientation = new Orientation({
+    let toScaledQuarternion;
+    const orientation = new Orientation({
       controller: {},
       toScaledQuarternion,
       board: this.board,
@@ -124,10 +124,10 @@ exports["Orientation - BNO055"] = {
     test.done();
   },
 
-  defaulttoScaledEuler: function(test) {
+  defaulttoScaledEuler(test) {
     test.expect(2);
-    var toScaledEuler;
-    var orientation = new Orientation({
+    let toScaledEuler;
+    const orientation = new Orientation({
       controller: {},
       toScaledEuler,
       board: this.board,
@@ -149,9 +149,9 @@ exports["Orientation - BNO055"] = {
   dataAndChange(test) {
     test.expect(11);
 
-    var driver = IMU.Drivers.get(this.board, "BNO055");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BNO055");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
 
     test.equal(this.orientation.isCalibrated, false);
@@ -161,7 +161,7 @@ exports["Orientation - BNO055"] = {
     this.orientation.on("data", dataSpy);
     this.orientation.on("change", changeSpy);
 
-    var computed = {
+    const computed = {
       calibration: 0,
       orientation: {
         euler: {

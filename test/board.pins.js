@@ -1,10 +1,10 @@
 require("./common/bootstrap");
 
-var Pins = require("../lib/board.pins");
-var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
+const Pins = require("../lib/board.pins");
+const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
 exports["Pin.prototype[isType]"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.pins = new Pins({
       io: {
         pins: mocks.Pins.UNO
@@ -13,14 +13,14 @@ exports["Pin.prototype[isType]"] = {
 
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
     done();
   },
 
-  isPwm: function(test) {
+  isPwm(test) {
     test.expect(5);
 
     test.equal(this.pins.isPwm("foo"), false);
@@ -34,11 +34,11 @@ exports["Pin.prototype[isType]"] = {
 };
 
 exports["Pin.prototype[isType] overrides"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.pins = new Pins({
       io: {
         pins: mocks.Pins.UNO,
-        isPwm: function() {
+        isPwm() {
           return true;
         }
       }
@@ -46,14 +46,14 @@ exports["Pin.prototype[isType] overrides"] = {
 
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
     done();
   },
 
-  isPwmOverride: function(test) {
+  isPwmOverride(test) {
     test.expect(5);
 
     test.equal(this.pins.isPwm("foo"), true);
@@ -70,7 +70,7 @@ exports["Pin.prototype[isType] overrides"] = {
 };
 
 exports["static"] = {
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     // Reset the cached conversion mechanism.
     Pins.normalize.convert = null;
@@ -100,7 +100,7 @@ exports["static"] = {
     test.done();
   },
 
-  "Pins.fromAnalog(pin)": function(test) {
+  "Pins.fromAnalog(pin)"(test) {
     test.expect(4);
     test.equal(Pins.fromAnalog("A0"), 0);
     test.equal(Pins.fromAnalog(14), 14);
@@ -109,8 +109,8 @@ exports["static"] = {
     test.done();
   },
 
-  "Pins.normalize() for Firmata": function(test) {
-    var tests = [
+  "Pins.normalize() for Firmata"(test) {
+    const tests = [
       // Supports short arguments form, string|number
       // new five.Device(pin);
       {
@@ -185,7 +185,7 @@ exports["static"] = {
         }
       }
     ];
-    var board = {
+    const board = {
       pins: {
         length: 20,
         type: "UNO"
@@ -200,15 +200,15 @@ exports["static"] = {
 
     test.expect(tests.length);
 
-    tests.forEach(function(set) {
-      test.deepEqual(Pins.normalize(set.arg, board), set.result);
+    tests.forEach(({arg, result}) => {
+      test.deepEqual(Pins.normalize(arg, board), result);
     });
 
     test.done();
   },
 
   "Pins.normalize() for Non-Firmata": function(test) {
-    var tests = [
+    const tests = [
       // Supports short arguments form, string|number
       // new five.Device(pin);
       {
@@ -287,7 +287,7 @@ exports["static"] = {
         }
       }
     ];
-    var board = {
+    const board = {
       pins: {
         length: 16,
         type: "Other"
@@ -302,15 +302,15 @@ exports["static"] = {
 
     test.expect(tests.length);
 
-    tests.forEach(function(set) {
-      test.deepEqual(Pins.normalize(set.arg, board), set.result);
+    tests.forEach(({arg, result}) => {
+      test.deepEqual(Pins.normalize(arg, board), result);
     });
 
     test.done();
   },
 
   "Pins.normalize() for Non-Firmata w/ normalize method": function(test) {
-    var tests = [
+    const tests = [
       // Supports short arguments form, string|number
       // new five.Device(pin);
       {
@@ -389,13 +389,13 @@ exports["static"] = {
         }
       }
     ];
-    var board = {
+    const board = {
       pins: {
         length: 16,
         type: "Other"
       },
       io: {
-        normalize: function() {
+        normalize() {
           // normalize to a single testable value that's
           // unlikely to produce false positives.
           return MAX_SAFE_INTEGER;
@@ -409,18 +409,16 @@ exports["static"] = {
 
     test.expect(tests.length);
 
-    tests.forEach(function(set) {
+    tests.forEach(({result, arg}) => {
       // Ignore the given result object values in favor of our
       // control normalization value
-      var expect = typeof set.result.pin !== "undefined" ? {
+      const expect = typeof result.pin !== "undefined" ? {
         pin: MAX_SAFE_INTEGER
       } : {
-        pins: set.result.pins.map(function() {
-          return MAX_SAFE_INTEGER;
-        })
+        pins: result.pins.map(() => MAX_SAFE_INTEGER)
       };
 
-      test.deepEqual(Pins.normalize(set.arg, board), expect);
+      test.deepEqual(Pins.normalize(arg, board), expect);
     });
 
     test.done();
@@ -429,7 +427,7 @@ exports["static"] = {
   "Pin.identity(haystack, needle)": function(test) {
     test.expect(4);
 
-    var haystack = [{
+    const haystack = [{
       id: "foo"
     }, {
       name: "bar"

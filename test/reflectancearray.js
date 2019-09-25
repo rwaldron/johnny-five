@@ -1,29 +1,29 @@
 require("./common/bootstrap");
 
-var ReflectanceArray = five.IR.Reflect.Collection;
-
 function getEyes(options) {
-  var autoCalibrate = options.autoCalibrate || false;
+
+  const { autoCalibrate = false, board } = options;
   return new ReflectanceArray({
     pins: ["A0", "A1", "A2"],
     emitter: 11,
     freq: 25,
-    autoCalibrate: autoCalibrate,
-    board: options.board
+    autoCalibrate,
+    board
   });
 }
 
 exports["ReflectanceArray"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
-    this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
-
-    this.sendAnalogValue = function(index, value) {
-      this.analogRead.args[index][1](value);
-    }.bind(this);
+    this.analogRead = this.sandbox.stub(MockFirmata.prototype, "analogRead", (pin, callback) => {
+      this.analogRead[pin] = callback;
+    });
+    this.sendAnalogValue = (pin, value) => {
+      this.analogRead[pin](value);
+    };
 
     this.proto = [{
       name: "enable"
@@ -41,8 +41,6 @@ exports["ReflectanceArray"] = {
       name: "id"
     }, {
       name: "pins"
-    }, {
-      name: "freq"
     }, {
       name: "isOn"
     }, {
@@ -64,30 +62,26 @@ exports["ReflectanceArray"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
+    test.expect(this.proto.length + this.instance.length);
+
     this.eyes = getEyes({
       board: this.board
     });
-    test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.eyes[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.eyes[property.name], "undefined");
-    }, this);
+    this.proto.forEach(({name}) => test.equal(typeof this.eyes[name], "function", name));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.eyes[name], "undefined", name));
 
     test.done();
   },
 
-  enable: function(test) {
+  enable(test) {
     this.eyes = getEyes({
       board: this.board
     });
@@ -104,31 +98,32 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
+    test.expect(1);
+
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
-    test.expect(1);
-
-    this.eyes.on("data", dataSpy);
+    this.eyes.on("data", spy);
 
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
     this.sendAnalogValue(2, 77);
+
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], [55, 66, 77]);
+    test.deepEqual(spy.getCall(0).args[0], [55, 66, 77]);
 
     test.done();
   },
 
-  calibrateOnce: function(test) {
+  calibrateOnce(test) {
     this.eyes = getEyes({
       board: this.board
     });
-    var calibratedSpy = this.sandbox.spy();
+    const calibratedSpy = this.sandbox.spy();
 
     test.expect(7);
 
@@ -153,7 +148,7 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  calibrateTwice: function(test) {
+  calibrateTwice(test) {
     this.eyes = getEyes({
       board: this.board
     });
@@ -177,7 +172,7 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  loadCalibration: function(test) {
+  loadCalibration(test) {
     this.eyes = getEyes({
       board: this.board
     });
@@ -197,17 +192,15 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  calibrateUntil: function(test) {
+  calibrateUntil(test) {
     this.eyes = getEyes({
       board: this.board
     });
-    var count = 0;
+    let count = 0;
 
     test.expect(2);
 
-    this.eyes.calibrateUntil(function() {
-      return ++count === 2;
-    });
+    this.eyes.calibrateUntil(() => ++count === 2);
 
     this.sendAnalogValue(0, 55);
     this.sendAnalogValue(1, 66);
@@ -231,7 +224,7 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  autoCalibrate: function(test) {
+  autoCalibrate(test) {
     this.eyes = getEyes({
       board: this.board,
       autoCalibrate: true
@@ -258,13 +251,13 @@ exports["ReflectanceArray"] = {
     test.done();
   },
 
-  calibratedData: function(test) {
+  calibratedData(test) {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
-    var testValues = [{
+    const testValues = [{
       min: 100,
       max: 200,
       raw: 150,
@@ -283,33 +276,27 @@ exports["ReflectanceArray"] = {
 
     test.expect(1);
     this.eyes.loadCalibration({
-      min: testValues.map(function(value) {
-        return value.min;
-      }),
-      max: testValues.map(function(value) {
-        return value.max;
-      }),
+      min: testValues.map(({min}) => min),
+      max: testValues.map(({max}) => max),
     });
 
-    this.eyes.on("calibratedData", dataSpy);
+    this.eyes.on("calibratedData", spy);
 
     this.sendAnalogValue(0, testValues[0].raw);
     this.sendAnalogValue(1, testValues[1].raw);
     this.sendAnalogValue(2, testValues[2].raw);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], testValues.map(function(value) {
-      return value.expected;
-    }));
+    test.deepEqual(spy.getCall(0).args[0], testValues.map(({expected}) => expected));
 
     test.done();
   },
 
-  solidLine: function(test) {
+  solidLine(test) {
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     test.expect(2);
     this.eyes.loadCalibration({
@@ -317,45 +304,46 @@ exports["ReflectanceArray"] = {
       max: [600, 600, 600]
     });
 
-    this.eyes.on("line", dataSpy);
+    this.eyes.on("line", spy);
 
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 50);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], 1000);
+    test.deepEqual(spy.getCall(0).args[0], 1000);
     test.equal(this.eyes.isOnLine, true);
 
     test.done();
   },
 
-  partialLine: function(test) {
+  partialLine(test) {
+    test.expect(2);
+
     this.eyes = getEyes({
       board: this.board
     });
-    var dataSpy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
-    test.expect(2);
     this.eyes.loadCalibration({
       min: [30, 30, 30],
       max: [600, 600, 600]
     });
 
-    this.eyes.on("line", dataSpy);
+    this.eyes.on("line", spy);
 
     this.sendAnalogValue(0, 50);
     this.sendAnalogValue(1, 300);
     this.sendAnalogValue(2, 435);
     this.clock.tick(25);
 
-    test.deepEqual(dataSpy.getCall(0).args[0], 1600);
+    test.deepEqual(spy.getCall(0).args[0], 1600);
     test.equal(this.eyes.isOnLine, true);
 
     test.done();
   },
 
-  isOnLine: function(test) {
+  isOnLine(test) {
     this.eyes = getEyes({
       board: this.board
     });
@@ -378,27 +366,27 @@ exports["ReflectanceArray"] = {
 };
 
 exports["10-Bit ReflectanceArray"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.board.RESOLUTION.PWM = 1023;
     this.analogWrite = this.sandbox.spy(MockFirmata.prototype, "analogWrite");
 
-    this.sendAnalogValue = function(index, value) {
+    this.sendAnalogValue = (index, value) => {
       this.analogRead.args[index][1](value);
-    }.bind(this);
+    };
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
 
-  enable: function(test) {
+  enable(test) {
     this.eyes = getEyes({
       board: this.board
     });
