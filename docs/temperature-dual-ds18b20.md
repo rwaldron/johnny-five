@@ -18,7 +18,7 @@ node eg/temperature-dual-ds18b20.js
 
 
 ```javascript
-const {Board, Thermometer} = require("johnny-five");
+const { Board, Thermometer } = require("johnny-five");
 const board = new Board();
 
 const controller = "DS18B20";

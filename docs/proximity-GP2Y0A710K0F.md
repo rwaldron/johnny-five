@@ -31,7 +31,7 @@ node eg/proximity-GP2Y0A710K0F.js
 
 
 ```javascript
-const {Board, Proximity} = require("johnny-five");
+const { Board, Proximity } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

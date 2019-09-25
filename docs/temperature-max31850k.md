@@ -29,7 +29,7 @@ node eg/temperature-max31850k.js
 
 
 ```javascript
-const {Board, Thermometer} = require("johnny-five");
+const { Board, Thermometer } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
