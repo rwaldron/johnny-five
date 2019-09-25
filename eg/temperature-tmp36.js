@@ -18,5 +18,5 @@ board.on("ready", () => {
 });
 
 /* @markdown
-- [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
+- [TMP36 - Thermometer Sensor](https://www.sparkfun.com/products/10988)
 @markdown */
