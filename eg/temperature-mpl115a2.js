@@ -18,5 +18,5 @@ board.on("ready", () => {
 
 
 /* @markdown
-- [MPL115A2 - I2C Barometric Pressure/Temperature Sensor](https://www.adafruit.com/product/992)
+- [MPL115A2 - I2C Barometric Pressure/Thermometer Sensor](https://www.adafruit.com/product/992)
 @markdown */

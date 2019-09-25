@@ -18,5 +18,5 @@ board.on("ready", () => {
 });
 
 /* @markdown
-- [LM335 - Temperature Sensor](http://www.ti.com/product/lm335)
+- [LM335 - Thermometer Sensor](http://www.ti.com/product/lm335)
 @markdown */
