@@ -2,7 +2,7 @@ require("./common/bootstrap");
 
 exports["IMU -- MPU6050"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -30,28 +30,28 @@ exports["IMU -- MPU6050"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -63,7 +63,7 @@ exports["IMU -- MPU6050"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -72,7 +72,7 @@ exports["IMU -- MPU6050"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["accelerometer", "gyro", "thermometer"]);
@@ -80,8 +80,9 @@ exports["IMU -- MPU6050"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, spy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const spy = this.sandbox.spy();
 
     test.expect(16);
 
@@ -124,8 +125,9 @@ exports["IMU -- MPU6050"] = {
     test.done();
   },
 
-  change: function(test) {
-    var read, changeSpy = this.sandbox.spy();
+  change(test) {
+    let read;
+    const changeSpy = this.sandbox.spy();
 
     test.expect(2);
     this.imu.on("change", changeSpy);
@@ -158,7 +160,7 @@ exports["IMU -- MPU6050"] = {
 
 exports["Multi -- MPL115A2"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -184,28 +186,28 @@ exports["Multi -- MPL115A2"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -217,7 +219,7 @@ exports["Multi -- MPL115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -226,7 +228,7 @@ exports["Multi -- MPL115A2"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["barometer", "thermometer"]);
@@ -237,7 +239,7 @@ exports["Multi -- MPL115A2"] = {
 
 exports["Multi -- SHT31D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -263,28 +265,28 @@ exports["Multi -- SHT31D"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -296,7 +298,7 @@ exports["Multi -- SHT31D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -305,7 +307,7 @@ exports["Multi -- SHT31D"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
@@ -313,10 +315,10 @@ exports["Multi -- SHT31D"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(6);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.imu.on("data", spy);
 
@@ -329,7 +331,7 @@ exports["Multi -- SHT31D"] = {
 
     test.equal(this.i2cReadOnce.callCount, 1);
 
-    var i2cReadOnce = this.i2cReadOnce.lastCall.args[2];
+    const i2cReadOnce = this.i2cReadOnce.lastCall.args[2];
 
     i2cReadOnce([ 100, 200, 169, 93, 90, 131 ]);
 
@@ -351,7 +353,7 @@ exports["Multi -- SHT31D"] = {
 
 exports["Multi -- HTU21D"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -377,28 +379,28 @@ exports["Multi -- HTU21D"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -410,7 +412,7 @@ exports["Multi -- HTU21D"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -419,7 +421,7 @@ exports["Multi -- HTU21D"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
@@ -430,7 +432,7 @@ exports["Multi -- HTU21D"] = {
 
 exports["Multi -- MPL3115A2"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -458,28 +460,28 @@ exports["Multi -- MPL3115A2"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(4);
 
     this.i2cConfig.reset();
@@ -491,7 +493,7 @@ exports["Multi -- MPL3115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -501,7 +503,7 @@ exports["Multi -- MPL3115A2"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["altimeter", "barometer", "thermometer"]);
@@ -512,7 +514,7 @@ exports["Multi -- MPL3115A2"] = {
 
 exports["IMU -- BNO055"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -520,7 +522,7 @@ exports["IMU -- BNO055"] = {
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead");
-    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, bytes, callback) {
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", (address, register, bytes, callback) => {
 
       // CALIBRATION
       if (register === 0x35) {
@@ -558,28 +560,28 @@ exports["IMU -- BNO055"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -591,7 +593,7 @@ exports["IMU -- BNO055"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -600,7 +602,7 @@ exports["IMU -- BNO055"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["accelerometer", "gyro", "magnetometer", "orientation", "thermometer"]);
@@ -608,14 +610,14 @@ exports["IMU -- BNO055"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(38);
 
-    var dspy = this.sandbox.spy();
-    var ispy = this.sandbox.spy();
+    const dspy = this.sandbox.spy();
+    const ispy = this.sandbox.spy();
 
     //add this for catching calibration events
-    var cspy = this.sandbox.spy();
+    const cspy = this.sandbox.spy();
 
     this.imu.components.forEach(function(component) {
       this[component].emit("change");
@@ -650,7 +652,7 @@ exports["IMU -- BNO055"] = {
 
     this.clock.restore();
 
-    var interval = setInterval(function() {
+    const interval = setInterval(() => {
       if (this.i2cReadOnce.callCount === 1) {
         clearInterval(interval);
 
@@ -673,9 +675,9 @@ exports["IMU -- BNO055"] = {
         test.deepEqual(this.i2cRead.getCall(2).args.slice(0, -1), [0x28, 0x1A, 14]);
 
 
-        var readTemp = this.i2cRead.getCall(0).args[3];
-        var readAccel = this.i2cRead.getCall(1).args[3];
-        var readEuler = this.i2cRead.getCall(2).args[3];
+        const readTemp = this.i2cRead.getCall(0).args[3];
+        const readAccel = this.i2cRead.getCall(1).args[3];
+        const readEuler = this.i2cRead.getCall(2).args[3];
 
         // Taken from an actual reading
         readTemp([28, 51]);
@@ -690,7 +692,7 @@ exports["IMU -- BNO055"] = {
         // Once for the alloted "freq"
         test.equal(ispy.callCount, 1);
 
-        var darg = dspy.lastCall.args[0];
+        const darg = dspy.lastCall.args[0];
 
         test.deepEqual(darg, {
           accelerometer: {
@@ -726,7 +728,7 @@ exports["IMU -- BNO055"] = {
         });
 
 
-        var iarg = ispy.lastCall.args[0];
+        const iarg = ispy.lastCall.args[0];
 
         test.equal(this.imu.accelerometer.x, iarg.accelerometer.x);
         test.equal(this.imu.accelerometer.y, iarg.accelerometer.y);
@@ -748,7 +750,7 @@ exports["IMU -- BNO055"] = {
         test.equal(this.imu.calibration, iarg.calibration);
         test.done();
       }
-    }.bind(this), 10);
+    }, 10);
   },
 };
 
@@ -756,15 +758,15 @@ exports["IMU -- BNO055"] = {
 
 exports["Multi -- TH02"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.status = this.sandbox.spy();
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
-      process.nextTick(function() {
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", (address, register, length, handler) => {
+      process.nextTick(() => {
         if (register === 0x00) {
           this.status();
           handler([0x00]);
@@ -777,8 +779,8 @@ exports["Multi -- TH02"] = {
             handler([ 0, 36, 84 ]);
           }
         }
-      }.bind(this));
-    }.bind(this));
+      });
+    });
 
     this.imu = new IMU({
       controller: "TH02",
@@ -801,28 +803,28 @@ exports["Multi -- TH02"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     IMU.Drivers.clear();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -834,7 +836,7 @@ exports["Multi -- TH02"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -843,7 +845,7 @@ exports["Multi -- TH02"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
@@ -851,7 +853,7 @@ exports["Multi -- TH02"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(6);
 
     this.imu.components.forEach(function(component) {
@@ -866,10 +868,10 @@ exports["Multi -- TH02"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [ 0x40, 0x03, 0x11 ]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [0x40, 0x00, 1]);
 
-    IMU.Drivers.get(this.board, "TH02").on("data", function() {
+    IMU.Drivers.get(this.board, "TH02").on("data", () => {
       test.equal(this.status.callCount >= 2, true);
       test.done();
-    }.bind(this));
+    });
   },
 
   // change: function(test) {
@@ -914,7 +916,7 @@ exports["Multi -- TH02"] = {
 
 exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -939,28 +941,28 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     IMU.Drivers.clear();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -972,7 +974,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -981,7 +983,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
 
     test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
@@ -989,8 +991,9 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, spy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const spy = this.sandbox.spy();
 
     test.expect(7);
     this.imu.on("data", spy);
@@ -1016,8 +1019,9 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  change: function(test) {
-    var read, spy = this.sandbox.spy();
+  change(test) {
+    let read;
+    const spy = this.sandbox.spy();
 
     test.expect(8);
     this.imu.on("data", spy);
@@ -1057,15 +1061,15 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 
 exports["Multi -- BME280"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.status = this.sandbox.spy();
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
-      process.nextTick(function() {
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", (address, register, length, handler) => {
+      process.nextTick(() => {
         if (register === 0x88) {
           handler([ 206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16 ]);
         }
@@ -1079,13 +1083,13 @@ exports["Multi -- BME280"] = {
         }
 
       });
-    }.bind(this));
+    });
 
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, length, handler) {
-      process.nextTick(function() {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, length, handler) => {
+      process.nextTick(() => {
         handler([ 85, 43, 224, 129, 192, 48, 117, 114 ]);
       });
-    }.bind(this));
+    });
 
     this.imu = new IMU({
       controller: "BME280",
@@ -1110,28 +1114,28 @@ exports["Multi -- BME280"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     IMU.Drivers.clear();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1143,7 +1147,7 @@ exports["Multi -- BME280"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1152,13 +1156,13 @@ exports["Multi -- BME280"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
     test.deepEqual(this.imu.components, ["altimeter", "barometer", "hygrometer", "thermometer"]);
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(6);
 
     this.imu.components.forEach(function(component) {
@@ -1172,35 +1176,35 @@ exports["Multi -- BME280"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [ 119, 224, 182 ]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [119, 225, 8]);
 
-    IMU.Drivers.get(this.board, "BME280").on("data", function() {
+    IMU.Drivers.get(this.board, "BME280").on("data", () => {
       test.ok(true);
       test.done();
-    }.bind(this));
+    });
   },
 };
 
 exports["Multi -- BMP280"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.status = this.sandbox.spy();
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
-      process.nextTick(function() {
+    this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", (address, register, length, handler) => {
+      process.nextTick(() => {
         if (register === 0x88) {
           handler([ 206, 110, 111, 103, 50, 0, 95, 144, 73, 214, 208, 11, 42, 25, 105, 0, 249, 255, 172, 38, 10, 216, 189, 16 ]);
         }
       });
-    }.bind(this));
+    });
 
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, length, handler) {
-      process.nextTick(function() {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, length, handler) => {
+      process.nextTick(() => {
         handler([ 85, 43, 224, 129, 192, 48 ]);
       });
-    }.bind(this));
+    });
 
     this.imu = new IMU({
       controller: "BMP280",
@@ -1223,28 +1227,28 @@ exports["Multi -- BMP280"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     IMU.Drivers.clear();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.imu[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.imu[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.imu[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.imu[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1256,7 +1260,7 @@ exports["Multi -- BMP280"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1265,13 +1269,13 @@ exports["Multi -- BMP280"] = {
     test.done();
   },
 
-  components: function(test) {
+  components(test) {
     test.expect(1);
     test.deepEqual(this.imu.components, ["altimeter", "barometer", "thermometer"]);
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(6);
 
     this.imu.components.forEach(function(component) {
@@ -1285,10 +1289,10 @@ exports["Multi -- BMP280"] = {
     test.deepEqual(this.i2cWrite.lastCall.args, [ 119, 224, 182 ]);
     test.deepEqual(this.i2cReadOnce.lastCall.args.slice(0, -1), [119, 136, 24]);
 
-    IMU.Drivers.get(this.board, "BMP280").on("data", function() {
+    IMU.Drivers.get(this.board, "BMP280").on("data", () => {
       test.ok(true);
       test.done();
-    }.bind(this));
+    });
   },
 };
 
@@ -1296,14 +1300,14 @@ exports["Multi -- BMP280"] = {
 
 exports["IMU -- LSM303C"] = {
 
-    setUp: function(done) {
+    setUp(done) {
       this.sandbox = sinon.sandbox.create();
       this.board = newBoard();
       this.clock = this.sandbox.useFakeTimers();
       this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
       this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-      this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", function(address, register, length, handler) {
-        process.nextTick(function() {
+      this.i2cReadOnce = this.sandbox.stub(MockFirmata.prototype, "i2cReadOnce", (address, register, length, handler) => {
+        process.nextTick(() => {
           switch (address) {
             case 0x1D:
             case 0x1E:
@@ -1312,7 +1316,7 @@ exports["IMU -- LSM303C"] = {
             return handler([]);
           }
         });
-      }.bind(this));
+      });
       this.imu = new IMU({
         controller: "LSM303C",
         freq: 100,
@@ -1334,28 +1338,28 @@ exports["IMU -- LSM303C"] = {
       done();
     },
 
-    tearDown: function(done) {
+    tearDown(done) {
       Board.purge();
       this.sandbox.restore();
       IMU.Drivers.clear();
       done();
     },
 
-    shape: function(test) {
+    shape(test) {
       test.expect(this.proto.length + this.instance.length);
 
-      this.proto.forEach(function(method) {
-        test.equal(typeof this.imu[method.name], "function");
+      this.proto.forEach(function({name}) {
+        test.equal(typeof this.imu[name], "function");
       }, this);
 
-      this.instance.forEach(function(property) {
-        test.notEqual(typeof this.imu[property.name], "undefined");
+      this.instance.forEach(function({name}) {
+        test.notEqual(typeof this.imu[name], "undefined");
       }, this);
 
       test.done();
     },
 
-    components: function(test) {
+    components(test) {
       test.expect(1);
 
       test.deepEqual(this.imu.components, ["magnetometer", "thermometer", "accelerometer"]);
@@ -1363,7 +1367,7 @@ exports["IMU -- LSM303C"] = {
       test.done();
     },
 
-    data: function(test) {
+    data(test) {
       test.expect(11);
 
       this.imu.components.forEach(function(component) {
@@ -1377,7 +1381,7 @@ exports["IMU -- LSM303C"] = {
 
       test.equal(this.i2cWrite.callCount, 10);
 
-      var accSetup = this.i2cWrite.args.slice(0,4);
+      const accSetup = this.i2cWrite.args.slice(0,4);
       test.deepEqual(accSetup, [
           [0x1D, 0x23, 0x4],
           [0x1D, 0x20, 0x3F],
@@ -1385,7 +1389,7 @@ exports["IMU -- LSM303C"] = {
           [0x1D, 0x20, 0x3F]
       ]); // (3x same byte to same register, go figure)
 
-      var magSetup = this.i2cWrite.args.slice(4.6);
+      const magSetup = this.i2cWrite.args.slice(4.6);
       test.deepEqual(magSetup, [
           [0x1E, 0x20, 0xD8],
           [0x1E, 0x21, 0x60],
@@ -1401,9 +1405,9 @@ exports["IMU -- LSM303C"] = {
       test.deepEqual(this.i2cReadOnce.secondCall.args.slice(0, 3), [ 0x1E, 0x28, 6 ]);
       test.deepEqual(this.i2cReadOnce.thirdCall.args.slice(0, 3), [ 0x1E, 0x2E, 2 ]);
 
-      IMU.Drivers.get(this.board, "LSM303C").on("data", function() {
+      IMU.Drivers.get(this.board, "LSM303C").on("data", () => {
         test.ok(true);
         test.done();
-      }.bind(this));
+      });
     },
   };

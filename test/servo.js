@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Servo"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -43,8 +43,6 @@ exports["Servo"] = {
       name: "counterClockwise"
     }, {
       name: "ccw"
-    }, {
-      name: "write"
     }];
 
     this.instance = [{
@@ -68,56 +66,51 @@ exports["Servo"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Servo({}) instanceof Servo, true);
+    test.equal(new Servo({}) instanceof Servo, true);
     test.done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.servo[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.servo[property.name], "undefined");
-    }, this);
+    this.proto.forEach(({name}) => test.equal(typeof this.servo[name], "function"));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.servo[name], "undefined"));
 
     test.done();
   },
 
-  emitter: function(test) {
+  emitter(test) {
     test.expect(1);
     test.ok(this.servo instanceof Emitter);
     test.done();
   },
 
-  debug: function(test) {
+  debug(test) {
     test.expect(1);
 
     this.sandbox.stub(this.board.pins, "isServo").returns(false);
 
-    test.throws(function() {
+    test.throws(() => {
       this.servo = new Servo({
         board: this.board,
         debug: true,
         pin: 11,
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  doesNotWriteSameLastDegrees: function(test) {
+  doesNotWriteSameLastDegrees(test) {
     test.expect(2);
 
     this.servoWrite.reset();
@@ -130,7 +123,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  startAt: function(test) {
+  startAt(test) {
     test.expect(4);
 
     this.to = this.sandbox.spy(Servo.prototype, "to");
@@ -148,7 +141,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  startAtOverriddenByCenter: function(test) {
+  startAtOverriddenByCenter(test) {
     test.expect(5);
 
     this.to = this.sandbox.spy(Servo.prototype, "to");
@@ -171,7 +164,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  inverted: function(test) {
+  inverted(test) {
     test.expect(3);
 
     this.servo = new Servo({
@@ -192,7 +185,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  isInvertedWarning: function(test) {
+  isInvertedWarning(test) {
     test.expect(2);
 
     this.consoleWarn = this.sandbox.stub(console, "warn");
@@ -209,7 +202,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  range: function(test) {
+  range(test) {
     test.expect(3);
 
     this.servo = new Servo({
@@ -230,7 +223,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  rangeWithInvert: function(test) {
+  rangeWithInvert(test) {
     test.expect(3);
 
     this.servo = new Servo({
@@ -252,7 +245,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  home: function(test) {
+  home(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -270,7 +263,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  homeNoStartAtPassed: function(test) {
+  homeNoStartAtPassed(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -287,7 +280,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  offset: function(test) {
+  offset(test) {
     test.expect(5);
 
     this.servo = new Servo({
@@ -313,7 +306,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  offsetWithInvert: function(test) {
+  offsetWithInvert(test) {
     test.expect(4);
 
     this.servo = new Servo({
@@ -337,7 +330,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  offsetWithRange: function(test) {
+  offsetWithRange(test) {
     test.expect(3);
 
     this.servo = new Servo({
@@ -359,7 +352,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  offsetWithRangeAndInvert: function(test) {
+  offsetWithRangeAndInvert(test) {
     test.expect(3);
 
     this.servo = new Servo({
@@ -387,14 +380,14 @@ exports["Servo"] = {
   1 - 1 - 1
   */
 
-  type: function(test) {
+  type(test) {
     test.expect(1);
     test.equal(this.servo.type, "standard");
 
     test.done();
   },
 
-  positionNoValue: function(test) {
+  positionNoValue(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -405,7 +398,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  positionHasValue: function(test) {
+  positionHasValue(test) {
     test.expect(1);
     this.servo.to(180);
     test.equal(this.servo.position, 180);
@@ -413,7 +406,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  value: function(test) {
+  value(test) {
     test.expect(1);
 
     this.servo.to(100);
@@ -422,10 +415,10 @@ exports["Servo"] = {
     test.done();
   },
 
-  sweep: function(test) {
+  sweep(test) {
     test.expect(19);
 
-    var args;
+    let args;
 
     this.to = this.sandbox.stub(Servo.prototype, "to");
 
@@ -487,7 +480,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  history: function(test) {
+  history(test) {
     test.expect(1);
 
     this.servo.to(0);
@@ -504,7 +497,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  move: function(test) {
+  move(test) {
     test.expect(2);
     this.consoleWarn = this.sandbox.stub(console, "warn");
     this.to = this.sandbox.spy(this.servo, "to");
@@ -516,7 +509,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  to: function(test) {
+  to(test) {
     test.expect(4);
     this.servoWrite.reset();
     this.update = this.sandbox.spy(this.servo, "update");
@@ -529,7 +522,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  toOptionsAnimation: function(test) {
+  toOptionsAnimation(test) {
     test.expect(2);
 
     this.servoWrite.reset();
@@ -541,7 +534,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(typeof state.animation, "undefined");
     this.servo.to({});
@@ -549,7 +542,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  toOptionsDefaults: function(test) {
+  toOptionsDefaults(test) {
     test.expect(26);
 
     this.servoWrite.reset();
@@ -561,7 +554,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(Object.keys(state).length, 1);
     test.equal(typeof state.isRunning, "undefined");
@@ -587,9 +580,6 @@ exports["Servo"] = {
     test.equal(state.animation.onstop, null);
     test.equal(state.animation.onloop, null);
 
-// console.log(state.animation);
-// console.log(enqueued);
-
     test.equal(typeof state.animation.oncomplete, "function");
     test.equal(state.animation.defaultTarget, this.servo);
     test.equal(state.animation.target, this.servo);
@@ -612,14 +602,14 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.done();
     });
 
     state.animation.oncomplete();
   },
 
-  toOptionsDuration: function(test) {
+  toOptionsDuration(test) {
     test.expect(28);
 
     this.servoWrite.reset();
@@ -631,7 +621,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(Object.keys(state).length, 1);
     test.equal(typeof state.isRunning, "undefined");
@@ -682,14 +672,14 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.done();
     });
 
     state.animation.oncomplete();
   },
 
-  toOptionsInterval: function(test) {
+  toOptionsInterval(test) {
     test.expect(28);
 
     this.servoWrite.reset();
@@ -701,7 +691,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(Object.keys(state).length, 1);
     test.equal(typeof state.isRunning, "undefined");
@@ -752,14 +742,14 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.done();
     });
 
     state.animation.oncomplete();
   },
 
-  toOptionsDegrees: function(test) {
+  toOptionsDegrees(test) {
     test.expect(28);
 
     this.servoWrite.reset();
@@ -771,7 +761,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(Object.keys(state).length, 1);
     test.equal(typeof state.isRunning, "undefined");
@@ -822,14 +812,14 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.done();
     });
 
     state.animation.oncomplete();
   },
 
-  toOptionsOncomplete: function(test) {
+  toOptionsOncomplete(test) {
     test.expect(29);
 
     this.servoWrite.reset();
@@ -841,13 +831,13 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     test.equal(Object.keys(state).length, 1);
     test.equal(typeof state.isRunning, "undefined");
 
     this.servo.to({
-      oncomplete: function() {
+      oncomplete() {
         test.ok(true);
       },
     });
@@ -894,14 +884,14 @@ exports["Servo"] = {
     test.equal(state.animation.fallBackTime, 5000);
     test.equal(state.animation.frameCount, 0);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       test.done();
     });
 
     state.animation.oncomplete();
   },
 
-  toDegreesAndTime: function(test) {
+  toDegreesAndTime(test) {
     test.expect(6);
     this.servoWrite.reset();
     this.update = this.sandbox.spy(this.servo, "update");
@@ -912,7 +902,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     this.servo.to(180, 1500);
 
@@ -926,7 +916,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  toDegreesAndTimeWithInvert: function(test) {
+  toDegreesAndTimeWithInvert(test) {
     test.expect(7);
     this.servoWrite.reset();
     this.update = this.sandbox.spy(this.servo, "update");
@@ -938,7 +928,7 @@ exports["Servo"] = {
       invert: true
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     this.servo.to(30, 1500);
 
@@ -953,7 +943,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  step: function(test) {
+  step(test) {
     test.expect(3);
 
     this.mapSet = this.sandbox.spy(Map.prototype, "set");
@@ -963,7 +953,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     state.history.push({
       timestamp: Date.now(),
@@ -980,7 +970,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  stop: function(test) {
+  stop(test) {
     test.expect(1);
 
     this.clearInterval = this.sandbox.stub(global, "clearInterval");
@@ -991,11 +981,11 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var state = this.mapSet.lastCall.args[1];
+    const state = this.mapSet.lastCall.args[1];
 
     this.servo.to({});
 
-    var stop = this.sandbox.stub(state.animation, "stop");
+    const stop = this.sandbox.stub(state.animation, "stop");
 
     this.servo.stop();
 
@@ -1003,7 +993,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  min: function(test) {
+  min(test) {
     test.expect(4);
 
     this.servo = new Servo({
@@ -1021,7 +1011,7 @@ exports["Servo"] = {
     test.done();
   },
 
-  max: function(test) {
+  max(test) {
     test.expect(4);
 
     this.servo = new Servo({
@@ -1048,7 +1038,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var normalized = this.servo[Animation.normalize]([
+    const normalized = this.servo[Animation.normalize]([
       null,
       {value: 0, copyDegrees: 0},
     ]);
@@ -1066,7 +1056,7 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    var normalized = this.servo[Animation.normalize]([
+    const normalized = this.servo[Animation.normalize]([
       null,
       {value: 0, copyDegrees: 0},
     ]);
@@ -1083,7 +1073,7 @@ exports["Servo"] = {
     });
 
     this.servo.to(180);
-    var normalized = this.servo[Animation.normalize]([
+    const normalized = this.servo[Animation.normalize]([
       {value: 0, copyDegrees: 0},
     ]);
 
@@ -1099,7 +1089,7 @@ exports["Servo"] = {
     });
 
     this.servo.to(45);
-    var normalized = this.servo[Animation.normalize]([45, 45, -90, 11]);
+    const normalized = this.servo[Animation.normalize]([45, 45, -90, 11]);
 
     test.equal(normalized[0].value, 90);
     test.done();
@@ -1113,7 +1103,7 @@ exports["Servo"] = {
       pin: 11,
     });
 
-    var normalized = this.servo[Animation.normalize]([
+    const normalized = this.servo[Animation.normalize]([
       null,
       {degrees: 0},
     ]);
@@ -1136,7 +1126,7 @@ exports["Servo"] = {
       }
     ]);
 
-    var normalized = this.servos[Animation.normalize]([
+    const normalized = this.servos[Animation.normalize]([
       [
         null,
         {degrees: 0}
@@ -1172,7 +1162,7 @@ exports["Servo"] = {
 
 
 exports["Servo - mode & config"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.servoConfig = this.sandbox.spy(MockFirmata.prototype, "servoConfig");
@@ -1180,14 +1170,14 @@ exports["Servo - mode & config"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
     done();
   },
 
-  noRange: function(test) {
+  noRange(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -1199,7 +1189,7 @@ exports["Servo - mode & config"] = {
     test.done();
   },
 
-  pwmRange: function(test) {
+  pwmRange(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -1214,7 +1204,7 @@ exports["Servo - mode & config"] = {
 };
 
 exports["Servo - Continuous"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1234,23 +1224,21 @@ exports["Servo - Continuous"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
     done();
   },
 
-  type: function(test) {
+  type(test) {
     test.expect(2);
     test.equal(this.a.type, "continuous");
     test.equal(this.b.type, "continuous");
     test.done();
   },
 
-  pinAssignment: function(test) {
-    test.expect(2);
-
+  pinAssignment(test) {
     this.servo = new Servo.Continuous(9);
     test.equal(this.servo.pin, 9);
 
@@ -1262,13 +1250,13 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
-  stopped: function(test) {
+  stopped(test) {
     test.expect(1);
     test.ok(this.servoWrite.calledWith(11, 1500));
     test.done();
   },
 
-  nonContinuousErrors: function(test) {
+  nonContinuousErrors(test) {
     test.expect(4);
 
     this.servo = new Servo({
@@ -1277,15 +1265,15 @@ exports["Servo - Continuous"] = {
     });
 
     ["clockWise", "cw", "counterClockwise", "ccw"].forEach(function(api) {
-      test.throws(function() {
+      test.throws(() => {
         this.servo[api]();
-      }.bind(this));
+      });
     }, this);
 
     test.done();
   },
 
-  cw: function(test) {
+  cw(test) {
     test.expect(2);
 
     this.a.cw();
@@ -1300,7 +1288,7 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
-  ccw: function(test) {
+  ccw(test) {
     test.expect(2);
 
     this.a.ccw();
@@ -1315,7 +1303,7 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
-  deadband: function(test) {
+  deadband(test) {
     test.expect(6);
 
     test.deepEqual(this.a.deadband, [90, 90]);
@@ -1347,7 +1335,7 @@ exports["Servo - Continuous"] = {
     test.done();
   },
 
-  rangePlusDeadband: function(test) {
+  rangePlusDeadband(test) {
     test.expect(2);
 
     this.continuousServo = new Servo.Continuous({
@@ -1370,18 +1358,18 @@ exports["Servo - Continuous"] = {
 };
 
 exports["Servo - Allowed Pin Names"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
     done();
   },
-  firmata: function(test) {
+  firmata(test) {
     test.expect(10);
 
     this.board.analogPins = [14, 15, 16, 17, 18, 19];
@@ -1410,40 +1398,40 @@ exports["Servo - Allowed Pin Names"] = {
     test.done();
   },
 
-  nonFirmataNonNormalized: function(test) {
+  nonFirmataNonNormalized(test) {
     test.expect(5);
 
-    var io = new MockFirmata();
-    var board = new Board({
-      io: io,
+    const io = new MockFirmata();
+    const board = new Board({
+      io,
       debug: false,
       repl: false
     });
 
     io.name = "FooBoard";
 
-    board.on("ready", function() {
+    board.on("ready", () => {
       test.equal(new Servo({
         pin: 2,
-        board: board
+        board
       }).pin, 2);
       test.equal(new Servo({
         pin: 12,
-        board: board
+        board
       }).pin, 12);
       test.equal(new Servo({
         pin: "A0",
-        board: board
+        board
       }).pin, "A0");
 
       // Modes is SERVO
       test.equal(new Servo({
         pin: 12,
-        board: board
+        board
       }).mode, 4);
       test.equal(new Servo({
         pin: "A0",
-        board: board
+        board
       }).mode, 4);
 
       test.done();
@@ -1455,7 +1443,7 @@ exports["Servo - Allowed Pin Names"] = {
 };
 
 exports["Servo - PCA9685"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.normalize = this.sandbox.spy(Board.Pins, "normalize");
@@ -1472,7 +1460,7 @@ exports["Servo - PCA9685"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
@@ -1480,7 +1468,7 @@ exports["Servo - PCA9685"] = {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1492,7 +1480,7 @@ exports["Servo - PCA9685"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1501,7 +1489,7 @@ exports["Servo - PCA9685"] = {
     test.done();
   },
 
-  withAddress: function(test) {
+  withAddress(test) {
     test.expect(1);
 
     new Servo({
@@ -1514,7 +1502,7 @@ exports["Servo - PCA9685"] = {
     test.done();
   },
 
-  withoutAddress: function(test) {
+  withoutAddress(test) {
     test.expect(2);
 
     Expander.purge();
@@ -1532,13 +1520,13 @@ exports["Servo - PCA9685"] = {
     test.done();
   },
 
-  defaultFrequency: function(test) {
+  defaultFrequency(test) {
     test.expect(1);
     test.equal(this.servo.frequency, 50);
     test.done();
   },
 
-  customFrequency: function(test) {
+  customFrequency(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -1551,13 +1539,13 @@ exports["Servo - PCA9685"] = {
     test.done();
   },
 
-  noNormalization: function(test) {
+  noNormalization(test) {
     test.expect(1);
     test.equal(this.normalize.callCount, 0);
     test.done();
   },
 
-  to: function(test) {
+  to(test) {
     test.expect(6);
     this.i2cWrite.reset();
 
@@ -1575,8 +1563,8 @@ exports["Servo - PCA9685"] = {
 
 };
 
-Object.keys(Servo.Controllers).forEach(function(name) {
-  exports["Servo - Controller, " + name] = addControllerTest(Servo, Servo.Controllers[name], {
+Object.keys(Servo.Controllers).forEach(name => {
+  exports[`Servo - Controller, ${name}`] = addControllerTest(Servo, Servo.Controllers[name], {
     controller: name
   });
 });

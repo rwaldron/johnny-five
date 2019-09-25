@@ -2,7 +2,7 @@ require("./common/bootstrap");
 
 exports["ShiftRegister - Common Cathode (default)"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
@@ -39,31 +39,31 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length + this.pins.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.shiftRegister[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.shiftRegister[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.shiftRegister[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.shiftRegister[name], "undefined");
     }, this);
 
-    this.pins.forEach(function(property) {
-      test.notEqual(typeof this.shiftRegister.pins[property.name], "undefined");
+    this.pins.forEach(function({name}) {
+      test.notEqual(typeof this.shiftRegister.pins[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  shorthandOptsPinsInitializations: function(test) {
+  shorthandOptsPinsInitializations(test) {
     test.expect(7);
 
     this.shiftRegister = new ShiftRegister({
@@ -88,7 +88,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  shorthandPinsInitializations: function(test) {
+  shorthandPinsInitializations(test) {
     test.expect(7);
 
     this.shiftRegister = new ShiftRegister([2, 3, 4]);
@@ -107,7 +107,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  reset: function(test) {
+  reset(test) {
     test.expect(5);
 
     this.shiftRegister = new ShiftRegister({
@@ -128,7 +128,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  resetFail: function(test) {
+  resetFail(test) {
     test.expect(1);
 
     this.shiftRegister = new ShiftRegister({
@@ -137,14 +137,14 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       board: this.board
     });
 
-    test.throws(function() {
+    test.throws(() => {
       this.shiftRegister.reset();
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  send: function(test) {
+  send(test) {
     test.expect(8);
 
     this.shiftRegister.send(0x01);
@@ -162,10 +162,10 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  display: function(test) {
+  display(test) {
     test.expect(30);
 
-    var encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
+    const encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
 
     Array.from({
       length: 10
@@ -183,7 +183,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       );
 
       // As strings with decimal point
-      this.shiftRegister.display(index + ".");
+      this.shiftRegister.display(`${index}.`);
       test.deepEqual(
         this.shiftOut.lastCall.args, [2, 3, true, encoded[index]]
       );
@@ -192,7 +192,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  displayAcrossChain: function(test) {
+  displayAcrossChain(test) {
     test.expect(70);
 
     this.shiftRegister = new ShiftRegister({
@@ -205,13 +205,13 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       board: this.board
     });
 
-    var encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
+    const encoded = [63, 6, 91, 79, 102, 109, 125, 7, 127, 103];
 
     Array.from({
       length: 10
     }, function(_, index) {
       this.shiftOut.reset();
-      this.shiftRegister.display(index + ".0");
+      this.shiftRegister.display(`${index}.0`);
 
       test.equal(this.shiftOut.callCount, 2);
       test.deepEqual(
@@ -229,7 +229,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
       );
 
       this.shiftOut.reset();
-      this.shiftRegister.display(index + ".0.0");
+      this.shiftRegister.display(`${index}.0.0`);
 
       test.equal(this.shiftOut.callCount, 3);
       test.deepEqual(
@@ -256,7 +256,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  sendMany: function(test) {
+  sendMany(test) {
     test.expect(4);
 
     this.shiftRegister.send(0x01, 0x01);
@@ -269,7 +269,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
     test.done();
   },
 
-  clear: function(test) {
+  clear(test) {
     test.expect(8);
 
     this.shiftRegister.clear();
@@ -295,7 +295,7 @@ exports["ShiftRegister - Common Cathode (default)"] = {
 
 exports["ShiftRegister - Common Anode"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
@@ -315,13 +315,13 @@ exports["ShiftRegister - Common Anode"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shorthandOptsPinsInitializations: function(test) {
+  shorthandOptsPinsInitializations(test) {
     test.expect(7);
 
     this.shiftRegister = new ShiftRegister({
@@ -348,7 +348,7 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  reset: function(test) {
+  reset(test) {
     test.expect(5);
 
     this.shiftRegister = new ShiftRegister({
@@ -369,7 +369,7 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  resetFail: function(test) {
+  resetFail(test) {
     test.expect(1);
 
     this.shiftRegister = new ShiftRegister({
@@ -378,14 +378,14 @@ exports["ShiftRegister - Common Anode"] = {
       board: this.board
     });
 
-    test.throws(function() {
+    test.throws(() => {
       this.shiftRegister.reset();
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  send: function(test) {
+  send(test) {
     test.expect(8);
 
     this.shiftRegister.send(0x01);
@@ -403,10 +403,10 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  display: function(test) {
+  display(test) {
     test.expect(70);
 
-    var encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
+    const encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
 
     Array.from({
       length: 10
@@ -424,13 +424,13 @@ exports["ShiftRegister - Common Anode"] = {
       );
 
       // As strings with decimal point
-      this.shiftRegister.display(index + ".");
+      this.shiftRegister.display(`${index}.`);
       test.deepEqual(
         this.shiftOut.lastCall.args, [2, 3, true, encoded[index]]
       );
 
       this.shiftOut.reset();
-      this.shiftRegister.display(index + ".0.0");
+      this.shiftRegister.display(`${index}.0.0`);
 
       test.equal(this.shiftOut.callCount, 3);
       test.deepEqual(
@@ -457,7 +457,7 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  displayAcrossChain: function(test) {
+  displayAcrossChain(test) {
     test.expect(30);
 
     this.shiftRegister = new ShiftRegister({
@@ -471,13 +471,13 @@ exports["ShiftRegister - Common Anode"] = {
       board: this.board
     });
 
-    var encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
+    const encoded = [64, 121, 36, 48, 25, 18, 2, 120, 0, 24];
 
     Array.from({
       length: 10
     }, function(_, index) {
       this.shiftOut.reset();
-      this.shiftRegister.display(index + ".0");
+      this.shiftRegister.display(`${index}.0`);
 
       test.equal(this.shiftOut.callCount, 2);
       test.deepEqual(
@@ -498,7 +498,7 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  sendMany: function(test) {
+  sendMany(test) {
     test.expect(4);
 
     this.shiftRegister.send(0x01, 0x01);
@@ -511,7 +511,7 @@ exports["ShiftRegister - Common Anode"] = {
     test.done();
   },
 
-  clear: function(test) {
+  clear(test) {
     test.expect(8);
 
     this.shiftRegister.clear();

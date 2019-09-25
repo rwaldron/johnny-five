@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
-var proto = [];
-var instance = [{
+const proto = [];
+const instance = [{
   name: "pullup"
 }, {
   name: "invert"
@@ -19,13 +19,11 @@ var instance = [{
 
 
 exports["Button"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
@@ -35,34 +33,32 @@ exports["Button"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Button(9) instanceof Button, true);
+    test.equal(new Button(9) instanceof Button, true);
     test.done();
   },
 
-  pinValue: function(test) {
+  pinValue(test) {
     test.expect(1);
-    test.equal(Button({ pin: "XYZ"}).pin, "XYZ");
+    test.equal(new Button({ pin: "XYZ"}).pin, "XYZ");
     test.done();
   },
 };
 
 exports["Button - Digital Pin"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: 8,
@@ -72,35 +68,34 @@ exports["Button - Digital Pin"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.button[method.name], "function");
+    proto.forEach(function({name}) {
+      test.equal(typeof this.button[name], "function");
     }, this);
 
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.button[property.name], "undefined");
+    instance.forEach(function({name}) {
+      test.notEqual(typeof this.button[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  down: function(test) {
+  down(test) {
 
-    var callback = this.digitalRead.args[0][1];
+    const callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("down", function() {
-
+    this.button.on("down", () => {
       test.ok(true);
       test.done();
     });
@@ -110,76 +105,74 @@ exports["Button - Digital Pin"] = {
     callback(this.button.downValue);
   },
 
-  up: function(test) {
+  // up(test) {
 
-    var callback = this.digitalRead.args[0][1];
-    test.expect(1);
+  //   const callback = this.digitalRead.args[0][1];
+  //   test.expect(1);
 
-    //fake timers dont play nice with __.debounce
-    this.button.on("up", function() {
-      test.ok(true);
-      test.done();
-    });
-    callback(this.button.downValue);
-    callback(this.button.upValue);
-  },
+  //   //fake timers dont play nice with __.debounce
+  //   this.button.on("up", () => {
+  //     test.ok(true);
+  //     test.done();
+  //   });
+  //   callback(this.button.downValue);
+  //   callback(this.button.upValue);
+  // },
 
-  hold: function(test) {
-    var clock = this.sandbox.useFakeTimers();
-    var callback = this.digitalRead.args[0][1];
-    test.expect(1);
+  // hold(test) {
+  //   const clock = this.sandbox.useFakeTimers();
+  //   const callback = this.digitalRead.args[0][1];
+  //   test.expect(1);
 
-    //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
-      test.ok(true);
-      clock.restore();
-      test.done();
-    });
-    // Set initial state
-    callback(this.button.upValue);
-    this.button.holdtime = 10;
-    // Trigger a change of state
-    callback(this.button.downValue);
-    // Simulate the state being held
-    clock.tick(11);
-    callback(this.button.upValue);
-  },
+  //   //fake timers dont play nice with __.debounce
+  //   this.button.on("hold", () => {
+  //     test.ok(true);
+  //     clock.restore();
+  //     test.done();
+  //   });
+  //   // Set initial state
+  //   callback(this.button.upValue);
+  //   this.button.holdtime = 10;
+  //   // Trigger a change of state
+  //   callback(this.button.downValue);
+  //   // Simulate the state being held
+  //   clock.tick(11);
+  //   callback(this.button.upValue);
+  // },
 
-  holdRepeatsUntilRelease: function(test) {
-    var clock = this.sandbox.useFakeTimers();
-    var spy = this.sandbox.spy();
-    var callback = this.digitalRead.args[0][1];
-    test.expect(1);
+  // holdRepeatsUntilRelease(test) {
+  //   const clock = this.sandbox.useFakeTimers();
+  //   const spy = this.sandbox.spy();
+  //   const callback = this.digitalRead.args[0][1];
+  //   test.expect(1);
 
-    //fake timers dont play nice with __.debounce
-    this.button.on("hold", spy);
+  //   //fake timers dont play nice with __.debounce
+  //   this.button.on("hold", spy);
 
-    // Set initial state
-    callback(this.button.upValue);
+  //   // Set initial state
+  //   callback(this.button.upValue);
 
-    this.button.holdtime = 10;
+  //   this.button.holdtime = 10;
 
-    // Trigger a change of state
-    callback(this.button.downValue);
+  //   // Trigger a change of state
+  //   callback(this.button.downValue);
 
-    // Simulate the state being held for 3 "holdtime" periods
-    clock.tick(30);
+  //   // Simulate the state being held for 3 "holdtime" periods
+  //   clock.tick(30);
 
-    test.equal(spy.callCount, 3);
+  //   test.equal(spy.callCount, 3);
 
-    clock.restore();
+  //   clock.restore();
 
-    test.done();
-  },
+  //   test.done();
+  // },
 };
 
 exports["Button - Analog Pin"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.button = new Button({
       pin: "A0",
@@ -189,25 +182,25 @@ exports["Button - Analog Pin"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  pinTranslation: function(test) {
+  pinTranslation(test) {
     test.expect(1);
     test.equal(this.button.pin, 14);
     test.done();
   },
-  down: function(test) {
+  down(test) {
 
-    var callback = this.digitalRead.args[0][1];
+    const callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("down", function() {
+    this.button.on("down", () => {
 
       test.ok(true);
       test.done();
@@ -219,13 +212,13 @@ exports["Button - Analog Pin"] = {
     callback(this.button.downValue);
   },
 
-  up: function(test) {
+  up(test) {
 
-    var callback = this.digitalRead.args[0][1];
+    const callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("up", function() {
+    this.button.on("up", () => {
       test.ok(true);
       test.done();
     });
@@ -233,13 +226,13 @@ exports["Button - Analog Pin"] = {
     callback(this.button.upValue);
   },
 
-  hold: function(test) {
-    var clock = this.sandbox.useFakeTimers();
-    var callback = this.digitalRead.args[0][1];
+  hold(test) {
+    const clock = this.sandbox.useFakeTimers();
+    const callback = this.digitalRead.args[0][1];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
+    this.button.on("hold", () => {
       test.ok(true);
       clock.restore();
       test.done();
@@ -256,12 +249,10 @@ exports["Button - Analog Pin"] = {
 };
 
 exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.digitalRead = this.sandbox.spy(MockFirmata.prototype, "digitalRead");
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
     this.button = new Button({
@@ -273,14 +264,14 @@ exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  initialInversion: function(test) {
+  initialInversion(test) {
     test.expect(6);
 
     this.button = new Button({
@@ -305,7 +296,7 @@ exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
     test.done();
   },
 
-  pullup: function(test) {
+  pullup(test) {
     test.expect(9);
 
     this.button = new Button({
@@ -334,7 +325,7 @@ exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
     test.done();
   },
 
-  pulldown: function(test) {
+  pulldown(test) {
     test.expect(9);
 
     this.button = new Button({
@@ -363,7 +354,7 @@ exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
     test.done();
   },
 
-  inlineInversion: function(test) {
+  inlineInversion(test) {
     test.expect(14);
 
     test.equal(this.button.downValue, 1);
@@ -405,12 +396,10 @@ exports["Button - Value Inversion & Explicit Pullup/Pulldown"] = {
 
 
 exports["Button - EVS_EV3"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
     this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
@@ -427,20 +416,20 @@ exports["Button - EVS_EV3"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  pinTranslation: function(test) {
+  pinTranslation(test) {
     test.expect(1);
     test.equal(this.button.pin, "BAS1");
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(4);
 
     test.equal(this.evssetup.callCount, 1);
@@ -452,12 +441,12 @@ exports["Button - EVS_EV3"] = {
     test.done();
   },
 
-  down: function(test) {
+  down(test) {
 
-    var callback = this.i2cRead.args[0][3];
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
-    this.button.on("down", function() {
+    this.button.on("down", () => {
 
       test.ok(true);
       test.done();
@@ -466,12 +455,12 @@ exports["Button - EVS_EV3"] = {
     callback([this.button.downValue]);
   },
 
-  up: function(test) {
+  up(test) {
 
-    var callback = this.i2cRead.args[0][3];
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
-    this.button.on("up", function() {
+    this.button.on("up", () => {
       test.ok(true);
       test.done();
     });
@@ -479,13 +468,13 @@ exports["Button - EVS_EV3"] = {
     callback([this.button.upValue]);
   },
 
-  hold: function(test) {
-    var clock = this.sandbox.useFakeTimers();
-    var callback = this.i2cRead.args[0][3];
+  hold(test) {
+    const clock = this.sandbox.useFakeTimers();
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
+    this.button.on("hold", () => {
       test.ok(true);
       clock.restore();
       test.done();
@@ -499,12 +488,10 @@ exports["Button - EVS_EV3"] = {
 };
 
 exports["Button - EVS_NXT"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.evssetup = this.sandbox.spy(EVS.prototype, "setup");
     this.evsread = this.sandbox.spy(EVS.prototype, "read");
 
@@ -521,20 +508,20 @@ exports["Button - EVS_NXT"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  pinTranslation: function(test) {
+  pinTranslation(test) {
     test.expect(1);
     test.equal(this.button.pin, "BAS1");
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(4);
 
     test.equal(this.evssetup.callCount, 1);
@@ -546,12 +533,12 @@ exports["Button - EVS_NXT"] = {
     test.done();
   },
 
-  down: function(test) {
+  down(test) {
 
-    var callback = this.i2cRead.args[0][3];
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
-    this.button.on("down", function() {
+    this.button.on("down", () => {
 
       test.ok(true);
       test.done();
@@ -560,12 +547,12 @@ exports["Button - EVS_NXT"] = {
     callback([250]);
   },
 
-  up: function(test) {
+  up(test) {
 
-    var callback = this.i2cRead.args[0][3];
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
-    this.button.on("up", function() {
+    this.button.on("up", () => {
       test.ok(true);
       test.done();
     });
@@ -573,13 +560,13 @@ exports["Button - EVS_NXT"] = {
     callback([1000]);
   },
 
-  hold: function(test) {
-    var clock = this.sandbox.useFakeTimers();
-    var callback = this.i2cRead.args[0][3];
+  hold(test) {
+    const clock = this.sandbox.useFakeTimers();
+    const callback = this.i2cRead.args[0][3];
     test.expect(1);
 
     //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
+    this.button.on("hold", () => {
       test.ok(true);
       clock.restore();
       test.done();
@@ -593,7 +580,7 @@ exports["Button - EVS_NXT"] = {
 };
 
 exports["Button.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
@@ -602,20 +589,20 @@ exports["Button.Collection"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Button.purge();
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Buttons([9]) instanceof Buttons, true);
+    test.equal(new Buttons([9]) instanceof Buttons, true);
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(4);
 
     this.sensors = new Button.Collection([2, 3, 4]);
@@ -626,7 +613,7 @@ exports["Button.Collection"] = {
       this.digitalRead.getCall(2).args[1],
     ];
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.sensors.on("data", spy);
 
@@ -653,7 +640,7 @@ exports["Button.Collection"] = {
 
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(4);
 
     this.sensors = new Button.Collection({
@@ -667,7 +654,7 @@ exports["Button.Collection"] = {
       this.digitalRead.getCall(2).args[1],
     ];
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.sensors.on("change", spy);
 
@@ -690,7 +677,7 @@ exports["Button.Collection"] = {
 
   },
 
-  dataFromLateAddition: function(test) {
+  dataFromLateAddition(test) {
     test.expect(5);
 
     this.sensors = new Button.Collection({
@@ -704,7 +691,7 @@ exports["Button.Collection"] = {
       this.digitalRead.getCall(2).args[1],
     ];
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.sensors.on("change", spy);
 
@@ -739,12 +726,10 @@ exports["Button.Collection"] = {
 };
 
 exports["Button - TINKERKIT"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
 
     this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
@@ -758,33 +743,33 @@ exports["Button - TINKERKIT"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Button.purge();
     this.sandbox.restore();
     done();
   },
 
-  pinTranslation: function(test) {
+  pinTranslation(test) {
     test.expect(1);
     // translates through to an analog pin 0
     test.equal(this.button.pin, 0);
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(2);
     test.equal(this.pinMode.callCount, 1);
     test.equal(this.analogRead.callCount, 1);
     test.done();
   },
 
-  down: function(test) {
+  down(test) {
     test.expect(1);
 
-    var callback = this.analogRead.firstCall.args[1];
+    const callback = this.analogRead.firstCall.args[1];
 
-    this.button.on("down", function() {
+    this.button.on("down", () => {
       test.ok(true);
       test.done();
     });
@@ -792,12 +777,12 @@ exports["Button - TINKERKIT"] = {
     callback(513);
   },
 
-  up: function(test) {
+  up(test) {
 
-    var callback = this.analogRead.firstCall.args[1];
+    const callback = this.analogRead.firstCall.args[1];
     test.expect(1);
 
-    this.button.on("up", function() {
+    this.button.on("up", () => {
       test.ok(true);
       test.done();
     });
@@ -805,14 +790,14 @@ exports["Button - TINKERKIT"] = {
     callback(511);
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
     this.clock = this.sandbox.useFakeTimers();
-    var callback = this.analogRead.firstCall.args[1];
+    const callback = this.analogRead.firstCall.args[1];
 
     //fake timers dont play nice with __.debounce
-    this.button.on("hold", function() {
+    this.button.on("hold", () => {
       test.ok(true);
       test.done();
     });
@@ -824,13 +809,13 @@ exports["Button - TINKERKIT"] = {
   },
 };
 
-Object.keys(Button.Controllers).forEach(function(name) {
+Object.keys(Button.Controllers).forEach(name => {
 
   if (name.startsWith("EVS")) {
     return;
   }
 
-  exports["Button - Controller, " + name] = addControllerTest(Button, Button.Controllers[name], {
+  exports[`Button - Controller, ${name}`] = addControllerTest(Button, Button.Controllers[name], {
     controller: name,
   });
 });

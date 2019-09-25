@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Board Connection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.connect = this.sandbox.spy(Board.Serial, "connect");
     this.detect = this.sandbox.spy(Board.Serial, "detect");
@@ -9,7 +9,7 @@ exports["Board Connection"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
@@ -17,13 +17,13 @@ exports["Board Connection"] = {
     done();
   },
 
-  lateConnection: function(test) {
+  lateConnection(test) {
     test.expect(6);
 
     Board.Serial.used.length = 0;
 
-    var calls = 0;
-    var attempts = Board.Serial.attempts;
+    let calls = 0;
+    const attempts = Board.Serial.attempts;
 
     this.list = this.sandbox.stub(SerialPort, "list", () => {
       calls++;
@@ -32,12 +32,12 @@ exports["Board Connection"] = {
       }] : []);
     });
 
-    var board = new Board({
+    const board = new Board({
       debug: false,
       repl: false
     });
 
-    board.on("connect", function() {
+    board.on("connect", () => {
       // Serialport.list called twice
       test.equal(this.list.callCount, 2);
       // Two calls to detect
@@ -51,13 +51,13 @@ exports["Board Connection"] = {
       test.equal(this.MockFirmata.callCount, 1);
       test.equal(this.MockFirmata.lastCall.args[0], "/dev/usb");
       test.done();
-    }.bind(this));
+    });
   },
 
-  maxOutAttempts: function(test) {
+  maxOutAttempts(test) {
     test.expect(2);
 
-    var calls = 0;
+    let calls = 0;
     Board.Serial.used.length = 0;
     Board.Serial.attempts[0] = 11;
 
@@ -68,7 +68,7 @@ exports["Board Connection"] = {
       }] : []);
     });
 
-    this.fail = this.sandbox.stub(Board.prototype, "fail", function(klass, message) {
+    this.fail = this.sandbox.stub(Board.prototype, "fail", (klass, message) => {
       test.equal(klass, "Board");
       test.equal(message, "No connected device found");
       test.done();
@@ -80,9 +80,9 @@ exports["Board Connection"] = {
     });
   },
 
-  inUse: function(test) {
+  inUse(test) {
     test.expect(3);
-    var calls = 0;
+    let calls = 0;
     Board.Serial.used.push("/dev/ttyUSB0");
 
     this.list = this.sandbox.stub(SerialPort, "list", () => {
@@ -96,16 +96,16 @@ exports["Board Connection"] = {
 
     this.info = this.sandbox.spy(Board.prototype, "info");
 
-    var board = new Board({
+    const board = new Board({
       debug: false,
       repl: false
     });
 
-    board.on("connect", function() {
+    board.on("connect", () => {
       test.equal(this.info.getCall(1).args[1].includes("ttyUSB0"), false);
       test.equal(this.info.getCall(1).args[1].includes("ttyUSB1"), true);
       test.equal(this.info.getCall(1).args[1].includes("ttyUSB2"), true);
       test.done();
-    }.bind(this));
+    });
   },
 };
