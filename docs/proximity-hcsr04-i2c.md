@@ -31,7 +31,7 @@ node eg/proximity-hcsr04-i2c.js
 
 
 ```javascript
-const {Board, Proximity} = require("johnny-five");
+const { Board, Proximity } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

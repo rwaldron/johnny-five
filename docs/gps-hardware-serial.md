@@ -31,7 +31,7 @@ node eg/gps-hardware-serial.js
 
 
 ```javascript
-const {Board, GPS} = require("johnny-five");
+const { Board, GPS } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

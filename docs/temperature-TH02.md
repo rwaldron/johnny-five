@@ -18,7 +18,7 @@ node eg/temperature-TH02.js
 
 
 ```javascript
-const {Board, Thermometer} = require("johnny-five");
+const { Board, Thermometer } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

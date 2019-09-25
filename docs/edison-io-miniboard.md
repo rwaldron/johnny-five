@@ -33,7 +33,7 @@ node eg/edison-io-miniboard.js
 ```javascript
 const { Board, Led } = require("johnny-five");
 const Edison = require("edison-io");
-const board = new five.Board({
+const board = new Board({
   io: new Edison()
 });
 

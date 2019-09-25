@@ -31,7 +31,7 @@ node eg/gps-GP-20U7.js
 
 
 ```javascript
-const {Board, GPS} = require("johnny-five");
+const { Board, GPS } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

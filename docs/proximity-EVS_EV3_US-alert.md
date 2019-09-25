@@ -18,7 +18,7 @@ node eg/proximity-EVS_EV3_US-alert.js
 
 
 ```javascript
-const {Board, Led, Leds, Proximity} = require("johnny-five");
+const { Board, Led, Leds, Proximity } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {

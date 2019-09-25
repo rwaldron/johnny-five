@@ -29,29 +29,18 @@ node eg/potentiometer.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, potentiometer;
+const { Board, Sensor } = require("johnny-five");
+const board = new Board();
 
-board = new five.Board();
+board.on("ready", () => {
+  const potentiometer = new Sensor("A3");
 
-board.on("ready", function() {
-
-  // Create a new `potentiometer` hardware instance.
-  potentiometer = new five.Sensor({
-    pin: "A3",
-    freq: 250
-  });
-
-  // Inject the `sensor` hardware into
-  // the Repl instance's context;
-  // allows direct command line access
-  board.repl.inject({
-    pot: potentiometer
-  });
-
-  // "data" get the current reading from the potentiometer
-  potentiometer.on("data", function() {
-    console.log(this.value, this.raw);
+  potentiometer.on("change", () => {
+    const {value, raw} = potentiometer;
+    console.log("Sensor: ");
+    console.log("  value  : ", value);
+    console.log("  raw    : ", raw);
+    console.log("-----------------");
   });
 });
 

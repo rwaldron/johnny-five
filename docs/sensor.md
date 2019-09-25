@@ -18,7 +18,7 @@ node eg/sensor.js
 
 
 ```javascript
-const {Board, Proximity} = require("johnny-five");
+const { Board, Sensor } = require("johnny-five");
 const board = new Board();
 
 board.on("ready", () => {
