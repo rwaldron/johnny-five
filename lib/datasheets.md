@@ -1,6 +1,6 @@
 # Datasheets
 
-For all `Controllers`, use the following datasheets for the corresponding product. Page numbers found within the `Controllers[*]` definition are expected to correspond to page numbers found within the appropriate datasheet below. For example, if you're reading through the source of the `BNO055` controller in `imu.js`, you'd use the `BNO055` document linked below. 
+For all `Controllers`, use the following datasheets for the corresponding product. Page numbers found within the `Controllers[*]` definition are expected to correspond to page numbers found within the appropriate datasheet below. For example, if you're reading through the source of the `BNO055` controller in `sip.js`, you'd use the `BNO055` document linked below. 
 
 - [ADS1115](https://cdn-shop.adafruit.com/datasheets/ads1115.pdf)
 - [ADXL335](Datasheet available at https://www.sparkfun.com/datasheets/Components/SMD/adxl335.pdf)
