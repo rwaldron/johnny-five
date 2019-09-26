@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-exports["IMU -- MPU6050"] = {
+exports["SIP: IMU -- MPU6050"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -158,7 +158,7 @@ exports["IMU -- MPU6050"] = {
   }
 };
 
-exports["Multi -- MPL115A2"] = {
+exports["SIP: MPL115A2"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -237,7 +237,7 @@ exports["Multi -- MPL115A2"] = {
   },
 };
 
-exports["Multi -- SHT31D"] = {
+exports["SIP: SHT31D"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -351,7 +351,7 @@ exports["Multi -- SHT31D"] = {
 
 };
 
-exports["Multi -- HTU21D"] = {
+exports["SIP: HTU21D"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -430,7 +430,7 @@ exports["Multi -- HTU21D"] = {
   },
 };
 
-exports["Multi -- MPL3115A2"] = {
+exports["SIP: MPL3115A2"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -756,7 +756,7 @@ exports["IMU -- BNO055"] = {
 
 
 
-exports["Multi -- TH02"] = {
+exports["SIP: TH02"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -914,7 +914,7 @@ exports["Multi -- TH02"] = {
   // },
 };
 
-exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
+exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -1059,7 +1059,7 @@ exports["Multi -- DHT11_I2C_NANO_BACKPACK"] = {
 };
 
 
-exports["Multi -- BME280"] = {
+exports["SIP: BME280"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
@@ -1183,7 +1183,7 @@ exports["Multi -- BME280"] = {
   },
 };
 
-exports["Multi -- BMP280"] = {
+exports["SIP: BMP280"] = {
 
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
