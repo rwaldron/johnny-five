@@ -22,7 +22,7 @@ For all `Controllers`, use the following datasheets for the corresponding produc
 - [HCSR04](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf)
 - [HD44780](https://www.sparkfun.com/datasheets/LCD/HD44780.pdf)
 - [HIH6100](https://sensing.honeywell.com/honeywell-sensing-humidicon-hih6100-series-product-sheet-009059-6-en.pdf)
-- [HIH6130](http://cdn.sparkfun.com/datasheets/Prototyping/1443945.pdf)
+- [HIH6130](https://www.phanderson.com/arduino/I2CCommunications.pdf)
 - [HMC5883L](https://cdn-shop.adafruit.com/datasheets/HMC5883L_3-Axis_Digital_Compass_IC.pdf)
 - [HMC6352](http://www.sparkfun.com/datasheets/Components/HMC6352.pdf)
 - [HRLV-MaxSonar](https://www.maxbotix.com/documents/HRLV-MaxSonar-EZ_Datasheet.pdf)
