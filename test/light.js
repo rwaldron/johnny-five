@@ -295,7 +295,7 @@ exports["Light: TSL2561"] = {
     test.expect(4);
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(this.i2cWriteReg.callCount, 3);
-    test.equal(this.i2cWriteReg.lastCall.args[0], 0x39);
+    test.equal(this.i2cWriteReg.lastCall.args[0], 0x29);
     test.equal(this.i2cWriteReg.lastCall.args[1], 0x81);
     test.done();
   },

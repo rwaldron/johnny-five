@@ -244,7 +244,7 @@ exports["Servo"] = {
   },
 
   /* These tests are commented out while we figure out Issue #829
-  degreeChange: function(test) {
+  degreeChange(test) {
     test.expect(1);
 
     this.servo = new Servo({
@@ -256,15 +256,15 @@ exports["Servo"] = {
 
     this.servo.to(180, 1000, 100);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
       console.log("Servo move complete");
       test.ok(this.servoWrite.callCount, 1);
 
       test.done();
-    }.bind(this));
+    });
   },
 
-  resolutionLimited: function(test) {
+  resolutionLimited(test) {
     test.expect(2);
 
     this.servo = new Servo({
@@ -275,13 +275,13 @@ exports["Servo"] = {
     this.servo.to(0);
     this.servo.to(90, 1000, 255);
 
-    this.servo.on("move:complete", function() {
+    this.servo.on("move:complete", () => {
 
       test.ok(this.servoWrite.callCount === 91);
       test.equal(this.servo.position, 90);
 
       test.done();
-    }.bind(this));
+    });
   }
   */
 };

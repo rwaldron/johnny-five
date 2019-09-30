@@ -9,7 +9,7 @@ exports["SIP: IMU -- MPU6050"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "MPU6050",
       freq: 100,
       board: this.board
@@ -41,11 +41,11 @@ exports["SIP: IMU -- MPU6050"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -75,7 +75,7 @@ exports["SIP: IMU -- MPU6050"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "thermometer"]);
+    test.deepEqual(this.sip.components, ["accelerometer", "gyro", "thermometer"]);
 
     test.done();
   },
@@ -86,11 +86,11 @@ exports["SIP: IMU -- MPU6050"] = {
 
     test.expect(16);
 
-    this.imu.components.forEach(function(component) {
+    this.sip.components.forEach(function(component) {
       this[component].emit("change");
-    }, this.imu);
+    }, this.sip);
 
-    this.imu.on("data", spy);
+    this.sip.on("data", spy);
 
     read = this.i2cRead.args[0][3];
     read([
@@ -130,8 +130,8 @@ exports["SIP: IMU -- MPU6050"] = {
     const changeSpy = this.sandbox.spy();
 
     test.expect(2);
-    this.imu.on("change", changeSpy);
-    this.imu.gyro.isCalibrated = true;
+    this.sip.on("change", changeSpy);
+    this.sip.gyro.isCalibrated = true;
 
     read = this.i2cRead.args[0][3];
     read([
@@ -167,7 +167,7 @@ exports["SIP: MPL115A2"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "MPL115A2",
       freq: 100,
       board: this.board
@@ -197,11 +197,11 @@ exports["SIP: MPL115A2"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -231,7 +231,7 @@ exports["SIP: MPL115A2"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["barometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["barometer", "thermometer"]);
 
     test.done();
   },
@@ -246,7 +246,7 @@ exports["SIP: SHT31D"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "SHT31D",
       freq: 100,
       board: this.board
@@ -276,11 +276,11 @@ exports["SIP: SHT31D"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -310,7 +310,7 @@ exports["SIP: SHT31D"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["hygrometer", "thermometer"]);
 
     test.done();
   },
@@ -320,7 +320,7 @@ exports["SIP: SHT31D"] = {
 
     const spy = this.sandbox.spy();
 
-    this.imu.on("data", spy);
+    this.sip.on("data", spy);
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledTwice);
@@ -360,7 +360,7 @@ exports["SIP: HTU21D"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "HTU21D",
       freq: 100,
       board: this.board
@@ -390,11 +390,11 @@ exports["SIP: HTU21D"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -424,7 +424,7 @@ exports["SIP: HTU21D"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["hygrometer", "thermometer"]);
 
     test.done();
   },
@@ -439,7 +439,7 @@ exports["SIP: MPL3115A2"] = {
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "MPL3115A2",
       freq: 100,
       board: this.board
@@ -471,11 +471,11 @@ exports["SIP: MPL3115A2"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -506,7 +506,7 @@ exports["SIP: MPL3115A2"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["altimeter", "barometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["altimeter", "barometer", "thermometer"]);
 
     test.done();
   },
@@ -529,7 +529,7 @@ exports["IMU -- BNO055"] = {
         callback([255]);
       }
     });
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "BNO055",
       freq: 500,
       board: this.board
@@ -571,11 +571,11 @@ exports["IMU -- BNO055"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -605,7 +605,7 @@ exports["IMU -- BNO055"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["accelerometer", "gyro", "magnetometer", "orientation", "thermometer"]);
+    test.deepEqual(this.sip.components, ["accelerometer", "gyro", "magnetometer", "orientation", "thermometer"]);
 
     test.done();
   },
@@ -619,17 +619,17 @@ exports["IMU -- BNO055"] = {
     //add this for catching calibration events
     const cspy = this.sandbox.spy();
 
-    this.imu.components.forEach(function(component) {
+    this.sip.components.forEach(function(component) {
       this[component].emit("change");
-    }, this.imu);
+    }, this.sip);
 
     this.driver.on("data", dspy);
-    this.imu.on("data", ispy);
+    this.sip.on("data", ispy);
 
-    //catch the calibration events coming out of the driver the imu class
+    //catch the calibration events coming out of the driver the sip class
     this.driver.on("calibration", cspy);
-    this.imu.on("calibration", cspy);
-    this.imu.on("calibrated", cspy);
+    this.sip.on("calibration", cspy);
+    this.sip.on("calibrated", cspy);
     this.driver.on("calibrated", cspy);
 
     test.equal(this.i2cWriteReg.callCount, 3);
@@ -663,7 +663,7 @@ exports["IMU -- BNO055"] = {
         test.equal(this.i2cRead.callCount, 3);
 
         //we should get a calibration event, and a calibrated event on
-        //both the driver and the imu
+        //both the driver and the sip
         test.equal(cspy.callCount, 4);
 
 
@@ -730,24 +730,24 @@ exports["IMU -- BNO055"] = {
 
         const iarg = ispy.lastCall.args[0];
 
-        test.equal(this.imu.accelerometer.x, iarg.accelerometer.x);
-        test.equal(this.imu.accelerometer.y, iarg.accelerometer.y);
-        test.equal(this.imu.accelerometer.z, iarg.accelerometer.z);
-        test.equal(this.imu.gyro.x, iarg.gyro.x);
-        test.equal(this.imu.gyro.y, iarg.gyro.y);
-        test.equal(this.imu.gyro.z, iarg.gyro.z);
-        test.equal(this.imu.magnetometer.x, iarg.magnetometer.x);
-        test.equal(this.imu.magnetometer.y, iarg.magnetometer.y);
-        test.equal(this.imu.magnetometer.z, iarg.magnetometer.z);
-        test.equal(this.imu.orientation.euler.heading, iarg.orientation.euler.heading);
-        test.equal(this.imu.orientation.euler.pitch, iarg.orientation.euler.pitch);
-        test.equal(this.imu.orientation.euler.roll, iarg.orientation.euler.roll);
-        test.equal(this.imu.orientation.quarternion.w, iarg.orientation.quarternion.w);
-        test.equal(this.imu.orientation.quarternion.x, iarg.orientation.quarternion.x);
-        test.equal(this.imu.orientation.quarternion.y, iarg.orientation.quarternion.y);
-        test.equal(this.imu.orientation.quarternion.z, iarg.orientation.quarternion.z);
-        test.equal(this.imu.thermometer, iarg.thermometer);
-        test.equal(this.imu.calibration, iarg.calibration);
+        test.equal(this.sip.accelerometer.x, iarg.accelerometer.x);
+        test.equal(this.sip.accelerometer.y, iarg.accelerometer.y);
+        test.equal(this.sip.accelerometer.z, iarg.accelerometer.z);
+        test.equal(this.sip.gyro.x, iarg.gyro.x);
+        test.equal(this.sip.gyro.y, iarg.gyro.y);
+        test.equal(this.sip.gyro.z, iarg.gyro.z);
+        test.equal(this.sip.magnetometer.x, iarg.magnetometer.x);
+        test.equal(this.sip.magnetometer.y, iarg.magnetometer.y);
+        test.equal(this.sip.magnetometer.z, iarg.magnetometer.z);
+        test.equal(this.sip.orientation.euler.heading, iarg.orientation.euler.heading);
+        test.equal(this.sip.orientation.euler.pitch, iarg.orientation.euler.pitch);
+        test.equal(this.sip.orientation.euler.roll, iarg.orientation.euler.roll);
+        test.equal(this.sip.orientation.quarternion.w, iarg.orientation.quarternion.w);
+        test.equal(this.sip.orientation.quarternion.x, iarg.orientation.quarternion.x);
+        test.equal(this.sip.orientation.quarternion.y, iarg.orientation.quarternion.y);
+        test.equal(this.sip.orientation.quarternion.z, iarg.orientation.quarternion.z);
+        test.equal(this.sip.thermometer, iarg.thermometer);
+        test.equal(this.sip.calibration, iarg.calibration);
         test.done();
       }
     }, 10);
@@ -782,7 +782,7 @@ exports["SIP: TH02"] = {
       });
     });
 
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "TH02",
       freq: 35,
       board: this.board
@@ -814,11 +814,11 @@ exports["SIP: TH02"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -848,7 +848,7 @@ exports["SIP: TH02"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["hygrometer", "thermometer"]);
 
     test.done();
   },
@@ -856,9 +856,9 @@ exports["SIP: TH02"] = {
   data(test) {
     test.expect(6);
 
-    this.imu.components.forEach(function(component) {
+    this.sip.components.forEach(function(component) {
       this[component].emit("change");
-    }, this.imu);
+    }, this.sip);
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledOnce);
@@ -880,7 +880,7 @@ exports["SIP: TH02"] = {
   //   var i2cReadOnceTemp, i2cReadOnceHumidity;
   //   var spy = this.sandbox.spy();
 
-  //   this.imu.on("change", spy);
+  //   this.sip.on("change", spy);
 
   //   // This is the tCONV time
   //   this.clock.tick(35);
@@ -922,7 +922,7 @@ exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "DHT11_I2C_NANO_BACKPACK",
       freq: 100,
       board: this.board
@@ -952,11 +952,11 @@ exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -986,7 +986,7 @@ exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
   components(test) {
     test.expect(1);
 
-    test.deepEqual(this.imu.components, ["hygrometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["hygrometer", "thermometer"]);
 
     test.done();
   },
@@ -996,7 +996,7 @@ exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
     const spy = this.sandbox.spy();
 
     test.expect(7);
-    this.imu.on("data", spy);
+    this.sip.on("data", spy);
 
     read = this.i2cRead.args[0][2];
 
@@ -1024,7 +1024,7 @@ exports["SIP: DHT11_I2C_NANO_BACKPACK"] = {
     const spy = this.sandbox.spy();
 
     test.expect(8);
-    this.imu.on("data", spy);
+    this.sip.on("data", spy);
 
     read = this.i2cRead.args[0][2];
 
@@ -1091,7 +1091,7 @@ exports["SIP: BME280"] = {
       });
     });
 
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "BME280",
       freq: 35,
       board: this.board
@@ -1125,11 +1125,11 @@ exports["SIP: BME280"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -1158,16 +1158,16 @@ exports["SIP: BME280"] = {
 
   components(test) {
     test.expect(1);
-    test.deepEqual(this.imu.components, ["altimeter", "barometer", "hygrometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["altimeter", "barometer", "hygrometer", "thermometer"]);
     test.done();
   },
 
   data(test) {
     test.expect(6);
 
-    this.imu.components.forEach(function(component) {
+    this.sip.components.forEach(function(component) {
       this[component].emit("change");
-    }, this.imu);
+    }, this.sip);
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledOnce);
@@ -1206,7 +1206,7 @@ exports["SIP: BMP280"] = {
       });
     });
 
-    this.imu = new IMU({
+    this.sip = new IMU({
       controller: "BMP280",
       freq: 35,
       board: this.board
@@ -1238,11 +1238,11 @@ exports["SIP: BMP280"] = {
     test.expect(this.proto.length + this.instance.length);
 
     this.proto.forEach(function({name}) {
-      test.equal(typeof this.imu[name], "function");
+      test.equal(typeof this.sip[name], "function");
     }, this);
 
     this.instance.forEach(function({name}) {
-      test.notEqual(typeof this.imu[name], "undefined");
+      test.notEqual(typeof this.sip[name], "undefined");
     }, this);
 
     test.done();
@@ -1271,16 +1271,16 @@ exports["SIP: BMP280"] = {
 
   components(test) {
     test.expect(1);
-    test.deepEqual(this.imu.components, ["altimeter", "barometer", "thermometer"]);
+    test.deepEqual(this.sip.components, ["altimeter", "barometer", "thermometer"]);
     test.done();
   },
 
   data(test) {
     test.expect(6);
 
-    this.imu.components.forEach(function(component) {
+    this.sip.components.forEach(function(component) {
       this[component].emit("change");
-    }, this.imu);
+    }, this.sip);
 
     test.ok(this.i2cConfig.calledOnce);
     test.ok(this.i2cWrite.calledOnce);
@@ -1317,7 +1317,7 @@ exports["IMU -- LSM303C"] = {
           }
         });
       });
-      this.imu = new IMU({
+      this.sip = new IMU({
         controller: "LSM303C",
         freq: 100,
         board: this.board
@@ -1349,11 +1349,11 @@ exports["IMU -- LSM303C"] = {
       test.expect(this.proto.length + this.instance.length);
 
       this.proto.forEach(function({name}) {
-        test.equal(typeof this.imu[name], "function");
+        test.equal(typeof this.sip[name], "function");
       }, this);
 
       this.instance.forEach(function({name}) {
-        test.notEqual(typeof this.imu[name], "undefined");
+        test.notEqual(typeof this.sip[name], "undefined");
       }, this);
 
       test.done();
@@ -1362,7 +1362,7 @@ exports["IMU -- LSM303C"] = {
     components(test) {
       test.expect(1);
 
-      test.deepEqual(this.imu.components, ["magnetometer", "thermometer", "accelerometer"]);
+      test.deepEqual(this.sip.components, ["magnetometer", "thermometer", "accelerometer"]);
 
       test.done();
     },
@@ -1370,9 +1370,9 @@ exports["IMU -- LSM303C"] = {
     data(test) {
       test.expect(11);
 
-      this.imu.components.forEach(function(component) {
+      this.sip.components.forEach(function(component) {
         this[component].emit("change");
-      }, this.imu);
+      }, this.sip);
 
       test.ok(this.i2cConfig.calledTwice);
 
