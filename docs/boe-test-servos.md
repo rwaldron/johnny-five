@@ -64,9 +64,9 @@ function Navigator(opts) {
   this.which = "forward";
   this.isTurning = false;
 
-  setTimeout(function() {
+  setTimeout(() => {
     this.fwd(1).fwd(0);
-  }.bind(this), 10);
+  }, 10);
 }
 
 /**
@@ -176,12 +176,12 @@ Navigator.prototype.stop = function() {
       this.to(actual, actual);
 
       // Restore direction after turn
-      setTimeout(function() {
+      setTimeout(() => {
 
         this[this.which](this.speed);
         this.isTurning = false;
 
-      }.bind(this), 750);
+      }, 750);
     }
 
     return this;
@@ -237,11 +237,9 @@ Navigator.prototype.pivot = function(which, time) {
 
   directions[which].call(this, this.speed);
 
-  setTimeout(function() {
-
+  setTimeout(() => {
     this[this.which](this.speed);
-
-  }.bind(this), time || 1000);
+  }, time || 1000);
 
   return this;
 };
