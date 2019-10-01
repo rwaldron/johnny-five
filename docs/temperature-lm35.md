@@ -59,7 +59,7 @@ board.on("ready", () => {
 
 
 ## Additional Notes
-- [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
+- [LM35 - Thermometer Sensor](http://www.ti.com/product/lm35)
 
 &nbsp;
 
