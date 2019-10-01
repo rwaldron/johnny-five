@@ -59,7 +59,7 @@ board.on("ready", () => {
 
 
 ## Additional Notes
-- [TMP36 - Temperature Sensor](https://www.sparkfun.com/products/10988)
+- [TMP36 - Thermometer Sensor](https://www.sparkfun.com/products/10988)
 
 &nbsp;
 

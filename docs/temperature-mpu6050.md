@@ -58,7 +58,7 @@ board.on("ready", () => {
 
 
 ## Additional Notes
-- [MPU6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
+- [MPU6050 - IMU with Thermometer Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
 
 &nbsp;
 
