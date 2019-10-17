@@ -26,7 +26,7 @@ exports["Board"] = {
       buffersize: 128
     });
 
-    const board = Board({
+    const board = new Board({
       port: sp,
       debug: false,
       repl: false
