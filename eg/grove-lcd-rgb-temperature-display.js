@@ -62,7 +62,7 @@ For this program, you'll need:
 
 ![Grove - LCD RGB w/ Backlight](http://www.seeedstudio.com/wiki/images/0/03/Serial_LEC_RGB_Backlight_Lcd.jpg)
 
-![Grove - Thermometer Sensor](http://www.seeedstudio.com/wiki/images/thumb/b/b0/Thermometer1.jpg/400px-Thermometer1.jpg)
+![Grove - Temperature Sensor](http://www.seeedstudio.com/wiki/images/thumb/b/b0/Temperature1.jpg/400px-Temperature1.jpg)
 
 
 @markdown */
