@@ -10,9 +10,9 @@ exports["Serial"] = {
       list: [],
     };
 
-    this.sandbox.stub(SerialPort, "list", function(callback) {
-      callback(this.responses.error, this.responses.list);
-    }.bind(this));
+    this.sandbox.stub(SerialPort, "list", () => {
+      return this.responses.error ? Promise.reject(this.responses.error) : Promise.resolve(this.responses.list);
+    });
 
 
     this.sandbox.stub(Firmata, "Board", function(port, callback) {
@@ -37,12 +37,12 @@ exports["Serial"] = {
     Serial.used.push("/dev/usb");
 
     this.responses.list.push(
-      { comName: "/dev/usb" },
+      { path: "/dev/usb" },
       // This will get skipped
-      { comName: "/dev/cu.Bluetooth-Incoming-Port" },
+      { path: "/dev/cu.Bluetooth-Incoming-Port" },
       // This is the one to expect
-      { comName: "/dev/acm" },
-      { comName: "COM4" }
+      { path: "/dev/acm" },
+      { path: "COM4" }
     );
 
     Serial.detect.call(this.board, function(port) {

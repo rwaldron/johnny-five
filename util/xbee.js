@@ -50,9 +50,9 @@ if (args.help) {
 
 if (!args.portname) {
   console.error("Serial port name is required. \n `-p /dev/PORTNAME` \n Use one of the following");
-  serialport.list(function (err, data) {
+  serialport.list().then(data => {
     data.forEach(function (v) {
-      console.log("\t" + v.comName);
+      console.log("\t" + v.path);
     });
   });
   process.exit(-1);

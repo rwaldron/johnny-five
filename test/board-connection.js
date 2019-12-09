@@ -25,13 +25,11 @@ exports["Board Connection"] = {
     var calls = 0;
     var attempts = Board.Serial.attempts;
 
-    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
       calls++;
-      process.nextTick(function() {
-        callback(null, calls === 2 ? [{
-          comName: "/dev/usb"
-        }] : []);
-      });
+      return Promise.resolve(calls === 2 ? [{
+        path: "/dev/usb"
+      }] : []);
     });
 
     var board = new Board({
@@ -63,13 +61,11 @@ exports["Board Connection"] = {
     Board.Serial.used.length = 0;
     Board.Serial.attempts[0] = 11;
 
-    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
       calls++;
-      process.nextTick(function() {
-        callback(null, calls === 2 ? [{
-          comName: "/dev/usb"
-        }] : []);
-      });
+      return Promise.resolve(calls === 2 ? [{
+        path: "/dev/usb"
+      }] : []);
     });
 
     this.fail = this.sandbox.stub(Board.prototype, "fail", function(klass, message) {
@@ -89,15 +85,13 @@ exports["Board Connection"] = {
     var calls = 0;
     Board.Serial.used.push("/dev/ttyUSB0");
 
-    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
       calls++;
-      process.nextTick(function() {
-        callback(null, calls === 2 ? [
-          {comName: "/dev/ttyUSB0"},
-          {comName: "/dev/ttyUSB1"},
-          {comName: "/dev/ttyUSB2"},
-        ] : []);
-      });
+      return Promise.resolve(calls === 2 ? [
+        {path: "/dev/ttyUSB0"},
+        {path: "/dev/ttyUSB1"},
+        {path: "/dev/ttyUSB2"},
+      ] : []);
     });
 
     this.info = this.sandbox.spy(Board.prototype, "info");
