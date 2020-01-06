@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var serialport = require("serialport");
-var SerialPort = serialport.SerialPort;
-var readline = serialport.parsers.readline;
-var optimist = require("optimist");
-var async = require("async");
+const serialport = require("serialport");
+const SerialPort = serialport.SerialPort;
+const readline = serialport.parsers.readline;
+const optimist = require("optimist");
+const async = require("async");
 
 /**
  * This program will setup an xbee 802.15.4 (series 1) to talk serially at 57600bps
@@ -14,7 +14,7 @@ var async = require("async");
  * See http://ftp1.digi.com/support/documentation/90000982_L.pdf
  */
 
-var args = optimist
+const args = optimist
   .alias("h", "help")
   .alias("h", "?")
   .options("portname", {
@@ -50,17 +50,15 @@ if (args.help) {
 
 if (!args.portname) {
   console.error("Serial port name is required. \n `-p /dev/PORTNAME` \n Use one of the following");
-  serialport.list().then(data => {
-    data.forEach(function (v) {
-      console.log("\t" + v.path);
-    });
+  serialport.list().then(results => {
+    results.forEach(({path}) => console.log(`\t${path}`));
   });
   process.exit(-1);
 }
 
-var guardTime = args.guardtime * 1000;
+const guardTime = args.guardtime * 1000;
 
-var openOptions = {
+const openOptions = {
   baudRate: args.baud,
   dataBits: args.databits,
   parity: args.parity,
@@ -68,64 +66,54 @@ var openOptions = {
   parser: readline("\r")
 };
 
-var port = new SerialPort(args.portname, openOptions);
+const port = new SerialPort(args.portname, openOptions);
 
-var open = function (cb) {
+const open = cb => {
   console.log("port open!");
   port.once("open", cb);
 };
 
-var wait = function (ms) {
-  return function (cb) {
-    setTimeout(cb, ms);
-  };
+const wait = ms => cb => {
+  setTimeout(cb, ms);
 };
 
-var sendCmd = function (str) {
-  return function (cb) {
-    port.once("data", function (data) {
-      if (data === "OK") {
-        cb(null, data);
-      } else {
-        cb(new Error("Not OK"));
-      }
-    });
-    port.write(str);
-  };
-};
-
-var readCmd = function (str) {
-  return function (cb) {
-    port.once("data", function (data) {
+const sendCmd = str => cb => {
+  port.once("data", data => {
+    if (data === "OK") {
       cb(null, data);
-    });
-    port.write(str);
-  };
+    } else {
+      cb(new Error("Not OK"));
+    }
+  });
+  port.write(str);
 };
 
-var exit = function () {
+const readCmd = str => cb => {
+  port.once("data", data => {
+    cb(null, data);
+  });
+  port.write(str);
+};
+
+const exit = () => {
   console.log("quiting");
   // port.close();
   process.exit(0);
 };
 
-var print = function (str) {
-  return function (cb) {
-    console.log(str);
+const print = str => cb => {
+  console.log(str);
+  cb();
+};
+
+const printCmd = (msg, str) => cb => {
+  readCmd(`${str}\r`)((err, data) => {
+    console.log(`${msg} (${str}): ${data}`);
     cb();
-  };
+  });
 };
 
-var printCmd = function (msg, str) {
-  return function (cb) {
-    readCmd(str + "\r")(function (err, data) {
-      console.log(msg + " (" + str + "): " + data);
-      cb();
-    });
-  };
-};
-
-var systemInfo = function (cb) {
+const systemInfo = cb => {
   async.series([
     print("System Information"),
     printCmd("\tVersion Info", "ATVR"),
@@ -139,7 +127,7 @@ var systemInfo = function (cb) {
   ]);
 };
 
-var cmdMode = function (cb) {
+const cmdMode = cb => {
   wait(guardTime)(
     sendCmd("+++")(
       cb
@@ -147,7 +135,7 @@ var cmdMode = function (cb) {
   );
 };
 
-var exitCmdMode = function (cb) {
+const exitCmdMode = cb => {
   sendCmd("ATCN\r")(cb);
 };
 

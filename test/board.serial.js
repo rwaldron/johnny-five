@@ -11,9 +11,10 @@ exports["Serial"] = {
     };
 
     this.sandbox.stub(SerialPort, "list", () => {
-      return this.responses.error ? Promise.reject(this.responses.error) : Promise.resolve(this.responses.list);
+      return this.responses.error ?
+        Promise.reject(this.responses.error) :
+        Promise.resolve(this.responses.list);
     });
-
 
     this.sandbox.stub(Firmata, "Board", (port, callback) => {
       // Necessary to preserve callback invocation order
