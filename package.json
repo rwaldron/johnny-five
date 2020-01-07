@@ -176,7 +176,7 @@
     "grunt-jscs": "^3.0.1",
     "keypress": "latest",
     "mock-firmata": "latest",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.0",
     "optimist": "^0.6.1",
     "sinon": "~1.10.2"
   },
