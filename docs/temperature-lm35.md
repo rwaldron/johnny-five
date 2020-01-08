@@ -32,7 +32,7 @@ node eg/temperature-lm35.js
 const { Board, Thermometer } = require("johnny-five");
 const board = new Board();
 
-board().on("ready", () => {
+board.on("ready", () => {
   const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0"
