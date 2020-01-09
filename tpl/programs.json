@@ -155,14 +155,6 @@
     "classes": ["Led.RGB"],
     "examples": [
       {
-        "file": "led-rgb.js",
-        "title": "LED - RGB",
-        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
-        "breadboards": [
-          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
-        ]
-      },
-      {
         "file": "led-rgb-anode.js",
         "title": "LED - RGB (Common Anode)",
         "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
