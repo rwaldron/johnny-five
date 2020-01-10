@@ -1,3 +1,6 @@
+// Johnny Five version 2 is not supported on the Tessel 2.
+// For using Johnny Five on the Tessel 2, stick with version 1 of Johnny Five.
+
 const {Board, Switch, Sensor, Motor} = require("johnny-five");
 const Tessel = require("tessel-io");
 const board = new Board({
