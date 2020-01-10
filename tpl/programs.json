@@ -308,13 +308,6 @@
         ]
       },
       {
-        "file": "servo-sweep.js",
-        "title": "Servo - Sweep",
-        "breadboards": [
-          {"name": "servo", "title": "Servo on pin 10", "description": "Servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
-        ]
-      },
-      {
         "file": "servo-array.js",
         "title": "Servos - An array of servos",
         "breadboards": [
