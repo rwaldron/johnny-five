@@ -118,7 +118,7 @@ board.on("ready", function() {
 
 Johnny-Five has been tested on a variety of Arduino-compatible [Boards](https://github.com/rwaldron/johnny-five/wiki/Board).
 
-For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
+For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/io-plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
 
 ## Documentation
 
