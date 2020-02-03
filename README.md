@@ -118,7 +118,7 @@ board.on("ready", function() {
 
 Johnny-Five has been tested on a variety of Arduino-compatible [Boards](https://github.com/rwaldron/johnny-five/wiki/Board).
 
-For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/io-plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
+For non-Arduino based projects, a number of platform-specific [IO Plugins](https://github.com/rwaldron/johnny-five/wiki/IO-Plugins) are available. IO Plugins allow Johnny-Five code to communicate with any non-Arduino based hardware in whatever language that platforms speaks!
 
 ## Documentation
 
@@ -173,7 +173,7 @@ To get you up and running quickly, we provide a variety of examples for using ea
 
 To interactively navigate the examples, visit the [Johnny-Five examples](http://johnny-five.io/examples/) page on the official website. If you want to link directly to the examples in this repo, you can use one of the following links.
 
-**There are presently 365 example programs with code and diagrams!**
+**There are presently 363 example programs with code and diagrams!**
 
 <!--extract-start:examples-->
 
@@ -203,7 +203,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [LEDs - Controlling an array of LEDs](https://github.com/rwaldron/johnny-five/blob/master/docs/led-array-controller.md)
 
 ### LED: RGB
-- [LED - RGB](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb.md)
 - [LED - RGB (Common Anode)](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode.md)
 - [LED - RGB (Common Anode) PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-anode-PCA9685.md)
 - [LED - RGB Intensity](https://github.com/rwaldron/johnny-five/blob/master/docs/led-rgb-intensity.md)
@@ -229,7 +228,6 @@ To interactively navigate the examples, visit the [Johnny-Five examples](http://
 - [Servo - PCA9685](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-PCA9685.md)
 - [Servo - Prompt](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-prompt.md)
 - [Servo - Slider control](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-slider.md)
-- [Servo - Sweep](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-sweep.md)
 - [Servo - Tessel Servo Module](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-tessel-servo-module.md)
 - [Servos - An array of servos](https://github.com/rwaldron/johnny-five/blob/master/docs/servo-array.md)
 

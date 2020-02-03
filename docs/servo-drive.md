@@ -60,8 +60,8 @@ board.on("ready", () => {
 
   // reference both together
   wheels.both = new Servos([wheels.left, wheels.right]);
-  
-  wheels.stop(); 
+
+  wheels.both.stop();
 
   // Add servos to REPL (optional)
   board.repl.inject({
