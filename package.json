@@ -158,7 +158,7 @@
     "temporal": "latest"
   },
   "optionalDependencies": {
-    "browser-serialport": "latest",
+    "chrome-apps-serialport": "^1.0.0",
     "firmata": "^2.2.0",
     "serialport": "^8.0.5"
   },
