@@ -18,13 +18,13 @@ node eg/custom-properties.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const { Board, Sensor } = require("../");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // The "custom" property is available
   // to all component class constructors
-  var sensor = new five.Sensor({
+  const sensor = new Sensor({
     pin: "A0",
     custom: {
       a: 1,
