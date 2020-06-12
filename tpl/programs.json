@@ -2143,10 +2143,6 @@
         "title": "Phoenix Hexapod"
       },
       {
-        "file": "boe-test-servos.js",
-        "title": "BOE Bot"
-      },
-      {
         "file": "bug.js",
         "title": "Bug"
       },
