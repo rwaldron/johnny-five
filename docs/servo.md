@@ -26,7 +26,8 @@ Run this example from the command line with:
 ```bash
 node eg/servo.js
 ```
-
+> **Warning:** Servo library may interfere with PWM on pins 9 and 10 on some boards like UNO even if pins are not used by Servo.
+> Use other PWM pins when Servo is connected.
 
 ```javascript
 const {Board, Servo} = require("johnny-five");
