@@ -1,3 +1,21 @@
+/*
+To use the Sensors via USB, the following instructtions may be helpfull
+1. HARDWARE:
+  a. Electrically Isolated USB EZO Carrier Board: for BNC to USB
+  b. USB-A to USB mini B cable
+2. In the Python Script, Add the following:
+import serial
+ser = serial.Serial('/dev/ttyACMn', 9600)
+
+where ttyACMn, n may be 0,1,2,...
+
+Contributed by Prath06 (Priyansu Rath)
+*/
+
+
+
+
+
 const cp = require("child_process");
 const fs = require("fs");
 const path = require("path");
