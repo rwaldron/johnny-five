@@ -59,7 +59,7 @@
 
 _Artwork by [Mike Sgier](http://msgierillustration.com)_
 
-[![Travis Build Status](https://travis-ci.org/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.org/rwaldron/johnny-five)
+[![Travis Build Status](https://travis-ci.com/rwaldron/johnny-five.svg?branch=master)](https://travis-ci.com/rwaldron/johnny-five)
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/hmke71k7uemtnami/branch/master?svg=true)](https://ci.appveyor.com/project/rwaldron/johnny-five)
 [![Coverage Status](https://coveralls.io/repos/github/rwaldron/johnny-five/badge.svg?branch=master)](https://coveralls.io/github/rwaldron/johnny-five?branch=master)
 [![Install Size](https://packagephobia.now.sh/badge?p=johnny-five)](https://packagephobia.now.sh/result?p=johnny-five)
