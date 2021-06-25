@@ -18,7 +18,6 @@ env:
   - NO_SERIALPORT_INSTALL=1
 
 before_install:
-  - npm install -g npm@3
   - npm install -g grunt-cli
 
 install:
