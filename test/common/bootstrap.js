@@ -7,7 +7,8 @@ global.Emitter = require("events");
 
 // Internal
 global.Collection = require("../../lib/mixins/collection");
-global.Withinable = require("../../lib/mixins/within");
+global.Suspendable = require("../../lib/mixins/suspendable");
+global.Withinable = require("../../lib/mixins/withinable");
 global.five = require("../../lib/johnny-five");
 global.EVS = require("../../lib/evshield");
 

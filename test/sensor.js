@@ -1171,7 +1171,7 @@ exports["Sensor - Analog"] = {
     this.clock.tick(25);
 
     test.done();
-  }, // ./within: function(test)
+  }, // ./withinable: function(test)
 
   booleanAt(test) {
     const callback = this.analogRead.args[0][1];
