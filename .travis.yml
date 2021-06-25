@@ -3,8 +3,8 @@ os:
   - osx
 language: node_js
 node_js:
-  - 10
-  - 12
+  - 14
+  - 16
 sudo: false
 compiler: clang
 notifications:
