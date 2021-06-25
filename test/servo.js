@@ -89,8 +89,9 @@ exports["Servo"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
     test.ok(this.servo instanceof Emitter);
+    test.ok(this.servo instanceof EventEmitter);
     test.done();
   },
 

@@ -232,10 +232,9 @@ exports["Sensor - Analog"] = {
   }, // ./shape: function(test)
 
   emitter(test) {
-    test.expect(1);
-
+    test.expect(2);
     test.ok(this.sensor instanceof Emitter);
-
+    test.ok(this.sensor instanceof EventEmitter);
     test.done();
   }, // ./emitter: function(test)
 

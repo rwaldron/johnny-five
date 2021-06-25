@@ -123,7 +123,7 @@ exports["Expander"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
 
     const expander = new Expander({
       board: this.board,
@@ -131,6 +131,7 @@ exports["Expander"] = {
     });
 
     test.ok(expander instanceof Emitter);
+    test.ok(expander instanceof EventEmitter);
 
     test.done();
   },

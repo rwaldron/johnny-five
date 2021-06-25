@@ -3,11 +3,11 @@
 global.IS_TEST_MODE = true;
 
 // Built-ins
-global.Emitter = require("events");
+global.EventEmitter = require("events");
 
 // Internal
 global.Collection = require("../../lib/mixins/collection");
-global.Suspendable = require("../../lib/mixins/suspendable");
+global.Emitter = require("../../lib/mixins/emitter");
 global.Withinable = require("../../lib/mixins/withinable");
 global.five = require("../../lib/johnny-five");
 global.EVS = require("../../lib/evshield");

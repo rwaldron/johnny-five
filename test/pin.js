@@ -76,9 +76,9 @@ exports["Pin"] = {
   },
 
   emitter(test) {
-    test.expect(1);
-
+    test.expect(2);
     test.ok(this.digital instanceof Emitter);
+    test.ok(this.digital instanceof EventEmitter);
 
     test.done();
   },

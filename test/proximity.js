@@ -48,8 +48,9 @@ exports["Proximity"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
     test.ok(this.proximity instanceof Emitter);
+    test.ok(this.proximity instanceof EventEmitter);
     test.done();
   }
 };

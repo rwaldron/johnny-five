@@ -2,7 +2,7 @@ require("./common/bootstrap");
 
 const Crypto = require("crypto");
 
-class Component extends Suspendable {
+class Component extends Emitter {
   constructor(options) {
     super();
 
@@ -49,7 +49,7 @@ class Component extends Suspendable {
   }
 }
 
-exports["Suspendable"] = {
+exports["Emitter"] = {
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -69,29 +69,29 @@ exports["Suspendable"] = {
 
   isInstanceOf(test) {
     test.expect(3);
-    test.equal(new Suspendable() instanceof Withinable, true);
-    test.equal(this.component instanceof Suspendable, true);
-    test.equal(this.component instanceof Withinable, true);
+    test.equal(new Emitter() instanceof EventEmitter, true);
+    test.equal(this.component instanceof Emitter, true);
+    test.equal(this.component instanceof EventEmitter, true);
     test.done();
   },
 
   pauseIsAFunction(test) {
     test.expect(1);
-    const suspendable = new Suspendable();
+    const suspendable = new Emitter();
     test.equal(typeof suspendable.pause, "function");
     test.done();
   },
 
   resumeIsAFunction(test) {
     test.expect(1);
-    const suspendable = new Suspendable();
+    const suspendable = new Emitter();
     test.equal(typeof suspendable.resume, "function");
     test.done();
   },
 
   suspendability(test) {
     test.expect(5);
-    const suspendable = new Suspendable();
+    const suspendable = new Emitter();
     const expectedBytes = [];
     const emittedBytes = [];
 

@@ -69,6 +69,14 @@ exports["Withinable"] = {
     done();
   },
 
+  isInstanceOf(test) {
+    test.expect(3);
+    test.equal(new Withinable() instanceof Emitter, true);
+    test.equal(new Withinable() instanceof EventEmitter, true);
+    test.equal(this.component instanceof Emitter, true);
+    test.done();
+  },
+
   invalidRange(test) {
     test.expect(4);
 
