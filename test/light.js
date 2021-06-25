@@ -60,7 +60,7 @@ exports["Light"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.light = new Light({
       pin: "A1",
@@ -69,6 +69,7 @@ exports["Light"] = {
     });
 
     test.ok(this.light instanceof Emitter);
+    test.ok(this.light instanceof EventEmitter);
     test.done();
   },
 
@@ -134,8 +135,9 @@ exports["Light: ALSPT19"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
     test.ok(this.light instanceof Emitter);
+    test.ok(this.light instanceof EventEmitter);
     test.done();
   }
 };

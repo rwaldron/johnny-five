@@ -35,9 +35,10 @@ exports["Motion"] = {
   },
 
   emitter(test) {
-    test.expect(1);
+    test.expect(2);
 
     test.ok(this.motion instanceof Emitter);
+    test.ok(this.motion instanceof EventEmitter);
 
     test.done();
   }

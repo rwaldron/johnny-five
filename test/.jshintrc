@@ -90,7 +90,7 @@
     "ShiftRegisters": true,
     "Sonar": true,
     "Stepper": true,
-    "Suspendable": true,
+    "Emitter": true,
     "Switch": true,
     "temporal": true,
     "Thermometer": true,
