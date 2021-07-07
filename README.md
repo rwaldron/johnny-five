@@ -126,7 +126,7 @@ Documentation for the Johnny-Five API can be found [here](http://johnny-five.io/
 
 ## Guidance
 
-Need help? Ask a question on the [NodeBots Community Forum](http://forums.nodebots.io). If you just have a quick question or are interested in ongoing design discussions, join us in the [Johnny-Five Gitter Chat](https://gitter.im/rwaldron/johnny-five).
+Need help or interested in ongoing design discussions? Join us in the [Johnny-Five Gitter Chat](https://gitter.im/rwaldron/johnny-five). You can also search for a meetup near you or find other helpful info on [NodeBots](http://nodebots.io). 
 
 For step-by-step examples, including an electronics primer, check out [Arduino Experimenter's Guide for NodeJS](http://node-ardx.org/) by [@AnnaGerber](https://twitter.com/AnnaGerber)
 
