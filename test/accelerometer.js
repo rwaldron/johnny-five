@@ -1246,7 +1246,9 @@ exports["Accelerometer -- LIS3DH"] = {
   itGetsAnExpander(test) {
     test.expect(2);
     test.equal(Expander.get.callCount, 1);
-    test.deepEqual(Expander.get.lastCall.args[0], {
+    const {address, controller, bus} = Expander.get.lastCall.args[0];
+
+    test.deepEqual({address, controller, bus}, {
       address: 24,
       controller: "LIS3DH",
       bus: undefined
@@ -1426,75 +1428,6 @@ exports["Accelerometer -- BNO055"] = {
     test.notEqual(this.accel.pitch, undefined);
     test.notEqual(this.accel.orientation, undefined);
     test.notEqual(this.accel.roll, undefined);
-    test.done();
-  },
-};
-
-
-exports["Accelerometer -- User toGravity"] = {
-
-  setUp(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.board = newBoard();
-    this.clock = this.sandbox.useFakeTimers();
-
-    this.toGravity = this.sandbox.spy(value => value);
-
-    this.accel = new Accelerometer({
-      controller: {
-        initialize: {
-          value(opts, dataHandler) {
-            setInterval(() => {
-              dataHandler({
-                x: 1,
-                y: 2,
-                z: 3
-              });
-            }, 5);
-          },
-        },
-        toGravity: {
-          value: this.toGravity,
-        },
-      },
-      board: this.board,
-      freq: 10,
-    });
-
-    done();
-  },
-
-  tearDown(done) {
-    Board.purge();
-    Accelerometer.purge();
-    this.sandbox.restore();
-    done();
-  },
-
-  data(test) {
-    test.expect(5);
-    const dataSpy = this.sandbox.spy();
-    const changeSpy = this.sandbox.spy();
-
-    this.accel.on("data", dataSpy);
-    this.accel.on("change", changeSpy);
-
-    this.clock.tick(5);
-
-    test.equal(dataSpy.callCount, 1);
-    test.equal(changeSpy.callCount, 1);
-
-    test.equal(this.accel.x, 1);
-    test.equal(this.accel.y, 2);
-    test.equal(this.accel.z, 3);
-
-    test.equal(this.toGravity.callCount, 3);
-    test.equal(this.toGravity.getCall(0).args[0], 1);
-    test.equal(this.toGravity.getCall(1).args[0], 2);
-    test.equal(this.toGravity.getCall(2).args[0], 3);
-    test.equal(this.toGravity.getCall(0).returnValue, 1);
-    test.equal(this.toGravity.getCall(1).returnValue, 2);
-    test.equal(this.toGravity.getCall(2).returnValue, 3);
     test.done();
   },
 };
