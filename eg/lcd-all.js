@@ -4,7 +4,7 @@ var board = new five.Board();
 board.on("ready", function() {
 
 
-  var random = Math.random().toString(36).replace(/[^a-z]+/g, "").substr(0, 4).toUpperCase();
+  var random = Math.random().toString(36).replace(/[^a-z]+/g, "").slice(0, 4).toUpperCase();
 
   // Controller: PARALLEL (default)
   var p = new five.LCD({
