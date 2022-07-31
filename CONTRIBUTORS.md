@@ -128,3 +128,4 @@
 - Vincent Agnano
 - Vincent Rubiolo
 - Yusuf
+- Jerry Gathu
