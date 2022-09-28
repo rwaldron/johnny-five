@@ -1,7 +1,7 @@
 {
-  "name": "johnny-five",
-  "description": "The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
-  "version": "2.1.0",
+  "name": "@code-dot-org/johnny-five",
+  "description": "Code.org fork of rwaldron/johnny-five: The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
+  "version": "0.11.1-cdo.2",
   "homepage": "https://johnny-five.io",
   "author": "Rick Waldron <waldron.rick@gmail.com>",
   "keywords": [
@@ -142,10 +142,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/rwaldron/johnny-five.git"
+    "url": "git://github.com/code-dot-org/johnny-five.git"
   },
   "bugs": {
-    "url": "https://github.com/rwaldron/johnny-five/issues"
+    "url": "https://github.com/code-dot-org/johnny-five/issues"
   },
   "license": "MIT",
   "main": "lib/johnny-five",
