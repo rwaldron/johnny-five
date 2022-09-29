@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Serial"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -10,12 +10,13 @@ exports["Serial"] = {
       list: [],
     };
 
-    this.sandbox.stub(SerialPort, "list", function(callback) {
-      callback(this.responses.error, this.responses.list);
-    }.bind(this));
+    this.sandbox.stub(SerialPort, "list", () => {
+      return this.responses.error ?
+        Promise.reject(this.responses.error) :
+        Promise.resolve(this.responses.list);
+    });
 
-
-    this.sandbox.stub(Firmata, "Board", function(port, callback) {
+    this.sandbox.stub(Firmata, "Board", (port, callback) => {
       // Necessary to preserve callback invocation order
       process.nextTick(callback);
     });
@@ -23,38 +24,38 @@ exports["Serial"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
     done();
   },
 
-  detect: function(test) {
+  detect(test) {
     test.expect(1);
 
     // This will get skipped
     Serial.used.push("/dev/usb");
 
     this.responses.list.push(
-      { comName: "/dev/usb" },
+      { path: "/dev/usb" },
       // This will get skipped
-      { comName: "/dev/cu.Bluetooth-Incoming-Port" },
+      { path: "/dev/cu.Bluetooth-Incoming-Port" },
       // This is the one to expect
-      { comName: "/dev/acm" },
-      { comName: "COM4" }
+      { path: "/dev/acm" },
+      { path: "COM4" }
     );
 
-    Serial.detect.call(this.board, function(port) {
+    Serial.detect.call(this.board, port => {
       test.equal(port, "/dev/acm");
       test.done();
     });
   },
 
-  connect: function(test) {
+  connect(test) {
     test.expect(6);
 
-    var spy = this.sandbox.spy(function() {
+    const spy = this.sandbox.spy(() => {
       if (spy.callCount === 2) {
         test.equal(spy.firstCall.args[0], null);
         test.equal(spy.firstCall.args[1], "connect");
@@ -66,27 +67,27 @@ exports["Serial"] = {
 
         test.done();
       }
-    }.bind(this));
+    });
 
     Serial.connect.call(this.board, "/dev/acm", spy);
   },
 
-  connectError: function(test) {
+  connectError(test) {
     // test.expect(6);
 
     Firmata.Board.restore();
 
-    var error = new Error("Busted");
+    const error = new Error("Busted");
 
-    this.sandbox.stub(Firmata, "Board", function(port, callback) {
+    this.sandbox.stub(Firmata, "Board", (port, callback) => {
       // Necessary to preserve callback invocation order
-      process.nextTick(function() {
+      process.nextTick(() => {
         callback(error);
       });
     });
 
 
-    var spy = this.sandbox.spy(function() {
+    const spy = this.sandbox.spy(() => {
       if (spy.callCount === 2) {
         test.equal(spy.firstCall.args[0], null);
         test.equal(spy.firstCall.args[1], "connect");
@@ -98,47 +99,47 @@ exports["Serial"] = {
 
         test.done();
       }
-    }.bind(this));
+    });
 
     Serial.connect.call(this.board, "/dev/acm", spy);
   },
 
-  ioThrows: function(test) {
+  ioThrows(test) {
     test.expect(2);
 
     Firmata.Board.restore();
 
-    var error = new Error("Busted");
+    const error = new Error("Busted");
 
-    this.sandbox.stub(Firmata, "Board", function() {
+    this.sandbox.stub(Firmata, "Board", () => {
       throw error;
     });
 
-    var spy = this.sandbox.spy(function() {
+    const spy = this.sandbox.spy(() => {
       test.equal(spy.lastCall.args[0], "Busted");
       test.equal(spy.lastCall.args[1], "error");
       test.done();
-    }.bind(this));
+    });
 
     Serial.connect.call(this.board, "/dev/acm", spy);
   },
 
-  ioThrowsNoMessage: function(test) {
+  ioThrowsNoMessage(test) {
     test.expect(2);
 
     Firmata.Board.restore();
 
-    var error = "Busted";
+    const error = "Busted";
 
-    this.sandbox.stub(Firmata, "Board", function() {
+    this.sandbox.stub(Firmata, "Board", () => {
       throw error;
     });
 
-    var spy = this.sandbox.spy(function() {
+    const spy = this.sandbox.spy(() => {
       test.equal(spy.lastCall.args[0], "Busted");
       test.equal(spy.lastCall.args[1], "error");
       test.done();
-    }.bind(this));
+    });
 
     Serial.connect.call(this.board, "/dev/acm", spy);
   },

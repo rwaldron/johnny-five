@@ -3,7 +3,7 @@ var board = new five.Board();
 
 board.on("ready", function() {
 
-  // Plug the Temperature sensor module
+  // Plug the Thermometer sensor module
   // into the Grove Shield's A0 jack
   var thermometer = new five.Thermometer({
     controller: "GROVE",

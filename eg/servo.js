@@ -1,8 +1,8 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Servo} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var servo = new five.Servo(10);
+board.on("ready", () => {
+  const servo = new Servo(10);
 
   // Servo alternate constructor with options
   /*
@@ -19,8 +19,8 @@ board.on("ready", function() {
   */
 
   // Add servo to REPL (optional)
-  this.repl.inject({
-    servo: servo
+  board.repl.inject({
+    servo
   });
 
 

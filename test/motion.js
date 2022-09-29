@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Motion"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -21,33 +21,31 @@ exports["Motion"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.instance.length);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.motion[property.name], "undefined");
-    }, this);
-
+    this.instance.forEach(({name}) => test.notEqual(typeof this.motion[name], 0));
     test.done();
   },
 
-  emitter: function(test) {
-    test.expect(1);
+  emitter(test) {
+    test.expect(2);
 
     test.ok(this.motion instanceof Emitter);
+    test.ok(this.motion instanceof EventEmitter);
 
     test.done();
   }
 };
 
 exports["Motion - PIR"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -61,15 +59,15 @@ exports["Motion - PIR"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  calibrated: function(test) {
+  calibrated(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -77,9 +75,9 @@ exports["Motion - PIR"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -87,10 +85,10 @@ exports["Motion - PIR"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
-    var callback = this.digitalRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.digitalRead.firstCall.args[1];
 
     this.motion.on("change", spy);
     this.clock.tick(25);
@@ -104,10 +102,10 @@ exports["Motion - PIR"] = {
     test.done();
   },
 
-  noChange: function(test) {
+  noChange(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
-    var callback = this.digitalRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.digitalRead.firstCall.args[1];
 
     this.motion.on("change", spy);
 
@@ -123,9 +121,9 @@ exports["Motion - PIR"] = {
     test.done();
   },
 
-  motionstart: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.digitalRead.firstCall.args[1];
+  motionstart(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.digitalRead.firstCall.args[1];
 
 
     test.expect(1);
@@ -140,9 +138,9 @@ exports["Motion - PIR"] = {
     test.done();
   },
 
-  motionend: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.digitalRead.firstCall.args[1];
+  motionend(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.digitalRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionend", spy);
@@ -159,7 +157,7 @@ exports["Motion - PIR"] = {
 };
 
 exports["Motion - GP2Y0D805Z0F"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -176,13 +174,13 @@ exports["Motion - GP2Y0D805Z0F"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -194,7 +192,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -203,7 +201,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(8);
 
     test.ok(this.i2cConfig.called);
@@ -219,8 +217,8 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  calibrated: function(test) {
-    var spy = this.sandbox.spy();
+  calibrated(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -228,8 +226,8 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -237,9 +235,9 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  change: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.i2cRead.firstCall.args[2];
+  change(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.i2cRead.firstCall.args[2];
     test.expect(1);
     this.motion.on("change", spy);
     callback([0x00]);
@@ -251,10 +249,10 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  noChange: function(test) {
+  noChange(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
-    var callback = this.i2cRead.firstCall.args[2];
+    const spy = this.sandbox.spy();
+    const callback = this.i2cRead.firstCall.args[2];
     this.motion.on("change", spy);
 
     this.clock.tick(25);
@@ -269,11 +267,11 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  motionstart: function(test) {
+  motionstart(test) {
 
     // this.clock.tick(250);
-    var spy = this.sandbox.spy();
-    var callback = this.i2cRead.firstCall.args[2];
+    const spy = this.sandbox.spy();
+    const callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
     this.motion.on("motionstart", spy);
@@ -286,11 +284,11 @@ exports["Motion - GP2Y0D805Z0F"] = {
     test.done();
   },
 
-  motionend: function(test) {
+  motionend(test) {
 
     // this.clock.tick(250);
-    var spy = this.sandbox.spy();
-    var callback = this.i2cRead.firstCall.args[2];
+    const spy = this.sandbox.spy();
+    const callback = this.i2cRead.firstCall.args[2];
 
     test.expect(1);
     this.motion.on("motionend", spy);
@@ -306,7 +304,7 @@ exports["Motion - GP2Y0D805Z0F"] = {
 };
 
 exports["Motion - GP2Y0D810Z0F"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -321,13 +319,13 @@ exports["Motion - GP2Y0D810Z0F"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(2);
 
     test.ok(this.pinMode.calledOnce);
@@ -335,8 +333,8 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  calibrated: function(test) {
-    var spy = this.sandbox.spy();
+  calibrated(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -344,8 +342,8 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -353,9 +351,9 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  change: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+  change(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
     test.expect(1);
     this.motion.on("change", spy);
     callback(1023);
@@ -369,10 +367,10 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  noChange: function(test) {
+  noChange(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
     this.motion.on("change", spy);
 
     callback(1023);
@@ -388,9 +386,9 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  motionstart: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+  motionstart(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionstart", spy);
@@ -404,11 +402,11 @@ exports["Motion - GP2Y0D810Z0F"] = {
     test.done();
   },
 
-  motionend: function(test) {
+  motionend(test) {
 
     // this.clock.tick(250);
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionend", spy);
@@ -424,7 +422,7 @@ exports["Motion - GP2Y0D810Z0F"] = {
 };
 
 exports["Motion - GP2Y0A60SZLF"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -439,13 +437,13 @@ exports["Motion - GP2Y0A60SZLF"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(2);
 
     test.ok(this.pinMode.calledOnce);
@@ -453,8 +451,8 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  calibrated: function(test) {
-    var spy = this.sandbox.spy();
+  calibrated(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("calibrated", spy);
     this.clock.tick(10);
@@ -462,8 +460,8 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
     this.motion.on("data", spy);
     this.clock.tick(25);
@@ -471,9 +469,9 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  change: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+  change(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
     test.expect(1);
     this.motion.on("change", spy);
     callback(100);
@@ -487,10 +485,10 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  noChange: function(test) {
+  noChange(test) {
     test.expect(1);
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
     this.motion.on("change", spy);
 
     callback(100);
@@ -506,9 +504,9 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  motionstart: function(test) {
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+  motionstart(test) {
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionstart", spy);
@@ -522,11 +520,11 @@ exports["Motion - GP2Y0A60SZLF"] = {
     test.done();
   },
 
-  motionend: function(test) {
+  motionend(test) {
 
     // this.clock.tick(250);
-    var spy = this.sandbox.spy();
-    var callback = this.analogRead.firstCall.args[1];
+    const spy = this.sandbox.spy();
+    const callback = this.analogRead.firstCall.args[1];
 
     test.expect(1);
     this.motion.on("motionend", spy);
@@ -541,8 +539,8 @@ exports["Motion - GP2Y0A60SZLF"] = {
   }
 };
 
-Object.keys(Motion.Controllers).forEach(function(name) {
-  exports["Motion - Controller, " + name] = addControllerTest(Motion, Motion.Controllers[name], {
+Object.keys(Motion.Controllers).forEach(name => {
+  exports[`Motion - Controller, ${name}`] = addControllerTest(Motion, Motion.Controllers[name], {
     controller: name,
   });
 });

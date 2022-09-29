@@ -1,13 +1,13 @@
-var five = require("../lib/johnny-five.js");
-var keypress = require("keypress");
-var board = new five.Board();
+const {Board, Motor, Motors} = require("../lib/johnny-five.js");
+const keypress = require("keypress");
+const board = new Board();
 
-board.on("ready", function() {
-  var motors = new five.Motors([
-    five.Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.A, // Left
-    five.Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.B, // Right
+board.on("ready", () => {
+  const motors = new Motors([
+    Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.A, // Left
+    Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.B, // Right
   ]);
-  var speed = 100;
+  let speed = 100;
 
   function controller(ch, key) {
     if (key) {

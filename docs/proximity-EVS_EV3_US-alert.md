@@ -18,22 +18,22 @@ node eg/proximity-EVS_EV3_US-alert.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led, Leds, Proximity } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var red = new five.Led(10);
-  var green = new five.Led(11);
-  var leds = new five.Leds([red, green]);
-  var proximity = new five.Proximity({
+board.on("ready", () => {
+  const proximity = new Proximity({
     controller: "EVS_EV3_US",
     pin: "BAS1"
   });
+  const red = new Led(10);
+  const green = new Led(11);
+  const leds = new Leds([red, green]);
 
   green.on();
 
-  proximity.on("change", function() {
-    if (this.cm < 25) {
+  proximity.on("change", () => {
+    if (proximity.cm < 25) {
       if (!red.isOn) {
         leds.toggle();
       }
@@ -58,9 +58,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

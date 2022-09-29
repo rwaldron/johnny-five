@@ -1,35 +1,24 @@
-var five = require("../");
-var board = new five.Board();
+const { Board, Button, ESC, Sensor } = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var start = Date.now();
-  var esc = new five.ESC({
+board.on("ready", () => {
+  const start = Date.now();
+  const esc = new ESC({
     device: "FORWARD_REVERSE",
     neutral: 50,
     pin: 11
   });
-  var throttle = new five.Sensor("A0");
-  var brake = new five.Button(4);
+  const throttle = new Sensor("A0");
+  const brake = new Button(4);
 
-  brake.on("press", function() {
-    esc.brake();
-  });
+  brake.on("press", () => esc.brake());
 
-  throttle.scale(0, 100).on("change", function() {
+  throttle.scale(0, 100).on("change", () => {
     // 2 Seconds for arming.
-    if (Date.now() - start < 2e3) {
+    if (Date.now() - start < 2000) {
       return;
     }
 
-    var isForward = this.value > esc.neutral;
-    var value = isForward ?
-      // Scale 50-100 to 0-100
-      five.Fn.scale(this.value, esc.neutral, esc.range[1], 0, 100) :
-      // Scale 0-50 to 100-0
-      five.Fn.scale(this.value, esc.range[0], esc.neutral, 100, 0);
-
-    if (esc.value !== value) {
-      esc[isForward ? "forward" : "reverse"](value);
-    }
+    esc.throttle(this.value);
   });
 });

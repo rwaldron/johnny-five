@@ -31,24 +31,24 @@ node eg/expander-MCP23017.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Expander, Leds } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var virtual = new five.Board.Virtual(
-    new five.Expander("MCP23017")
+board.on("ready", () => {
+  const virtual = new Board.Virtual(
+    new Expander("MCP23017")
   );
 
-  var leds = new five.Leds(
-    Array.from({ length: 8 }, function(_, i) {
-      return new five.Led({ pin: i * 2, board: virtual });
-    })
+  const leds = new Leds(
+    Array.from(Array(8), (_, i) =>
+      ({ pin: i * 2, board: virtual })
+    )
   );
 
-  leds.on();
+  leds.blink(500);
 
-  this.repl.inject({
-    leds: leds
+  board.repl.inject({
+    leds
   });
 });
 
@@ -66,9 +66,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

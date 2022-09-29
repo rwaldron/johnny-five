@@ -31,17 +31,16 @@ node eg/servo-drive.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board, wheels;
+const {Board, Servo, Servos} = require("johnny-five");
 
-board = new five.Board();
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
-  wheels = {};
+  let wheels = {};
 
   // Create two servos as our wheels
-  wheels.left = new five.Servo({
+  wheels.left = new Servo({
     pin: 9,
     // `type` defaults to standard servo.
     // For continuous rotation servos, override the default
@@ -50,7 +49,7 @@ board.on("ready", function() {
 
   });
 
-  wheels.right = new five.Servo({
+  wheels.right = new Servo({
     pin: 10,
     // `type` defaults to standard servo.
     // For continuous rotation servos, override the default
@@ -59,11 +58,14 @@ board.on("ready", function() {
     invert: true // one wheel mounted inverted of the other
   });
 
-  wheels.both = new five.Servos().stop(); // reference both together
+  // reference both together
+  wheels.both = new Servos([wheels.left, wheels.right]);
+
+  wheels.both.stop();
 
   // Add servos to REPL (optional)
-  this.repl.inject({
-    wheels: wheels
+  board.repl.inject({
+    wheels
   });
 
   // Drive forwards
@@ -72,9 +74,7 @@ board.on("ready", function() {
   wheels.both.cw();
 
   // Stop driving after 3 seconds
-  this.wait(3000, function() {
-    wheels.both.stop();
-  });
+  board.wait(3000, wheels.both.stop);
 
 });
 
@@ -92,9 +92,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

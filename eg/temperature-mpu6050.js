@@ -1,20 +1,21 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Thermometer } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var thermometer = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "MPU6050"
   });
 
-  thermometer.on("change", function() {
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
     console.log("Thermometer");
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
     console.log("--------------------------------------");
   });
 });
 
 /* @markdown
-- [MPU6050 - IMU with Temperature Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
+- [MPU6050 - IMU with Thermometer Sensor](http://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
 @markdown */

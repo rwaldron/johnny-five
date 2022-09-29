@@ -29,34 +29,46 @@ node eg/esc-keypress.js
 
 
 ```javascript
-var five = require("johnny-five");
-var keypress = require("keypress");
-var board = new five.Board();
+const { Board, ESC, Fn, Led } = require("johnny-five");
+const keypress = require("keypress");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
+  const led = new Led(13);
+  const esc = new ESC({
+    device: "FORWARD_REVERSE",
+    pin: 11
+  });
+  let speed = 0;
+  let last = null;
 
-  var esc = new five.ESC(9);
+  // just to make sure the program is running
+  led.blink(500);
 
-  // Hold shift+arrow-up, shift+arrow-down to incrementally
-  // increase or decrease speed.
+  function controller(_, key) {
+    let change = 0;
 
-  function controller(ch, key) {
-    var isThrottle = false;
-    var speed = esc.last ? esc.speed : 0;
+    if (key) {
+      if (!key.shift) {
+        change = esc.neutral;
+        speed = 0;
+      } else {
+        if (key.name === "up" || key.name === "down") {
+          if (last !== key.name) {
+            change = esc.neutral;
+            speed = 0;
+          } else {
+            speed += 1;
 
-    if (key && key.shift) {
-      if (key.name === "up") {
-        speed += 0.01;
-        isThrottle = true;
+            change =
+              key.name === "up" ? esc.neutral + speed : esc.neutral - speed;
+          }
+          last = key.name;
+        }
       }
 
-      if (key.name === "down") {
-        speed -= 0.01;
-        isThrottle = true;
-      }
-
-      if (isThrottle) {
-        esc.speed(speed);
+      if (change) {
+        esc.throttle(change);
       }
     }
   }
@@ -82,9 +94,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

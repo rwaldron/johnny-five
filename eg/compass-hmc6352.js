@@ -1,22 +1,16 @@
-var five = require("../");
-var board = new five.Board();
+const { Board, Compass } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var compass = new five.Compass({
+board.on("ready", () => {
+  const compass = new Compass({
     controller: "HMC6352"
   });
 
-  compass.on("change", function() {
-    console.log("change");
-    console.log("  heading : ", Math.floor(this.heading));
-    console.log("  bearing : ", this.bearing.name);
-    console.log("--------------------------------------");
-  });
-
-  compass.on("data", function() {
-    console.log("  heading : ", Math.floor(this.heading));
-    console.log("  bearing : ", this.bearing.name);
+  compass.on("change", () => {
+    const {bearing, heading} = compass;
+    console.log("Compass:");
+    console.log("  bearing     : ", bearing);
+    console.log("  heading     : ", heading);
     console.log("--------------------------------------");
   });
 });

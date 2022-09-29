@@ -1,31 +1,43 @@
-var five = require("../lib/johnny-five.js");
-var keypress = require("keypress");
-var board = new five.Board();
+const { Board, ESC, Fn, Led } = require("../lib/johnny-five.js");
+const keypress = require("keypress");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
+  const led = new Led(13);
+  const esc = new ESC({
+    device: "FORWARD_REVERSE",
+    pin: 11
+  });
+  let speed = 0;
+  let last = null;
 
-  var esc = new five.ESC(9);
+  // just to make sure the program is running
+  led.blink(500);
 
-  // Hold shift+arrow-up, shift+arrow-down to incrementally
-  // increase or decrease speed.
+  function controller(_, key) {
+    let change = 0;
 
-  function controller(ch, key) {
-    var isThrottle = false;
-    var speed = esc.last ? esc.speed : 0;
+    if (key) {
+      if (!key.shift) {
+        change = esc.neutral;
+        speed = 0;
+      } else {
+        if (key.name === "up" || key.name === "down") {
+          if (last !== key.name) {
+            change = esc.neutral;
+            speed = 0;
+          } else {
+            speed += 1;
 
-    if (key && key.shift) {
-      if (key.name === "up") {
-        speed += 0.01;
-        isThrottle = true;
+            change =
+              key.name === "up" ? esc.neutral + speed : esc.neutral - speed;
+          }
+          last = key.name;
+        }
       }
 
-      if (key.name === "down") {
-        speed -= 0.01;
-        isThrottle = true;
-      }
-
-      if (isThrottle) {
-        esc.speed(speed);
+      if (change) {
+        esc.throttle(change);
       }
     }
   }

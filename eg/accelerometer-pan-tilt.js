@@ -1,41 +1,33 @@
-var five = require("../lib/johnny-five.js"),
-  board;
+const { Accelerometer, Board, Servo, Servos } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board = new five.Board();
+board.on("ready", () => {
 
-board.on("ready", function() {
-
-  var range, pan, tilt, accel;
-
-  range = [0, 170];
+  const range = [0, 170];
 
   // Servo to control panning
-  pan = new five.Servo({
+  const pan = new Servo({
     pin: 9,
-    range: range
+    range
   });
 
   // Servo to control tilt
-  tilt = new five.Servo({
+  const tilt = new Servo({
     pin: 10,
-    range: range
+    range
   });
 
   // Accelerometer to control pan/tilt
-  accel = new five.Accelerometer({
+  const accelerometer = new Accelerometer({
     pins: ["A3", "A4", "A5"],
     freq: 250
   });
 
   // Center all servos
-  (five.Servos()).center();
+  new Servos([pan, tilt]).center();
 
-  accel.on("acceleration", function() {
-    // console.log( "acceleration", this.axis );
-
-    tilt.to(Math.abs(Math.ceil(170 * this.pitch.toFixed(2)) - 180));
-    pan.to(Math.ceil(170 * this.roll.toFixed(2)));
-
-    // TODO: Math.abs(v - 180) as inversion function ?
+  accelerometer.on("acceleration", () => {
+    tilt.to(Math.abs(Math.ceil(170 * accelerometer.pitch.toFixed(2)) - 180));
+    pan.to(Math.ceil(170 * accelerometer.roll.toFixed(2)));
   });
 });

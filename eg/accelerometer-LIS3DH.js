@@ -1,8 +1,8 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Accelerometer, Board } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var accelerometer = new five.Accelerometer({
+board.on("ready", () => {
+  const accelerometer = new Accelerometer({
     controller: "LIS3DH",
     // Optionally set the range to one of
     // 2, 4, 8, 16 (±g)
@@ -10,21 +10,22 @@ board.on("ready", function() {
     // range: ...
   });
 
-  accelerometer.on("change", function() {
-    console.log("accelerometer");
-    console.log("  x            : ", this.x);
-    console.log("  y            : ", this.y);
-    console.log("  z            : ", this.z);
-    // console.log("  pitch        : ", this.pitch);
-    // console.log("  roll         : ", this.roll);
-    // console.log("  acceleration : ", this.acceleration);
-    // console.log("  inclination  : ", this.inclination);
-    // console.log("  orientation  : ", this.orientation);
+  accelerometer.on("change", () => {
+    const {acceleration, inclination, orientation, pitch, roll, x, y, z} = accelerometer;
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
     console.log("--------------------------------------");
   });
 
-  ["tap", "tap:single", "tap:double"].forEach(function(event) {
-    accelerometer.on(event, function() {
+  ["tap", "tap:single", "tap:double"].forEach((event) => {
+    accelerometer.on(event, () => {
       console.log(event);
     });
   });

@@ -1,10 +1,10 @@
 require("./common/bootstrap");
 
-var proto = [{
+const proto = [{
   name: "within",
 }];
 
-var instance = [{
+const instance = [{
   name: "value",
 }, {
   name: "level",
@@ -13,7 +13,7 @@ var instance = [{
 }];
 
 exports["Light"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -22,14 +22,14 @@ exports["Light"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
     this.light = new Light({
@@ -38,24 +38,19 @@ exports["Light"] = {
       board: this.board
     });
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Light({ board: this.board }) instanceof Light, true);
+    test.equal(new Light({ board: this.board }) instanceof Light, true);
     test.done();
   },
 
-  component: function(test) {
+  component(test) {
     test.expect(1);
 
     new Light({ board: this.board });
@@ -64,8 +59,8 @@ exports["Light"] = {
     test.done();
   },
 
-  emitter: function(test) {
-    test.expect(1);
+  emitter(test) {
+    test.expect(2);
 
     this.light = new Light({
       pin: "A1",
@@ -74,16 +69,17 @@ exports["Light"] = {
     });
 
     test.ok(this.light instanceof Emitter);
+    test.ok(this.light instanceof EventEmitter);
     test.done();
   },
 
-  customIntensityLevel: function(test) {
+  customIntensityLevel(test) {
     test.expect(2);
 
     this.light = new Light({
       board: this.board,
       controller: {},
-      toIntensityLevel: function(x) {
+      toIntensityLevel(x) {
         test.ok(true);
         return x * x;
       },
@@ -93,7 +89,7 @@ exports["Light"] = {
     test.done();
   },
 
-  fallbackIntensityLevel: function(test) {
+  fallbackIntensityLevel(test) {
     test.expect(1);
 
     this.light = new Light({
@@ -107,7 +103,7 @@ exports["Light"] = {
 };
 
 exports["Light: ALSPT19"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -122,36 +118,32 @@ exports["Light: ALSPT19"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  emitter: function(test) {
-    test.expect(1);
+  emitter(test) {
+    test.expect(2);
     test.ok(this.light instanceof Emitter);
+    test.ok(this.light instanceof EventEmitter);
     test.done();
   }
 };
 
 exports["Light: BH1750"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -168,14 +160,14 @@ exports["Light: BH1750"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -187,7 +179,7 @@ exports["Light: BH1750"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -196,7 +188,7 @@ exports["Light: BH1750"] = {
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(4);
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(this.i2cWrite.callCount, 1);
@@ -205,13 +197,13 @@ exports["Light: BH1750"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(3);
 
     this.clock.tick(120);
 
-    var read = this.i2cReadOnce.lastCall.args[2];
-    var spy = this.sandbox.spy();
+    const read = this.i2cReadOnce.lastCall.args[2];
+    const spy = this.sandbox.spy();
 
     this.light.on("data", spy);
 
@@ -226,13 +218,13 @@ exports["Light: BH1750"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(6);
 
     this.clock.tick(120);
 
-    var read = this.i2cReadOnce.lastCall.args[2];
-    var spy = this.sandbox.spy();
+    const read = this.i2cReadOnce.lastCall.args[2];
+    const spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -255,7 +247,7 @@ exports["Light: BH1750"] = {
 };
 
 exports["Light: TSL2561"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -273,14 +265,14 @@ exports["Light: TSL2561"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -292,7 +284,7 @@ exports["Light: TSL2561"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -301,11 +293,11 @@ exports["Light: TSL2561"] = {
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(4);
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(this.i2cWriteReg.callCount, 3);
-    test.equal(this.i2cWriteReg.lastCall.args[0], 0x39);
+    test.equal(this.i2cWriteReg.lastCall.args[0], 0x29);
     test.equal(this.i2cWriteReg.lastCall.args[1], 0x81);
     test.done();
   },
@@ -313,7 +305,7 @@ exports["Light: TSL2561"] = {
 };
 
 exports["Light: EVS_EV3, Ambient (Default)"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -324,7 +316,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, numBytes, callback) => {
       callback([15, 0]);
     });
 
@@ -338,31 +330,26 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(2);
 
-    var shield = {
+    const shield = {
       address: 26,
       analog: 112,
       bank: "a",
@@ -379,8 +366,8 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -389,10 +376,10 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -402,8 +389,8 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
     test.done();
   },
 
-  within: function(test) {
-    var spy = this.sandbox.spy();
+  within(test) {
+    const spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -420,7 +407,7 @@ exports["Light: EVS_EV3, Ambient (Default)"] = {
 };
 
 exports["Light: EVS_EV3, Reflected"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -431,7 +418,7 @@ exports["Light: EVS_EV3, Reflected"] = {
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, numBytes, callback) => {
       callback([15, 0]);
     });
 
@@ -446,31 +433,26 @@ exports["Light: EVS_EV3, Reflected"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(2);
 
-    var shield = {
+    const shield = {
       address: 26,
       analog: 112,
       bank: "a",
@@ -487,8 +469,8 @@ exports["Light: EVS_EV3, Reflected"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -497,10 +479,10 @@ exports["Light: EVS_EV3, Reflected"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -510,8 +492,8 @@ exports["Light: EVS_EV3, Reflected"] = {
     test.done();
   },
 
-  within: function(test) {
-    var spy = this.sandbox.spy();
+  within(test) {
+    const spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -528,7 +510,7 @@ exports["Light: EVS_EV3, Reflected"] = {
 };
 
 exports["Light: EVS_NXT, Ambient (Default)"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -539,7 +521,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, numBytes, callback) => {
       callback([100, 3]);
     });
 
@@ -553,31 +535,26 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(1);
 
-    var shield = {
+    const shield = {
       address: 26,
       analog: 112,
       bank: "a",
@@ -593,8 +570,8 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -603,10 +580,10 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -616,8 +593,8 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
     test.done();
   },
 
-  within: function(test) {
-    var spy = this.sandbox.spy();
+  within(test) {
+    const spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);
@@ -634,7 +611,7 @@ exports["Light: EVS_NXT, Ambient (Default)"] = {
 };
 
 exports["Light: EVS_NXT, Reflected"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -645,7 +622,7 @@ exports["Light: EVS_NXT, Reflected"] = {
 
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", function(address, register, numBytes, callback) {
+    this.i2cRead = this.sandbox.stub(MockFirmata.prototype, "i2cRead", (address, register, numBytes, callback) => {
       callback([100, 3]);
     });
 
@@ -660,31 +637,26 @@ exports["Light: EVS_NXT, Reflected"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Light.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(proto.length + instance.length);
 
-    proto.forEach(function(method) {
-      test.equal(typeof this.light[method.name], "function");
-    }, this);
-
-    instance.forEach(function(property) {
-      test.notEqual(typeof this.light[property.name], 0);
-    }, this);
+    proto.forEach(({name}) => test.equal(typeof this.light[name], "function"));
+    instance.forEach(({name}) => test.notEqual(typeof this.light[name], 0));
 
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(1);
 
-    var shield = {
+    const shield = {
       address: 26,
       analog: 112,
       bank: "a",
@@ -700,8 +672,8 @@ exports["Light: EVS_NXT, Reflected"] = {
     test.done();
   },
 
-  data: function(test) {
-    var spy = this.sandbox.spy();
+  data(test) {
+    const spy = this.sandbox.spy();
     test.expect(1);
 
     this.light.on("data", spy);
@@ -710,10 +682,10 @@ exports["Light: EVS_NXT, Reflected"] = {
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.light.on("change", spy);
 
@@ -723,8 +695,8 @@ exports["Light: EVS_NXT, Reflected"] = {
     test.done();
   },
 
-  within: function(test) {
-    var spy = this.sandbox.spy();
+  within(test) {
+    const spy = this.sandbox.spy();
     test.expect(2);
 
     this.clock.tick(250);

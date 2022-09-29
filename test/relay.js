@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Relay"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
@@ -12,10 +12,6 @@ exports["Relay"] = {
     });
 
     this.proto = [{
-      name: "on"
-    }, {
-      name: "off"
-    }, {
       name: "close"
     }, {
       name: "open"
@@ -24,7 +20,7 @@ exports["Relay"] = {
     }];
 
     this.instance = [{
-      name: "isOn"
+      name: "isClosed"
     }, {
       name: "type"
     }, {
@@ -34,27 +30,22 @@ exports["Relay"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.relay[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.relay[property.name], "undefined");
-    }, this);
+    this.proto.forEach(({name}) => test.equal(typeof this.relay[name], "function"));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.relay[name], "undefined"));
 
     test.done();
   },
 
-  NC: function(test) {
+  NC(test) {
     test.expect(2);
 
     // NC should send inverted values
@@ -64,53 +55,37 @@ exports["Relay"] = {
       board: this.board
     });
 
-    this.relay.on();
+    this.relay.close();
     test.ok(this.digitalWrite.calledWith(10, 0));
 
-    this.relay.off();
+    this.relay.open();
     test.ok(this.digitalWrite.calledWith(10, 1));
 
     test.done();
   },
 
-  on: function(test) {
+  close(test) {
     test.expect(1);
 
-    this.relay.on();
+    this.relay.close();
     test.ok(this.digitalWrite.calledWith(10, 1));
 
     test.done();
   },
 
-  off: function(test) {
+  open(test) {
     test.expect(1);
 
-    this.relay.off();
+    this.relay.open();
     test.ok(this.digitalWrite.calledWith(10, 0));
 
     test.done();
   },
 
-  close: function(test) {
-    test.expect(1);
-
-    test.equal(Relay.prototype.close, Relay.prototype.on);
-
-    test.done();
-  },
-
-  open: function(test) {
-    test.expect(1);
-
-    test.equal(Relay.prototype.open, Relay.prototype.off);
-
-    test.done();
-  },
-
-  toggle: function(test) {
+  toggle(test) {
     test.expect(2);
 
-    this.relay.off();
+    this.relay.open();
     this.relay.toggle();
 
     test.ok(this.digitalWrite.calledWith(10, 1));
@@ -122,9 +97,113 @@ exports["Relay"] = {
   },
 };
 
+exports["Relay: Digital Writing to Analog Pin"] = {
+  setUp(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
+    this.pinMode = this.sandbox.spy(MockFirmata.prototype, "pinMode");
+
+    this.relay = new Relay({
+      pin: "A2",
+      board: this.board
+    });
+
+    this.proto = [{
+      name: "close"
+    }, {
+      name: "open"
+    }, {
+      name: "toggle"
+    }];
+
+    this.instance = [{
+      name: "isClosed"
+    }, {
+      name: "type"
+    }, {
+      name: "value"
+    }];
+
+    done();
+  },
+
+  tearDown(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  shape(test) {
+    test.expect(this.proto.length + this.instance.length);
+
+    this.proto.forEach(({name}) => test.equal(typeof this.relay[name], "function"));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.relay[name], "undefined"));
+
+    test.done();
+  },
+
+  callsPinMode(test) {
+    test.expect(1);
+    test.equal(this.pinMode.callCount, 1);
+
+    test.done();
+  },
+
+  NC(test) {
+    test.expect(2);
+
+    // NC should send inverted values
+    this.relay = new Relay({
+      pin: "A2",
+      type: "NC",
+      board: this.board
+    });
+
+    this.relay.close();
+    test.ok(this.digitalWrite.calledWith(16, 0));
+
+    this.relay.open();
+    test.ok(this.digitalWrite.calledWith(16, 1));
+
+    test.done();
+  },
+
+  close(test) {
+    test.expect(1);
+
+    this.relay.close();
+    test.ok(this.digitalWrite.calledWith(16, 1));
+
+    test.done();
+  },
+
+  open(test) {
+    test.expect(1);
+
+    this.relay.open();
+    test.ok(this.digitalWrite.calledWith(16, 0));
+
+    test.done();
+  },
+
+  toggle(test) {
+    test.expect(2);
+
+    this.relay.open();
+    this.relay.toggle();
+
+    test.ok(this.digitalWrite.calledWith(16, 1));
+
+    this.relay.toggle();
+    test.ok(this.digitalWrite.calledWith(16, 0));
+
+    test.done();
+  },
+};
 
 exports["Relay.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -146,35 +225,35 @@ exports["Relay.Collection"] = {
     });
 
     [
-      "on", "off", "toggle"
-    ].forEach(function(method) {
+      "open", "close", "toggle"
+    ].forEach(method => {
       this[method] = this.sandbox.spy(Relay.prototype, method);
-    }.bind(this));
+    });
 
     this.digitalWrite = this.sandbox.spy(MockFirmata.prototype, "digitalWrite");
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  initFromRelayNumbers: function(test) {
+  initFromPinNumbers(test) {
     test.expect(1);
 
-    var relays = new Relay.Collection([3, 6, 9]);
+    const relays = new Relay.Collection([3, 6, 9]);
 
     test.equal(relays.length, 3);
     test.done();
   },
 
-  initFromRelays: function(test) {
+  initFromRelays(test) {
     test.expect(1);
 
-    var relays = new Relay.Collection([
+    const relays = new Relay.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -182,21 +261,21 @@ exports["Relay.Collection"] = {
     test.done();
   },
 
-  callForwarding: function(test) {
+  callForwarding(test) {
     test.expect(2);
 
-    var relays = new Relay.Collection([3, 6, 9]);
+    const relays = new Relay.Collection([3, 6, 9]);
 
-    relays.off();
-    test.equal(this.off.callCount, relays.length);
+    relays.open();
+    test.equal(this.open.callCount, relays.length);
 
-    relays.on();
-    test.equal(this.on.callCount, relays.length);
+    relays.close();
+    test.equal(this.close.callCount, relays.length);
 
     test.done();
   },
 
-  on: function(test) {
+  close(test) {
     test.expect(4);
 
     this.relays = new Relay.Collection([{
@@ -207,12 +286,12 @@ exports["Relay.Collection"] = {
       board: this.board,
     }]);
 
-    this.relays.off();
+    this.relays.open();
 
     test.ok(this.digitalWrite.calledWith(9, 0));
     test.ok(this.digitalWrite.calledWith(11, 0));
 
-    this.relays.on();
+    this.relays.close();
 
     test.ok(this.digitalWrite.calledWith(9, 1));
     test.ok(this.digitalWrite.calledWith(11, 1));
@@ -220,23 +299,22 @@ exports["Relay.Collection"] = {
     test.done();
   },
 
-  collectionFromArray: function(test) {
+  nested(test) {
     test.expect(6);
 
-    var relays = new Relay.Collection([this.a, this.b]);
-    var collectionFromArray = new Relay.Collection([relays, this.c]);
+    const nested = new Relay.Collection([new Relay.Collection([this.a, this.b]), this.c]);
 
-    collectionFromArray.on();
+    nested.close();
 
-    test.equal(this.on.callCount, 3);
-    test.equal(collectionFromArray.length, 2);
-    test.equal(collectionFromArray[0][0], this.a);
-    test.equal(collectionFromArray[0][1], this.b);
-    test.equal(collectionFromArray[1], this.c);
+    test.equal(this.close.callCount, 3);
+    test.equal(nested.length, 3);
+    test.equal(nested[0], this.a);
+    test.equal(nested[1], this.b);
+    test.equal(nested[2], this.c);
 
-    collectionFromArray.off();
+    nested.open();
 
-    test.equal(this.off.callCount, 3);
+    test.equal(this.open.callCount, 3);
 
     test.done();
   }

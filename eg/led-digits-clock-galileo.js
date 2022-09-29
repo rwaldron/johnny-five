@@ -1,12 +1,13 @@
-var moment = require("moment");
-var five = require("../lib/johnny-five");
-var Galileo = require("galileo-io");
-var board = new five.Board({
+const moment = require("moment");
+const { Board, Led } = require("../lib/johnny-five");
+const Galileo = require("galileo-io");
+
+const board = new Board({
   io: new Galileo()
 });
 
-board.on("ready", function() {
-  var digits = new five.Led.Digits({
+board.on("ready", () => {
+  var digits = new Led.Digits({
     pins: {
       data: 2,
       cs: 3,
@@ -14,9 +15,7 @@ board.on("ready", function() {
     }
   });
 
-  setInterval(function() {
-    digits.print(time());
-  }, 1000);
+  setInterval(() => digits.print(time()), 1000);
 });
 
 function time() {

@@ -64,9 +64,9 @@ function Navigator(opts) {
   this.which = "forward";
   this.isTurning = false;
 
-  setTimeout(function() {
+  setTimeout(() => {
     this.fwd(1).fwd(0);
-  }.bind(this), 10);
+  }, 10);
 }
 
 /**
@@ -176,12 +176,12 @@ Navigator.prototype.stop = function() {
       this.to(actual, actual);
 
       // Restore direction after turn
-      setTimeout(function() {
+      setTimeout(() => {
 
         this[this.which](this.speed);
         this.isTurning = false;
 
-      }.bind(this), 750);
+      }, 750);
     }
 
     return this;
@@ -237,11 +237,9 @@ Navigator.prototype.pivot = function(which, time) {
 
   directions[which].call(this, this.speed);
 
-  setTimeout(function() {
-
+  setTimeout(() => {
     this[this.which](this.speed);
-
-  }.bind(this), time || 1000);
+  }, time || 1000);
 
   return this;
 };
@@ -284,9 +282,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2020 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

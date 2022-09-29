@@ -1,14 +1,16 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Color} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var color = new five.Color({
+board.on("ready", () => {
+  const color = new Color({
     controller: "EVS_EV3",
     mode: "RAW",
     pin: "BAS1"
   });
 
-  color.on("change", function() {
-    console.log("Color: ", this.rgb);
+  color.on("change", () => {
+    console.log("Color:");
+    console.log("  rgb     : ", color.rgb);
+    console.log("--------------------------------------");
   });
 });

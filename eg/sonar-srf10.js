@@ -1,21 +1,16 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Proximity } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var sonar = new five.Sonar({
-    device: "SRF10"
+board.on("ready", () => {
+  const proximity = new Proximity({
+    controller: "SRF10"
   });
 
-  function display(type, value, unit) {
-    console.log("%s event: object is %d %s away", type, value, unit);
-  }
-
-  sonar.on("data", function() {
-    display("data", this.inches, "inches");
-  });
-
-  sonar.on("change", function() {
-    display("data", this.inches, "inches");
+  proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
+    console.log("Proximity: ");
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
+    console.log("-----------------");
   });
 });

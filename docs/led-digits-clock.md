@@ -31,15 +31,16 @@ node eg/led-digits-clock-galileo.js
 
 
 ```javascript
-var moment = require("moment");
-var five = require("johnny-five");
-var Galileo = require("galileo-io");
-var board = new five.Board({
+const moment = require("moment");
+const { Board, Led } = require("johnny-five");
+const Galileo = require("galileo-io");
+
+const board = new Board({
   io: new Galileo()
 });
 
-board.on("ready", function() {
-  var digits = new five.Led.Digits({
+board.on("ready", () => {
+  var digits = new Led.Digits({
     pins: {
       data: 2,
       cs: 3,
@@ -47,9 +48,7 @@ board.on("ready", function() {
     }
   });
 
-  setInterval(function() {
-    digits.print(time());
-  }, 1000);
+  setInterval(() => digits.print(time()), 1000);
 });
 
 function time() {
@@ -101,9 +100,9 @@ Fritzing diagram: [docs/breadboard/led-digits-clock-arduino.fzz](breadboard/led-
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

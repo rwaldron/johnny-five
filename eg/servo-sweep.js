@@ -1,32 +1,32 @@
-var five = require("../lib/johnny-five.js"),
-  board = new five.Board();
+const {Board, Servo} = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var servo = new five.Servo({
+board.on("ready", () => {
+  const servo = new Servo({
     pin: 10,
     startAt: 90
   });
-  var lap = 0;
+  let lap = 0;
 
-  servo.sweep().on("sweep:full", function() {
-    console.log("lap", ++lap);
+  servo.sweep().on("sweep:full", () => {
+    console.log(`lap ${++lap}`);
 
     if (lap === 1) {
-      this.sweep({
+      servo.sweep({
         range: [40, 140],
         step: 10
       });
     }
 
     if (lap === 2) {
-      this.sweep({
+      servo.sweep({
         range: [60, 120],
         step: 5
       });
     }
 
     if (lap === 3) {
-      this.sweep({
+      servo.sweep({
         range: [80, 100],
         step: 1
       });

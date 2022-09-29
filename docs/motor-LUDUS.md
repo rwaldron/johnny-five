@@ -18,16 +18,16 @@ node eg/motor-LUDUS.js
 
 
 ```javascript
-var five = require("johnny-five");
-var keypress = require("keypress");
-var board = new five.Board();
+const {Board, Motor, Motors} = require("johnny-five");
+const keypress = require("keypress");
+const board = new Board();
 
-board.on("ready", function() {
-  var motors = new five.Motors([
-    five.Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.A, // Left
-    five.Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.B, // Right
+board.on("ready", () => {
+  const motors = new Motors([
+    Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.A, // Left
+    Motor.SHIELD_CONFIGS.SPARKFUN_LUDUS.B, // Right
   ]);
-  var speed = 100;
+  let speed = 100;
 
   function controller(ch, key) {
     if (key) {
@@ -72,9 +72,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

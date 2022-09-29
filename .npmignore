@@ -3,6 +3,7 @@
 *.h
 *.ino
 *.py
+.github/*
 .gitignore
 .istanbul.yml
 .jscsrc
@@ -18,12 +19,15 @@ awesome.md
 CODE_OF_CONDUCT.md
 colors.js
 CONTRIBUTING.md
+CONTRIBUTORS.md
 coverage/
 docs/
 eg/
 egs-markdown.js
 egs.js
 Gruntfile.js
+lib/datasheets.md
+lib/johnny-five.sublime-*
 LICENSE-MIT
 node_modules/
 parts.md

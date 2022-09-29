@@ -33,11 +33,11 @@ node eg/led-rgb-anode.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var anode = new five.Led.RGB({
+board.on("ready", () => {
+  const anode = new Led.RGB({
     pins: {
       red: 6,
       green: 5,
@@ -47,16 +47,13 @@ board.on("ready", function() {
   });
 
   // Add led to REPL (optional)
-  this.repl.inject({
-    anode: anode
-  });
+  board.repl.inject({ anode });
 
   // Turn it on and set the initial color
   anode.on();
   anode.color("#FF0000");
 
   anode.blink(1000);
-
 });
 
 ```
@@ -73,9 +70,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

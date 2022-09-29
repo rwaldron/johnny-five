@@ -31,41 +31,41 @@ node eg/expander-MUXSHIELD2-mixed.js
 
 
 ```javascript
-var Barcli = require("barcli");
-var five = require("johnny-five");
-var board = new five.Board({
+const Barcli = require("barcli");
+const {Board, Button, Expander, Led, Leds, Sensor } = require("johnny-five");
+const board = new Board({
   repl: false,
   debug: false
 });
 
-board.on("ready", function() {
-  var activeLed = {
+board.on("ready", () => {
+  const activeLed = {
     last: -1,
     next: -1,
   };
 
-  var virtual = new five.Board.Virtual(
-    new five.Expander("MUXSHIELD2")
+  const virtual = new Board.Virtual(
+    new Expander("MUXSHIELD2")
   );
 
-  var leds = new five.Leds(
-    Array.from({ length: 16 }, function(_, index) {
-      var bar = new Barcli({ label: "IO3-" + index, range: [0, 1] });
-      var lit = new five.Sensor({
+  const leds = new Leds(
+    Array.from({ length: 16 }, (_, index) => {
+      const bar = new Barcli({ label: `IO3-${index}`, range: [0, 1] });
+      const lit = new Sensor({
         type: "digital",
-        pin: "IO3-" + index,
+        pin: `IO3-${index}`,
         board: virtual,
       });
 
-      var led = new five.Led({
-        pin: "IO1-" + index,
+      const led = new Led({
+        pin: `IO1-${index}`,
         board: virtual,
       });
 
-      lit.on("data", function() {
+      lit.on("data", () => {
         if (index === activeLed.last ||
             index === activeLed.next) {
-          bar.update(this.value);
+          bar.update(lit.value);
         }
       });
 
@@ -73,9 +73,9 @@ board.on("ready", function() {
     })
   );
 
-  var button = new five.Button(9);
+  const button = new Button(9);
 
-  button.on("press", function() {
+  button.on("press", () => {
     activeLed.last = activeLed.next;
 
     if (activeLed.last !== -1) {
@@ -116,9 +116,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

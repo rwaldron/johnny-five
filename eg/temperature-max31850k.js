@@ -1,18 +1,19 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Thermometer } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // This requires OneWire support using the ConfigurableFirmata
-  var temperature = new five.Temperature({
+  const thermometer = new Thermometer({
     controller: "MAX31850K",
     pin: 2
   });
 
-  temperature.on("change", function() {
-    console.log("temperature at address: 0x" + this.address.toString(16));
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
+  thermometer.on("change", () => {
+    const {address, celsius, fahrenheit, kelvin} = thermometer;
+    console.log(`Thermometer at address: 0x${address.toString(16)}`);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
     console.log("--------------------------------------");
   });
 });

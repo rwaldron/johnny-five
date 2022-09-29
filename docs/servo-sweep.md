@@ -31,35 +31,35 @@ node eg/servo-sweep.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board();
+const {Board, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var servo = new five.Servo({
+board.on("ready", () => {
+  const servo = new Servo({
     pin: 10,
     startAt: 90
   });
-  var lap = 0;
+  let lap = 0;
 
-  servo.sweep().on("sweep:full", function() {
-    console.log("lap", ++lap);
+  servo.sweep().on("sweep:full", () => {
+    console.log(`lap ${++lap}`);
 
     if (lap === 1) {
-      this.sweep({
+      servo.sweep({
         range: [40, 140],
         step: 10
       });
     }
 
     if (lap === 2) {
-      this.sweep({
+      servo.sweep({
         range: [60, 120],
         step: 5
       });
     }
 
     if (lap === 3) {
-      this.sweep({
+      servo.sweep({
         range: [80, 100],
         step: 1
       });
@@ -85,9 +85,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2020 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

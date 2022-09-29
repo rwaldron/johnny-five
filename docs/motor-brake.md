@@ -29,11 +29,10 @@ node eg/motor-brake.js
 
 
 ```javascript
-var five = require("johnny-five"),
-  board = new five.Board();
+const {Board, Motor} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var motor;
+board.on("ready", () => {
   /*
     Arduino Motor Shield R3
       Motor A
@@ -48,7 +47,7 @@ board.on("ready", function() {
 
    */
 
-  motor = new five.Motor({
+  const motor = new Motor({
     pins: {
       pwm: 3,
       dir: 12,
@@ -57,39 +56,33 @@ board.on("ready", function() {
   });
 
   board.repl.inject({
-    motor: motor
+    motor
   });
 
-  motor.on("start", function() {
-    console.log("start", Date.now());
+  motor.on("start", () => {
+    console.log(`start: ${Date.now()}`);
   });
 
-  motor.on("stop", function() {
-    console.log("automated stop on timer", Date.now());
+  motor.on("stop", () => {
+    console.log(`automated stop on timer: ${Date.now()}`);
   });
 
-  motor.on("brake", function() {
-    console.log("automated brake on timer", Date.now());
+  motor.on("brake", () => {
+    console.log(`automated brake on timer: ${Date.now()}`);
   });
 
-  motor.on("forward", function() {
-    console.log("forward", Date.now());
+  motor.on("forward", () => {
+    console.log(`forward: ${Date.now()}`);
 
     // demonstrate switching to reverse after 5 seconds
-    board.wait(5000, function() {
-      motor.reverse(150);
-    });
+    board.wait(5000, () => motor.reverse(150));
   });
 
-  motor.on("reverse", function() {
-    console.log("reverse", Date.now());
+  motor.on("reverse", () => {
+    console.log(`reverse: ${Date.now()}`);
 
     // demonstrate stopping after 5 seconds
-    board.wait(5000, function() {
-
-      // Apply the brake for 500ms and call stop()
-      motor.brake(500);
-    });
+    board.wait(5000, () => motor.brake(500));
   });
 
   // set the motor going forward full speed
@@ -110,9 +103,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

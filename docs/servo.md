@@ -29,11 +29,11 @@ node eg/servo.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var servo = new five.Servo(10);
+board.on("ready", () => {
+  const servo = new Servo(10);
 
   // Servo alternate constructor with options
   /*
@@ -50,8 +50,8 @@ board.on("ready", function() {
   */
 
   // Add servo to REPL (optional)
-  this.repl.inject({
-    servo: servo
+  board.repl.inject({
+    servo
   });
 
 
@@ -106,9 +106,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

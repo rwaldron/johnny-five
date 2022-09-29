@@ -1,20 +1,17 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Proximity } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var proximity = new five.Proximity({
+board.on("ready", () => {
+  const proximity = new Proximity({
     controller: "HCSR04I2CBACKPACK",
     freq: 100,
   });
 
-  proximity.on("data", function() {
+  proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
     console.log("Proximity: ");
-    console.log("  cm  : ", this.cm);
-    console.log("  in  : ", this.in);
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
     console.log("-----------------");
-  });
-
-  proximity.on("change", function() {
-    console.log("The obstruction has moved.");
   });
 });

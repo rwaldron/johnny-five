@@ -3,7 +3,7 @@ require("./common/bootstrap");
 
 
 exports["Led.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -28,38 +28,38 @@ exports["Led.Collection"] = {
       "brightness", "off"
     ];
 
-    this.spies.forEach(function(method) {
+    this.spies.forEach(method => {
       this[method] = this.sandbox.spy(Led.prototype, method);
-    }.bind(this));
+    });
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Leds([3, 7, 9]) instanceof Leds, true);
+    test.equal(new Leds([3, 7, 9]) instanceof Leds, true);
     test.done();
   },
 
-  initFromLedNumbers: function(test) {
+  initFromLedNumbers(test) {
     test.expect(1);
 
-    var leds = new Led.Collection([3, 7, 9]);
+    const leds = new Led.Collection([3, 7, 9]);
 
     test.equal(leds.length, 3);
     test.done();
   },
 
-  initFromLeds: function(test) {
+  initFromLeds(test) {
     test.expect(1);
 
-    var leds = new Led.Collection([
+    const leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -67,13 +67,13 @@ exports["Led.Collection"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(2);
 
     this.blink = this.sandbox.stub(Led.prototype, "blink");
     this.stop = this.sandbox.stub(Led.prototype, "stop");
 
-    var leds = new Led.Collection([
+    const leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -85,13 +85,13 @@ exports["Led.Collection"] = {
     test.done();
   },
 
-  callbacks: function(test) {
+  callbacks(test) {
     test.expect(2);
 
     this.blink = this.sandbox.stub(Led.prototype, "blink");
 
-    var noop = function() {};
-    var leds = new Led.Collection([
+    const noop = () => {};
+    const leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 
@@ -102,15 +102,14 @@ exports["Led.Collection"] = {
     test.done();
   },
 
+  ["Animation.normalize"](test) {
+    test.expect(3);
 
-  "Animation.normalize": function(test) {
-    test.expect(2);
-
-    var leds = new Led.Collection([
+    const leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 
-    var normalized = leds[Animation.normalize]([
+    let normalized = leds[Animation.normalize]([
       [
         null,
         255,
@@ -164,15 +163,45 @@ exports["Led.Collection"] = {
       ],
     ]);
 
+    normalized = leds[Animation.normalize]([
+      [
+        0,
+        128
+      ],
+      [
+        10,
+        220,
+      ],
+      [
+        0,
+        255,
+      ],
+    ]);
+
+    test.deepEqual(normalized, [
+      [
+        { value: 0, easing: "linear" },
+        { value: 128, easing: "linear" }
+      ],
+      [
+        { value: 10, easing: "linear" },
+        { value: 220, easing: "linear" },
+      ],
+      [
+        { value: 0, easing: "linear" },
+        { value: 255, easing: "linear" },
+      ],
+    ]);
+
     test.done();
   },
 
-  "Animation.render": function(test) {
+  ["Animation.render"](test) {
     test.expect(4);
 
     this.render = this.sandbox.stub(Led.prototype, "@@render");
 
-    var leds = new Led.Collection([
+    const leds = new Led.Collection([
       this.a, this.b, this.c
     ]);
 

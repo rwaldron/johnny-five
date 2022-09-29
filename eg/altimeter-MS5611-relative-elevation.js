@@ -1,17 +1,19 @@
-var five = require("../");
-var board = new five.Board();
+const { Altimeter, Board } = require("../");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // By omitting the base `elevation` property, the values
   // received will be relative to your present elevation
-  var altimeter = new five.Altimeter({
-    controller: "MS5611",
+  const altimeter = new Altimeter({
+    controller: "MS5611"
   });
 
-  altimeter.on("change", function() {
-    console.log("Altimeter");
-    console.log("  feet         : ", this.feet);
-    console.log("  meters       : ", this.meters);
+  altimeter.on("change", () => {
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
+

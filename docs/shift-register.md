@@ -29,13 +29,13 @@ node eg/shift-register.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, ShiftRegister} = require("johnny-five");
+const board = new Board();
 
 // For use with 74HC595 chip
 
-board.on("ready", function() {
-  var register = new five.ShiftRegister({
+board.on("ready", () => {
+  const register = new ShiftRegister({
     pins: {
       data: 2,
       clock: 3,
@@ -43,12 +43,16 @@ board.on("ready", function() {
     }
   });
 
-  var value = 0;
+  let value = 0b00000000;
+  let upper = 0b10001000;
+  let lower = 0b00010001;
 
-  setInterval(function() {
-    value = value > 0x11 ? value >> 1 : 0x88;
-    register.send(value);
-  }, 200);
+  function next() {
+    register.send(value = value > lower ? value >> 1 : upper);
+    setTimeout(next, 200);
+  }
+
+  next();
 });
 
 ```
@@ -65,9 +69,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

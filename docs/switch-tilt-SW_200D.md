@@ -29,31 +29,24 @@ node eg/switch-tilt-SW_200D.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
-var tilt;
+const {Board, Button} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  tilt = new five.Button(2); // digital pin 2
+board.on("ready", () => {
+  const tilt = new Button(2); // digital pin 2
 
   board.repl.inject({
     button: tilt
   });
 
   // tilt the breadboard to the right, towards to the ground pin
-  tilt.on("down", function() {
-    console.log("down");
-  });
+  tilt.on("down", () => console.log("down"));
 
   // tilt and hold
-  tilt.on("hold", function() {
-    console.log("hold");
-  });
+  tilt.on("hold", () => console.log("hold"));
 
   // tilt back the breadboard to the stable position
-  tilt.on("up", function() {
-    console.log("up");
-  });
+  tilt.on("up", () => console.log("up"));
 });
 
 ```
@@ -70,9 +63,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

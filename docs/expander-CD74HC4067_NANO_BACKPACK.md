@@ -33,9 +33,9 @@ node eg/expander-CD74HC4067_NANO_BACKPACK.js
 
 
 ```javascript
-var Barcli = require("barcli");
-var five = require("johnny-five");
-var board = new five.Board({
+const Barcli = require("barcli");
+const { Board, Expander, Sensor } = require("johnny-five");
+const board = new Board({
   repl: false,
   debug: false,
 });
@@ -44,27 +44,30 @@ board.on("ready", function() {
 
   // Use an Expander instance to create
   // a virtual Board.
-  var virtual = new five.Board.Virtual(
-    new five.Expander("CD74HC4067")
+  const virtual = new Board.Virtual(
+    new Expander("CD74HC4067")
   );
 
-  var inputs = ["A0", "A7", "A15"];
+  const inputs = ["A0", "A7", "A15"];
 
-  inputs.forEach(function(input) {
+  inputs.forEach(pin => {
 
-    var bar = new Barcli({ label: input, range: [0, 1023] });
+    const bar = new Barcli({
+      label: pin,
+      range: [0, 1023]
+    });
 
     // Initialize a Sensor instance with
     // the virtual board created above
-    var sensor = new five.Sensor({
-      pin: input,
-      board: virtual
+    const sensor = new Sensor({
+      board: virtual,
+      pin,
     });
 
     // Display all changes in the terminal
     // as a Barcli chart graph
-    sensor.on("change", function() {
-      bar.update(this.value);
+    sensor.on("change", () => {
+      bar.update(sensor.value);
     });
   });
 });
@@ -96,9 +99,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

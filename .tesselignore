@@ -7,6 +7,7 @@ node_modules/es6-shim
 node_modules/firmata
 node_modules/optimist
 node_modules/serialport
+node_modules/@serialport
 node_modules/sinon
 node_modules/grunt*
 test/

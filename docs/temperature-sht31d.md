@@ -29,16 +29,16 @@ node eg/temperature-sht31d.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Thermometer } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var temperature = new five.Thermometer({
+board.on("ready", () => {
+  const temperature = new Thermometer({
     controller: "SHT31D"
   });
 
-  temperature.on("change", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+  temperature.on("change", () => {
+    console.log(`${temperature.celsius}°C ${temperature.fahrenheit}°F`);
   });
 });
 
@@ -65,9 +65,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -1,4 +1,5 @@
 {
+  "esversion": 6,
   "curly": true,
   "eqeqeq": true,
   "immed": true,
@@ -11,7 +12,6 @@
   "eqnull": true,
   "node": true,
   "strict": false,
-  "esnext": true,
   "quotmark": "double",
   "globals": {
     "exports": true,

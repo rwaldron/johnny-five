@@ -29,17 +29,17 @@ node eg/led-digits-clock-HT16K33.js
 
 
 ```javascript
-var moment = require("moment");
-var five = require("johnny-five");
-var board = new five.Board();
+const moment = require("moment");
+const { Board, Led } = require("johnny-five");
+var board = new Board();
 
-board.on("ready", function() {
-  var digits = new five.Led.Digits({
+board.on("ready", () => {
+  const digits = new Led.Digits({
     controller: "HT16K33",
   });
-  var toggle = 0;
+  let toggle = 0;
 
-  setInterval(function() {
+  setInterval(() => {
     // Toggle the colon part: on for a second, off for a second.
     digits.print(time(toggle ^= 1));
   }, 1000);
@@ -70,9 +70,9 @@ Learn More:
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

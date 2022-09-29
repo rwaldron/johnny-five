@@ -1,11 +1,12 @@
 require("./common/bootstrap");
 
-var expecteds = {
+const expecteds = {
   data: [25, 79],
   changes: [
     [25, 0],
     [45, 0]
   ],
+  x: [25, 258],
   bearings: [{
     name: "North",
     abbr: "N",
@@ -21,10 +22,10 @@ var expecteds = {
   }, ]
 };
 
-["HMC6352", "HMC5883L"].forEach(function(controller, index) {
+["HMC6352", "HMC5883L"].forEach((controller, index) => {
 
   exports[controller] = {
-    setUp: function(done) {
+    setUp(done) {
       this.sandbox = sinon.sandbox.create();
       this.clock = this.sandbox.useFakeTimers();
       this.board = newBoard();
@@ -33,7 +34,7 @@ var expecteds = {
 
       this.compass = new Compass({
         board: this.board,
-        controller: controller,
+        controller,
       });
 
       this.clock.tick(500);
@@ -42,39 +43,41 @@ var expecteds = {
         name: "bearing"
       }, {
         name: "heading"
+      }, {
+        name: "raw"
       }];
 
       done();
     },
 
-    tearDown: function(done) {
+    tearDown(done) {
       Board.purge();
       this.sandbox.restore();
       done();
     },
 
-    shape: function(test) {
+    shape(test) {
       test.expect(this.properties.length);
 
-      this.properties.forEach(function(property) {
-        test.notEqual(typeof this.compass[property.name], "undefined");
+      this.properties.forEach(function({name}) {
+        test.notEqual(typeof this.compass[name], "undefined");
       }, this);
       test.done();
     },
 
-    fwdOptionsToi2cConfig: function(test) {
+    fwdOptionsToi2cConfig(test) {
       test.expect(3);
 
       this.i2cConfig.reset();
 
       new Compass({
-        controller: controller,
+        controller,
         address: 0xff,
         bus: "i2c-1",
         board: this.board
       });
 
-      var forwarded = this.i2cConfig.lastCall.args[0];
+      const forwarded = this.i2cConfig.lastCall.args[0];
 
       test.equal(this.i2cConfig.callCount, 1);
       test.equal(forwarded.address, 0xff);
@@ -83,11 +86,11 @@ var expecteds = {
       test.done();
     },
 
-    data: function(test) {
-      test.expect(2);
+    data(test) {
+      test.expect(3);
 
-      var handler = this.i2cRead.getCall(0).args[3];
-      var spy = sinon.spy();
+      const handler = this.i2cRead.getCall(0).args[3];
+      const spy = sinon.spy();
 
       this.compass.on("data", spy);
 
@@ -96,15 +99,16 @@ var expecteds = {
 
       test.equal(spy.callCount, 1);
       test.equal(Math.round(spy.args[0][0].heading), expecteds.data[index]);
+      test.equal(this.compass.raw.x, expecteds.x[index]);
 
       test.done();
     },
 
-    change: function(test) {
+    change(test) {
       test.expect(4);
 
-      var handler = this.i2cRead.getCall(0).args[3];
-      var spy = sinon.spy();
+      const handler = this.i2cRead.getCall(0).args[3];
+      const spy = sinon.spy();
 
       this.compass.on("change", spy);
 
@@ -127,7 +131,7 @@ var expecteds = {
 
 
 exports["Compass - MAG3110"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
@@ -150,28 +154,30 @@ exports["Compass - MAG3110"] = {
       name: "bearing"
     }, {
       name: "heading"
+    }, {
+      name: "raw"
     }];
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Compass.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.properties.length);
 
-    this.properties.forEach(function(property) {
-      test.notEqual(typeof this.compass[property.name], "undefined");
+    this.properties.forEach(function({name}) {
+      test.notEqual(typeof this.compass[name], "undefined");
     }, this);
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -183,7 +189,7 @@ exports["Compass - MAG3110"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     // Controller will overrule an explicit address
@@ -193,11 +199,11 @@ exports["Compass - MAG3110"] = {
     test.done();
   },
 
-  data: function(test) {
-    test.expect(3);
+  data(test) {
+    test.expect(4);
 
-    var status = this.i2cReadOnce.getCall(0).args[3];
-    var spy = sinon.spy();
+    const status = this.i2cReadOnce.getCall(0).args[3];
+    const spy = sinon.spy();
 
     this.compass.on("data", spy);
 
@@ -205,7 +211,7 @@ exports["Compass - MAG3110"] = {
 
     this.clock.tick(25);
 
-    var handler = this.i2cReadOnce.getCall(1).args[3];
+    const handler = this.i2cReadOnce.getCall(1).args[3];
 
     // Taken from actual output
     handler([ 0, 153, 255, 247, 0, 102 ]);
@@ -215,22 +221,23 @@ exports["Compass - MAG3110"] = {
     test.equal(spy.callCount, 1);
     test.equal(spy.lastCall.args[0].heading, 3);
     test.equal(this.compass.heading, 3);
+    test.deepEqual(this.compass.raw, { x: 153, y: -9, z: 102 });
 
     test.done();
   },
 
-  change: function(test) {
-    test.expect(7);
+  change(test) {
+    test.expect(8);
 
 
-    var status = this.i2cReadOnce.getCall(0).args[3];
-    var spy = sinon.spy();
+    const status = this.i2cReadOnce.getCall(0).args[3];
+    const spy = sinon.spy();
 
     this.compass.on("change", spy);
 
     status([15]);
 
-    var handler = this.i2cReadOnce.getCall(1).args[3];
+    const handler = this.i2cReadOnce.getCall(1).args[3];
 
 
     handler([0, 153, 255, 247, 0, 102]);
@@ -246,13 +253,14 @@ exports["Compass - MAG3110"] = {
     test.equal(this.compass.bearing.abbr, Compass.Points[1].abbr);
     test.equal(this.compass.bearing.low, Compass.Points[1].low);
     test.equal(this.compass.bearing.high, Compass.Points[1].high);
+    test.deepEqual(this.compass.raw, { x: 155, y: -14, z: 93 });
 
     test.done();
   },
 };
 
 exports["Compass - BNO055"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.clock = this.sandbox.useFakeTimers();
     this.board = newBoard();
@@ -275,28 +283,30 @@ exports["Compass - BNO055"] = {
       name: "bearing"
     }, {
       name: "heading"
+    }, {
+      name: "raw"
     }];
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Compass.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.properties.length);
 
-    this.properties.forEach(function(property) {
-      test.notEqual(typeof this.compass[property.name], "undefined");
+    this.properties.forEach(function({name}) {
+      test.notEqual(typeof this.compass[name], "undefined");
     }, this);
     test.done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -308,7 +318,7 @@ exports["Compass - BNO055"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -317,12 +327,12 @@ exports["Compass - BNO055"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
-    test.expect(4);
+  dataAndChange(test) {
+    test.expect(5);
 
-    var driver = IMU.Drivers.get(this.board, "BNO055");
-    var data = this.sandbox.spy();
-    var change = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BNO055");
+    const data = this.sandbox.spy();
+    const change = this.sandbox.spy();
 
     this.compass.on("data", data);
     this.compass.on("change", change);
@@ -356,6 +366,7 @@ exports["Compass - BNO055"] = {
       high: 185.62,
       heading: 180,
     });
+    test.deepEqual(this.compass.raw, { x: -52, y: -0, z: -200 });
     test.done();
   },
 
@@ -363,29 +374,29 @@ exports["Compass - BNO055"] = {
 
 
 exports["Missing controller"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     done();
   },
-  missing: function(test) {
+  missing(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       new Compass({
         board: this.board
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 };
 
 exports["Compass.Scale"] = {
-  expectedRegistersAndScales: function(test) {
-    var expects = [{
+  expectedRegistersAndScales(test) {
+    const expects = [{
       gauss: 0.88,
       register: 0x00 << 5,
       scale: 0.73,
@@ -425,18 +436,85 @@ exports["Compass.Scale"] = {
 
     test.expect(expects.length * 2);
 
-    expects.forEach(function(expect) {
-      var cs = new Compass.Scale(expect.gauss);
+    expects.forEach(({gauss, register, scale}) => {
+      const cs = new Compass.Scale(gauss);
 
-      test.equal(cs.register, expect.register);
-      test.equal(cs.scale, expect.scale);
+      test.equal(cs.register, register);
+      test.equal(cs.scale, scale);
     });
     test.done();
   }
 };
 
-Object.keys(Compass.Controllers).forEach(function(name) {
-  exports["Compass - Controller, " + name] = addControllerTest(Compass, Compass.Controllers[name], {
-    controller: name,
+
+exports["Compass.Points"] = {
+  setUp(done) {
+    this.board = newBoard();
+    done();
+  },
+  tearDown(done) {
+    Board.purge();
+    done();
+  },
+  bearingWithCardinalPointAndHeading(test) {
+    test.expect(1);
+    let raw = 0;
+    // 36001 gives us a final heading of 360
+    const degrees = Array.from({ length: 36001 }, (empty, index) => +(index * 0.01).toFixed(2));
+    const compass = new Compass({
+      board: this.board,
+      controller: {
+        initialize: {
+          value() {
+            Object.assign(this, new Compass.Scale(null));
+          }
+        },
+        toScaledHeading: {
+          value() {
+            return raw;
+          }
+        }
+      }
+    });
+
+    let pass = true;
+    let message = "";
+
+    failure: for (let degree of degrees) {
+      raw = degree;
+      let index = CardinalPointsToIndex[degree];
+      if (compass.bearing.name !== Compass.Points[index].name) {
+        pass = false;
+        message = `compass.bearing.name: ${compass.bearing.name} !== ${Compass.Points[index].name}`;
+        break failure;
+      }
+
+      if (compass.bearing.abbr !== Compass.Points[index].abbr) {
+        pass = false;
+        message = `compass.bearing.abbr: ${compass.bearing.abbr} !== ${Compass.Points[index].abbr}`;
+        break failure;
+      }
+
+      if (compass.bearing.low !== Compass.Points[index].low) {
+        pass = false;
+        message = `compass.bearing.low: ${compass.bearing.low} !== ${Compass.Points[index].low}`;
+        break failure;
+      }
+
+      if (compass.bearing.high !== Compass.Points[index].high) {
+        pass = false;
+        message = `compass.bearing.high: ${compass.bearing.high} !== ${Compass.Points[index].high}`;
+        break failure;
+      }
+    }
+
+    test.ok(pass, message);
+    test.done();
+  }
+};
+
+Object.keys(Compass.Controllers).forEach(controller => {
+  exports[`Compass - Controller, ${controller}`] = addControllerTest(Compass, Compass.Controllers[controller], {
+    controller,
   });
 });

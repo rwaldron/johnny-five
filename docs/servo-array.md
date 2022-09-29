@@ -31,23 +31,21 @@ node eg/servo-array.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Servos} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   // Initialize a Servo collection
-  var servos = new five.Servos([9, 10]);
-
+  const servos = new Servos([9, 10]);
 
   servos.center();
-
 
   // Inject the `servo` hardware into
   // the Repl instance's context;
   // allows direct command line access
-  this.repl.inject({
-    servos: servos
+  board.repl.inject({
+    servos
   });
 
 
@@ -110,9 +108,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

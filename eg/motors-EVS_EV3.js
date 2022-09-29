@@ -1,21 +1,20 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Motors} = require("../lib/johnny-five.js");
+const board = new Board();
+const controller = "EVS_EV3";
 
-board.on("ready", function() {
-  var motors = new five.Motors([{
-    controller: "EVS_EV3",
+board.on("ready", () => {
+  const motors = new Motors([{
+    controller,
     pin: "BAM1"
   }, {
-    controller: "EVS_EV3",
+    controller,
     pin: "BBM1"
   }, ]);
 
-  this.wait(2000, function() {
+  board.wait(2000, () => {
     motors.rev();
 
-    this.wait(2000, function() {
-      motors.stop();
-    });
+    board.wait(2000, motors.stop);
   });
 
   motors.fwd();

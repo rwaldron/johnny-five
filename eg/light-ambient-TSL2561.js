@@ -1,12 +1,14 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Light } = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var light = new five.Light({
+board.on("ready", () => {
+  const ambient = new Light({
     controller: "TSL2561",
   });
 
-  light.on("data", function() {
-    console.log("Lux: ", this.lux);
+  ambient.on("change", () => {
+    console.log("Ambient Light Level: ");
+    console.log("  level  : ", ambient.level);
+    console.log("-----------------");
   });
 });

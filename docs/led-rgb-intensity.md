@@ -33,14 +33,13 @@ node eg/led-rgb-intensity.js
 
 
 ```javascript
-var temporal = require("temporal");
-var five = require("johnny-five");
-var board = new five.Board();
+const temporal = require("temporal");
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   // Initialize the RGB LED
-  var led = new five.Led.RGB([6, 5, 3]);
+  const led = new Led.RGB([6, 5, 3]);
 
   // Set to full intensity red
   console.log("100% red");
@@ -49,25 +48,25 @@ board.on("ready", function() {
   temporal.queue([{
     // After 3 seconds, dim to 30% intensity
     wait: 3000,
-    task: function() {
+    task() {
       console.log("30% red");
       led.intensity(30);
     }
   }, {
     // 3 secs then turn blue, still 30% intensity
     wait: 3000,
-    task: function() {
+    task() {
       console.log("30% blue");
       led.color("#0000FF");
     }
   }, {
     // Another 3 seconds, go full intensity blue
     wait: 3000,
-    task: function() {
+    task() {
       console.log("100% blue");
       led.intensity(100);
     }
-  }, ]);
+  }]);
 });
 
 ```
@@ -84,9 +83,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

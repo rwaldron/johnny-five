@@ -1,17 +1,19 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Expander, Sensor } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var virtual = new five.Board.Virtual(
-    new five.Expander("LIS3DH")
+board.on("ready", () => {
+  const virtual = new Board.Virtual(
+    new Expander("LIS3DH")
   );
 
-  var sensor = new five.Sensor({
+  const sensor = new Sensor({
     pin: "A2",
     board: virtual
   });
 
-  sensor.on("data", function() {
-    console.log(sensor.value);
+  sensor.on("change", value => {
+    console.log("Sensor: ");
+    console.log("  value  : ", sensor.value);
+    console.log("-----------------");
   });
 });

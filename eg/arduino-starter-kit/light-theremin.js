@@ -1,22 +1,22 @@
-var five = require("johnny-five");
-var Edison = require("edison-io");
-var board = new five.Board({
+const {Board, Fn, Sensor, Piezo} = require("../lib/johnny-five.js");
+const Edison = require("edison-io");
+const board = new Board({
   io: new Edison()
 });
 
-board.on("ready", function() {
-  var sensor = new five.Sensor({
+board.on("ready", () => {
+  const sensor = new Sensor({
     pin: "A0",
     freq: 30
   });
-  var piezo = new five.Piezo(8);
-  var min = 1024;
-  var max = 0;
+  const piezo = new Piezo(8);
+  let min = 1024;
+  let max = 0;
 
-  sensor.on("data", function() {
-    min = Math.min(min, this.value);
-    max = Math.max(max, this.value);
-    var pitch = five.Fn.scale(this.value, min, max, 50, 4000);
+  sensor.on("data", () => {
+    min = Math.min(min, sensor.value);
+    max = Math.max(max, sensor.value);
+    const pitch = Fn.scale(sensor.value, min, max, 50, 4000);
     piezo.frequency(pitch, 20);
     console.log(min, max, pitch);
   });

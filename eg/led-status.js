@@ -3,16 +3,14 @@
 // Led.isOn, and Led.isRunning following a variety
 // of Led method calls.
 //
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Led } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // Default to pin 11 (must be PWM)
-  var led = new five.Led(process.argv[2] || 11);
+  const led = new Led(process.argv[2] || 11);
 
-  this.repl.inject({
-    led: led
-  });
+  board.repl.inject({ led });
 
   // Print defaut status
   console.log("default status");
@@ -40,7 +38,7 @@ board.on("ready", function() {
   status();
 
   // Wait 3 seconds, stop, and print status
-  this.wait(3000, function() {
+  board.wait(3000, () => {
     console.log("led.stop()");
     led.stop();
     // Note that value/isOn will reflect the state of

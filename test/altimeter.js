@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports.setUp = function(done) {
-  // Base Shape for all Temperature tests
+  // Base Shape for all Altimeter tests
   this.proto = [];
   this.instance = [{
     name: "m"
@@ -48,43 +48,43 @@ function testShape(test) {
 }
 
 exports["Altimeter"] = {
-  setUp: function(done) {
+  setUp(done) {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Altimeter({board: this.board, controller: "MPL3115A2"}) instanceof Altimeter, true);
+    test.equal(new Altimeter({board: this.board, controller: "MPL3115A2"}) instanceof Altimeter, true);
     test.done();
   },
 
-  noController: function(test) {
+  noController(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       new Altimeter({
         elevation: 10,
         controller: null,
         board: this.board,
         freq: 10
       });
-    }.bind(this));
+    });
     test.done();
   },
 
-  returnFromNull: function(test) {
+  returnFromNull(test) {
     test.expect(1);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.altimeter = new Altimeter({
       controller: {
         initialize: {
-          value: function(opts, dataHandler) {
-            setInterval(function() {
+          value(opts, dataHandler) {
+            setInterval(() => {
               dataHandler(null);
             }, 5);
           }
@@ -105,12 +105,12 @@ exports["Altimeter"] = {
 
 exports["Altimeter - User toMeters"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.altimeter = new Altimeter({
       controller: {
         initialize: {
-          value: function(opts, dataHandler) {
-            setInterval(function() {
+          value(opts, dataHandler) {
+            setInterval(() => {
               dataHandler(10);
             }, 5);
           }
@@ -123,16 +123,16 @@ exports["Altimeter - User toMeters"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Altimeter.purge();
     done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(4);
 
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -152,7 +152,7 @@ exports["Altimeter - User toMeters"] = {
 
 exports["Altimeter - MPL3115A2"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.warn = this.sandbox.stub(this.board, "warn");
 
     this.altimeter = new Altimeter({
@@ -165,15 +165,15 @@ exports["Altimeter - MPL3115A2"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  testShape: testShape,
+  testShape,
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -186,7 +186,7 @@ exports["Altimeter - MPL3115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -195,7 +195,7 @@ exports["Altimeter - MPL3115A2"] = {
     test.done();
   },
 
-  missingRequirements: function(test) {
+  missingRequirements(test) {
     test.expect(3);
 
     new Altimeter({
@@ -213,7 +213,7 @@ exports["Altimeter - MPL3115A2"] = {
     test.done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(8);
 
     test.equal(this.i2cWrite.callCount, 2);
@@ -258,12 +258,12 @@ exports["Altimeter - MPL3115A2"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
+  dataAndChange(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "MPL3115A2");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "MPL3115A2");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -281,12 +281,12 @@ exports["Altimeter - MPL3115A2"] = {
     test.done();
   },
 
-  resolution: function(test) {
+  resolution(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "MPL3115A2");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "MPL3115A2");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -308,7 +308,7 @@ exports["Altimeter - MPL3115A2"] = {
 
 exports["Altimeter - MS5611"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.altimeter = new Altimeter({
       controller: "MS5611",
       board: this.board,
@@ -318,12 +318,12 @@ exports["Altimeter - MS5611"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Altimeter.purge();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -335,7 +335,7 @@ exports["Altimeter - MS5611"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -344,12 +344,12 @@ exports["Altimeter - MS5611"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
+  dataAndChange(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "MS5611");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "MS5611");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -367,12 +367,12 @@ exports["Altimeter - MS5611"] = {
     test.done();
   },
 
-  resolution: function(test) {
-    test.expect(4);
+  resolution(test) {
+    test.expect(6);
 
-    var driver = IMU.Drivers.get(this.board, "MS5611");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "MS5611");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -387,13 +387,16 @@ exports["Altimeter - MS5611"] = {
 
     test.equal(this.altimeter.meters, 10.12);
     test.equal(this.altimeter.feet, 33.2);
+    test.equal(digits.fractional(this.altimeter.meters), 2);
+    test.equal(digits.fractional(this.altimeter.feet), 1);
+
     test.done();
   },
 };
 
 exports["Altimeter - BMP180"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.altimeter = new Altimeter({
       controller: "BMP180",
       board: this.board,
@@ -403,12 +406,12 @@ exports["Altimeter - BMP180"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Altimeter.purge();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -420,7 +423,7 @@ exports["Altimeter - BMP180"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -429,12 +432,12 @@ exports["Altimeter - BMP180"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
+  dataAndChange(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "BMP180");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BMP180");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -452,12 +455,12 @@ exports["Altimeter - BMP180"] = {
     test.done();
   },
 
-  resolution: function(test) {
-    test.expect(4);
+  resolution(test) {
+    test.expect(6);
 
-    var driver = IMU.Drivers.get(this.board, "BMP180");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BMP180");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -472,13 +475,16 @@ exports["Altimeter - BMP180"] = {
 
     test.equal(this.altimeter.meters, 10.12);
     test.equal(this.altimeter.feet, 33.2);
+    test.equal(digits.fractional(this.altimeter.meters), 2);
+    test.equal(digits.fractional(this.altimeter.feet), 1);
+
     test.done();
   },
 };
 
 exports["Altimeter - BMP280"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.altimeter = new Altimeter({
       controller: "BMP280",
       board: this.board,
@@ -488,12 +494,12 @@ exports["Altimeter - BMP280"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Altimeter.purge();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -505,7 +511,7 @@ exports["Altimeter - BMP280"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -514,12 +520,12 @@ exports["Altimeter - BMP280"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
+  dataAndChange(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "BMP280");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BMP280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -537,12 +543,12 @@ exports["Altimeter - BMP280"] = {
     test.done();
   },
 
-  resolution: function(test) {
-    test.expect(4);
+  resolution(test) {
+    test.expect(6);
 
-    var driver = IMU.Drivers.get(this.board, "BMP280");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BMP280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -555,15 +561,18 @@ exports["Altimeter - BMP280"] = {
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
 
-    test.equal(this.altimeter.meters, 10.12);
-    test.equal(this.altimeter.feet, 33.2);
+    test.equal(this.altimeter.meters, 10.123);
+    test.equal(this.altimeter.feet, 33.21);
+    test.equal(digits.fractional(this.altimeter.meters), 3);
+    test.equal(digits.fractional(this.altimeter.feet), 2);
+
     test.done();
   },
 };
 
 exports["Altimeter - BME280"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.altimeter = new Altimeter({
       controller: "BME280",
       board: this.board,
@@ -573,12 +582,12 @@ exports["Altimeter - BME280"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Altimeter.purge();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -590,7 +599,7 @@ exports["Altimeter - BME280"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -599,12 +608,12 @@ exports["Altimeter - BME280"] = {
     test.done();
   },
 
-  dataAndChange: function(test) {
+  dataAndChange(test) {
     test.expect(4);
 
-    var driver = IMU.Drivers.get(this.board, "BME280");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BME280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -622,12 +631,12 @@ exports["Altimeter - BME280"] = {
     test.done();
   },
 
-  resolution: function(test) {
-    test.expect(4);
+  resolution(test) {
+    test.expect(6);
 
-    var driver = IMU.Drivers.get(this.board, "BME280");
-    var dataSpy = this.sandbox.spy();
-    var changeSpy = this.sandbox.spy();
+    const driver = IMU.Drivers.get(this.board, "BME280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
     this.altimeter.on("data", dataSpy);
     this.altimeter.on("change", changeSpy);
@@ -640,8 +649,11 @@ exports["Altimeter - BME280"] = {
     test.equal(dataSpy.callCount, 1);
     test.equal(changeSpy.callCount, 1);
 
-    test.equal(this.altimeter.meters, 10.12);
-    test.equal(this.altimeter.feet, 33.2);
+    test.equal(this.altimeter.meters, 10.123);
+    test.equal(this.altimeter.feet, 33.21);
+    test.equal(digits.fractional(this.altimeter.meters), 3);
+    test.equal(digits.fractional(this.altimeter.feet), 2);
+
     test.done();
   },
 };

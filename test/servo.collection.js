@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Servo.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -22,54 +22,59 @@ exports["Servo.Collection"] = {
       board: this.board
     });
 
+    this.d = new Servo({
+      pin: 11,
+      board: this.board
+    });
+
     this.spies = [
       "to", "stop"
     ];
 
-    this.spies.forEach(function(method) {
+    this.spies.forEach(method => {
       this[method] = this.sandbox.spy(Servo.prototype, method);
-    }.bind(this));
+    });
 
     this.servoWrite = this.sandbox.spy(MockFirmata.prototype, "servoWrite");
 
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Servo.purge();
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Servos({}) instanceof Servos, true);
+    test.equal(new Servos({}) instanceof Servos, true);
     test.done();
   },
 
-  initFromServoNumbers: function(test) {
+  initFromServoNumbers(test) {
     test.expect(1);
 
-    var servos = new Servo.Collection([3, 6, 9]);
+    const servos = new Servo.Collection([3, 6, 9]);
     test.equal(servos.length, 3);
     test.done();
   },
 
-  initFromServos: function(test) {
+  initFromServos(test) {
     test.expect(1);
 
-    var servos = new Servo.Collection([
+    const servos = new Servo.Collection([
       this.a, this.b, this.c
     ]);
     test.equal(servos.length, 3);
     test.done();
   },
 
-  callForwarding: function(test) {
+  callForwarding(test) {
     test.expect(3);
 
-    var servos = new Servo.Collection([3, 6, 9]);
+    const servos = new Servo.Collection([3, 6, 9]);
 
     servos.to(90);
     test.equal(this.to.callCount, servos.length);
@@ -81,7 +86,7 @@ exports["Servo.Collection"] = {
     test.done();
   },
 
-  home: function(test) {
+  home(test) {
     test.expect(4);
 
     this.servos = new Servo.Collection([{
@@ -95,46 +100,79 @@ exports["Servo.Collection"] = {
     }]);
 
     this.servos.to(180);
-    test.ok(this.servoWrite.calledWith(9, 180));
-    test.ok(this.servoWrite.calledWith(11, 180));
+    test.ok(this.servoWrite.calledWith(9, 2400));
+    test.ok(this.servoWrite.calledWith(11, 2400));
 
     this.servos.home();
-    test.ok(this.servoWrite.calledWith(9, 40));
-    test.ok(this.servoWrite.calledWith(11, 20));
+    test.ok(this.servoWrite.calledWith(9, 1000));
+    test.ok(this.servoWrite.calledWith(11, 800));
 
     test.done();
   },
 
-  collectionFromArray: function(test) {
+  nested(test) {
     test.expect(9);
 
-    var servos = new Servo.Collection([this.a, this.b]);
-    var collectionFromArray = new Servo.Collection([servos, this.c]);
+    const nested = new Servo.Collection([
+      new Servo.Collection([this.a, this.b]), this.c
+    ]);
 
-    collectionFromArray.to(90);
+    nested.to(90);
     test.equal(this.to.callCount, 3);
     test.equal(this.to.getCall(0).args[0], 90);
     test.equal(this.to.getCall(1).args[0], 90);
     test.equal(this.to.getCall(2).args[0], 90);
-    test.equal(collectionFromArray.length, 2);
-    test.equal(collectionFromArray[0][0], this.a);
-    test.equal(collectionFromArray[0][1], this.b);
-    test.equal(collectionFromArray[1], this.c);
+    test.equal(nested.length, 3);
+    test.equal(nested[0], this.a);
+    test.equal(nested[1], this.b);
+    test.equal(nested[2], this.c);
 
-    collectionFromArray.stop();
+    nested.stop();
     test.equal(this.stop.callCount, 3);
 
     test.done();
   },
 
-  "Animation.normalize": function(test) {
-    test.expect(2);
+  "Animation.normalize-nested": function(test) {
+    test.expect(1);
 
-    var servos = new Servo.Collection([
+    const group1 = new Servos([
+      this.a, this.b
+    ]);
+
+    const group2 = new Servos([
+      this.c, this.d
+    ]);
+
+    const bothGroups = new Servos([
+      group1, group2
+    ]);
+
+    const normalized = bothGroups[Animation.normalize]([
+      [ null, 10 ],
+      [ null, 20 ],
+      [ null, 10 ],
+      [ null, 20 ],
+    ]);
+
+    test.deepEqual(normalized, [
+      [ { value: 90, easing: "linear" }, { step: 10, easing: "linear" } ],
+      [ { value: 90, easing: "linear" }, { step: 20, easing: "linear" } ],
+      [ { value: 90, easing: "linear" }, { step: 10, easing: "linear" } ],
+      [ { value: 90, easing: "linear" }, { step: 20, easing: "linear" } ]
+    ]);
+
+    test.done();
+  },
+
+  "Animation.normalize": function(test) {
+    // test.expect(3);
+
+    const servos = new Servo.Collection([
       this.a, this.b, this.c
     ]);
 
-    var normalized = servos[Animation.normalize]([
+    let normalized = servos[Animation.normalize]([
       [
         null,
         10,
@@ -188,6 +226,36 @@ exports["Servo.Collection"] = {
       ],
     ]);
 
+    normalized = servos[Animation.normalize]([
+      [
+        20,
+        40
+      ],
+      [
+        null,
+        10,
+      ],
+      [
+        30,
+        10,
+      ],
+    ]);
+
+    test.deepEqual(normalized, [
+      [
+        { value: servos[0].startAt + 20, easing: "linear" },
+        { step: 40, easing: "linear" },
+      ],
+      [
+        { value: servos[1].startAt, easing: "linear" },
+        { step: 10, easing: "linear" },
+      ],
+      [
+        { value: servos[2].startAt + 30, easing: "linear" },
+        { step: 10, easing: "linear" },
+      ],
+    ]);
+
     test.done();
   },
 
@@ -196,7 +264,7 @@ exports["Servo.Collection"] = {
 
     this.to.reset();
 
-    var servos = new Servo.Collection([
+    const servos = new Servo.Collection([
       this.a, this.b, this.c
     ]);
 

@@ -31,24 +31,21 @@ node eg/proximity-hcsr04-analog.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Proximity } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var proximity = new five.Proximity({
+board.on("ready", () => {
+  const proximity = new Proximity({
     controller: "HCSR04",
     pin: "A0"
   });
 
-  proximity.on("data", function() {
+  proximity.on("change", () => {
+    const {centimeters, inches} = proximity;
     console.log("Proximity: ");
-    console.log("  cm  : ", this.cm);
-    console.log("  in  : ", this.in);
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
     console.log("-----------------");
-  });
-
-  proximity.on("change", function() {
-    console.log("The obstruction has moved.");
   });
 });
 
@@ -66,9 +63,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

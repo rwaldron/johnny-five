@@ -29,17 +29,17 @@ node eg/barometer-BMP180.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const { Barometer, Board } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var barometer = new five.Barometer({
+board.on("ready", () => {
+  const barometer = new Barometer({
     controller: "BMP180"
   });
 
-  barometer.on("change", function() {
-    console.log("Barometer");
-    console.log("  pressure     : ", this.pressure);
+  barometer.on("change", () => {
+    console.log("Barometer:");
+    console.log("  pressure     : ", barometer.pressure);
     console.log("--------------------------------------");
   });
 });
@@ -78,9 +78,9 @@ Fritzing diagram: [docs/breadboard/multi-bmp180.fzz](breadboard/multi-bmp180.fzz
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

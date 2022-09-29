@@ -1,11 +1,11 @@
-var five = require("../lib/johnny-five.js");
-var Galileo = require("galileo-io");
-var board = new five.Board({
+const { Board, Led } = require("../lib/johnny-five.js");
+const Galileo = require("galileo-io");
+const board = new Board({
   io: new Galileo()
 });
 
-board.on("ready", function() {
-  var led = new five.Led(13);
+board.on("ready", () => {
+  const led = new Led(13);
   led.blink();
 });
 

@@ -33,14 +33,13 @@ node eg/led-pulse-animation.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   // Create a standard `led` component
   // on a valid pwm pin
-  var led = new five.Led(11);
+  const led = new Led(11);
 
   // Instead of passing a time and rate, you can
   // pass any valid Animation() segment opts object
@@ -50,14 +49,14 @@ board.on("ready", function() {
     duration: 3000,
     cuePoints: [0, 0.2, 0.4, 0.6, 0.8, 1],
     keyFrames: [0, 10, 0, 50, 0, 255],
-    onstop: function() {
+    onstop() {
       console.log("Animation stopped");
     }
   });
 
   // Stop and turn off the led pulse loop after
   // 12 seconds (shown in ms)
-  this.wait(12000, function() {
+  board.wait(12000, () => {
 
     // stop() terminates the interval
     // off() shuts the led off
@@ -79,9 +78,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

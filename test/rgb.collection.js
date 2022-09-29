@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-var rgbCollectionProtoProperties = [{
+const rgbCollectionProtoProperties = [{
   name: "on"
 }, {
   name: "off"
@@ -26,22 +26,22 @@ var rgbCollectionProtoProperties = [{
 function testLedRgbCollectionShape(test) {
   test.expect(rgbCollectionProtoProperties.length);
 
-  rgbCollectionProtoProperties.forEach(function(method) {
-    var tOf = method.typeof || "function";
+  rgbCollectionProtoProperties.forEach((method) => {
+    const tOf = method.typeof || "function";
     test.equal(typeof this.rgbs[method.name], tOf);
-  }, this);
+  });
 
   test.done();
 }
 
 exports["RGB.Collection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
 
     // Make all of these PWM pins for testing
-    this.board.io.pins.forEach(function(pin) {
-      pin.supportedModes.push(3);
+    this.board.io.pins.forEach(({supportedModes}) => {
+      supportedModes.push(3);
     });
 
     this.a = new RGB({
@@ -61,16 +61,16 @@ exports["RGB.Collection"] = {
 
     [
       "off", "on", "intensity"
-    ].forEach(function(method) {
+    ].forEach(method => {
       this[method] = this.sandbox.spy(RGB.prototype, method);
-    }.bind(this));
+    });
 
     done();
   },
 
-  tearDown: function(done) {
-    this.board.io.pins.forEach(function(pin) {
-      pin.supportedModes.pop();
+  tearDown(done) {
+    this.board.io.pins.forEach(({supportedModes}) => {
+      supportedModes.pop();
     });
 
     Board.purge();
@@ -79,18 +79,18 @@ exports["RGB.Collection"] = {
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(RGB.Collection([ {pins: [3, 4, 5]}, {pins: [9, 10, 11]} ]) instanceof RGB.Collection, true);
+    test.equal(new RGB.Collection([ {pins: [3, 4, 5]}, {pins: [9, 10, 11]} ]) instanceof RGB.Collection, true);
     test.done();
   },
 
   shape: testLedRgbCollectionShape,
 
-  initFromObject: function(test) {
+  initFromObject(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection({
+    const rgbs = new RGB.Collection({
       pins: [
         [1, 2, 3],
         [4, 5, 6],
@@ -102,10 +102,10 @@ exports["RGB.Collection"] = {
     test.done();
   },
 
-  initFromArrayOfPinNumbers: function(test) {
+  initFromArrayOfPinNumbers(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection([
+    const rgbs = new RGB.Collection([
       [1, 2, 3],
       [4, 5, 6],
     ]);
@@ -114,10 +114,10 @@ exports["RGB.Collection"] = {
     test.done();
   },
 
-  initFromArrayOfRGBOptions: function(test) {
+  initFromArrayOfRGBOptions(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection([
+    const rgbs = new RGB.Collection([
       { pins: [1, 2, 3], board: this.board },
       { pins: [4, 5, 6], board: this.board },
     ]);
@@ -127,23 +127,23 @@ exports["RGB.Collection"] = {
   },
 
 
-  initFromLeds: function(test) {
+  initFromLeds(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection([this.a, this.b]);
+    const rgbs = new RGB.Collection([this.a, this.b]);
 
     test.equal(rgbs.length, 2);
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
     this.blink = this.sandbox.stub(RGB.prototype, "blink");
     this.stop = this.sandbox.stub(RGB.prototype, "stop");
 
-    var rgbs = new RGB.Collection([this.a, this.b]);
+    const rgbs = new RGB.Collection([this.a, this.b]);
 
     rgbs.blink().stop();
 
@@ -153,14 +153,14 @@ exports["RGB.Collection"] = {
     test.done();
   },
 
-  callbacks: function(test) {
+  callbacks(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
     this.blink = this.sandbox.stub(RGB.prototype, "blink");
 
-    var noop = function() {};
-    var rgbs = new RGB.Collection([this.a, this.b]);
+    const noop = () => {};
+    const rgbs = new RGB.Collection([this.a, this.b]);
 
     rgbs.blink(1, noop);
 
@@ -169,38 +169,38 @@ exports["RGB.Collection"] = {
     test.done();
   },
 
-  callbacksNoDuration: function(test) {
+  callbacksNoDuration(test) {
     test.expect(2);
 
     this.clock = this.sandbox.useFakeTimers();
-    this.blink = this.sandbox.stub(RGB.prototype, "blink", function(duration, cb) {
+    this.blink = this.sandbox.stub(RGB.prototype, "blink", (duration, cb) => {
       cb();
     });
 
-    var rgbs = new RGB.Collection([this.a, this.b]);
-    var callback = this.sandbox.spy(function() {
+    const rgbs = new RGB.Collection([this.a, this.b]);
+    const callback = this.sandbox.spy(() => {
       test.equal(this.blink.callCount, 2);
       test.equal(callback.callCount, 1);
       test.done();
-    }.bind(this));
+    });
 
     rgbs.blink(callback);
 
     this.clock.tick(1000);
   },
 
-  noCallbackNoop: function(test) {
+  noCallbackNoop(test) {
     test.expect(2);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
 
     this.clock = this.sandbox.useFakeTimers();
-    this.blink = this.sandbox.stub(RGB.prototype, "blink", function(duration, callback) {
+    this.blink = this.sandbox.stub(RGB.prototype, "blink", (duration, callback) => {
       spy();
       callback();
     });
 
-    var rgbs = new RGB.Collection([this.a, this.b]);
+    const rgbs = new RGB.Collection([this.a, this.b]);
 
     rgbs.blink();
 
@@ -212,12 +212,12 @@ exports["RGB.Collection"] = {
   "Animation.normalize": function(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection([
+    const rgbs = new RGB.Collection([
       [1, 2, 3],
       [4, 5, 6],
     ]);
 
-    var normalized = rgbs[Animation.normalize]([
+    const normalized = rgbs[Animation.normalize]([
       [
         null,
         {color: "red"},
@@ -270,12 +270,12 @@ exports["RGB.Collection"] = {
   "Animation.normalize: frame === null": function(test) {
     test.expect(1);
 
-    var rgbs = new RGB.Collection([
+    const rgbs = new RGB.Collection([
       [1, 2, 3],
       [4, 5, 6],
     ]);
 
-    var normalized = rgbs[Animation.normalize]([
+    const normalized = rgbs[Animation.normalize]([
       [
         {color: "red"},
       ],
@@ -291,36 +291,21 @@ exports["RGB.Collection"] = {
 
 
   "Animation.render": function(test) {
-    test.expect(4);
+    test.expect(1);
 
-    var rgbs = new RGB.Collection([
+    const rgbs = new RGB.Collection([
       [1, 2, 3],
       [4, 5, 6],
     ]);
 
-    rgbs.each(function(rgb) {
-      this.sandbox.stub(rgb, "write");
-    }.bind(this));
+    this.color = this.sandbox.stub(RGB.prototype, "color");
 
     rgbs[Animation.render]([
       { red: 0xff, green: 0x00, blue: 0x00 },
       { red: 0x00, green: 0xff, blue: 0x00 },
     ]);
 
-    test.equal(rgbs[0].write.callCount, 1);
-    test.deepEqual(rgbs[0].write.firstCall.args[0], {
-      red: 0xff,
-      green: 0x00,
-      blue: 0x00
-    });
-
-    test.equal(rgbs[1].write.callCount, 1);
-    test.deepEqual(rgbs[1].write.firstCall.args[0], {
-      red: 0x00,
-      green: 0xff,
-      blue: 0x00
-    });
-
+    test.equal(this.color.callCount, 2);
     test.done();
   },
 };

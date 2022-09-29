@@ -2,7 +2,7 @@ require("./common/bootstrap");
 
 exports["Gyro -- ANALOG"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -34,34 +34,34 @@ exports["Gyro -- ANALOG"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.gyro[method.name], "function");
+    this.proto.forEach(function({name}) {
+      test.equal(typeof this.gyro[name], "function");
     }, this);
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.gyro[property.name], "undefined");
+    this.instance.forEach(function({name}) {
+      test.notEqual(typeof this.gyro[name], "undefined");
     }, this);
 
     test.done();
   },
 
-  isCalibrated: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+  isCalibrated(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
     test.expect(2);
     test.ok(!this.gyro.isCalibrated);
 
-    for (var i = 0; i < 101; i++) {
+    for (let i = 0; i < 101; i++) {
       x(225);
       y(255);
     }
@@ -70,9 +70,9 @@ exports["Gyro -- ANALOG"] = {
     test.done();
   },
 
-  recalibrate: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
+  recalibrate(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
 
     test.expect(4);
     test.ok(!this.gyro.isCalibrated);
@@ -98,10 +98,10 @@ exports["Gyro -- ANALOG"] = {
     test.done();
   },
 
-  data: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var spy = this.sandbox.spy();
+  data(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -117,10 +117,10 @@ exports["Gyro -- ANALOG"] = {
     test.done();
   },
 
-  change: function(test) {
-    var x = this.analogRead.args[0][1];
-    var y = this.analogRead.args[1][1];
-    var spy = this.sandbox.spy();
+  change(test) {
+    const x = this.analogRead.args[0][1];
+    const y = this.analogRead.args[1][1];
+    const spy = this.sandbox.spy();
 
     test.expect(1);
 
@@ -152,7 +152,7 @@ exports["Gyro -- ANALOG"] = {
 
 exports["Gyro -- MPU6050"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
 
@@ -169,13 +169,13 @@ exports["Gyro -- MPU6050"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -187,7 +187,7 @@ exports["Gyro -- MPU6050"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -196,10 +196,11 @@ exports["Gyro -- MPU6050"] = {
     test.done();
   },
 
-  data: function(test) {
-    var read, spy = this.sandbox.spy();
+  data(test) {
+    let read;
+    const spy = this.sandbox.spy();
 
-    test.expect(10);
+    test.expect(13);
     this.gyro.isCalibrated = true;
     this.gyro.on("data", spy);
 
@@ -222,6 +223,10 @@ exports["Gyro -- MPU6050"] = {
     test.deepEqual(this.i2cRead.args[0][1], 0x3B);
     test.equals(this.i2cRead.args[0][2], 14);
 
+    test.equal(digits.fractional(this.gyro.rate.x), 4);
+    test.equal(digits.fractional(this.gyro.rate.y), 4);
+    test.equal(digits.fractional(this.gyro.rate.z), 4);
+
     this.clock.tick(100);
 
     test.ok(spy.calledOnce);
@@ -235,8 +240,8 @@ exports["Gyro -- MPU6050"] = {
   }
 };
 
-Object.keys(Gyro.Controllers).forEach(function(name) {
-  exports["Gyro - Controller, " + name] = addControllerTest(Gyro, Gyro.Controllers[name], {
+Object.keys(Gyro.Controllers).forEach(name => {
+  exports[`Gyro - Controller, ${name}`] = addControllerTest(Gyro, Gyro.Controllers[name], {
     controller: name,
     sensitivity: 1
   });

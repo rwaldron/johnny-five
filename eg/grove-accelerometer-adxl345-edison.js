@@ -1,6 +1,6 @@
-var five = require("../lib/johnny-five");
-var Edison = require("edison-io");
-var board = new five.Board({
+const {Accelerometer, Board} = require("../lib/johnny-five");
+const Edison = require("edison-io");
+const board = new Board({
   io: new Edison()
 });
 
@@ -8,20 +8,21 @@ board.on("ready", function() {
 
   // Plug the ADXL345 Accelerometer module
   // into an I2C jack
-  var acceleration = new five.Accelerometer({
+  const accelerometer = new Accelerometer({
     controller: "ADXL345"
   });
 
-  acceleration.on("change", function() {
-    console.log("accelerometer");
-    console.log("  x            : ", this.x);
-    console.log("  y            : ", this.y);
-    console.log("  z            : ", this.z);
-    console.log("  pitch        : ", this.pitch);
-    console.log("  roll         : ", this.roll);
-    console.log("  acceleration : ", this.acceleration);
-    console.log("  inclination  : ", this.inclination);
-    console.log("  orientation  : ", this.orientation);
+  accelerometer.on("change", () => {
+    const {acceleration, inclination, orientation, pitch, roll, x, y, z} = accelerometer;
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
     console.log("--------------------------------------");
   });
 });

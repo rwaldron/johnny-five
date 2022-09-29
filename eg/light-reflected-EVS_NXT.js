@@ -1,14 +1,16 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Light } = require("../lib/johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var reflect = new five.Light({
+board.on("ready", () => {
+  const reflected = new Light({
     controller: "EVS_NXT",
     pin: "BBS1",
     mode: "reflected"
   });
 
-  reflect.on("change", function() {
-    console.log("Light Reflection Level: ", this.level);
+  reflected.on("change", () => {
+    console.log("Reflected Light Level: ");
+    console.log("  level  : ", reflected.level);
+    console.log("-----------------");
   });
 });

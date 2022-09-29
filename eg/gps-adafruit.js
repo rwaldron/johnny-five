@@ -1,13 +1,13 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, GPS } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   /*
    * This is the simplest initialization
    * We assume SW_SERIAL0 for the port
    */
-  var gps = new five.GPS({
+  const gps = new GPS({
     breakout: "ADAFRUIT_ULTIMATE_GPS",
     pins: {
       rx: 11,
@@ -16,10 +16,11 @@ board.on("ready", function() {
   });
 
   // If latitude, longitude, course or speed change log it
-  gps.on("change", function() {
-    console.log("position");
-    console.log("  latitude   : ", this.latitude);
-    console.log("  longitude  : ", this.longitude);
+  gps.on("change", position => {
+    const {latitude, longitude} = position;
+    console.log("GPS Position:");
+    console.log("  latitude   : ", latitude);
+    console.log("  longitude  : ", longitude);
     console.log("--------------------------------------");
   });
 });

@@ -1,21 +1,21 @@
 require("./common/bootstrap");
 
 exports["LedControl - I2C Matrix Initialization"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -27,7 +27,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0x70);
@@ -37,10 +37,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
   },
 
 
-  addressSingle: function(test) {
+  addressSingle(test) {
     test.expect(1);
 
-    var matrix = new LedControl({
+    const matrix = new LedControl({
       address: 0x70,
       controller: "HT16K33",
       isMatrix: true,
@@ -51,10 +51,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.done();
   },
-  addressesSingle: function(test) {
+  addressesSingle(test) {
     test.expect(1);
 
-    var matrix = new LedControl({
+    const matrix = new LedControl({
       addresses: [0x70],
       devices: 2,
       controller: "HT16K33",
@@ -66,10 +66,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.done();
   },
-  addressesMultiple: function(test) {
+  addressesMultiple(test) {
     test.expect(1);
 
-    var matrix = new LedControl({
+    const matrix = new LedControl({
       addresses: [0x70, 0x71],
       devices: 2,
       controller: "HT16K33",
@@ -81,10 +81,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.done();
   },
-  addressesMultipleInferredByDeviceCount: function(test) {
+  addressesMultipleInferredByDeviceCount(test) {
     test.expect(1);
 
-    var matrix = new LedControl({
+    const matrix = new LedControl({
       devices: 2,
       controller: "HT16K33",
       isMatrix: true,
@@ -96,10 +96,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
     test.done();
   },
 
-  addressesExhaustAvailability: function(test) {
+  addressesExhaustAvailability(test) {
     test.expect(5);
 
-    var a = new LedControl({
+    const a = new LedControl({
       devices: 2,
       controller: "HT16K33",
       isMatrix: true,
@@ -108,7 +108,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.deepEqual(a.addresses, [0x70, 0x71]);
 
-    var b = new LedControl({
+    const b = new LedControl({
       devices: 2,
       controller: "HT16K33",
       isMatrix: true,
@@ -117,7 +117,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.deepEqual(b.addresses, [0x72, 0x73]);
 
-    var c = new LedControl({
+    const c = new LedControl({
       devices: 2,
       controller: "HT16K33",
       isMatrix: true,
@@ -126,7 +126,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.deepEqual(c.addresses, [0x74, 0x75]);
 
-    var d = new LedControl({
+    const d = new LedControl({
       devices: 2,
       controller: "HT16K33",
       isMatrix: true,
@@ -135,19 +135,19 @@ exports["LedControl - I2C Matrix Initialization"] = {
 
     test.deepEqual(d.addresses, [0x76, 0x77]);
 
-    test.throws(function() {
+    test.throws(() => {
       new LedControl({
         devices: 1,
         controller: "HT16K33",
         isMatrix: true,
         board: this.board
       });
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  addressesInvalid: function(test) {
+  addressesInvalid(test) {
     test.expect(2);
 
     test.throws(function() {
@@ -171,7 +171,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
     test.done();
   },
 
-  addressesAvailableByDeviceCount: function(test) {
+  addressesAvailableByDeviceCount(test) {
     test.expect(1);
 
     new LedControl({
@@ -193,7 +193,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
     test.done();
   },
 
-  addressesAvailableByAddressList: function(test) {
+  addressesAvailableByAddressList(test) {
     test.expect(2);
 
     new LedControl({
@@ -224,10 +224,10 @@ exports["LedControl - I2C Matrix Initialization"] = {
     test.done();
   },
 
-  addressesAndDevicesMissingImpliesOne: function(test) {
+  addressesAndDevicesMissingImpliesOne(test) {
     test.expect(1);
 
-    var a = new LedControl({
+    const a = new LedControl({
       // No "address"
       // No "addresses"
       // No "devices"
@@ -243,7 +243,7 @@ exports["LedControl - I2C Matrix Initialization"] = {
 };
 
 exports["LedControl - I2C Matrix"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -260,14 +260,14 @@ exports["LedControl - I2C Matrix"] = {
     this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
-  initialize: function(test) {
-    var expected = [
+  initialize(test) {
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -280,10 +280,10 @@ exports["LedControl - I2C Matrix"] = {
     test.deepEqual(this.i2cWrite.args, expected);
     test.done();
   },
-  clearAll: function(test) {
+  clearAll(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -302,9 +302,9 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
-  on: function(test) {
+  on(test) {
     test.expect(1);
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -321,9 +321,9 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
-  off: function(test) {
+  off(test) {
     test.expect(1);
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -340,9 +340,9 @@ exports["LedControl - I2C Matrix"] = {
 
     test.done();
   },
-  brightness: function(test) {
+  brightness(test) {
     test.expect(1);
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -363,9 +363,9 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  blink: function(test) {
+  blink(test) {
     test.expect(2);
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -393,10 +393,10 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  ledNoDevice: function(test) {
+  ledNoDevice(test) {
     test.expect(3);
 
-    var ledWithDevice = this.sandbox.spy(this.lc, "led");
+    const ledWithDevice = this.sandbox.spy(this.lc, "led");
 
     this.lc.led(0, 0, 1);
 
@@ -407,10 +407,10 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  ledInvalidRow: function(test) {
+  ledInvalidRow(test) {
     test.expect(1);
 
-    var before = this.lc.memory.slice();
+    const before = this.lc.memory.slice();
 
     this.lc.led(0, -1, 0, 1);
     this.lc.led(0, 100, 0, 1);
@@ -420,10 +420,10 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  ledInvalidCol: function(test) {
+  ledInvalidCol(test) {
     test.expect(1);
 
-    var before = this.lc.memory.slice();
+    const before = this.lc.memory.slice();
 
     this.lc.led(0, 0, -1, 1);
     this.lc.led(0, 0, 100, 1);
@@ -433,11 +433,11 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  ledRotation: function(test) {
+  ledRotation(test) {
     test.expect(2);
 
-    var writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
-    var before = this.lc.memory.slice();
+    const writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
+    let before = this.lc.memory.slice();
 
     this.lc.rotation = 2;
     this.lc.led(0, 0, 0, 1);
@@ -453,7 +453,7 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  ledIsBicolor: function(test) {
+  ledIsBicolor(test) {
     test.expect(1);
 
     this.lc = new LedControl({
@@ -463,7 +463,7 @@ exports["LedControl - I2C Matrix"] = {
       board: this.board
     });
 
-    var writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
+    const writeDisplay = this.sandbox.stub(this.lc, "writeDisplay");
 
     this.lc.led(0, 0, 0, LedControl.COLORS.GREEN);
     this.lc.led(0, 0, 0, LedControl.COLORS.YELLOW);
@@ -474,10 +474,10 @@ exports["LedControl - I2C Matrix"] = {
   },
 
 
-  row: function(test) {
+  row(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -504,7 +504,7 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  rowNoDevice: function(test) {
+  rowNoDevice(test) {
     test.expect(3);
 
     this.lc.row.reset();
@@ -518,10 +518,10 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  column: function(test) {
+  column(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -548,10 +548,10 @@ exports["LedControl - I2C Matrix"] = {
     test.done();
   },
 
-  draw: function(test) {
+  draw(test) {
     test.expect(2);
 
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       this.lc.draw([
         "00111100",
         "01000010",
@@ -562,21 +562,21 @@ exports["LedControl - I2C Matrix"] = {
         "01000010",
         "00111100"
       ]);
-    }.bind(this));
+    });
 
-    test.throws(function() {
+    test.throws(() => {
       this.lc.draw([
         "00111100",
       ]);
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  drawStringArray: function(test) {
+  drawStringArray(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [0, 0, "00111100"],
       [0, 1, "01000010"],
       [0, 2, "10100101"],
@@ -606,7 +606,7 @@ exports["LedControl - I2C Matrix"] = {
 };
 
 exports["LedControl - I2C Matrix 16x8"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -624,15 +624,15 @@ exports["LedControl - I2C Matrix 16x8"] = {
     this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
-  clearAll: function(test) {
+  clearAll(test) {
     test.expect(2);
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -652,10 +652,10 @@ exports["LedControl - I2C Matrix 16x8"] = {
 
     test.done();
   },
-  drawStringArray: function(test) {
+  drawStringArray(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [0, 0, "0110011001100110"],
       [0, 1, "1001100110011001"],
       [0, 2, "1000000110000001"],
@@ -682,10 +682,10 @@ exports["LedControl - I2C Matrix 16x8"] = {
 
     test.done();
   },
-  row: function(test) {
+  row(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       // oscillator on
       [0x70, [0x21]],
       // blink off
@@ -715,7 +715,7 @@ exports["LedControl - I2C Matrix 16x8"] = {
 };
 
 exports["LedControl - Matrix"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -795,31 +795,27 @@ exports["LedControl - Matrix"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.lc[method.name], "function");
-    }, this);
+    this.proto.forEach(({name}) => test.equal(typeof this.lc[name], "function"));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.lc[name], "undefined"));
 
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.lc[property.name], "undefined");
-    }, this);
 
     test.done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(3);
 
-    var expected = [
+    const expected = [
       // this.send(device, LedControl.OP.DECODING, 0);
       // this.send(device, LedControl.OP.BRIGHTNESS, 3);
       // this.send(device, LedControl.OP.SCANLIMIT, 7);
@@ -873,24 +869,24 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  device: function(test) {
+  device(test) {
     test.expect(1);
 
     test.notEqual(this.lc.device(0), undefined);
     test.done();
   },
 
-  returns: function(test) {
+  returns(test) {
     test.expect(this.proto.length);
 
-    this.proto.forEach(function(proto) {
-      test.equal(this[proto.name].apply(this, proto.args), this);
+    this.proto.forEach(function({name, args}) {
+      test.equal(this[name].apply(this, args), this);
     }, this.lc);
 
     test.done();
   },
 
-  dimensions: function(test) {
+  dimensions(test) {
     test.expect(8);
 
     this.matrix = {};
@@ -960,7 +956,7 @@ exports["LedControl - Matrix"] = {
 
   "dimensions: invalid string": function(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       new LedControl({
         pins: {
           data: 2,
@@ -971,13 +967,13 @@ exports["LedControl - Matrix"] = {
         dims: "17x9",
         board: this.board
       });
-    }.bind(this));
+    });
     test.done();
   },
 
   "dimensions: invalid array": function(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       new LedControl({
         pins: {
           data: 2,
@@ -988,11 +984,11 @@ exports["LedControl - Matrix"] = {
         dims: [ 19, 7 ],
         board: this.board
       });
-    }.bind(this));
+    });
     test.done();
   },
 
-  on: function(test) {
+  on(test) {
     test.expect(1);
 
     this.lc.on(0);
@@ -1004,7 +1000,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  onAll: function(test) {
+  onAll(test) {
     test.expect(2);
 
     this.lc.on();
@@ -1017,7 +1013,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  off: function(test) {
+  off(test) {
     test.expect(1);
 
     this.lc.off(0);
@@ -1029,7 +1025,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  offAll: function(test) {
+  offAll(test) {
     test.expect(2);
 
     this.lc.off();
@@ -1042,7 +1038,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  scanLimit: function(test) {
+  scanLimit(test) {
     test.expect(1);
 
     this.lc.scanLimit(0, 8);
@@ -1054,7 +1050,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  scanLimitAll: function(test) {
+  scanLimitAll(test) {
     test.expect(2);
 
     this.lc.scanLimit(8);
@@ -1067,7 +1063,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  brightness: function(test) {
+  brightness(test) {
     test.expect(1);
 
     this.lc.brightness(0, 100);
@@ -1080,7 +1076,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  brightnessAll: function(test) {
+  brightnessAll(test) {
     test.expect(2);
 
     this.lc.brightness(100);
@@ -1093,10 +1089,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  clear: function(test) {
+  clear(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       [2, 3, 1],
       [2, 3, 0],
       [2, 3, 2],
@@ -1121,10 +1117,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  clearAll: function(test) {
+  clearAll(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [2, 3, 1],
       [2, 3, 0],
       [2, 3, 2],
@@ -1150,10 +1146,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  row: function(test) {
+  row(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       [2, 3, 2],
       [2, 3, 255]
     ];
@@ -1165,10 +1161,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  rowAll: function(test) {
+  rowAll(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [2, 3, 2],
       [2, 3, 255]
     ];
@@ -1181,10 +1177,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  column: function(test) {
+  column(test) {
     test.expect(1);
 
-    var expected = [
+    const expected = [
       [2, 3, 1],
       [2, 3, 16],
       [2, 3, 2],
@@ -1210,10 +1206,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  columnAll: function(test) {
+  columnAll(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [2, 3, 1],
       [2, 3, 16],
       [2, 3, 2],
@@ -1241,10 +1237,10 @@ exports["LedControl - Matrix"] = {
   },
 
 
-  led: function(test) {
+  led(test) {
     test.expect(2);
 
-    var before = this.lc.memory.slice();
+    let before = this.lc.memory.slice();
 
     this.lc.led(0, 0, 0, 1);
 
@@ -1259,10 +1255,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  ledOutOfBounds: function(test) {
+  ledOutOfBounds(test) {
     test.expect(3);
 
-    var before = this.lc.memory.slice();
+    const before = this.lc.memory.slice();
 
     this.lc.led(0, 0, 0, 1);
 
@@ -1273,7 +1269,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  ledNoDevice: function(test) {
+  ledNoDevice(test) {
     test.expect(3);
 
     this.lc.led(0, 0, 1);
@@ -1285,10 +1281,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  ledRotation: function(test) {
+  ledRotation(test) {
     test.expect(2);
 
-    var before = this.lc.memory.slice();
+    let before = this.lc.memory.slice();
 
     this.lc.rotation = 2;
     this.lc.led(0, 1, 1, 1);
@@ -1304,10 +1300,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  drawSingleChar: function(test) {
+  drawSingleChar(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [0, 0, 0],
       [0, 1, 0],
       [0, 2, 0],
@@ -1326,10 +1322,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  drawByteArray: function(test) {
+  drawByteArray(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [0, 0, 0],
       [0, 1, 0],
       [0, 2, 0],
@@ -1348,10 +1344,10 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  drawStringArray: function(test) {
+  drawStringArray(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [0, 0, 0],
       [0, 1, 0],
       [0, 2, 0],
@@ -1380,10 +1376,10 @@ exports["LedControl - Matrix"] = {
   },
 
 
-  send: function(test) {
+  send(test) {
     test.expect(2);
 
-    var expected = [
+    const expected = [
       [2, 3, 10],
       [2, 3, 0]
     ];
@@ -1409,7 +1405,7 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  sendError: function(test) {
+  sendError(test) {
     test.expect(1);
 
     try {
@@ -1421,12 +1417,12 @@ exports["LedControl - Matrix"] = {
     test.done();
   },
 
-  printThrows: function(test) {
+  printThrows(test) {
     test.expect(1);
 
-    test.throws(function() {
+    test.throws(() => {
       this.lc.print("");
-    }.bind(this));
+    });
 
     test.done();
   },
@@ -1441,23 +1437,23 @@ exports["LedControl - Matrix"] = {
 };
 
 exports["Led.Matrix => LedControl"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.board = newBoard();
     this.sandbox = sinon.sandbox.create();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
 
-  wrapper: function(test) {
+  wrapper(test) {
     test.expect(2);
 
-    var matrix = new Led.Matrix({
+    const matrix = new Led.Matrix({
       pins: {
         data: 2,
         clock: 3,
@@ -1471,12 +1467,12 @@ exports["Led.Matrix => LedControl"] = {
     test.done();
   },
 
-  statics: function(test) {
-    var keys = Object.keys(LedControl);
+  statics(test) {
+    const keys = Object.keys(LedControl);
 
     test.expect(keys.length);
 
-    keys.forEach(function(key) {
+    keys.forEach(key => {
       test.equal(Led.Matrix[key], LedControl[key]);
     });
 
@@ -1485,7 +1481,7 @@ exports["Led.Matrix => LedControl"] = {
 };
 
 exports["LedControl - Digits"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1507,17 +1503,17 @@ exports["LedControl - Digits"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
 
-  initialization: function(test) {
+  initialization(test) {
     test.expect(3);
 
-    var expected = [
+    const expected = [
       // this.send(device, LedControl.OP.DECODING, 0);
       // this.send(device, LedControl.OP.BRIGHTNESS, 3);
       // this.send(device, LedControl.OP.SCANLIMIT, 7);
@@ -1557,7 +1553,7 @@ exports["LedControl - Digits"] = {
     test.done();
   },
 
-  digit: function(test) {
+  digit(test) {
     test.expect(1);
 
     this.lc.digit(0, 0, 1);
@@ -1567,7 +1563,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  digitDigitWithDecimal: function(test) {
+  digitDigitWithDecimal(test) {
     test.expect(1);
 
     this.lc.digit(0, 0, "1.");
@@ -1577,7 +1573,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  draw: function(test) {
+  draw(test) {
     test.expect(1);
 
     this.lc.draw(0, 0, 1);
@@ -1587,7 +1583,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  drawAlphaWithDecimal: function(test) {
+  drawAlphaWithDecimal(test) {
     test.expect(1);
 
     this.lc.draw(0, 0, "1.");
@@ -1597,7 +1593,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  digitAll: function(test) {
+  digitAll(test) {
     test.expect(1);
 
     this.lc.digit(0, 1);
@@ -1607,7 +1603,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  digitDigitWithDecimalAll: function(test) {
+  digitDigitWithDecimalAll(test) {
     test.expect(1);
 
     this.lc.digit(0, "1.");
@@ -1617,7 +1613,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  print: function(test) {
+  print(test) {
     test.expect(1);
 
     this.lc.print("1234");
@@ -1630,7 +1626,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  drawAll: function(test) {
+  drawAll(test) {
     test.expect(1);
 
     this.lc.draw(0, 1);
@@ -1640,7 +1636,7 @@ exports["LedControl - Digits"] = {
 
     test.done();
   },
-  drawAlphaWithDecimalAll: function(test) {
+  drawAlphaWithDecimalAll(test) {
     test.expect(1);
 
     this.lc.draw(0, "1.");
@@ -1651,27 +1647,27 @@ exports["LedControl - Digits"] = {
     test.done();
   },
 
-  columnThrows: function(test) {
+  columnThrows(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       this.lc.column();
-    }.bind(this));
+    });
     test.done();
   },
 
-  rowIsNotMatrix: function(test) {
+  rowIsNotMatrix(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       this.lc.row();
-    }.bind(this));
+    });
     test.done();
   },
 
-  led: function(test) {
+  led(test) {
     test.expect(1);
     this.lc.led(0, 0, 0, 0);
 
-    var before = this.lc.memory.slice();
+    const before = this.lc.memory.slice();
 
     this.lc.led(0, 0, 0, 1);
 
@@ -1681,7 +1677,7 @@ exports["LedControl - Digits"] = {
 };
 
 exports["LedControl - I2C Digits"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -1698,13 +1694,13 @@ exports["LedControl - I2C Digits"] = {
     this.row = this.sandbox.spy(this.lc, "row");
     done();
   },
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     LedControl.purge();
     done();
   },
-  digit: function(test) {
+  digit(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1715,7 +1711,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  digitDigitWithDecimal: function(test) {
+  digitDigitWithDecimal(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1726,7 +1722,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  digitAlpha: function(test) {
+  digitAlpha(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1737,7 +1733,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  print: function(test) {
+  print(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1752,7 +1748,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  printNonString: function(test) {
+  printNonString(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1763,7 +1759,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  printSpaceInColonSpot: function(test) {
+  printSpaceInColonSpot(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1778,7 +1774,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  printNoColon: function(test) {
+  printNoColon(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1793,7 +1789,7 @@ exports["LedControl - I2C Digits"] = {
 
     test.done();
   },
-  printNoColonExplicitSpace: function(test) {
+  printNoColonExplicitSpace(test) {
     test.expect(1);
 
     this.i2cWrite.reset();
@@ -1809,27 +1805,27 @@ exports["LedControl - I2C Digits"] = {
     test.done();
   },
 
-  rowIsNotMatrix: function(test) {
+  rowIsNotMatrix(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       this.lc.row(0, 1, 255);
-    }.bind(this));
+    });
     test.done();
   },
 
-  scanLimit: function(test) {
+  scanLimit(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       this.lc.scanLimit();
-    }.bind(this));
+    });
     test.done();
   },
 
-  sendInvalidArguments: function(test) {
+  sendInvalidArguments(test) {
     test.expect(1);
-    test.throws(function() {
+    test.throws(() => {
       this.lc.send();
-    }.bind(this));
+    });
     test.done();
   },
 

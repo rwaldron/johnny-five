@@ -3,8 +3,8 @@ os:
   - osx
 language: node_js
 node_js:
-  - 4
-  - 6
+  - 14
+  - 16
 sudo: false
 compiler: clang
 notifications:
@@ -18,15 +18,17 @@ env:
   - NO_SERIALPORT_INSTALL=1
 
 before_install:
-  - npm install -g npm@3
   - npm install -g grunt-cli
 
-install: npm install
+install:
+  - npm install
 
 before_script:
   - grunt test-examples
 
-script: npm run test-cover
+script:
+  - grunt jshint jscs nodeunit
+  - npm run test-cover
 
 after_success:
- - npm run coveralls
+  - npm run coveralls

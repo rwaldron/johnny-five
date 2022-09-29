@@ -29,20 +29,20 @@ node eg/esc-PCA9685.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, ESC, Sensor } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var esc = new five.ESC({
+board.on("ready", () => {
+  const esc = new ESC({
     controller: "PCA9685",
+    device: "FORWARD",
     pin: 1
   });
 
-  var pot = new five.Sensor("A0");
+  const pot = new Sensor("A0");
 
-  pot.scale(0, 100).on("change", function() {
-    esc.speed(this.value);
+  pot.on("change", () => {
+    esc.throttle(pot.scaleTo(esc.pwmRange));
   });
 });
 
@@ -60,9 +60,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -31,13 +31,12 @@ node eg/led-rgb-anode-PCA9685.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
+board.on("ready", () => {
   // Initialize the RGB LED
-  var led = new five.Led.RGB({
+  const led = new Led.RGB({
     controller: "PCA9685",
     isAnode: true,
     pins: {
@@ -55,23 +54,20 @@ board.on("ready", function() {
   //   green: g,
   //   blue: b
   // }
-  // var led = new five.Led.RGB({
+  // const led = new Led.RGB({
   //   pins: [2, 1, 0],
   //   isAnode: true,
   //   controller: "PCA9685"
   // });
 
   // Add led to REPL (optional)
-  this.repl.inject({
-    led: led
-  });
+  board.repl.inject({ led });
 
   // Turn it on and set the initial color
   led.on();
   led.color("#FF0000");
 
   led.blink(1000);
-
 });
 
 ```
@@ -88,9 +84,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

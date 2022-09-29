@@ -140,3 +140,7 @@
    Control Led's Color with Leap Motion + Arduino
    [Code](https://github.com/yusufcakmak/leapmotion-arduino/blob/master/examples/ledcontrolhands.js) 
    [Vine](https://vine.co/v/MmhnAKO7aLx)
+
+## Ibnu Triyono [@ibnutri](https://twitter.com/ibnutri)
+   SCARA Drawbot (using 2 sg90s servo)
+   [Code](https://github.com/ibnutri/scara-drawbot) 

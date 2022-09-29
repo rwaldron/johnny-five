@@ -29,24 +29,25 @@ node eg/altimeter-BMP085.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const { Altimeter, Board } = require("../");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // By including a base `elevation` property, the values
   // received will be absolute elevation (from sealevel)
-  var altimeter = new five.Altimeter({
+  const altimeter = new Altimeter({
     controller: "BMP085",
     // Change `elevation` with whatever is reported
     // on http://www.whatismyelevation.com/.
     // `12` is the elevation (meters) for where I live in Brooklyn
-    elevation: 12,
+    elevation: 12
   });
 
-  altimeter.on("change", function() {
-    console.log("Altimeter");
-    console.log("  feet         : ", this.feet);
-    console.log("  meters       : ", this.meters);
+  altimeter.on("change", () => {
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
@@ -61,20 +62,21 @@ board.on("ready", function() {
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Altimeter, Board } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
   // By omitting the base `elevation` property, the values
   // received will be relative to your present elevation
-  var altimeter = new five.Altimeter({
-    controller: "BMP085",
+  const altimeter = new Altimeter({
+    controller: "BMP085"
   });
 
-  altimeter.on("change", function() {
-    console.log("Altimeter");
-    console.log("  feet         : ", this.feet);
-    console.log("  meters       : ", this.meters);
+  altimeter.on("change", () => {
+    const {feet, meters} = altimeter;
+    console.log("Altimeter:");
+    console.log("  feet         : ", feet);
+    console.log("  meters       : ", meters);
     console.log("--------------------------------------");
   });
 });
@@ -112,9 +114,9 @@ Fritzing diagram: [docs/breadboard/multi-bmp085.fzz](breadboard/multi-bmp085.fzz
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -29,18 +29,16 @@ node eg/servo-slider.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Board, Sensor, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
-  var slider = new five.Sensor("A0");
-  var tilt = new five.Servo(9);
+  const slider = new Sensor("A0");
+  const tilt = new Servo(10);
 
-  slider.scale([0, 180]).on("slide", function() {
-
-    // The slider's value will be scaled to match the tilt servo range
-    tilt.to(this.value);
+  slider.on("change", () => {
+    tilt.to(slider.scaleTo(0, 180));
   });
 });
 
@@ -58,9 +56,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

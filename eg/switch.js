@@ -1,15 +1,10 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const {Board, Led, Switch} = require("johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var spdt = new five.Switch(8);
-  var led = new five.Led(13);
-
-  spdt.on("open", function() {
-    led.off();
-  });
-
-  spdt.on("close", function() {
-    led.on();
-  });
+board.on("ready", () => {
+  const spdt = new Switch(8);
+  const led = new Led(13);
+  
+  spdt.on("open", () => led.off());
+  spdt.on("close", () => led.on());
 });

@@ -1,22 +1,23 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Thermometer } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-  var thermometer = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "MPL3115A2"
   });
 
-  thermometer.on("change", function() {
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
     console.log("Thermometer");
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
     console.log("--------------------------------------");
   });
 });
 
 /* @markdown
-- [MPL3115A2 - I2C Barometric Pressure/Altimiter/Temperature Sensor](https://www.adafruit.com/products/1893)
+- [MPL3115A2 - I2C Barometric Pressure/Altimiter/Thermometer Sensor](https://www.adafruit.com/products/1893)
 - [SparkFun Altitude/Pressure Sensor Breakout - MPL3115A2](https://www.sparkfun.com/products/11084)
 - [SparkFun Weather Shield](https://www.sparkfun.com/products/12081)
 - [SparkFun Photon Weather Shield](https://www.sparkfun.com/products/13630)

@@ -29,32 +29,32 @@ node eg/board-multi.js
 
 
 ```javascript
-var five = require("johnny-five");
-var boards = new five.Boards(["A", "B"]);
+const { Boards, Led } = require("johnny-five");
+const boards = new Boards(["A", "B"]);
 
 // Create 2 board instances with IDs "A" & "B"
-boards.on("ready", function() {
+boards.on("ready", () => {
 
   // Both "A" and "B" are initialized
   // (connected and available for communication)
 
   // Access them by their ID:
-  var led = new five.Led({
+  const led = new Led({
+    board: boards.byId("A"),
     pin: 13,
-    board: this.byId("A")
   });
 
   led.blink();
 
   // |this| is an array-like object containing references
   // to each initialized board.
-  this.each(function(board) {
+  boards.each(board => {
     if (board.id === "B") {
       // Initialize an Led instance on pin 13 of
       // each initialized board and strobe it.
-      var led = new five.Led({
+      const led = new Led({
         pin: 13,
-        board: board
+        board
       });
 
       led.blink();
@@ -101,9 +101,9 @@ boards.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

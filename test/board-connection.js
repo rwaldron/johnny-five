@@ -1,7 +1,7 @@
 require("./common/bootstrap");
 
 exports["Board Connection"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.connect = this.sandbox.spy(Board.Serial, "connect");
     this.detect = this.sandbox.spy(Board.Serial, "detect");
@@ -9,36 +9,35 @@ exports["Board Connection"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Serial.purge();
     this.sandbox.restore();
+    Board.Serial.attempts.length = 0;
     done();
   },
 
-  lateConnection: function(test) {
+  lateConnection(test) {
     test.expect(6);
 
     Board.Serial.used.length = 0;
 
-    var calls = 0;
-    var attempts = Board.Serial.attempts;
+    let calls = 0;
+    const attempts = Board.Serial.attempts;
 
-    this.list = this.sandbox.stub(SerialPort, "list", function(callback) {
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
       calls++;
-      process.nextTick(function() {
-        callback(null, calls === 2 ? [{
-          comName: "/dev/usb"
-        }] : []);
-      });
+      return Promise.resolve(calls === 2 ? [{
+        path: "/dev/usb"
+      }] : []);
     });
 
-    var board = new Board({
+    const board = new Board({
       debug: false,
       repl: false
     });
 
-    board.on("connect", function() {
+    board.on("connect", () => {
       // Serialport.list called twice
       test.equal(this.list.callCount, 2);
       // Two calls to detect
@@ -52,6 +51,61 @@ exports["Board Connection"] = {
       test.equal(this.MockFirmata.callCount, 1);
       test.equal(this.MockFirmata.lastCall.args[0], "/dev/usb");
       test.done();
-    }.bind(this));
-  }
+    });
+  },
+
+  maxOutAttempts(test) {
+    test.expect(2);
+
+    let calls = 0;
+    Board.Serial.used.length = 0;
+    Board.Serial.attempts[0] = 11;
+
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
+      calls++;
+      return Promise.resolve(calls === 2 ? [{
+        path: "/dev/usb"
+      }] : []);
+    });
+
+    this.fail = this.sandbox.stub(Board.prototype, "fail", (klass, message) => {
+      test.equal(klass, "Board");
+      test.equal(message, "No connected device found");
+      test.done();
+    });
+
+    new Board({
+      debug: false,
+      repl: false
+    });
+  },
+
+  inUse(test) {
+    test.expect(3);
+    let calls = 0;
+    Board.Serial.used.push("/dev/ttyUSB0");
+
+    this.list = this.sandbox.stub(SerialPort, "list", () => {
+      calls++;
+      return Promise.resolve(calls === 2 ? [
+        {path: "/dev/ttyUSB0"},
+        {path: "/dev/ttyUSB1"},
+        {path: "/dev/ttyUSB2"},
+      ] : []);
+    });
+
+    this.info = this.sandbox.spy(Board.prototype, "info");
+
+    const board = new Board({
+      debug: false,
+      repl: false
+    });
+
+    board.on("connect", () => {
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB0"), false);
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB1"), true);
+      test.equal(this.info.getCall(1).args[1].includes("ttyUSB2"), true);
+      test.done();
+    });
+  },
 };

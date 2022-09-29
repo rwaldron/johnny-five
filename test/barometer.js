@@ -1,29 +1,52 @@
 require("./common/bootstrap");
 
+exports.setUp = function(done) {
+  // Base Shape for all Barometer tests
+  this.proto = [];
+  this.instance = [{
+    name: "pressure"
+  }];
+
+  this.board = newBoard();
+  this.sandbox = sinon.sandbox.create();
+  this.clock = this.sandbox.useFakeTimers();
+  this.freq = 100;
+  this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+  this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
+  this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
+  this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+  this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
+
+  done();
+};
+
+exports.tearDown = function(done) {
+  Board.purge();
+  Barometer.purge();
+  IMU.Drivers.clear();
+  this.sandbox.restore();
+  done();
+};
+
 exports["Barometer -- MPL115A2"] = {
 
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.clock = sinon.useFakeTimers();
-    this.board = newBoard();
-    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
-
+  setUp(done) {
+    this.barometer = new Barometer({
+      controller: "MPL115A2",
+      board: this.board,
+      freq: 10
+    });
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    IMU.Drivers.clear();
-    this.sandbox.restore();
+  tearDown(done) {
     done();
   },
 
-  data: function(test) {
+  data(test) {
     test.expect(8);
 
-    var spies = {
+    const spies = {
       data: sinon.spy(),
       change: sinon.spy(),
     };
@@ -44,7 +67,7 @@ exports["Barometer -- MPL115A2"] = {
     this.barometer.on("change", spies.change);
 
     // Simulate receipt of coefficients
-    var pCoefficients = this.i2cReadOnce.firstCall.args[3];
+    const pCoefficients = this.i2cReadOnce.firstCall.args[3];
 
     pCoefficients([
       67, 111,  // A0
@@ -56,7 +79,7 @@ exports["Barometer -- MPL115A2"] = {
     this.i2cWriteReg.reset();
     this.i2cReadOnce.reset();
 
-    var interval = setInterval(function() {
+    const interval = setInterval(() => {
 
       if (this.i2cWriteReg.callCount === 1) {
 
@@ -69,7 +92,7 @@ exports["Barometer -- MPL115A2"] = {
         test.equal(this.i2cReadOnce.lastCall.args[1], 0x00);
         test.equal(this.i2cReadOnce.lastCall.args[2], 4);
 
-        var handler = this.i2cReadOnce.lastCall.args[3];
+        const handler = this.i2cReadOnce.lastCall.args[3];
 
         handler([ 0, 0, 0, 0 ]);
         handler([ 90, 64, 129, 64 ]);
@@ -82,44 +105,31 @@ exports["Barometer -- MPL115A2"] = {
 
       if (spies.data.called && spies.change.called) {
         clearInterval(interval);
-        test.equal(digits.fractional(this.barometer.pressure), 4);
+        test.equal(digits.fractional(this.barometer.pressure), 2);
         test.done();
       }
 
-    }.bind(this), 5);
+    }, 5);
   }
 };
 
 
 exports["Barometer -- BMP180"] = {
 
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.board = newBoard();
-    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
-
+  setUp(done) {
     this.barometer = new Barometer({
       controller: "BMP180",
       board: this.board,
       freq: 10
     });
-
-    this.instance = [{
-      name: "pressure"
-    }];
-
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
+  tearDown(done) {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -131,7 +141,7 @@ exports["Barometer -- BMP180"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -140,63 +150,372 @@ exports["Barometer -- BMP180"] = {
     test.done();
   },
 
-  data: function(test) {
-    test.expect(5);
+  dataAndChange(test) {
+    // test.expect(11);
 
-    var spy = this.sandbox.spy();
-    this.barometer.on("data", spy);
-
-
-    test.ok(this.i2cReadOnce.calledOnce);
-
-    var i2cReadOnce = this.i2cReadOnce.lastCall.args[3];
-
-    i2cReadOnce([
-      32,
-      153,
-      251,
-      197,
-      199,
-      83,
-      131,
-      0,
-      99,
-      140,
-      70,
-      120,
-      25,
-      115,
-      0,
-      39,
-      128,
-      0,
-      209,
-      246,
-      9,
-      221
-    ]);
+    const driver = IMU.Drivers.get(this.board, "BMP180");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
 
 
-    setImmediate(function() {
+    // test.equal(this.barometer.isCalibrated, false);
+    this.clock.tick(10);
 
-      test.ok(this.i2cConfig.calledOnce);
-      test.ok(this.i2cWriteReg.calledOnce);
-      test.ok(this.i2cReadOnce.called);
 
-      test.deepEqual(this.i2cWriteReg.lastCall.args, [119, 244, 46]);
+    this.barometer.on("data", dataSpy);
+    this.barometer.on("change", changeSpy);
 
-      // In order to handle the Promise used for initialization,
-      // there can be no fake timers in this test, which means we
-      // can't use the clock.tick to move the interval forward
-      // in time.
-      //
-      // This completely restricts the ability to stub and spy.
-      //
-      // TODO: expose readCycle w/ IS_TEST_MODE flag and call directly.
+    const computed = {
+      altitude: 1,
+      pressure: 2,
+      temperature: 3,
+    };
 
-      test.done();
-    }.bind(this));
-  }
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+
+    test.equal(this.barometer.pressure, 0.002);
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+
+    test.done();
+  },
+};
+
+exports["Barometer -- BMP280"] = {
+
+  setUp(done) {
+    this.barometer = new Barometer({
+      controller: "BMP280",
+      board: this.board,
+      freq: 10
+    });
+    done();
+  },
+
+  tearDown(done) {
+    done();
+  },
+
+  fwdOptionsToi2cConfig(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Barometer({
+      controller: "BMP280",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    const forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  noController(test) {
+    test.expect(1);
+    test.throws(() => {
+      new Barometer({
+        controller: null,
+        board: this.board,
+        freq: 10
+      });
+    });
+    test.done();
+  },
+
+  sharedtoPressure(test) {
+    test.expect(2);
+    const toPressure = x => x;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.equal(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  defaulttoPressure(test) {
+    test.expect(2);
+    let toPressure;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.notEqual(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  dataAndChange(test) {
+    test.expect(3);
+
+    const driver = IMU.Drivers.get(this.board, "BMP280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
+
+    this.clock.tick(10);
+
+    this.barometer.on("data", dataSpy);
+    this.barometer.on("change", changeSpy);
+
+    const computed = {
+      altitude: 1,
+      pressure: 2,
+      temperature: 3,
+    };
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+    test.equal(this.barometer.pressure, 0.002);
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.done();
+  },
+};
+
+exports["Barometer -- BME280"] = {
+
+  setUp(done) {
+    this.barometer = new Barometer({
+      controller: "BME280",
+      board: this.board,
+      freq: 10
+    });
+    done();
+  },
+
+  tearDown(done) {
+    done();
+  },
+
+  fwdOptionsToi2cConfig(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Barometer({
+      controller: "BME280",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    const forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  noController(test) {
+    test.expect(1);
+    test.throws(() => {
+      new Barometer({
+        controller: null,
+        board: this.board,
+        freq: 10
+      });
+    });
+    test.done();
+  },
+
+  sharedtoPressure(test) {
+    test.expect(2);
+    const toPressure = x => x;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.equal(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  defaulttoPressure(test) {
+    test.expect(2);
+    let toPressure;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.notEqual(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  dataAndChange(test) {
+    test.expect(3);
+
+    const driver = IMU.Drivers.get(this.board, "BME280");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
+
+    this.clock.tick(10);
+
+    this.barometer.on("data", dataSpy);
+    this.barometer.on("change", changeSpy);
+
+    const computed = {
+      altitude: 1,
+      pressure: 2,
+      humidity: 3,
+      temperature: 4,
+    };
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+    test.equal(this.barometer.pressure, 0.002);
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.done();
+  },
+};
+
+exports["Barometer -- MS5611"] = {
+
+  setUp(done) {
+    this.barometer = new Barometer({
+      controller: "MS5611",
+      board: this.board,
+      freq: 10
+    });
+    done();
+  },
+
+  tearDown(done) {
+    done();
+  },
+
+  fwdOptionsToi2cConfig(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Barometer({
+      controller: "MS5611",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    const forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  noController(test) {
+    test.expect(1);
+    test.throws(() => {
+      new Barometer({
+        controller: null,
+        board: this.board,
+        freq: 10
+      });
+    });
+    test.done();
+  },
+
+  sharedtoPressure(test) {
+    test.expect(2);
+    const toPressure = x => x;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.equal(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  defaulttoPressure(test) {
+    test.expect(2);
+    let toPressure;
+    const barometer = new Barometer({
+      controller: {},
+      toPressure,
+      board: this.board,
+      freq: 10
+    });
+
+    test.notEqual(barometer.toPressure, toPressure);
+    test.equal(barometer.toPressure(1), 1);
+    test.done();
+  },
+
+  dataAndChange(test) {
+    test.expect(3);
+
+    const driver = IMU.Drivers.get(this.board, "MS5611");
+    const dataSpy = this.sandbox.spy();
+    const changeSpy = this.sandbox.spy();
+
+    this.clock.tick(10);
+
+    this.barometer.on("data", dataSpy);
+    this.barometer.on("change", changeSpy);
+
+    const computed = {
+      altitude: 1,
+      pressure: 2,
+      temperature: 3,
+    };
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.equal(dataSpy.callCount, 1);
+    test.equal(changeSpy.callCount, 1);
+    test.equal(this.barometer.pressure, 0.002);
+
+    driver.emit("data", computed);
+    this.clock.tick(10);
+
+    test.done();
+  },
 };
 
 function mpl3115aDataLoop(test, initialCount, data) {
@@ -207,7 +526,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
     1, // data length
   ]);
 
-  var read = this.i2cReadOnce.lastCall.args[3];
+  let read = this.i2cReadOnce.lastCall.args[3];
   read([0x04]); // write status bit
 
   test.equal(this.i2cReadOnce.callCount, initialCount + 2);
@@ -223,15 +542,7 @@ function mpl3115aDataLoop(test, initialCount, data) {
 
 exports["Barometer -- MPL3115A2"] = {
 
-  setUp: function(done) {
-    this.sandbox = sinon.sandbox.create();
-    this.board = newBoard();
-    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
-    this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
-    this.i2cWriteReg = this.sandbox.spy(MockFirmata.prototype, "i2cWriteReg");
-    this.i2cReadOnce = this.sandbox.spy(MockFirmata.prototype, "i2cReadOnce");
-    this.clock = this.sandbox.useFakeTimers();
-
+  setUp(done) {
     this.barometer = new Barometer({
       controller: "MPL3115A2",
       board: this.board,
@@ -241,13 +552,11 @@ exports["Barometer -- MPL3115A2"] = {
     done();
   },
 
-  tearDown: function(done) {
-    Board.purge();
-    this.sandbox.restore();
+  tearDown(done) {
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -259,7 +568,7 @@ exports["Barometer -- MPL3115A2"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -268,8 +577,8 @@ exports["Barometer -- MPL3115A2"] = {
     test.done();
   },
 
-  data: function(test) {
-    test.expect(17);
+  data(test) {
+    test.expect(18);
 
     test.equal(this.i2cWrite.callCount, 1);
     test.equal(this.i2cWriteReg.callCount, 4);
@@ -311,7 +620,7 @@ exports["Barometer -- MPL3115A2"] = {
     //   0xB9, // config value
     // ]);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     this.barometer.on("data", spy);
 
     // Altitude Loop
@@ -332,15 +641,16 @@ exports["Barometer -- MPL3115A2"] = {
     this.clock.tick(10);
 
     test.ok(spy.calledOnce);
-    test.equals(Math.round(spy.args[0][0].pressure), 176);
+    test.equals(175.5040, spy.args[0][0].pressure);
+    test.equals(3, digits.fractional(this.barometer.pressure));
 
     test.done();
   },
 
-  change: function(test) {
+  change(test) {
     test.expect(35);
 
-    var spy = this.sandbox.spy();
+    const spy = this.sandbox.spy();
     this.barometer.on("change", spy);
 
     // First Pass -- initial
@@ -403,8 +713,8 @@ exports["Barometer -- MPL3115A2"] = {
   }
 };
 
-Object.keys(Barometer.Controllers).forEach(function(name) {
-  exports["Barometer - Controller, " + name] = addControllerTest(Barometer, Barometer.Controllers[name], {
-    controller: name,
-  });
-});
+// Object.keys(Barometer.Controllers).forEach(function(name) {
+//   exports["Barometer - Controller, " + name] = addControllerTest(Barometer, Barometer.Controllers[name], {
+//     controller: name,
+//   });
+// });

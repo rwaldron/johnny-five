@@ -33,27 +33,24 @@ node eg/led-fade-animation.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Board, Led } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var led = new five.Led(11);
+board.on("ready", () => {
+  const led = new Led(11);
 
   led.fade({
     easing: "linear",
     duration: 1000,
     cuePoints: [0, 0.2, 0.4, 0.6, 0.8, 1],
     keyFrames: [0, 250, 25, 150, 100, 125],
-    onstop: function() {
+    onstop() {
       console.log("Animation stopped");
     }
   });
 
   // Toggle the led after 2 seconds (shown in ms)
-  this.wait(2000, function() {
-    led.fadeOut();
-  });
+  board.wait(2000, () => led.fadeOut());
 });
 
 ```
@@ -70,9 +67,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

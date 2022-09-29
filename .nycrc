@@ -12,7 +12,8 @@
     "lib/ir.js",
     "lib/ping.js",
     "lib/pir.js",
-    "lib/sonar.js"
+    "lib/sonar.js",
+    "lib/wii.js"
   ]
 }
 

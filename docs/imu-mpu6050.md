@@ -29,41 +29,41 @@ node eg/imu-mpu6050.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const {Board, IMU} = require("../");
+const board = new Board();
 
-board.on("ready", function() {
-  var imu = new five.IMU({
+board.on("ready", () => {
+  const imu = new IMU({
     controller: "MPU6050"
   });
 
-  imu.on("change", function() {
+  imu.on("change", () => {
     console.log("Thermometer");
-    console.log("  celsius      : ", this.thermometer.celsius);
-    console.log("  fahrenheit   : ", this.thermometer.fahrenheit);
-    console.log("  kelvin       : ", this.thermometer.kelvin);
+    console.log("  celsius      : ", imu.thermometer.celsius);
+    console.log("  fahrenheit   : ", imu.thermometer.fahrenheit);
+    console.log("  kelvin       : ", imu.thermometer.kelvin);
     console.log("--------------------------------------");
 
     console.log("Accelerometer");
-    console.log("  x            : ", this.accelerometer.x);
-    console.log("  y            : ", this.accelerometer.y);
-    console.log("  z            : ", this.accelerometer.z);
-    console.log("  pitch        : ", this.accelerometer.pitch);
-    console.log("  roll         : ", this.accelerometer.roll);
-    console.log("  acceleration : ", this.accelerometer.acceleration);
-    console.log("  inclination  : ", this.accelerometer.inclination);
-    console.log("  orientation  : ", this.accelerometer.orientation);
+    console.log("  x            : ", imu.accelerometer.x);
+    console.log("  y            : ", imu.accelerometer.y);
+    console.log("  z            : ", imu.accelerometer.z);
+    console.log("  pitch        : ", imu.accelerometer.pitch);
+    console.log("  roll         : ", imu.accelerometer.roll);
+    console.log("  acceleration : ", imu.accelerometer.acceleration);
+    console.log("  inclination  : ", imu.accelerometer.inclination);
+    console.log("  orientation  : ", imu.accelerometer.orientation);
     console.log("--------------------------------------");
 
     console.log("Gyroscope");
-    console.log("  x            : ", this.gyro.x);
-    console.log("  y            : ", this.gyro.y);
-    console.log("  z            : ", this.gyro.z);
-    console.log("  pitch        : ", this.gyro.pitch);
-    console.log("  roll         : ", this.gyro.roll);
-    console.log("  yaw          : ", this.gyro.yaw);
-    console.log("  rate         : ", this.gyro.rate);
-    console.log("  isCalibrated : ", this.gyro.isCalibrated);
+    console.log("  x            : ", imu.gyro.x);
+    console.log("  y            : ", imu.gyro.y);
+    console.log("  z            : ", imu.gyro.z);
+    console.log("  pitch        : ", imu.gyro.pitch);
+    console.log("  roll         : ", imu.gyro.roll);
+    console.log("  yaw          : ", imu.gyro.yaw);
+    console.log("  rate         : ", imu.gyro.rate);
+    console.log("  isCalibrated : ", imu.gyro.isCalibrated);
     console.log("--------------------------------------");
   });
 
@@ -83,9 +83,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -29,44 +29,40 @@ node eg/motor-sparkfun-edison-hbridge.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Edison = require("galileo-io");
-var board = new five.Board({
+const {Board, Motor} = require("johnny-five");
+const Edison = require("galileo-io");
+const board = new Board({
   io: new Edison()
 });
 
-board.on("ready", function() {
-  var config = five.Motor.SHIELD_CONFIGS.SPARKFUN_DUAL_HBRIDGE_EDISON_BLOCK;
-  var motor = new five.Motor(config.B);
+board.on("ready", () => {
+  const config = Motor.SHIELD_CONFIGS.SPARKFUN_DUAL_HBRIDGE_EDISON_BLOCK;
+  const motor = new Motor(config.B);
 
   board.repl.inject({
-    motor: motor
+    motor
   });
 
-  motor.on("stop", function() {
-    console.log("automated stop on timer", Date.now());
+  motor.on("stop", () => {
+    console.log(`automated stop on timer: ${Date.now()}`);
   });
 
-  motor.on("forward", function() {
-    console.log("forward", Date.now());
+  motor.on("forward", () => {
+    console.log(`forward: ${Date.now()}`);
 
     // enable the motor after 2 seconds
-    board.wait(2000, function() {
-      motor.enable();
-    });
+    board.wait(2000, motor.enable);
   });
 
-  motor.on("enable", function() {
-    console.log("motor enabled", Date.now());
+  motor.on("enable", () => {
+    console.log(`motor enabled: ${Date.now()}`);
 
     // enable the motor after 2 seconds
-    board.wait(2000, function() {
-      motor.stop();
-    });
+    board.wait(2000, motor.stop);
   });
 
-  motor.on("disable", function() {
-    console.log("motor disabled", Date.now());
+  motor.on("disable", () => {
+    console.log(`motor disabled: ${Date.now()}`);
   });
 
 
@@ -91,9 +87,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

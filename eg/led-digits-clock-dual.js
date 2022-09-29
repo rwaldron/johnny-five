@@ -1,12 +1,13 @@
-var moment = require("moment");
-var five = require("../lib/johnny-five");
-var board = new five.Board();
+const moment = require("moment");
+const { Board, Led } = require("../lib/johnny-five");
 
-board.on("ready", function() {
-  var hmm = new five.Led.Digits({
+const board = new Board();
+
+board.on("ready", () => {
+  const hmm = new Led.Digits({
     controller: "HT16K33",
   });
-  var seconds = new five.Led.Digits({
+  const seconds = new Led.Digits({
     pins: {
       data: 2,
       cs: 3,
@@ -14,13 +15,13 @@ board.on("ready", function() {
     }
   });
 
-  var minute = null;
-  var toggle = 0;
+  let minute = null;
+  let toggle = 0;
 
-  setInterval(function() {
-    var now = moment();
-    var min = now.minute();
-    var form;
+  setInterval(() => {
+    const now = moment();
+    const min = now.minute();
+    let form;
 
     if (minute !== min) {
       minute = min;

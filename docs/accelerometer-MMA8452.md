@@ -29,32 +29,30 @@ node eg/accelerometer-MMA8452.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const { Accelerometer, Board } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var accelerometer = new five.Accelerometer({
+board.on("ready", () => {
+  const accelerometer = new Accelerometer({
     controller: "MMA8452"
   });
 
-  // accelerometer.on("change", function() {
-  //   console.log("accelerometer");
-  //   console.log("  x            : ", this.x);
-  //   console.log("  y            : ", this.y);
-  //   console.log("  z            : ", this.z);
-  //   console.log("  pitch        : ", this.pitch);
-  //   console.log("  roll         : ", this.roll);
-  //   console.log("  acceleration : ", this.acceleration);
-  //   console.log("  inclination  : ", this.inclination);
-  //   console.log("  orientation  : ", this.orientation);
-  //   console.log("--------------------------------------");
-  // });
+  accelerometer.on("change", () => {
+    const {acceleration, inclination, orientation, pitch, roll, x, y, z} = accelerometer;
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
+    console.log("--------------------------------------");
+  });
 
-  ["tap", "tap:single", "tap:double"].forEach(function(event) {
-    accelerometer.on(event, function() {
-      console.log(event);
-    });
+  ["tap", "tap:single", "tap:double"].forEach((event) => {
+    accelerometer.on(event, () => console.log(event));
   });
 });
 
@@ -72,9 +70,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

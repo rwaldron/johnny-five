@@ -29,19 +29,20 @@ node eg/temperature-bmp085.js
 
 
 ```javascript
-var five = require("../");
-var board = new five.Board();
+const { Board, Thermometer } = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
-  var temp = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "BMP085"
   });
 
-  temp.on("change", function() {
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
     console.log("Thermometer");
-    console.log("  celsius      : ", this.celsius);
-    console.log("  fahrenheit   : ", this.fahrenheit);
-    console.log("  kelvin       : ", this.kelvin);
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
     console.log("--------------------------------------");
   });
 });
@@ -78,9 +79,9 @@ Fritzing diagram: [docs/breadboard/multi-bmp085.fzz](breadboard/multi-bmp085.fzz
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

@@ -1,6 +1,6 @@
 require("./common/bootstrap");
 
-var notes = {
+const notes = {
   "c0": 16,
   "c#0": 17,
   "d0": 18,
@@ -112,38 +112,38 @@ var notes = {
 };
 
 exports["Piezo.Parsers.hzFromInput"] = {
-  fromNumber: function(test) {
+  fromNumber(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput(7902), 7902);
     test.done();
   },
-  fromStringNoModifier: function(test) {
+  fromStringNoModifier(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput("c"), 262);
     test.done();
   },
-  fromString: function(test) {
+  fromString(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput("b8"), 7902);
     test.done();
   },
-  fromStringWithOutOctave: function(test) {
+  fromStringWithOutOctave(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput("a#8"), 7459);
     test.done();
   },
-  fromStringWithOctave: function(test) {
+  fromStringWithOctave(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput("a#8"), 7459);
     test.done();
   },
-  fromFirstEntryInArray: function(test) {
+  fromFirstEntryInArray(test) {
     test.expect(2);
     test.equal(Piezo.Parsers.hzFromInput([7902]), 7902);
     test.equal(Piezo.Parsers.hzFromInput(["b8"]), 7902);
     test.done();
   },
-  returnsNullForInvalid: function(test) {
+  returnsNullForInvalid(test) {
     test.expect(1);
     test.equal(Piezo.Parsers.hzFromInput("garbage"), null);
     test.done();
@@ -151,7 +151,7 @@ exports["Piezo.Parsers.hzFromInput"] = {
 };
 
 exports["Piezo.ToFrequency(tone)"] = {
-  conversion: function(test) {
+  conversion(test) {
     test.expect(1);
     test.equal(Piezo.ToFrequency(1136), 440);
     test.done();
@@ -159,7 +159,7 @@ exports["Piezo.ToFrequency(tone)"] = {
 };
 
 exports["Piezo.ToTone(frequency)"] = {
-  conversion: function(test) {
+  conversion(test) {
     test.expect(1);
     test.equal(Piezo.ToTone(440), 1136);
     test.done();
@@ -167,10 +167,10 @@ exports["Piezo.ToTone(frequency)"] = {
 };
 
 exports["Piezo.Notes"] = {
-  builtin: function(test) {
+  builtin(test) {
     test.expect(108);
 
-    Object.keys(notes).forEach(function(note) {
+    Object.keys(notes).forEach(note => {
       test.equal(Piezo.Notes[note], notes[note]);
     });
 
@@ -179,22 +179,22 @@ exports["Piezo.Notes"] = {
 };
 
 exports["Piezo.defaultOctave"] = {
-  tearDown: function(done) {
+  tearDown(done) {
     Piezo.defaultOctave(4);
     done();
   },
-  getDefault: function(test) {
+  getDefault(test) {
     test.expect(1);
     test.equal(Piezo.defaultOctave(), 4);
     test.done();
   },
-  setNewDefault: function(test) {
+  setNewDefault(test) {
     test.expect(1);
     Piezo.defaultOctave(8);
     test.equal(Piezo.defaultOctave(), 8);
     test.done();
   },
-  cannotBreakDefaultOctave: function(test) {
+  cannotBreakDefaultOctave(test) {
     test.expect(1);
     Piezo.defaultOctave(undefined);
     test.equal(Piezo.defaultOctave(), 4);
@@ -204,7 +204,7 @@ exports["Piezo.defaultOctave"] = {
 
 exports["Piezo"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     this.clock = this.sandbox.useFakeTimers();
@@ -236,20 +236,20 @@ exports["Piezo"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     Piezo.defaultOctave(4);
     this.sandbox.restore();
     done();
   },
 
-  instanceof: function(test) {
+  instanceof(test) {
     test.expect(1);
-    test.equal(Piezo({}) instanceof Piezo, true);
+    test.equal(new Piezo({}) instanceof Piezo, true);
     test.done();
   },
 
-  controller: function(test) {
+  controller(test) {
     test.expect(1);
 
     this.pinMode.reset();
@@ -261,30 +261,25 @@ exports["Piezo"] = {
     test.done();
   },
 
-  shape: function(test) {
+  shape(test) {
     test.expect(this.proto.length + this.instance.length);
 
-    this.proto.forEach(function(method) {
-      test.equal(typeof this.piezo[method.name], "function");
-    }, this);
-
-    this.instance.forEach(function(property) {
-      test.notEqual(typeof this.piezo[property.name], "undefined");
-    }, this);
+    this.proto.forEach(({name}) => test.equal(typeof this.piezo[name], "function"));
+    this.instance.forEach(({name}) => test.notEqual(typeof this.piezo[name], 0));
 
     test.done();
   },
 
-  note: function(test) {
+  note(test) {
     test.expect(10);
 
     // note delegates to frequency, which delegates to tone;
-    var toneSpy = this.sandbox.spy(this.piezo, "tone");
-    var frequencySpy = this.sandbox.spy(this.piezo, "frequency");
+    const toneSpy = this.sandbox.spy(this.piezo, "tone");
+    const frequencySpy = this.sandbox.spy(this.piezo, "frequency");
 
     // Accepts an octave number as part of the note name (the "4" in "a4")
     // A4 = 440Hz = 1136μs duty cycle (half-period)
-    var returnValue = this.piezo.note("a4", 100);
+    const returnValue = this.piezo.note("a4", 100);
     test.deepEqual(frequencySpy.getCall(0).args, [440, 100]);
     test.deepEqual(toneSpy.getCall(0).args, [1136, 100]);
     test.equal(returnValue, this.piezo);
@@ -312,30 +307,30 @@ exports["Piezo"] = {
     test.done();
   },
 
-  noteIsCaseInsensitive: function(test) {
-    var noteNames = Object.keys(Piezo.Notes);
+  noteIsCaseInsensitive(test) {
+    const noteNames = Object.keys(Piezo.Notes);
     test.expect(2 * noteNames.length);
 
-    var frequencySpy = this.sandbox.spy(this.piezo, "frequency");
+    const frequencySpy = this.sandbox.spy(this.piezo, "frequency");
 
     // Test every supported note in lowercase (a4) and uppercase (A4)
-    noteNames.forEach(function(note) {
-      var expectedFrequency = Piezo.Notes[note];
+    noteNames.forEach(note => {
+      const expectedFrequency = Piezo.Notes[note];
 
       this.piezo.note(note.toLowerCase(), 100);
       test.equal(frequencySpy.getCall(frequencySpy.callCount-1).args[0], expectedFrequency);
 
       this.piezo.note(note.toUpperCase(), 100);
       test.equal(frequencySpy.getCall(frequencySpy.callCount-1).args[0], expectedFrequency);
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  tone: function(test) {
+  tone(test) {
     test.expect(2);
 
-    var returned = this.piezo.tone(1915, 1000);
+    const returned = this.piezo.tone(1915, 1000);
 
     this.clock.tick(100);
 
@@ -345,11 +340,11 @@ exports["Piezo"] = {
     test.done();
   },
 
-  toneWhileNewToneIsPlayingCancelsExisting: function(test) {
+  toneWhileNewToneIsPlayingCancelsExisting(test) {
     test.expect(1);
 
     this.piezo.tone(1915, 100);
-    var timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
+    const timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
     this.piezo.tone(1915, 100);
 
     test.ok(timerSpy.called);
@@ -357,8 +352,8 @@ exports["Piezo"] = {
     test.done();
   },
 
-  toneRejectsWonkyToneValues: function(test) {
-    var lameValues = [
+  toneRejectsWonkyToneValues(test) {
+    const lameValues = [
       ["florp", 5],
       ["ding", "dong"],
       ["c4", "zimple"],
@@ -380,19 +375,19 @@ exports["Piezo"] = {
     test.done();
   },
 
-  toneLovesHappyValues: function(test) {
+  toneLovesHappyValues(test) {
     test.expect(1);
-    var happy = this.piezo.tone(350, 500);
+    const happy = this.piezo.tone(350, 500);
     test.equal(happy, this.piezo); // tone returns piezo obj when happy
     test.done();
   },
 
-  frequency: function(test) {
+  frequency(test) {
     test.expect(6);
-    var toneSpy = this.sandbox.spy(this.piezo, "tone");
+    const toneSpy = this.sandbox.spy(this.piezo, "tone");
 
     // C4 = 262Hz = 1908μs duty cycle (half-period)
-    var returned = this.piezo.frequency(262, 100);
+    let returned = this.piezo.frequency(262, 100);
     test.deepEqual(toneSpy.getCall(0).args, [1908, 100]);
     test.equal(returned, this.piezo);
 
@@ -410,21 +405,21 @@ exports["Piezo"] = {
   },
 
 
-  noTone: function(test) {
+  noTone(test) {
     test.expect(2);
 
-    var returned = this.piezo.noTone();
+    const returned = this.piezo.noTone();
     test.ok(this.digitalWrite.calledWith(3, 0));
     test.equal(returned, this.piezo);
 
     test.done();
   },
 
-  noToneStopsExistingTone: function(test) {
+  noToneStopsExistingTone(test) {
     test.expect(2);
 
     this.piezo.tone(500, 1000);
-    var timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
+    const timerSpy = this.sandbox.spy(this.piezo.timer, "clearInterval");
 
     this.piezo.noTone();
     test.ok(timerSpy.called);
@@ -433,10 +428,10 @@ exports["Piezo"] = {
     test.done();
   },
 
-  play: function(test) {
+  play(test) {
     test.expect(3);
 
-    var returned = this.piezo.play({
+    const returned = this.piezo.play({
       song: [
         [] // No tone
 
@@ -459,10 +454,10 @@ exports["Piezo"] = {
     test.done();
   },
 
-  playTune: function(test) {
+  playTune(test) {
     test.expect(7);
-    var tempo = 10000; // Make it really fast
-    var song = [
+    const tempo = 10000; // Make it really fast
+    const song = [
       ["c", 1],
       ["d", 2],
       [null, 1],
@@ -473,9 +468,9 @@ exports["Piezo"] = {
 
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
-      song: song,
-      tempo: tempo // Make it real fast
-    }, function() {
+      song,
+      tempo // Make it real fast
+    }, () => {
       // frequency should get called 4x; not for the null notes
       test.equal(this.frequency.callCount, 4);
       test.ok(this.frequency.neverCalledWith(null));
@@ -490,21 +485,21 @@ exports["Piezo"] = {
       // Does not mutate input song array
       test.deepEqual(song, [["c", 1], ["d", 2], [null, 1], 672, "e4", null]);
       test.done();
-    }.bind(this));
+    });
 
     this.clock.tick(100);
   },
 
-  playTuneWithStringSongAndBeat: function(test) {
-    var tempo = 10000; // Make it really fast
+  playTuneWithStringSongAndBeat(test) {
+    const tempo = 10000; // Make it really fast
     test.expect(6);
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
-    var beats = 0.125;
+    const beats = 0.125;
     this.piezo.play({
       song: "c d d - 672 e4 -",
-      beats: beats,
-      tempo: tempo // Make it real fast
-    }, function() {
+      beats,
+      tempo // Make it real fast
+    }, () => {
       // frequency should get called 4x; not for the null notes
       test.ok(this.frequency.neverCalledWith(null));
       test.equal(this.frequency.callCount, 4);
@@ -517,62 +512,64 @@ exports["Piezo"] = {
       // OK to pass frequency directly...
       test.ok(this.frequency.calledWith(672, 60000 * beats / tempo));
       test.done();
-    }.bind(this));
+    });
 
     this.clock.tick(100);
   },
 
-  playCanDealWithWonkyValues: function(test) {
-    var tempo = 10000,
-      tune = {
-        song: [
-          ["c4"],
-          ["drunk"],
-          ["d4", 0]
-        ],
-        tempo: tempo
-      };
+  playCanDealWithWonkyValues(test) {
+    const tempo = 10000;
+
+    const tune = {
+      song: [
+        ["c4"],
+        ["drunk"],
+        ["d4", 0]
+      ],
+      tempo
+    };
+
     test.expect(1);
 
-    this.piezo.play(tune, function() {
+    this.piezo.play(tune, () => {
       test.ok(1); // We made it this far, no choking on bad values
       test.done();
-    }.bind(this));
+    });
 
     this.clock.tick(100);
   },
 
-  playNormalizesSongNoteFromHz: function(test) {
+  playNormalizesSongNoteFromHz(test) {
     test.expect(2);
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
       song: 262,
-    }, function() {
+    }, () => {
       test.equal(this.frequency.callCount, 1);
       test.equal(this.frequency.lastCall.args[0], 262);
       test.done();
-    }.bind(this));
+    });
 
     this.clock.tick(250);
   },
 
-  playWithoutCallback: function(test) {
+  playWithoutCallback(test) {
     test.expect(2);
 
-    var tempo = 10000; // Make it really fast
-    var beats = 0.125;
+    const tempo = 10000; // Make it really fast
+    const beats = 0.125;
 
     this.clock.restore();
 
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
     this.piezo.play({
       song: "c",
-      beats: beats,
-      tempo: tempo // Make it real fast
+      beats,
+      tempo // Make it real fast
     });
 
 
-    var isPlaying = function() {
+    const isPlaying = () => {
       if (this.piezo.isPlaying) {
         setTimeout(isPlaying, 10);
       } else {
@@ -580,13 +577,13 @@ exports["Piezo"] = {
         test.equal(this.piezo.isPlaying, false);
         test.done();
       }
-    }.bind(this);
+    };
 
     isPlaying();
 
   },
 
-  playTuneSongMissing: function(test) {
+  playTuneSongMissing(test) {
     test.expect(2);
 
     this.clock.restore();
@@ -595,14 +592,14 @@ exports["Piezo"] = {
 
     this.piezo.play({
       song: null
-    }, function() {
+    }, () => {
       test.equal(this.noTone.callCount, 0);
       test.equal(this.frequency.callCount, 0);
       test.done();
-    }.bind(this));
+    });
   },
 
-  playTuneSongHasFrequenciesNotNotes: function(test) {
+  playTuneSongHasFrequenciesNotNotes(test) {
     test.expect(3);
 
     this.clock.restore();
@@ -613,41 +610,41 @@ exports["Piezo"] = {
       song: [
         262
       ]
-    }, function() {
+    }, () => {
       test.equal(this.noTone.callCount, 0);
       test.equal(this.frequency.callCount, 1);
       test.equal(this.frequency.lastCall.args[0], 262);
       test.done();
-    }.bind(this));
+    });
   },
 
-  playANote: function(test) {
+  playANote(test) {
     test.expect(3);
 
     this.clock.restore();
     this.noTone = this.sandbox.spy(this.piezo, "noTone");
     this.frequency = this.sandbox.spy(this.piezo, "frequency");
 
-    this.piezo.play("c", function() {
+    this.piezo.play("c", () => {
       test.equal(this.noTone.callCount, 0);
       test.equal(this.frequency.callCount, 1);
       test.equal(this.frequency.lastCall.args[0], 262);
       test.done();
-    }.bind(this));
+    });
   },
 
 
-  stop: function(test) {
+  stop(test) {
     test.expect(2);
 
-    var tempo = 10000;
+    const tempo = 10000;
     this.clearTimeout = this.sandbox.stub(global, "clearTimeout");
 
-    var tune = {
+    const tune = {
       song: [
         ["c4"],
       ],
-      tempo: tempo
+      tempo
     };
     this.piezo.play(tune);
     this.piezo.stop();
@@ -662,31 +659,31 @@ exports["Piezo"] = {
 
 exports["Piezo - Custom Controller"] = {
 
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  canRedefineFrequencyWithController: function(test) {
+  canRedefineFrequencyWithController(test) {
     test.expect(4);
 
-    var TestController = {
+    const TestController = {
       frequency: {
         writable: true,
-        value: function(frequency, duration) {
+        value(frequency, duration) {
           test.equal(frequency, 440);
           test.equal(duration, 1000);
         }
       }
     };
-    var piezo = new Piezo({
+    const piezo = new Piezo({
       pin: 3,
       controller: TestController,
       board: this.board
@@ -697,19 +694,19 @@ exports["Piezo - Custom Controller"] = {
     test.done();
   },
 
-  canRedefineToneWithController: function(test) {
+  canRedefineToneWithController(test) {
     test.expect(4);
 
-    var TestController = {
+    const TestController = {
       tone: {
         writable: true,
-        value: function(tone, duration) {
+        value(tone, duration) {
           test.equal(tone, 1136);
           test.equal(duration, 1000);
         }
       }
     };
-    var piezo = new Piezo({
+    const piezo = new Piezo({
       pin: 3,
       controller: TestController,
       board: this.board
@@ -720,34 +717,34 @@ exports["Piezo - Custom Controller"] = {
     test.done();
   },
 
-  throwsIfNeitherToneNorFrequency: function(test) {
+  throwsIfNeitherToneNorFrequency(test) {
     test.expect(2);
 
-    var piezo = new Piezo({
+    const piezo = new Piezo({
       pin: 3,
       controller: {},
       board: this.board
     });
 
-    test.throws(function() {
+    test.throws(() => {
       piezo.frequency(440, 1000);
-    }.bind(this));
+    });
 
-    test.throws(function() {
+    test.throws(() => {
       piezo.tone(1136, 1000);
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  canRedefineNoTone: function(test) {
+  canRedefineNoTone(test) {
     test.expect(2);
 
-    var piezo = new Piezo({
+    const piezo = new Piezo({
       pin: 3,
       controller: {
         noTone: {
-          value: function() {
+          value() {
             test.ok(1);
           }
         }
@@ -765,7 +762,7 @@ exports["Piezo - Custom Controller"] = {
 
 exports["Piezo - I2C Backpack"] = {
 
-  setUp: function(done) {
+  setUp(done) {
 
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
@@ -783,13 +780,13 @@ exports["Piezo - I2C Backpack"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -802,7 +799,7 @@ exports["Piezo - I2C Backpack"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -811,7 +808,7 @@ exports["Piezo - I2C Backpack"] = {
     test.done();
   },
 
-  defaultI2CAddress: function(test) {
+  defaultI2CAddress(test) {
     test.expect(2);
 
     this.i2cConfig.reset();
@@ -822,7 +819,7 @@ exports["Piezo - I2C Backpack"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0x0A);
@@ -830,7 +827,7 @@ exports["Piezo - I2C Backpack"] = {
     test.done();
   },
 
-  tone: function(test) {
+  tone(test) {
     test.expect(3);
 
     // C4 = 262Hz = 1908μs duty cycle (half-period)
@@ -843,18 +840,18 @@ exports["Piezo - I2C Backpack"] = {
     test.done();
   },
 
-  toneMissingToneAndDuration: function(test) {
+  toneMissingToneAndDuration(test) {
     test.expect(1);
 
-    test.throws(function() {
+    test.throws(() => {
       this.piezo.tone();
-    }.bind(this));
+    });
 
     test.done();
   },
 
-  noTone: function(test) {
-    // test.expect(2);
+  noTone(test) {
+    test.expect(3);
 
     this.piezo.noTone();
     test.equal(this.i2cWrite.callCount, 1);

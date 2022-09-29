@@ -31,16 +31,16 @@ node eg/servo-animation.js
 
 
 ```javascript
-var five = require("johnny-five");
-var board = new five.Board();
+const {Animation, Board, Servo} = require("johnny-five");
+const board = new Board();
 
-board.on("ready", function() {
+board.on("ready", () => {
 
   // Create a new `servo` hardware instance.
-  var servo = new five.Servo(10);
+  const servo = new Servo(10);
 
   // Create a new `animation` instance.
-  var animation = new five.Animation(servo);
+  const animation = new Animation(servo);
 
   // Enqueue an animation segment with options param
   // See Animation example and docs for details
@@ -54,8 +54,8 @@ board.on("ready", function() {
   // the Repl instance's context;
   // allows direct command line access
   board.repl.inject({
-    servo: servo,
-    animation: animation
+    servo,
+    animation
   });
 });
 
@@ -73,9 +73,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->

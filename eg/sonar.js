@@ -1,50 +1,17 @@
-var five = require("../lib/johnny-five.js"),
-  board, sonar;
-
-board = new five.Board();
+const { Board, Proximity } = require("../lib/johnny-five.js");
+const board = new Board();
 
 board.on("ready", function() {
-
-  // Create a new `sonar` hardware instance.
-  sonar = new five.Sonar("A2");
-
-  // Sonar Properties
-
-  // sonar.voltage
-  //
-  // Raw voltage
-  //
-
-  // sonar.inches
-  //
-  // Distance reading in inches
-  //
-
-  // sonar.cm
-  //
-  // Distance reading in centimeters
-  //
-
-
-  // Sonar Event API
-  //
-  // "data" fired continuously
-  //
-  sonar.on("data", function() {
-    /*
-
-      this.voltage - raw voltage reading
-      this.inches  - calculated distance, inches
-      this.cm  - calculated distance, centimeters
-
-    */
-    console.log("data", "Object is " + this.inches + "inches away");
+  const proximity = new Proximity({
+    controller: "GP2Y0A21YK",
+    pin: "A0"
   });
 
-  //
-  // "change" fired when distance reading changes
-  //
-  sonar.on("change", function() {
-    console.log("change", "Object is " + this.inches + "inches away");
+  proximity.on("change", function() {
+    const {centimeters, inches} = proximity;
+    console.log("Proximity: ");
+    console.log("  cm  : ", centimeters);
+    console.log("  in  : ", inches);
+    console.log("-----------------");
   });
 });

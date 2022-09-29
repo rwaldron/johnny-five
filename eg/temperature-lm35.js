@@ -1,16 +1,22 @@
-var five = require("../lib/johnny-five");
+const { Board, Thermometer } = require("../lib/johnny-five");
+const board = new Board();
 
-five.Board().on("ready", function() {
-  var temperature = new five.Thermometer({
+board.on("ready", () => {
+  const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0"
   });
 
-  temperature.on("change", function() {
-    console.log(this.celsius + "°C", this.fahrenheit + "°F");
+  thermometer.on("change", () => {
+    const {celsius, fahrenheit, kelvin} = thermometer;
+    console.log("Thermometer");
+    console.log("  celsius      : ", celsius);
+    console.log("  fahrenheit   : ", fahrenheit);
+    console.log("  kelvin       : ", kelvin);
+    console.log("--------------------------------------");
   });
 });
 
 /* @markdown
-- [LM35 - Temperature Sensor](http://www.ti.com/product/lm35)
+- [LM35 - Thermometer Sensor](http://www.ti.com/product/lm35)
 @markdown */

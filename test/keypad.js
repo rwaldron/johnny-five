@@ -1,14 +1,12 @@
 require("./common/bootstrap");
 
-var mpr121 = require("../lib/definitions/mpr121");
+const mpr121 = require("../lib/definitions/mpr121");
 
 exports["Keypad: Analog"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
@@ -20,13 +18,13 @@ exports["Keypad: Analog"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  invalid: function(test) {
+  invalid(test) {
     test.expect(1);
 
     // Missing both a length and keys
@@ -39,21 +37,19 @@ exports["Keypad: Analog"] = {
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(12);
 
-    var keys = Array.from({
+    const keys = Array.from({
       length: 12
-    }, function(_, index) {
-      return index;
-    });
-    var keypad = new Keypad({
+    }, (_, index) => index);
+    const keypad = new Keypad({
       board: this.board,
       pin: "A0",
       length: 12
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -74,18 +70,18 @@ exports["Keypad: Analog"] = {
     callback(896);
     callback(960);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(16);
 
-    var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
-    var keypad = new Keypad({
+    const keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
+    const keypad = new Keypad({
       board: this.board,
       pin: "A0",
       keys: [
@@ -95,8 +91,8 @@ exports["Keypad: Analog"] = {
         ["4", "<", ">", "?"],
       ]
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -117,24 +113,24 @@ exports["Keypad: Analog"] = {
     callback(896);
     callback(960);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(16);
 
-    var keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
-    var keypad = new Keypad({
+    const keys = ["1", "!", "@", "#", "2", "$", "%", "^", "3", "&", "-", "+", "4", "<", ">", "?"];
+    const keypad = new Keypad({
       board: this.board,
       pin: "A0",
-      keys: keys
+      keys
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -155,17 +151,17 @@ exports["Keypad: Analog"] = {
     callback(896);
     callback(960);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -190,11 +186,11 @@ exports["Keypad: Analog"] = {
     test.done();
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -206,11 +202,11 @@ exports["Keypad: Analog"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -221,11 +217,11 @@ exports["Keypad: Analog"] = {
     test.done();
   },
 
-  context: function(test) {
+  context(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var keypad = this.keypad;
+    const callback = this.analogRead.getCall(0).args[1];
+    const keypad = this.keypad;
 
     this.keypad.on("press", function() {
       test.equal(this, keypad);
@@ -238,12 +234,10 @@ exports["Keypad: Analog"] = {
 };
 
 exports["Keypad: VKey"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.keypad = new Keypad({
@@ -255,26 +249,26 @@ exports["Keypad: VKey"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  validOperatingVoltage: function(test) {
+  validOperatingVoltage(test) {
     test.expect(16);
 
-    var priv = this.sandbox.spy(Map.prototype, "set");
-    var state;
+    const priv = this.sandbox.spy(Map.prototype, "set");
+    let state;
 
     // Defaults to 5V, does not throw
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
       });
-    }.bind(this));
+    });
 
     state = priv.getCall(0).args[1];
 
@@ -282,14 +276,14 @@ exports["Keypad: VKey"] = {
     test.deepEqual(state.scale, [ 17, 40, 496 ]);
 
     // Explicitly 5V, does not throw
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
         aref: 5,
       });
-    }.bind(this));
+    });
 
     state = priv.getCall(1).args[1];
 
@@ -298,14 +292,14 @@ exports["Keypad: VKey"] = {
 
 
     // Explicitly 3.3V, does not throw
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
         aref: 3.3,
       });
-    }.bind(this));
+    });
 
     state = priv.getCall(2).args[1];
 
@@ -314,7 +308,7 @@ exports["Keypad: VKey"] = {
 
 
     // Provided by plugin 3.3V, does not throw
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       this.board.io.aref = 3.3;
       new Keypad({
         board: this.board,
@@ -323,7 +317,7 @@ exports["Keypad: VKey"] = {
       });
 
       delete this.board.io.aref;
-    }.bind(this));
+    });
 
     state = priv.getCall(3).args[1];
 
@@ -332,38 +326,38 @@ exports["Keypad: VKey"] = {
 
 
     // Explicitly out of range, throws
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
         aref: 3,
       });
-    }.bind(this), RangeError);
+    }, RangeError);
 
     // Explicitly out of range, throws
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
         aref: 4,
       });
-    }.bind(this), RangeError);
+    }, RangeError);
 
     // Explicitly out of range, throws
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       new Keypad({
         board: this.board,
         controller: "VKEY",
         pin: "A0",
         aref: 6,
       });
-    }.bind(this), RangeError);
+    }, RangeError);
 
 
     // Explicitly out of range from Plugin, throws
-    test.doesNotThrow(function() {
+    test.doesNotThrow(() => {
       this.board.io.aref = 6;
       new Keypad({
         board: this.board,
@@ -371,26 +365,24 @@ exports["Keypad: VKey"] = {
         pin: "A0",
       });
       delete this.board.io.aref;
-    }.bind(this), RangeError);
+    }, RangeError);
 
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(12);
 
-    var keys = Array.from({
+    const keys = Array.from({
       length: 12
-    }, function(_, index) {
-      return index + 1;
-    });
-    var keypad = new Keypad({
+    }, (_, index) => index + 1);
+    const keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -407,18 +399,18 @@ exports["Keypad: VKey"] = {
     callback(79);
     callback(38);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
@@ -429,8 +421,8 @@ exports["Keypad: VKey"] = {
         ["<", ">", "?"],
       ]
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -447,25 +439,25 @@ exports["Keypad: VKey"] = {
     callback(79);
     callback(38);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "<", ">", "?"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "VKEY",
       pin: "A0",
-      keys: keys
+      keys
     });
-    var callback = this.analogRead.getCall(1).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(1).args[1];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -482,18 +474,18 @@ exports["Keypad: VKey"] = {
     callback(79);
     callback(38);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -508,11 +500,11 @@ exports["Keypad: VKey"] = {
     test.done();
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -524,11 +516,11 @@ exports["Keypad: VKey"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var spy = this.sandbox.spy();
+    const callback = this.analogRead.getCall(0).args[1];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -539,11 +531,11 @@ exports["Keypad: VKey"] = {
     test.done();
   },
 
-  context: function(test) {
+  context(test) {
     test.expect(1);
 
-    var callback = this.analogRead.getCall(0).args[1];
-    var keypad = this.keypad;
+    const callback = this.analogRead.getCall(0).args[1];
+    const keypad = this.keypad;
 
     this.keypad.on("press", function() {
       test.equal(this, keypad);
@@ -555,12 +547,10 @@ exports["Keypad: VKey"] = {
 };
 
 exports["Keypad: MPR121"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -575,13 +565,13 @@ exports["Keypad: MPR121"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -593,7 +583,7 @@ exports["Keypad: MPR121"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -602,7 +592,7 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(18);
 
     test.equal(this.i2cConfig.callCount, 1);
@@ -636,21 +626,19 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(9);
 
-    var keys = Array.from({
+    const keys = Array.from({
       length: 9
-    }, function(_, index) {
-      return index;
-    });
-    var keypad = new Keypad({
+    }, (_, index) => index);
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -667,18 +655,18 @@ exports["Keypad: MPR121"] = {
     callback([1024, 0]);
     callback([2048, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(9);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A,
@@ -688,8 +676,8 @@ exports["Keypad: MPR121"] = {
         ["&", "-", "+"],
       ]
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -716,25 +704,25 @@ exports["Keypad: MPR121"] = {
     callback([1024, 0]);
     callback([2048, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(9);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121",
       address: 0x5A,
-      keys: keys
+      keys
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -761,18 +749,18 @@ exports["Keypad: MPR121"] = {
     callback([1024, 0]);
     callback([2048, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -787,11 +775,11 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  multiPress: function(test) {
+  multiPress(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -805,11 +793,11 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -821,11 +809,11 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  multiHold: function(test) {
+  multiHold(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -842,11 +830,11 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -857,11 +845,11 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  multiRelease: function(test) {
+  multiRelease(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -876,18 +864,18 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  sensitivityDefault: function(test) {
+  sensitivityDefault(test) {
     test.expect(26);
 
     // Defaults
     test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.95));
     test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.975));
 
-    var register = 0x41;
+    let register = 0x41;
 
-    for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 9;
-      var r = (i * 2) + 9 + 1;
+    for (let i = 0; i < 12; i++) {
+      const p = (i * 2) + 9;
+      const r = (i * 2) + 9 + 1;
       test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 12]);
       test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 6]);
     }
@@ -895,7 +883,7 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  sensitivityFillLow: function(test) {
+  sensitivityFillLow(test) {
     test.expect(28);
 
     // Defaults
@@ -917,11 +905,11 @@ exports["Keypad: MPR121"] = {
     test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(0.5));
     test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0));
 
-    var register = 0x41;
+    let register = 0x41;
 
-    for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 9;
-      var r = (i * 2) + 9 + 1;
+    for (let i = 0; i < 12; i++) {
+      const p = (i * 2) + 9;
+      const r = (i * 2) + 9 + 1;
       test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 127]);
       test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 255]);
     }
@@ -929,7 +917,7 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  sensitivityFillHigh: function(test) {
+  sensitivityFillHigh(test) {
     test.expect(28);
 
     // Defaults
@@ -951,11 +939,11 @@ exports["Keypad: MPR121"] = {
     test.deepEqual(this.keypad.sensitivity.press, Array(12).fill(1));
     test.deepEqual(this.keypad.sensitivity.release, Array(12).fill(0.9));
 
-    var register = 0x41;
+    let register = 0x41;
 
-    for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 9;
-      var r = (i * 2) + 9 + 1;
+    for (let i = 0; i < 12; i++) {
+      const p = (i * 2) + 9;
+      const r = (i * 2) + 9 + 1;
       test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 0]);
       test.deepEqual(this.i2cWrite.getCall(r).args, [0x5A, register++, 25]);
     }
@@ -963,7 +951,7 @@ exports["Keypad: MPR121"] = {
     test.done();
   },
 
-  sensitivityExplicit: function(test) {
+  sensitivityExplicit(test) {
     test.expect(28);
 
     // Defaults
@@ -992,11 +980,11 @@ exports["Keypad: MPR121"] = {
       this.keypad.sensitivity.release, [0.5, 0.5, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975, 0.975]
     );
 
-    var register = 0x41;
+    let register = 0x41;
 
-    for (var i = 0; i < 12; i++) {
-      var p = (i * 2) + 9;
-      var r = (i * 2) + 9 + 1;
+    for (let i = 0; i < 12; i++) {
+      const p = (i * 2) + 9;
+      const r = (i * 2) + 9 + 1;
 
       if (i < 2) {
         test.deepEqual(this.i2cWrite.getCall(p).args, [0x5A, register++, 0]);
@@ -1014,12 +1002,10 @@ exports["Keypad: MPR121"] = {
 
 
 exports["Keypad: MPR121_KEYPAD"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cWrite = this.sandbox.spy(MockFirmata.prototype, "i2cWrite");
@@ -1034,13 +1020,13 @@ exports["Keypad: MPR121_KEYPAD"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1052,7 +1038,7 @@ exports["Keypad: MPR121_KEYPAD"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1061,7 +1047,7 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(11);
 
     test.equal(this.i2cConfig.callCount, 1);
@@ -1082,21 +1068,19 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(12);
 
-    var keys = Array.from({
+    const keys = Array.from({
       length: 12
-    }, function(_, index) {
-      return index + 1;
-    });
-    var keypad = new Keypad({
+    }, (_, index) => index + 1);
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1113,18 +1097,18 @@ exports["Keypad: MPR121_KEYPAD"] = {
     callback([16, 0]);
     callback([256, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A,
@@ -1135,8 +1119,8 @@ exports["Keypad: MPR121_KEYPAD"] = {
         ["_", "=", ":"]
       ]
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1153,25 +1137,25 @@ exports["Keypad: MPR121_KEYPAD"] = {
     callback([16, 0]);
     callback([0, 1]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "MPR121_KEYPAD",
       address: 0x5A,
-      keys: keys
+      keys
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1188,18 +1172,18 @@ exports["Keypad: MPR121_KEYPAD"] = {
     callback([16, 0]);
     callback([0, 1]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -1214,11 +1198,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  multiPress: function(test) {
+  multiPress(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -1232,11 +1216,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -1248,11 +1232,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  multiHold: function(test) {
+  multiHold(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -1269,11 +1253,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -1284,11 +1268,11 @@ exports["Keypad: MPR121_KEYPAD"] = {
     test.done();
   },
 
-  multiRelease: function(test) {
+  multiRelease(test) {
     // test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -1307,12 +1291,10 @@ exports["Keypad: MPR121_KEYPAD"] = {
 
 
 exports["Keypad: QTOUCH"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
@@ -1326,13 +1308,13 @@ exports["Keypad: QTOUCH"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1344,7 +1326,7 @@ exports["Keypad: QTOUCH"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1353,7 +1335,7 @@ exports["Keypad: QTOUCH"] = {
     test.done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(2);
 
     test.equal(this.i2cConfig.callCount, 1);
@@ -1362,21 +1344,19 @@ exports["Keypad: QTOUCH"] = {
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(7);
 
-    var keys = Array.from({
+    const keys = Array.from({
       length: 7
-    }, function(_, index) {
-      return index;
-    });
-    var keypad = new Keypad({
+    }, (_, index) => index);
+    const keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1388,18 +1368,18 @@ exports["Keypad: QTOUCH"] = {
     callback([32]);
     callback([64]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(7);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B,
@@ -1409,8 +1389,8 @@ exports["Keypad: QTOUCH"] = {
         ["&"],
       ]
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1422,25 +1402,25 @@ exports["Keypad: QTOUCH"] = {
     callback([32]);
     callback([64]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(7);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "QTOUCH",
       address: 0x1B,
-      keys: keys
+      keys
     });
-    var callback = this.i2cRead.getCall(1).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[3];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1452,18 +1432,18 @@ exports["Keypad: QTOUCH"] = {
     callback([32]);
     callback([64]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -1478,11 +1458,11 @@ exports["Keypad: QTOUCH"] = {
     test.done();
   },
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -1494,11 +1474,11 @@ exports["Keypad: QTOUCH"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[3];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[3];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -1512,12 +1492,10 @@ exports["Keypad: QTOUCH"] = {
 
 
 exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
-  setUp: function(done) {
+  setUp(done) {
     this.sandbox = sinon.sandbox.create();
     this.board = newBoard();
-    this.debounce = this.sandbox.stub(Fn, "debounce", function(fn) {
-      return fn;
-    });
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
     this.clock = this.sandbox.useFakeTimers();
     this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
     this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
@@ -1531,13 +1509,13 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     done();
   },
 
-  tearDown: function(done) {
+  tearDown(done) {
     Board.purge();
     this.sandbox.restore();
     done();
   },
 
-  fwdOptionsToi2cConfig: function(test) {
+  fwdOptionsToi2cConfig(test) {
     test.expect(3);
 
     this.i2cConfig.reset();
@@ -1549,7 +1527,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
       board: this.board
     });
 
-    var forwarded = this.i2cConfig.lastCall.args[0];
+    const forwarded = this.i2cConfig.lastCall.args[0];
 
     test.equal(this.i2cConfig.callCount, 1);
     test.equal(forwarded.address, 0xff);
@@ -1558,7 +1536,7 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  initialize: function(test) {
+  initialize(test) {
     test.expect(2);
 
     test.equal(this.i2cConfig.callCount, 1);
@@ -1567,17 +1545,17 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  keysDefault: function(test) {
+  keysDefault(test) {
     test.expect(12);
 
-    var keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"];
-    var keypad = new Keypad({
+    const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A
     });
-    var callback = this.i2cRead.getCall(1).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1594,18 +1572,18 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     callback([4, 0]);
     callback([8, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysRowsCols: function(test) {
+  keysRowsCols(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A,
@@ -1616,8 +1594,8 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
         ["_", "=", ":"]
       ]
     });
-    var callback = this.i2cRead.getCall(1).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1635,25 +1613,25 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     callback([8, 0]);
 
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  keysList: function(test) {
+  keysList(test) {
     test.expect(12);
 
-    var keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
-    var keypad = new Keypad({
+    const keys = ["!", "@", "#", "$", "%", "^", "&", "-", "+", "_", "=", ":"];
+    const keypad = new Keypad({
       board: this.board,
       controller: "3X4_I2C_NANO_BACKPACK",
       address: 0x0A,
-      keys: keys
+      keys
     });
-    var callback = this.i2cRead.getCall(1).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
 
     keypad.on("down", spy);
 
@@ -1670,18 +1648,18 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     callback([4, 0]);
     callback([8, 0]);
 
-    keys.forEach(function(key, index) {
+    keys.forEach((key, index) => {
       test.deepEqual(spy.args[index][0].which, [key]);
     });
 
     test.done();
   },
 
-  press: function(test) {
+  press(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -1697,11 +1675,11 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  multiPress: function(test) {
+  multiPress(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("down", spy);
 
@@ -1716,11 +1694,11 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
   },
 
 
-  hold: function(test) {
+  hold(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -1732,11 +1710,11 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  multiHold: function(test) {
+  multiHold(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("hold", spy);
 
@@ -1754,11 +1732,11 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  release: function(test) {
+  release(test) {
     test.expect(1);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 
@@ -1769,11 +1747,299 @@ exports["Keypad: 3X4_I2C_NANO_BACKPACK"] = {
     test.done();
   },
 
-  multiRelease: function(test) {
+  multiRelease(test) {
     test.expect(3);
 
-    var callback = this.i2cRead.getCall(0).args[2];
-    var spy = this.sandbox.spy();
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("release", spy);
+
+    callback([0, 3]);
+    callback([0, 1]);
+    callback([0, 0]);
+
+    test.equal(spy.callCount, 2);
+    test.deepEqual(spy.firstCall.args[0].which, [2]);
+    test.deepEqual(spy.lastCall.args[0].which, [1]);
+
+    test.done();
+  },
+};
+
+exports["Keypad: 4X4_I2C_NANO_BACKPACK"] = {
+  setUp(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.board = newBoard();
+    this.debounce = this.sandbox.stub(Fn, "debounce", fn => fn);
+    this.clock = this.sandbox.useFakeTimers();
+    this.i2cConfig = this.sandbox.spy(MockFirmata.prototype, "i2cConfig");
+    this.i2cRead = this.sandbox.spy(MockFirmata.prototype, "i2cRead");
+
+    this.keypad = new Keypad({
+      controller: "4X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      board: this.board
+    });
+
+    done();
+  },
+
+  tearDown(done) {
+    Board.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  fwdOptionsToi2cConfig(test) {
+    test.expect(3);
+
+    this.i2cConfig.reset();
+
+    new Keypad({
+      controller: "4X4_I2C_NANO_BACKPACK",
+      address: 0xff,
+      bus: "i2c-1",
+      board: this.board
+    });
+
+    const forwarded = this.i2cConfig.lastCall.args[0];
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(forwarded.address, 0xff);
+    test.equal(forwarded.bus, "i2c-1");
+
+    test.done();
+  },
+
+  initialize(test) {
+    test.expect(2);
+
+    test.equal(this.i2cConfig.callCount, 1);
+    test.equal(this.i2cRead.callCount, 1);
+
+    test.done();
+  },
+
+  keysDefault(test) {
+    test.expect(16);
+
+    const keys = [1, 2, 3, "A", 4, 5, 6, "B", 7, 8, 9, "C", "*", 0, "#", "D"];
+    const keypad = new Keypad({
+      board: this.board,
+      controller: "4X4_I2C_NANO_BACKPACK",
+      address: 0x0A
+    });
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+
+    keys.forEach((key, index) => {
+      test.deepEqual(spy.args[index][0].which, [key]);
+    });
+
+    test.done();
+  },
+
+  keysRowsCols(test) {
+    test.expect(16);
+
+    const keys = ["!", "@", "#", "?", "$", "%", "^", "≠", "&", "-", "+", ";", "_", "=", ":", "¢"];
+    const keypad = new Keypad({
+      board: this.board,
+      controller: "4X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      keys: [
+        ["!", "@", "#", "?"],
+        ["$", "%", "^", "≠"],
+        ["&", "-", "+", ";"],
+        ["_", "=", ":", "¢"]
+      ]
+    });
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+
+
+    keys.forEach((key, index) => {
+      test.deepEqual(spy.args[index][0].which, [key]);
+    });
+
+    test.done();
+  },
+
+  keysList(test) {
+    test.expect(16);
+
+    const keys = ["!", "@", "#", "?", "$", "%", "^", "≠", "&", "-", "+", ";", "_", "=", ":", "¢"];
+    const keypad = new Keypad({
+      board: this.board,
+      controller: "4X4_I2C_NANO_BACKPACK",
+      address: 0x0A,
+      keys
+    });
+    const callback = this.i2cRead.getCall(1).args[2];
+    const spy = this.sandbox.spy();
+
+    keypad.on("down", spy);
+
+    callback([0, 1]);
+    callback([0, 2]);
+    callback([0, 4]);
+    callback([0, 8]);
+    callback([0, 16]);
+    callback([0, 32]);
+    callback([0, 64]);
+    callback([0, 128]);
+    callback([1, 0]);
+    callback([2, 0]);
+    callback([4, 0]);
+    callback([8, 0]);
+    callback([16, 0]);
+    callback([32, 0]);
+    callback([64, 0]);
+    callback([128, 0]);
+
+    keys.forEach((key, index) => {
+      test.deepEqual(spy.args[index][0].which, [key]);
+    });
+
+    test.done();
+  },
+
+  press(test) {
+    test.expect(1);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("down", spy);
+
+
+    // Only 3 are valid.
+    callback([0, 1]);
+    callback([0, 20]);
+    callback([0, 4]);
+    callback([0, 10]);
+    callback([0, 8]);
+
+    test.equal(spy.callCount, 3);
+    test.done();
+  },
+
+  multiPress(test) {
+    test.expect(3);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("down", spy);
+
+    callback([0, 3]);
+    callback([96, 0]);
+
+    test.equal(spy.callCount, 2);
+    test.deepEqual(spy.firstCall.args[0].which, [1, 2]);
+    test.deepEqual(spy.lastCall.args[0].which, [0, "#"]);
+
+    test.done();
+  },
+
+
+  hold(test) {
+    test.expect(1);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("hold", spy);
+
+    callback([0, 8]);
+    this.clock.tick(600);
+    callback([0, 8]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  multiHold(test) {
+    test.expect(3);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("hold", spy);
+
+    callback([0, 3]);
+    this.clock.tick(600);
+    callback([0, 3]);
+    this.clock.tick(600);
+    callback([0, 1]);
+
+
+    test.equal(spy.callCount, 2);
+    test.deepEqual(spy.firstCall.args[0].which, [1, 2]);
+    test.deepEqual(spy.lastCall.args[0].which, [1]);
+
+    test.done();
+  },
+
+  release(test) {
+    test.expect(1);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
+
+    this.keypad.on("release", spy);
+
+    callback([0, 1]);
+    callback([0, 0]);
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  multiRelease(test) {
+    test.expect(3);
+
+    const callback = this.i2cRead.getCall(0).args[2];
+    const spy = this.sandbox.spy();
 
     this.keypad.on("release", spy);
 

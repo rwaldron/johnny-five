@@ -155,14 +155,6 @@
     "classes": ["Led.RGB"],
     "examples": [
       {
-        "file": "led-rgb.js",
-        "title": "LED - RGB",
-        "description": "Demonstrates use of an RGB LED (common cathode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
-        "breadboards": [
-          {"name": "led-rgb", "title": "Common Cathode RGB LED. (Arduino UNO)", "description": "RGB LED connected to pins 6, 5, and 3 for red, green, and blue respectively. The common pin is connected to ground."}
-        ]
-      },
-      {
         "file": "led-rgb-anode.js",
         "title": "LED - RGB (Common Anode)",
         "description": "Demonstrates use of an RGB LED (common anode) by setting its color to red (`#ff0000`) and making it blink. Requires RGB LED on pins that support PWM (usually denoted by ~).",
@@ -294,6 +286,10 @@
         ]
       },
       {
+        "file": "servo-multi-turn.js",
+        "title": "Servo - Multi-Turn"
+      },
+      {
         "file": "servo-slider.js",
         "title": "Servo - Slider control"
       },
@@ -309,13 +305,6 @@
         "title": "Servo - Drive",
         "breadboards": [
           {"name": "servo-two", "title": "Servos on pins 9 and 10", "description": "Servos connected to pins 9 and 10. Requires servos on pins that support PWM (usually denoted by ~)."}
-        ]
-      },
-      {
-        "file": "servo-sweep.js",
-        "title": "Servo - Sweep",
-        "breadboards": [
-          {"name": "servo", "title": "Servo on pin 10", "description": "Servo connected to pin 10. Requires servo on pin that supports PWM (usually denoted by ~)."}
         ]
       },
       {
@@ -343,6 +332,11 @@
         "externals": [
           { "title": "GPS Receiver - GP-20U7 (56 Channel)", "href": "https://www.sparkfun.com/products/13740"}
         ]
+      },
+      {
+        "file": "gps-hardware-serial.js",
+        "title": "GPS - Hardware Serial",
+        "description": "When using GPS class with an Arduino (or similar microcontroller), be sure to upload the StandardFirmataPlus firmware to your board."
       },
       {
         "file": "gps-adafruit.js",
@@ -448,6 +442,10 @@
         "title": "Motor - GROVE_I2C_MOTOR_DRIVER"
       },
       {
+        "file": "motor-l298-breakout.js",
+        "title": "Motor - l298 Breakout"
+      },
+      {
         "file": "motor-LUDUS.js",
         "title": "Motor - LUDUS"
       },
@@ -462,6 +460,14 @@
       {
         "file": "motor-EVS_NXT.js",
         "title": "Motor - EVShield NXT"
+      },
+      {
+        "file": "motor-drv8871.js",
+        "title": "Motor - Adafruit DRV8871 DC Motor Driver Breakout"
+      },
+      {
+        "file": "motor-vnh5019.js",
+        "title": "Motor - Pololu VNH5019 Dual Motor Driver Breakout"
       }
     ]
   },
@@ -472,6 +478,10 @@
       {
         "file": "stepper-driver.js",
         "title": "Stepper - Driver"
+      },
+      {
+        "file": "stepper-four_wire.js",
+        "title": "Stepper - Four Wire"
       },
       {
         "file": "stepper-sweep.js",
@@ -488,24 +498,12 @@
         "title": "ESC - Keypress controlled ESCs"
       },
       {
-        "file": "esc-dualshock.js",
-        "title": "ESC - Dualshock controlled ESCs"
-      },
-      {
         "file": "esc-PCA9685.js",
         "title": "ESC - PCA9685"
       },
       {
         "file": "esc-bidirectional.js",
         "title": "ESC - Bidirectional"
-      },
-      {
-        "file": "esc-bidirectional-forward-reverse.js",
-        "title": "ESC - Bidirectional Forward-Reverse"
-      },
-      {
-        "file": "esc-array.js",
-        "title": "ESCs - An array of ESCs"
       }
     ]
   },
@@ -555,6 +553,10 @@
       {
         "file": "switch-tilt-SW_200D.js",
         "title": "Switch - Tilt SW-200D"
+      },
+      {
+        "file": "switch.js",
+        "title": "Switch"
       }
     ]
   },
@@ -607,6 +609,13 @@
         "externals": [
           { "title": "I2C Backback Firmware", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_3x4_i2c_nano_backpack.ino"}
         ]
+      },
+      {
+        "file": "keypad-4X4_I2C_NANO_BACKPACK.js",
+        "title": "Keypad - 4x4 I2C Nano Backpack",
+        "externals": [
+          { "title": "I2C Backback Firmware", "href": "https://github.com/rwaldron/johnny-five/blob/master/firmwares/keypad_4x4_i2c_nano_backpack.ino"}
+        ]
       }
     ]
   },
@@ -621,6 +630,10 @@
           {"name": "relay-open", "title": "Relay - normally open", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."},
           {"name": "relay-closed", "title": "Relay - normally closed", "description": "The breadboard diagram shows a Keyes Relay, however any Relay will work."}
         ]
+      },
+      {
+        "file": "relay-on-analog-pin.js",
+        "title": "Relay On Analog Pin"
       },
       {
         "file": "relay-collection.js",
@@ -939,6 +952,10 @@
     "classes": ["IMU", "Multi"],
     "examples": [
       {
+        "file": "imu-lsm303c.js",
+        "title": "IMU - LSM303C"
+      },
+      {
         "file": "imu-mpu6050.js",
         "title": "IMU - MPU6050"
       },
@@ -974,8 +991,8 @@
         "file": "multi-BME280.js",
         "title": "Multi - BME280",
         "breadboards": [
-          {"name": "multi-BME280-tessel", "title": "BME280 (Sparkfun)"},
-          {"name": "multi-BME280-arduino", "title": "BME280 (Adafruit)"}
+          {"name": "multi-BME280-tessel", "title": "BME280 (Tessel 2)"},
+          {"name": "multi-BME280-arduino", "title": "BME280 (Arduino)"}
         ],
         "externals": [
           { "title": "SparkFun Atmospheric Sensor Breakout - BME280", "href": "https://www.sparkfun.com/products/13676"},
@@ -1135,6 +1152,10 @@
         "title": "Sensor - Potentiometer"
       },
       {
+        "file": "flex.js",
+        "title": "Sensor - Flex sensor"
+      },
+      {
         "file": "accelerometer.js",
         "title": "Accelerometer"
       },
@@ -1197,6 +1218,10 @@
       {
         "file": "temperature-ds18b20.js",
         "title": "Thermometer - DS18B20"
+      },
+      {
+        "file": "temperature-dual-ds18b20.js",
+        "title": "Thermometer - Dual DS18B20"
       },
       {
         "file": "temperature-max31850k.js",
@@ -1697,6 +1722,21 @@
         "title": "Light - EVShield NXT (Reflected)"
       },
       {
+        "file": "light-ambient-BH1750.js",
+        "title": "Light - BH1750",
+        "breadboards": [
+          {"name": "light-ambient-BH1750-arduino", "title": "BH1750 (Arduino)"},
+          {"name": "light-ambient-BH1750-tessel", "title": "BH1750 (Tessel 2)"}
+        ]
+      },
+      {
+        "file": "light-ambient-TSL2561.js",
+        "title": "Light - TSL2561",
+        "breadboards": [
+          {"name": "light-ambient-TSL2561", "title": "TSL2561"}
+        ]
+      },
+      {
         "file": "motor-EVS_EV3.js",
         "title": "Motor - EVShield EV3",
         "embeds": [
@@ -2101,10 +2141,6 @@
       {
         "file": "phoenix.js",
         "title": "Phoenix Hexapod"
-      },
-      {
-        "file": "boe-test-servos.js",
-        "title": "BOE Bot"
       },
       {
         "file": "bug.js",

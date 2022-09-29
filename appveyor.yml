@@ -1,21 +1,21 @@
 version: "{build}"
 
-clone_depth: 10
+clone_depth: 1
 
 environment:
   matrix:
-    - nodejs_version: 4
-    - nodejs_version: 6
+    - nodejs_version: 14
+    - nodejs_version: 16
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - npm cache clean
+  - npm install -g grunt-cli
   - npm install
 
 build: off
 
 test_script:
-  - npm test
+  - grunt jshint jscs nodeunit
 
 cache:
   - node_modules

@@ -1,14 +1,13 @@
-var five = require("../lib/johnny-five.js");
-var board = new five.Board();
+const { Board, Led } = require("../lib/johnny-five.js");
+const board = new Board();
 
-board.on("ready", function() {
-
-  var led = new five.Led(11);
+board.on("ready", () => {
+  const led = new Led(11);
 
   led.fadeIn();
 
   // Toggle the led after 5 seconds (shown in ms)
-  this.wait(5000, function() {
+  board.wait(5000, () => {
     led.fadeOut();
   });
 });

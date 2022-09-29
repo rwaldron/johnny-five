@@ -18,18 +18,18 @@ node eg/servo-tessel-servo-module.js
 
 
 ```javascript
-var five = require("johnny-five");
-var Tessel = require("tessel-io");
+const {Board, Servo} = require("johnny-five");
+const Tessel = require("tessel-io");
 
-var board = new five.Board({
+const board = new Board({
   io: new Tessel()
 });
 
-board.on("ready", function() {
+board.on("ready", () => {
   console.log("Connected");
 
   // Initialize the servo instance
-  var servo = new five.Servo({
+  const servo = new Servo({
     controller: "PCA9685",
     port: "A",
     address: 0x73,
@@ -53,9 +53,9 @@ board.on("ready", function() {
 <!--remove-start-->
 
 ## License
-Copyright (c) 2012, 2013, 2014 Rick Waldron <waldron.rick@gmail.com>
+Copyright (c) 2012-2014 Rick Waldron <waldron.rick@gmail.com>
 Licensed under the MIT license.
-Copyright (c) 2018 The Johnny-Five Contributors
+Copyright (c) 2015-2022 The Johnny-Five Contributors
 Licensed under the MIT license.
 
 <!--remove-end-->
