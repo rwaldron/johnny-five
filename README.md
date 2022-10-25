@@ -83,29 +83,8 @@ This is the most typical use case for @code-dot-org/johnny-five fork development
 
 [Apps (aka Code Studio)](https://github.com/code-dot-org/code-dot-org/tree/staging/apps) is a set of apps which installs and references this package. You can run the dashboard locally from the apps directory using `bin/dashboard-server` ([setup reference](https://github.com/code-dot-org/code-dot-org/blob/staging/SETUP.md))
 
-Below are two options for local development and testing.
 
-1. Use [yarn link](https://classic.yarnpkg.com/en/docs/cli/link) 
-
-```
-cd {@code-dot-org/johnny-five repo directory}
-yarn link
-cd {code-dot-org repo directory}/apps
-yarn link @code-dot-org/johnny-five
-```
-
-When you are finished testing locally, you must undo yarn link in the reverse order:
-
-```
-cd {code-dot-org repo directory}/apps
-yarn unlink @code-dot-org/johnny-five
-cd {@code-dot-org/johnny-five repo directory}
-yarn unlink
-```
-
-The advantages of using `yarn link` is that changes in @code-dot-org/johnny-five are automatically transferred to @code-dot-org/code-dot-org/apps/node_modules and there are no local changes to package.json or yarn.lock. The disadvantage is that after you run the dashboard-server, you will need to use the Code.org Maker App locally to view and interact with the App lab with the enabled Maker Toolkit.
-
-2. [yarn add](https://classic.yarnpkg.com/lang/en/docs/cli/add/):
+You can use [`yarn add`](https://classic.yarnpkg.com/lang/en/docs/cli/add/) for local development and testing.
 
 ```
 cd {code-dot-org repo directory}/apps
@@ -114,10 +93,9 @@ yarn add <file-path-to-local-folder>
 
 When you are finished testing locally, you can run `yarn @code-dot-org/johnny-five` to install the npm package instead of the local package. 
 
+Note that a copy of the local johnny-five package was added to your node_modules directory so that changes in @code-dot-org/johnny-five are not automatically transferred to @code-dot-org/code-dot-org/apps/node_modules. Thus, you must run `yarn add <file-path-to-local-folder>` again after any changes in the local johnny-five package. 
 
-An advantage of using `yarn add` is that when you run the Apps dashboard server locally, you will be able access the App lab with the enabled Maker Toolkit using your browser (no need to use the Maker app). The disadvantages of using `yarn add` are that changes in @code-dot-org/johnny-five are not automatically transferred to @code-dot-org/code-dot-org/apps/node_modules so that you must run `yarn add <file-path-to-local-folder>` again after any changes in the local johnny-five package. In addition, there are changes to your package.json and yarn.lock locally that you do not want to commit.
-
-For both options, Apps will now reference your local @code-dot-org/johnny-five repository rather than the npm package. If you make local changes to your repo, you can rebuild apps (via `yarn run build` in code-dot-org/apps) to communicate these changes to apps.
+In addition, there are changes to your package.json and yarn.lock locally that you do not want to commit.
 
 
 ## Testing
