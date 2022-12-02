@@ -749,9 +749,9 @@ exports["RGB"] = {
 
   "Animation.render"(test) {
     test.expect(1);
-    this.color = this.sandbox.stub(this.rgb, "color");
+    this.update = this.sandbox.stub(this.rgb, "update");
     this.rgb[Animation.render]([0]);
-    test.equal(this.color.callCount, 1);
+    test.equal(this.update.callCount, 1);
     test.done();
   },
 
