@@ -13,6 +13,8 @@ const rgbProtoProperties = [{
 }, {
   name: "blink"
 }, {
+  name: "pulse"
+}, {
   name: "stop"
 }];
 
@@ -44,7 +46,7 @@ exports["RGB"] = {
     });
 
     this.write = this.sandbox.spy(this.rgb, "write");
-
+    this.enqueue = this.sandbox.stub(Animation.prototype, "enqueue");
     done();
   },
 
@@ -469,6 +471,72 @@ exports["RGB"] = {
     test.done();
   },
 
+  pulse(test) {
+    test.expect(1);
+    this.rgb.color("#0000ff");
+    this.rgb.pulse();
+    test.equal(this.enqueue.callCount, 1);
+    test.done();
+  },
+  
+  pulseDuration(test) {
+    test.expect(2);
+
+    this.rgb.pulse(1010);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    const duration = this.enqueue.lastCall.args[0].duration;
+
+    test.equal(duration, 1010);
+    test.done();
+  },
+
+  pulseCallback(test) {
+    test.expect(2);
+
+    const spy = this.sandbox.spy();
+
+    this.rgb.pulse(spy);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    const onloop = this.enqueue.lastCall.args[0].onloop;
+
+    onloop();
+
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+  pulseDurationCallback(test) {
+    test.expect(3);
+
+    const spy = this.sandbox.spy();
+
+    this.rgb.pulse(1010, spy);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    const duration = this.enqueue.lastCall.args[0].duration;
+    const onloop = this.enqueue.lastCall.args[0].onloop;
+
+    onloop();
+
+    test.equal(duration, 1010);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
+    pulseObject(test) {
+    test.expect(1);
+
+    this.rgb.color("#0000ff");
+    this.rgb.pulse({});
+    test.equal(this.enqueue.callCount, 1);
+    test.done();
+  },
+
   toggle(test) {
     test.expect(7);
 
@@ -876,11 +944,14 @@ exports["RGB - Cycling Operations"] = {
   },
 
   rgbCallsStopBeforeNextCyclingOperation(test) {
-    test.expect(1);
+    test.expect(2);
 
     this.rgb.blink();
+    this.rgb.pulse();
 
-    test.equal(this.stop.callCount, 1);
+    test.equal(this.stop.callCount, 2);
+    // pulse is an animation
+    test.equal(this.enqueue.callCount, 1);
 
     // Ensure that the interval is cleared.
     this.rgb.stop();
