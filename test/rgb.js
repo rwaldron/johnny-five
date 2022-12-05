@@ -755,6 +755,14 @@ exports["RGB"] = {
     test.done();
   },
 
+  "Animation.keys"(test) {
+    test.expect(1);
+    this.color = this.sandbox.stub(this.rgb, "color");
+    const keys = this.rgb[Animation.keys];
+    test.deepEqual(keys, ["red", "green", "blue"]);
+    test.done();
+  },
+
 };
 
 exports["10-bit RGB"] = {
