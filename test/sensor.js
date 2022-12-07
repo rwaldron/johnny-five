@@ -11,6 +11,7 @@ function getShape(sensor) {
     limit: sensor.limit,
     threshold: sensor.threshold,
     isScaled: sensor.isScaled,
+    isScaledRounded: sensor.isScaledRounded,
     pin: sensor.pin,
     state: {
       enabled: sensor.state.enabled,
@@ -94,6 +95,7 @@ exports["Sensor - Analog"] = {
       limit: null,
       threshold: 1,
       isScaled: false,
+      isScaledRounded: false,
       pin: 1,
       state: {
         enabled: true,
@@ -142,6 +144,9 @@ exports["Sensor - Analog"] = {
         type: "number"
       },
       isScaled: {
+        type: "boolean"
+      },
+      isScaledRounded: {
         type: "boolean"
       },
       raw: {
@@ -1092,7 +1097,7 @@ exports["Sensor - Analog"] = {
   scale(test) {
     const callback = this.analogRead.args[0][1];
 
-    test.expect(3);
+    test.expect(4);
 
     // Scale the expected 0-1023 to a value between 50-100 (~75)
     this.sensor.scale(50, 100);
@@ -1117,6 +1122,15 @@ exports["Sensor - Analog"] = {
     callback(12);
     this.clock.tick(25);
 
+      // Ensure sensors may return float values
+      this.sensor.scale(0, 25, true);
+      this.sensor.once("change", function() {
+        console.log(this.value);
+        test.equal(this.value, 6);
+      });
+      callback(250);
+      this.clock.tick(25);
+    
     test.done();
   }, // ./scale: function(test)
 
@@ -1378,6 +1392,8 @@ exports["Sensor - Digital"] = {
       name: "threshold"
     }, {
       name: "isScaled"
+    }, {
+      name: "isScaledRounded"
     }, {
       name: "raw"
     }, {

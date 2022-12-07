@@ -496,7 +496,7 @@ exports["Board"] = {
   },
 
   snapshot(test) {
-    test.expect(83);
+    test.expect(84);
 
     new Multi({
       controller: "BME280",
@@ -650,6 +650,7 @@ exports["Board"] = {
         limit: null,
         threshold: 1,
         isScaled: false,
+        isScaledRounded: false,
         raw: null,
         analog: 0,
         constrained: 0,
