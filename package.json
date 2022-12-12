@@ -1,7 +1,7 @@
 {
   "name": "@code-dot-org/johnny-five",
   "description": "Code.org fork of rwaldron/johnny-five: The JavaScript Robotics and Hardware Programming Framework. Use with: Arduino (all models), Electric Imp, Beagle Bone, Intel Galileo & Edison, Linino One, Pinoccio, pcDuino3, Raspberry Pi, Particle/Spark Core & Photon, Tessel 2, TI Launchpad and more!",
-  "version": "2.1.0-cdo.2",
+  "version": "2.1.0-cdo.3",
   "homepage": "https://johnny-five.io",
   "author": "Rick Waldron <waldron.rick@gmail.com>",
   "keywords": [
