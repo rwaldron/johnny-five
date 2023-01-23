@@ -498,6 +498,25 @@ exports["Led - PWM"] = {
     test.done();
   },
 
+  pulseTemporalTTLCallback(test) {
+    test.expect(3);
+
+    const spy = this.sandbox.spy();
+
+    this.led.pulse(300, spy);
+
+    test.equal(this.enqueue.callCount, 1);
+
+    const temporalTTL = this.enqueue.lastCall.args[0].temporalTTL;
+    const onloop = this.enqueue.lastCall.args[0].onloop;
+
+    onloop();
+
+    test.equal(temporalTTL, 0);
+    test.equal(spy.callCount, 1);
+    test.done();
+  },
+
   pulseObject(test) {
     test.expect(1);
 
