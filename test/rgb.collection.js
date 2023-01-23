@@ -291,22 +291,18 @@ exports["RGB.Collection"] = {
 
 
   "Animation.render": function(test) {
-    test.expect(1);
+    test.expect(3);
 
-    const rgbs = new RGB.Collection([
-      [1, 2, 3],
-      [4, 5, 6],
-    ]);
-
-    this.color = this.sandbox.stub(RGB.prototype, "color");
-
+    this.render = this.sandbox.stub(RGB.prototype, "@@render");
+    const rgbs = new RGB.Collection([ this.a, this.b ]);
     rgbs[Animation.render]([
       { red: 0xff, green: 0x00, blue: 0x00 },
       { red: 0x00, green: 0xff, blue: 0x00 },
     ]);
 
-    test.equal(this.color.callCount, 2);
+    test.equal(this.render.callCount, 2);
+    test.deepEqual(this.render.firstCall.args[0], [ { red: 255, green: 0, blue: 0 } ]);
+    test.deepEqual(this.render.secondCall.args[0], [ { red: 0, green: 255, blue: 0 } ]);
     test.done();
   },
 };
-
