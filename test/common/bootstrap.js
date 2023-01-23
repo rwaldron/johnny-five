@@ -15,7 +15,7 @@ global.EVS = require("../../lib/evshield");
 
 // Third Party (library)
 global.converter = require("color-convert");
-global.SerialPort = require("serialport");
+global.SerialPort = require("serialport").SerialPort;
 global.Firmata = require("firmata");
 global.temporal = require("temporal");
 

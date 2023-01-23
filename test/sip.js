@@ -653,7 +653,7 @@ exports["IMU -- BNO055"] = {
     this.clock.restore();
 
     const interval = setInterval(() => {
-      if (this.i2cReadOnce.callCount === 1) {
+      if (this.i2cReadOnce.callCount) {
         clearInterval(interval);
 
         this.clock = this.sandbox.useFakeTimers();
