@@ -48,7 +48,8 @@ exports["Sensor - Resolution"] = {
 
     this.sensor = new Sensor({
       pin: "A1",
-      board: this.board
+      board: this.board,
+      isScaledRounded: true
     });
 
     test.equal(this.sensor.resolution, 1023);
@@ -80,7 +81,8 @@ exports["Sensor - Analog"] = {
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.sensor = new Sensor({
       pin: "A1",
-      board: this.board
+      board: this.board,
+      isScaled: true
     });
 
     // Complete visible property information expected for the above sensor instance,
@@ -95,7 +97,7 @@ exports["Sensor - Analog"] = {
       limit: null,
       threshold: 1,
       isScaled: false,
-      isScaledRounded: false,
+      isScaledRounded: undefined,
       pin: 1,
       state: {
         enabled: true,
@@ -214,7 +216,8 @@ exports["Sensor - Analog"] = {
       if (property === "_maxListeners" ||
           property === "_eventsCount" ||
           property === "_events" ||
-          property === "domain") {
+          property === "domain" ||
+          property === "isScaledRounded") {
         return;
       }
 
