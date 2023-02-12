@@ -19,10 +19,10 @@ board.on("ready", function() {
   // (the joystick deadzone)
   claw.to(90);
 
-  joystick.on("axismove", function() {
+  joystick.on("change", function() {
     // Open/close the claw by setting degrees according
     // to Y position of joystick.
     // limit to 170 on medium servos (ei. the servo used on the claw)
-    claw.to(Math.ceil(170 * this.fixed.y));
+    claw.to(five.Fn.scale(this.y, -1, 1, 0, 170));
   });
 });

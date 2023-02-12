@@ -47,9 +47,9 @@ when.all(readyList, function() {
 
   servo.center();
 
-  joystick.on("axismove", function() {
+  joystick.on("change", function () {
     // 0: left, 1: center, 2: right
-    var position = Math.ceil(2 * this.fixed.x);
+    var position = Math.round(this.x + 1);
 
     // console.log( position );
 
