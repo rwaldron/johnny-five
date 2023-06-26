@@ -11,6 +11,7 @@ function getShape(sensor) {
     limit: sensor.limit,
     threshold: sensor.threshold,
     isScaled: sensor.isScaled,
+    isScaledRounded: sensor.isScaledRounded,
     pin: sensor.pin,
     state: {
       enabled: sensor.state.enabled,
@@ -48,6 +49,7 @@ exports["Sensor - Resolution"] = {
     this.sensor = new Sensor({
       pin: "A1",
       board: this.board,
+      isScaledRounded: true
     });
 
     test.equal(this.sensor.resolution, 1023);
@@ -94,6 +96,7 @@ exports["Sensor - Analog"] = {
       limit: null,
       threshold: 1,
       isScaled: false,
+      isScaledRounded: undefined,
       pin: 1,
       state: {
         enabled: true,
@@ -212,7 +215,8 @@ exports["Sensor - Analog"] = {
       if (property === "_maxListeners" ||
           property === "_eventsCount" ||
           property === "_events" ||
-          property === "domain") {
+          property === "domain" ||
+          property === "isScaledRounded") {
         return;
       }
 
@@ -1120,10 +1124,10 @@ exports["Sensor - Analog"] = {
     callback(12);
     this.clock.tick(25);
 
-      // Ensure sensors round scaled values if isScaledRounded = true
-      this.sensor.isScaledRounded = true;
+      // Ensure sensors may return float values
       this.sensor.scale(0, 25, true);
       this.sensor.once("change", function() {
+        console.log(this.value);
         test.equal(this.value, 6);
       });
       callback(250);
@@ -1363,7 +1367,7 @@ exports["Sensor - Digital"] = {
     this.sensor = new Sensor({
       type: "digital",
       pin: 3,
-      board: this.board,
+      board: this.board
     });
 
     this.proto = [{
@@ -1390,6 +1394,8 @@ exports["Sensor - Digital"] = {
       name: "threshold"
     }, {
       name: "isScaled"
+    }, {
+      name: "isScaledRounded"
     }, {
       name: "raw"
     }, {
