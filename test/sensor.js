@@ -80,7 +80,6 @@ exports["Sensor - Analog"] = {
     this.sensor = new Sensor({
       pin: "A1",
       board: this.board,
-      isScaled: true
     });
 
     // Complete visible property information expected for the above sensor instance,
