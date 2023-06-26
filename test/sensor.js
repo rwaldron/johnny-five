@@ -47,7 +47,7 @@ exports["Sensor - Resolution"] = {
 
     this.sensor = new Sensor({
       pin: "A1",
-      board: this.board
+      board: this.board,
     });
 
     test.equal(this.sensor.resolution, 1023);
@@ -79,7 +79,7 @@ exports["Sensor - Analog"] = {
     this.analogRead = this.sandbox.spy(MockFirmata.prototype, "analogRead");
     this.sensor = new Sensor({
       pin: "A1",
-      board: this.board
+      board: this.board,
     });
 
     // Complete visible property information expected for the above sensor instance,
@@ -142,6 +142,9 @@ exports["Sensor - Analog"] = {
         type: "number"
       },
       isScaled: {
+        type: "boolean"
+      },
+      isScaledRounded: {
         type: "boolean"
       },
       raw: {
@@ -1092,7 +1095,7 @@ exports["Sensor - Analog"] = {
   scale(test) {
     const callback = this.analogRead.args[0][1];
 
-    test.expect(3);
+    test.expect(4);
 
     // Scale the expected 0-1023 to a value between 50-100 (~75)
     this.sensor.scale(50, 100);
@@ -1117,6 +1120,15 @@ exports["Sensor - Analog"] = {
     callback(12);
     this.clock.tick(25);
 
+      // Ensure sensors round scaled values if isScaledRounded = true
+      this.sensor.isScaledRounded = true;
+      this.sensor.scale(0, 25);
+      this.sensor.once("change", function() {
+        test.equal(this.value, 6);
+      });
+      callback(250);
+      this.clock.tick(25);
+    
     test.done();
   }, // ./scale: function(test)
 
@@ -1351,7 +1363,7 @@ exports["Sensor - Digital"] = {
     this.sensor = new Sensor({
       type: "digital",
       pin: 3,
-      board: this.board
+      board: this.board,
     });
 
     this.proto = [{
