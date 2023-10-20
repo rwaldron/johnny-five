@@ -60,6 +60,39 @@ function time(showColon) {
 
 
 
+## Additional Options
+### Specifying Addresses
+You can specify the addresses to use for the controller:
+```
+  const digits = new Led.Digits({
+    controller: "HT16K33",
+    address: 0x70,
+  });
+```
+
+### Bypassing Address Validation
+Led.Digits will ensure that you do not use the same address twice,  
+but if you use multiple Arduino boards you want to reuse the same address.  
+You can use the `skipAddressValidation` option to bypass this check:
+```
+  const digitsA = new Led.Digits({
+    controller: "HT16K33",
+    board: boards.byId("A"),
+    address: 0x70,
+    skipAddressValidation: true,
+  });
+  const digitsB = new Led.Digits({
+    controller: "HT16K33",
+    board: boards.byId("B"),
+    address: 0x70,
+    skipAddressValidation: true,
+  });
+```
+
+
+
+
+
 
 ## Additional Notes
 Learn More:
