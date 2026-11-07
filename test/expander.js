@@ -421,6 +421,213 @@ exports["Expander.byController(...)"] = {
 };
 
 
+exports["Expander - multiple boards"] = {
+  setUp(done) {
+    this.sandbox = sinon.sandbox.create();
+    this.clock = this.sandbox.useFakeTimers();
+    this.boards = [newBoard(), newBoard()];
+    this.writes = this.boards.map(board => this.sandbox.spy(board.io, "i2cWrite"));
+    done();
+  },
+
+  tearDown(done) {
+    Board.purge();
+    Expander.purge();
+    Servo.purge();
+    ESC.purge();
+    Motor.purge();
+    Led.purge();
+    RGB.purge();
+    this.sandbox.restore();
+    done();
+  },
+
+  explicitAddresses(test) {
+    test.expect(8);
+
+    this.boards.forEach(board => {
+      [0x20, 0x21].forEach(address => {
+        const options = {
+          board,
+          address,
+          controller: "MCP23017"
+        };
+        const expander = new Expander(options);
+
+        test.strictEqual(expander.io, board.io);
+        test.throws(() => new Expander(options), /cannot reuse an active address/);
+      });
+    });
+
+    test.done();
+  },
+
+  defaultAddresses(test) {
+    test.expect(2);
+
+    const expanders = this.boards.map(board => new Expander({
+      board,
+      controller: "MCP23017"
+    }));
+
+    this.boards.forEach((board, index) => {
+      test.strictEqual(Expander.get({
+        board,
+        address: 0x20,
+        controller: "MCP23017"
+      }), expanders[index]);
+    });
+
+    test.done();
+  },
+
+  getUsesRequestedBoard(test) {
+    test.expect(5);
+
+    const options = {
+      address: 0x20,
+      controller: "MCP23017"
+    };
+    const second = Expander.get(Object.assign({}, options, {
+      board: this.boards[1]
+    }));
+    const first = Expander.get(options);
+
+    test.notStrictEqual(first, second);
+    test.strictEqual(first.io, this.boards[0].io);
+    test.strictEqual(second.io, this.boards[1].io);
+    test.strictEqual(Expander.get(options), first);
+    test.strictEqual(Expander.get(Object.assign({}, options, {
+      board: this.boards[1]
+    })), second);
+
+    test.done();
+  },
+
+  byAddressUsesRequestedBoard(test) {
+    test.expect(5);
+
+    const expanders = this.boards.map(board => new Expander({
+      board,
+      controller: "MCP23017"
+    }));
+
+    test.strictEqual(Expander.byAddress(0x20), expanders[0]);
+    test.strictEqual(Expander.byAddress(0x20, this.boards[0]), expanders[0]);
+    test.strictEqual(Expander.byAddress(0x20, this.boards[1]), expanders[1]);
+    test.strictEqual(Expander.byAddress(0x21, this.boards[1]), undefined);
+    test.strictEqual(Expander.byAddress(0x20, newBoard()), undefined);
+
+    test.done();
+  },
+
+  byControllerUsesRequestedBoard(test) {
+    test.expect(5);
+
+    const expanders = this.boards.map((board, index) => new Expander({
+      board,
+      address: 0x20 + index,
+      controller: "MCP23017"
+    }));
+
+    test.strictEqual(Expander.byController("MCP23017"), expanders[0]);
+    test.strictEqual(Expander.byController("MCP23017", this.boards[0]), expanders[0]);
+    test.strictEqual(Expander.byController("mcp23017", this.boards[1]), expanders[1]);
+    test.strictEqual(Expander.byController("PCA9685", this.boards[1]), null);
+    test.strictEqual(Expander.byController("MCP23017", newBoard()), null);
+
+    test.done();
+  },
+
+  virtualBoardsWriteToTheirOwnHardware(test) {
+    test.expect(4);
+
+    const leds = this.boards.map(board => new Led({
+      pin: 0,
+      board: new Board.Virtual({
+        io: new Expander({
+          board,
+          address: 0x20,
+          controller: "MCP23017"
+        })
+      })
+    }));
+
+    leds.forEach((led, index) => {
+      this.writes.forEach(write => write.reset());
+      led.on();
+      test.equal(this.writes[index].called, true);
+      test.equal(this.writes[1 - index].called, false);
+    });
+
+    test.done();
+  },
+
+  componentsWriteToTheirOwnHardware(test) {
+    test.expect(12);
+
+    const components = [{
+        create: options => new Servo(Object.assign({
+          pin: 0
+        }, options)),
+        update: servo => servo.to(90)
+      },
+      {
+        create: options => new ESC(Object.assign({
+          pin: 0,
+          device: "FORWARD"
+        }, options)),
+        update: esc => esc.throttle(50)
+      },
+      {
+        create: options => new Led(Object.assign({
+          pin: 0
+        }, options)),
+        update: led => led.on()
+      },
+      {
+        create: options => new RGB(Object.assign({
+          pins: [0, 1, 2]
+        }, options)),
+        update: rgb => rgb.color("red")
+      },
+      {
+        create: options => new Motor(Object.assign({
+          pins: [0, 1]
+        }, options)),
+        update: motor => motor.forward(128)
+      },
+      {
+        create: options => new Motor(Object.assign({}, options, {
+          pins: [0, 1],
+          controller: "PCA9685_Hybrid"
+        })),
+        update: motor => motor.forward(128)
+      }
+    ];
+
+    components.forEach((component, index) => {
+      const options = {
+        address: 0x40 + index,
+        controller: "PCA9685"
+      };
+      component.create(Object.assign({}, options, {
+        board: this.boards[0]
+      }));
+      const device = component.create(Object.assign({}, options, {
+        board: this.boards[1]
+      }));
+
+      this.writes.forEach(write => write.reset());
+      component.update(device);
+      test.equal(this.writes[0].called, false);
+      test.equal(this.writes[1].called, true);
+    });
+
+    test.done();
+  },
+};
+
 exports["Expander - MCP23017"] = {
   setUp(done) {
     this.sandbox = sinon.sandbox.create();
